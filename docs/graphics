@@ -1,0 +1,84 @@
+Graphics 2D
+
+Rendering curves with stroke:
+https://www.codeproject.com/Articles/226569/Drawing-polylines-by-tessellation
+https://stackoverflow.com/questions/1109536/an-algorithm-for-inflating-deflating-offsetting-buffering-polygons
+
+// water rendering:
+https://www.shadertoy.com/view/Ms2SD1
+
+Lights
+Radiance Cascades:
+https://github.com/simondevyoutube/Shaders_RadianceCascades
+https://tmpvar.com/poc/radiance-cascades/
+https://tmpvar.com/poc/radiance-cascades/ssprobes-wsintervals/ssprobes-wsintervals.js
+https://www.shadertoy.com/view/mlSfRD
+https://tmpvar.com/poc/radiance-cascades/
+Lights 1: https://mini.gmshaders.com/p/radiance-cascades
+Lights 2: https://mini.gmshaders.com/p/radiance-cascades2
+
+// TODO: RENDERING BUG S-O-L-V-E-D:
+// for a circle with high refinement for example, we don't do if (current > capacity) ... every time we
+// write to the buffer.
+
+vertex / shader attribute packing:
+GL33.GL_INT_2_10_10_10_REV
+https://stackoverflow.com/questions/35961057/how-to-pack-normals-into-gl-int-2-10-10-10-rev
+
+Packing conclusion:
+How packing works:
+Let's say we have a shader attribute variable vec3 a_normal.
+A normal is a 3d vector, with 3 floats, bound between -1.0 and 1.0 each.
+We can use this fact to "pack" a 3d vector into a single int.
+Every bitset of the 32 bits of the int will encode a different part of the 3d vector:
+
+10F_11F_11F_REV:
+31 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10  9  8  7  6  5  4  3  2  1  0
+|             Z              |              Y                 |               X               |
+-----------------------------------------------------------------------------------------------
+
+We then write a function to pack the 3-float values into a single uint32 formatted as above.
+Then, when creating the VBO for the normals, instead of:
+glVertexAttribPointer(1, 3, GL_FLOAT, false, 0, 0); // <- no packing
+we do
+glVertexAttribPointer(1, 3, GL_INT_10F_11F_11F_REV, true, 0, 0); // <- packing
+This will let the driver know how to interpret the int sent to the GPU for this VAO's VBO.
+When creating the vbo, instead of a FloatBuffer sized 3 * the number of normals,
+we create an IntBuffer sized the number of normals. We fill it with the values:
+IntBuffer normals = [
+pack_10F_11F_11F_REV(x0,y0,z0),
+pack_10F_11F_11F_REV(x1,y1,z1),
+...
+]
+
+For DYNAMIC meshes, pack only colors. Packing does: require some CPU processing, and
+complicates the API and the code.
+
+For STATIC meshes, pack whatever possible:
+position: ----
+color: GL_UNSIGNED_BYTE
+uvs: ------
+normals: 2_10_10_10_REV
+tangents: 2_10_10_10_REV
+biNormals: 2_10_10_10_REV
+
+U32 packNormalizedFloat_2_10_10_10_REV(float x, float y, float z, float w)
+{
+    const U32 xs = x < 0;
+    const U32 ys = y < 0;
+    const U32 zs = z < 0;
+    const U32 ws = w < 0;
+
+    return U32
+    (
+        ws << 31 | ((U32)(w       + (ws << 1)) &   1) << 30 |
+        zs << 29 | ((U32)(z * 511 + (zs << 9)) & 511) << 20 |
+        ys << 19 | ((U32)(y * 511 + (ys << 9)) & 511) << 10 |
+        xs <<  9 | ((U32)(x * 511 + (xs << 9)) & 511)
+    );
+}
+
+Fonts and Text rendering
+
+https://medium.com/@evanwallace/easy-scalable-text-rendering-on-the-gpu-c3f4d782c5ac
+https://github.com/evanw/theta/blob/master/src/core/font.sk
