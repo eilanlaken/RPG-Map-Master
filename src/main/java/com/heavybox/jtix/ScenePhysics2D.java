@@ -63,7 +63,7 @@ public class ScenePhysics2D implements Scene {
             body_a = world.createBodyCircle(null, Body2D.MotionType.NEWTONIAN,
                     screen.x, screen.y, 0,
                     0f, 0f, 0,
-                    1, 1, 1,0.2f, false, 1,
+                    1, 1, 1,1f, false, 1,
                     0.5f);
         }
 
