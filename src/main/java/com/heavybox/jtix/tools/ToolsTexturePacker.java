@@ -3,7 +3,6 @@ package com.heavybox.jtix.tools;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.graphics.GraphicsException;
-import com.heavybox.jtix.graphics.Graphics;
 import org.lwjgl.stb.STBRPContext;
 import org.lwjgl.stb.STBRPNode;
 import org.lwjgl.stb.STBRPRect;
@@ -15,15 +14,50 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
+import java.util.List;
 
 public final class ToolsTexturePacker {
 
+    private static final String[] EXTENSIONS = {".png", ".jpg", ".jpeg"};
+
     private ToolsTexturePacker() {}
 
-    public static void packTextures(final String directory, final String outputDirectory, final String outputName, final boolean recursive) {
+    public static void packTextures(String outputDirectory, String outputName, int extrude, int padding, TexturePackSize maxTexturesSize, final String directory, final boolean recursive) throws IOException {
         if (directory == null) throw new IllegalArgumentException("Must provide non-null directory name.");
         if (!Assets.directoryExists(directory)) throw new IllegalArgumentException("The provided path: " + directory + " does not exist, or is not a directory");
-        // TODO: ...
+
+        String[] paths = scanForImages(directory, recursive);
+        packTextures(outputDirectory, outputName, extrude, padding, maxTexturesSize, paths);
+    }
+
+    public static String[] scanForImages(String folderPath, boolean recursive) {
+        List<String> images = new ArrayList<>();
+        File folder = new File(folderPath);
+        if (folder.exists() && folder.isDirectory()) {
+            scanFolder(folder, folderPath + "/", recursive, images);
+        }
+        return images.toArray(new String[0]);
+    }
+
+    private static void scanFolder(File folder, String prefix, boolean recursive, List<String> images) {
+        File[] files = folder.listFiles();
+        if (files == null) return;
+
+        for (File file : files) {
+            if (file.isFile() && isImage(file.getName())) {
+                images.add(prefix + file.getName());
+            } else if (recursive && file.isDirectory()) {
+                scanFolder(file, prefix + file.getName() + "/", true, images);
+            }
+        }
+    }
+
+    private static boolean isImage(String name) {
+        String lower = name.toLowerCase();
+        for (String ext : EXTENSIONS) {
+            if (lower.endsWith(ext)) return true;
+        }
+        return false;
     }
 
     // TODO: error here:

@@ -180,7 +180,7 @@ public class Renderer2D implements MemoryResourceHolder {
         pixelScaleHeight = Graphics.getWindowHeight() / currentCamera.viewportHeight;
         pixelScaleWidthInv = 1.0f / pixelScaleWidth;
         pixelScaleHeightInv = 1.0f / pixelScaleHeight;
-        currentCamera.update();
+        currentCamera.update(); // TODO: probably remove. Redundant update()s
 
         setShader(defaultShader);
         setShaderAttributes(null);
@@ -197,8 +197,8 @@ public class Renderer2D implements MemoryResourceHolder {
         if (currentShader == shader) return;
         flush();
         ShaderBinder.bind(shader);
-        shader.bindUniform("u_camera_combined", currentCamera.combined);
-        shader.bindUniform("u_texture", currentTexture);
+        if (shader.uniformExists("u_camera_combined")) shader.bindUniform("u_camera_combined", currentCamera.combined);
+        if (shader.uniformExists("u_texture")) shader.bindUniform("u_texture", currentTexture);
         currentShader = shader;
     }
 
@@ -207,7 +207,7 @@ public class Renderer2D implements MemoryResourceHolder {
         if (currentTexture == texture) return;
         flush();
         currentTexture = texture;
-        currentShader.bindUniform("u_texture", currentTexture);
+        if (currentShader.uniformExists("u_texture")) currentShader.bindUniform("u_texture", currentTexture); // TODO: optimize
     }
 
     public void setFont(Font font) {

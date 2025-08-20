@@ -8,6 +8,7 @@ import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.Vector3;
+import com.heavybox.jtix.tools.ToolsTexturePacker;
 import com.heavybox.jtix.z.Command;
 import com.heavybox.jtix.z.MapToken;
 import com.heavybox.jtix.z.Tool;
@@ -16,15 +17,15 @@ import org.lwjgl.opengl.GL11;
 
 // contact points polygon vs polygon:
 // https://www.youtube.com/watch?v=5gDC1GU3Ivg
-public class SceneDemo implements Scene {
+public class SceneDemo_2 implements Scene {
 
     private Renderer2D renderer2D;
     public final Camera camera = new Camera(Camera.Mode.ORTHOGRAPHIC, Graphics.getWindowWidth(), Graphics.getWindowHeight(), 1, 0, 100, 75);
 
     private Texture terrainGrass;
     private Texture terrainWater;
-    private Texture terrainRoad;
     private Texture terrainSteepness;
+    private Texture terrainRoad;
 
     public FrameBuffer terrainMask;
     public final Camera terrainMaskCamera = new Camera(Camera.Mode.ORTHOGRAPHIC, 1920, 1080, 1, 0, 100, 75);
@@ -32,27 +33,41 @@ public class SceneDemo implements Scene {
     // tools - refactor immediately after working version
     public Texture terrainBrushErase;
 
-    public final Array<Command> commandsHistory = new Array<>(true, 10);
-    public final Array<Command> commandsQueue   = new Array<>(true, 10);
-
-    public final Array<MapToken> mapTokens = new Array<>(true, 10);
-
     public Tool[] tools = new Tool[10];
     public int activeTool = 0;
 
-    public SceneDemo() {
+    public Shader terrainShader;
+
+    public SceneDemo_2() {
         renderer2D = new Renderer2D();
         terrainMask = new FrameBuffer(1920, 1080);
     }
 
     @Override
     public void setup() {
-        // load async
-        Assets.loadTexture("assets/textures-layer-0/terrain-grass_1920x1080.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
-        Assets.finishLoading();
+        try {
+            // We don't pack layer 0
+            // We don't pack layer 1
+            // pack layer 2
+            ToolsTexturePacker.packTextures("assets/texture-packs", "layer_2", 0, 2, ToolsTexturePacker.TexturePackSize.XX_LARGE_8192, "assets/textures-layer-2", true);
+            // pack layer 3
+            ToolsTexturePacker.packTextures("assets/texture-packs", "layer_3", 0, 2, ToolsTexturePacker.TexturePackSize.XX_LARGE_8192, "assets/textures-layer-3", true);
+            // pack layer 4
+            ToolsTexturePacker.packTextures("assets/texture-packs", "layer_4", 0, 2, ToolsTexturePacker.TexturePackSize.XX_LARGE_8192, "assets/textures-layer-4", true);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
 
         terrainGrass = Assets.get("assets/textures-layer-0/terrain-grass_1920x1080.png");
+        terrainWater = Assets.get("assets/textures-layer-0/terrain-water_1920x1080.png");
+        terrainSteepness = Assets.get("assets/textures-layer-0/terrain-rock_1920x1080.jpg");
         terrainBrushErase = new Texture("assets/tools/terrain-brush-erase.png");
+
+        String terrainVertexShaderSrc = Assets.getFileContent("assets/shaders/terrain-mask.vert");
+        String terrainFragmentShaderSrc = Assets.getFileContent("assets/shaders/terrain-mask.frag");
+        this.terrainShader = new Shader(terrainVertexShaderSrc, terrainFragmentShaderSrc);
 
         tools[0] = new ToolTerrain(null);
     }
@@ -102,8 +117,12 @@ public class SceneDemo implements Scene {
         GL11.glClearColor(0.01f,0.01f,0.01f,1);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_STENCIL_BUFFER_BIT); // should probably clear the stencil
         renderer2D.begin(camera);
+        renderer2D.drawTexture(terrainWater, 0, 0, 0, 1, 1);
+        renderer2D.setShader(terrainShader);
+        renderer2D.setShaderAttribute("u_texture_mask", terrainMask.getColorAttachment0());
+        renderer2D.setShaderAttribute("u_texture_steepness", terrainSteepness);
         renderer2D.drawTexture(terrainGrass, 0, 0, 0, 1, 1);
-        renderer2D.drawTexture(terrainMask.getColorAttachment0(), 0, 0, 0, 1, 1);
+        //renderer2D.drawTexture(terrainMask.getColorAttachment0(), 0, 0, 0, 1, 1);
         renderer2D.end();
 
         // draw tools overlay
