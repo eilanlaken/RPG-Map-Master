@@ -21,8 +21,7 @@ public class Map {
     private Texture terrainRoad;
 
     // Ground layer (wheat fields)
-
-    // Tokens layer
+    public MapLayer_3 layer3;
 
     // Decorations layer
 
@@ -30,18 +29,18 @@ public class Map {
 
     public FrameBuffer mapFinal = new FrameBuffer(1920, 1080);
 
-    public Array<MapToken> allTokens = new Array<>(false, 10);
+    private int commandsIndex = 0;
     public Array<Command> commandsHistory = new Array<>(true, 10);
     public Array<Command> commandsQueue = new Array<>(true, 10);
 
+    public final Camera camera = new Camera(Camera.Mode.ORTHOGRAPHIC, 1920, 1080, 1, 0, 100, 75);
+
+
+    private boolean needsRedraw = false;
 
     public Map(boolean initEmpty) {
 
-        // load async
-        Assets.loadTexture("assets/textures-layer-0/terrain-grass_1920x1080.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
-        Assets.loadTexture("assets/textures-layer-0/terrain-water_1920x1080.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
-        Assets.loadTexture("assets/textures-layer-0/terrain-rock_1920x1080.jpg", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
-        Assets.finishLoading();
+        layer3 = new MapLayer_3();
 
         if (initEmpty) {
             FrameBufferBinder.bind(layer0TerrainMask);
@@ -52,6 +51,10 @@ public class Map {
             GL11.glClearColor(1,1,1,1);
             GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_STENCIL_BUFFER_BIT); // should probably clear the stencil
         }
+    }
+
+    public void addCommand(Command command) {
+        commandsQueue.add(command);
     }
 
     public void update(float delta) {
@@ -69,13 +72,35 @@ public class Map {
 
     }
 
+    private void undo() {
+
+    }
+
+    private void redo() {
+
+    }
+
     public void render(Renderer2D renderer2D) {
+        layer3.redraw(renderer2D);
+
         FrameBufferBinder.bind(mapFinal);
+        GL11.glClearColor(1.0f,0.0f,0.0f,1);
+        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_STENCIL_BUFFER_BIT); // should probably clear the stencil
+        renderer2D.begin(camera);
         // render layer-0
+        renderer2D.drawTexture(layer0.getColorAttachment0(), 0, 0, 0, 1,1);
         // render layer-1
         // render layer-2
         // render layer-3
+        renderer2D.drawTexture(layer3.getTexture(), 0, 0, 0, 1,1);
+
         // render layer-4
+        renderer2D.end();
+        needsRedraw = false;
+    }
+
+    public Texture getTexture() {
+        return mapFinal.getColorAttachment0();
     }
 
 }

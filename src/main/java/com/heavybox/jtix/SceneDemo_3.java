@@ -31,7 +31,7 @@ public class SceneDemo_3 implements Scene {
     // tools - refactor immediately after working version
     public Texture terrainBrushErase;
 
-    public Map map = new Map(false);
+    public Map map;
     public Tool[] tools = new Tool[10];
     public int activeTool = 0;
 
@@ -63,7 +63,10 @@ public class SceneDemo_3 implements Scene {
         Assets.loadTexture("assets/textures-layer-0/terrain-grass_1920x1080.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
         Assets.loadTexture("assets/textures-layer-0/terrain-water_1920x1080.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
         Assets.loadTexture("assets/textures-layer-0/terrain-rock_1920x1080.jpg", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
+        Assets.loadTexturePack("assets/texture-packs/layer_3.yml");
         Assets.finishLoading();
+
+        map = new Map(false);
 
         terrainGrass = Assets.get("assets/textures-layer-0/terrain-grass_1920x1080.png");
         terrainWater = Assets.get("assets/textures-layer-0/terrain-water_1920x1080.png");
@@ -132,13 +135,15 @@ public class SceneDemo_3 implements Scene {
         // draw UI
         renderer2D.begin();
         renderer2D.end();
+
     }
 
     // TODO: bug here when maximizing / minimizing.
     @Override
     public void windowResized(int width, int height) {
-        camera.viewportWidth = Graphics.getWindowWidth();
-        camera.viewportHeight = Graphics.getWindowHeight();
+        camera.viewportWidth = width;
+        camera.viewportHeight = height;
+        camera.update();
     }
 
 }

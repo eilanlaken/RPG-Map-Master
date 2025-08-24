@@ -13,5 +13,7 @@ public abstract class Tool {
     public abstract void update(float delta);
     public abstract void renderToolOverlay(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY);
 
+    public abstract void activate();
+    public abstract void deactivate();
 
 }

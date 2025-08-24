@@ -20,6 +20,16 @@ public class ToolTerrain extends Tool {
         renderer2D.drawCircleThin(20,30, x, y, deg, sclX, sclY);
     }
 
+    @Override
+    public void activate() {
+
+    }
+
+    @Override
+    public void deactivate() {
+
+    }
+
     public enum Mode {
 
         ADD_LAND,

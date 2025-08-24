@@ -164,7 +164,7 @@ public class Renderer2D implements MemoryResourceHolder {
         drawingToStencil = false;
         maskingEnabled = false;
 
-        /* init blend function with default */
+        /* set blend function to default blending */
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         this.perFrameDrawCalls = 0;
 

@@ -1,5 +1,6 @@
 package com.heavybox.jtix.z;
 
+import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Renderer2D;
 
 public class ToolStampTrees extends Tool {
@@ -21,6 +22,18 @@ public class ToolStampTrees extends Tool {
 
     @Override
     public void renderToolOverlay(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
+        renderer2D.setColor(Color.GREEN);
+        renderer2D.drawCircleThin(20,30, x, y, deg, sclX, sclY);
+        renderer2D.setColor(Color.WHITE);
+    }
+
+    @Override
+    public void activate() {
+
+    }
+
+    @Override
+    public void deactivate() {
 
     }
 
