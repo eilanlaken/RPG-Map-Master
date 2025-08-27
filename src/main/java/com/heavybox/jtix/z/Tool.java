@@ -4,7 +4,10 @@ import com.heavybox.jtix.graphics.Renderer2D;
 
 public abstract class Tool {
 
-    private final Map map;
+    public float x, y;
+    public float deg;
+    public float sclX = 1, sclY = 1;
+    protected final Map map;
 
     public Tool(Map map) {
         this.map = map;

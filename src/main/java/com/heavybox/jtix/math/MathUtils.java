@@ -1176,7 +1176,6 @@ public final class MathUtils {
 
         int windingOrder = MathUtils.polygonWindingOrder(outVertices);
         if (windingOrder > 0) {
-            System.out.println("reversed");
             //outVertices.reverseInPairs();
             // reverse in pairs the [x,y] of the vertices array.
             int n = outVertices.size;

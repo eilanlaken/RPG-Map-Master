@@ -8,10 +8,7 @@ import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.Vector3;
 import com.heavybox.jtix.tools.ToolsTexturePacker;
-import com.heavybox.jtix.z.Map;
-import com.heavybox.jtix.z.Tool;
-import com.heavybox.jtix.z.ToolStampTrees;
-import com.heavybox.jtix.z.ToolTerrain;
+import com.heavybox.jtix.z.*;
 import org.lwjgl.opengl.GL11;
 
 // contact points polygon vs polygon:
@@ -48,16 +45,30 @@ public class SceneDemo_4 implements Scene {
             System.out.println(e.getMessage());
         }
         // load async
-        Assets.loadTexture("assets/textures-layer-0/terrain-grass_1920x1080.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
-        Assets.loadTexture("assets/textures-layer-0/terrain-water_1920x1080.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
-        Assets.loadTexture("assets/textures-layer-0/terrain-rock_1920x1080.jpg", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
+        // layer 0
+        Assets.loadTexture("assets/textures-layer-0/terrain-grass_1920x1080.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
+        Assets.loadTexture("assets/textures-layer-0/terrain-water_1920x1080.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
+        Assets.loadTexture("assets/textures-layer-0/terrain-rock_1920x1080.jpg", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
         Assets.loadTexturePack("assets/texture-packs/layer_3.yml");
+        // layer 1
+        Assets.loadTexture("assets/textures-layer-1/terrain-wheat-field-base_0.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
+        Assets.loadTexture("assets/textures-layer-1/terrain-wheat-field-base_1.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
+        Assets.loadTexture("assets/textures-layer-1/terrain-wheat-field-base_2.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
+        Assets.loadTexture("assets/textures-layer-1/terrain-wheat-field-base_3.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
+        Assets.loadTexture("assets/textures-layer-1/terrain-wheat-field-base_4.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
+        Assets.loadTexture("assets/textures-layer-1/terrain-wheat-field-harvest-full.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
+        Assets.loadTexture("assets/textures-layer-1/terrain-wheat-field-harvest-part.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
+        Assets.loadTexture("assets/textures-layer-1/terrain-wheat-field-lines.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
+
         Assets.finishLoading();
 
         map = new Map(false);
 
         tools[0] = new ToolTerrain(map);
         tools[1] = new ToolStampTrees(map);
+        tools[2] = new ToolStampMountains(map);
+        tools[3] = new ToolWheatFields(map);
+        tools[4] = new ToolStampCastles(map);
     }
 
     @Override
@@ -73,6 +84,7 @@ public class SceneDemo_4 implements Scene {
 
     @Override
     public void update() {
+        float delta = Graphics.getDeltaTime();
         // handle mouse input and camera movement
         Vector3 screen = new Vector3(Input.mouse.getX(), Input.mouse.getY(), 0);
         camera.unProject(screen);
@@ -84,8 +96,6 @@ public class SceneDemo_4 implements Scene {
             camera.zoom += Input.mouse.getYDelta() * 0.05f;
         }
         //System.out.println(screen);
-        map.layer3.xx = screen.x;
-        map.layer3.yy = screen.y;
         // handle keyboard input
         if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KEY_1) && activeTool != 0) {
             tools[activeTool].deactivate();
@@ -95,9 +105,24 @@ public class SceneDemo_4 implements Scene {
             tools[activeTool].deactivate();
             activeTool = 1; // terrain tool
             tools[activeTool].activate();
+        } else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KEY_3) && activeTool != 2) {
+            tools[activeTool].deactivate();
+            activeTool = 2; // terrain tool
+            tools[activeTool].activate();
+        } else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KEY_4) && activeTool != 3) {
+            tools[activeTool].deactivate();
+            activeTool = 3; // terrain tool
+            tools[activeTool].activate();
+        } else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KEY_5) && activeTool != 4) {
+            tools[activeTool].deactivate();
+            activeTool = 4; // terrain tool
+            tools[activeTool].activate();
         }
+        tools[activeTool].x = screen.x;
+        tools[activeTool].y = screen.y;
+        tools[activeTool].update(Graphics.getDeltaTime());
 
-
+        map.update(delta);
         map.render(renderer2D);
 
         FrameBufferBinder.bind(null);

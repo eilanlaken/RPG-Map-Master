@@ -69,7 +69,7 @@ public class Map {
     }
 
     private void executeCommand(Command command) {
-
+        if (command.layer == 3) layer3.executeCommand(command);
     }
 
     private void undo() {
@@ -84,7 +84,7 @@ public class Map {
         layer3.redraw(renderer2D);
 
         FrameBufferBinder.bind(mapFinal);
-        GL11.glClearColor(1.0f,0.0f,0.0f,1);
+        GL11.glClearColor(1.0f,1.0f,1.0f,1);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_STENCIL_BUFFER_BIT); // should probably clear the stencil
         renderer2D.begin(camera);
         // render layer-0
