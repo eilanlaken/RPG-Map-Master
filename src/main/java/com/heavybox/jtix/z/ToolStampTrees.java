@@ -10,7 +10,6 @@ import com.heavybox.jtix.input.Mouse;
 
 public class ToolStampTrees extends Tool {
 
-    public float scale = 1;
     public boolean addFruits = false;
     public boolean addTrunk = true;
     public Mode mode = Mode.REGULAR;
@@ -19,6 +18,8 @@ public class ToolStampTrees extends Tool {
 
     public ToolStampTrees(Map map) {
         super(map);
+        sclX = 0.25f;
+        sclY = 0.25f;
         layer3 = Assets.get("assets/texture-packs/layer_3.yml");
     }
 

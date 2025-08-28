@@ -10,7 +10,11 @@ import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
 
+import java.util.Comparator;
+
 public class ToolStampCastles extends Tool {
+
+    public final TexturePack layer3;
 
     public Mode mode = Mode.SINGLE;
 
@@ -18,9 +22,6 @@ public class ToolStampCastles extends Tool {
     public CastleBlockType type = CastleBlockType.values()[0];
     public int currentSingleIndex = 0;
     public TextureRegion currentRegion;
-
-    public TexturePack layer3;
-
 
     public ToolStampCastles(Map map) {
         super(map);
@@ -42,6 +43,13 @@ public class ToolStampCastles extends Tool {
             } else if (Input.mouse.isButtonClicked(Mouse.Button.RIGHT)) {
                 currentSingleIndex++;
                 setRegion();
+            } else if (Input.mouse.isButtonClicked(Mouse.Button.LEFT)) {
+                CastleBlock castleBlock = new CastleBlock();
+                castleBlock.x = x;
+                castleBlock.y = y;
+                castleBlock.type = type;
+                castleBlock.blockIndex = currentSingleIndex;
+                singleCastleBlocks.add(castleBlock);
             }
         } else if (mode == Mode.COMBINATION) {
 
@@ -59,6 +67,11 @@ public class ToolStampCastles extends Tool {
         if (mode == Mode.SINGLE) {
             renderer2D.setColor(Color.WHITE);
             renderer2D.drawTextureRegion(currentRegion, x, y, 0, this.sclX, this.sclY);
+            singleCastleBlocks.sort(Comparator.comparingInt(o -> -(int) o.y));
+            for (CastleBlock block : singleCastleBlocks) {
+                TextureRegion region = layer3.getRegion("assets/textures-layer-3/" + block.type.name().toLowerCase() + "_" + block.blockIndex + ".png");
+                renderer2D.drawTextureRegion(region, block.x, block.y, 0, this.sclX, this.sclY);
+            }
         } else if (mode == Mode.COMBINATION) {
 
         }
@@ -67,6 +80,7 @@ public class ToolStampCastles extends Tool {
     @Override
     public void activate() {
         singleCastleBlocks.clear();
+        setRegion();
     }
 
     @Override
@@ -77,14 +91,9 @@ public class ToolStampCastles extends Tool {
     public class CastleBlock {
 
         float x, y;
-        String regionName;
+        CastleBlockType type;
+        int blockIndex;
 
-    }
-
-    public enum Mode {
-        SINGLE,
-        COMBINATION,
-        ;
     }
 
     public enum CastleBlockType {
@@ -114,6 +123,13 @@ public class ToolStampCastles extends Tool {
             this.amount = amount;
         }
 
+    }
+
+
+    public enum Mode {
+        SINGLE,
+        COMBINATION,
+        ;
     }
 
 }

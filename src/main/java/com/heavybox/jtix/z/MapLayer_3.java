@@ -25,9 +25,7 @@ public class MapLayer_3 implements MapLayer {
     @Override
     public void executeCommand(Command command) {
         if (command instanceof CommandTokenCreate) {
-            System.out.println("hi");
             CommandTokenCreate cmd = (CommandTokenCreate) command;
-            System.out.println(cmd.x);
             MapToken mapToken = new MapToken(cmd.layer, cmd.x, cmd.y, cmd.deg, cmd.sclX, cmd.sclY, cmd.regions);
             allTokens.add(mapToken);
             return;
