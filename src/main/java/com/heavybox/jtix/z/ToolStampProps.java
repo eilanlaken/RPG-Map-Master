@@ -22,7 +22,7 @@ public class ToolStampProps extends Tool {
     }
 
     @Override
-    public void renderToolOverlay(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
+    public void renderToolOverlay(Renderer2D renderer2D, float x, float y) {
 
     }
 

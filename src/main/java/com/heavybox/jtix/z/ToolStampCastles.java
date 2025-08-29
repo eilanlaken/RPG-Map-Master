@@ -63,7 +63,7 @@ public class ToolStampCastles extends Tool {
     }
 
     @Override
-    public void renderToolOverlay(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
+    public void renderToolOverlay(Renderer2D renderer2D, float x, float y) {
         if (mode == Mode.SINGLE) {
             renderer2D.setColor(Color.WHITE);
             renderer2D.drawTextureRegion(currentRegion, x, y, 0, this.sclX, this.sclY);

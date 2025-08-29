@@ -8,14 +8,15 @@ import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.MathUtils;
 
-public class ToolStampMountains extends Tool {
+// mountains, hills, rocks, trees?
+public class ToolStampNature extends Tool {
 
     public Type currentType = Type.values()[0];
     public int currentIndex = 0;
     public TexturePack layer3;
     public TextureRegion region;
 
-    public ToolStampMountains(Map map) {
+    public ToolStampNature(Map map) {
         super(map);
         layer3 = Assets.get("assets/texture-packs/layer_3.yml");
         region = layer3.getRegion("assets/textures-layer-3/mountain-brown_0.png");
@@ -51,7 +52,7 @@ public class ToolStampMountains extends Tool {
     }
 
     @Override
-    public void renderToolOverlay(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
+    public void renderToolOverlay(Renderer2D renderer2D, float x, float y) {
         renderer2D.drawTextureRegion(region, x, y, deg, sclX, sclY);
     }
 
@@ -66,10 +67,15 @@ public class ToolStampMountains extends Tool {
     }
 
     public enum Type {
-        BROWN,
-        GREEN,
-        GREY,
-        OLIVE,
+        MOUNTAIN_BROWN,
+        MOUNTAIN_GREEN,
+        MOUNTAIN_GREY,
+        MOUNTAIN_OLIVE,
+
+        HILLS_GREEN,
+        HILLS_BROWN,
+
+        ROCKS
         ;
     }
 

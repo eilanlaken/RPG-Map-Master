@@ -8,15 +8,16 @@ import com.heavybox.jtix.graphics.TextureRegion;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Mouse;
 
-public class ToolStampTrees extends Tool {
+public class ToolStampPlants extends Tool {
 
     public boolean addFruits = false;
     public boolean addTrunk = true;
     public Mode mode = Mode.REGULAR;
     public int batchSize = 1;
     public TexturePack layer3;
+    public Color fruitsColor = Color.RED;
 
-    public ToolStampTrees(Map map) {
+    public ToolStampPlants(Map map) {
         super(map);
         sclX = 0.25f;
         sclY = 0.25f;
@@ -45,7 +46,7 @@ public class ToolStampTrees extends Tool {
     }
 
     @Override
-    public void renderToolOverlay(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
+    public void renderToolOverlay(Renderer2D renderer2D, float x, float y) {
         renderer2D.setColor(Color.GREEN);
         renderer2D.drawCircleThin(20,30, x, y, deg, sclX, sclY);
         renderer2D.setColor(Color.WHITE);
@@ -64,6 +65,9 @@ public class ToolStampTrees extends Tool {
     public enum Mode {
         REGULAR,
         CYPRESS,
+        DENSE,
+        SPARSE,
+        ;
     }
 
 }

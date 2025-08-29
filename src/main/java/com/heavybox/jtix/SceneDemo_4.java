@@ -40,7 +40,9 @@ public class SceneDemo_4 implements Scene {
             ToolsTexturePacker.packTextures("assets/texture-packs", "layer_3", 0, 2, ToolsTexturePacker.TexturePackSize.XX_LARGE_8192, "assets/textures-layer-3", true);
             // pack layer 4
             ToolsTexturePacker.packTextures("assets/texture-packs", "layer_4", 0, 2, ToolsTexturePacker.TexturePackSize.XX_LARGE_8192, "assets/textures-layer-4", true);
-            
+            // pack layer 5 (decorations)
+            ToolsTexturePacker.packTextures("assets/texture-packs", "layer_5", 0, 2, ToolsTexturePacker.TexturePackSize.XX_LARGE_8192, "assets/textures-layer-5", true);
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -65,11 +67,12 @@ public class SceneDemo_4 implements Scene {
         map = new Map(false);
 
         tools[0] = new ToolTerrain(map);
-        tools[1] = new ToolStampTrees(map);
-        tools[2] = new ToolStampMountains(map);
+        tools[1] = new ToolStampPlants(map);
+        tools[2] = new ToolStampNature(map);
         tools[3] = new ToolWheatFields(map);
         tools[4] = new ToolStampCastles(map);
         tools[5] = new ToolStampCityBlock(map);
+        tools[6] = new ToolStampRuralBlock(map);
     }
 
     @Override
@@ -122,6 +125,10 @@ public class SceneDemo_4 implements Scene {
             tools[activeTool].deactivate();
             activeTool = 5; // terrain tool
             tools[activeTool].activate();
+        } else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KEY_7) && activeTool != 6) {
+            tools[activeTool].deactivate();
+            activeTool = 6; // terrain tool
+            tools[activeTool].activate();
         }
         tools[activeTool].x = screen.x;
         tools[activeTool].y = screen.y;
@@ -139,7 +146,7 @@ public class SceneDemo_4 implements Scene {
 
         // draw tools overlay
         renderer2D.begin(camera);
-        if (activeTool != -1) tools[activeTool].renderToolOverlay(renderer2D, screen.x, screen.y, 0, 1,1);
+        if (activeTool != -1) tools[activeTool].renderToolOverlay(renderer2D, screen.x, screen.y);
         renderer2D.end();
 
         // draw UI

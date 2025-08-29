@@ -60,7 +60,7 @@ public class ToolStampCityBlock extends Tool {
 
 
     @Override
-    public void renderToolOverlay(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
+    public void renderToolOverlay(Renderer2D renderer2D, float x, float y) {
         if (mode == Mode.SINGLES) {
             renderer2D.setColor(Color.WHITE);
             int direction = (baseType == BaseType.DIAGONAL_BIG_RIGHT || baseType == BaseType.DIAGONAL_SMALL_RIGHT) ? -1 : 1;

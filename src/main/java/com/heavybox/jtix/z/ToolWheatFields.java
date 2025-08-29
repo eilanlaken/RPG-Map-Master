@@ -97,7 +97,7 @@ public class ToolWheatFields extends Tool {
     }
 
     @Override
-    public void renderToolOverlay(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
+    public void renderToolOverlay(Renderer2D renderer2D, float x, float y) {
         if (state == State.FREE) {
             renderer2D.setColor(Color.RED);
             renderer2D.drawCircleFilled(5,5, x, y, 0, 1,1);

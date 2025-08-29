@@ -16,7 +16,7 @@ public class ToolTerrain extends Tool {
     }
 
     @Override
-    public void renderToolOverlay(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
+    public void renderToolOverlay(Renderer2D renderer2D, float x, float y) {
         renderer2D.drawCircleThin(20,30, x, y, deg, sclX, sclY);
     }
 

@@ -127,7 +127,7 @@ public class SceneDemo_2 implements Scene {
 
         // draw tools overlay
         renderer2D.begin(camera);
-        if (activeTool != -1) tools[activeTool].renderToolOverlay(renderer2D, screen.x, screen.y, 0, 1,1);
+        if (activeTool != -1) tools[activeTool].renderToolOverlay(renderer2D, screen.x, screen.y);
         renderer2D.end();
 
         // draw UI
