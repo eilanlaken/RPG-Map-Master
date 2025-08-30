@@ -1,6 +1,7 @@
 package com.heavybox.jtix.z;
 
 import com.heavybox.jtix.assets.Assets;
+import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.graphics.TexturePack;
 import com.heavybox.jtix.graphics.TextureRegion;
@@ -9,14 +10,14 @@ import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.MathUtils;
 
 // mountains, hills, rocks, trees?
-public class ToolStampNature extends Tool {
+public class ToolStampGround extends Tool {
 
     public Type currentType = Type.values()[0];
     public int currentIndex = 0;
     public TexturePack layer3;
     public TextureRegion region;
 
-    public ToolStampNature(Map map) {
+    public ToolStampGround(Map map) {
         super(map);
         layer3 = Assets.get("assets/texture-packs/layer_3.yml");
         region = layer3.getRegion("assets/textures-layer-3/mountain-brown_0.png");
@@ -53,6 +54,7 @@ public class ToolStampNature extends Tool {
 
     @Override
     public void renderToolOverlay(Renderer2D renderer2D, float x, float y) {
+        renderer2D.setColor(Color.WHITE);
         renderer2D.drawTextureRegion(region, x, y, deg, sclX, sclY);
     }
 
@@ -75,7 +77,7 @@ public class ToolStampNature extends Tool {
         HILLS_GREEN,
         HILLS_BROWN,
 
-        ROCKS
+        STONES,
         ;
     }
 

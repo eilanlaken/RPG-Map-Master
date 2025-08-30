@@ -38,16 +38,7 @@ public class ToolTerrain extends Tool {
         if (mode == Mode.ADD_LAND || mode == Mode.ADD_ROAD) {
             renderer2D.drawTexture(brushAdd, x, y, 0, 1, 1);
         } else if (mode == Mode.SUB_LAND || mode == Mode.SUB_ROAD) {
-            //renderer2D.drawTexture(brushSub, x, y, 0, 1, 1);
-            renderer2D.setColor(1,0,0,0.5f);
-            renderer2D.drawRectangleFilled(200,200, x,  y, 0, 1,1);
-            renderer2D.drawRectangleFilled(200,200, x,  y, 0, 1,1);
-            renderer2D.drawRectangleFilled(200,200, x,  y, 0, 1,1);
-            renderer2D.drawRectangleFilled(200,200, x,  y, 0, 1,1);
-            renderer2D.drawRectangleFilled(200,200, x,  y, 0, 1,1);
-            renderer2D.drawRectangleFilled(200,200, x,  y, 0, 1,1);
-            renderer2D.drawRectangleFilled(200,200, x,  y, 0, 1,1);
-            renderer2D.drawRectangleFilled(200,200, x,  y, 0, 1,1);
+            renderer2D.drawTexture(brushSub, x, y, 0, 1, 1);
         }
     }
 

@@ -1,0 +1,20 @@
+<combinations>
+
+    <combination>
+        <object type="0" x="-32.500008" y="22.666649"/>
+        <object type="1" x="-98.499985" y="22.666649"/>
+        <object type="4" x="13.499975" y="20.66668"/>
+        <object type="4" x="43.50005" y="20.66668"/>
+        <object type="4" x="75.500015" y="20.66668"/>
+        <object type="0" x="-56.500015" y="10.666664"/>
+        <object type="0" x="-78.499985" y="-3.3332977"/>
+        <object type="8" x="-4.499977" y="-7.333351"/>
+        <object type="9" x="33.50005" y="-9.333321"/>
+        <object type="12" x="3.4999762" y="-15.3333435"/>
+        <object type="7" x="29.499958" y="-39.333313"/>
+        <object type="8" x="71.49992" y="-43.333313"/>
+    </combination>
+
+
+
+</combinations>

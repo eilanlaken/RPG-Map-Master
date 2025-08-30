@@ -16,11 +16,9 @@ import org.lwjgl.opengl.GL11;
 public class SceneDemo_4 implements Scene {
 
     private Renderer2D renderer2D;
-    public final Camera camera = new Camera(Camera.Mode.ORTHOGRAPHIC, Graphics.getWindowWidth(), Graphics.getWindowHeight(), 4, 0, 100, 75);
+    public final Camera camera = new Camera(Camera.Mode.ORTHOGRAPHIC, Graphics.getWindowWidth(), Graphics.getWindowHeight(), 2, 0, 100, 75);
 
     // tools - refactor immediately after working version
-    public Texture terrainBrushErase;
-
     public Map map;
     public Tool[] tools = new Tool[10];
     public int activeTool = 0;
@@ -68,7 +66,7 @@ public class SceneDemo_4 implements Scene {
 
         tools[0] = new ToolTerrain(map);
         tools[1] = new ToolStampPlants(map);
-        tools[2] = new ToolStampNature(map);
+        tools[2] = new ToolStampGround(map);
         tools[3] = new ToolWheatFields(map);
         tools[4] = new ToolStampCastles(map);
         tools[5] = new ToolStampCityBlock(map);

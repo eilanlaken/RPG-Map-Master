@@ -9,18 +9,59 @@ import com.heavybox.jtix.graphics.TextureRegion;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
+import com.heavybox.jtix.math.Vector2;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.File;
 import java.util.Comparator;
 
 public class ToolStampCastles extends Tool {
+
+    private static final Array<Combination> COMBINATIONS = new Array<>(true, 10);
+    static {
+        try {
+            File file = new File("assets/data/castles.xml");
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.parse(file);
+            doc.getDocumentElement().normalize();
+
+            NodeList combinationList = doc.getElementsByTagName("combination");
+            for (int i = 0; i < combinationList.getLength(); i++) {
+                Element combinationElement = (Element) combinationList.item(i);
+                NodeList blocks = combinationElement.getElementsByTagName("object");
+                Combination combination = new Combination();
+                combination.castleBlocks = new CastleBlock[blocks.getLength()];
+                for (int j = 0; j < blocks.getLength(); j++) {
+                    Element block = (Element) blocks.item(j);
+                    CastleBlockType type = CastleBlockType.values()[Integer.parseInt(block.getAttribute("type"))];
+                    float x = Float.parseFloat(block.getAttribute("x"));
+                    float y = Float.parseFloat(block.getAttribute("y"));
+                    combination.castleBlocks[j] = new CastleBlock();
+                    combination.castleBlocks[j].type = type;
+                    combination.castleBlocks[j].x = x;
+                    combination.castleBlocks[j].y = y;
+                }
+                COMBINATIONS.add(combination);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
 
     public final TexturePack layer3;
 
     public Mode mode = Mode.SINGLE;
 
     public Array<CastleBlock> singleCastleBlocks = new Array<>();
+    private final Array<CastleBlock> toolOverlay = new Array<>();
     public CastleBlockType type = CastleBlockType.values()[0];
-    public int currentSingleIndex = 0;
+    public int singleCurrentIndex = 0;
     public TextureRegion currentRegion;
 
     public ToolStampCastles(Map map) {
@@ -33,6 +74,11 @@ public class ToolStampCastles extends Tool {
 
     @Override
     public void update(float delta) {
+        if (Input.keyboard.isKeyJustPressed(Keyboard.Key.LEFT_CONTROL)) {
+            mode = Mode.values()[(mode.ordinal() + 1) % Mode.values().length];
+            System.out.println(mode);
+            return;
+        }
         if (mode == Mode.SINGLE) {
             if (Input.keyboard.isKeyJustPressed(Keyboard.Key.Q)) {
                 type = CastleBlockType.values()[(type.ordinal() + 1) % CastleBlockType.values().length]; // next
@@ -41,15 +87,32 @@ public class ToolStampCastles extends Tool {
                 type = CastleBlockType.values()[(type.ordinal() - 1 + CastleBlockType.values().length) % CastleBlockType.values().length];
                 setRegion();
             } else if (Input.mouse.isButtonClicked(Mouse.Button.RIGHT)) {
-                currentSingleIndex++;
+                singleCurrentIndex++;
                 setRegion();
             } else if (Input.mouse.isButtonClicked(Mouse.Button.LEFT)) {
                 CastleBlock castleBlock = new CastleBlock();
                 castleBlock.x = x;
                 castleBlock.y = y;
                 castleBlock.type = type;
-                castleBlock.blockIndex = currentSingleIndex;
+                castleBlock.blockIndex = singleCurrentIndex;
                 singleCastleBlocks.add(castleBlock);
+            } else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.TAB)) {
+                if (!singleCastleBlocks.isEmpty()) singleCastleBlocks.pop();
+            } else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.ENTER) && !singleCastleBlocks.isEmpty()) {
+                // calculate center of mass
+                Array<CastleBlock> blocks = new Array<>();
+                blocks.addAll(singleCastleBlocks);
+                blocks.sort(Comparator.comparingInt(o -> -(int) o.y));
+                Vector2 cm = new Vector2();
+                for (CastleBlock block : blocks) {
+                    cm.add(block.x, block.y);
+                }
+                cm.scl(1f / blocks.size);
+                System.out.println("<combination>");
+                for (CastleBlock block : blocks) {
+                    System.out.println("\t" + "<object type=\"" + block.type.ordinal() + "\" x=\"" + (block.x - cm.x) + "\" y=\"" + (block.y - cm.y) + "\"/>");
+                }
+                System.out.println("</combination>");
             }
         } else if (mode == Mode.COMBINATION) {
 
@@ -57,9 +120,9 @@ public class ToolStampCastles extends Tool {
     }
 
     private void setRegion() {
-        currentSingleIndex %= type.amount;
-        System.out.println(currentSingleIndex);
-        currentRegion = layer3.getRegion("assets/textures-layer-3/" + type.name().toLowerCase() + "_" + currentSingleIndex + ".png");
+        singleCurrentIndex %= type.amount;
+        System.out.println(singleCurrentIndex);
+        currentRegion = layer3.getRegion("assets/textures-layer-3/" + type.name().toLowerCase() + "_" + singleCurrentIndex + ".png");
     }
 
     @Override
@@ -67,8 +130,10 @@ public class ToolStampCastles extends Tool {
         if (mode == Mode.SINGLE) {
             renderer2D.setColor(Color.WHITE);
             renderer2D.drawTextureRegion(currentRegion, x, y, 0, this.sclX, this.sclY);
-            singleCastleBlocks.sort(Comparator.comparingInt(o -> -(int) o.y));
-            for (CastleBlock block : singleCastleBlocks) {
+            toolOverlay.clear();
+            toolOverlay.addAll(singleCastleBlocks);
+            toolOverlay.sort(Comparator.comparingInt(o -> -(int) o.y));
+            for (CastleBlock block : toolOverlay) {
                 TextureRegion region = layer3.getRegion("assets/textures-layer-3/" + block.type.name().toLowerCase() + "_" + block.blockIndex + ".png");
                 renderer2D.drawTextureRegion(region, block.x, block.y, 0, this.sclX, this.sclY);
             }
@@ -88,7 +153,11 @@ public class ToolStampCastles extends Tool {
         singleCastleBlocks.clear();
     }
 
-    public class CastleBlock {
+    public static class Combination {
+        public CastleBlock[] castleBlocks;
+    }
+
+    public static class CastleBlock {
 
         float x, y;
         CastleBlockType type;
