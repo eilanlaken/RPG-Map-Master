@@ -9,11 +9,9 @@ import com.heavybox.jtix.memory.MemoryResourceHolder;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.BufferUtils;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL15;
-import org.lwjgl.opengl.GL20;
-import org.lwjgl.opengl.GL30;
+import org.lwjgl.opengl.*;
 import org.lwjgl.system.MemoryUtil;
+import org.lwjgl.system.NativeType;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -28,6 +26,9 @@ import java.util.Objects;
 import java.util.Stack;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
 
 // TODO: convert to a static class. Renderer2D.
 // TODO: in Graphics.cleanup(), call Renderer2D.delete()
@@ -61,8 +62,6 @@ public class Renderer2D implements MemoryResourceHolder {
     private boolean   drawing             = false;
     private int       vertexIndex         = 0;
     private int       currentMode         = GL11.GL_TRIANGLES;
-    private int       currentSFactor      = GL11.GL_SRC_ALPHA;
-    private int       currentDFactor      = GL11.GL_ONE_MINUS_SRC_ALPHA;
     private int       perFrameDrawCalls   = 0;
     private float     pixelScaleWidth     = 1;
     private float     pixelScaleWidthInv  = 1;
@@ -165,7 +164,7 @@ public class Renderer2D implements MemoryResourceHolder {
         maskingEnabled = false;
 
         /* set blend function to default blending */
-        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        //GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         this.perFrameDrawCalls = 0;
 
         // set camera
@@ -183,6 +182,7 @@ public class Renderer2D implements MemoryResourceHolder {
         currentCamera.update(); // TODO: probably remove. Redundant update()s
 
         setShader(defaultShader);
+        setBlending(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA); // TODO: test
         setShaderAttributes(null);
         setTexture(defaultTexture);
         setMode(GL11.GL_TRIANGLES);
@@ -234,10 +234,15 @@ public class Renderer2D implements MemoryResourceHolder {
     }
 
     public void setBlending(int sFactor, int dFactor) {
-        if (currentSFactor == sFactor && currentDFactor == dFactor) return;
         flush();
-        this.currentSFactor = sFactor;
-        this.currentDFactor = dFactor;
+        GL11.glEnable(GL11.GL_BLEND); //TODO
+        GL11.glBlendFunc(sFactor, dFactor);
+    }
+
+    public void setBlending(int sFactorRGB, int dFactorRGB, int sFactorAlpha, int dFactorAlpha) {
+        flush();
+        GL11.glEnable(GL11.GL_BLEND); //TODO
+        GL14.glBlendFuncSeparate(sFactorRGB, dFactorRGB, sFactorAlpha, dFactorAlpha);
     }
 
     public void setColor(final Color color) {
@@ -3181,7 +3186,7 @@ public class Renderer2D implements MemoryResourceHolder {
         return hasSpaceVertices && hasSpaceIndices;
     }
 
-    private void flush() {
+    public void flush() {
         if (vertexIndex == 0) return;
 
         GL30.glBindVertexArray(vao);
