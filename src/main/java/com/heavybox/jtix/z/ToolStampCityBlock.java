@@ -87,7 +87,8 @@ public class ToolStampCityBlock extends Tool {
                             "y=\"" + (house.y - cm.y) + "\" " +
                             "roofType=\"" + house.roofType + "\" " +
                             "foundationOverlayIndex=\"" + house.foundationOverlayIndex + "\" " +
-                            "roofOverlayIndex=\"" + house.roofOverlayIndex + "\"/>"
+                            "roofOverlayIndex=\"" + house.roofOverlayIndex +
+                            "\"/>"
                     );
                 }
                 System.out.println("</combination>");

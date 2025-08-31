@@ -4,6 +4,7 @@ import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.graphics.Texture;
 import com.heavybox.jtix.input.Input;
+import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
 
 public class ToolTerrain extends Tool {
@@ -21,6 +22,9 @@ public class ToolTerrain extends Tool {
 
     @Override
     public void update(float delta) {
+        if (Input.keyboard.isKeyJustPressed(Keyboard.Key.TAB)) {
+            mode = Mode.values()[(mode.ordinal() + 1) % Mode.values().length];
+        }
         if (Input.mouse.isButtonJustPressed(Mouse.Button.LEFT)) {
             CommandTerrain commandTerrain = new CommandTerrain(x, y, 0, sclX, sclY, false, mode);
             map.addCommand(commandTerrain);
@@ -54,8 +58,8 @@ public class ToolTerrain extends Tool {
 
     public enum Mode {
 
-        ADD_LAND,
         SUB_LAND,
+        ADD_LAND,
         ADD_ROAD,
         SUB_ROAD
 

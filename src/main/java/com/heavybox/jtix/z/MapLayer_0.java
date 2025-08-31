@@ -66,24 +66,37 @@ public class MapLayer_0 implements MapLayer {
     @Override
     public void applyChanges(Renderer2D renderer2D) {
         if (!changed) return;
+
+        // update terrain mask
         FrameBufferBinder.bind(terrainMask);
         renderer2D.begin(camera);
         renderer2D.setBlending(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         for (CommandTerrain cmd : commandsQueueTerrainMask) {
             Texture texture = cmd.mode == ToolTerrain.Mode.ADD_LAND ? terrainBrushAdd : terrainBrushSub;
             renderer2D.drawTexture(texture, cmd.x, cmd.y, 0, cmd.sclX, cmd.sclY);
-            //renderer2D.setColor(1,0,0,0.5f);
-            //renderer2D.drawRectangleFilled(200,200,cmd.x, cmd.y, 0, 1,1);
         }
+        renderer2D.end();
+
+        FrameBufferBinder.bind(layer0);
+        GL11.glClearColor(0,0,0,1);
+        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT); // should probably clear the stencil
+        renderer2D.begin(camera);
+        renderer2D.setBlending(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+        renderer2D.drawTexture(terrainWater, 0, 0, 0, 1, -1);
+        renderer2D.setShader(terrainShader);
+        renderer2D.setShaderAttribute("u_texture_mask", terrainMask.getColorAttachment0());
+        renderer2D.setShaderAttribute("u_texture_steepness", terrainSteepness);
+        renderer2D.drawTexture(terrainGrass, 0, 0, 0, 1, -1);
         renderer2D.end();
 
         commandsQueueTerrainMask.clear();
         commandsQueueTerrainBlendMap.clear();
+
         changed = false;
     }
 
     @Override
     public Texture getTexture() {
-        return terrainMask.getColorAttachment0(); // for now.
+        return layer0.getColorAttachment0(); // for now.
     }
 }

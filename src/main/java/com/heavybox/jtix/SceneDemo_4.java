@@ -59,7 +59,6 @@ public class SceneDemo_4 implements Scene {
         Assets.loadTexture("assets/textures-layer-1/terrain-wheat-field-harvest-full.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
         Assets.loadTexture("assets/textures-layer-1/terrain-wheat-field-harvest-part.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
         Assets.loadTexture("assets/textures-layer-1/terrain-wheat-field-lines.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
-
         Assets.finishLoading();
 
         map = new Map(false);
@@ -157,12 +156,10 @@ public class SceneDemo_4 implements Scene {
 
     }
 
-    // TODO: bug here when maximizing / minimizing.
     @Override
     public void windowResized(int width, int height) {
         camera.viewportWidth = width;
         camera.viewportHeight = height;
-
         camera.update();
     }
 
