@@ -13,7 +13,7 @@ import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
 public class MapLayer_3 implements MapLayer {
 
     // DEBUGGING
-
+    private boolean changed = false;
 
     // Tokens layer
     private FrameBuffer layer3 = new FrameBuffer(1920, 1080);;
@@ -27,9 +27,12 @@ public class MapLayer_3 implements MapLayer {
 
     @Override
     public void executeCommand(Command command) {
+        changed = true;
+
         if (command instanceof CommandTokenCreate) {
             CommandTokenCreate cmd = (CommandTokenCreate) command;
             MapToken mapToken = new MapToken(cmd.layer, cmd.x, cmd.y, cmd.deg, cmd.sclX, cmd.sclY, cmd.regions);
+            mapToken.type = cmd.type;
             allTokens.add(mapToken);
             return;
         }
@@ -39,6 +42,8 @@ public class MapLayer_3 implements MapLayer {
         // change token (move, scale, rotate...)
 
     }
+
+
 
     @Override
     public void redraw(Renderer2D renderer2D) {
@@ -57,13 +62,15 @@ public class MapLayer_3 implements MapLayer {
 
     @Override
     public void applyChanges(Renderer2D renderer2D) {
+        if (!changed) return;
         redraw(renderer2D);
+
+        changed = false;
     }
 
     @Override
     public Texture getTexture() {
         return layer3.getColorAttachment0();
     }
-
 
 }

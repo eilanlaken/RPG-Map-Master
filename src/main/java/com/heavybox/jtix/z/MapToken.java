@@ -2,9 +2,11 @@ package com.heavybox.jtix.z;
 
 import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.graphics.TextureRegion;
+import com.heavybox.jtix.widgets.NodeContainer;
 
 public class MapToken {
 
+    public Type type = Type.UNSPECIFIED;
     public final int layer;
     public float x, y, deg, sclX, sclY;
     public TextureRegion[] regions;
@@ -33,6 +35,13 @@ public class MapToken {
         for (TextureRegion region : regions) {
             renderer2D.drawTextureRegion(region, x, y, deg, sclX, sclY);
         }
+    }
+
+    public enum Type {
+        UNSPECIFIED,
+        TREE,
+        ROCK
+        ;
     }
 
 }

@@ -7,22 +7,10 @@ import org.lwjgl.opengl.GL11;
 
 public class Map {
 
-    // Terrain layer
-    public final Camera terrainMaskCamera = new Camera(Camera.Mode.ORTHOGRAPHIC, 1920, 1080, 1, 0, 100, 75);
-    private String terrainVertexShaderSrc = Assets.getFileContent("assets/shaders/terrain-mask.vert");
-    private String terrainFragmentShaderSrc = Assets.getFileContent("assets/shaders/terrain-mask.frag");
-    private Shader terrainShader = new Shader(terrainVertexShaderSrc, terrainFragmentShaderSrc);
-    private FrameBuffer layer0TerrainMask = new FrameBuffer(1920, 1080);
-    private FrameBuffer layer0TerrainBlendMap = new FrameBuffer(1920, 1080);
-    //private FrameBuffer layer0 = new FrameBuffer(1920, 1080);
-    private Texture terrainGrass;
-    private Texture terrainWater;
-    private Texture terrainSteepness;
-    private Texture terrainRoad;
 
-    // Ground layer (wheat fields)
-    public MapLayer_0 layer0;
-    public MapLayer_3 layer3;
+    public MapLayer_0 layer0; // Terrain layer (wheat fields)
+    public MapLayer_1 layer1; // Ground layer (wheat fields)
+    public MapLayer_3 layer3; // Token layer
 
     // Decorations layer
 
@@ -70,6 +58,13 @@ public class Map {
         commandsQueue.clear();
     }
 
+    public void getAllTokens(MapToken.Type ofType, Array<MapToken> out) {
+        out.clear();
+        for (MapToken mapToken : layer3.allTokens) {
+            if (mapToken.type == ofType) out.add(mapToken);
+        }
+    }
+
     private void executeCommand(Command command) {
         if (command.layer == 0) layer0.executeCommand(command);
         if (command.layer == 3) layer3.executeCommand(command);
@@ -85,7 +80,7 @@ public class Map {
 
     public void render(Renderer2D renderer2D) {
         layer0.applyChanges(renderer2D);
-        layer3.redraw(renderer2D); // TODO: use applyChanges
+        layer3.applyChanges(renderer2D); // TODO: use applyChanges
 
         FrameBufferBinder.bind(mapFinal);
         GL11.glClearColor(1.0f,1.0f,1.0f,1);

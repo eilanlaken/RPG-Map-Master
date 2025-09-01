@@ -49,12 +49,13 @@ public class MapLayer_0 implements MapLayer {
 
     @Override
     public void executeCommand(Command command) {
+        changed = true;
+
         if (!(command instanceof CommandTerrain)) return;
         CommandTerrain cmd = (CommandTerrain) command;
         if (cmd.mode == ToolTerrain.Mode.ADD_LAND || cmd.mode == ToolTerrain.Mode.SUB_LAND) commandsQueueTerrainMask.add(cmd);
         if (cmd.mode == ToolTerrain.Mode.ADD_ROAD || cmd.mode == ToolTerrain.Mode.SUB_ROAD) commandsQueueTerrainBlendMap.add(cmd);
         commandsHistory.add(cmd);
-        changed = true;
     }
 
     @Override
