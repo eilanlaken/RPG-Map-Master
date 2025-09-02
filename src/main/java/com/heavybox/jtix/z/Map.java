@@ -3,7 +3,13 @@ package com.heavybox.jtix.z;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.graphics.*;
+import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.nio.ByteBuffer;
 
 public class Map {
 
@@ -100,6 +106,38 @@ public class Map {
 
     public Texture getTexture() {
         return mapFinal.getColorAttachment0();
+    }
+
+    public void saveLayerAsImage(int layer) {
+        Texture texture = layer3.getTexture();
+
+        ByteBuffer buffer = texture.getPixmapBytes();
+
+        // Create BufferedImage
+        BufferedImage image = new BufferedImage(1920, 1080, BufferedImage.TYPE_INT_ARGB);
+
+        for (int y = 0; y < 1080; y++) {
+            for (int x = 0; x < 1920; x++) {
+                int i = (x + (1920 * y)) * 4;
+                int r = buffer.get(i) & 0xFF;
+                int g = buffer.get(i + 1) & 0xFF;
+                int b = buffer.get(i + 2) & 0xFF;
+                int a = buffer.get(i + 3) & 0xFF;
+
+                // Flip vertically, since OpenGL textures start bottom-left
+                image.setRGB(x, 1080 - y - 1,
+                        ((a & 0xFF) << 24) |
+                                ((r & 0xFF) << 16) |
+                                ((g & 0xFF) << 8)  |
+                                (b & 0xFF));
+            }
+        }
+
+        try {
+            ImageIO.write(image, "png", new File("layer333.png"));
+        } catch (Exception e) {
+
+        }
     }
 
 }

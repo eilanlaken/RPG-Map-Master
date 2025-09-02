@@ -14,14 +14,22 @@ public class ToolTerrain extends Tool {
     public Texture brushAdd;
     public Texture brushSub;
 
+    public float scale = 0.25f;
+    public float size = 50;
+
     public ToolTerrain(Map map) {
         super(map);
         brushAdd = new Texture("assets/tools/terrain-brush-draw.png");
         brushSub = new Texture("assets/tools/terrain-brush-erase.png");
+        sclX = sclY = scale;
     }
 
     @Override
     public void update(float delta) {
+        size += 2 * Input.mouse.getVerticalScroll();
+        System.out.println(size);
+        sclX = size / 512.0f;
+        sclY = size / 512.0f;
         if (Input.keyboard.isKeyJustPressed(Keyboard.Key.TAB)) {
             mode = Mode.values()[(mode.ordinal() + 1) % Mode.values().length];
         }
@@ -40,9 +48,9 @@ public class ToolTerrain extends Tool {
     public void renderToolOverlay(Renderer2D renderer2D, float x, float y) {
         renderer2D.setColor(Color.WHITE);
         if (mode == Mode.ADD_LAND || mode == Mode.ADD_ROAD) {
-            renderer2D.drawTexture(brushAdd, x, y, 0, 1, 1);
+            renderer2D.drawTexture(brushAdd, x, y, 0, sclX, sclY);
         } else if (mode == Mode.SUB_LAND || mode == Mode.SUB_ROAD) {
-            renderer2D.drawTexture(brushSub, x, y, 0, 1, 1);
+            renderer2D.drawTexture(brushSub, x, y, 0, sclX, sclY);
         }
     }
 

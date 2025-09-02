@@ -9,6 +9,7 @@ import com.heavybox.jtix.graphics.TextureRegion;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
+import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Vector2;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -64,6 +65,9 @@ public class ToolStampCastles extends Tool {
     public int singleCurrentIndex = 0;
     public TextureRegion currentRegion;
 
+    // combinations
+    public int comboIndex = MathUtils.randomUniformInt(0, COMBINATIONS.size);
+
     public ToolStampCastles(Map map) {
         super(map);
         layer3 = Assets.get("assets/texture-packs/layer_3.yml");
@@ -80,10 +84,10 @@ public class ToolStampCastles extends Tool {
             return;
         }
         if (mode == Mode.SINGLE) {
-            if (Input.keyboard.isKeyJustPressed(Keyboard.Key.Q)) {
+            if (Input.mouse.getVerticalScroll() > 0) {
                 type = CastleBlockType.values()[(type.ordinal() + 1) % CastleBlockType.values().length]; // next
                 setRegion();
-            } else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.A)) {
+            } else if (Input.mouse.getVerticalScroll() < 0) {
                 type = CastleBlockType.values()[(type.ordinal() - 1 + CastleBlockType.values().length) % CastleBlockType.values().length];
                 setRegion();
             } else if (Input.mouse.isButtonClicked(Mouse.Button.RIGHT)) {
@@ -115,13 +119,25 @@ public class ToolStampCastles extends Tool {
                 System.out.println("</combination>");
             }
         } else if (mode == Mode.COMBINATION) {
-
+            if (Input.mouse.getVerticalScroll() > 0) {
+                comboIndex++;
+                comboIndex %= COMBINATIONS.size;
+            } else if (Input.mouse.getVerticalScroll() < 0) {
+                comboIndex = (comboIndex - 1 + COMBINATIONS.size) % COMBINATIONS.size;
+                comboIndex %= COMBINATIONS.size;
+            } else if (Input.mouse.isButtonClicked(Mouse.Button.LEFT)) {
+                CastleBlock[] blocks = getCombination();
+                for (CastleBlock block : blocks) {
+                    TextureRegion blockRegion = layer3.getRegion("assets/textures-layer-3/" + block.type.name().toLowerCase() + "_" + block.blockIndex + ".png");
+                    CommandTokenCreate cmd = new CommandTokenCreate(3, x + block.x, y + block.y, 0, sclX, sclY, false, blockRegion);
+                    map.addCommand(cmd);
+                }
+            }
         }
     }
 
     private void setRegion() {
         singleCurrentIndex %= type.amount;
-        System.out.println(singleCurrentIndex);
         currentRegion = layer3.getRegion("assets/textures-layer-3/" + type.name().toLowerCase() + "_" + singleCurrentIndex + ".png");
     }
 
@@ -138,8 +154,20 @@ public class ToolStampCastles extends Tool {
                 renderer2D.drawTextureRegion(region, block.x, block.y, 0, this.sclX, this.sclY);
             }
         } else if (mode == Mode.COMBINATION) {
-
+            Combination combination = COMBINATIONS.get(comboIndex);
+            CastleBlock[] blocks = combination.castleBlocks;
+            for (CastleBlock block : blocks) {
+                TextureRegion blockRegion = layer3.getRegion("assets/textures-layer-3/" + block.type.name().toLowerCase() + "_" + block.blockIndex + ".png");
+                float worldX = x + block.x;
+                float worldY = y + block.y;
+                renderer2D.drawTextureRegion(blockRegion, worldX, worldY, deg, sclX, sclY);
+            }
         }
+    }
+
+    public CastleBlock[] getCombination() {
+        Combination combination = COMBINATIONS.get(comboIndex);
+        return combination.castleBlocks;
     }
 
     @Override

@@ -130,6 +130,11 @@ public class SceneDemo_4 implements Scene {
         tools[activeTool].x = screen.x;
         tools[activeTool].y = screen.y;
         tools[activeTool].update(Graphics.getDeltaTime());
+        // save placeholder
+        if (Input.keyboard.isKeyJustPressed(Keyboard.Key.SPACE)) {
+            map.saveLayerAsImage(0);
+        }
+
 
         map.update(delta);
         map.render(renderer2D);

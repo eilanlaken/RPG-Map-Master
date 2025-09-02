@@ -318,6 +318,17 @@ public class Texture implements MemoryResource {
         return new Color(r / 255.0f, g / 255.0f, b / 255.0f, a / 255.0f);
     }
 
+    public ByteBuffer getPixmapBytes() {
+        if (pixmapBytes == null) {
+            pixmapBytes = BufferUtils.createByteBuffer(width * height * 4); // TODO: change "4" to channels
+            int slot = TextureBinder.bind(this);
+            GL13.glActiveTexture(GL20.GL_TEXTURE0 + slot);
+            GL11.glGetTexImage(GL11.GL_TEXTURE_2D, 0, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, pixmapBytes);
+        }
+
+        return pixmapBytes;
+    }
+
     @Override
     public void delete() {
         TextureBinder.unbind(this);
