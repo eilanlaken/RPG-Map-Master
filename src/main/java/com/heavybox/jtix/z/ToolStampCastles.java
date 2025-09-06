@@ -66,7 +66,7 @@ public class ToolStampCastles extends Tool {
     public TextureRegion currentRegion;
 
     // combinations
-    public int comboIndex = MathUtils.randomUniformInt(0, COMBINATIONS.size);
+    public int comboIndex = 0;//MathUtils.randomUniformInt(0, COMBINATIONS.size);
 
     public ToolStampCastles(Map map) {
         super(map);

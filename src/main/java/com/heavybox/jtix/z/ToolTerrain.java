@@ -27,7 +27,6 @@ public class ToolTerrain extends Tool {
     @Override
     public void update(float delta) {
         size += 2 * Input.mouse.getVerticalScroll();
-        System.out.println(size);
         sclX = size / 512.0f;
         sclY = size / 512.0f;
         if (Input.keyboard.isKeyJustPressed(Keyboard.Key.TAB)) {

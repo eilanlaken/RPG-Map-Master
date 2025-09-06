@@ -10,6 +10,8 @@ import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Vector2;
 
+import java.util.Arrays;
+
 public class ToolWheatFields extends Tool {
 
     public State state = State.FREE;
@@ -24,7 +26,7 @@ public class ToolWheatFields extends Tool {
     private Texture base_0;
     private Texture lines;
     private Texture harvest;
-    private Color harvestTint;
+    private Color harvestTint = Color.GREEN; // for now
 
     public ToolWheatFields(Map map) {
         super(map);
@@ -92,7 +94,16 @@ public class ToolWheatFields extends Tool {
                 }
             }
         } else if (state == State.SET_ANGLE) {
-
+            if (Input.mouse.isButtonClicked(Mouse.Button.LEFT)) {
+                CommandCreateWheatField createWheatField = new CommandCreateWheatField(x, y, deg, sclX, sclY, true);
+                createWheatField.fieldType = fieldType;
+                createWheatField.polygon = Arrays.copyOf(polygon, polygon.length);
+                createWheatField.addLines = addLines;
+                createWheatField.linesAngle = linesAngle;
+                createWheatField.harvestType = harvestType;
+                createWheatField.harvestTint = new Color(harvestTint);
+                map.addCommand(createWheatField);
+            }
         }
     }
 

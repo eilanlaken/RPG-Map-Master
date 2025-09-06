@@ -45,11 +45,11 @@ public class ToolStampCityBlock extends Tool {
     @Override
     public void update(float delta) {
         if (mode == Mode.SINGLES) {
-            if (Input.keyboard.isKeyJustPressed(Keyboard.Key.LEFT_SHIFT)) {
+            if (Input.mouse.getVerticalScroll() > 0) {
                 baseType = BaseType.values()[(baseType.ordinal() + 1) % BaseType.values().length]; // next
                 setRegions();
-            } else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.TAB)) {
-                baseType = BaseType.values()[(baseType.ordinal() - 1 + BaseType.values().length) % BaseType.values().length]; // prev
+            } else if (Input.mouse.getVerticalScroll() < 0) {
+                baseType = BaseType.values()[(baseType.ordinal() - 1 + BaseType.values().length) % BaseType.values().length];
                 setRegions();
             } else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.Z)) {
                 roofType = RoofType.values()[(roofType.ordinal() + 1) % RoofType.values().length]; // next

@@ -29,7 +29,7 @@ public class MapLayer_0 implements MapLayer {
     private Array<CommandTerrain> commandsQueueTerrainMask = new Array<>(true, 100);
     private Array<CommandTerrain> commandsQueueTerrainBlendMap = new Array<>(true, 100);
 
-    private boolean changed = false;
+    private boolean changed = true;
 
     public MapLayer_0() {
         terrainGrass = Assets.get("assets/textures-layer-0/terrain-grass_1920x1080.png");

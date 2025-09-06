@@ -70,6 +70,7 @@ public class SceneDemo_4 implements Scene {
         tools[4] = new ToolStampCastles(map);
         tools[5] = new ToolStampCityBlock(map);
         tools[6] = new ToolStampRuralBlock(map);
+        tools[7] = new ToolStampProps(map);
     }
 
     @Override
@@ -125,6 +126,10 @@ public class SceneDemo_4 implements Scene {
         } else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KEY_7) && activeTool != 6) {
             tools[activeTool].deactivate();
             activeTool = 6; // terrain tool
+            tools[activeTool].activate();
+        } else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KEY_8) && activeTool != 7) {
+            tools[activeTool].deactivate();
+            activeTool = 7; // terrain tool
             tools[activeTool].activate();
         }
         tools[activeTool].x = screen.x;

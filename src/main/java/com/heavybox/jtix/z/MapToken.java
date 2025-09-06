@@ -40,7 +40,8 @@ public class MapToken {
     public enum Type {
         UNSPECIFIED,
         TREE,
-        ROCK
+        ROCK,
+        PROP,
         ;
     }
 
