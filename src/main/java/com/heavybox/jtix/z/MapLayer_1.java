@@ -30,9 +30,7 @@ public class MapLayer_1 implements MapLayer {
     @Override
     public void executeCommand(Command command) {
         changed = true;
-        System.out.println("hiff");
         if (command instanceof CommandCreateWheatField) {
-            System.out.println("hi");
             CommandCreateWheatField cmd = (CommandCreateWheatField) command;
             newWheatFields.add(cmd);
         }

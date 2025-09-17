@@ -80,7 +80,7 @@ public class ToolStampPlants extends Tool {
                 );
                 map.addCommand(createPlant);
             } else if (mode == Mode.BUSHES) {
-                TextureRegion base = layer3.getRegion("assets/textures-layer-3/bush_" + MathUtils.randomUniformInt(1,7) + ".png");
+                TextureRegion base = layer3.getRegion("assets/textures-layer-3/tree_bush_" + MathUtils.randomUniformInt(1,7) + ".png");
                 CommandTokenCreate createPlant = new CommandTokenCreate(
                         3,
                         x, y, deg, sclX, sclY, true, base
