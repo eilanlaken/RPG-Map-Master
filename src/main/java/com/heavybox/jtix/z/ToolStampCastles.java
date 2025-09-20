@@ -193,6 +193,16 @@ public class ToolStampCastles extends Tool {
 
     }
 
+    public enum Race {
+
+        HUMAN,
+        ELF,
+        DWARF,
+        // ORC,
+        // UNDEAD
+
+    }
+
     public enum CastleBlockType {
 
         CASTLE_BUILDING_DIAGONAL_SHORT_LEFT(6),
@@ -214,7 +224,8 @@ public class ToolStampCastles extends Tool {
         CASTLE_WALL_FRONT_RIGHT(5),
         ;
 
-        public final int amount;
+        public final int amount; // TODO: remove
+        public static final int AMOUNT = 6;
 
         CastleBlockType(final int amount) {
             this.amount = amount;
