@@ -62,6 +62,7 @@ public class ToolStampCastles extends Tool {
     public Array<CastleBlock> singleCastleBlocks = new Array<>();
     private final Array<CastleBlock> toolOverlay = new Array<>();
     public CastleBlockType type = CastleBlockType.values()[0];
+    public Race race = Race.HUMAN;
     public int singleCurrentIndex = 0;
     public TextureRegion currentRegion;
 
@@ -119,7 +120,10 @@ public class ToolStampCastles extends Tool {
                 System.out.println("</combination>");
             }
         } else if (mode == Mode.COMBINATION) {
-            if (Input.mouse.getVerticalScroll() > 0) {
+            if (Input.mouse.isButtonClicked(Mouse.Button.RIGHT)) {
+                race = Race.values()[(race.ordinal() + 1) % Race.values().length]; // next
+
+            } else if (Input.mouse.getVerticalScroll() > 0) {
                 comboIndex++;
                 comboIndex %= COMBINATIONS.size;
             } else if (Input.mouse.getVerticalScroll() < 0) {
