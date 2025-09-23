@@ -9,17 +9,17 @@ regions:
   textureIndex: 0
   x: 2
   y: 2
-- name: assets/textures-layer-4/cloud_2.png
+- name: assets/textures-layer-4/rainbow.png
   offsetX: 0
-  offsetY: 0
-  originalHeight: 256
-  originalWidth: 256
-  packedHeight: 256
-  packedWidth: 256
+  offsetY: 77
+  originalHeight: 286
+  originalWidth: 385
+  packedHeight: 209
+  packedWidth: 385
   textureIndex: 0
-  x: 2591
-  y: 2
-- name: assets/textures-layer-4/cloud_3.png
+  x: 2851
+  y: 254
+- name: assets/textures-layer-4/cloud_2.png
   offsetX: 0
   offsetY: 0
   originalHeight: 256
@@ -29,7 +29,7 @@ regions:
   textureIndex: 0
   x: 2071
   y: 2
-- name: assets/textures-layer-4/cloud_4.png
+- name: assets/textures-layer-4/cloud_3.png
   offsetX: 0
   offsetY: 0
   originalHeight: 256
@@ -38,6 +38,16 @@ regions:
   packedWidth: 256
   textureIndex: 0
   x: 2331
+  y: 2
+- name: assets/textures-layer-4/cloud_4.png
+  offsetX: 0
+  offsetY: 0
+  originalHeight: 256
+  originalWidth: 256
+  packedHeight: 256
+  packedWidth: 256
+  textureIndex: 0
+  x: 2591
   y: 2
 - name: assets/textures-layer-4/cloud_1.png
   offsetX: 4
@@ -107,8 +117,8 @@ regions:
   packedHeight: 183
   packedWidth: 244
   textureIndex: 0
-  x: 3101
-  y: 252
+  x: 2071
+  y: 262
 - name: assets/textures-layer-4/cloud_11.png
   offsetX: 12
   offsetY: 44
@@ -117,8 +127,8 @@ regions:
   packedHeight: 181
   packedWidth: 244
   textureIndex: 0
-  x: 2851
-  y: 254
+  x: 2319
+  y: 262
 textures:
 - file: layer_4_0.png
   height: 4096
