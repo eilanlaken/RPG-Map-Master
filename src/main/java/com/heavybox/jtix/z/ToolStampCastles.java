@@ -226,6 +226,15 @@ public class ToolStampCastles extends Tool {
         CASTLE_WALL_BACK_RIGHT(5),
         CASTLE_WALL_FRONT_LEFT(5),
         CASTLE_WALL_FRONT_RIGHT(5),
+
+        // TODO
+        CASTLE_CUBE_LEFT(5),
+        CASTLE_CUBE_RIGHT(5),
+        CASTLE_CUBE_UP(5),
+
+        // TODO
+        CASTLE_BRIDGE_VERTICAL(5),
+        CASTLE_BRIDGE_HORIZONTAL(5),
         ;
 
         public final int amount; // TODO: remove
