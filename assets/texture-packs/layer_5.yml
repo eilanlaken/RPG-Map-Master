@@ -19,6 +19,26 @@ regions:
   textureIndex: 0
   x: 262
   y: 2
+- name: assets/textures-layer-5/border_1_edge.png
+  offsetX: 0
+  offsetY: 0
+  originalHeight: 42
+  originalWidth: 118
+  packedHeight: 42
+  packedWidth: 118
+  textureIndex: 0
+  x: 384
+  y: 148
+- name: assets/textures-layer-5/border_1_tile.png
+  offsetX: 0
+  offsetY: 0
+  originalHeight: 42
+  originalWidth: 118
+  packedHeight: 42
+  packedWidth: 118
+  textureIndex: 0
+  x: 262
+  y: 148
 textures:
 - file: layer_5_0.png
   height: 512
