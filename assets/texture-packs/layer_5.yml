@@ -1,11 +1,11 @@
 regions:
 - name: assets/textures-layer-5/decorations_sun.png
   offsetX: 0
-  offsetY: 0
+  offsetY: 1
   originalHeight: 315
   originalWidth: 256
-  packedHeight: 315
-  packedWidth: 256
+  packedHeight: 313
+  packedWidth: 254
   textureIndex: 0
   x: 2
   y: 2
@@ -17,7 +17,7 @@ regions:
   packedHeight: 142
   packedWidth: 133
   textureIndex: 0
-  x: 262
+  x: 260
   y: 2
 - name: assets/textures-layer-5/border_1_edge.png
   offsetX: 0
@@ -27,7 +27,7 @@ regions:
   packedHeight: 42
   packedWidth: 118
   textureIndex: 0
-  x: 384
+  x: 382
   y: 148
 - name: assets/textures-layer-5/border_1_tile.png
   offsetX: 0
@@ -37,7 +37,7 @@ regions:
   packedHeight: 42
   packedWidth: 118
   textureIndex: 0
-  x: 262
+  x: 260
   y: 148
 textures:
 - file: layer_5_0.png
