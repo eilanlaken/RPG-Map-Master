@@ -35,8 +35,8 @@ public class Map {
 
     public Map(boolean initEmpty) {
         layer0 = new MapLayer_0();
-        layer1 = new MapLayer_1();
-        layer3 = new MapLayer_3();
+        //layer1 = new MapLayer_1();
+        //layer3 = new MapLayer_3();
     }
 
     public void addCommand(Command command) {
@@ -62,7 +62,6 @@ public class Map {
     }
 
     private void executeCommand(Command command) {
-        System.out.println("jj + " + command.layer);
         if (command.layer == 0) layer0.executeCommand(command);
         if (command.layer == 1) layer1.executeCommand(command);
         if (command.layer == 3) layer3.executeCommand(command);
@@ -78,8 +77,8 @@ public class Map {
 
     public void render(Renderer2D renderer2D) {
         layer0.applyChanges(renderer2D);
-        layer1.applyChanges(renderer2D);
-        layer3.applyChanges(renderer2D); // TODO: use applyChanges
+        //layer1.applyChanges(renderer2D);
+        //layer3.applyChanges(renderer2D); // TODO: use applyChanges
 
         FrameBufferBinder.bind(mapFinal);
         GL11.glClearColor(1.0f,1.0f,1.0f,1);
@@ -87,11 +86,11 @@ public class Map {
         renderer2D.begin(camera);
         // render layer-0
         renderer2D.drawTexture(layer0.getTexture(), 0, 0, 0, 1,1);
-        renderer2D.drawTexture(layer1.getTexture(), 0, 0, 0, 1,1);
+        //renderer2D.drawTexture(layer1.getTexture(), 0, 0, 0, 1,1);
         // render layer-1
         // render layer-2
         // render layer-3
-        renderer2D.drawTexture(layer3.getTexture(), 0, 0, 0, 1,1);
+        //renderer2D.drawTexture(layer3.getTexture(), 0, 0, 0, 1,1);
 
         // render layer-4
         renderer2D.end();
