@@ -10,6 +10,7 @@ import com.heavybox.jtix.input.Mouse;
 public class ToolTerrain extends Tool {
 
     public Mode mode = Mode.SUB;
+    public Target target = Target.FOREGROUND_STONE;
 
     public Texture brushAdd;
     public Texture brushSub;
@@ -29,8 +30,12 @@ public class ToolTerrain extends Tool {
         size += 2 * Input.mouse.getVerticalScroll();
         sclX = size / 512.0f;
         sclY = size / 512.0f;
-        if (Input.keyboard.isKeyJustPressed(Keyboard.Key.TAB)) {
-            mode = Mode.values()[(mode.ordinal() + 1) % Mode.values().length];
+        if (Input.keyboard.isKeyJustPressed(Keyboard.Key.EQUAL)) {
+            mode = Mode.ADD;
+        } else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.MINUS)) {
+            mode = Mode.SUB;
+        } else if (Input.mouse.isButtonClicked(Mouse.Button.RIGHT)) {
+            target = Target.values()[(target.ordinal() + 1) % Target.values().length];
         }
         if (Input.mouse.isButtonJustPressed(Mouse.Button.LEFT)) {
             CommandTerrain commandTerrain = new CommandTerrain(x, y, 0, sclX, sclY, size,false, mode);
@@ -71,7 +76,8 @@ public class ToolTerrain extends Tool {
     public enum Target {
         BACKGROUND,
         TERRAIN,
-        FOREGROUND
+        FOREGROUND_STONE,
+        FOREGROUND_ROAD,
     }
 
 }

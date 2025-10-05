@@ -40,6 +40,7 @@ public class MapLayer_0_new extends MapLayer_0 implements MapLayer {
         terrainGrass = Assets.get("assets/textures-layer-0/terrain-grass_1920x1080.png");
         terrainWater = Assets.get("assets/textures-layer-0/terrain-water_1920x1080.png");
         terrainStones = Assets.get("assets/textures-layer-0/terrain-stones_1920x1080.png");
+        terrainRoad = Assets.get("assets/textures-layer-0/terrain-road_1920x1080.png");
         terrainSteepness = Assets.get("assets/textures-layer-0/terrain-rock_1920x1080.jpg");
         brushSub = new Texture("assets/tools/terrain-brush-erase.png");
         brushAdd = new Texture("assets/tools/terrain-brush-draw.png");
@@ -93,10 +94,10 @@ public class MapLayer_0_new extends MapLayer_0 implements MapLayer {
         renderer2D.setBlending(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         for (CommandTerrain cmd : commandsQueueTerrainMask) {
             Texture texture = cmd.mode == ToolTerrain.Mode.ADD ? brushAdd : brushSub;
-            renderer2D.setColor(Color.RED);
             renderer2D.drawTexture(texture, cmd.x, cmd.y, 0, cmd.sclX, cmd.sclY);
         }
         renderer2D.end();
+
 
         // update terrain mask
         FrameBufferBinder.bind(terrainMask);
@@ -115,6 +116,11 @@ public class MapLayer_0_new extends MapLayer_0 implements MapLayer {
         renderer2D.setBlending(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         renderer2D.drawTexture(terrainWater, 0, 0, 0, 1, -1);
         renderer2D.setShader(terrainShader);
+        renderer2D.setShaderAttribute("u_texture_map_0", terrainBlendMap.getColorAttachment("attachment_0"));
+        renderer2D.setShaderAttribute("u_texture_0", terrainStones);
+        renderer2D.setShaderAttribute("u_texture_map_1", terrainBlendMap.getColorAttachment("attachment_1"));
+        renderer2D.setShaderAttribute("u_texture_1", terrainRoad);
+
         renderer2D.setShaderAttribute("u_texture_mask", terrainMask.getColorAttachment0());
         renderer2D.setShaderAttribute("u_texture_steepness", terrainSteepness);
         renderer2D.drawTexture(terrainGrass, 0, 0, 0, 1, -1);
@@ -133,8 +139,8 @@ public class MapLayer_0_new extends MapLayer_0 implements MapLayer {
 
     @Override
     public Texture getTexture() {
-        return terrainBlendMap.getColorAttachment("attachment_0");
+        //return terrainBlendMap.getColorAttachment("attachment_0");
         //return terrainBlendMap.getColorAttachment0();
-        //return layer0.getColorAttachment0(); // for now.
+        return layer0.getColorAttachment0(); // for now.
     }
 }
