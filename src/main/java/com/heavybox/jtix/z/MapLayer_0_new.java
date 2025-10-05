@@ -62,12 +62,8 @@ public class MapLayer_0_new extends MapLayer_0 implements MapLayer {
                 .addColorAttachment("attachment_1")
                 .end();
         FrameBufferBinder.bind(terrainBlendMap);
-        terrainBlendMap.setRenderTargets("attachment_0");
-        GL11.glClearColor(1,0,0,1f);
-        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
-
-        terrainBlendMap.setRenderTargets("attachment_1");
-        GL11.glClearColor(0,1,0,1f);
+        //terrainBlendMap.setRenderTargets("attachment_0");
+        GL11.glClearColor(0,0,0,1f);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
     }
 
@@ -90,6 +86,17 @@ public class MapLayer_0_new extends MapLayer_0 implements MapLayer {
     @Override
     public void applyChanges(Renderer2D renderer2D) {
         if (!changed) return;
+
+        FrameBufferBinder.bind(terrainBlendMap);
+        terrainBlendMap.setRenderTargets("attachment_0");
+        renderer2D.begin(camera);
+        renderer2D.setBlending(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+        for (CommandTerrain cmd : commandsQueueTerrainMask) {
+            Texture texture = cmd.mode == ToolTerrain.Mode.ADD ? brushAdd : brushSub;
+            renderer2D.setColor(Color.RED);
+            renderer2D.drawTexture(texture, cmd.x, cmd.y, 0, cmd.sclX, cmd.sclY);
+        }
+        renderer2D.end();
 
         // update terrain mask
         FrameBufferBinder.bind(terrainMask);
@@ -126,7 +133,7 @@ public class MapLayer_0_new extends MapLayer_0 implements MapLayer {
 
     @Override
     public Texture getTexture() {
-        return terrainBlendMap.getColorAttachment(1);
+        return terrainBlendMap.getColorAttachment("attachment_0");
         //return terrainBlendMap.getColorAttachment0();
         //return layer0.getColorAttachment0(); // for now.
     }
