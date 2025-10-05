@@ -6,22 +6,27 @@ import com.heavybox.jtix.graphics.*;
 import org.lwjgl.opengl.GL11;
 
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL14.glBlendFuncSeparate;
 
 public class MapLayer_0 implements MapLayer {
 
-    private FrameBuffer layer0 = new FrameBuffer(1920, 1080);;
+    private FrameBuffer layer0 = new FrameBuffer(1920, 1080);
+
+    private FrameBuffer canvas = new FrameBuffer(1920, 1080); // <- draw roads here
+    // color attachments: 0: bg, 1: grass / road / stone, 2: land / sea / steep
+
     private FrameBuffer terrainBlendMap = new FrameBuffer(1920, 1080); // <- draw roads here
     private FrameBuffer terrainMask = new FrameBuffer(1920, 1080); // <- draw terrain here
     public final Camera camera = new Camera(Camera.Mode.ORTHOGRAPHIC, 1920, 1080, 1, 0, 100, 75);
 
+    private Texture backgroundMorning;
     private Texture terrainGrass;
     private Texture terrainWater;
     private Texture terrainSteepness;
+    private Texture terrainStones;
     private Texture terrainRoad;
 
-    public Texture terrainBrushSub;
-    public Texture terrainBrushAdd;
+    public Texture brushAdd;
+    public Texture brushSub;
 
     private Shader terrainShader;
 
@@ -35,8 +40,8 @@ public class MapLayer_0 implements MapLayer {
         terrainGrass = Assets.get("assets/textures-layer-0/terrain-grass_1920x1080.png");
         terrainWater = Assets.get("assets/textures-layer-0/terrain-water_1920x1080.png");
         terrainSteepness = Assets.get("assets/textures-layer-0/terrain-rock_1920x1080.jpg");
-        terrainBrushSub = new Texture("assets/tools/terrain-brush-erase.png");
-        terrainBrushAdd = new Texture("assets/tools/terrain-brush-draw.png");
+        brushSub = new Texture("assets/tools/terrain-brush-erase.png");
+        brushAdd = new Texture("assets/tools/terrain-brush-draw.png");
 
         String terrainVertexShaderSrc = Assets.getFileContent("assets/shaders/terrain-mask.vert");
         String terrainFragmentShaderSrc = Assets.getFileContent("assets/shaders/terrain-mask.frag");
@@ -53,8 +58,7 @@ public class MapLayer_0 implements MapLayer {
 
         if (!(command instanceof CommandTerrain)) return;
         CommandTerrain cmd = (CommandTerrain) command;
-        if (cmd.mode == ToolTerrain.Mode.ADD_LAND || cmd.mode == ToolTerrain.Mode.SUB_LAND) commandsQueueTerrainMask.add(cmd);
-        if (cmd.mode == ToolTerrain.Mode.ADD_ROAD || cmd.mode == ToolTerrain.Mode.SUB_ROAD) commandsQueueTerrainBlendMap.add(cmd);
+        if (cmd.mode == ToolTerrain.Mode.ADD || cmd.mode == ToolTerrain.Mode.SUB) commandsQueueTerrainMask.add(cmd);
         commandsHistory.add(cmd);
     }
 
@@ -73,7 +77,7 @@ public class MapLayer_0 implements MapLayer {
         renderer2D.begin(camera);
         renderer2D.setBlending(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         for (CommandTerrain cmd : commandsQueueTerrainMask) {
-            Texture texture = cmd.mode == ToolTerrain.Mode.ADD_LAND ? terrainBrushAdd : terrainBrushSub;
+            Texture texture = cmd.mode == ToolTerrain.Mode.ADD ? brushAdd : brushSub;
             renderer2D.drawTexture(texture, cmd.x, cmd.y, 0, cmd.sclX, cmd.sclY);
         }
         renderer2D.end();

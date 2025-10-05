@@ -1,5 +1,6 @@
 package com.heavybox.jtix.graphics;
 
+import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.memory.MemoryResource;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
@@ -7,6 +8,7 @@ import org.lwjgl.opengl.GL14;
 import org.lwjgl.opengl.GL30;
 
 import java.nio.IntBuffer;
+import java.util.Map;
 
 // TODO: implement.
 // https://github.com/libgdx/libgdx/blob/master/gdx/src/com/badlogic/gdx/graphics/glutils/FrameBuffer.java
@@ -18,8 +20,9 @@ public class FrameBuffer implements MemoryResource {
     private final int handle;
     private final int depthStencilRBO;
 
-    private final Texture colorAttachment0;
-    private final Texture colorAttachment1;
+    private Map<String, Texture> colorAttachments;
+    @Deprecated private final Texture colorAttachment0;
+    @Deprecated private final Texture colorAttachment1;
 
     private Texture depthAttachment;
 
@@ -131,12 +134,16 @@ public class FrameBuffer implements MemoryResource {
         return handle;
     }
 
-    public Texture getColorAttachment0() {
+    @Deprecated public Texture getColorAttachment0() {
         return colorAttachment0;
     }
 
-    public Texture getColorAttachment1() {
+    @Deprecated public Texture getColorAttachment1() {
         return colorAttachment1;
+    }
+
+    public Texture getColorAttachment(final String name) {
+        return colorAttachments.get(name);
     }
 
     public Texture getDepthAttachment() {
@@ -150,6 +157,8 @@ public class FrameBuffer implements MemoryResource {
         if (colorAttachment1 != null) colorAttachment1.delete();
         GL30.glDeleteRenderbuffers(depthStencilRBO);
     }
+
+    // TODO: add format customization support.
 
 }
 

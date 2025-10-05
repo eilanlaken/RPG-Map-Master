@@ -9,7 +9,7 @@ import com.heavybox.jtix.input.Mouse;
 
 public class ToolTerrain extends Tool {
 
-    public Mode mode = Mode.SUB_LAND;
+    public Mode mode = Mode.SUB;
 
     public Texture brushAdd;
     public Texture brushSub;
@@ -46,9 +46,9 @@ public class ToolTerrain extends Tool {
     @Override
     public void renderToolOverlay(Renderer2D renderer2D, float x, float y) {
         renderer2D.setColor(Color.WHITE);
-        if (mode == Mode.ADD_LAND || mode == Mode.ADD_ROAD) {
+        if (mode == Mode.ADD) {
             renderer2D.drawTexture(brushAdd, x, y, 0, sclX, sclY);
-        } else if (mode == Mode.SUB_LAND || mode == Mode.SUB_ROAD) {
+        } else if (mode == Mode.SUB) {
             renderer2D.drawTexture(brushSub, x, y, 0, sclX, sclY);
         }
     }
@@ -64,12 +64,14 @@ public class ToolTerrain extends Tool {
     }
 
     public enum Mode {
+        SUB,
+        ADD,
+    }
 
-        SUB_LAND,
-        ADD_LAND,
-        ADD_ROAD,
-        SUB_ROAD
-
+    public enum Target {
+        BACKGROUND,
+        TERRAIN,
+        FOREGROUND
     }
 
 }

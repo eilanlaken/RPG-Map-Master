@@ -2,7 +2,6 @@ package com.heavybox.jtix;
 
 import com.heavybox.jtix.application.Application;
 import com.heavybox.jtix.application.ApplicationSettings;
-import com.heavybox.jtix.tools.ToolsTexturePacker;
 
 import java.io.IOException;
 
@@ -13,9 +12,7 @@ public class Main {
         ApplicationSettings settings = new ApplicationSettings();
         //settings.resizable = false;
         Application.init(settings);
-        Application.launch(new SceneDemo_4());
+        Application.launch(new SceneDemo());
     }
-
-
 
 }
