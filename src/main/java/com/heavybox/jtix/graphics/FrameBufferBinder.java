@@ -9,8 +9,8 @@ import java.nio.IntBuffer;
 
 public class FrameBufferBinder {
 
-    private static FrameBuffer boundFrameBuffer = null;
-    private static IntBuffer   bountAttachmentScreen = BufferUtils.createIntBuffer(1).put(GL30.GL_COLOR_ATTACHMENT0).flip();
+    private static       FrameBuffer boundFrameBuffer      = null;
+    private static final IntBuffer   boundAttachmentScreen = BufferUtils.createIntBuffer(1).put(GL30.GL_COLOR_ATTACHMENT0).flip();
 
     public static void bind() {
         bind(null);
@@ -24,7 +24,7 @@ public class FrameBufferBinder {
 
         if (frameBuffer == null) {
             GL30.glBindFramebuffer(GL30.GL_FRAMEBUFFER, 0);
-            GL30.glDrawBuffers(bountAttachmentScreen);
+            GL30.glDrawBuffers(boundAttachmentScreen);
             boundFrameBuffer = null;
             GL20.glViewport(0, 0, Graphics.getWindowWidth(), Graphics.getWindowHeight());
             return;
@@ -34,6 +34,10 @@ public class FrameBufferBinder {
         GL30.glDrawBuffers(frameBuffer.boundAttachments);
         boundFrameBuffer = frameBuffer;
         GL20.glViewport(0, 0, frameBuffer.width, frameBuffer.height);
+    }
+
+    public static boolean isBound(final FrameBuffer frameBuffer) {
+        return boundFrameBuffer == frameBuffer;
     }
 
 }

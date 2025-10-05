@@ -7,7 +7,7 @@ import org.lwjgl.opengl.GL11;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public class MapLayer_0 implements MapLayer {
+public class MapLayer_0_new extends MapLayer_0 implements MapLayer {
 
     private FrameBuffer layer0 = new FrameBuffer(1920, 1080);
 
@@ -36,7 +36,7 @@ public class MapLayer_0 implements MapLayer {
 
     private boolean changed = true;
 
-    public MapLayer_0() {
+    public MapLayer_0_new() {
         terrainGrass = Assets.get("assets/textures-layer-0/terrain-grass_1920x1080.png");
         terrainWater = Assets.get("assets/textures-layer-0/terrain-water_1920x1080.png");
         terrainStones = Assets.get("assets/textures-layer-0/terrain-stones_1920x1080.png");
@@ -48,12 +48,26 @@ public class MapLayer_0 implements MapLayer {
         String terrainFragmentShaderSrc = Assets.getFileContent("assets/shaders/terrain-mask.frag");
         this.terrainShader = new Shader(terrainVertexShaderSrc, terrainFragmentShaderSrc);
 
+
+
         FrameBufferBinder.bind(terrainMask);
         GL11.glClearColor(1,1,1,1);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
 
+        // blendmap frame buffer
+        terrainBlendMap = FrameBufferBuilder.begin()
+                .setWidth(1920)
+                .setHeight(1080)
+                .addColorAttachment("attachment_0")
+                .addColorAttachment("attachment_1")
+                .end();
         FrameBufferBinder.bind(terrainBlendMap);
-        GL11.glClearColor(0,0,0,1f);
+        terrainBlendMap.setRenderTargets("attachment_0");
+        GL11.glClearColor(1,0,0,1f);
+        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
+
+        terrainBlendMap.setRenderTargets("attachment_1");
+        GL11.glClearColor(0,1,0,1f);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
     }
 
@@ -76,16 +90,6 @@ public class MapLayer_0 implements MapLayer {
     @Override
     public void applyChanges(Renderer2D renderer2D) {
         if (!changed) return;
-
-        FrameBufferBinder.bind(terrainBlendMap);
-        renderer2D.begin(camera);
-        renderer2D.setBlending(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-        for (CommandTerrain cmd : commandsQueueTerrainMask) {
-            Texture texture = cmd.mode == ToolTerrain.Mode.ADD ? brushAdd : brushSub;
-            renderer2D.setColor(1,0,0,0.2f);
-            renderer2D.drawTexture(texture, cmd.x, cmd.y, 0, cmd.sclX, cmd.sclY);
-        }
-        renderer2D.end();
 
         // update terrain mask
         FrameBufferBinder.bind(terrainMask);
@@ -122,7 +126,8 @@ public class MapLayer_0 implements MapLayer {
 
     @Override
     public Texture getTexture() {
-        return terrainBlendMap.getColorAttachment0();
+        return terrainBlendMap.getColorAttachment(1);
+        //return terrainBlendMap.getColorAttachment0();
         //return layer0.getColorAttachment0(); // for now.
     }
 }

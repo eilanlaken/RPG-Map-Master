@@ -14,8 +14,8 @@ public class ToolTerrain extends Tool {
     public Texture brushAdd;
     public Texture brushSub;
 
-    public float scale = 0.25f;
-    public float size = 50;
+    public float scale = 0.5f;
+    public float size = 200;
 
     public ToolTerrain(Map map) {
         super(map);
@@ -33,10 +33,10 @@ public class ToolTerrain extends Tool {
             mode = Mode.values()[(mode.ordinal() + 1) % Mode.values().length];
         }
         if (Input.mouse.isButtonJustPressed(Mouse.Button.LEFT)) {
-            CommandTerrain commandTerrain = new CommandTerrain(x, y, 0, sclX, sclY, false, mode);
+            CommandTerrain commandTerrain = new CommandTerrain(x, y, 0, sclX, sclY, size,false, mode);
             map.addCommand(commandTerrain);
         } else if (Input.mouse.isButtonPressed(Mouse.Button.LEFT) && (Input.mouse.getXDelta() != 0 || Input.mouse.getYDelta() != 0)) {
-            CommandTerrain commandTerrain = new CommandTerrain(x, y, 0, sclX, sclY, false, mode);
+            CommandTerrain commandTerrain = new CommandTerrain(x, y, 0, sclX, sclY, size,false, mode);
             map.addCommand(commandTerrain);
         } else if (Input.mouse.isButtonJustReleased(Mouse.Button.LEFT)) {
 

@@ -17,7 +17,7 @@ public final class FrameBufferBuilder {
 
     private FrameBufferBuilder() {}
 
-    public FrameBufferBuilder begin() {
+    public static FrameBufferBuilder begin() {
         if (building) throw new GraphicsException("Error: nesting FrameBufferBuilder.begin() and FrameBufferBuilder.end()" +
                 " calls is not allowed. Must call FrameBufferBuilder.end() before building a new FrameBuffer.");
         building = true;
@@ -30,6 +30,20 @@ public final class FrameBufferBuilder {
 //        internalFormat = format;
 //        return builder;
 //    }
+
+    public FrameBufferBuilder setWidth(int width) {
+        if (!building) throw new GraphicsException("Must call " + FrameBufferBuilder.class.getSimpleName() + ".begin() first.");
+        if (width <= 0) throw new GraphicsException("width must be > 0. Got: " + width);
+        FrameBufferBuilder.width = width;
+        return builder;
+    }
+
+    public FrameBufferBuilder setHeight(int height) {
+        if (!building) throw new GraphicsException("Must call " + FrameBufferBuilder.class.getSimpleName() + ".begin() first.");
+        if (height <= 0) throw new GraphicsException("height must be > 0. Got: " + height);
+        FrameBufferBuilder.height = height;
+        return builder;
+    }
 
     public FrameBufferBuilder addColorAttachment(final String name) {
         if (!building) throw new GraphicsException("Must call " + FrameBufferBuilder.class.getSimpleName() + ".begin() first.");
@@ -63,7 +77,7 @@ public final class FrameBufferBuilder {
                  ...
                  .end();""");
         if (colorAttachments.isEmpty()) throw new GraphicsException("Must add at least 1 color attachment by calling addColorAttachment().");
-        FrameBuffer frameBuffer = new FrameBuffer(width, height);// TODO: use the proper all args constructor
+        FrameBuffer frameBuffer = new FrameBuffer(width, height, colorAttachments, depthAttachment, stencilAttachment);// TODO: use the proper all args constructor
 
         reset();
         return frameBuffer; // TODO: return a FrameBuffer using all args constructor.

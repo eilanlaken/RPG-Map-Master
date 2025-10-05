@@ -15,8 +15,6 @@ uniform sampler2D u_texture_mask;
 layout (location = 0) out vec4 out_color;
 
 void main() {
-    //vec4 color = texture(u_texture, uv);
-
     vec4 tex1 = texture(u_texture, uv);
     vec4 tex2 = texture(u_texture_steepness, uv) * tex1;
     float alpha = texture(u_texture_mask, uv).r;

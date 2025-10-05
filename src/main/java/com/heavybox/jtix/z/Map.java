@@ -1,9 +1,7 @@
 package com.heavybox.jtix.z;
 
-import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.graphics.*;
-import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 
 import javax.imageio.ImageIO;
@@ -14,7 +12,7 @@ import java.nio.ByteBuffer;
 public class Map {
 
 
-    public MapLayer_0 layer0; // Terrain layer (wheat fields)
+    public MapLayer_0_new layer0; // Terrain layer (wheat fields)
     public MapLayer_1 layer1; // Ground layer (wheat fields)
     public MapLayer_3 layer3; // Token layer
 
@@ -34,7 +32,7 @@ public class Map {
     private boolean needsRedraw = false;
 
     public Map(boolean initEmpty) {
-        layer0 = new MapLayer_0();
+        layer0 = new MapLayer_0_new();
         //layer1 = new MapLayer_1();
         //layer3 = new MapLayer_3();
     }
