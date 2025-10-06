@@ -32,7 +32,8 @@ public class MapLayer_0_new extends MapLayer_0 implements MapLayer {
 
     private Array<CommandTerrain> commandsHistory = new Array<>(true, 100);
     private Array<CommandTerrain> commandsQueueTerrainMask = new Array<>(true, 100);
-    private Array<CommandTerrain> commandsQueueTerrainBlendMap = new Array<>(true, 100);
+    private Array<CommandTerrain> commandsQueueTerrainBlendMapStone = new Array<>(true, 100);
+    private Array<CommandTerrain> commandsQueueTerrainBlendMapRoad = new Array<>(true, 100);
 
     private boolean changed = true;
 
@@ -74,7 +75,9 @@ public class MapLayer_0_new extends MapLayer_0 implements MapLayer {
 
         if (!(command instanceof CommandTerrain)) return;
         CommandTerrain cmd = (CommandTerrain) command;
-        if (cmd.mode == ToolTerrain.Mode.ADD || cmd.mode == ToolTerrain.Mode.SUB) commandsQueueTerrainMask.add(cmd);
+        if (cmd.target == ToolTerrain.Target.TERRAIN) commandsQueueTerrainMask.add(cmd);
+        if (cmd.target == ToolTerrain.Target.FOREGROUND_STONE) commandsQueueTerrainBlendMapStone.add(cmd);
+        if (cmd.target == ToolTerrain.Target.FOREGROUND_ROAD) commandsQueueTerrainBlendMapRoad.add(cmd);
         commandsHistory.add(cmd);
     }
 
@@ -92,7 +95,16 @@ public class MapLayer_0_new extends MapLayer_0 implements MapLayer {
         terrainBlendMap.setRenderTargets("attachment_0");
         renderer2D.begin(camera);
         renderer2D.setBlending(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-        for (CommandTerrain cmd : commandsQueueTerrainMask) {
+        for (CommandTerrain cmd : commandsQueueTerrainBlendMapStone) {
+            Texture texture = cmd.mode == ToolTerrain.Mode.ADD ? brushAdd : brushSub;
+            renderer2D.drawTexture(texture, cmd.x, cmd.y, 0, cmd.sclX, cmd.sclY);
+        }
+        renderer2D.end();
+
+        terrainBlendMap.setRenderTargets("attachment_1");
+        renderer2D.begin(camera);
+        renderer2D.setBlending(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+        for (CommandTerrain cmd : commandsQueueTerrainBlendMapRoad) {
             Texture texture = cmd.mode == ToolTerrain.Mode.ADD ? brushAdd : brushSub;
             renderer2D.drawTexture(texture, cmd.x, cmd.y, 0, cmd.sclX, cmd.sclY);
         }
@@ -132,7 +144,8 @@ public class MapLayer_0_new extends MapLayer_0 implements MapLayer {
         renderer2D.end();
 
         commandsQueueTerrainMask.clear();
-        commandsQueueTerrainBlendMap.clear();
+        commandsQueueTerrainBlendMapStone.clear();
+        commandsQueueTerrainBlendMapRoad.clear();
 
         changed = false;
     }

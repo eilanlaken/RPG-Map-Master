@@ -38,10 +38,10 @@ public class ToolTerrain extends Tool {
             target = Target.values()[(target.ordinal() + 1) % Target.values().length];
         }
         if (Input.mouse.isButtonJustPressed(Mouse.Button.LEFT)) {
-            CommandTerrain commandTerrain = new CommandTerrain(x, y, 0, sclX, sclY, size,false, mode);
+            CommandTerrain commandTerrain = new CommandTerrain(x, y, 0, sclX, sclY, size,false, mode, target);
             map.addCommand(commandTerrain);
         } else if (Input.mouse.isButtonPressed(Mouse.Button.LEFT) && (Input.mouse.getXDelta() != 0 || Input.mouse.getYDelta() != 0)) {
-            CommandTerrain commandTerrain = new CommandTerrain(x, y, 0, sclX, sclY, size,false, mode);
+            CommandTerrain commandTerrain = new CommandTerrain(x, y, 0, sclX, sclY, size,false, mode, target);
             map.addCommand(commandTerrain);
         } else if (Input.mouse.isButtonJustReleased(Mouse.Button.LEFT)) {
 
