@@ -12,15 +12,22 @@ import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Vector2;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class ToolStampTrees extends Tool {
 
     public static final int TREE_DENSITY = 17; // The minimal distance between trees
-    public float addFruitsProbability = 0.5f;
-    public boolean addTrunk = true;
+    public final TexturePack layer3;
+    public static final String[] FRUIT_COLORS = {"red", "orange", "green"};
+    public static final String[] TREE_COLORS = {"green", "red", "yellow"};
+
     public Mode mode = Mode.REGULAR;
     public int batchSize = 10;
-    public TexturePack layer3;
-    public Color fruitsColor = Color.RED;
+    public boolean addTrunk = true;
+    public float addFruitsProbability = 0.5f;
+    public Set<String> fruitColors = new HashSet<>();
+    public Set<String> treeColors = new HashSet<>();
 
     private final Array<Vector2> positions = new Array<>(false, 10);
     private final Array<MapToken> trees = new Array<>();
@@ -30,6 +37,11 @@ public class ToolStampTrees extends Tool {
         sclX = 0.25f;
         sclY = 0.25f;
         layer3 = Assets.get("assets/texture-packs/layer_3.yml");
+        fruitColors.add(FRUIT_COLORS[0]);
+        fruitColors.add(FRUIT_COLORS[1]);
+        fruitColors.add(FRUIT_COLORS[2]);
+
+        treeColors.add(TREE_COLORS[0]); // only green
     }
 
     @Override

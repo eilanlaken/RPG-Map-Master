@@ -74,10 +74,8 @@ public class FrameBuffer implements MemoryResource {
         activeAttachments.clear();
         for (String target : targets) {
             int index = colorAttachmentsMap.get(target).getGLAttachmentIndex();
-            System.out.println(index);
             this.activeAttachments.put(index);
         }
-        System.out.println(this.activeAttachments.limit());
         this.activeAttachments.flip();
         GL30.glDrawBuffers(this.activeAttachments);
     }
