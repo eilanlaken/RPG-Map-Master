@@ -11,19 +11,16 @@ public class MapLayer_0_new extends MapLayer_0 implements MapLayer {
 
     private FrameBuffer layer0 = new FrameBuffer(1920, 1080);
 
-    private FrameBuffer canvas = new FrameBuffer(1920, 1080); // <- draw roads here
-    // color attachments: 0: bg, 1: grass / road / stone, 2: land / sea / steep
-
     private FrameBuffer terrainBlendMap = new FrameBuffer(1920, 1080); // <- draw roads here
     private FrameBuffer terrainMask = new FrameBuffer(1920, 1080); // <- draw terrain here
     public final Camera camera = new Camera(Camera.Mode.ORTHOGRAPHIC, 1920, 1080, 1, 0, 100, 75);
 
     private Texture backgroundMorning;
-    private Texture terrainGrass;
-    private Texture terrainWater;
-    private Texture terrainSteepness;
-    private Texture terrainStones;
-    private Texture terrainRoad;
+    private final Texture terrainGrass;
+    private final Texture terrainWater;
+    private final Texture terrainSteepness;
+    private final Texture terrainStones;
+    private final Texture terrainRoad;
 
     public Texture brushAdd;
     public Texture brushSub;

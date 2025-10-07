@@ -11,14 +11,13 @@ import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Vector2;
-import com.heavybox.jtix.math.Vector3;
 
-public class ToolStampPlants extends Tool {
+public class ToolStampTrees extends Tool {
 
     public static final int TREE_DENSITY = 17; // The minimal distance between trees
     public float addFruitsProbability = 0.5f;
     public boolean addTrunk = true;
-    public Mode mode = Mode.TREE_REGULAR;
+    public Mode mode = Mode.REGULAR;
     public int batchSize = 10;
     public TexturePack layer3;
     public Color fruitsColor = Color.RED;
@@ -26,7 +25,7 @@ public class ToolStampPlants extends Tool {
     private final Array<Vector2> positions = new Array<>(false, 10);
     private final Array<MapToken> trees = new Array<>();
 
-    public ToolStampPlants(Map map) {
+    public ToolStampTrees(Map map) {
         super(map);
         sclX = 0.25f;
         sclY = 0.25f;
@@ -42,19 +41,19 @@ public class ToolStampPlants extends Tool {
             System.out.println(mode);
         } else if (Input.mouse.isButtonClicked(Mouse.Button.LEFT) || leftPressedAndMoved) {
             setPositions();
-            if (mode == Mode.TREE_REGULAR || mode == Mode.TREE_CYPRESS) {
+            if (mode == Mode.REGULAR || mode == Mode.CYPRESS) {
                 for (Vector2 position : positions) {
                     float x = position.x;
                     float y = position.y;
                     TextureRegion base =
-                            mode == Mode.TREE_REGULAR ?
+                            mode == Mode.REGULAR ?
                                     layer3.getRegion("assets/textures-layer-3/tree_regular_" + MathUtils.randomUniformInt(1, 7) + ".png")
                                     :
                                     layer3.getRegion("assets/textures-layer-3/tree_cypress_" + MathUtils.randomUniformInt(1, 7) + ".png");
                     TextureRegion trunk = addTrunk ? layer3.getRegion("assets/textures-layer-3/tree_regular_trunk_" + MathUtils.randomUniformInt(1, 11) + ".png") : null;
                     boolean addFruits = MathUtils.randomUniformFloat(0, 1) < addFruitsProbability;
                     TextureRegion fruits = addFruits ? // if addFruits, add regular or cypress fruits. Else, ignore.
-                            (mode == Mode.TREE_REGULAR ? layer3.getRegion("assets/textures-layer-3/tree_regular_fruits.png")
+                            (mode == Mode.REGULAR ? layer3.getRegion("assets/textures-layer-3/tree_regular_fruits.png")
                                     : layer3.getRegion("assets/textures-layer-3/tree_cypress_fruits.png")) : null;
                     CommandTokenCreate createPlant = new CommandTokenCreate(
                             3,
@@ -64,14 +63,14 @@ public class ToolStampPlants extends Tool {
                     createPlant.type = MapToken.Type.TREE;
                     map.addCommand(createPlant);
                 }
-            } else if (mode == Mode.TREE_DENSE || mode == Mode.TREE_SPARSE) {
-                TextureRegion base = mode == Mode.TREE_DENSE ?
+            } else if (mode == Mode.DENSE || mode == Mode.SPARSE) {
+                TextureRegion base = mode == Mode.DENSE ?
                         layer3.getRegion("assets/textures-layer-3/tree_dense_" + MathUtils.randomUniformInt(1,7) + ".png")
                         :
                         layer3.getRegion("assets/textures-layer-3/tree_sparse_" + MathUtils.randomUniformInt(1, 7) + ".png");
                 boolean addFruits = MathUtils.randomUniformFloat(0, 1) < addFruitsProbability;
                 TextureRegion fruits = addFruits ? // if addFruits, add regular or cypress fruits. Else, ignore.
-                        (mode == Mode.TREE_DENSE ? layer3.getRegion("assets/textures-layer-3/tree_dense_fruits.png")
+                        (mode == Mode.DENSE ? layer3.getRegion("assets/textures-layer-3/tree_dense_fruits.png")
                                 : layer3.getRegion("assets/textures-layer-3/tree_sparse_fruits.png")) : null;
                 CommandTokenCreate createPlant = new CommandTokenCreate(
                         3,
@@ -79,18 +78,11 @@ public class ToolStampPlants extends Tool {
                         base, fruits
                 );
                 map.addCommand(createPlant);
-            } else if (mode == Mode.BUSHES) {
+            } else if (mode == Mode.BUSH) {
                 TextureRegion base = layer3.getRegion("assets/textures-layer-3/tree_bush_" + MathUtils.randomUniformInt(1,7) + ".png");
                 CommandTokenCreate createPlant = new CommandTokenCreate(
                         3,
                         x, y, deg, sclX, sclY, true, base
-                );
-                map.addCommand(createPlant);
-            } else if (mode == Mode.FLOWERS) {
-                TextureRegion base = layer3.getRegion("assets/textures-layer-3/flower_" + MathUtils.randomUniformInt(1,5) + ".png");
-                CommandTokenCreate createPlant = new CommandTokenCreate(
-                        3,
-                        x, y, deg, 4 * sclX, 4 * sclY, true, base
                 );
                 map.addCommand(createPlant);
             }
@@ -145,14 +137,12 @@ public class ToolStampPlants extends Tool {
     }
 
     public enum Mode {
-        TREE_REGULAR,
-        TREE_CYPRESS,
-        TREE_DENSE,
-        TREE_SPARSE,
-
-        BUSHES,
-
-        FLOWERS,
+        REGULAR,
+        ACRE,
+        CYPRESS,
+        DENSE,
+        SPARSE,
+        BUSH,
         ;
     }
 
