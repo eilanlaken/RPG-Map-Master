@@ -34,7 +34,7 @@ public class Map {
     public Map(boolean initEmpty) {
         layer0 = new MapLayer_0_new();
         //layer1 = new MapLayer_1();
-        //layer3 = new MapLayer_3();
+        layer3 = new MapLayer_3();
     }
 
     public void addCommand(Command command) {
@@ -76,7 +76,7 @@ public class Map {
     public void render(Renderer2D renderer2D) {
         layer0.applyChanges(renderer2D);
         //layer1.applyChanges(renderer2D);
-        //layer3.applyChanges(renderer2D); // TODO: use applyChanges
+        layer3.applyChanges(renderer2D); // TODO: use applyChanges
 
         FrameBufferBinder.bind(mapFinal);
         GL11.glClearColor(1.0f,1.0f,1.0f,1);
@@ -88,7 +88,7 @@ public class Map {
         // render layer-1
         // render layer-2
         // render layer-3
-        //renderer2D.drawTexture(layer3.getTexture(), 0, 0, 0, 1,1);
+        renderer2D.drawTexture(layer3.getTexture(), 0, 0, 0, 1,1);
 
         // render layer-4
         renderer2D.end();

@@ -2,17 +2,16 @@ package com.heavybox.jtix.z;
 
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.collections.Array;
-import com.heavybox.jtix.graphics.Color;
-import com.heavybox.jtix.graphics.Renderer2D;
-import com.heavybox.jtix.graphics.TexturePack;
-import com.heavybox.jtix.graphics.TextureRegion;
+import com.heavybox.jtix.graphics.*;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Vector2;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class ToolStampTrees extends Tool {
@@ -24,7 +23,8 @@ public class ToolStampTrees extends Tool {
 
     public Mode mode = Mode.REGULAR;
     public int batchSize = 10;
-    public boolean addTrunk = true;
+    public float addLeavesProbability = 1.0f; // TODO
+    public float addTrunkProbability = 1.0f;
     public float addFruitsProbability = 0.5f;
     public Set<String> fruitColors = new HashSet<>();
     public Set<String> treeColors = new HashSet<>();
@@ -46,27 +46,102 @@ public class ToolStampTrees extends Tool {
 
     @Override
     public void update(float delta) {
-        boolean leftPressedAndMoved = Input.mouse.isButtonPressed(Mouse.Button.LEFT) && Input.mouse.moved();
-
-        if (Input.keyboard.isKeyJustPressed(Keyboard.Key.TAB)) {
-            mode = Mode.values()[(mode.ordinal() + 1) % Mode.values().length];
+        // tool settings - mode
+        if (Input.mouse.getVerticalScroll() > 0 && Input.keyboard.isKeyPressed(Keyboard.Key.LEFT_CONTROL)) {
+            mode = Mode.values()[(mode.ordinal() + 1) % Mode.values().length]; // next
             System.out.println(mode);
-        } else if (Input.mouse.isButtonClicked(Mouse.Button.LEFT) || leftPressedAndMoved) {
+            return;
+        } else if (Input.mouse.getVerticalScroll() < 0 && Input.keyboard.isKeyPressed(Keyboard.Key.LEFT_CONTROL)) {
+            mode = Mode.values()[(mode.ordinal() - 1 + Mode.values().length) % Mode.values().length];
+            System.out.println(mode);
+            return;
+        }
+        // tool settings - tree colors
+        boolean treeColorsModified = Input.keyboard.isKeyJustPressed(Keyboard.Key.Q)
+                || Input.keyboard.isKeyJustPressed(Keyboard.Key.W)
+                || Input.keyboard.isKeyJustPressed(Keyboard.Key.E);
+        if (treeColorsModified) {
+            int index = 0;
+            if (Input.keyboard.isKeyJustPressed(Keyboard.Key.Q)) index = 0;
+            else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.W)) index = 1;
+            else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.E)) index = 2;
+            String color_q = TREE_COLORS[index];
+            if (treeColors.contains(color_q) && treeColors.size() > 1) treeColors.remove(color_q);
+            else treeColors.add(color_q);
+            System.out.println("Tree colors: " + String.join(", ", treeColors));
+            return;
+        }
+
+        // tool settings - fruits color
+        boolean fruitColorsModified = Input.keyboard.isKeyJustPressed(Keyboard.Key.A)
+                || Input.keyboard.isKeyJustPressed(Keyboard.Key.S)
+                || Input.keyboard.isKeyJustPressed(Keyboard.Key.D);
+        if (fruitColorsModified) {
+            int index = 0;
+            if (Input.keyboard.isKeyJustPressed(Keyboard.Key.A)) index = 0;
+            else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.S)) index = 1;
+            else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.D)) index = 2;
+            String color_q = FRUIT_COLORS[index];
+            if (fruitColors.contains(color_q) && fruitColors.size() > 1) fruitColors.remove(color_q);
+            else fruitColors.add(color_q);
+            System.out.println("Fruit colors: " + String.join(", ", fruitColors));
+            return;
+        }
+
+        // tool settings - scale
+        float deltaScale = Input.mouse.isButtonPressed(Mouse.Button.RIGHT) && Input.keyboard.isKeyPressed(Keyboard.Key.Z) ? -Input.mouse.getYDelta() / (Graphics.getWindowHeight() * 0.3f) : 0;
+        sclX += deltaScale;
+        sclY += deltaScale;
+        sclX = MathUtils.clampFloat(sclX, 0.25f, 4);
+        sclY = MathUtils.clampFloat(sclY, 0.25f, 4);
+        if (deltaScale != 0) {
+            System.out.println("Scale: " + sclX);
+            return;
+        }
+
+        // tool settings - trunk probability
+        float deltaAddTrunkProbability = Input.mouse.isButtonPressed(Mouse.Button.RIGHT) && Input.keyboard.isKeyPressed(Keyboard.Key.X) ? -Input.mouse.getYDelta() / (Graphics.getWindowHeight() * 0.3f) : 0;
+        addTrunkProbability += deltaAddTrunkProbability;
+        addTrunkProbability = MathUtils.clampFloat(addTrunkProbability, 0, 1);
+        if (deltaAddTrunkProbability != 0) {
+            System.out.println("Add Trunk P: " + addTrunkProbability);
+            return;
+        }
+
+        // tool settings - fruits probability
+        float deltaAddFruitProbability = Input.mouse.isButtonPressed(Mouse.Button.RIGHT) && Input.keyboard.isKeyPressed(Keyboard.Key.C) ? -Input.mouse.getYDelta() / (Graphics.getWindowHeight() * 0.3f) : 0;
+        addFruitsProbability += deltaAddFruitProbability;
+        addFruitsProbability = MathUtils.clampFloat(addFruitsProbability, 0, 1);
+        if (deltaAddFruitProbability != 0) {
+            System.out.println("Add Fruits P: " + addFruitsProbability);
+            return;
+        }
+
+        // tool settings - batch size
+        int batchSizeDelta = Input.keyboard.isKeyPressed(Keyboard.Key.LEFT_SHIFT) ? (int) Input.mouse.getVerticalScroll() : 0;
+        batchSize += batchSizeDelta;
+        batchSize = MathUtils.clampInt(batchSize, 1, 20);
+        if (batchSizeDelta != 0) {
+            System.out.println("Batch size: " + batchSize);
+            return;
+        }
+
+        boolean leftPressedAndMoved = Input.mouse.isButtonPressed(Mouse.Button.LEFT) && Input.mouse.moved();
+        if (Input.mouse.isButtonClicked(Mouse.Button.LEFT) || leftPressedAndMoved) {
             setPositions();
-            if (mode == Mode.REGULAR || mode == Mode.CYPRESS) {
+            if (mode == Mode.REGULAR) {
                 for (Vector2 position : positions) {
                     float x = position.x;
                     float y = position.y;
-                    TextureRegion base =
-                            mode == Mode.REGULAR ?
-                                    layer3.getRegion("assets/textures-layer-3/tree_regular_" + MathUtils.randomUniformInt(1, 7) + ".png")
-                                    :
-                                    layer3.getRegion("assets/textures-layer-3/tree_cypress_" + MathUtils.randomUniformInt(1, 7) + ".png");
-                    TextureRegion trunk = addTrunk ? layer3.getRegion("assets/textures-layer-3/tree_regular_trunk_" + MathUtils.randomUniformInt(1, 11) + ".png") : null;
+                    List<String> treeColorsList = new ArrayList<>(treeColors);
+                    String treeColor = treeColorsList.get(MathUtils.randomUniformInt(0, treeColorsList.size()));
+                    TextureRegion base = layer3.getRegion("assets/textures-layer-3/tree_" + mode.name().toLowerCase() + "_" + treeColor + "_" + MathUtils.randomUniformInt(0, 6) + ".png");
+                    boolean addTrunk = MathUtils.randomUniformFloat(0, 1) < addTrunkProbability;
+                    TextureRegion trunk = addTrunk ? layer3.getRegion("assets/textures-layer-3/tree_" + mode.name().toLowerCase() + "_trunk_" + MathUtils.randomUniformInt(1, 6) + ".png") : null;
                     boolean addFruits = MathUtils.randomUniformFloat(0, 1) < addFruitsProbability;
-                    TextureRegion fruits = addFruits ? // if addFruits, add regular or cypress fruits. Else, ignore.
-                            (mode == Mode.REGULAR ? layer3.getRegion("assets/textures-layer-3/tree_regular_fruits.png")
-                                    : layer3.getRegion("assets/textures-layer-3/tree_cypress_fruits.png")) : null;
+                    List<String> fruitColorsList = new ArrayList<>(fruitColors);
+                    String fruitColor = fruitColorsList.get(MathUtils.randomUniformInt(0, fruitColorsList.size()));
+                    TextureRegion fruits = addFruits ? layer3.getRegion("assets/textures-layer-3/tree_" + mode.name().toLowerCase() + "_fruits_" + fruitColor + ".png") : null;
                     CommandTokenCreate createPlant = new CommandTokenCreate(
                             3,
                             x, y, deg, sclX, sclY, true,
@@ -75,7 +150,10 @@ public class ToolStampTrees extends Tool {
                     createPlant.type = MapToken.Type.TREE;
                     map.addCommand(createPlant);
                 }
-            } else if (mode == Mode.DENSE || mode == Mode.SPARSE) {
+                return;
+            }
+
+            if (mode == Mode.DENSE || mode == Mode.SPARSE) {
                 TextureRegion base = mode == Mode.DENSE ?
                         layer3.getRegion("assets/textures-layer-3/tree_dense_" + MathUtils.randomUniformInt(1,7) + ".png")
                         :
@@ -90,19 +168,24 @@ public class ToolStampTrees extends Tool {
                         base, fruits
                 );
                 map.addCommand(createPlant);
-            } else if (mode == Mode.BUSH) {
+                return;
+            }
+
+            if (mode == Mode.BUSH) {
                 TextureRegion base = layer3.getRegion("assets/textures-layer-3/tree_bush_" + MathUtils.randomUniformInt(1,7) + ".png");
                 CommandTokenCreate createPlant = new CommandTokenCreate(
                         3,
                         x, y, deg, sclX, sclY, true, base
                 );
                 map.addCommand(createPlant);
+                return;
             }
-        } else if (Input.mouse.isButtonClicked(Mouse.Button.RIGHT)) {
-            // randomize tree
         }
     }
 
+
+
+    // TODO: consider the scale.
     private void setPositions() {
         positions.clear();
         float r = (float) Math.sqrt(batchSize / (2 * MathUtils.PI)) * TREE_DENSITY;
@@ -126,7 +209,6 @@ public class ToolStampTrees extends Tool {
                 Vector2 p = new Vector2(tree.x, tree.y);
                 add &= position.dst(p) >= TREE_DENSITY;
             }
-            if (!add) System.out.println("heee");
             if (add) positions.add(position);
         }
     }
@@ -150,7 +232,6 @@ public class ToolStampTrees extends Tool {
 
     public enum Mode {
         REGULAR,
-        ACRE,
         CYPRESS,
         DENSE,
         SPARSE,

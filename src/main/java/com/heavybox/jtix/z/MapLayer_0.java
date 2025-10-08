@@ -63,7 +63,7 @@ public class MapLayer_0 implements MapLayer {
 
         if (!(command instanceof CommandTerrain)) return;
         CommandTerrain cmd = (CommandTerrain) command;
-        if (cmd.mode == ToolTerrain.Mode.ADD || cmd.mode == ToolTerrain.Mode.SUB) commandsQueueTerrainMask.add(cmd);
+        if (cmd.mode == ToolDrawTerrain.Mode.ADD || cmd.mode == ToolDrawTerrain.Mode.SUB) commandsQueueTerrainMask.add(cmd);
         commandsHistory.add(cmd);
     }
 
@@ -81,7 +81,7 @@ public class MapLayer_0 implements MapLayer {
         renderer2D.begin(camera);
         renderer2D.setBlending(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         for (CommandTerrain cmd : commandsQueueTerrainMask) {
-            Texture texture = cmd.mode == ToolTerrain.Mode.ADD ? brushAdd : brushSub;
+            Texture texture = cmd.mode == ToolDrawTerrain.Mode.ADD ? brushAdd : brushSub;
             renderer2D.setColor(1,0,0,0.2f);
             renderer2D.drawTexture(texture, cmd.x, cmd.y, 0, cmd.sclX, cmd.sclY);
         }
@@ -92,7 +92,7 @@ public class MapLayer_0 implements MapLayer {
         renderer2D.begin(camera);
         renderer2D.setBlending(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         for (CommandTerrain cmd : commandsQueueTerrainMask) {
-            Texture texture = cmd.mode == ToolTerrain.Mode.ADD ? brushAdd : brushSub;
+            Texture texture = cmd.mode == ToolDrawTerrain.Mode.ADD ? brushAdd : brushSub;
             renderer2D.drawTexture(texture, cmd.x, cmd.y, 0, cmd.sclX, cmd.sclY);
         }
         renderer2D.end();

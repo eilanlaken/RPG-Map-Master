@@ -12,7 +12,7 @@ import com.heavybox.jtix.math.Vector2;
 
 import java.util.Arrays;
 
-public class ToolWheatFields extends Tool {
+public class ToolFillWheatFields extends Tool {
 
     public State state = State.FREE;
 
@@ -28,7 +28,7 @@ public class ToolWheatFields extends Tool {
     private Texture harvest;
     private Color harvestTint = Color.GREEN; // for now
 
-    public ToolWheatFields(Map map) {
+    public ToolFillWheatFields(Map map) {
         super(map);
         base_0 = Assets.get("assets/textures-layer-1/terrain-wheat-field-base_0.png");
         lines = Assets.get("assets/textures-layer-1/terrain-wheat-field-lines.png");

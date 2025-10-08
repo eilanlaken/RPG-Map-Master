@@ -7,7 +7,7 @@ import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
 
-public class ToolTerrain extends Tool {
+public class ToolDrawTerrain extends Tool {
 
     public Mode mode = Mode.SUB;
     public Target target = Target.FOREGROUND_STONE;
@@ -18,7 +18,7 @@ public class ToolTerrain extends Tool {
     public float scale = 0.5f;
     public float size = 200;
 
-    public ToolTerrain(Map map) {
+    public ToolDrawTerrain(Map map) {
         super(map);
         brushAdd = new Texture("assets/tools/terrain-brush-draw.png");
         brushSub = new Texture("assets/tools/terrain-brush-erase.png");
