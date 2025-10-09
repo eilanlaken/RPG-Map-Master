@@ -23,14 +23,18 @@ public class ToolFillWheatFields extends Tool {
     private boolean addLines = true;
     private int harvestType = 0; // 0 = none, 1, 2
 
-    private Texture base_0;
+    private Texture[] bases = new Texture[5];
     private Texture lines;
     private Texture harvest;
     private Color harvestTint = Color.GREEN; // for now
 
     public ToolFillWheatFields(Map map) {
         super(map);
-        base_0 = Assets.get("assets/textures-layer-1/terrain-wheat-field-base_0.png");
+        bases[0] = Assets.get("assets/textures-layer-1/terrain-wheat-field-base_0.png");
+        bases[1] = Assets.get("assets/textures-layer-1/terrain-wheat-field-base_1.png");
+        bases[2] = Assets.get("assets/textures-layer-1/terrain-wheat-field-base_2.png");
+        bases[3] = Assets.get("assets/textures-layer-1/terrain-wheat-field-base_3.png");
+        bases[4] = Assets.get("assets/textures-layer-1/terrain-wheat-field-base_4.png");
         lines = Assets.get("assets/textures-layer-1/terrain-wheat-field-lines.png");
     }
 
@@ -128,7 +132,7 @@ public class ToolFillWheatFields extends Tool {
             renderer2D.drawLineThin(points.last().x, points.last().y, x, y);
             renderer2D.setColor(Color.WHITE);
         } else if (state == State.SET_ANGLE) {
-            renderer2D.drawPolygonFilled(polygon, base_0, 0, 0, 0, 1,1);
+            renderer2D.drawPolygonFilled(polygon, bases[0], 0, 0, 0, 1,1);
             renderer2D.drawPolygonFilled(polygon, lines, uv -> uv.rotateDeg(linesAngle),0,0,0,1,1);
         }
     }

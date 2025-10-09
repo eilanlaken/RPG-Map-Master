@@ -11,19 +11,16 @@ public class MapLayer_0 implements MapLayer {
 
     private FrameBuffer layer0 = new FrameBuffer(1920, 1080);
 
-    private FrameBuffer canvas = new FrameBuffer(1920, 1080); // <- draw roads here
-    // color attachments: 0: bg, 1: grass / road / stone, 2: land / sea / steep
-
     private FrameBuffer terrainBlendMap = new FrameBuffer(1920, 1080); // <- draw roads here
     private FrameBuffer terrainMask = new FrameBuffer(1920, 1080); // <- draw terrain here
     public final Camera camera = new Camera(Camera.Mode.ORTHOGRAPHIC, 1920, 1080, 1, 0, 100, 75);
 
     private Texture backgroundMorning;
-    private Texture terrainGrass;
-    private Texture terrainWater;
-    private Texture terrainSteepness;
-    private Texture terrainStones;
-    private Texture terrainRoad;
+    private final Texture terrainGrass;
+    private final Texture terrainWater;
+    private final Texture terrainSteepness;
+    private final Texture terrainStones;
+    private final Texture terrainRoad;
 
     public Texture brushAdd;
     public Texture brushSub;
@@ -32,7 +29,8 @@ public class MapLayer_0 implements MapLayer {
 
     private Array<CommandTerrain> commandsHistory = new Array<>(true, 100);
     private Array<CommandTerrain> commandsQueueTerrainMask = new Array<>(true, 100);
-    private Array<CommandTerrain> commandsQueueTerrainBlendMap = new Array<>(true, 100);
+    private Array<CommandTerrain> commandsQueueTerrainBlendMapStone = new Array<>(true, 100);
+    private Array<CommandTerrain> commandsQueueTerrainBlendMapRoad = new Array<>(true, 100);
 
     private boolean changed = true;
 
@@ -40,6 +38,7 @@ public class MapLayer_0 implements MapLayer {
         terrainGrass = Assets.get("assets/textures-layer-0/terrain-grass_1920x1080.png");
         terrainWater = Assets.get("assets/textures-layer-0/terrain-water_1920x1080.png");
         terrainStones = Assets.get("assets/textures-layer-0/terrain-stones_1920x1080.png");
+        terrainRoad = Assets.get("assets/textures-layer-0/terrain-road_1920x1080.png");
         terrainSteepness = Assets.get("assets/textures-layer-0/terrain-rock_1920x1080.jpg");
         brushSub = new Texture("assets/tools/terrain-brush-erase.png");
         brushAdd = new Texture("assets/tools/terrain-brush-draw.png");
@@ -48,11 +47,21 @@ public class MapLayer_0 implements MapLayer {
         String terrainFragmentShaderSrc = Assets.getFileContent("assets/shaders/terrain-mask.frag");
         this.terrainShader = new Shader(terrainVertexShaderSrc, terrainFragmentShaderSrc);
 
+
+
         FrameBufferBinder.bind(terrainMask);
         GL11.glClearColor(1,1,1,1);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
 
+        // blendmap frame buffer
+        terrainBlendMap = FrameBufferBuilder.begin()
+                .setWidth(1920)
+                .setHeight(1080)
+                .addColorAttachment("attachment_0")
+                .addColorAttachment("attachment_1")
+                .end();
         FrameBufferBinder.bind(terrainBlendMap);
+        //terrainBlendMap.setRenderTargets("attachment_0");
         GL11.glClearColor(0,0,0,1f);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
     }
@@ -63,7 +72,9 @@ public class MapLayer_0 implements MapLayer {
 
         if (!(command instanceof CommandTerrain)) return;
         CommandTerrain cmd = (CommandTerrain) command;
-        if (cmd.mode == ToolDrawTerrain.Mode.ADD || cmd.mode == ToolDrawTerrain.Mode.SUB) commandsQueueTerrainMask.add(cmd);
+        if (cmd.target == ToolDrawTerrain.Target.TERRAIN) commandsQueueTerrainMask.add(cmd);
+        if (cmd.target == ToolDrawTerrain.Target.FOREGROUND_STONE) commandsQueueTerrainBlendMapStone.add(cmd);
+        if (cmd.target == ToolDrawTerrain.Target.FOREGROUND_ROAD) commandsQueueTerrainBlendMapRoad.add(cmd);
         commandsHistory.add(cmd);
     }
 
@@ -78,14 +89,24 @@ public class MapLayer_0 implements MapLayer {
         if (!changed) return;
 
         FrameBufferBinder.bind(terrainBlendMap);
+        terrainBlendMap.setRenderTargets("attachment_0");
         renderer2D.begin(camera);
         renderer2D.setBlending(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-        for (CommandTerrain cmd : commandsQueueTerrainMask) {
+        for (CommandTerrain cmd : commandsQueueTerrainBlendMapStone) {
             Texture texture = cmd.mode == ToolDrawTerrain.Mode.ADD ? brushAdd : brushSub;
-            renderer2D.setColor(1,0,0,0.2f);
             renderer2D.drawTexture(texture, cmd.x, cmd.y, 0, cmd.sclX, cmd.sclY);
         }
         renderer2D.end();
+
+        terrainBlendMap.setRenderTargets("attachment_1");
+        renderer2D.begin(camera);
+        renderer2D.setBlending(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+        for (CommandTerrain cmd : commandsQueueTerrainBlendMapRoad) {
+            Texture texture = cmd.mode == ToolDrawTerrain.Mode.ADD ? brushAdd : brushSub;
+            renderer2D.drawTexture(texture, cmd.x, cmd.y, 0, cmd.sclX, cmd.sclY);
+        }
+        renderer2D.end();
+
 
         // update terrain mask
         FrameBufferBinder.bind(terrainMask);
@@ -104,6 +125,11 @@ public class MapLayer_0 implements MapLayer {
         renderer2D.setBlending(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         renderer2D.drawTexture(terrainWater, 0, 0, 0, 1, -1);
         renderer2D.setShader(terrainShader);
+        renderer2D.setShaderAttribute("u_texture_map_0", terrainBlendMap.getColorAttachment("attachment_0"));
+        renderer2D.setShaderAttribute("u_texture_0", terrainStones);
+        renderer2D.setShaderAttribute("u_texture_map_1", terrainBlendMap.getColorAttachment("attachment_1"));
+        renderer2D.setShaderAttribute("u_texture_1", terrainRoad);
+
         renderer2D.setShaderAttribute("u_texture_mask", terrainMask.getColorAttachment0());
         renderer2D.setShaderAttribute("u_texture_steepness", terrainSteepness);
         renderer2D.drawTexture(terrainGrass, 0, 0, 0, 1, -1);
@@ -115,14 +141,16 @@ public class MapLayer_0 implements MapLayer {
         renderer2D.end();
 
         commandsQueueTerrainMask.clear();
-        commandsQueueTerrainBlendMap.clear();
+        commandsQueueTerrainBlendMapStone.clear();
+        commandsQueueTerrainBlendMapRoad.clear();
 
         changed = false;
     }
 
     @Override
     public Texture getTexture() {
-        return terrainBlendMap.getColorAttachment0();
-        //return layer0.getColorAttachment0(); // for now.
+        //return terrainBlendMap.getColorAttachment("attachment_0");
+        //return terrainBlendMap.getColorAttachment0();
+        return layer0.getColorAttachment0(); // for now.
     }
 }
