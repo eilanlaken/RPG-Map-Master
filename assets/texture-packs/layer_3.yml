@@ -1269,7 +1269,7 @@ regions:
   textureIndex: 0
   x: 1688
   y: 1215
-- name: assets/textures-layer-3/tree_bush_6.png
+- name: assets/textures-layer-3/tree_bush_0.png
   offsetX: 58
   offsetY: 205
   originalHeight: 445
@@ -3009,7 +3009,7 @@ regions:
   textureIndex: 0
   x: 2864
   y: 1285
-- name: assets/textures-layer-3/tree_dense_6.png
+- name: assets/textures-layer-3/tree_dense_0.png
   offsetX: 1
   offsetY: 71
   originalHeight: 187
@@ -3759,7 +3759,7 @@ regions:
   textureIndex: 0
   x: 1680
   y: 732
-- name: assets/textures-layer-3/tree_sparse_6.png
+- name: assets/textures-layer-3/tree_sparse_0.png
   offsetX: 0
   offsetY: 93
   originalHeight: 187

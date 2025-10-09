@@ -16,7 +16,7 @@ import java.util.Set;
 
 public class ToolStampTrees extends Tool {
 
-    public static final int TREE_DENSITY = 17; // The minimal distance between trees
+    public static final int TREE_DENSITY = 68; // The minimal distance between trees
     public final TexturePack layer3;
     public static final String[] FRUIT_COLORS = {"red", "orange", "green"};
     public static final String[] TREE_COLORS = {"green", "red", "yellow"};
@@ -128,7 +128,9 @@ public class ToolStampTrees extends Tool {
 
         boolean leftPressedAndMoved = Input.mouse.isButtonPressed(Mouse.Button.LEFT) && Input.mouse.moved();
         if (Input.mouse.isButtonClicked(Mouse.Button.LEFT) || leftPressedAndMoved) {
+
             setPositions();
+
             if (mode == Mode.REGULAR) {
                 for (Vector2 position : positions) {
                     float x = position.x;
@@ -153,32 +155,65 @@ public class ToolStampTrees extends Tool {
                 return;
             }
 
+            if (mode == Mode.CYPRESS) {
+                for (Vector2 position : positions) {
+                    float x = position.x;
+                    float y = position.y;
+                    TextureRegion base = layer3.getRegion("assets/textures-layer-3/tree_" + mode.name().toLowerCase() + "_" + MathUtils.randomUniformInt(0, 6) + ".png");
+                    boolean addTrunk = MathUtils.randomUniformFloat(0, 1) < addTrunkProbability;
+                    TextureRegion trunk = addTrunk ? layer3.getRegion("assets/textures-layer-3/tree_" + mode.name().toLowerCase() + "_trunk_" + MathUtils.randomUniformInt(1, 6) + ".png") : null;
+                    boolean addFruits = MathUtils.randomUniformFloat(0, 1) < addFruitsProbability;
+                    List<String> fruitColorsList = new ArrayList<>(fruitColors);
+                    String fruitColor = fruitColorsList.get(MathUtils.randomUniformInt(0, fruitColorsList.size()));
+                    TextureRegion fruits = addFruits ? layer3.getRegion("assets/textures-layer-3/tree_" + mode.name().toLowerCase() + "_fruits_" + fruitColor + ".png") : null;
+                    CommandTokenCreate createPlant = new CommandTokenCreate(
+                            3,
+                            x, y, deg, sclX, sclY, true,
+                            base, trunk, fruits
+                    );
+                    createPlant.type = MapToken.Type.TREE;
+                    map.addCommand(createPlant);
+                }
+                return;
+            }
+
             if (mode == Mode.DENSE || mode == Mode.SPARSE) {
-                TextureRegion base = mode == Mode.DENSE ?
-                        layer3.getRegion("assets/textures-layer-3/tree_dense_" + MathUtils.randomUniformInt(1,7) + ".png")
-                        :
-                        layer3.getRegion("assets/textures-layer-3/tree_sparse_" + MathUtils.randomUniformInt(1, 7) + ".png");
-                boolean addFruits = MathUtils.randomUniformFloat(0, 1) < addFruitsProbability;
-                TextureRegion fruits = addFruits ? // if addFruits, add regular or cypress fruits. Else, ignore.
-                        (mode == Mode.DENSE ? layer3.getRegion("assets/textures-layer-3/tree_dense_fruits.png")
-                                : layer3.getRegion("assets/textures-layer-3/tree_sparse_fruits.png")) : null;
-                CommandTokenCreate createPlant = new CommandTokenCreate(
-                        3,
-                        x, y, deg, 2 * sclX, 2 * sclY, true,
-                        base, fruits
-                );
-                map.addCommand(createPlant);
+                for (Vector2 position : positions) {
+                    float x = position.x;
+                    float y = position.y;
+                    TextureRegion base = layer3.getRegion("assets/textures-layer-3/tree_" + mode.name().toLowerCase() + "_" + MathUtils.randomUniformInt(0, 6) + ".png");
+                    boolean addFruits = MathUtils.randomUniformFloat(0, 1) < addFruitsProbability;
+                    List<String> fruitColorsList = new ArrayList<>(fruitColors);
+                    String fruitColor = fruitColorsList.get(MathUtils.randomUniformInt(0, fruitColorsList.size()));
+                    TextureRegion fruits = addFruits ? layer3.getRegion("assets/textures-layer-3/tree_" + mode.name().toLowerCase() + "_fruits_" + fruitColor + ".png") : null;
+                    CommandTokenCreate createPlant = new CommandTokenCreate(
+                            3,
+                            x, y, deg, 2 * sclX, 2 * sclY, true,
+                            base, fruits
+                    );
+                    createPlant.type = MapToken.Type.TREE;
+                    map.addCommand(createPlant);
+                }
                 return;
             }
 
             if (mode == Mode.BUSH) {
-                TextureRegion base = layer3.getRegion("assets/textures-layer-3/tree_bush_" + MathUtils.randomUniformInt(1,7) + ".png");
-                CommandTokenCreate createPlant = new CommandTokenCreate(
-                        3,
-                        x, y, deg, sclX, sclY, true, base
-                );
-                map.addCommand(createPlant);
-                return;
+                for (Vector2 position : positions) {
+                    float x = position.x;
+                    float y = position.y;
+                    TextureRegion base = layer3.getRegion("assets/textures-layer-3/tree_bush_" + MathUtils.randomUniformInt(0, 6) + ".png");
+                    boolean addFruits = MathUtils.randomUniformFloat(0, 1) < addFruitsProbability;
+                    List<String> fruitColorsList = new ArrayList<>(fruitColors);
+                    String fruitColor = fruitColorsList.get(MathUtils.randomUniformInt(0, fruitColorsList.size()));
+                    TextureRegion fruits = addFruits ? layer3.getRegion("assets/textures-layer-3/tree_" + mode.name().toLowerCase() + "_fruits_" + fruitColor + ".png") : null;
+                    CommandTokenCreate createPlant = new CommandTokenCreate(
+                            3,
+                            x, y, deg, sclX, sclY, true, base, fruits
+                    );
+                    createPlant.type = MapToken.Type.TREE;
+                    map.addCommand(createPlant);
+                    return;
+                }
             }
         }
     }
@@ -188,26 +223,30 @@ public class ToolStampTrees extends Tool {
     // TODO: consider the scale.
     private void setPositions() {
         positions.clear();
-        float r = (float) Math.sqrt(batchSize / (2 * MathUtils.PI)) * TREE_DENSITY;
-        for (int i = 0; i < batchSize; i++) {
+        final float spacing = TREE_DENSITY * sclX;
+
+        float r = (float) Math.sqrt(batchSize / (2 * MathUtils.PI)) * spacing; // circle radius
+        for (int i = 0; i < batchSize; i++) { // scatter inside circle
             Vector2 position = new Vector2(x + MathUtils.randomUniformFloat(-r,r), y + MathUtils.randomUniformFloat(-r,r));
             positions.add(position);
         }
+
         Array<Vector2> filtered = new Array<>();
-        for (Vector2 position : positions) {
+        for (Vector2 position : positions) { // first filter against self
             boolean add = true;
             for (Vector2 p : filtered) {
-                add &= position.dst(p) >= TREE_DENSITY;
+                add &= position.dst(p) >= spacing;
             }
             if (add) filtered.add(position);
         }
+
         positions.clear();
         map.getAllTokens(MapToken.Type.TREE, trees);
-        for (Vector2 position : filtered) {
+        for (Vector2 position : filtered) { // second filter against all trees tokens previously added
             boolean add = true;
             for (MapToken tree : trees) {
                 Vector2 p = new Vector2(tree.x, tree.y);
-                add &= position.dst(p) >= TREE_DENSITY;
+                add &= position.dst(p) >= spacing;
             }
             if (add) positions.add(position);
         }
