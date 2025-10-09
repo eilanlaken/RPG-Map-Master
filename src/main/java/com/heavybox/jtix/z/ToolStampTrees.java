@@ -218,9 +218,6 @@ public class ToolStampTrees extends Tool {
         }
     }
 
-
-
-    // TODO: consider the scale.
     private void setPositions() {
         positions.clear();
         final float spacing = TREE_DENSITY * sclX;
