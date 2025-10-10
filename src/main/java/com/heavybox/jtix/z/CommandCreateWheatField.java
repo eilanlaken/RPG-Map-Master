@@ -5,11 +5,11 @@ import com.heavybox.jtix.graphics.Color;
 public class CommandCreateWheatField extends Command {
 
     public float[] polygon;
-    public int fieldType;
+    public int baseType;
     public boolean addLines;
     public float linesAngle;
-    public int harvestType;
-    public Color harvestTint;
+    @Deprecated public int harvestType;
+    @Deprecated public Color harvestTint;
 
     public CommandCreateWheatField(float x, float y, float deg, float sclX, float sclY, boolean anchor) {
         super(1, x, y, deg, sclX, sclY, anchor);

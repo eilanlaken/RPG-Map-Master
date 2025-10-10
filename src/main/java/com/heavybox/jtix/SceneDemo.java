@@ -59,8 +59,6 @@ public class SceneDemo implements Scene {
         Assets.loadTexture("assets/textures-layer-1/terrain-wheat-field-base_2.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
         Assets.loadTexture("assets/textures-layer-1/terrain-wheat-field-base_3.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
         Assets.loadTexture("assets/textures-layer-1/terrain-wheat-field-base_4.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
-        Assets.loadTexture("assets/textures-layer-1/terrain-wheat-field-harvest-full.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
-        Assets.loadTexture("assets/textures-layer-1/terrain-wheat-field-harvest-part.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
         Assets.loadTexture("assets/textures-layer-1/terrain-wheat-field-lines.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
 
         // layer 2
@@ -73,9 +71,10 @@ public class SceneDemo implements Scene {
         map = new Map(false);
 
         tools[0] = new ToolDrawTerrain(map);
-        tools[1] = new ToolStampTrees(map);
+        tools[1] = new ToolFillWheatFields(map);
+        tools[2] = new ToolStampTrees(map);
+        tools[3] = new ToolStampProps_new(map);
 //        tools[2] = new ToolStampGround(map);
-        tools[3] = new ToolFillWheatFields(map);
 //        tools[4] = new ToolStampCastles(map);
 //        tools[5] = new ToolStampCityBlock(map);
 //        tools[6] = new ToolStampRuralBlock(map);

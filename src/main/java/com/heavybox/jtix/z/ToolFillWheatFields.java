@@ -16,17 +16,17 @@ public class ToolFillWheatFields extends Tool {
 
     public State state = State.FREE;
 
-    private Array<Vector2> points = new Array<>(true, 10);
-    private float[] polygon;
-    private int fieldType = 0; // 0...4
-    private float linesAngle = MathUtils.randomUniformFloat(0, 360);
-    private boolean addLines = true;
-    private int harvestType = 0; // 0 = none, 1, 2
-
     private Texture[] bases = new Texture[5];
     private Texture lines;
     private Texture harvest;
     private Color harvestTint = Color.GREEN; // for now
+
+    private Array<Vector2> points = new Array<>(true, 10);
+    private float[] polygon;
+    private int baseType = 0; // 0...4
+    private float linesAngle = MathUtils.randomUniformFloat(0, 360);
+    private boolean addLines = true;
+    private int harvestType = 0; // 0 = none, 1 = part, 2 = full
 
     public ToolFillWheatFields(Map map) {
         super(map);
@@ -40,6 +40,10 @@ public class ToolFillWheatFields extends Tool {
 
     @Override
     public void update(float delta) {
+        baseType += (int) Input.mouse.getVerticalScroll();
+        baseType %= bases.length;
+        if (baseType < 0) baseType = bases.length - 1;
+
         if (state == State.FREE) {
             if (Input.mouse.isButtonClicked(Mouse.Button.LEFT)) {
                 Vector2 p = new Vector2(x, y); // need to test intersections etc.
@@ -100,13 +104,14 @@ public class ToolFillWheatFields extends Tool {
         } else if (state == State.SET_ANGLE) {
             if (Input.mouse.isButtonClicked(Mouse.Button.LEFT)) {
                 CommandCreateWheatField createWheatField = new CommandCreateWheatField(x, y, deg, sclX, sclY, true);
-                createWheatField.fieldType = fieldType;
+                createWheatField.baseType = baseType;
                 createWheatField.polygon = Arrays.copyOf(polygon, polygon.length);
                 createWheatField.addLines = addLines;
                 createWheatField.linesAngle = linesAngle;
                 createWheatField.harvestType = harvestType;
                 createWheatField.harvestTint = new Color(harvestTint);
                 map.addCommand(createWheatField);
+                reset();
             }
         }
     }
@@ -132,21 +137,24 @@ public class ToolFillWheatFields extends Tool {
             renderer2D.drawLineThin(points.last().x, points.last().y, x, y);
             renderer2D.setColor(Color.WHITE);
         } else if (state == State.SET_ANGLE) {
-            renderer2D.drawPolygonFilled(polygon, bases[0], 0, 0, 0, 1,1);
+            renderer2D.drawPolygonFilled(polygon, bases[baseType], 0, 0, 0, 1,1);
             renderer2D.drawPolygonFilled(polygon, lines, uv -> uv.rotateDeg(linesAngle),0,0,0,1,1);
         }
     }
 
-    @Override
-    public void activate() {
+    private void reset() {
         points.clear();
         state = State.FREE;
     }
 
     @Override
+    public void activate() {
+        reset();
+    }
+
+    @Override
     public void deactivate() {
-        points.clear();
-        state = State.FREE;
+        reset();
     }
 
     private enum State {

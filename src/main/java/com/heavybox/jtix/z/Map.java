@@ -75,7 +75,7 @@ public class Map {
 
     public void render(Renderer2D renderer2D) {
         layer0.applyChanges(renderer2D);
-        //layer1.applyChanges(renderer2D);
+        layer1.applyChanges(renderer2D);
         layer3.applyChanges(renderer2D); // TODO: use applyChanges
 
         FrameBufferBinder.bind(mapFinal);
@@ -84,7 +84,7 @@ public class Map {
         renderer2D.begin(camera);
         // render layer-0
         renderer2D.drawTexture(layer0.getTexture(), 0, 0, 0, 1,1);
-        //renderer2D.drawTexture(layer1.getTexture(), 0, 0, 0, 1,1);
+        renderer2D.drawTexture(layer1.getTexture(), 0, 0, 0, 1,1);
         // render layer-1
         // render layer-2
         // render layer-3
