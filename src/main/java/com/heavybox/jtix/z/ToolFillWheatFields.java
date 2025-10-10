@@ -46,7 +46,7 @@ public class ToolFillWheatFields extends Tool {
 
         if (state == State.FREE) {
             if (Input.mouse.isButtonClicked(Mouse.Button.LEFT)) {
-                Vector2 p = new Vector2(x, y); // need to test intersections etc.
+                Vector2 p = new Vector2(x, y);
                 points.add(p);
                 state = State.DRAW_POLYGON;
             }
