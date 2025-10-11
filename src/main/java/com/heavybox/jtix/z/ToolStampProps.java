@@ -53,7 +53,7 @@ public class ToolStampProps extends Tool {
         if (mode.singles && leftButtonClicked) {
             CommandTokenCreate createProp = new CommandTokenCreate(
                     3,
-                    x, y, deg, sclX, sclY, true,
+                    x, y, deg, sclX * mode.rescale, sclY * mode.rescale, true,
                     region
             );
             createProp.type = MapToken.Type.PROP;
@@ -66,12 +66,15 @@ public class ToolStampProps extends Tool {
             Vector2 p = new Vector2(x, y);
             points.add(p);
             polygonModeFree = false;
+            return;
         }
 
         if (!mode.singles && !polygonModeFree && leftButtonClicked) {
             Vector2 p = new Vector2(x, y); // need to test intersections etc.
             points.add(p);
-            if (points.size < 4) return;
+            if (points.size < 4) {
+                return;
+            }
 
             // last added segment
             Vector2 p1 = points.get(points.size - 2);
@@ -110,7 +113,7 @@ public class ToolStampProps extends Tool {
 
                 float width = topRightCorner.x - bottomLeftCorner.x;
                 float height = topRightCorner.y - bottomLeftCorner.y;
-                float stepSizePixels = 10;
+                float stepSizePixels = getSpacing();
                 Array<Vector2> gridPoints = new Array<>();
                 for (float rect_x = bottomLeftCorner.x; rect_x < topRightCorner.x; rect_x += stepSizePixels) {
                     for (float rect_y = bottomLeftCorner.y; rect_y < topRightCorner.y; rect_y += stepSizePixels) {
@@ -122,13 +125,14 @@ public class ToolStampProps extends Tool {
                 for (Vector2 position : gridPoints) {
                     CommandTokenCreate createProp = new CommandTokenCreate(
                             3,
-                            position.x, position.y, deg, sclX, sclY, false,
+                            position.x, position.y, deg, sclX * mode.rescale, sclY * mode.rescale, false,
                             getRegion()
                     );
                     createProp.type = MapToken.Type.PROP;
                     map.addCommand(createProp);
                 }
 
+                points.clear();
                 polygonModeFree = true;
             }
 
@@ -138,8 +142,11 @@ public class ToolStampProps extends Tool {
 
     private float getSpacing() {
         if (mode == Mode.CHOPPED_TRUNK) return 10;
-        if (mode == Mode.FLOWER_DAISY || mode == Mode.FLOWER_TULIP || mode == Mode.FLOWER_SUNFLOWER || mode == Mode.FLOWER_SCORPION)
-            return 6;
+
+        if (mode == Mode.FLOWER_DAISY) return 9;
+        if (mode == Mode.FLOWER_TULIP) return 6;
+        if (mode == Mode.FLOWER_SUNFLOWER) return 6;
+        if (mode == Mode.FLOWER_SCORPION) return 6;
 
         return 10; // default
     }
@@ -162,7 +169,7 @@ public class ToolStampProps extends Tool {
     public void renderToolOverlay(Renderer2D renderer2D, float x, float y) {
         if (mode.singles) {
             renderer2D.setColor(Color.WHITE);
-            renderer2D.drawTextureRegion(region, x, y, 0, this.sclX, this.sclY);
+            renderer2D.drawTextureRegion(region, x, y, 0, this.sclX * mode.rescale, this.sclY * mode.rescale);
             return;
         }
 
@@ -211,32 +218,34 @@ public class ToolStampProps extends Tool {
     }
 
     public enum Mode {
-        BARRELS(true),
-        BOXES(true),
-        BRIDGE(false), // along path
-        CHOPPED_TRUNK(false), // polygon scatter
-        FENCE(false), // along path
-        FLOWER_DAISY(false), // polygon
-        FLOWER_SCORPION(false), // polygon
-        FLOWER_SUNFLOWER(false), // polygon
-        FLOWER_TULIP(false), // polygon
-        HUT(false), // polygon
-        LODGE(true),
-        PILE(true),
-        PILLAR_STONE_SHORT(true),
-        PILLAR_STONE_TALL(true),
-        ROAD_SIGNS(true),
-        SACK(true),
-        SCARECROW(true),
-        STRAW(true),
-        TOWER(true),
-        WINDMILL(true),
+        BARRELS(true,2),
+        BOXES(true,2),
+        BRIDGE(false,2), // along path
+        CHOPPED_TRUNK(false,2), // polygon scatter
+        FENCE(false,2), // along path
+        FLOWER_DAISY(false,2), // polygon
+        FLOWER_SCORPION(false, 0.8f), // polygon
+        FLOWER_SUNFLOWER(false, 0.8f), // polygon
+        FLOWER_TULIP(false, 0.8f), // polygon
+        HUT(false,2), // polygon
+        LODGE(true,2),
+        PILE(true,2),
+        PILLAR_STONE_SHORT(true,2),
+        PILLAR_STONE_TALL(true,2),
+        ROAD_SIGNS(true,2),
+        SACK(true,2),
+        SCARECROW(true,2),
+        STRAW(true,2),
+        TOWER(true,2),
+        WINDMILL(true,2),
         ;
 
         public boolean singles;
+        float rescale;
 
-        Mode(boolean singles) {
+        Mode(boolean singles, float rescale) {
             this.singles = singles;
+            this.rescale = rescale;
         }
 
     }

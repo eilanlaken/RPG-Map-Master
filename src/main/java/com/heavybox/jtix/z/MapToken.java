@@ -42,6 +42,7 @@ public class MapToken {
         TREE,
         ROCK,
         PROP,
+        BLOCK,
         ;
     }
 

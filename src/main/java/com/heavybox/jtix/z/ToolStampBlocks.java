@@ -9,44 +9,51 @@ import com.heavybox.jtix.graphics.TextureRegion;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
+import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Vector2;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.File;
 import java.util.Comparator;
 
-public class ToolStampArchitecture_new extends Tool {
+public class ToolStampBlocks extends Tool {
 
-//    private static final Array<Combination> COMBINATIONS = new Array<>(true, 10);
-//    static {
-//        try {
-//            File file = new File("assets/data/castles.xml");
-//            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-//            DocumentBuilder builder = factory.newDocumentBuilder();
-//            Document doc = builder.parse(file);
-//            doc.getDocumentElement().normalize();
-//
-//            NodeList combinationList = doc.getElementsByTagName("combination");
-//            for (int i = 0; i < combinationList.getLength(); i++) {
-//                Element combinationElement = (Element) combinationList.item(i);
-//                NodeList blocks = combinationElement.getElementsByTagName("object");
-//                Combination combination = new Combination();
-//                combination.castleBlocks = new CastleBlock[blocks.getLength()];
-//                for (int j = 0; j < blocks.getLength(); j++) {
-//                    Element block = (Element) blocks.item(j);
-//                    CastleBlockType type = CastleBlockType.values()[Integer.parseInt(block.getAttribute("type"))];
-//                    float x = Float.parseFloat(block.getAttribute("x"));
-//                    float y = Float.parseFloat(block.getAttribute("y"));
-//                    combination.castleBlocks[j] = new CastleBlock();
-//                    combination.castleBlocks[j].type = type;
-//                    combination.castleBlocks[j].x = x;
-//                    combination.castleBlocks[j].y = y;
-//                }
-//                COMBINATIONS.add(combination);
-//            }
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//        }
-//
-//    }
+    private static final Array<Combination> COMBINATIONS = new Array<>(true, 10);
+    static {
+        try {
+            File file = new File("assets/data/block-combinations.xml");
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.parse(file);
+            doc.getDocumentElement().normalize();
+
+            NodeList combinationList = doc.getElementsByTagName("combination");
+            for (int i = 0; i < combinationList.getLength(); i++) {
+                Element combinationElement = (Element) combinationList.item(i);
+                NodeList blocks = combinationElement.getElementsByTagName("object");
+                Combination combination = new Combination();
+                combination.blocks = new Block[blocks.getLength()];
+                for (int j = 0; j < blocks.getLength(); j++) {
+                    Element block = (Element) blocks.item(j);
+                    BlockType type = BlockType.values()[Integer.parseInt(block.getAttribute("type"))];
+                    float x = Float.parseFloat(block.getAttribute("x"));
+                    float y = Float.parseFloat(block.getAttribute("y"));
+                    combination.blocks[j] = new Block();
+                    combination.blocks[j].type = type;
+                    combination.blocks[j].x = x;
+                    combination.blocks[j].y = y;
+                }
+                COMBINATIONS.add(combination);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
 
     public final TexturePack layer3;
 
@@ -58,12 +65,14 @@ public class ToolStampArchitecture_new extends Tool {
     @Deprecated public int singleCurrentIndex = 0;
 
     // tool overlay
-    private final Array<Block> toolOverlay = new Array<>();
+    private final Array<Block> singlesToolOverlay = new Array<>();
     public TextureRegion singlesCurrentRegion;
-    // combinations
-    public int comboIndex = 0;//MathUtils.randomUniformInt(0, COMBINATIONS.size);
 
-    public ToolStampArchitecture_new(Map map) {
+    // combinations
+    public int comboIndex = 0; //MathUtils.randomUniformInt(0, COMBINATIONS.size);
+
+
+    public ToolStampBlocks(Map map) {
         super(map);
         layer3 = Assets.get("assets/texture-packs/layer_3.yml");
         sclX = 0.5f;
@@ -148,6 +157,37 @@ public class ToolStampArchitecture_new extends Tool {
                 return;
             }
 
+            // next / prev block type
+            if (verticalScroll > 0) {
+                comboIndex++;
+                comboIndex %= COMBINATIONS.size;
+                return;
+            } else if (verticalScroll < 0) {
+                comboIndex--;
+                if (comboIndex < 0) comboIndex = COMBINATIONS.size - 1;
+                return;
+            }
+
+            // next / prev race
+            if (zJustPressed) {
+                changeRace(true);
+                return;
+            } else if (xJustPressed) {
+                changeRace(false);
+                return;
+            }
+
+            if (leftButtonClicked) {
+                Combination combination = COMBINATIONS.get(comboIndex);
+                Block[] blocks = combination.blocks;
+                for (Block block : blocks) {
+                    TextureRegion blockRegion = layer3.getRegion("assets/textures-layer-3/" + block.type.name().toLowerCase() + "_" + race.name().toLowerCase() + "_" + MathUtils.randomUniformInt(0,6) + ".png");
+                    CommandTokenCreate cmd = new CommandTokenCreate(3, x + block.x, y + block.y, 0, sclX, sclY, false, blockRegion);
+                    cmd.type = MapToken.Type.BLOCK;
+                    map.addCommand(cmd);
+                }
+
+            }
             return;
         }
 
@@ -165,26 +205,29 @@ public class ToolStampArchitecture_new extends Tool {
         if (mode == Mode.SINGLE) {
             renderer2D.setColor(Color.WHITE);
             renderer2D.drawTextureRegion(singlesCurrentRegion, x, y, 0, this.sclX, this.sclY);
-            toolOverlay.clear();
-            toolOverlay.addAll(singlesBlocks);
-            toolOverlay.sort(Comparator.comparingInt(o -> -(int) o.y));
-            for (Block block : toolOverlay) {
+            singlesToolOverlay.clear();
+            singlesToolOverlay.addAll(singlesBlocks);
+            singlesToolOverlay.sort(Comparator.comparingInt(o -> -(int) o.y));
+            for (Block block : singlesToolOverlay) {
                 TextureRegion region = layer3.getRegion("assets/textures-layer-3/" + block.type.name().toLowerCase() + "_" + race.name().toLowerCase() + "_" + 0 + ".png");
                 renderer2D.drawTextureRegion(region, block.x, block.y, 0, this.sclX, this.sclY);
             }
             return;
         }
 
-//        if (mode == Mode.COMBINATION) {
-//            Combination combination = COMBINATIONS.get(comboIndex);
-//            CastleBlock[] blocks = combination.castleBlocks;
-//            for (CastleBlock block : blocks) {
-//                TextureRegion blockRegion = layer3.getRegion("assets/textures-layer-3/" + block.type.name().toLowerCase() + "_" + block.blockIndex + ".png");
-//                float worldX = x + block.x;
-//                float worldY = y + block.y;
-//                renderer2D.drawTextureRegion(blockRegion, worldX, worldY, deg, sclX, sclY);
-//            }
-//        }
+        if (mode == Mode.COMBINATION) {
+            Combination combination = COMBINATIONS.get(comboIndex);
+            Block[] blocks = combination.blocks;
+            singlesToolOverlay.clear();
+            singlesToolOverlay.addAll(blocks);
+            singlesToolOverlay.sort(Comparator.comparingInt(o -> -(int) o.y));
+            for (Block block : singlesToolOverlay) {
+                TextureRegion region = layer3.getRegion("assets/textures-layer-3/" + block.type.name().toLowerCase() + "_" + race.name().toLowerCase() + "_" + 0 + ".png");
+                float worldX = x + block.x;
+                float worldY = y + block.y;
+                renderer2D.drawTextureRegion(region, worldX, worldY, deg, sclX, sclY);
+            }
+        }
     }
 
 //    public Block[] getCombination() {
