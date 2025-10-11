@@ -9,7 +9,6 @@ import com.heavybox.jtix.graphics.TextureRegion;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
-import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Vector2;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -20,7 +19,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.util.Comparator;
 
-public class ToolStampCastles extends Tool {
+public class ToolStampArchitecture extends Tool {
 
     private static final Array<Combination> COMBINATIONS = new Array<>(true, 10);
     static {
@@ -69,7 +68,7 @@ public class ToolStampCastles extends Tool {
     // combinations
     public int comboIndex = 0;//MathUtils.randomUniformInt(0, COMBINATIONS.size);
 
-    public ToolStampCastles(Map map) {
+    public ToolStampArchitecture(Map map) {
         super(map);
         layer3 = Assets.get("assets/texture-packs/layer_3.yml");
         sclX = 0.5f;

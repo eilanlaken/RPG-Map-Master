@@ -73,10 +73,10 @@ public class SceneDemo implements Scene {
         tools[0] = new ToolDrawTerrain(map);
         tools[1] = new ToolFillWheatFields(map);
         tools[2] = new ToolStampTrees(map);
-        tools[3] = new ToolStampProps_new(map);
+        tools[3] = new ToolStampProps(map);
+        tools[4] = new ToolStampArchitecture_new(map);
 //        tools[2] = new ToolStampGround(map);
 //        tools[4] = new ToolStampCastles(map);
-//        tools[5] = new ToolStampCityBlock(map);
 //        tools[6] = new ToolStampRuralBlock(map);
 //        tools[7] = new ToolStampProps(map);
     }
