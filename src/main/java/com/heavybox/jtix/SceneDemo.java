@@ -78,6 +78,7 @@ public class SceneDemo implements Scene {
         tools[2] = new ToolStampTrees(map);
         tools[3] = new ToolStampProps(map);
         tools[4] = new ToolStampBlocks(map);
+        tools[5] = new ToolStampRocks(map);
 //        tools[2] = new ToolStampGround(map);
 //        tools[4] = new ToolStampCastles(map);
 //        tools[6] = new ToolStampRuralBlock(map);
