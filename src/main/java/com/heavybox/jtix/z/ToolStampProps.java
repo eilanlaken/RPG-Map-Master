@@ -236,7 +236,6 @@ public class ToolStampProps extends Tool {
         SACK(true,2),
         SCARECROW(true,2),
         STRAW(true,2),
-        TOWER(true,2),
         WINDMILL(true,2),
         ;
 

@@ -23,7 +23,7 @@ public class ToolStampTrees extends Tool {
 
     public Mode mode = Mode.REGULAR;
     public int batchSize = 10;
-    public float addLeavesProbability = 1.0f; // TODO
+    public boolean addLeaves = true;
     public float addTrunkProbability = 1.0f;
     public float addFruitsProbability = 0.5f;
     public Set<String> fruitColors = new HashSet<>();
@@ -108,6 +108,12 @@ public class ToolStampTrees extends Tool {
             return;
         }
 
+        // tool settings - trunk probability
+        if (Input.keyboard.isKeyJustPressed(Keyboard.Key.R)) {
+            addLeaves = !addLeaves;
+            System.out.println("Add leaves: " + addLeaves);
+        }
+
         // tool settings - fruits probability
         float deltaAddFruitProbability = Input.mouse.isButtonPressed(Mouse.Button.RIGHT) && Input.keyboard.isKeyPressed(Keyboard.Key.C) ? -Input.mouse.getYDelta() / (Graphics.getWindowHeight() * 0.3f) : 0;
         addFruitsProbability += deltaAddFruitProbability;
@@ -137,10 +143,10 @@ public class ToolStampTrees extends Tool {
                     float y = position.y;
                     List<String> treeColorsList = new ArrayList<>(treeColors);
                     String treeColor = treeColorsList.get(MathUtils.randomUniformInt(0, treeColorsList.size()));
-                    TextureRegion base = layer3.getRegion("assets/textures-layer-3/tree_" + mode.name().toLowerCase() + "_" + treeColor + "_" + MathUtils.randomUniformInt(0, 6) + ".png");
+                    TextureRegion base = addLeaves ? layer3.getRegion("assets/textures-layer-3/tree_" + mode.name().toLowerCase() + "_" + treeColor + "_" + MathUtils.randomUniformInt(0, 6) + ".png") : null;
                     boolean addTrunk = MathUtils.randomUniformFloat(0, 1) < addTrunkProbability;
                     TextureRegion trunk = addTrunk ? layer3.getRegion("assets/textures-layer-3/tree_" + mode.name().toLowerCase() + "_trunk_" + MathUtils.randomUniformInt(1, 6) + ".png") : null;
-                    boolean addFruits = MathUtils.randomUniformFloat(0, 1) < addFruitsProbability;
+                    boolean addFruits = addLeaves && MathUtils.randomUniformFloat(0, 1) < addFruitsProbability;
                     List<String> fruitColorsList = new ArrayList<>(fruitColors);
                     String fruitColor = fruitColorsList.get(MathUtils.randomUniformInt(0, fruitColorsList.size()));
                     TextureRegion fruits = addFruits ? layer3.getRegion("assets/textures-layer-3/tree_" + mode.name().toLowerCase() + "_fruits_" + fruitColor + ".png") : null;
@@ -159,10 +165,10 @@ public class ToolStampTrees extends Tool {
                 for (Vector2 position : positions) {
                     float x = position.x;
                     float y = position.y;
-                    TextureRegion base = layer3.getRegion("assets/textures-layer-3/tree_" + mode.name().toLowerCase() + "_" + MathUtils.randomUniformInt(0, 6) + ".png");
+                    TextureRegion base = addLeaves ? layer3.getRegion("assets/textures-layer-3/tree_" + mode.name().toLowerCase() + "_" + MathUtils.randomUniformInt(0, 6) + ".png") : null;
                     boolean addTrunk = MathUtils.randomUniformFloat(0, 1) < addTrunkProbability;
                     TextureRegion trunk = addTrunk ? layer3.getRegion("assets/textures-layer-3/tree_" + mode.name().toLowerCase() + "_trunk_" + MathUtils.randomUniformInt(1, 6) + ".png") : null;
-                    boolean addFruits = MathUtils.randomUniformFloat(0, 1) < addFruitsProbability;
+                    boolean addFruits = addLeaves && MathUtils.randomUniformFloat(0, 1) < addFruitsProbability;
                     List<String> fruitColorsList = new ArrayList<>(fruitColors);
                     String fruitColor = fruitColorsList.get(MathUtils.randomUniformInt(0, fruitColorsList.size()));
                     TextureRegion fruits = addFruits ? layer3.getRegion("assets/textures-layer-3/tree_" + mode.name().toLowerCase() + "_fruits_" + fruitColor + ".png") : null;
