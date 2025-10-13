@@ -1,0 +1,13 @@
+Q. What do I do if my trailer processing ended with an error?
+A. The most common reason for a trailer to fail is the resolution of the video.
+Please ensure you use a common resolution such as
+
+1920x1080 or 1280x720 to avoid any downstream processing issues.
+
+Another common issue is an unsupported audio sample rate
+
+(please use 44Khz or 48Khz).
+
+
+trailer - music
+https://soundcloud.com/kevin-9-1/village-consort

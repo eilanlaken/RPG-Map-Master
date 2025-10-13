@@ -1,6 +1,10 @@
 <combinations>
 
     <combination>
+        <object type="17" x="0" y="0"/>
+    </combination>
+
+    <combination>
         <object type="0" x="18.133373" y="12.666706"/>
         <object type="1" x="-22.266708" y="2.0666618"/>
         <object type="1" x="4.133339" y="-14.733364"/>
@@ -81,20 +85,6 @@
         <object type="3" x="55.037567" y="-28.550003"/>
         <object type="7" x="22.037552" y="-38.450012"/>
         <object type="8" x="-17.562534" y="-40.650024"/>
-    </combination>
-
-    <combination>
-        <object type="1" x="-34.654556" y="41.418175"/>
-        <object type="0" x="19.24545" y="33.01818"/>
-        <object type="1" x="-22.75455" y="30.218184"/>
-        <object type="1" x="-61.95454" y="5.0181885"/>
-        <object type="16" x="38.84547" y="1.5181808"/>
-        <object type="16" x="57.04546" y="0.118183136"/>
-        <object type="16" x="75.94544" y="-1.2818146"/>
-        <object type="17" x="-47.95454" y="-26.481812"/>
-        <object type="17" x="3.8454447" y="-27.181824"/>
-        <object type="7" x="56.745476" y="-28.481804"/>
-        <object type="9" x="-84.35454" y="-27.881813"/>
     </combination>
 
     <combination>

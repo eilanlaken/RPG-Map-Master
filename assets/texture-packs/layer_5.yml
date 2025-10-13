@@ -1,9 +1,9 @@
 regions:
 - name: assets/textures-layer-5/decorations_sun.png
-  offsetX: 98
-  offsetY: 118
-  originalHeight: 549
-  originalWidth: 455
+  offsetX: 0
+  offsetY: 0
+  originalHeight: 313
+  originalWidth: 256
   packedHeight: 313
   packedWidth: 256
   textureIndex: 0

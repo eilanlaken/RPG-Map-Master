@@ -69,6 +69,9 @@ public class SceneDemo implements Scene {
         // layer 3
         Assets.loadTexturePack("assets/texture-packs/layer_3.yml");
 
+        // layer 5
+        Assets.loadTexture("assets/textures-layer-5/decorations_sun.png");
+
         Assets.finishLoading();
 
         map = new Map(false);
@@ -79,10 +82,7 @@ public class SceneDemo implements Scene {
         tools[3] = new ToolStampProps(map);
         tools[4] = new ToolStampBlocks(map);
         tools[5] = new ToolStampRocks(map);
-//        tools[2] = new ToolStampGround(map);
-//        tools[4] = new ToolStampCastles(map);
-//        tools[6] = new ToolStampRuralBlock(map);
-//        tools[7] = new ToolStampProps(map);
+        tools[6] = new ToolStampDecorations(map);
     }
 
     @Override
@@ -148,8 +148,14 @@ public class SceneDemo implements Scene {
         tools[activeTool].y = screen.y;
         tools[activeTool].update(Graphics.getDeltaTime());
         // save placeholder
-        if (Input.keyboard.isKeyJustPressed(Keyboard.Key.SPACE)) {
+        if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KP_0)) {
             map.saveLayerAsImage(0);
+        } else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KP_1)) {
+            map.saveLayerAsImage(1);
+        } else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KP_2)) {
+            map.saveLayerAsImage(2);
+        } else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KP_3)) {
+            map.saveLayerAsImage(3);
         }
 
 

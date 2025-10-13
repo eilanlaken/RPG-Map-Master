@@ -100,7 +100,11 @@ public class Map {
     }
 
     public void saveLayerAsImage(int layer) {
-        Texture texture = layer3.getTexture();
+        Texture texture;
+        if (layer == 0) texture = layer0.getTexture();
+        else if (layer == 1) texture = layer1.getTexture();
+        else if (layer == 3) texture = layer3.getTexture();
+        else texture = layer3.getTexture();
 
         ByteBuffer buffer = texture.getPixmapBytes();
 
@@ -125,7 +129,7 @@ public class Map {
         }
 
         try {
-            ImageIO.write(image, "png", new File("layer333.png"));
+            ImageIO.write(image, "png", new File("layer_" + layer + ".png"));
         } catch (Exception e) {
 
         }

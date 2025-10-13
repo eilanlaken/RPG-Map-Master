@@ -58,7 +58,8 @@ public class ToolStampProps extends Tool {
             );
             createProp.type = MapToken.Type.PROP;
             map.addCommand(createProp);
-            singleIndex = MathUtils.randomUniformInt(0,6);
+            int end = mode == Mode.HUT ? 10 : 6;
+            singleIndex = MathUtils.randomUniformInt(0, end);
             region = layer3.getRegion("assets/textures-layer-3/prop_" + mode.name().toLowerCase() + "_" + singleIndex + ".png");
         }
 
@@ -148,6 +149,8 @@ public class ToolStampProps extends Tool {
         if (mode == Mode.FLOWER_SUNFLOWER) return 6;
         if (mode == Mode.FLOWER_SCORPION) return 6;
 
+        if (mode == Mode.HUT) return 130;
+
         return 10; // default
     }
 
@@ -161,6 +164,10 @@ public class ToolStampProps extends Tool {
             return layer3.getRegion("assets/textures-layer-3/prop_" + mode.name().toLowerCase() + "_" + index + ".png");
         }
 
+        if (mode == Mode.HUT) {
+            int index = MathUtils.randomUniformInt(0,10);
+            return layer3.getRegion("assets/textures-layer-3/prop_" + mode.name().toLowerCase() + "_" + index + ".png");
+        }
 
         return null;
     }
@@ -227,7 +234,7 @@ public class ToolStampProps extends Tool {
         FLOWER_SCORPION(false, 0.8f), // polygon
         FLOWER_SUNFLOWER(false, 0.8f), // polygon
         FLOWER_TULIP(false, 0.8f), // polygon
-        HUT(false,2), // polygon
+        HUT(true,2), // polygon
         LODGE(true,2),
         PILE(true,2),
         PILLAR_STONE_SHORT(true,2),
