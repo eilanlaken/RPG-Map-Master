@@ -8,6 +8,7 @@ import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.Vector3;
 import com.heavybox.jtix.tools.ToolsTexturePacker;
+import com.heavybox.jtix.widgets.Widget;
 import com.heavybox.jtix.z.*;
 import org.lwjgl.opengl.GL11;
 
@@ -22,6 +23,10 @@ public class SceneDemo implements Scene {
     public Map map;
     public Tool[] tools = new Tool[10];
     public int activeTool = 0;
+
+    // user-interface
+    public WidgetTopMenu widgetTopMenu;
+    public WidgetSidebar widgetSidebar = new WidgetSidebar();
 
     public SceneDemo() {
         renderer2D = new Renderer2D();
@@ -83,6 +88,11 @@ public class SceneDemo implements Scene {
         tools[4] = new ToolStampBlocks(map);
         tools[5] = new ToolStampRocks(map);
         tools[6] = new ToolStampDecorations(map);
+
+        // user - interface
+        widgetSidebar.anchor = Widget.Anchor.TOP_LEFT;
+        widgetSidebar.anchorX = 0;
+        widgetSidebar.anchorY = 24;
     }
 
     @Override
@@ -109,7 +119,7 @@ public class SceneDemo implements Scene {
         } else if (Input.mouse.isButtonPressed(Mouse.Button.MIDDLE) && Input.keyboard.isKeyPressed(Keyboard.Key.LEFT_CONTROL)) {
             camera.zoom += Input.mouse.getYDelta() * 0.05f;
         }
-        //System.out.println(screen);
+
         // handle keyboard input
         if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KEY_1) && activeTool != 0) {
             tools[activeTool].deactivate();
@@ -158,6 +168,12 @@ public class SceneDemo implements Scene {
             map.saveLayerAsImage(3);
         }
 
+        // user - interface
+        // update ui
+        widgetSidebar.update(Graphics.getDeltaTime());
+        widgetSidebar.handleInput(Graphics.getDeltaTime());
+//        toolbarWidget.update(Graphics.getDeltaTime());
+//        toolbarWidget.handleInput(Graphics.getDeltaTime());
 
         map.update(delta);
         map.render(renderer2D);
@@ -176,6 +192,8 @@ public class SceneDemo implements Scene {
 
         // draw UI
         renderer2D.begin();
+        widgetSidebar.draw(renderer2D);
+        //menuBarWidget.draw(renderer2D);
         renderer2D.end();
 
     }
