@@ -25,9 +25,8 @@ public class SceneDemo implements Scene {
     public int activeTool = 0;
 
     // user-interface
-//    public WidgetTopMenu widgetTopMenu = new WidgetTopMenu();
+    public boolean ui_visible = true;
     public WidgetSidebar widgetSidebar = new WidgetSidebar();
-
     public Texture[] ui_mockups = new Texture[4]; // TODO: remove
     public int mockupIndex = 0;
 
@@ -190,6 +189,9 @@ public class SceneDemo implements Scene {
         // update ui
         widgetSidebar.update(Graphics.getDeltaTime());
         widgetSidebar.handleInput(Graphics.getDeltaTime());
+        if (Input.keyboard.isKeyJustPressed(Keyboard.Key.BACKSPACE)) {
+            ui_visible = !ui_visible;
+        }
         // TODO: remove
         if (activeTool == 0) mockupIndex = 1;
         else if (activeTool == 2) mockupIndex = 2;
@@ -215,10 +217,11 @@ public class SceneDemo implements Scene {
 
         // draw UI
         renderer2D.begin();
-        widgetSidebar.draw(renderer2D);
-        // TODO: remove
-        renderer2D.drawTexture(ui_mockups[mockupIndex],(-Graphics.getWindowWidth() + ui_mockups[mockupIndex].width) * 0.5f + 6,(Graphics.getWindowHeight() - ui_mockups[mockupIndex].height) * 0.5f - 400,0,1,1);
-//        widgetTopMenu.draw(renderer2D);
+        if (ui_visible) {
+            widgetSidebar.draw(renderer2D);
+            // TODO: remove
+            renderer2D.drawTexture(ui_mockups[mockupIndex], (-Graphics.getWindowWidth() + ui_mockups[mockupIndex].width) * 0.5f + 6, (Graphics.getWindowHeight() - ui_mockups[mockupIndex].height) * 0.5f - 400, 0, 1, 1);
+        }
         renderer2D.end();
 
     }

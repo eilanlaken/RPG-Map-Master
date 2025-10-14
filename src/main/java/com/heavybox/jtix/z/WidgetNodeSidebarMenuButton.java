@@ -19,7 +19,7 @@ public class WidgetNodeSidebarMenuButton extends NodeContainerHorizontal {
     public WidgetNodeSidebarMenuButton(String name, String hotkey) {
         boxHeightSizing = Sizing.DYNAMIC;
         boxWidthSizing = Sizing.STATIC;
-        boxWidth = 240;
+        boxWidth = 234;
         boxBorderSize = 0;
         boxPaddingLeft = 10;
         boxPaddingRight = 10;
@@ -37,11 +37,11 @@ public class WidgetNodeSidebarMenuButton extends NodeContainerHorizontal {
 
         addChild(nameNode);
         addChild(hotkeyNode);
-//
-//        onClick = () -> {
-//            NodeToolBar toolBar = (NodeToolBar) container;
-//            toolBar.select(this);
-//        };
+
+        onClick = () -> {
+            WidgetNodeSidebarTools toolBar = (WidgetNodeSidebarTools) container;
+            toolBar.select(this);
+        };
 
         onMouseEnter = () -> {
             WidgetNodeSidebarTools toolBar = (WidgetNodeSidebarTools) container;
