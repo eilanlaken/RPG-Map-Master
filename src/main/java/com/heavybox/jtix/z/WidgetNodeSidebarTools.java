@@ -26,7 +26,7 @@ public class WidgetNodeSidebarTools extends NodeContainerVertical {
         WidgetNodeSidebarMenuButton select = new WidgetNodeSidebarMenuButton("Terrain", "press 1");
         WidgetNodeSidebarMenuButton move = new WidgetNodeSidebarMenuButton("Trees", "press 2");
         WidgetNodeSidebarMenuButton terrain = new WidgetNodeSidebarMenuButton("Props", "press 3");
-        WidgetNodeSidebarMenuButton brush = new WidgetNodeSidebarMenuButton("Cities", "press 4");
+        WidgetNodeSidebarMenuButton brush = new WidgetNodeSidebarMenuButton("Architecture", "press 4");
         WidgetNodeSidebarMenuButton path = new WidgetNodeSidebarMenuButton("Mountains", "press 5");
         WidgetNodeSidebarMenuButton text = new WidgetNodeSidebarMenuButton("Text", "press 6");
         WidgetNodeSidebarMenuButton decorations = new WidgetNodeSidebarMenuButton("Decorations", "press 7");
@@ -51,7 +51,7 @@ public class WidgetNodeSidebarTools extends NodeContainerVertical {
         addChild(decorations);
         addChild(export);
 
-        addChild(new WidgetNodeSidebarToolOptions("select", 75));
+        //addChild(new WidgetNodeSidebarToolOptions("Active Tool", 75));
     }
 
     protected void select(WidgetNodeSidebarMenuButton item) {
@@ -62,6 +62,5 @@ public class WidgetNodeSidebarTools extends NodeContainerVertical {
             menuItem.boxBackgroudColor = WidgetNodeSidebarMenuButton.COLOR_UNSELECTED;
         }
     }
-
 
 }

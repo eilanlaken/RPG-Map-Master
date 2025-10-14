@@ -25,8 +25,11 @@ public class SceneDemo implements Scene {
     public int activeTool = 0;
 
     // user-interface
-    public WidgetTopMenu widgetTopMenu;
+//    public WidgetTopMenu widgetTopMenu = new WidgetTopMenu();
     public WidgetSidebar widgetSidebar = new WidgetSidebar();
+
+    public Texture[] ui_mockups = new Texture[4]; // TODO: remove
+    public int mockupIndex = 0;
 
     public SceneDemo() {
         renderer2D = new Renderer2D();
@@ -77,6 +80,13 @@ public class SceneDemo implements Scene {
         // layer 5
         Assets.loadTexture("assets/textures-layer-5/decorations_sun.png");
 
+        // user-interface
+        Assets.loadTexture("assets/user-interface/mockup-tool-panel-decoration.jpg");
+        Assets.loadTexture("assets/user-interface/mockup-tool-panel-terrain.jpg");
+        Assets.loadTexture("assets/user-interface/mockup-tool-panel-trees.jpg");
+        Assets.loadTexture("assets/user-interface/mockup-tool-panel-architecture.jpg");
+
+
         Assets.finishLoading();
 
         map = new Map(false);
@@ -91,8 +101,16 @@ public class SceneDemo implements Scene {
 
         // user - interface
         widgetSidebar.anchor = Widget.Anchor.TOP_LEFT;
-        widgetSidebar.anchorX = 0;
-        widgetSidebar.anchorY = 24;
+        widgetSidebar.anchorX = 6;
+        widgetSidebar.anchorY = 100;
+
+        ui_mockups[0] = Assets.get("assets/user-interface/mockup-tool-panel-decoration.jpg");
+        ui_mockups[1] = Assets.get("assets/user-interface/mockup-tool-panel-terrain.jpg");
+        ui_mockups[2] = Assets.get("assets/user-interface/mockup-tool-panel-trees.jpg");
+        ui_mockups[3] = Assets.get("assets/user-interface/mockup-tool-panel-architecture.jpg");
+
+//        widgetTopMenu.anchor = Widget.Anchor.TOP_CENTER;
+//        widgetTopMenu.anchorY = 0;
     }
 
     @Override
@@ -172,8 +190,13 @@ public class SceneDemo implements Scene {
         // update ui
         widgetSidebar.update(Graphics.getDeltaTime());
         widgetSidebar.handleInput(Graphics.getDeltaTime());
-//        toolbarWidget.update(Graphics.getDeltaTime());
-//        toolbarWidget.handleInput(Graphics.getDeltaTime());
+        // TODO: remove
+        if (activeTool == 0) mockupIndex = 1;
+        else if (activeTool == 2) mockupIndex = 2;
+        else if (activeTool == 4) mockupIndex = 3;
+        else mockupIndex = 0;
+//        widgetTopMenu.update(Graphics.getDeltaTime());
+//        widgetTopMenu.handleInput(Graphics.getDeltaTime());
 
         map.update(delta);
         map.render(renderer2D);
@@ -193,7 +216,9 @@ public class SceneDemo implements Scene {
         // draw UI
         renderer2D.begin();
         widgetSidebar.draw(renderer2D);
-        //menuBarWidget.draw(renderer2D);
+        // TODO: remove
+        renderer2D.drawTexture(ui_mockups[mockupIndex],(-Graphics.getWindowWidth() + ui_mockups[mockupIndex].width) * 0.5f + 6,(Graphics.getWindowHeight() - ui_mockups[mockupIndex].height) * 0.5f - 400,0,1,1);
+//        widgetTopMenu.draw(renderer2D);
         renderer2D.end();
 
     }

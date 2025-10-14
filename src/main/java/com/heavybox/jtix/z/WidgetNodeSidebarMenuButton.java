@@ -29,10 +29,10 @@ public class WidgetNodeSidebarMenuButton extends NodeContainerHorizontal {
         boxBackgroudColor = Color.valueOf("1D1D1D");
 
         nameNode = new NodeText(name);
-        nameNode.size = 15;
+        nameNode.size = 22;
 
         hotkeyNode = new NodeText(hotkey);
-        hotkeyNode.size = 12;
+        hotkeyNode.size = 15;
         hotkeyNode.color = Color.valueOf("EEEEEE");
 
         addChild(nameNode);
