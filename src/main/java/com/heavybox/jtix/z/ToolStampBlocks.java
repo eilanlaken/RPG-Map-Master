@@ -69,7 +69,7 @@ public class ToolStampBlocks extends Tool {
     public TextureRegion singlesCurrentRegion;
 
     // combinations
-    public int comboIndex = 0; //MathUtils.randomUniformInt(0, COMBINATIONS.size);
+    public int comboIndex = MathUtils.randomUniformInt(0, COMBINATIONS.size);
 
 
     public ToolStampBlocks(Map map) {
@@ -186,7 +186,7 @@ public class ToolStampBlocks extends Tool {
                     cmd.type = MapToken.Type.BLOCK;
                     map.addCommand(cmd);
                 }
-
+                comboIndex = MathUtils.randomUniformInt(0, COMBINATIONS.size); // TODO: maybe remove.
             }
             return;
         }
