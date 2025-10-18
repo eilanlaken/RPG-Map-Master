@@ -239,6 +239,7 @@ public class ToolStampProps extends Tool {
         FLOWER_WATER_LILY(true, 1f),
         HUT(true,2), // polygon
         LODGE(true,2),
+        MILITARY_TENT_RED(true, 2),
         PILE(true,2),
         PILLAR_STONE_SHORT(true,2),
         PILLAR_STONE_TALL(true,2),
