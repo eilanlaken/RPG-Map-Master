@@ -146,6 +146,7 @@ public class ToolStampProps extends Tool {
 
         if (mode == Mode.FLOWER_DAISY) return 9;
         if (mode == Mode.FLOWER_TULIP) return 6;
+        if (mode == Mode.FLOWER_ROSE) return 6;
         if (mode == Mode.FLOWER_SUNFLOWER) return 6;
         if (mode == Mode.FLOWER_SCORPION) return 6;
 
@@ -159,7 +160,7 @@ public class ToolStampProps extends Tool {
             return layer3.getRegion("assets/textures-layer-3/prop_chopped_trunk.png");
         }
 
-        if (mode == Mode.FLOWER_DAISY || mode == Mode.FLOWER_TULIP || mode == Mode.FLOWER_SUNFLOWER || mode == Mode.FLOWER_SCORPION) {
+        if (mode == Mode.FLOWER_DAISY || mode == Mode.FLOWER_TULIP || mode == Mode.FLOWER_ROSE || mode == Mode.FLOWER_SUNFLOWER || mode == Mode.FLOWER_SCORPION) {
             int index = MathUtils.randomUniformInt(0,6);
             return layer3.getRegion("assets/textures-layer-3/prop_" + mode.name().toLowerCase() + "_" + index + ".png");
         }
@@ -234,6 +235,7 @@ public class ToolStampProps extends Tool {
         FLOWER_SCORPION(false, 0.8f), // polygon
         FLOWER_SUNFLOWER(false, 0.8f), // polygon
         FLOWER_TULIP(false, 0.8f), // polygon
+        FLOWER_ROSE(false, 0.8f), // polygon
         HUT(true,2), // polygon
         LODGE(true,2),
         PILE(true,2),
