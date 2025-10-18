@@ -236,6 +236,7 @@ public class ToolStampProps extends Tool {
         FLOWER_SUNFLOWER(false, 0.8f), // polygon
         FLOWER_TULIP(false, 0.8f), // polygon
         FLOWER_ROSE(false, 0.8f), // polygon
+        FLOWER_WATER_LILY(true, 1f),
         HUT(true,2), // polygon
         LODGE(true,2),
         PILE(true,2),
@@ -245,6 +246,7 @@ public class ToolStampProps extends Tool {
         SACK(true,2),
         SCARECROW(true,2),
         STRAW(true,2),
+        TORCH(true,1),
         WINDMILL(true,2),
         ;
 
