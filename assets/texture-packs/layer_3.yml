@@ -3571,7 +3571,7 @@ regions:
   y: 1544
 - name: assets/textures-layer-3/castle_tower_tall_undead_5.png
   offsetX: 20
-  offsetY: 241
+  offsetY: 217
   originalHeight: 445
   originalWidth: 80
   packedHeight: 200
@@ -3721,7 +3721,7 @@ regions:
   y: 1614
 - name: assets/textures-layer-3/castle_tower_tall_undead_0.png
   offsetX: 20
-  offsetY: 241
+  offsetY: 217
   originalHeight: 445
   originalWidth: 80
   packedHeight: 194
@@ -3731,7 +3731,7 @@ regions:
   y: 2
 - name: assets/textures-layer-3/castle_tower_tall_undead_1.png
   offsetX: 20
-  offsetY: 241
+  offsetY: 217
   originalHeight: 445
   originalWidth: 80
   packedHeight: 194
@@ -3741,7 +3741,7 @@ regions:
   y: 2
 - name: assets/textures-layer-3/castle_tower_tall_undead_2.png
   offsetX: 20
-  offsetY: 241
+  offsetY: 217
   originalHeight: 445
   originalWidth: 80
   packedHeight: 194
@@ -3751,7 +3751,7 @@ regions:
   y: 2
 - name: assets/textures-layer-3/castle_tower_tall_undead_3.png
   offsetX: 20
-  offsetY: 241
+  offsetY: 217
   originalHeight: 445
   originalWidth: 80
   packedHeight: 194
@@ -3761,7 +3761,7 @@ regions:
   y: 2
 - name: assets/textures-layer-3/castle_tower_tall_undead_4.png
   offsetX: 20
-  offsetY: 241
+  offsetY: 217
   originalHeight: 445
   originalWidth: 80
   packedHeight: 194
