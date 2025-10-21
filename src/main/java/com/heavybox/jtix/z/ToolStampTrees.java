@@ -137,6 +137,30 @@ public class ToolStampTrees extends Tool {
 
             setPositions();
 
+            if (mode == Mode.ACER) {
+                for (Vector2 position : positions) {
+                    float x = position.x;
+                    float y = position.y;
+                    List<String> treeColorsList = new ArrayList<>(treeColors);
+                    String treeColor = treeColorsList.get(MathUtils.randomUniformInt(0, treeColorsList.size()));
+                    TextureRegion base = addLeaves ? layer3.getRegion("assets/textures-layer-3/tree_" + mode.name().toLowerCase() + "_" + treeColor + "_" + MathUtils.randomUniformInt(0, 6) + ".png") : null;
+                    boolean addTrunk = MathUtils.randomUniformFloat(0, 1) < addTrunkProbability;
+                    TextureRegion trunk = addTrunk ? layer3.getRegion("assets/textures-layer-3/tree_" + mode.name().toLowerCase() + "_trunk_" + MathUtils.randomUniformInt(1, 6) + ".png") : null;
+                    boolean addFruits = addLeaves && MathUtils.randomUniformFloat(0, 1) < addFruitsProbability;
+                    List<String> fruitColorsList = new ArrayList<>(fruitColors);
+                    String fruitColor = fruitColorsList.get(MathUtils.randomUniformInt(0, fruitColorsList.size()));
+                    TextureRegion fruits = addFruits ? layer3.getRegion("assets/textures-layer-3/tree_" + mode.name().toLowerCase() + "_fruits_" + fruitColor + ".png") : null;
+                    CommandTokenCreate createPlant = new CommandTokenCreate(
+                            3,
+                            x, y, deg, sclX, sclY, true,
+                            base, trunk, fruits
+                    );
+                    createPlant.type = MapToken.Type.TREE;
+                    map.addCommand(createPlant);
+                }
+                return;
+            }
+
             if (mode == Mode.REGULAR) {
                 for (Vector2 position : positions) {
                     float x = position.x;
@@ -224,9 +248,12 @@ public class ToolStampTrees extends Tool {
         }
     }
 
+    // TODO: move set positions to Tool.java
+    // TODO: depends on the sprite packed width and height
     private void setPositions() {
         positions.clear();
-        final float spacing = TREE_DENSITY * sclX;
+        float spacing = TREE_DENSITY * sclX;
+        spacing += (mode == Mode.ACER ? 20 * sclX: 0); // TODO: remove this bullshit. Spacing should be determined by the sprite packed width.
 
         float r = (float) Math.sqrt(batchSize / (2 * MathUtils.PI)) * spacing; // circle radius
         for (int i = 0; i < batchSize; i++) { // scatter inside circle
@@ -274,6 +301,7 @@ public class ToolStampTrees extends Tool {
 
     public enum Mode {
         REGULAR,
+        ACER,
         CYPRESS,
         DENSE,
         SPARSE,

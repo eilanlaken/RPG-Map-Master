@@ -86,6 +86,7 @@ public class ToolStampRocks extends Tool {
 
     public enum Mode {
         BOULDER_BIG,
+        BOULDER_MEDIUM,
         BOULDER_SMALL,
 
         HILLS_GREEN,

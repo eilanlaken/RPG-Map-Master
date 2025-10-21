@@ -11,6 +11,9 @@ import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Vector2;
 
+// TODO: overhaul the props tool
+// TODO: asset discovery based on name prefix
+// TODO: brush modes: point, line, curve, polygon
 public class ToolStampProps extends Tool {
 
     public final TexturePack layer3;
@@ -47,8 +50,6 @@ public class ToolStampProps extends Tool {
             changeMod();
             return;
         }
-
-
 
         if (mode.singles && leftButtonClicked) {
             CommandTokenCreate createProp = new CommandTokenCreate(
@@ -231,6 +232,7 @@ public class ToolStampProps extends Tool {
         BRIDGE(false,2), // along path
         CHOPPED_TRUNK(false,2), // polygon scatter
         FENCE(false,2), // along path
+        FENCE_HIGH(true, 2),
         FLOWER_DAISY(false,2), // polygon
         FLOWER_SCORPION(false, 0.8f), // polygon
         FLOWER_SUNFLOWER(false, 0.8f), // polygon

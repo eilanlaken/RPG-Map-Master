@@ -4,6 +4,9 @@ import com.heavybox.jtix.graphics.Renderer2D;
 
 public abstract class Tool {
 
+    // TODO
+    public BrushMode brushMode;
+
     public float x, y;
     public float deg;
     public float sclX = 1, sclY = 1;
@@ -18,5 +21,14 @@ public abstract class Tool {
 
     public abstract void activate();
     public abstract void deactivate();
+
+    // TODO
+    public enum BrushMode {
+        POINT,
+        LINE,
+        CURVE,
+        POLYGON,
+        ;
+    }
 
 }
