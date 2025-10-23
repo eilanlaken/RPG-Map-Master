@@ -287,6 +287,7 @@ public class ToolStampBlocks extends Tool {
         ELF,
         DWARF,
         UNDEAD,
+        // OGRES // TODO
         // GOBLIN,
         // OGRE
         // TROLL

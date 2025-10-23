@@ -21,7 +21,7 @@ public class ToolStampRocks extends Tool {
     public ToolStampRocks(Map map) {
         super(map);
         layer3 = Assets.get("assets/texture-packs/layer_3.yml");
-        region = layer3.getRegion("assets/textures-layer-3/boulder_big_0.png");
+        region = layer3.getRegion("assets/textures-layer-3/boulder_plain_big_0.png");
         sclX = 1f;
         sclY = 1f;
     }
@@ -85,9 +85,11 @@ public class ToolStampRocks extends Tool {
     }
 
     public enum Mode {
-        BOULDER_BIG,
-        BOULDER_MEDIUM,
-        BOULDER_SMALL,
+        BOULDER_PLAIN_BIG,
+        BOULDER_PLAIN_SMALL,
+
+        BOULDER_GRASS_BIG,
+        BOULDER_GRASS_SMALL,
 
         HILLS_GREEN,
         HILLS_BROWN,
