@@ -26,7 +26,6 @@ public abstract class Tool {
     public enum BrushMode {
         POINT,
         LINE,
-        CURVE,
         POLYGON,
         ;
     }

@@ -251,6 +251,7 @@ public class ToolStampProps extends Tool {
         STRAW(true,2),
         TORCH(true,1),
         WINDMILL(true,2),
+        WILD_EGG_BROWN(true, 2),
         ;
 
         public boolean singles;
@@ -261,12 +262,6 @@ public class ToolStampProps extends Tool {
             this.rescale = rescale;
         }
 
-    }
-
-    private enum BrushType {
-        SINGLES,
-        FILL_POLYGON,
-        FILL_ALONG_PATH
     }
 
 }
