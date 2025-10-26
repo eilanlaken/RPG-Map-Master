@@ -91,7 +91,7 @@ public class SceneDemo implements Scene {
         map = new Map(false);
 
         tools[0] = new ToolDrawTerrain(map);
-        tools[1] = new ToolFillWheatFields(map);
+        tools[1] = new ToolWheatFields(map);
         tools[2] = new ToolStampTrees(map);
         tools[3] = new ToolStampProps(map);
         tools[4] = new ToolStampBlocks(map);
@@ -137,6 +137,22 @@ public class SceneDemo implements Scene {
             camera.zoom += Input.mouse.getYDelta() * 0.05f;
         }
 
+        // undo-redo
+        boolean left_ctrl_pressed = Input.keyboard.isKeyPressed(Keyboard.Key.LEFT_CONTROL);
+        boolean left_ctrl_released = Input.keyboard.isKeyReleased(Keyboard.Key.LEFT_CONTROL);
+        boolean left_shift_pressed = Input.keyboard.isKeyPressed(Keyboard.Key.LEFT_SHIFT);
+        boolean z_just_pressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.Z);
+        if (left_ctrl_pressed && left_shift_pressed && z_just_pressed) {
+            map.redo();
+            return;
+        } else if (left_ctrl_pressed && z_just_pressed) {
+            map.undo();
+            return;
+        } else if (left_ctrl_released && z_just_pressed) {
+            map.undo();
+            return;
+        }
+
         // handle keyboard input
         if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KEY_1) && activeTool != 0) {
             tools[activeTool].deactivate();
@@ -174,6 +190,7 @@ public class SceneDemo implements Scene {
         tools[activeTool].x = screen.x;
         tools[activeTool].y = screen.y;
         tools[activeTool].update(Graphics.getDeltaTime());
+
         // save placeholder
         if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KP_0)) {
             map.saveLayerAsImage(0);

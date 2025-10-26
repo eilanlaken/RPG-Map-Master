@@ -4,6 +4,7 @@ import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.graphics.*;
 import com.heavybox.jtix.math.Vector2;
+import org.lwjgl.opengl.GL11;
 
 import java.util.Arrays;
 
@@ -70,6 +71,14 @@ public class MapLayer_1 implements MapLayer {
         commandCreateWheatFields.addAll(newWheatFields);
         newWheatFields.clear();
         changed = false;
+    }
+
+    @Override
+    public void clear() {
+        FrameBufferBinder.bind(layer1);
+        GL11.glClearColor(0,0,0,0);
+        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
+        changed = true;
     }
 
     @Override

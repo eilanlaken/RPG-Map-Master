@@ -12,7 +12,7 @@ import com.heavybox.jtix.math.Vector2;
 
 import java.util.Arrays;
 
-public class ToolFillWheatFields extends Tool {
+public class ToolWheatFields extends Tool {
 
     public State state = State.FREE;
 
@@ -28,7 +28,7 @@ public class ToolFillWheatFields extends Tool {
     private boolean addLines = true;
     private int harvestType = 0; // 0 = none, 1 = part, 2 = full
 
-    public ToolFillWheatFields(Map map) {
+    public ToolWheatFields(Map map) {
         super(map);
         bases[0] = Assets.get("assets/textures-layer-1/terrain-wheat-field-base_0.png");
         bases[1] = Assets.get("assets/textures-layer-1/terrain-wheat-field-base_1.png");
@@ -110,6 +110,7 @@ public class ToolFillWheatFields extends Tool {
                 createWheatField.linesAngle = linesAngle;
                 createWheatField.harvestType = harvestType;
                 createWheatField.harvestTint = new Color(harvestTint);
+                createWheatField.anchor = true;
                 map.addCommand(createWheatField);
                 reset();
             }

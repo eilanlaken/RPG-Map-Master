@@ -10,4 +10,7 @@ public interface MapLayer {
     void applyChanges(Renderer2D renderer2D);
     Texture getTexture();
 
+    // maybe only temporary functionality for simple undo implementation
+    @Deprecated void clear();
+
 }

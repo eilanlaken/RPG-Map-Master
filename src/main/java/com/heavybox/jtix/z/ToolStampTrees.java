@@ -138,6 +138,7 @@ public class ToolStampTrees extends Tool {
             setPositions();
 
             if (mode == Mode.ACER) {
+                int i = 0;
                 for (Vector2 position : positions) {
                     float x = position.x;
                     float y = position.y;
@@ -156,12 +157,14 @@ public class ToolStampTrees extends Tool {
                             base, trunk, fruits
                     );
                     createPlant.type = MapToken.Type.TREE;
+                    createPlant.anchor = i++ == positions.size - 1;
                     map.addCommand(createPlant);
                 }
                 return;
             }
 
             if (mode == Mode.REGULAR) {
+                int i = 0;
                 for (Vector2 position : positions) {
                     float x = position.x;
                     float y = position.y;
@@ -180,12 +183,14 @@ public class ToolStampTrees extends Tool {
                             base, trunk, fruits
                     );
                     createPlant.type = MapToken.Type.TREE;
+                    createPlant.anchor = i++ == positions.size - 1;
                     map.addCommand(createPlant);
                 }
                 return;
             }
 
             if (mode == Mode.CYPRESS) {
+                int i = 0;
                 for (Vector2 position : positions) {
                     float x = position.x;
                     float y = position.y;
@@ -202,12 +207,14 @@ public class ToolStampTrees extends Tool {
                             base, trunk, fruits
                     );
                     createPlant.type = MapToken.Type.TREE;
+                    createPlant.anchor = i++ == positions.size - 1;
                     map.addCommand(createPlant);
                 }
                 return;
             }
 
             if (mode == Mode.DENSE || mode == Mode.SPARSE) {
+                int i = 0;
                 for (Vector2 position : positions) {
                     float x = position.x;
                     float y = position.y;
@@ -222,12 +229,14 @@ public class ToolStampTrees extends Tool {
                             base, fruits
                     );
                     createPlant.type = MapToken.Type.TREE;
+                    createPlant.anchor = i++ == positions.size - 1;
                     map.addCommand(createPlant);
                 }
                 return;
             }
 
             if (mode == Mode.BUSH) {
+                int i = 0;
                 for (Vector2 position : positions) {
                     float x = position.x;
                     float y = position.y;
@@ -241,6 +250,7 @@ public class ToolStampTrees extends Tool {
                             x, y, deg, sclX, sclY, true, base, fruits
                     );
                     createPlant.type = MapToken.Type.TREE;
+                    createPlant.anchor = i++ == positions.size - 1;
                     map.addCommand(createPlant);
                     return;
                 }

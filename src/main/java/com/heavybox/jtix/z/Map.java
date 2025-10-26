@@ -65,12 +65,48 @@ public class Map {
         if (command.layer == 3) layer3.executeCommand(command);
     }
 
-    private void undo() {
+    public void undo() {
+        if (commandsHistory.isEmpty()) return;
+        if (commandsHistory.size == 1) {
+            //layer0.clear();
+            layer1.clear();
+            //layer2.clear();
+            layer3.clear();
+            //layer4.clear();
+            //layer5.clear();
+            commandsHistory.clear();
+            return;
+        }
 
+        //layer0.clear();
+        layer1.clear();
+        //layer2.clear();
+        layer3.clear();
+        //layer4.clear();
+        //layer5.clear();
+        System.out.print("[");
+        for (Command command : commandsHistory) {
+            System.out.print(command.anchor ? "T " : "_ ");
+        }
+        System.out.print("]");
+        int lastIndex = commandsHistory.size - 1;
+        for (int i = commandsHistory.size - 2; i >= 0; i--) {
+            Command cmd = commandsHistory.get(i);
+            if (cmd.anchor) {
+                lastIndex = i;
+                break;
+            }
+        }
+        commandsHistory.truncate(lastIndex);
+        for (Command command : commandsHistory) {
+            if (command instanceof CommandTerrain) continue;
+            if (command instanceof CommandTerrainChangeEnvironment) continue;
+            executeCommand(command);
+        }
     }
 
-    private void redo() {
-
+    public void redo() {
+        System.out.println("redo");
     }
 
     public void render(Renderer2D renderer2D) {

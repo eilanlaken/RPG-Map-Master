@@ -17,7 +17,7 @@ public class MapLayer_3 implements MapLayer {
 
     // Tokens layer
     private FrameBuffer layer3 = new FrameBuffer(1920, 1080);
-    public Array<MapToken> allTokens = new Array<>(false, 10);
+    public Array<MapToken> allTokens = new Array<>(false, 10); // TODO: maybe refactor to be member of Map
     private final TexturePack tokensAtlas;
     public final Camera camera = new Camera(Camera.Mode.ORTHOGRAPHIC, 1920, 1080, 1, 0, 100, 75);
 
@@ -66,6 +66,15 @@ public class MapLayer_3 implements MapLayer {
         redraw(renderer2D);
 
         changed = false;
+    }
+
+    @Override
+    public void clear() {
+        allTokens.clear();
+
+        FrameBufferBinder.bind(layer3);
+        GL11.glClearColor(0,0,0,0);
+        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
     }
 
     @Override

@@ -58,6 +58,7 @@ public class ToolStampProps extends Tool {
                     region
             );
             createProp.type = MapToken.Type.PROP;
+            createProp.anchor = true;
             map.addCommand(createProp);
             int end = mode == Mode.HUT ? 10 : 6;
             singleIndex = MathUtils.randomUniformInt(0, end);
@@ -124,6 +125,7 @@ public class ToolStampProps extends Tool {
                     }
                 }
 
+                int i = 0;
                 for (Vector2 position : gridPoints) {
                     CommandTokenCreate createProp = new CommandTokenCreate(
                             3,
@@ -131,6 +133,7 @@ public class ToolStampProps extends Tool {
                             getRegion()
                     );
                     createProp.type = MapToken.Type.PROP;
+                    createProp.anchor = i++ == gridPoints.size - 1;
                     map.addCommand(createProp);
                 }
 

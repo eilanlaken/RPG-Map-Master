@@ -149,7 +149,7 @@ public class MapLayer_0 implements MapLayer {
 
         FrameBufferBinder.bind(layer0);
         GL11.glClearColor(0,0,0,1);
-        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT); // should probably clear the stencil
+        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
         renderer2D.begin(camera);
         renderer2D.setBlending(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         renderer2D.drawTexture(terrainLiquids[terrainLiquidsIndex], 0, 0, 0, 1, -1);
@@ -174,6 +174,26 @@ public class MapLayer_0 implements MapLayer {
         commandsQueueTerrainBlendMapRoad.clear();
 
         changed = false;
+    }
+
+    @Override
+    public void clear() {
+        FrameBufferBinder.bind(terrainMask);
+        GL11.glClearColor(1,1,1,1);
+        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
+
+        FrameBufferBinder.bind(terrainBlendMap);
+        terrainBlendMap.setRenderTargets("attachment_0");
+        GL11.glClearColor(0,0,0,1f);
+        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
+
+        terrainBlendMap.setRenderTargets("attachment_1");
+        GL11.glClearColor(0,0,0,1f);
+        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
+
+        FrameBufferBinder.bind(layer0);
+        GL11.glClearColor(0,0,0,0);
+        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
     }
 
     @Override

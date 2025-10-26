@@ -59,6 +59,7 @@ public class ToolStampRocks extends Tool {
                     x,y,deg,sclX,sclY,true,
                     region
             );
+            createMountain.anchor = true;
             map.addCommand(createMountain);
             float diff = MathUtils.randomUniformFloat(-0.05f, 0.05f);
             sclX = 1f + diff;
