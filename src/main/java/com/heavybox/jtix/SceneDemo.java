@@ -139,7 +139,7 @@ public class SceneDemo implements Scene {
 
         // undo-redo
         boolean left_ctrl_pressed = Input.keyboard.isKeyPressed(Keyboard.Key.LEFT_CONTROL);
-        boolean left_ctrl_released = Input.keyboard.isKeyReleased(Keyboard.Key.LEFT_CONTROL);
+        boolean left_ctrl_just_pressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.LEFT_CONTROL);
         boolean left_shift_pressed = Input.keyboard.isKeyPressed(Keyboard.Key.LEFT_SHIFT);
         boolean z_just_pressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.Z);
         if (left_ctrl_pressed && left_shift_pressed && z_just_pressed) {
@@ -148,7 +148,7 @@ public class SceneDemo implements Scene {
         } else if (left_ctrl_pressed && z_just_pressed) {
             map.undo();
             return;
-        } else if (left_ctrl_released && z_just_pressed) {
+        } else if (left_ctrl_just_pressed && z_just_pressed) {
             map.undo();
             return;
         }

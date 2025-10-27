@@ -149,6 +149,7 @@ public class ToolStampProps extends Tool {
         if (mode == Mode.CHOPPED_TRUNK) return 10;
 
         if (mode == Mode.FLOWER_DAISY) return 9;
+        if (mode == Mode.FLOWER_GHOST) return 9;
         if (mode == Mode.FLOWER_TULIP) return 6;
         if (mode == Mode.FLOWER_ROSE) return 6;
         if (mode == Mode.FLOWER_SUNFLOWER) return 6;
@@ -164,7 +165,7 @@ public class ToolStampProps extends Tool {
             return layer3.getRegion("assets/textures-layer-3/prop_chopped_trunk.png");
         }
 
-        if (mode == Mode.FLOWER_DAISY || mode == Mode.FLOWER_TULIP || mode == Mode.FLOWER_ROSE || mode == Mode.FLOWER_SUNFLOWER || mode == Mode.FLOWER_SCORPION) {
+        if (mode == Mode.FLOWER_DAISY || mode == Mode.FLOWER_GHOST || mode == Mode.FLOWER_TULIP || mode == Mode.FLOWER_ROSE || mode == Mode.FLOWER_SUNFLOWER || mode == Mode.FLOWER_SCORPION) {
             int index = MathUtils.randomUniformInt(0,6);
             return layer3.getRegion("assets/textures-layer-3/prop_" + mode.name().toLowerCase() + "_" + index + ".png");
         }
@@ -237,6 +238,7 @@ public class ToolStampProps extends Tool {
         FENCE(false,2), // along path
         FENCE_HIGH(true, 2),
         FLOWER_DAISY(false,2), // polygon
+        FLOWER_GHOST(false,1.2f), // polygon
         FLOWER_SCORPION(false, 0.8f), // polygon
         FLOWER_SUNFLOWER(false, 0.8f), // polygon
         FLOWER_TULIP(false, 0.8f), // polygon
