@@ -15,6 +15,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import javax.crypto.spec.PSource;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
@@ -57,7 +58,7 @@ public class ToolStampBlocks extends Tool {
 
     public final TexturePack layer3;
 
-    public Mode mode = Mode.SINGLE;
+    public Mode mode = Mode.SINGLES_DEV;
 
     public Array<Block> singlesBlocks = new Array<>();
     public BlockType singlesBlockType = BlockType.values()[0];
@@ -91,14 +92,14 @@ public class ToolStampBlocks extends Tool {
         boolean xJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.X);
         boolean tabJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.TAB);
 
-        // singles
-        if (mode == Mode.SINGLE) {
-            // toggle mode
-            if (rightButtonClicked) {
-                toggleMode();
-                return;
-            }
+        // tool settings - toggle mode
+        if (rightButtonClicked) {
+            toggleMode();
+            return;
+        }
 
+        // singles
+        if (mode == Mode.SINGLES_DEV) {
             // next / prev block type
             if (verticalScroll > 0) {
                 changeBlockType(true);
@@ -150,13 +151,40 @@ public class ToolStampBlocks extends Tool {
             return;
         }
 
-        // combinations
-        if (mode == Mode.COMBINATION) {
-            if (rightButtonClicked) {
-                toggleMode();
+        if (mode == Mode.SINGLES) {
+            // next / prev block type
+            if (verticalScroll > 0) {
+                changeBlockType(true);
+                return;
+            } else if (verticalScroll < 0) {
+                changeBlockType(false);
                 return;
             }
 
+            // next / prev race
+            if (zJustPressed) {
+                changeRace(true);
+                return;
+            } else if (xJustPressed) {
+                changeRace(false);
+                return;
+            }
+
+            if (leftButtonClicked) {
+                Block block = new Block();
+                block.x = x;
+                block.y = y;
+                block.type = singlesBlockType;
+
+                TextureRegion blockRegion = layer3.getRegion("assets/textures-layer-3/" + block.type.name().toLowerCase() + "_" + race.name().toLowerCase() + "_" + MathUtils.randomUniformInt(0,6) + ".png");
+                CommandTokenCreate cmd = new CommandTokenCreate(3, x, y, 0, sclX, sclY, false, blockRegion);
+                cmd.type = MapToken.Type.BLOCK;
+                map.addCommand(cmd);
+            }
+        }
+
+        // combinations
+        if (mode == Mode.COMBINATION) {
             // next / prev block type
             if (verticalScroll > 0) {
                 comboIndex++;
@@ -202,7 +230,20 @@ public class ToolStampBlocks extends Tool {
 
     @Override
     public void renderToolOverlay(Renderer2D renderer2D, float x, float y) {
-        if (mode == Mode.SINGLE) {
+        if (mode == Mode.SINGLES_DEV) {
+            renderer2D.setColor(Color.WHITE);
+            renderer2D.drawTextureRegion(singlesCurrentRegion, x, y, 0, this.sclX, this.sclY);
+            singlesToolOverlay.clear();
+            singlesToolOverlay.addAll(singlesBlocks);
+            singlesToolOverlay.sort(Comparator.comparingInt(o -> -(int) o.y));
+            for (Block block : singlesToolOverlay) {
+                TextureRegion region = layer3.getRegion("assets/textures-layer-3/" + block.type.name().toLowerCase() + "_" + race.name().toLowerCase() + "_" + 0 + ".png");
+                renderer2D.drawTextureRegion(region, block.x, block.y, 0, this.sclX, this.sclY);
+            }
+            return;
+        }
+
+        if (mode == Mode.SINGLES) {
             renderer2D.setColor(Color.WHITE);
             renderer2D.drawTextureRegion(singlesCurrentRegion, x, y, 0, this.sclX, this.sclY);
             singlesToolOverlay.clear();
@@ -230,21 +271,18 @@ public class ToolStampBlocks extends Tool {
         }
     }
 
-//    public Block[] getCombination() {
-//        Combination combination = COMBINATIONS.get(comboIndex);
-//        return combination.blocks;
-//    }
-
     private void toggleMode() {
-        if (mode == Mode.SINGLE) mode = Mode.COMBINATION;
-        else mode = Mode.SINGLE;
+        if (mode == Mode.SINGLES_DEV) mode = Mode.COMBINATION;
+        else if (mode == Mode.COMBINATION) mode = Mode.SINGLES;
+        else mode = Mode.SINGLES_DEV;
+
+        System.out.println("mode: " + mode);
     }
 
     private void changeRace(boolean next) {
         if (next) race = Race.values()[(race.ordinal() + 1) % Race.values().length]; // next
         else race = Race.values()[(race.ordinal() - 1 + Race.values().length) % Race.values().length]; // previous
         singlesCurrentRegion = layer3.getRegion("assets/textures-layer-3/" + singlesBlockType.name().toLowerCase() + "_" + race.name().toLowerCase() + "_" + 0 + ".png");
-        // todo: set regions etc
     }
 
     private void changeBlockType(boolean next) {
@@ -327,7 +365,8 @@ public class ToolStampBlocks extends Tool {
     }
 
     public enum Mode {
-        SINGLE,
+        SINGLES_DEV,
+        SINGLES,
         COMBINATION,
         ;
     }

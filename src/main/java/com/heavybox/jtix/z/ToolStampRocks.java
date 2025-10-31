@@ -1,10 +1,7 @@
 package com.heavybox.jtix.z;
 
 import com.heavybox.jtix.assets.Assets;
-import com.heavybox.jtix.graphics.Color;
-import com.heavybox.jtix.graphics.Renderer2D;
-import com.heavybox.jtix.graphics.TexturePack;
-import com.heavybox.jtix.graphics.TextureRegion;
+import com.heavybox.jtix.graphics.*;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
@@ -38,6 +35,12 @@ public class ToolStampRocks extends Tool {
         boolean leftJustPressed = Input.mouse.isButtonJustPressed(Mouse.Button.LEFT);
         boolean tabJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.TAB);
 
+        float deltaScale = Input.keyboard.isKeyPressed(Keyboard.Key.S) ? -Input.mouse.getYDelta() / (Graphics.getWindowHeight() * 0.3f) : 0;
+        sclX += deltaScale;
+        sclY += deltaScale;
+        sclX = MathUtils.clampFloat(sclX, 0.25f, 2.5f);
+        sclY = MathUtils.clampFloat(sclY, 0.25f, 2.5f);
+
         // tool - settings: mode
         if (verticalScroll > 0) {
             Mode[] values = Mode.values();
@@ -62,8 +65,8 @@ public class ToolStampRocks extends Tool {
             createMountain.anchor = true;
             map.addCommand(createMountain);
             float diff = MathUtils.randomUniformFloat(-0.05f, 0.05f);
-            sclX = 1f + diff;
-            sclY = 1f + diff;
+            sclX += diff;
+            sclY += diff;
             selectRandomIndex();
             return;
         }

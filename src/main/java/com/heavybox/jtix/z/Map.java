@@ -15,6 +15,7 @@ public class Map {
     public MapLayer_0 layer0; // Terrain layer (wheat fields)
     public MapLayer_1 layer1; // Ground layer (wheat fields)
     public MapLayer_3 layer3; // Token layer
+    public MapLayer_5 layer5; // Token layer
 
     // Decorations layer
 
@@ -35,6 +36,7 @@ public class Map {
         layer0 = new MapLayer_0();
         layer1 = new MapLayer_1();
         layer3 = new MapLayer_3();
+        layer5 = new MapLayer_5();
     }
 
     public void addCommand(Command command) {
@@ -63,6 +65,7 @@ public class Map {
         if (command.layer == 0) layer0.executeCommand(command);
         if (command.layer == 1) layer1.executeCommand(command);
         if (command.layer == 3) layer3.executeCommand(command);
+        if (command.layer == 5) layer5.executeCommand(command);
     }
 
     public void undo() {
@@ -73,7 +76,7 @@ public class Map {
             //layer2.clear();
             layer3.clear();
             //layer4.clear();
-            //layer5.clear();
+            layer5.clear();
             commandsHistory.clear();
             return;
         }
@@ -83,7 +86,7 @@ public class Map {
         //layer2.clear();
         layer3.clear();
         //layer4.clear();
-        //layer5.clear();
+        layer5.clear();
         System.out.print("[");
         for (Command command : commandsHistory) {
             System.out.print(command.anchor ? "T " : "_ ");
@@ -113,6 +116,7 @@ public class Map {
         layer0.applyChanges(renderer2D);
         layer1.applyChanges(renderer2D);
         layer3.applyChanges(renderer2D); // TODO: use applyChanges
+        layer5.applyChanges(renderer2D); // TODO: use applyChanges
 
         FrameBufferBinder.bind(mapFinal);
         GL11.glClearColor(1.0f,1.0f,1.0f,1);
@@ -125,6 +129,7 @@ public class Map {
         // render layer-2
         // render layer-3
         renderer2D.drawTexture(layer3.getTexture(), 0, 0, 0, 1,1);
+        renderer2D.drawTexture(layer5.getTexture(), 0, 0, 0, 1,1);
 
         // render layer-4
         renderer2D.end();

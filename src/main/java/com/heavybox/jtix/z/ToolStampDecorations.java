@@ -2,12 +2,11 @@ package com.heavybox.jtix.z;
 
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.collections.Array;
-import com.heavybox.jtix.graphics.Color;
-import com.heavybox.jtix.graphics.Renderer2D;
-import com.heavybox.jtix.graphics.Texture;
+import com.heavybox.jtix.graphics.*;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
+import com.heavybox.jtix.math.MathUtils;
 
 // THIS IS JUST FOR THE DEMO
 public class ToolStampDecorations extends Tool {
@@ -17,6 +16,8 @@ public class ToolStampDecorations extends Tool {
 
     public Texture[] decorations;
     private int currentDecorationIndex = 0;
+
+    private boolean flipped = false;
 
     public ToolStampDecorations(Map map) {
         super(map);
@@ -48,6 +49,19 @@ public class ToolStampDecorations extends Tool {
         boolean rightButtonClicked = Input.mouse.isButtonClicked(Mouse.Button.RIGHT);
         boolean keyAJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.A);
         boolean keyZJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.Z);
+        boolean keyLeftShiftJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.LEFT_SHIFT);
+
+        // tool settings
+        float deltaScale = Input.keyboard.isKeyPressed(Keyboard.Key.S) ? -Input.mouse.getYDelta() / (Graphics.getWindowHeight() * 0.3f) : 0;
+        sclX += deltaScale;
+        sclY += deltaScale;
+        sclX = MathUtils.clampFloat(sclX, 0.25f, 1.5f);
+        sclY = MathUtils.clampFloat(sclY, 0.25f, 1.5f);
+
+        if (keyLeftShiftJustPressed) {
+            flipped = !flipped;
+            return;
+        }
 
         if (verticalScroll != 0) {
             deg += verticalScroll * 15;
@@ -72,13 +86,23 @@ public class ToolStampDecorations extends Tool {
             return;
         }
 
+        if (leftButtonClicked) {
+            TextureRegion region = new TextureRegion(decorations[currentDecorationIndex]);
+            CommandTokenCreate cmd = new CommandTokenCreate(layer == Layer.MIDDLE ? 3 : 5,
+                    x, y, deg, flipped? -sclX : sclX, sclY, true, region);
+            cmd.type = MapToken.Type.DECORATION;
+            cmd.anchor = true;
+            map.addCommand(cmd);
+            return;
+        }
+
     }
 
     @Override
     public void renderToolOverlay(Renderer2D renderer2D, float x, float y) {
-        renderer2D.drawTexture(decorations[currentDecorationIndex], x, y, deg, 1, 1);
+        renderer2D.drawTexture(decorations[currentDecorationIndex], x, y, deg, flipped? -sclX : sclX, sclY);
         renderer2D.setColor(Color.RED);
-        renderer2D.drawRectangleThin(decorations[currentDecorationIndex].width, decorations[currentDecorationIndex].height, x, y, deg, 1, 1);
+        renderer2D.drawRectangleThin(decorations[currentDecorationIndex].width, decorations[currentDecorationIndex].height, x, y, deg, sclX, sclY);
         renderer2D.setColor(Color.WHITE);
     }
 

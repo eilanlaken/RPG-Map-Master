@@ -1,0 +1,6 @@
+Canvas texture layer on top + layer mode:
+
+PENCIL = LCh Color
+CANVAS = Linear Burn
+STORY BOOK = Exclusion / Difference (Difference is better)
+PASTEL = Pin Light

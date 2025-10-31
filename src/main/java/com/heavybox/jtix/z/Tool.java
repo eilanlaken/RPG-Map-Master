@@ -6,6 +6,7 @@ public abstract class Tool {
 
     // TODO
     public BrushMode brushMode;
+    public float density = 0.5f;
 
     public float x, y;
     public float deg;
