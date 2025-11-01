@@ -27,7 +27,7 @@ public abstract class Tool {
     public enum BrushMode {
         POINT,
         LINE,
-        POLYGON,
+        POLYGON, // TODO: BUG HERE WHEN CLOSING A POLYGON EXACTLY
         ;
     }
 

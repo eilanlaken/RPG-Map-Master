@@ -145,6 +145,7 @@ public class Map {
         if (layer == 0) texture = layer0.getTexture();
         else if (layer == 1) texture = layer1.getTexture();
         else if (layer == 3) texture = layer3.getTexture();
+        else if (layer == 5) texture = layer5.getTexture();
         else texture = layer3.getTexture();
 
         ByteBuffer buffer = texture.getPixmapBytes();

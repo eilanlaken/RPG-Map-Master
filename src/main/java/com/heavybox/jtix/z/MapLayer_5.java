@@ -51,7 +51,7 @@ public class MapLayer_5 implements MapLayer {
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
         renderer2D.begin(camera);
         renderer2D.setBlending(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-        allTokens.sort(Comparator.comparingInt(o -> -(int) o.y));
+        //allTokens.sort(Comparator.comparingInt(o -> -(int) o.y));
         for (MapToken mapToken : allTokens) {
             mapToken.render(renderer2D);
         }

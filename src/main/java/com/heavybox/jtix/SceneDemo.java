@@ -25,7 +25,7 @@ public class SceneDemo implements Scene {
     public int activeTool = 0;
 
     // user-interface
-    public boolean ui_visible = true;
+    public boolean ui_visible = false;
     public WidgetSidebar widgetSidebar = new WidgetSidebar();
     public Texture[] ui_mockups = new Texture[4]; // TODO: remove
     public int mockupIndex = 0;
@@ -200,6 +200,10 @@ public class SceneDemo implements Scene {
             map.saveLayerAsImage(2);
         } else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KP_3)) {
             map.saveLayerAsImage(3);
+        } else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KP_4)) {
+            //map.saveLayerAsImage(4);
+        } else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KP_5)) {
+            map.saveLayerAsImage(5);
         }
 
         // user - interface

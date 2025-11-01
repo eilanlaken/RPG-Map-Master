@@ -39,7 +39,7 @@ public class ToolStampTrees extends Tool {
         layer3 = Assets.get("assets/texture-packs/layer_3.yml");
         fruitColors.add(FRUIT_COLORS[0]);
         fruitColors.add(FRUIT_COLORS[1]);
-        fruitColors.add(FRUIT_COLORS[2]);
+        //fruitColors.add(FRUIT_COLORS[2]);
 
         treeColors.add(TREE_COLORS[0]); // only green
     }
@@ -89,7 +89,7 @@ public class ToolStampTrees extends Tool {
         }
 
         // tool settings - scale
-        float deltaScale = Input.mouse.isButtonPressed(Mouse.Button.RIGHT) && Input.keyboard.isKeyPressed(Keyboard.Key.Z) ? -Input.mouse.getYDelta() / (Graphics.getWindowHeight() * 0.3f) : 0;
+        float deltaScale = Input.keyboard.isKeyPressed(Keyboard.Key.Z) ? -Input.mouse.getYDelta() / (Graphics.getWindowHeight() * 0.3f) : 0;
         sclX += deltaScale;
         sclY += deltaScale;
         sclX = MathUtils.clampFloat(sclX, 0.25f, 4);
@@ -100,7 +100,7 @@ public class ToolStampTrees extends Tool {
         }
 
         // tool settings - trunk probability
-        float deltaAddTrunkProbability = Input.mouse.isButtonPressed(Mouse.Button.RIGHT) && Input.keyboard.isKeyPressed(Keyboard.Key.X) ? -Input.mouse.getYDelta() / (Graphics.getWindowHeight() * 0.3f) : 0;
+        float deltaAddTrunkProbability = Input.keyboard.isKeyPressed(Keyboard.Key.X) ? -Input.mouse.getYDelta() / (Graphics.getWindowHeight() * 0.3f) : 0;
         addTrunkProbability += deltaAddTrunkProbability;
         addTrunkProbability = MathUtils.clampFloat(addTrunkProbability, 0, 1);
         if (deltaAddTrunkProbability != 0) {
@@ -115,7 +115,7 @@ public class ToolStampTrees extends Tool {
         }
 
         // tool settings - fruits probability
-        float deltaAddFruitProbability = Input.mouse.isButtonPressed(Mouse.Button.RIGHT) && Input.keyboard.isKeyPressed(Keyboard.Key.C) ? -Input.mouse.getYDelta() / (Graphics.getWindowHeight() * 0.3f) : 0;
+        float deltaAddFruitProbability = Input.keyboard.isKeyPressed(Keyboard.Key.C) ? -Input.mouse.getYDelta() / (Graphics.getWindowHeight() * 0.3f) : 0;
         addFruitsProbability += deltaAddFruitProbability;
         addFruitsProbability = MathUtils.clampFloat(addFruitsProbability, 0, 1);
         if (deltaAddFruitProbability != 0) {
