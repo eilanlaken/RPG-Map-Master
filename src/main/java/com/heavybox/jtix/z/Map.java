@@ -87,11 +87,6 @@ public class Map {
         layer3.clear();
         //layer4.clear();
         layer5.clear();
-        System.out.print("[");
-        for (Command command : commandsHistory) {
-            System.out.print(command.anchor ? "T " : "_ ");
-        }
-        System.out.print("]");
         int lastIndex = commandsHistory.size - 1;
         for (int i = commandsHistory.size - 2; i >= 0; i--) {
             Command cmd = commandsHistory.get(i);

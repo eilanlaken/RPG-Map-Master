@@ -1298,4 +1298,10 @@ public final class MathUtils {
         return inside;
     }
 
+    // TODO: implement
+    public static void polygonGiftWrap(Vector2[] points, Array<Vector2> out) {
+        if (out == null) throw new MathException("out cannot be null");
+        out.clear();
+    }
+
 }
