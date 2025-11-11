@@ -1299,9 +1299,11 @@ public final class MathUtils {
     }
 
     // TODO: implement
-    public static void polygonGiftWrap(Vector2[] points, Array<Vector2> out) {
+    public static void polygonGiftWrap(Array<Vector2> points, Array<Vector2> out) {
         if (out == null) throw new MathException("out cannot be null");
+        if (points.size < 3) throw new MathException("points must contain at least 3 points. Got: " + points.size);
         out.clear();
+
     }
 
 }
