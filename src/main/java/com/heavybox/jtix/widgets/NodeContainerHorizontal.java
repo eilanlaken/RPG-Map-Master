@@ -7,8 +7,8 @@ public class NodeContainerHorizontal extends NodeContainer {
     public float margin = 5;
 
     public NodeContainerHorizontal() {
-        contentOverflowX = Overflow.SCROLLBAR;
-        contentOverflowY = Overflow.HIDDEN;
+        boxContentOverflowX = Overflow.SCROLLBAR;
+        boxContentOverflowY = Overflow.HIDDEN;
     }
 
     @Override

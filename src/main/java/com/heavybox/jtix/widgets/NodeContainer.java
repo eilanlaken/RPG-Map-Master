@@ -39,8 +39,8 @@ public class NodeContainer extends Node {
     public float     boxHeightMin                 = 0;
     public float     boxHeightMax                 = Float.POSITIVE_INFINITY;
     public float     boxHeight                    = 1;
-    public Overflow  contentOverflowX             = Overflow.HIDDEN;
-    public Overflow  contentOverflowY             = Overflow.HIDDEN;
+    public Overflow  boxContentOverflowX          = Overflow.HIDDEN;
+    public Overflow  boxContentOverflowY          = Overflow.HIDDEN;
     public Color     boxBackgroudColor            = Color.valueOf("#007BFF");
     public boolean   boxBackgroundEnabled         = true;
     public int       boxPaddingTop                = 80;
@@ -146,8 +146,8 @@ public class NodeContainer extends Node {
 //        renderer2D.setStencilModeSetOnes();
         final float windowMaxExtent = Math.max(Graphics.getWindowWidth(), Graphics.getWindowHeight());
         final float fullScreenMask = 2 * windowMaxExtent;
-        float maskWidth  = contentOverflowX == Overflow.VISIBLE ? fullScreenMask : backgroundWidth;
-        float maskHeight = contentOverflowY == Overflow.VISIBLE ? fullScreenMask : backgroundHeight;
+        float maskWidth  = boxContentOverflowX == Overflow.VISIBLE ? fullScreenMask : backgroundWidth;
+        float maskHeight = boxContentOverflowY == Overflow.VISIBLE ? fullScreenMask : backgroundHeight;
         renderer2D.drawRectangleFilled(maskWidth, maskHeight,
                 boxCornerRadiusTopLeft, boxCornerSegmentsTopLeft,
                 boxCornerRadiusTopRight, boxCornerSegmentsTopRight,

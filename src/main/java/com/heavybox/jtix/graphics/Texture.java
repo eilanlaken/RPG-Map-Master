@@ -29,35 +29,7 @@ public class Texture implements MemoryResource {
     private       int       anisotropy;
     private       float     biasLOD; // higher LOD bias will sample from higher mip level, which means lower texture quality.
 
-    @Nullable private ByteBuffer pixmapBytes = null;
-
-    // create an empty texture. Mainly for use of a frame buffer.
-    public Texture(int width, int height) {
-        this.handle = GL11.glGenTextures();
-        this.slot = -1;
-
-        int maxTextureSize = Graphics.getMaxTextureSize();
-        if (width > maxTextureSize || height > maxTextureSize)
-            throw new GraphicsException("Trying to create " + Texture.class + " with resolution (" + width + "," + height + ") greater than allowed on your GPU: " + maxTextureSize);
-
-        this.width = width;
-        this.height = height;
-        this.invWidth = 1.0f / width;
-        this.invHeight = 1.0f / height;
-
-        this.filterMag = FilterMag.LINEAR;
-        this.filterMin = FilterMin.LINEAR;
-        this.sWrap = Texture.Wrap.CLAMP_TO_EDGE;
-        this.tWrap = Texture.Wrap.CLAMP_TO_EDGE;
-        this.anisotropy = 1;
-        this.biasLOD = 0;
-
-        TextureBinder.bind(this);
-        GL11.glPixelStorei(GL11.GL_UNPACK_ALIGNMENT, 1);
-        GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL11.GL_RGBA, width, height, 0, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, 0);
-        GL11.glTexParameteri(GL20.GL_TEXTURE_2D, GL12.GL_TEXTURE_BASE_LEVEL, 0);
-        GL11.glTexParameteri(GL20.GL_TEXTURE_2D, GL12.GL_TEXTURE_MAX_LEVEL, 0);
-    }
+    private @Nullable ByteBuffer pixmapBytes = null;
 
     public Texture(int width, int height, int internalFormat, int format) {
         this.handle = GL11.glGenTextures();
@@ -409,3 +381,36 @@ public class Texture implements MemoryResource {
     }
 
 }
+
+/*
+
+
+    // create an empty texture. Mainly for use of a frame buffer.
+    public Texture(int width, int height) {
+        this.handle = GL11.glGenTextures();
+        this.slot = -1;
+
+        int maxTextureSize = Graphics.getMaxTextureSize();
+        if (width > maxTextureSize || height > maxTextureSize)
+            throw new GraphicsException("Trying to create " + Texture.class + " with resolution (" + width + "," + height + ") greater than allowed on your GPU: " + maxTextureSize);
+
+        this.width = width;
+        this.height = height;
+        this.invWidth = 1.0f / width;
+        this.invHeight = 1.0f / height;
+
+        this.filterMag = FilterMag.LINEAR;
+        this.filterMin = FilterMin.LINEAR;
+        this.sWrap = Texture.Wrap.CLAMP_TO_EDGE;
+        this.tWrap = Texture.Wrap.CLAMP_TO_EDGE;
+        this.anisotropy = 1;
+        this.biasLOD = 0;
+
+        TextureBinder.bind(this);
+        GL11.glPixelStorei(GL11.GL_UNPACK_ALIGNMENT, 1);
+        GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL11.GL_RGBA, width, height, 0, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, 0);
+        GL11.glTexParameteri(GL20.GL_TEXTURE_2D, GL12.GL_TEXTURE_BASE_LEVEL, 0);
+        GL11.glTexParameteri(GL20.GL_TEXTURE_2D, GL12.GL_TEXTURE_MAX_LEVEL, 0);
+    }
+
+ */

@@ -2,7 +2,6 @@ package com.heavybox.jtix.z;
 
 import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.graphics.TextureRegion;
-import com.heavybox.jtix.widgets.NodeContainer;
 
 public class MapToken {
 

@@ -135,11 +135,11 @@ public abstract class Node {
     final boolean containsPoint(float x, float y) {
         if (container == null) return polygon.containsPoint(x, y);
 
-        if (container.contentOverflowX == NodeContainer.Overflow.VISIBLE && container.contentOverflowY == NodeContainer.Overflow.VISIBLE) {
+        if (container.boxContentOverflowX == NodeContainer.Overflow.VISIBLE && container.boxContentOverflowY == NodeContainer.Overflow.VISIBLE) {
             return polygon.containsPoint(x, y);
         }
 
-        if (container.contentOverflowX == NodeContainer.Overflow.VISIBLE && container.contentOverflowY == NodeContainer.Overflow.HIDDEN) {
+        if (container.boxContentOverflowX == NodeContainer.Overflow.VISIBLE && container.boxContentOverflowY == NodeContainer.Overflow.HIDDEN) {
             if (MathUtils.isZero(container.sclY)) return false;
 
             float height = container.calculateHeight() - container.boxBorderSize;
@@ -151,7 +151,7 @@ public abstract class Node {
             return polygon.containsPoint(x, y) && Math.abs(v.y) <= Math.abs(height / 2);
         }
 
-        if (container.contentOverflowX == NodeContainer.Overflow.HIDDEN && container.contentOverflowY == NodeContainer.Overflow.VISIBLE) {
+        if (container.boxContentOverflowX == NodeContainer.Overflow.HIDDEN && container.boxContentOverflowY == NodeContainer.Overflow.VISIBLE) {
             if (MathUtils.isZero(container.sclX)) return false;
 
             float width = container.calculateWidth() - container.boxBorderSize;
