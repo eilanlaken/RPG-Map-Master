@@ -1,32 +1,34 @@
-package com.heavybox.jtix.widgets_2;
+package com.heavybox.jtix.widgets_3;
 
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Font;
 import com.heavybox.jtix.graphics.Renderer2D;
 
-public class WidgetText extends Widget {
+public class NodeText extends Node {
 
+    /* state */
     public String  text         = null;
+
+    /* props */
     public Color   color        = Theme.textColor;
     public Font    font         = Theme.textFont;
     public boolean antialiasing = Theme.textAntialiasing;
     public int     size         = Theme.textSize;
 
     @Override
-    protected void renderPrimitive(Renderer2D renderer2D, Transform globalTransform) {
+    protected void render(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
         renderer2D.setColor(color);
         renderer2D.setFont(font);
-        renderer2D.drawStringLine(text, size, antialiasing, globalTransform.x, globalTransform.y, globalTransform.deg, globalTransform.sclX, globalTransform.sclY);
+        renderer2D.drawStringLine(text, size, antialiasing, x, y, deg, sclX, sclY);
     }
 
     @Override
-    protected float getInnerWidth() {
+    public float getWidth() {
         return Renderer2D.calculateStringLineWidth(text, font, size, antialiasing);
     }
 
     @Override
-    protected float getInnerHeight() {
+    public float getHeight() {
         return size;
     }
-
 }

@@ -1,4 +1,4 @@
-package com.heavybox.jtix.widgets_2;
+package com.heavybox.jtix.widgets_3;
 
 public final class Widgets {
 
