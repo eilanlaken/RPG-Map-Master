@@ -4,16 +4,18 @@ import com.heavybox.jtix.graphics.Renderer2D;
 
 public abstract class Node {
 
+    public boolean active = true;
     protected NodeContainer container = null;
     protected Region region = new Region();
     public Transform localTransform = new Transform();
-    public float offsetX = 0; // set by container
-    public float offsetY = 0; // set by container
-    private Transform globalTransform = new Transform(); // calculated -
-    public    boolean       active    = true;
 
-    protected abstract void render(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY);
-    public abstract float getWidth();
-    public abstract float getHeight();
+    // package private.
+    float offsetX = 0; // set by container
+    float offsetY = 0; // set by container
+    Transform globalTransform = new Transform(); // calculated -
+
+    protected abstract void  render(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY);
+    protected abstract float getWidth();
+    protected abstract float getHeight();
 
 }

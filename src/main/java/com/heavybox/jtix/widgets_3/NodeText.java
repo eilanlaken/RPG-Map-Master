@@ -16,7 +16,7 @@ public class NodeText extends Node {
     public int     size         = Theme.textSize;
 
     @Override
-    protected void render(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
+    public void render(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
         renderer2D.setColor(color);
         renderer2D.setFont(font);
         renderer2D.drawStringLine(text, size, antialiasing, x, y, deg, sclX, sclY);

@@ -1,8 +1,10 @@
 package com.heavybox.jtix.widgets_3;
 
 import com.heavybox.jtix.collections.Array;
+import com.heavybox.jtix.collections.Tuple2;
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Renderer2D;
+import com.heavybox.jtix.math.Vector2;
 
 /*
 Roughly follows CSS' box model -
@@ -28,9 +30,9 @@ draw():
 public class NodeContainer extends Node {
 
     /* state */
-    private final Array<Node> children      = new Array<>(true, 1);
-    private       float       scrollOffsetX = 0;
-    private       float       scrollOffsetY = 0;
+    private final Array<Node>    children        = new Array<>(true, 1);
+    private       float          scrollOffsetX   = 0;
+    private       float          scrollOffsetY   = 0;
 
     /* box properties */
     public Layout    boxLayout                    = Layout.STACK;
@@ -67,6 +69,7 @@ public class NodeContainer extends Node {
         if (node == null) throw new WidgetsException(Widget.class.getSimpleName() + " element cannot be null.");
         if (node == this) throw new WidgetsException("Trying to parent a " + Widget.class.getSimpleName() + " to itself.");
         if (node.container != null) node.container.removeChild(node);
+
         children.add(node);
         node.container = this;
     }
@@ -74,8 +77,41 @@ public class NodeContainer extends Node {
     public final void removeChild(Node node) {
         if (node == null) throw new WidgetsException(Widget.class.getSimpleName() + " element cannot be null.");
         if (!children.contains(node, true)) throw new WidgetsException(Widget.class.getSimpleName() + " does not contain the element " + node + " as a child so it cannot be removed.");
-        children.removeValue(node,true);
+
+        int index = children.removeValue(node,true);
         node.container = null;
+    }
+
+    // probably invokes calculateOffsets
+    protected final void setChildrenGlobalTransform() {
+
+    }
+
+    public final void setChildrenOffsets() {
+        if (boxLayout == Layout.STACK) {
+
+            return;
+        }
+
+        if (boxLayout == Layout.VERTICAL) {
+
+            return;
+        }
+
+        if (boxLayout == Layout.HORIZONTAL) {
+
+            return;
+        }
+
+        if (boxLayout == Layout.CUSTOM) {
+
+            return;
+        }
+    }
+
+    // can override to create custom layout positioning.
+    protected void setChildrenOffsets(final Array<Node> offsets) {
+
     }
 
     // TODO
@@ -101,20 +137,22 @@ public class NodeContainer extends Node {
         STACK, // stack on top of each-other at the center
         VERTICAL, // place elements from top to bottom, while taking box model into account (padding, border, ...)
         HORIZONTAL, // place elements from left to right, while taking box model into account (padding, border, ...)
+        CUSTOM
         ;
     }
 
     // controls the box sizing
     public enum Sizing {
-        STATIC,  // Hard-coded value in pixels. The size remains constant even if content overflows or fits with extra space.
-        DYNAMIC, // The widget box will set its size to completely fit its children.
+        STATIC  ,  // Hard-coded value in pixels. The size remains constant even if content overflows or fits with extra space.
+        DYNAMIC , // The widget box will set its size to completely fit its children.
+        VIEWPORT, // the node box size will always size itself according to the viewport. For example, if the window width is 100 and the width is 82 -> 82 final width in pixels
         ;
     }
 
     // controls how it handles overflow children.
     public enum Overflow {
-        VISIBLE,   // does nothing, renders while ignoring the bounds
-        HIDDEN,    // uses glScissors to clip the content, so only the pixels that land inside the box render. The rest get trimmed.
+        VISIBLE  ,   // does nothing, renders while ignoring the bounds
+        HIDDEN   ,    // uses glScissors to clip the content, so only the pixels that land inside the box render. The rest get trimmed.
         SCROLLBAR, // trims the content and adds scrollbars
         ;
     }

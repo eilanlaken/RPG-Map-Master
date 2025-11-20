@@ -1,4 +1,4 @@
 package com.heavybox.jtix.widgets_3;
 
-public class NodeCheckbox {
+public class NodeRadioGroup {
 }

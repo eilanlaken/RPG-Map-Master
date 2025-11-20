@@ -216,24 +216,25 @@ public class Array<T> implements Iterable<T> {
         return -1;
     }
 
-    public boolean removeValue (T value, boolean identity) {
+    // TODO: test
+    public int removeValue(T value, boolean identity) {
         T[] items = this.items;
         if (identity || value == null) {
             for (int i = 0, n = size; i < n; i++) {
                 if (items[i] == value) {
                     removeIndex(i);
-                    return true;
+                    return i;
                 }
             }
         } else {
             for (int i = 0, n = size; i < n; i++) {
                 if (value.equals(items[i])) {
                     removeIndex(i);
-                    return true;
+                    return i;
                 }
             }
         }
-        return false;
+        return -1;
     }
 
     public T removeIndex(int index) {

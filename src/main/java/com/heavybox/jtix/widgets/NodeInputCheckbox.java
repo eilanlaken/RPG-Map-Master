@@ -26,7 +26,7 @@ public class NodeInputCheckbox extends Node implements NodeInput<Boolean> {
     }
 
     @Override
-    protected void render(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
+    public void render(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
         float cornerRadius = 5;
         float radius = MathUtils.clampFloat(cornerRadius, 0, BASE_SIZE * 0.5f);
 
