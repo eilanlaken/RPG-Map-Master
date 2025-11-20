@@ -22,6 +22,18 @@ public class NodeInputCheckbox extends Node implements NodeInput<Boolean> {
     public float borderSize   = 5;
     public float cornerRadius = 5;
 
+    /*** LOGIC ***/
+    @Override
+    protected void fixedUpdate(float delta) {
+
+    }
+
+    @Override
+    protected void frameUpdate(float delta) {
+
+    }
+
+    /*** RENDERING ***/
     @Override
     public void render(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
         renderBox(renderer2D, x, y, deg, sclX, sclY);

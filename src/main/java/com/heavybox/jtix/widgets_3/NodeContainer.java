@@ -82,7 +82,19 @@ public class NodeContainer extends Node {
         node.container = null;
     }
 
-    // probably invokes calculateOffsets
+    @Override
+    protected void fixedUpdate(float delta) {
+
+    }
+
+    @Override
+    protected void frameUpdate(float delta) {
+
+    }
+
+    /*** UPDATE ***/
+
+
     protected final void setChildrenGlobalTransform() {
 
     }
@@ -113,6 +125,8 @@ public class NodeContainer extends Node {
     protected void setChildrenOffsets(final Array<Node> offsets) {
 
     }
+
+    /*** RENDERING ***/
 
     // TODO
     @Override

@@ -1,6 +1,8 @@
 package com.heavybox.jtix.widgets_3;
 
 import com.heavybox.jtix.collections.ArrayFloat;
+import com.heavybox.jtix.graphics.Color;
+import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Vector2;
 
@@ -9,12 +11,12 @@ public class Region {
     private final ArrayFloat points = new ArrayFloat(true, 8);
     private final ArrayFloat pointsTransformed = new ArrayFloat(true, 8);
 
-    boolean containsPoint(final float x, final float y, final Transform global) {
-        calculatePointsTransformed(global);
-        return MathUtils.polygonContainsPoint(pointsTransformed, x, y);
-    }
+//    boolean containsPoint(final float x, final float y, final Transform global) {
+//        calculatePointsTransformed(global);
+//        return MathUtils.polygonContainsPoint(pointsTransformed, x, y);
+//    }
 
-    private void calculatePointsTransformed(Transform global) {
+    protected final void calculatePointsTransformed(Transform global) {
         Vector2 point = new Vector2();
         for (int i = 0; i < points.size - 1; i += 2) {
             float point_x = points.get(i);
@@ -154,6 +156,12 @@ public class Region {
         }
 
         pointsTransformed.setSize(points.size);
+    }
+
+    // for debugging.
+    public void render(Renderer2D renderer2D) {
+        renderer2D.setColor(Color.GREEN);
+        renderer2D.drawPolygonThin(pointsTransformed, false, 0,0,0,1,1);
     }
 
 }
