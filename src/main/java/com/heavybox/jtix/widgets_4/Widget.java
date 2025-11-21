@@ -3,15 +3,17 @@ package com.heavybox.jtix.widgets_4;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.graphics.Graphics;
 import com.heavybox.jtix.graphics.Renderer2D;
+import com.heavybox.jtix.input.Input;
+import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.MathUtils;
-import com.heavybox.jtix.widgets.Node;
-import com.heavybox.jtix.widgets_3.WidgetsException;
+import com.heavybox.jtix.math.Vector2;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class Widget {
 
     public boolean active = true;
     protected Widget parent = null;
+    protected boolean focused = false;
     protected final Array<Widget> children = new Array<>(true, 1);
     protected final Array<Widget> activeChildren = new Array<>(true, 1);
     protected final Region region = new Region();
@@ -26,6 +28,13 @@ public abstract class Widget {
     public Anchor anchor;
     public float anchorX = 0;
     public float anchorY = 0;
+
+    // event listeners
+    public Event.ClickListener onClick = (e) -> {
+        System.out.println(e.mouseLocalX);
+        System.out.println(e.mouseLocalY);
+        return false;
+    };
 
     public final void addChild(Widget widget) {
         if (widget == null) throw new WidgetsException(Widget.class.getSimpleName() + " element cannot be null.");
@@ -75,8 +84,36 @@ public abstract class Widget {
             widget.update(delta);
         }
 
+        handleInput();
+
+        // probably do the lag stuff in ECS.
         fixedUpdate(delta);
     }
+
+    protected boolean handleInput() {
+        float windowHalfWidth = Graphics.getWindowWidth() * 0.5f;
+        float windowHalfHeight = Graphics.getWindowHeight() * 0.5f;
+        float pointerX = Input.mouse.getX() - windowHalfWidth;
+        float pointerY = windowHalfHeight - Input.mouse.getY();
+
+
+        boolean mouseClicked = Input.mouse.isButtonClicked(Mouse.Button.LEFT);
+        boolean containsPoint = region.containsPoint(pointerX, pointerY);
+
+        if (containsPoint && mouseClicked && onClick != null) {
+            Event.EventClick eventClick = new Event.EventClick();
+            Vector2 local = new Vector2(pointerX, pointerY);
+            local.add(-globalTransform.x, -globalTransform.y);
+            local.rotateDeg(-globalTransform.deg);
+            local.scl(1 / globalTransform.sclX, 1/ globalTransform.sclY);
+            eventClick.mouseLocalX = local.x;
+            eventClick.mouseLocalY = local.y;
+            onClick.run(eventClick);
+        }
+
+        return false;
+    }
+
 
     // containers can override this, for example.
     protected void setActiveChildrenOffsets(final @NotNull Array<Widget> activeChildren) {

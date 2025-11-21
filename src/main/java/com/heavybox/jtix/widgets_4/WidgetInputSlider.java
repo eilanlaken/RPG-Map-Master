@@ -10,7 +10,6 @@ public class WidgetInputSlider extends Widget implements WidgetInput<Float> {
 
     public float width     = 200;
     public float thickness = 7.5f;
-
     public float thumbSize = 18;
 
     public float min = 0;

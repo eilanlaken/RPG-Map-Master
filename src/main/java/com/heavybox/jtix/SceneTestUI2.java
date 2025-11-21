@@ -30,6 +30,10 @@ public class SceneTestUI2 implements Scene {
         widgetText.anchor = Widget.Anchor.CENTER_LEFT;
         widgetText.anchorX = 200;
 
+        slider.localTransform.deg = 30;
+        slider.localTransform.x = 100;
+        slider.localTransform.y = 100;
+
     }
 
     @Override
@@ -39,17 +43,17 @@ public class SceneTestUI2 implements Scene {
 
     @Override
     public void update() {
-        widgetText.update(1);
+        //widgetText.update(1);
         slider.update(1);
         if (Input.keyboard.isKeyPressed(Keyboard.Key.W)) {
-            widgetText.localTransform.deg += 2;
+            ///widgetText.localTransform.deg += 2;
         }
 
         GL11.glClearColor(0.01f,0.01f,0.01f,1);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_STENCIL_BUFFER_BIT); // should probably clear the stencil
 
         renderer2D.begin();
-        widgetText.render(renderer2D);
+        //widgetText.render(renderer2D);
         slider.render(renderer2D);
         renderer2D.end();
     }

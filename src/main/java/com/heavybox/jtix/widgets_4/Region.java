@@ -11,10 +11,9 @@ public final class Region {
     private final ArrayFloat points = new ArrayFloat(true, 8);
     private final ArrayFloat pointsTransformed = new ArrayFloat(true, 8);
 
-//    boolean containsPoint(final float x, final float y, final Transform global) {
-//        calculatePointsTransformed(global);
-//        return MathUtils.polygonContainsPoint(pointsTransformed, x, y);
-//    }
+    boolean containsPoint(final float x, final float y) {
+        return MathUtils.polygonContainsPoint(pointsTransformed, x, y);
+    }
 
     void transform(Transform global) {
         Vector2 point = new Vector2();
