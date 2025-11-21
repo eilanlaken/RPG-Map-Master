@@ -13,7 +13,7 @@ public class Main {
         //settings.resizable = false;
         Application.init(settings);
         //Application.launch(new SceneDemo());
-        Application.launch(new SceneTestUI());
+        Application.launch(new SceneTestUI2());
     }
 
 }

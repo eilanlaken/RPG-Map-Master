@@ -37,8 +37,9 @@ public class SceneTestUI implements Scene {
 
         renderer2D.begin();
         //checkbox.render(renderer2D, 0, 0, 0, 1, 1);
-        slider.setValue(2.8f);
-        slider.render(renderer2D, 200, 0, 30, 2, 2);
+        slider.setValue(0.8f);
+        //slider.draw(renderer2D, 200, 0, 30, 2, 2);
+        slider.render(renderer2D);
         //text.render(renderer2D, 0, 0, 0, 1, 1);
         renderer2D.end();
     }

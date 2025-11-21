@@ -35,7 +35,7 @@ public class NodeInputCheckbox extends Node implements NodeInput<Boolean> {
 
     /*** RENDERING ***/
     @Override
-    public void render(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
+    public void draw(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
         renderBox(renderer2D, x, y, deg, sclX, sclY);
         if (checked) renderCheckmark(renderer2D, x, y, deg, sclX, sclY);
     }

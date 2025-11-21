@@ -1,12 +1,12 @@
-package com.heavybox.jtix.widgets_3;
+package com.heavybox.jtix.widgets_4;
 
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Vector2;
-import org.jetbrains.annotations.NotNull;
+import com.heavybox.jtix.widgets_3.Node;
 
-public class NodeInputSlider extends Node implements NodeInput<Float> {
+public class WidgetInputSlider extends Widget implements WidgetInput<Float> {
 
     public float width     = 200;
     public float thickness = 7.5f;
@@ -27,20 +27,15 @@ public class NodeInputSlider extends Node implements NodeInput<Float> {
 
     }
 
-    @Override
-    protected void frameUpdate(float delta) {
-
-    }
-
     /*** RENDERING ***/
     @Override
     public void draw(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
-        renderBar(renderer2D, x, y, deg, sclX, sclY);
-        renderThumb(renderer2D, x, y, deg, sclX, sclY);
+        drawBar(renderer2D, x, y, deg, sclX, sclY);
+        drawThumb(renderer2D, x, y, deg, sclX, sclY);
         region.render(renderer2D);
     }
 
-    protected void renderBar(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
+    protected void drawBar(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
         renderer2D.setColor(colorBar);
         renderer2D.drawLineFilled(-width * 0.5f, 0, width * 0.5f, 0, thickness, x, y, deg, sclX, sclY);
 
@@ -48,7 +43,7 @@ public class NodeInputSlider extends Node implements NodeInput<Float> {
         renderer2D.drawLineFilled(-width * 0.5f, 0, -width * 0.5f + width * fraction, 0, thickness, x, y, deg, sclX, sclY);
     }
 
-    protected void renderThumb(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
+    protected void drawThumb(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
         // calculate offset
         float offset_x = width * (fraction - 0.5f);
         float offset_y = 0;

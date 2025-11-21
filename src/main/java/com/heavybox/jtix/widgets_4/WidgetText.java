@@ -1,28 +1,27 @@
-package com.heavybox.jtix.widgets_3;
+package com.heavybox.jtix.widgets_4;
 
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Font;
 import com.heavybox.jtix.graphics.Renderer2D;
 
-public class NodeText extends Node {
+public class WidgetText extends Widget {
 
     /* state */
     public String  text         = null;
 
     /* props */
-    public Color   color        = Theme.textColor;
-    public Font    font         = Theme.textFont;
-    public boolean antialiasing = Theme.textAntialiasing;
-    public int     size         = Theme.textSize;
+    public Color   color        = Widgets.themeTextColor;
+    public Font    font         = Widgets.themeTextFont;
+    public boolean antialiasing = Widgets.themeTextAntialiasing;
+    public int     size         = Widgets.themeTextSize;
+
+    public WidgetText(String text) {
+        this.text = text;
+    }
 
     /*** LOGIC ***/
     @Override
     protected void fixedUpdate(float delta) {
-
-    }
-
-    @Override
-    protected void frameUpdate(float delta) {
 
     }
 

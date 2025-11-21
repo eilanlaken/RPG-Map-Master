@@ -1,4 +1,4 @@
-package com.heavybox.jtix.widgets_3;
+package com.heavybox.jtix.widgets_4;
 
 import com.heavybox.jtix.collections.ArrayFloat;
 import com.heavybox.jtix.graphics.Color;
@@ -6,7 +6,7 @@ import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Vector2;
 
-public class Region {
+public final class Region {
 
     private final ArrayFloat points = new ArrayFloat(true, 8);
     private final ArrayFloat pointsTransformed = new ArrayFloat(true, 8);
@@ -16,7 +16,7 @@ public class Region {
 //        return MathUtils.polygonContainsPoint(pointsTransformed, x, y);
 //    }
 
-    protected final void transform(Transform global) {
+    void transform(Transform global) {
         Vector2 point = new Vector2();
         for (int i = 0; i < points.size - 1; i += 2) {
             float point_x = points.get(i);
