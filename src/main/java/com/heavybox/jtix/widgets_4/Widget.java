@@ -36,6 +36,7 @@ public abstract class Widget {
     public Event.EventListenerMouseDown  onMouseDown  = null;
     public Event.EventListenerMouseUp    onMouseUp    = null;
     public Event.EventListenerMouseEnter onMouseEnter = null;
+    public Event.EventListenerMouseLeave onMouseLeave = null;
     public Event.EventListenerMouseClick onMouseClick = null;
 
 
@@ -107,18 +108,16 @@ public abstract class Widget {
         mouseInsidePrev = mouseInside;
         mouseInside = region.containsPoint(pointerX, pointerY);
         boolean mouseJustEntered = (!mouseInsidePrev && mouseInside) || (Input.mouse.cursorJustEnteredWindow() && mouseInside);
-        boolean mouseJustLeft = (!mouseInside && mouseInsidePrev) || Input.mouse.cursorJustLeftWindow();
+        boolean mouseJustLeft = (!mouseInside && mouseInsidePrev) || (Input.mouse.cursorJustLeftWindow() && mouseInsidePrev);
         if (Input.mouse.isButtonJustPressed(Mouse.Button.LEFT)) {
             mouseRegisterClicks = mouseInside;
         }
 
+        /* mouse click */
         if (mouseRegisterClicks && Input.mouse.isButtonClicked(Mouse.Button.LEFT) && mouseInside && onMouseClick != null) {
             Event.EventMouseClick eventMouseClick = new Event.EventMouseClick();
-            // TODO: refactor to get local coords.
             Vector2 local = new Vector2(pointerX, pointerY);
-            local.add(-globalTransform.x, -globalTransform.y);
-            local.rotateDeg(-globalTransform.deg);
-            local.scl(1 / globalTransform.sclX, 1/ globalTransform.sclY);
+            local.translateRotateScale(-globalTransform.x, -globalTransform.y, -globalTransform.deg, 1 / globalTransform.sclX, 1/ globalTransform.sclY);
             eventMouseClick.mouseLocalX = local.x;
             eventMouseClick.mouseLocalY = local.y;
             onMouseClick.run(eventMouseClick);
@@ -128,14 +127,21 @@ public abstract class Widget {
         if (mouseJustEntered && onMouseEnter != null) {
             Event.EventMouseEnter e = new Event.EventMouseEnter();
             Vector2 local = new Vector2(pointerX, pointerY);
-            local.add(-globalTransform.x, -globalTransform.y);
-            local.rotateDeg(-globalTransform.deg);
-            local.scl(1 / globalTransform.sclX, 1/ globalTransform.sclY);
+            local.translateRotateScale(-globalTransform.x, -globalTransform.y, -globalTransform.deg, 1 / globalTransform.sclX, 1/ globalTransform.sclY);
             e.mouseLocalX = local.x;
             e.mouseLocalY = local.y;
             onMouseEnter.run(e);
         }
 
+        /* mouse leave */
+        if (mouseJustLeft && onMouseLeave != null) {
+            Event.EventMouseLeave e = new Event.EventMouseLeave();
+            Vector2 local = new Vector2(pointerX, pointerY);
+            local.translateRotateScale(-globalTransform.x, -globalTransform.y, -globalTransform.deg, 1 / globalTransform.sclX, 1/ globalTransform.sclY);
+            e.mouseLocalX = local.x;
+            e.mouseLocalY = local.y;
+            onMouseLeave.run(e);
+        }
 
         return false;
     }

@@ -42,6 +42,10 @@ public class SceneTestUI2 implements Scene {
             System.out.println("mouse enter.");
             return false;
         };
+        slider.onMouseLeave = (e) -> {
+            System.out.println("mouse leave.");
+            return false;
+        };
 
     }
 
