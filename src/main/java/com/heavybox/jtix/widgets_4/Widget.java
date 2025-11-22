@@ -11,30 +11,34 @@ import org.jetbrains.annotations.NotNull;
 
 public abstract class Widget {
 
-    public boolean active = true;
-    protected Widget parent = null;
-    protected boolean focused = false;
-    protected final Array<Widget> children = new Array<>(true, 1);
+    /*** ui hierarchy ***/
+    public          boolean       active         = true;
+    protected       Widget        parent         = null;
+    protected final Array<Widget> children       = new Array<>(true, 1);
     protected final Array<Widget> activeChildren = new Array<>(true, 1);
-    protected final Region region = new Region();
-    public Transform localTransform = new Transform();
 
-    // set by the parent or anchor.
-    float offsetX = 0; // set by container
-    float offsetY = 0; // set by container
-    Transform globalTransform = new Transform(); // calculated
+    /*** transform: positioning, rotation and scale ***/
+    public    final Transform localTransform  = new Transform();
+    private   final Transform globalTransform = new Transform(); // calculated
+    protected       float     offsetX         = 0; // set by the parent or anchor.
+    protected       float     offsetY         = 0; // set by the parent or anchor.
+    public          Anchor    anchor          = Anchor.CENTER_CENTER;
+    public          float     anchorX         = 0;
+    public          float     anchorY         = 0;
 
-    // anchor
-    public Anchor anchor;
-    public float anchorX = 0;
-    public float anchorY = 0;
+    /*** input handling and event listeners ***/
+    protected final Region  region              = new Region(); // TODO: change to private.
+    private         boolean mouseRegisterClicks = false;
+    private         boolean mouseInside         = false;
+    private         boolean mouseInsidePrev     = false;
 
-    // event listeners
-    public Event.ClickListener onClick = (e) -> {
-        System.out.println(e.mouseLocalX);
-        System.out.println(e.mouseLocalY);
-        return false;
-    };
+    /*** event handlers ***/
+    public Event.EventListenerMouseDown  onMouseDown  = null;
+    public Event.EventListenerMouseUp    onMouseUp    = null;
+    public Event.EventListenerMouseEnter onMouseEnter = null;
+    public Event.EventListenerMouseClick onMouseClick = null;
+
+
 
     public final void addChild(Widget widget) {
         if (widget == null) throw new WidgetsException(Widget.class.getSimpleName() + " element cannot be null.");
@@ -66,6 +70,7 @@ public abstract class Widget {
 
     protected abstract void fixedUpdate(float delta);
 
+    // TODO: the heart of all the ui library is here.
     public final void update(float delta) {
         activeChildren.clear();
         for (Widget child : children) {
@@ -77,6 +82,8 @@ public abstract class Widget {
             setOffsetsAnchor();
         }
         calculateGlobalTransform();
+
+        // TODO: maybe this should go to handleInput()
         setInputRegion(region);
         region.transform(globalTransform);
 
@@ -90,26 +97,45 @@ public abstract class Widget {
         fixedUpdate(delta);
     }
 
+    // TODO: store previous state. To see if mouse entered, clicked etc.
     protected boolean handleInput() {
         float windowHalfWidth = Graphics.getWindowWidth() * 0.5f;
         float windowHalfHeight = Graphics.getWindowHeight() * 0.5f;
         float pointerX = Input.mouse.getX() - windowHalfWidth;
         float pointerY = windowHalfHeight - Input.mouse.getY();
 
+        mouseInsidePrev = mouseInside;
+        mouseInside = region.containsPoint(pointerX, pointerY);
+        boolean mouseJustEntered = (!mouseInsidePrev && mouseInside) || (Input.mouse.cursorJustEnteredWindow() && mouseInside);
+        boolean mouseJustLeft = (!mouseInside && mouseInsidePrev) || Input.mouse.cursorJustLeftWindow();
+        if (Input.mouse.isButtonJustPressed(Mouse.Button.LEFT)) {
+            mouseRegisterClicks = mouseInside;
+        }
 
-        boolean mouseClicked = Input.mouse.isButtonClicked(Mouse.Button.LEFT);
-        boolean containsPoint = region.containsPoint(pointerX, pointerY);
-
-        if (containsPoint && mouseClicked && onClick != null) {
-            Event.EventClick eventClick = new Event.EventClick();
+        if (mouseRegisterClicks && Input.mouse.isButtonClicked(Mouse.Button.LEFT) && mouseInside && onMouseClick != null) {
+            Event.EventMouseClick eventMouseClick = new Event.EventMouseClick();
+            // TODO: refactor to get local coords.
             Vector2 local = new Vector2(pointerX, pointerY);
             local.add(-globalTransform.x, -globalTransform.y);
             local.rotateDeg(-globalTransform.deg);
             local.scl(1 / globalTransform.sclX, 1/ globalTransform.sclY);
-            eventClick.mouseLocalX = local.x;
-            eventClick.mouseLocalY = local.y;
-            onClick.run(eventClick);
+            eventMouseClick.mouseLocalX = local.x;
+            eventMouseClick.mouseLocalY = local.y;
+            onMouseClick.run(eventMouseClick);
         }
+
+        /* mouse enter */
+        if (mouseJustEntered && onMouseEnter != null) {
+            Event.EventMouseEnter e = new Event.EventMouseEnter();
+            Vector2 local = new Vector2(pointerX, pointerY);
+            local.add(-globalTransform.x, -globalTransform.y);
+            local.rotateDeg(-globalTransform.deg);
+            local.scl(1 / globalTransform.sclX, 1/ globalTransform.sclY);
+            e.mouseLocalX = local.x;
+            e.mouseLocalY = local.y;
+            onMouseEnter.run(e);
+        }
+
 
         return false;
     }

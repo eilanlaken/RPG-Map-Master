@@ -3,6 +3,7 @@ package com.heavybox.jtix.input;
 import com.heavybox.jtix.application.Application;
 import org.lwjgl.glfw.*;
 
+// TODO: add double-click detection with sensitivity parameters
 public class Mouse {
 
     /* mouse info */

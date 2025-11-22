@@ -1,7 +1,5 @@
 package com.heavybox.jtix.input;
 
-import com.heavybox.jtix.collections.Array;
-
 public final class Input {
 
     public static final Keyboard keyboard = new Keyboard();

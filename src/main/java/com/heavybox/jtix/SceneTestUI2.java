@@ -33,6 +33,15 @@ public class SceneTestUI2 implements Scene {
         slider.localTransform.deg = 30;
         slider.localTransform.x = 100;
         slider.localTransform.y = 100;
+        slider.onMouseClick = (e) -> { // TODO: remove.
+            System.out.println(e.mouseLocalX);
+            System.out.println(e.mouseLocalY);
+            return false;
+        };
+        slider.onMouseEnter = (e) -> {
+            System.out.println("mouse enter.");
+            return false;
+        };
 
     }
 
