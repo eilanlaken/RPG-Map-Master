@@ -4,7 +4,6 @@ import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Vector2;
-import com.heavybox.jtix.widgets_3.Node;
 
 public class WidgetInputSlider extends Widget implements WidgetInput<Float> {
 
@@ -14,11 +13,19 @@ public class WidgetInputSlider extends Widget implements WidgetInput<Float> {
 
     public float min = 0;
     public float max = 1;
-    public float fraction = 0.5f; // sliding will change this fraction.
+    public float val = 0.5f; // sliding will change this fraction.
 
     protected final Color colorBar = Color.GRAY.clone();
     protected final Color colorThumb = Color.valueOf("0075FF");
     protected final Color colorFill  = Color.valueOf("0075FF");
+
+    public WidgetInputSlider() {
+        this.onMouseClick = e -> {
+            float value = 0.5f + e.mouseLocalX / width;
+            setValue(value);
+            return false;
+        };
+    }
 
     /*** LOGIC ***/
     @Override
@@ -39,12 +46,12 @@ public class WidgetInputSlider extends Widget implements WidgetInput<Float> {
         renderer2D.drawLineFilled(-width * 0.5f, 0, width * 0.5f, 0, thickness, x, y, deg, sclX, sclY);
 
         renderer2D.setColor(colorFill);
-        renderer2D.drawLineFilled(-width * 0.5f, 0, -width * 0.5f + width * fraction, 0, thickness, x, y, deg, sclX, sclY);
+        renderer2D.drawLineFilled(-width * 0.5f, 0, -width * 0.5f + width * val, 0, thickness, x, y, deg, sclX, sclY);
     }
 
     protected void drawThumb(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
         // calculate offset
-        float offset_x = width * (fraction - 0.5f);
+        float offset_x = width * (val - 0.5f);
         float offset_y = 0;
         Vector2 offset_transformed = new Vector2(offset_x, offset_y);
         offset_transformed.scl(sclX, sclY);
@@ -66,11 +73,11 @@ public class WidgetInputSlider extends Widget implements WidgetInput<Float> {
 
     @Override
     public Float getValue() {
-        return min + fraction * (max - min);
+        return min + val * (max - min);
     }
 
     @Override
     public void setValue(Float value) {
-        this.fraction = value != null ? MathUtils.clampFloat(value, 0, 1) : 0.5f;
+        this.val = value != null ? MathUtils.clampFloat(value, 0, 1) : 0.5f;
     }
 }

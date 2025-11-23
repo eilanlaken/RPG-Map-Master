@@ -26,15 +26,15 @@ public abstract class Widget {
     public          float     anchorX         = 0;
     public          float     anchorY         = 0;
 
-    /*** input handling and event listeners ***/
+    /*** input - state management ***/
     protected final Region  region              = new Region(); // TODO: change to private.
     private         boolean mouseRegisterClicks = false;
     private         boolean mouseInside         = false;
     private         boolean mouseInsidePrev     = false;
 
-    /*** event handlers ***/
-    public Event.EventListenerMouseDown  onMouseDown  = null;
+    /*** input - event handlers ***/
     public Event.EventListenerMouseUp    onMouseUp    = null;
+    public Event.EventListenerMouseDown  onMouseDown  = null;
     public Event.EventListenerMouseEnter onMouseEnter = null;
     public Event.EventListenerMouseLeave onMouseLeave = null;
     public Event.EventListenerMouseClick onMouseClick = null;
@@ -98,7 +98,6 @@ public abstract class Widget {
         fixedUpdate(delta);
     }
 
-    // TODO: store previous state. To see if mouse entered, clicked etc.
     protected boolean handleInput() {
         float pointerX = Widgets.getPointerX();
         float pointerY = Widgets.getPointerY();
