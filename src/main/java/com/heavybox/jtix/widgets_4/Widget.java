@@ -100,10 +100,8 @@ public abstract class Widget {
 
     // TODO: store previous state. To see if mouse entered, clicked etc.
     protected boolean handleInput() {
-        float windowHalfWidth = Graphics.getWindowWidth() * 0.5f;
-        float windowHalfHeight = Graphics.getWindowHeight() * 0.5f;
-        float pointerX = Input.mouse.getX() - windowHalfWidth;
-        float pointerY = windowHalfHeight - Input.mouse.getY();
+        float pointerX = Widgets.getPointerX();
+        float pointerY = Widgets.getPointerY();
 
         mouseInsidePrev = mouseInside;
         mouseInside = region.containsPoint(pointerX, pointerY);
@@ -117,7 +115,7 @@ public abstract class Widget {
         if (mouseRegisterClicks && Input.mouse.isButtonClicked(Mouse.Button.LEFT) && mouseInside && onMouseClick != null) {
             Event.EventMouseClick eventMouseClick = new Event.EventMouseClick();
             Vector2 local = new Vector2(pointerX, pointerY);
-            local.translateRotateScale(-globalTransform.x, -globalTransform.y, -globalTransform.deg, 1 / globalTransform.sclX, 1/ globalTransform.sclY);
+            local.transformTranslateRotateScale(-globalTransform.x, -globalTransform.y, -globalTransform.deg, 1 / globalTransform.sclX, 1/ globalTransform.sclY);
             eventMouseClick.mouseLocalX = local.x;
             eventMouseClick.mouseLocalY = local.y;
             onMouseClick.run(eventMouseClick);
@@ -127,7 +125,7 @@ public abstract class Widget {
         if (mouseJustEntered && onMouseEnter != null) {
             Event.EventMouseEnter e = new Event.EventMouseEnter();
             Vector2 local = new Vector2(pointerX, pointerY);
-            local.translateRotateScale(-globalTransform.x, -globalTransform.y, -globalTransform.deg, 1 / globalTransform.sclX, 1/ globalTransform.sclY);
+            local.transformTranslateRotateScale(-globalTransform.x, -globalTransform.y, -globalTransform.deg, 1 / globalTransform.sclX, 1/ globalTransform.sclY);
             e.mouseLocalX = local.x;
             e.mouseLocalY = local.y;
             onMouseEnter.run(e);
@@ -137,7 +135,7 @@ public abstract class Widget {
         if (mouseJustLeft && onMouseLeave != null) {
             Event.EventMouseLeave e = new Event.EventMouseLeave();
             Vector2 local = new Vector2(pointerX, pointerY);
-            local.translateRotateScale(-globalTransform.x, -globalTransform.y, -globalTransform.deg, 1 / globalTransform.sclX, 1/ globalTransform.sclY);
+            local.transformTranslateRotateScale(-globalTransform.x, -globalTransform.y, -globalTransform.deg, 1 / globalTransform.sclX, 1/ globalTransform.sclY);
             e.mouseLocalX = local.x;
             e.mouseLocalY = local.y;
             onMouseLeave.run(e);

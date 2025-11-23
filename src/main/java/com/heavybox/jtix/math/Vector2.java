@@ -373,14 +373,14 @@ public class Vector2 implements MemoryPool.Reset {
     }
 
     // TODO: test.
-    public Vector2 scaleRotateTranslate(float x, float y, float deg, float sclX, float sclY) {
+    public Vector2 transformScaleRotateTranslate(float x, float y, float deg, float sclX, float sclY) {
         this.scl(sclX, sclY);
         this.rotateDeg(deg);
         this.add(x, y);
         return this;
     }
 
-    public Vector2 translateRotateScale(float x, float y, float deg, float sclX, float sclY) {
+    public Vector2 transformTranslateRotateScale(float x, float y, float deg, float sclX, float sclY) {
         this.add(x, y);
         this.rotateDeg(deg);
         this.scl(sclX, sclY);

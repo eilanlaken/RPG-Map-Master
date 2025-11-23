@@ -5,6 +5,7 @@ import com.heavybox.jtix.async.Async;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.graphics.Graphics;
 import com.heavybox.jtix.input.Input;
+import com.heavybox.jtix.widgets_4.Widgets;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.*;
@@ -236,6 +237,7 @@ public class Application {
 
             Assets.update();
             Input.update();
+            Widgets.update();
             GLFW.glfwPollEvents();
 
             boolean requestRendering;
