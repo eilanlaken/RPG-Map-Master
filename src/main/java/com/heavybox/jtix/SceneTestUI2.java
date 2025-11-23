@@ -24,6 +24,8 @@ public class SceneTestUI2 implements Scene {
     WidgetShapeLine line = new WidgetShapeLine(300,22, Color.RED);
     WidgetShapeRectangle rect = new WidgetShapeRectangle(250,150,Color.YELLOW);
 
+    WidgetImage image = new WidgetImage("assets/engine-tests/simpleImage.png");
+
     @Override
     public void setup() {
         widgetText2.localTransform.x = 200;
@@ -39,6 +41,8 @@ public class SceneTestUI2 implements Scene {
 
         circle.type = WidgetShape.Type.OUTLINE;
         line.type = WidgetShape.Type.BORDER;
+
+        image.width = 20;
     }
 
     @Override
@@ -54,6 +58,7 @@ public class SceneTestUI2 implements Scene {
         circle.update(1);
         line.update(1);
         rect.update(1);
+        image.update(1);
         if (Input.keyboard.isKeyPressed(Keyboard.Key.W)) {
             ///widgetText.localTransform.deg += 2;
         }
@@ -68,6 +73,7 @@ public class SceneTestUI2 implements Scene {
         circle.render(renderer2D);
         line.render(renderer2D);
         rect.render(renderer2D);
+        image.render(renderer2D);
         renderer2D.end();
     }
 
