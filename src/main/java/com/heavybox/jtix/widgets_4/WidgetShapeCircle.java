@@ -1,0 +1,61 @@
+package com.heavybox.jtix.widgets_4;
+
+import com.heavybox.jtix.graphics.Color;
+import com.heavybox.jtix.graphics.Renderer2D;
+import org.jetbrains.annotations.NotNull;
+
+// TODO: add angle parameter <- improve renderer 2d to include drawCircleThin + drawCircleBorder with 'angle' parameter
+public class WidgetShapeCircle extends Widget implements WidgetShape {
+
+    public Type type = Type.FILLED;
+    public float radius;
+    public int refinement;
+    public Color color;
+    public float borderSize;
+
+    public WidgetShapeCircle(float radius, int refinement, final Color color) {
+        this.radius = radius;
+        this.refinement = refinement;
+        this.color = color.clone();
+        this.borderSize = radius * 0.05f;
+    }
+
+    @Override
+    protected void draw(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
+        renderer2D.setColor(color);
+        if (type == Type.FILLED) {
+            renderer2D.drawCircleFilled(radius, refinement, x, y, deg, sclX, sclY);
+            return;
+        }
+        if (type == Type.OUTLINE) {
+            renderer2D.drawCircleThin(radius, refinement, x, y, deg, sclX, sclY);
+            return;
+        }
+        if (type == Type.BORDER) {
+            renderer2D.drawCircleBorder(radius, borderSize, refinement, x, y, deg, sclX, sclY);
+            return;
+        }
+
+    }
+
+    @Override
+    protected void setInputRegion(@NotNull Region region) {
+        region.setToCircle(radius, refinement);
+    }
+
+    @Override
+    protected float getWidth() {
+        return 2 * radius;
+    }
+
+    @Override
+    protected float getHeight() {
+        return 2 * radius;
+    }
+
+    @Override
+    protected void fixedUpdate(float delta) {
+
+    }
+
+}

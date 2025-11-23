@@ -2,14 +2,12 @@ package com.heavybox.jtix;
 
 import com.heavybox.jtix.application.Scene;
 import com.heavybox.jtix.graphics.Camera;
+import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Graphics;
 import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Keyboard;
-import com.heavybox.jtix.widgets_4.Widget;
-import com.heavybox.jtix.widgets_4.WidgetInputCheckbox;
-import com.heavybox.jtix.widgets_4.WidgetInputSlider;
-import com.heavybox.jtix.widgets_4.WidgetText;
+import com.heavybox.jtix.widgets_4.*;
 import org.lwjgl.opengl.GL11;
 
 public class SceneTestUI2 implements Scene {
@@ -22,6 +20,9 @@ public class SceneTestUI2 implements Scene {
     WidgetText widgetText2 = new WidgetText("hello2");
     WidgetInputSlider slider = new WidgetInputSlider();
     WidgetInputCheckbox checkbox = new WidgetInputCheckbox();
+    WidgetShapeCircle circle = new WidgetShapeCircle(30,22, Color.WHITE);
+    WidgetShapeLine line = new WidgetShapeLine(300,22, Color.RED);
+    WidgetShapeRectangle rect = new WidgetShapeRectangle(250,150,Color.YELLOW);
 
     @Override
     public void setup() {
@@ -36,8 +37,8 @@ public class SceneTestUI2 implements Scene {
         slider.localTransform.x = 100;
         slider.localTransform.y = 100;
 
-
-
+        circle.type = WidgetShape.Type.OUTLINE;
+        line.type = WidgetShape.Type.BORDER;
     }
 
     @Override
@@ -50,6 +51,9 @@ public class SceneTestUI2 implements Scene {
         //widgetText.update(1);
         slider.update(1);
         checkbox.update(1);
+        circle.update(1);
+        line.update(1);
+        rect.update(1);
         if (Input.keyboard.isKeyPressed(Keyboard.Key.W)) {
             ///widgetText.localTransform.deg += 2;
         }
@@ -61,6 +65,9 @@ public class SceneTestUI2 implements Scene {
         //widgetText.render(renderer2D);
         slider.render(renderer2D);
         checkbox.render(renderer2D);
+        circle.render(renderer2D);
+        line.render(renderer2D);
+        rect.render(renderer2D);
         renderer2D.end();
     }
 
