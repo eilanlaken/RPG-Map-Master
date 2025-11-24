@@ -759,6 +759,37 @@ public class Renderer2D implements MemoryResourceHolder {
         vertexIndex += refinement;
     }
 
+    public void drawCircleThin(float r, int refinement, float angle, float x, float y, float degrees, float scaleX, float scaleY) {
+        if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
+
+        refinement = Math.max(refinement, 3);
+        if (!ensureCapacity(refinement, 2 * (refinement + 1))) flush();
+
+        setMode(GL11.GL_LINES);
+        setTexture(defaultTexture);
+
+        Vector2 arm = vectors2Pool.allocate();
+        float da = angle / refinement;
+        for (int i = 0; i < refinement; i++) {
+            arm.x = r * scaleX * MathUtils.cosDeg(da * i);
+            arm.y = r * scaleY * MathUtils.sinDeg(da * i);
+            arm.rotateDeg(degrees);
+            positions.put(arm.x + x).put(arm.y + y);
+            textCoords.put(0.5f).put(0.5f);
+            colors.put(currentTint);
+        }
+        vectors2Pool.free(arm);
+
+        // put indices
+        int startVertex = this.vertexIndex;
+        for (int i = 1; i < refinement; i++) {
+            indices.put(startVertex + i - 1);
+            indices.put(startVertex + i);
+        }
+
+        vertexIndex += refinement;
+    }
+
     // TODO: fix uv mappings?
     public void drawCircleFilled(float r, int refinement, float x, float y, float degrees, float scaleX, float scaleY) {
         if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
@@ -796,6 +827,7 @@ public class Renderer2D implements MemoryResourceHolder {
     }
 
     // TODO: fix uv mappings?
+    // TODO: what if angle is 360?
     public void drawCircleFilled(float r, int refinement, float angle, float x, float y, float degrees, float scaleX, float scaleY) {
         if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
         refinement = Math.max(refinement, 3);

@@ -26,6 +26,8 @@ public class SceneTestUI2 implements Scene {
 
     WidgetImage image = new WidgetImage("assets/engine-tests/simpleImage.png");
 
+    WidgetContainer container = new WidgetContainer();
+
     @Override
     public void setup() {
         widgetText2.localTransform.x = 200;
@@ -45,6 +47,12 @@ public class SceneTestUI2 implements Scene {
         //image.width = 100;
         //image.height = 100;
         image.border = true;
+
+        container.boxWidthSizing = WidgetContainer.Sizing.STATIC;
+        container.boxHeightSizing = WidgetContainer.Sizing.STATIC;
+        container.boxWidth = 200;
+        container.boxHeight = 400;
+
     }
 
     @Override
@@ -55,12 +63,7 @@ public class SceneTestUI2 implements Scene {
     @Override
     public void update() {
         //widgetText.update(1);
-        slider.update(1);
-        checkbox.update(1);
-        circle.update(1);
-        line.update(1);
-        rect.update(1);
-        image.update(1);
+        container.update(1);
         if (Input.keyboard.isKeyPressed(Keyboard.Key.W)) {
             ///widgetText.localTransform.deg += 2;
         }
@@ -69,13 +72,7 @@ public class SceneTestUI2 implements Scene {
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_STENCIL_BUFFER_BIT); // should probably clear the stencil
 
         renderer2D.begin();
-        //widgetText.render(renderer2D);
-//        slider.render(renderer2D);
-//        checkbox.render(renderer2D);
-//        circle.render(renderer2D);
-//        line.render(renderer2D);
-//        rect.render(renderer2D);
-        image.render(renderer2D);
+        container.render(renderer2D);
         renderer2D.end();
     }
 

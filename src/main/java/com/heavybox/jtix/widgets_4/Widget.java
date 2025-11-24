@@ -19,7 +19,7 @@ public abstract class Widget {
 
     /*** transform: positioning, rotation and scale ***/
     public    final Transform localTransform  = new Transform();
-    private   final Transform globalTransform = new Transform(); // calculated
+    protected final Transform globalTransform = new Transform(); // calculated
     protected       float     offsetX         = 0; // set by the parent or anchor.
     protected       float     offsetY         = 0; // set by the parent or anchor.
     public          Anchor    anchor          = Anchor.CENTER_CENTER;
@@ -39,8 +39,6 @@ public abstract class Widget {
     public Event.EventListenerMouseLeave onMouseLeave = null;
     public Event.EventListenerMouseClick onMouseClick = null;
 
-
-
     public final void addChild(Widget widget) {
         if (widget == null) throw new WidgetsException(Widget.class.getSimpleName() + " element cannot be null.");
         if (widget == this) throw new WidgetsException("Trying to parent a " + Widget.class.getSimpleName() + " to itself.");
@@ -58,10 +56,35 @@ public abstract class Widget {
         widget.parent = null;
     }
 
-    public void render(Renderer2D renderer2D) {
+    public final void render(Renderer2D renderer2D) {
         draw(renderer2D, globalTransform.x, globalTransform.y, globalTransform.deg, globalTransform.sclX, globalTransform.sclY);
+
+        /* if masking is enabled, draw the mask */
+        boolean maskChildren = maskChildren();
+        if (maskChildren) {
+            renderer2D.beginStencil();
+            renderer2D.setStencilModeIncrement();
+            drawMask(renderer2D, globalTransform.x, globalTransform.y, globalTransform.deg, globalTransform.sclX, globalTransform.sclY);
+            renderer2D.endStencil();
+        }
+
+        int maskingIndex = getMaskingIndex();
         for (Widget child : activeChildren) {
+            // apply mask, if masking enabled
+            if (maskChildren) {
+                renderer2D.enableMasking();
+                renderer2D.setMaskingFunctionEquals(maskingIndex);
+            }
             child.render(renderer2D);
+            if (maskChildren) renderer2D.disableMasking();
+        }
+
+        /* if masking is enabled, erase the mask */
+        if (maskChildren) {
+            renderer2D.beginStencil();
+            renderer2D.setStencilModeDecrement();
+            drawMask(renderer2D, globalTransform.x, globalTransform.y, globalTransform.deg, globalTransform.sclX, globalTransform.sclY);
+            renderer2D.endStencil();
         }
     }
 
@@ -69,10 +92,15 @@ public abstract class Widget {
     protected abstract float getWidth();
     protected abstract float getHeight();
 
+    protected void drawMask(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
+        draw(renderer2D, x, y, deg, sclX, sclY);
+    }
+
     protected abstract void fixedUpdate(float delta);
 
     // TODO: the heart of all the ui library is here.
-    public final void update(float delta) {
+    public void update(float delta) {
+        calculateGlobalTransform();
         activeChildren.clear();
         for (Widget child : children) {
             if (child.active) activeChildren.add(child);
@@ -82,7 +110,6 @@ public abstract class Widget {
         if (parent == null) {
             setOffsetsAnchor();
         }
-        calculateGlobalTransform();
 
         // TODO: maybe this should go to handleInput()
         setInputRegion(region);
@@ -98,6 +125,7 @@ public abstract class Widget {
         fixedUpdate(delta);
     }
 
+    // TODO: handle input should be recursive? Or just in the case of a container?
     protected boolean handleInput() {
         float pointerX = Widgets.getPointerX();
         float pointerY = Widgets.getPointerY();
@@ -114,7 +142,7 @@ public abstract class Widget {
         if (mouseRegisterClicks && Input.mouse.isButtonClicked(Mouse.Button.LEFT) && mouseInside && onMouseClick != null) {
             Event.EventMouseClick eventMouseClick = new Event.EventMouseClick();
             Vector2 local = new Vector2(pointerX, pointerY);
-            local.transformTranslateRotateScale(-globalTransform.x, -globalTransform.y, -globalTransform.deg, 1 / globalTransform.sclX, 1/ globalTransform.sclY);
+            local.transform_TranslateRotateScale(-globalTransform.x, -globalTransform.y, -globalTransform.deg, 1 / globalTransform.sclX, 1/ globalTransform.sclY);
             eventMouseClick.mouseLocalX = local.x;
             eventMouseClick.mouseLocalY = local.y;
             onMouseClick.run(eventMouseClick);
@@ -124,7 +152,7 @@ public abstract class Widget {
         if (mouseJustEntered && onMouseEnter != null) {
             Event.EventMouseEnter e = new Event.EventMouseEnter();
             Vector2 local = new Vector2(pointerX, pointerY);
-            local.transformTranslateRotateScale(-globalTransform.x, -globalTransform.y, -globalTransform.deg, 1 / globalTransform.sclX, 1/ globalTransform.sclY);
+            local.transform_TranslateRotateScale(-globalTransform.x, -globalTransform.y, -globalTransform.deg, 1 / globalTransform.sclX, 1/ globalTransform.sclY);
             e.mouseLocalX = local.x;
             e.mouseLocalY = local.y;
             onMouseEnter.run(e);
@@ -134,7 +162,7 @@ public abstract class Widget {
         if (mouseJustLeft && onMouseLeave != null) {
             Event.EventMouseLeave e = new Event.EventMouseLeave();
             Vector2 local = new Vector2(pointerX, pointerY);
-            local.transformTranslateRotateScale(-globalTransform.x, -globalTransform.y, -globalTransform.deg, 1 / globalTransform.sclX, 1/ globalTransform.sclY);
+            local.transform_TranslateRotateScale(-globalTransform.x, -globalTransform.y, -globalTransform.deg, 1 / globalTransform.sclX, 1/ globalTransform.sclY);
             e.mouseLocalX = local.x;
             e.mouseLocalY = local.y;
             onMouseLeave.run(e);
@@ -171,6 +199,16 @@ public abstract class Widget {
         globalTransform.deg  = localTransform.deg + refDeg;
         globalTransform.sclX = localTransform.sclX * refSclX;
         globalTransform.sclY = localTransform.sclY * refSclY;
+    }
+
+    /***  masking - relevant to containers ***/
+    boolean maskChildren() {
+        return false;
+    }
+
+    // TODO: test.
+    final int getMaskingIndex() {
+        return parent == null ? 0 : parent.maskChildren() ? parent.getMaskingIndex() + 1 : 0;
     }
 
     private void setOffsetsAnchor() {
