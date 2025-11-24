@@ -207,10 +207,10 @@ public abstract class Widget {
         return false;
     }
 
-    // TODO: test.
+    // TODO: fix.
     final int getMaskingIndex() {
-        //return parent == null ? 0 : parent.maskChildren() ? parent.getMaskingIndex() + 1 : 0;
-        return 1;
+        if (parent != null && parent.maskChildren()) return parent.getMaskingIndex() + 1;
+        else return 1;
     }
 
     private void setOffsetsAnchor() {
