@@ -44,6 +44,7 @@ public abstract class Widget {
         if (widget == this) throw new WidgetsException("Trying to parent a " + Widget.class.getSimpleName() + " to itself.");
         if (widget.parent != null) widget.parent.removeChild(widget);
 
+        if (children.contains(widget, true)) return;
         children.add(widget);
         widget.parent = this;
     }
@@ -208,7 +209,8 @@ public abstract class Widget {
 
     // TODO: test.
     final int getMaskingIndex() {
-        return parent == null ? 0 : parent.maskChildren() ? parent.getMaskingIndex() + 1 : 0;
+        //return parent == null ? 0 : parent.maskChildren() ? parent.getMaskingIndex() + 1 : 0;
+        return 1;
     }
 
     private void setOffsetsAnchor() {

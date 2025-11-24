@@ -232,6 +232,12 @@ public class WidgetContainer extends Widget {
 
     }
 
+    /*** masking ***/
+    @Override
+    boolean maskChildren() {
+        return boxContentOverflowX != Overflow.VISIBLE || boxContentOverflowY != Overflow.VISIBLE;
+    }
+
     /*** SUPPORTING ENUMS ***/
 
     // controls the children's layout

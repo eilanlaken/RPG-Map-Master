@@ -44,15 +44,20 @@ public class SceneTestUI2 implements Scene {
         circle.type = WidgetShape.Type.OUTLINE;
         line.type = WidgetShape.Type.BORDER;
 
-        //image.width = 100;
-        //image.height = 100;
+        image.width = 100;
+        image.height = 100;
         image.border = true;
 
         container.boxWidthSizing = WidgetContainer.Sizing.STATIC;
         container.boxHeightSizing = WidgetContainer.Sizing.STATIC;
         container.boxWidth = 200;
         container.boxHeight = 400;
+        container.boxPaddingBottom = 0;
+        container.boxPaddingTop = 0;
 
+        container.addChild(image);
+
+        image.localTransform.x = 100;
     }
 
     @Override
