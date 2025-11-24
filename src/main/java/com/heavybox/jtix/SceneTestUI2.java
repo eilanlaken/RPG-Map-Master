@@ -42,7 +42,9 @@ public class SceneTestUI2 implements Scene {
         circle.type = WidgetShape.Type.OUTLINE;
         line.type = WidgetShape.Type.BORDER;
 
-        image.width = 20;
+        //image.width = 100;
+        //image.height = 100;
+        image.border = true;
     }
 
     @Override
@@ -68,11 +70,11 @@ public class SceneTestUI2 implements Scene {
 
         renderer2D.begin();
         //widgetText.render(renderer2D);
-        slider.render(renderer2D);
-        checkbox.render(renderer2D);
-        circle.render(renderer2D);
-        line.render(renderer2D);
-        rect.render(renderer2D);
+//        slider.render(renderer2D);
+//        checkbox.render(renderer2D);
+//        circle.render(renderer2D);
+//        line.render(renderer2D);
+//        rect.render(renderer2D);
         image.render(renderer2D);
         renderer2D.end();
     }
