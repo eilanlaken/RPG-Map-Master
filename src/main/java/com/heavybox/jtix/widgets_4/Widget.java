@@ -132,27 +132,14 @@ public abstract class Widget {
         fixedUpdate(delta);
     }
 
-    private void collectAncestorRegions(Array<Region> out) {
-        out.clear();
-
-        Widget p = parent;
-        while (p != null) {
-            if (p.maskChildren()) {
-                out.add(p.regionMask);
-            }
-            p = p.parent;
-        }
-    }
-
-    // TODO: handle input should be recursive? Or just in the case of a container?
+    // TODO: handle input should be recursive?
+    // TODO: handle click outside
+    // TODO: event propagation and bubbling
     protected boolean handleInput() {
-
-
         float pointerX = Widgets.getPointerX();
         float pointerY = Widgets.getPointerY();
 
         boolean mouseInsidePrev = mouseInside;
-        //mouseInside = region.containsPoint(pointerX, pointerY);
         mouseInside = containsPoint(pointerX, pointerY);
 
         boolean mouseJustEntered = (!mouseInsidePrev && mouseInside) || (Input.mouse.cursorJustEnteredWindow() && mouseInside);
@@ -211,7 +198,6 @@ public abstract class Widget {
         configureInputRegion(maskedRegion);
     }
 
-    // TODO: implement to consider parents and masking
     private boolean containsPoint(float pointerX, float pointerY) {
         if (!region.containsPoint(pointerX, pointerY)) return false;
 
