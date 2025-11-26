@@ -29,6 +29,7 @@ public abstract class Widget {
     /*** input - state management ***/
     protected final Region  region              = new Region(); // TODO: change to private.
     protected final Region  regionMask          = new Region(); // TODO: change tp private.
+    private   final Array<Region> ancestorsRegions = new Array<>(false, 1);
     private         boolean mouseRegisterClicks = false;
     private         boolean mouseInside         = false;
 
@@ -131,8 +132,22 @@ public abstract class Widget {
         fixedUpdate(delta);
     }
 
+    private void collectAncestorRegions(Array<Region> out) {
+        out.clear();
+
+        Widget p = parent;
+        while (p != null) {
+            if (p.maskChildren()) {
+                out.add(p.regionMask);
+            }
+            p = p.parent;
+        }
+    }
+
     // TODO: handle input should be recursive? Or just in the case of a container?
     protected boolean handleInput() {
+
+
         float pointerX = Widgets.getPointerX();
         float pointerY = Widgets.getPointerY();
 
@@ -196,18 +211,24 @@ public abstract class Widget {
         configureInputRegion(maskedRegion);
     }
 
+    // TODO: implement to consider parents and masking
     private boolean containsPoint(float pointerX, float pointerY) {
-        if (parent == null) return region.containsPoint(pointerX, pointerY);
-        return region.containsPoint(pointerX, pointerY) && parent.maskContainsPoint(pointerX, pointerY);
-    }
+        if (!region.containsPoint(pointerX, pointerY)) return false;
 
-    private boolean maskContainsPoint(float pointerX, float pointerY) {
-        if (parent == null) {
-            if (!maskChildren()) return true;
-            else return regionMask.containsPoint(pointerX, pointerY);
+        ancestorsRegions.clear();
+        Widget p = parent;
+        while (p != null) {
+            if (p.maskChildren()) {
+                ancestorsRegions.add(p.regionMask);
+            }
+            p = p.parent;
         }
 
-        return regionMask.containsPoint(pointerX, pointerY) && parent.containsPoint(pointerX, pointerY);
+        boolean hit = true;
+        for (Region ancestorRegion : ancestorsRegions) {
+            hit &= ancestorRegion.containsPoint(pointerX, pointerY);
+        }
+        return hit;
     }
 
     private void calculateGlobalTransform() {

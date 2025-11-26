@@ -7,6 +7,7 @@ import com.heavybox.jtix.graphics.Graphics;
 import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Keyboard;
+import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.widgets_4.*;
 import org.lwjgl.opengl.GL11;
 
@@ -24,7 +25,7 @@ public class SceneTestUI2 implements Scene {
     WidgetShapeRectangle rect1 = new WidgetShapeRectangle(250,150,Color.YELLOW) {
         @Override
         public boolean maskChildren() {
-            return true;
+            return false;
         }
     };
     WidgetShapeRectangle rect2 = new WidgetShapeRectangle(120,100,Color.RED){
@@ -128,6 +129,10 @@ public class SceneTestUI2 implements Scene {
         }
         if (Input.keyboard.isKeyPressed(Keyboard.Key.LEFT)) {
             rect3.transform.x -= 1;
+        }
+
+        if (Input.mouse.isButtonPressed(Mouse.Button.RIGHT)) {
+            rect1.transform.deg += 1;
         }
 
         //widgetText.update(1);
