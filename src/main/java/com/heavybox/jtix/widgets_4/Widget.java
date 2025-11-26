@@ -19,7 +19,7 @@ public abstract class Widget {
 
     /*** transform: positioning, rotation and scale ***/
     public    final Transform transform       = new Transform(); // used for absolute positioning from root and animations
-    protected final Transform transformScreen = new Transform(); // calculated every frame either by self or parent
+    private   final Transform transformScreen = new Transform(); // calculated every frame either by self or parent
     protected       float     offsetX         = 0; // set by the parent or anchor.
     protected       float     offsetY         = 0; // set by the parent or anchor.
     public          Anchor    anchor          = null; // anchors one of the margins of the widget to the window
@@ -27,18 +27,30 @@ public abstract class Widget {
     public          float     anchorY         = 0; // the anchor y distance to be maintained at all times
 
     /*** input - state management ***/
-    protected final Region  region              = new Region(); // TODO: change to private.
-    protected final Region  regionMask          = new Region(); // TODO: change tp private.
-    private   final Array<Region> ancestorsRegions = new Array<>(false, 1);
-    private         boolean mouseRegisterClicks = false;
-    private         boolean mouseInside         = false;
+    private final Region        region              = new Region(); // TODO: change to private.
+    private final Region        regionMask          = new Region(); // TODO: change tp private.
+    private final Array<Region> ancestorsRegions    = new Array<>(false, 1);
+    private       boolean       mouseRegisterClicks = false;
+    private       boolean       mouseInside         = false;
 
     /*** input - event handlers ***/
-    public Event.EventListenerMouseUp    onMouseUp    = null;
-    public Event.EventListenerMouseDown  onMouseDown  = null;
-    public Event.EventListenerMouseEnter onMouseEnter = null;
-    public Event.EventListenerMouseLeave onMouseLeave = null;
-    public Event.EventListenerMouseClick onMouseClick = null;
+    // TODO: remove these? Answer: No. use both methods (defaults) and variables (custom behaviour) + booleans to prevent default.
+    public Event.EventListenerMouseUp     onMouseUp     = null;
+    public Event.EventListenerMouseDown   onMouseDown   = null;
+    public Event.EventListenerMouseEnter  onMouseEnter  = null;
+    public Event.EventListenerMouseLeave  onMouseLeave  = null;
+    public Event.EventListenerMouseClick  onMouseClick  = null;
+    public Event.EventListenerMouseScroll onMouseScroll = null;
+
+    /*** placeholder method for event handling ***/
+    protected void onMouseUpDefault    (Event.EventMouseUp e)     {}
+    protected void onMouseDownDefault  (Event.EventMouseDown e)   {}
+    protected void onMouseEnterDefault (Event.EventMouseEnter e)  {}
+    protected void onMouseLeaveDefault (Event.EventMouseLeave e)  {}
+    protected void onMouseClickDefault (Event.EventMouseClick e)  {}
+    protected void onMouseScrollDefault(Event.EventMouseScroll e) {}
+
+    /*** Add and remove child methods ***/
 
     public final void addChild(Widget widget) {
         if (widget == null) throw new WidgetsException(Widget.class.getSimpleName() + " element cannot be null.");
@@ -138,6 +150,7 @@ public abstract class Widget {
     protected boolean handleInput() {
         float pointerX = Widgets.getPointerX();
         float pointerY = Widgets.getPointerY();
+        float verticalScroll = Input.mouse.getVerticalScroll();
 
         boolean mouseInsidePrev = mouseInside;
         mouseInside = containsPoint(pointerX, pointerY);
@@ -149,33 +162,66 @@ public abstract class Widget {
         }
 
         /* mouse click */
-        if (mouseRegisterClicks && Input.mouse.isButtonClicked(Mouse.Button.LEFT) && mouseInside && onMouseClick != null) {
-            Event.EventMouseClick eventMouseClick = new Event.EventMouseClick();
+        if (mouseRegisterClicks && Input.mouse.isButtonClicked(Mouse.Button.LEFT) && mouseInside) {
+            Event.EventMouseClick e = new Event.EventMouseClick();
             Vector2 local = new Vector2(pointerX, pointerY);
             local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
-            eventMouseClick.mouseLocalX = local.x;
-            eventMouseClick.mouseLocalY = local.y;
-            onMouseClick.run(eventMouseClick);
+            e.mouseLocalX = local.x;
+            e.mouseLocalY = local.y;
+            if (onMouseClick != null) {
+                boolean handled = onMouseClick.handle(e);
+                if (!handled) onMouseClickDefault(e);
+            } else {
+                onMouseClickDefault(e);
+            }
         }
 
         /* mouse enter */
-        if (mouseJustEntered && onMouseEnter != null) {
+        if (mouseJustEntered) {
             Event.EventMouseEnter e = new Event.EventMouseEnter();
             Vector2 local = new Vector2(pointerX, pointerY);
             local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
             e.mouseLocalX = local.x;
             e.mouseLocalY = local.y;
-            onMouseEnter.run(e);
+            onMouseEnter.handle(e);
+            if (onMouseEnter != null) {
+                boolean handled = onMouseEnter.handle(e);
+                if (!handled) onMouseEnterDefault(e);
+            } else {
+                onMouseEnterDefault(e);
+            }
         }
 
         /* mouse leave */
-        if (mouseJustLeft && onMouseLeave != null) {
+        if (mouseJustLeft) {
             Event.EventMouseLeave e = new Event.EventMouseLeave();
             Vector2 local = new Vector2(pointerX, pointerY);
             local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
             e.mouseLocalX = local.x;
             e.mouseLocalY = local.y;
-            onMouseLeave.run(e);
+            onMouseLeave.handle(e);
+            if (onMouseLeave != null) {
+                boolean handled = onMouseLeave.handle(e);
+                if (!handled) onMouseLeaveDefault(e);
+            } else {
+                onMouseLeaveDefault(e);
+            }
+        }
+
+        /* mouse scroll */
+        if (mouseInside && verticalScroll != 0) {
+            Event.EventMouseScroll e = new Event.EventMouseScroll();
+            Vector2 local = new Vector2(pointerX, pointerY);
+            local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
+            e.mouseLocalX = local.x;
+            e.mouseLocalY = local.y;
+            e.scrollValue = verticalScroll;
+            if (onMouseScroll != null) {
+                boolean handled = onMouseScroll.handle(e);
+                if (!handled) onMouseScrollDefault(e);
+            } else {
+                onMouseScrollDefault(e);
+            }
         }
 
         return false;

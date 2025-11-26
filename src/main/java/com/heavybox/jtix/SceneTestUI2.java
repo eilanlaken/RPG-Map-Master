@@ -76,7 +76,10 @@ public class SceneTestUI2 implements Scene {
         container.boxPaddingTop = 0;
         //container.anchor = Widget.Anchor.CENTER_LEFT;
         container.boxContentOverflowY = WidgetContainer.Overflow.SCROLLBAR;
-
+        container.onMouseScroll = e -> {
+            System.out.println("custom handler " + e.scrollValue);
+            return true;
+        };
 
         image.transform.x = 100;
 

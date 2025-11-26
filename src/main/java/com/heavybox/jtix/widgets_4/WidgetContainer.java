@@ -50,6 +50,16 @@ public class WidgetContainer extends Widget {
     public int       boxBorderSize                = 8;
     public Color     boxBorderColor               = Color.RED.clone();
 
+    /*** default event handlers */
+
+    // TODO: make it scroll
+    @Override
+    protected void onMouseScrollDefault(Event.EventMouseScroll e) {
+        System.out.println("default");
+    }
+
+    /*** children layout ***/
+
     @Override
     protected void setActiveChildrenOffsets(@NotNull Array<Widget> activeChildren) {
         if (boxLayout == null) super.setActiveChildrenOffsets(activeChildren);

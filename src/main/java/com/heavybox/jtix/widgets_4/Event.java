@@ -47,29 +47,42 @@ public abstract class Event {
 
     }
 
+    public static class EventMouseScroll extends Event {
+
+        public float scrollValue;
+        public float mouseLocalX;
+        public float mouseLocalY;
+
+    }
+
     @FunctionalInterface
     public interface EventListenerMouseClick {
-        boolean run(EventMouseClick e);
+        boolean handle(EventMouseClick e);
     }
 
     @FunctionalInterface
     public interface EventListenerMouseDown {
-        boolean run(EventMouseDown e);
+        boolean handle(EventMouseDown e);
     }
 
     @FunctionalInterface
     public interface EventListenerMouseUp {
-        boolean run(EventMouseUp e);
+        boolean handle(EventMouseUp e);
     }
 
     @FunctionalInterface
     public interface EventListenerMouseEnter {
-        boolean run(EventMouseEnter e);
+        boolean handle(EventMouseEnter e);
     }
 
     @FunctionalInterface
     public interface EventListenerMouseLeave {
-        boolean run(EventMouseLeave e);
+        boolean handle(EventMouseLeave e);
+    }
+
+    @FunctionalInterface
+    public interface EventListenerMouseScroll {
+        boolean handle(EventMouseScroll e);
     }
 
 }
