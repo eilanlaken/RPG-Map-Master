@@ -7,7 +7,8 @@ import com.heavybox.jtix.input.Input;
 
 public final class Widgets {
 
-    public static boolean debugMode = true;
+    /*** some global flags ***/
+    public static boolean debugMode = true; // TODO: use this when rendering: render regions if true.
 
     /*** global theme ***/
     public static Font    themeTextFont         = null;
@@ -17,6 +18,7 @@ public final class Widgets {
     public static boolean themeTextAntialiasing = true;
     public static boolean themeTextWrapEnabled  = true;
 
+    /*** input device state */
     private static float pointerX = 0;
     private static float pointerY = 0;
 

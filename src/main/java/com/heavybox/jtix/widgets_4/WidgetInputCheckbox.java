@@ -22,13 +22,14 @@ public class WidgetInputCheckbox extends Widget implements WidgetInput<Boolean> 
     public float borderSize   = 5;
     public float cornerRadius = 5;
 
-    public WidgetInputCheckbox() {
-        this.onMouseClick = e -> {
-            setValue(!getValue());
-            return false;
-        };
+    /*** DEFAULT INPUT HANDLERS ***/
+    @Override
+    protected void onMouseClickDefault(Event.EventMouseClick e) {
+        setValue(!getValue());
     }
 
+
+    /*** RENDERING ***/
     @Override
     protected void draw(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
         drawBox(renderer2D, x, y, deg, sclX, sclY);

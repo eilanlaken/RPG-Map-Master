@@ -19,12 +19,11 @@ public class WidgetInputSlider extends Widget implements WidgetInput<Float> {
     protected final Color colorThumb = Color.valueOf("0075FF");
     protected final Color colorFill  = Color.valueOf("0075FF");
 
-    public WidgetInputSlider() {
-        this.onMouseClick = e -> {
-            float value = 0.5f + e.mouseLocalX / width;
-            setValue(value);
-            return false;
-        };
+    /*** DEFAULT INPUT HANDLERS ***/
+    @Override
+    protected void onMouseClickDefault(Event.EventMouseClick e) {
+        float value = 0.5f + e.mouseLocalX / width;
+        setValue(value);
     }
 
     /*** RENDERING ***/
