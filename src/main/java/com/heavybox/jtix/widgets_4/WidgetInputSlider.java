@@ -27,12 +27,6 @@ public class WidgetInputSlider extends Widget implements WidgetInput<Float> {
         };
     }
 
-    /*** LOGIC ***/
-    @Override
-    protected void fixedUpdate(float delta) {
-
-    }
-
     /*** RENDERING ***/
     @Override
     public void draw(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {

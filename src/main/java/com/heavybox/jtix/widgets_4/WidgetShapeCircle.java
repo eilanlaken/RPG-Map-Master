@@ -54,9 +54,4 @@ public class WidgetShapeCircle extends Widget implements WidgetShape {
         return 2 * radius;
     }
 
-    @Override
-    protected void fixedUpdate(float delta) {
-
-    }
-
 }

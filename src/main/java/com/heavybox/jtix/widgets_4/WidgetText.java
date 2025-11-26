@@ -19,12 +19,6 @@ public class WidgetText extends Widget {
         this.text = text;
     }
 
-    /*** LOGIC ***/
-    @Override
-    protected void fixedUpdate(float delta) {
-
-    }
-
     /*** RENDERING ***/
     @Override
     public void draw(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {

@@ -78,9 +78,4 @@ public class WidgetImage extends Widget {
         return imageHeight + (border ? 2 * borderThickness : 0);
     }
 
-    @Override
-    protected void fixedUpdate(float delta) {
-
-    }
-
 }

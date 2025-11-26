@@ -42,8 +42,4 @@ public class WidgetShapeLine extends Widget implements WidgetShape {
         return thickness;
     }
 
-    @Override
-    protected void fixedUpdate(float delta) {
-
-    }
 }

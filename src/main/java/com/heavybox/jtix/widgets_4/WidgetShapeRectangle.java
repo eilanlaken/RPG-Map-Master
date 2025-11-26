@@ -46,8 +46,4 @@ public class WidgetShapeRectangle extends Widget implements WidgetShape {
         return height;
     }
 
-    @Override
-    protected void fixedUpdate(float delta) {
-
-    }
 }

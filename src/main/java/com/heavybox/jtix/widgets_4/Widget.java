@@ -99,7 +99,7 @@ public abstract class Widget {
         draw(renderer2D, x, y, deg, sclX, sclY);
     }
 
-    protected abstract void fixedUpdate(float delta);
+    protected void fixedUpdate(float delta) {}
 
     // TODO: the heart of all the ui library is here.
     public void update(float delta) {

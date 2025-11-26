@@ -73,11 +73,6 @@ public class WidgetInputCheckbox extends Widget implements WidgetInput<Boolean> 
     }
 
     @Override
-    protected void fixedUpdate(float delta) {
-
-    }
-
-    @Override
     public Boolean getValue() {
         return checked;
     }

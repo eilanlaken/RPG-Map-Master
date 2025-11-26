@@ -315,11 +315,6 @@ public class WidgetContainer extends Widget {
         return MathUtils.clampFloat(height, boxHeightMin, boxHeightMax);
     }
 
-    @Override
-    protected void fixedUpdate(float delta) {
-
-    }
-
     /*** masking ***/
     @Override
     public boolean maskChildren() {
