@@ -18,8 +18,8 @@ public abstract class Widget {
     protected final Array<Widget> activeChildren = new Array<>(true, 1);
 
     /*** transform: positioning, rotation and scale ***/
-    public    final Transform localTransform  = new Transform();
-    protected final Transform globalTransform = new Transform(); // calculated
+    public    final Transform transform       = new Transform();
+    protected final Transform transformScreen = new Transform(); // calculated
     protected       float     offsetX         = 0; // set by the parent or anchor.
     protected       float     offsetY         = 0; // set by the parent or anchor.
     public          Anchor    anchor          = Anchor.CENTER_CENTER;
@@ -28,6 +28,7 @@ public abstract class Widget {
 
     /*** input - state management ***/
     protected final Region  region              = new Region(); // TODO: change to private.
+    protected final Region  regionMask          = new Region(); // TODO: change tp private.
     private         boolean mouseRegisterClicks = false;
     private         boolean mouseInside         = false;
     private         boolean mouseInsidePrev     = false;
@@ -58,14 +59,15 @@ public abstract class Widget {
     }
 
     public final void render(Renderer2D renderer2D) {
-        draw(renderer2D, globalTransform.x, globalTransform.y, globalTransform.deg, globalTransform.sclX, globalTransform.sclY);
+        if (!active) return;
+        draw(renderer2D, transformScreen.x, transformScreen.y, transformScreen.deg, transformScreen.sclX, transformScreen.sclY);
 
         /* if masking is enabled, draw the mask */
         boolean maskChildren = maskChildren();
         if (maskChildren) {
             renderer2D.beginStencil();
             renderer2D.setStencilModeIncrement();
-            drawMask(renderer2D, globalTransform.x, globalTransform.y, globalTransform.deg, globalTransform.sclX, globalTransform.sclY);
+            drawMask(renderer2D, transformScreen.x, transformScreen.y, transformScreen.deg, transformScreen.sclX, transformScreen.sclY);
             renderer2D.endStencil();
         }
 
@@ -84,7 +86,7 @@ public abstract class Widget {
         if (maskChildren) {
             renderer2D.beginStencil();
             renderer2D.setStencilModeDecrement();
-            drawMask(renderer2D, globalTransform.x, globalTransform.y, globalTransform.deg, globalTransform.sclX, globalTransform.sclY);
+            drawMask(renderer2D, transformScreen.x, transformScreen.y, transformScreen.deg, transformScreen.sclX, transformScreen.sclY);
             renderer2D.endStencil();
         }
     }
@@ -101,6 +103,8 @@ public abstract class Widget {
 
     // TODO: the heart of all the ui library is here.
     public void update(float delta) {
+        if (!active) return;
+
         calculateGlobalTransform();
         activeChildren.clear();
         for (Widget child : children) {
@@ -113,8 +117,10 @@ public abstract class Widget {
         }
 
         // TODO: maybe this should go to handleInput()
-        setInputRegion(region);
-        region.transform(globalTransform);
+        configureInputRegion(region);
+        region.transform(transformScreen);
+        configureInputMaskedRegion(regionMask);
+        regionMask.transform(transformScreen);
 
         for (Widget widget : activeChildren) {
             widget.update(delta);
@@ -143,7 +149,7 @@ public abstract class Widget {
         if (mouseRegisterClicks && Input.mouse.isButtonClicked(Mouse.Button.LEFT) && mouseInside && onMouseClick != null) {
             Event.EventMouseClick eventMouseClick = new Event.EventMouseClick();
             Vector2 local = new Vector2(pointerX, pointerY);
-            local.transform_TranslateRotateScale(-globalTransform.x, -globalTransform.y, -globalTransform.deg, 1 / globalTransform.sclX, 1/ globalTransform.sclY);
+            local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
             eventMouseClick.mouseLocalX = local.x;
             eventMouseClick.mouseLocalY = local.y;
             onMouseClick.run(eventMouseClick);
@@ -153,7 +159,7 @@ public abstract class Widget {
         if (mouseJustEntered && onMouseEnter != null) {
             Event.EventMouseEnter e = new Event.EventMouseEnter();
             Vector2 local = new Vector2(pointerX, pointerY);
-            local.transform_TranslateRotateScale(-globalTransform.x, -globalTransform.y, -globalTransform.deg, 1 / globalTransform.sclX, 1/ globalTransform.sclY);
+            local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
             e.mouseLocalX = local.x;
             e.mouseLocalY = local.y;
             onMouseEnter.run(e);
@@ -163,7 +169,7 @@ public abstract class Widget {
         if (mouseJustLeft && onMouseLeave != null) {
             Event.EventMouseLeave e = new Event.EventMouseLeave();
             Vector2 local = new Vector2(pointerX, pointerY);
-            local.transform_TranslateRotateScale(-globalTransform.x, -globalTransform.y, -globalTransform.deg, 1 / globalTransform.sclX, 1/ globalTransform.sclY);
+            local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
             e.mouseLocalX = local.x;
             e.mouseLocalY = local.y;
             onMouseLeave.run(e);
@@ -171,7 +177,6 @@ public abstract class Widget {
 
         return false;
     }
-
 
     // containers can override this, for example.
     protected void setActiveChildrenOffsets(final @NotNull Array<Widget> activeChildren) {
@@ -181,29 +186,34 @@ public abstract class Widget {
         }
     }
 
-    protected void setInputRegion(final @NotNull Region region) {
+    protected void configureInputRegion(final @NotNull Region region) {
         region.setToRectangle(getWidth(), getHeight());
     }
 
+    // default implementation: set masking region same as input region.
+    protected void configureInputMaskedRegion(final @NotNull Region maskedRegion) {
+        configureInputRegion(maskedRegion);
+    }
+
     private void calculateGlobalTransform() {
-        float refX = parent == null ? 0 : parent.globalTransform.x;
-        float refY = parent == null ? 0 : parent.globalTransform.y;
-        float refDeg = parent == null ? 0 : parent.globalTransform.deg;
-        float refSclX = parent == null ? 1 : parent.globalTransform.sclX;
-        float refSclY = parent == null ? 1 : parent.globalTransform.sclY;
+        float refX = parent == null ? 0 : parent.transformScreen.x;
+        float refY = parent == null ? 0 : parent.transformScreen.y;
+        float refDeg = parent == null ? 0 : parent.transformScreen.deg;
+        float refSclX = parent == null ? 1 : parent.transformScreen.sclX;
+        float refSclY = parent == null ? 1 : parent.transformScreen.sclY;
         float cos = MathUtils.cosDeg(refDeg);
         float sin = MathUtils.sinDeg(refDeg);
-        float x = this.localTransform.x * cos - this.localTransform.y * sin;
-        float y = this.localTransform.x * sin + this.localTransform.y * cos;
-        globalTransform.x = refX + x * refSclX + offsetX * cos - offsetY * sin; // add the rotated offset vector x component
-        globalTransform.y = refY + y * refSclY + offsetX * sin + offsetY * cos; // add the rotated offset vector y component
-        globalTransform.deg  = localTransform.deg + refDeg;
-        globalTransform.sclX = localTransform.sclX * refSclX;
-        globalTransform.sclY = localTransform.sclY * refSclY;
+        float x = this.transform.x * cos - this.transform.y * sin;
+        float y = this.transform.x * sin + this.transform.y * cos;
+        transformScreen.x = refX + x * refSclX + offsetX * cos - offsetY * sin; // add the rotated offset vector x component
+        transformScreen.y = refY + y * refSclY + offsetX * sin + offsetY * cos; // add the rotated offset vector y component
+        transformScreen.deg  = transform.deg + refDeg;
+        transformScreen.sclX = transform.sclX * refSclX;
+        transformScreen.sclY = transform.sclY * refSclY;
     }
 
     /***  masking - relevant to containers ***/
-    boolean maskChildren() {
+    public boolean maskChildren() {
         return false;
     }
 
@@ -215,6 +225,7 @@ public abstract class Widget {
 
     private void setOffsetsAnchor() {
         if (anchor == null) return;
+
         float width = getWidth();
         float height = getHeight();
         float min_x = -width * 0.5f;
@@ -226,6 +237,7 @@ public abstract class Widget {
         float screen_max_x;
         float screen_min_y;
         float screen_max_y;
+
         switch (anchor) {
             case CENTER_RIGHT:
                 screen_max_x = Graphics.getWindowWidth() * 0.5f - max_x;

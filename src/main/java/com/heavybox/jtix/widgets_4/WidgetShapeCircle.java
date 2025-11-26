@@ -39,7 +39,7 @@ public class WidgetShapeCircle extends Widget implements WidgetShape {
     }
 
     @Override
-    protected void setInputRegion(@NotNull Region region) {
+    protected void configureInputRegion(@NotNull Region region) {
         region.setToCircle(radius, refinement);
     }
 

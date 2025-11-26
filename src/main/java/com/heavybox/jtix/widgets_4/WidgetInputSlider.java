@@ -38,7 +38,6 @@ public class WidgetInputSlider extends Widget implements WidgetInput<Float> {
     public void draw(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
         drawBar(renderer2D, x, y, deg, sclX, sclY);
         drawThumb(renderer2D, x, y, deg, sclX, sclY);
-        region.render(renderer2D);
     }
 
     protected void drawBar(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {

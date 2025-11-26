@@ -42,8 +42,6 @@ public class WidgetImage extends Widget {
             renderer2D.drawRectangleBorder(targetWidth + borderThickness, targetHeight + borderThickness, borderThickness,
                     x,y,deg,sclX,sclY);
         }
-        region.render(renderer2D);
-
     }
 
     protected float getImageWidth() {

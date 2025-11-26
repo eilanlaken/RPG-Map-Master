@@ -234,7 +234,7 @@ public class WidgetContainer extends Widget {
 
     /*** masking ***/
     @Override
-    boolean maskChildren() {
+    public boolean maskChildren() {
         return boxContentOverflowX != Overflow.VISIBLE || boxContentOverflowY != Overflow.VISIBLE;
     }
 
