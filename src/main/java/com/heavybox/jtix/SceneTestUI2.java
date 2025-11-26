@@ -71,15 +71,15 @@ public class SceneTestUI2 implements Scene {
         container.boxHeightSizing = WidgetContainer.Sizing.STATIC;
         container.boxWidth = 200;
         container.boxHeight = 400;
+        container.boxCornerRadiusTopRight = 10;
         container.boxPaddingBottom = 0;
         container.boxPaddingTop = 0;
+        //container.anchor = Widget.Anchor.CENTER_LEFT;
+        container.boxContentOverflowY = WidgetContainer.Overflow.SCROLLBAR;
 
-        container.addChild(image);
 
         image.transform.x = 100;
 
-        rect1.addChild(rect2);
-        rect2.addChild(rect3);
 
         rect1.onMouseClick = (e) -> {
             System.out.println("rect 1");
@@ -95,6 +95,10 @@ public class SceneTestUI2 implements Scene {
         };
         //rect2.addChild(rect3);
 
+        container.boxLayout = WidgetContainer.Layout.VERTICAL;
+        container.addChild(rect1);
+        container.addChild(rect2);
+        container.addChild(rect3);
 
     }
 
@@ -137,7 +141,7 @@ public class SceneTestUI2 implements Scene {
 
         //widgetText.update(1);
         container.update(1);
-        rect1.update(1);
+        //rect1.update(1);
         if (Input.keyboard.isKeyPressed(Keyboard.Key.W)) {
             ///widgetText.localTransform.deg += 2;
         }
@@ -146,8 +150,8 @@ public class SceneTestUI2 implements Scene {
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_STENCIL_BUFFER_BIT); // should probably clear the stencil
 
         renderer2D.begin();
-        //container.render(renderer2D);
-        rect1.render(renderer2D);
+        container.render(renderer2D);
+        //rect1.render(renderer2D);
         //rect2.render(renderer2D);
         //rect3.render(renderer2D);
         renderer2D.end();

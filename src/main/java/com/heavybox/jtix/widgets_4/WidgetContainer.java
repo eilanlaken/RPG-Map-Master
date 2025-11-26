@@ -6,6 +6,7 @@ import com.heavybox.jtix.graphics.Graphics;
 import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.widgets.Node;
+import com.heavybox.jtix.widgets.NodeContainer;
 import org.jetbrains.annotations.NotNull;
 
 public class WidgetContainer extends Widget {
@@ -94,10 +95,11 @@ public class WidgetContainer extends Widget {
         super.setActiveChildrenOffsets(activeChildren);
     }
 
+    // TODO: cache results of backgroundWidth and backgroundHeight
     @Override
     protected void draw(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
-        backgroundWidth = Math.max(0, getWidth() - boxBorderSize * 2); // TODO: not here
-        backgroundHeight = Math.max(0, getHeight() - boxBorderSize * 2); // TODO: not here.
+        float backgroundWidth = Math.max(0, getWidth() - boxBorderSize * 2); // TODO: not here
+        float backgroundHeight = Math.max(0, getHeight() - boxBorderSize * 2); // TODO: not here.
 
         if (boxBackgroundEnabled) {
             renderer2D.setColor(boxBackgroudColor);
@@ -117,6 +119,23 @@ public class WidgetContainer extends Widget {
                     boxCornerRadiusBottomLeft, boxCornerSegmentsBottomLeft,
                     x, y, deg, sclX, sclY);
         }
+    }
+
+    @Override
+    protected void drawMask(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
+        float backgroundWidth = Math.max(0, getWidth() - boxBorderSize * 2); // TODO: not here
+        float backgroundHeight = Math.max(0, getHeight() - boxBorderSize * 2); // TODO: not here.
+
+        final float windowMaxExtent = Math.max(Graphics.getWindowWidth(), Graphics.getWindowHeight());
+        final float fullScreenMask = 2 * windowMaxExtent;
+        float maskWidth  = boxContentOverflowX == Overflow.VISIBLE ? fullScreenMask : backgroundWidth;
+        float maskHeight = boxContentOverflowY == Overflow.VISIBLE ? fullScreenMask : backgroundHeight;
+        renderer2D.drawRectangleFilled(maskWidth, maskHeight,
+                boxCornerRadiusTopLeft, boxCornerSegmentsTopLeft,
+                boxCornerRadiusTopRight, boxCornerSegmentsTopRight,
+                boxCornerRadiusBottomRight, boxCornerSegmentsBottomRight,
+                boxCornerRadiusBottomLeft, boxCornerSegmentsBottomLeft,
+                x, y, deg, sclX, sclY);
     }
 
     protected final float getContentWidthStack(final Array<Widget> activeChildren) {
@@ -173,6 +192,75 @@ public class WidgetContainer extends Widget {
         }
         height += Math.max(0f, boxChildSpacingVertical * (children.size - 1));
         return height;
+    }
+
+    @Override
+    protected void configureInputRegion(@NotNull Region region) {
+        // TODO: optimize using calculatedWidth and calculatedHeight
+        float width = getWidth();
+        float height = getHeight();
+        region.setToRectangle(
+                width, height,
+                boxCornerRadiusTopLeft, boxCornerSegmentsTopLeft,
+                boxCornerRadiusTopRight, boxCornerSegmentsTopRight,
+                boxCornerRadiusBottomRight, boxCornerSegmentsBottomRight,
+                boxCornerRadiusBottomLeft, boxCornerSegmentsBottomLeft
+        );
+    }
+
+    @Override
+    protected void configureInputMaskedRegion(@NotNull Region maskedRegion) {
+        // case: mask matching container shape
+        if (boxContentOverflowX != Overflow.VISIBLE && boxContentOverflowY != Overflow.VISIBLE) {
+            float backgroundWidth = Math.max(0, getWidth() - boxBorderSize * 2); // TODO: not here
+            float backgroundHeight = Math.max(0, getHeight() - boxBorderSize * 2); // TODO: not here.
+            maskedRegion.setToRectangle(
+                    backgroundWidth, backgroundHeight,
+                    boxCornerRadiusTopLeft, boxCornerSegmentsTopLeft,
+                    boxCornerRadiusTopRight, boxCornerSegmentsTopRight,
+                    boxCornerRadiusBottomRight, boxCornerSegmentsBottomRight,
+                    boxCornerRadiusBottomLeft, boxCornerSegmentsBottomLeft
+            );
+            return;
+        }
+
+        // case: full-screen mask
+        if (boxContentOverflowX == Overflow.VISIBLE && boxContentOverflowY == Overflow.VISIBLE) {
+            float windowMaxExtent = Math.max(Graphics.getWindowWidth(), Graphics.getWindowHeight());
+            float fullScreenMask = 2 * windowMaxExtent;
+            maskedRegion.setToRectangle(fullScreenMask, fullScreenMask,
+                    boxCornerRadiusTopLeft, boxCornerSegmentsTopLeft,
+                    boxCornerRadiusTopRight, boxCornerSegmentsTopRight,
+                    boxCornerRadiusBottomRight, boxCornerSegmentsBottomRight,
+                    boxCornerRadiusBottomLeft, boxCornerSegmentsBottomLeft);
+            return;
+        }
+
+        // case: trim only top and bottom
+        if (boxContentOverflowX == Overflow.VISIBLE) {
+            float windowMaxExtent = Math.max(Graphics.getWindowWidth(), Graphics.getWindowHeight());
+            float fullScreenMask = 2 * windowMaxExtent;
+            float backgroundHeight = Math.max(0, getHeight() - boxBorderSize * 2); // TODO: not here.
+            maskedRegion.setToRectangle(fullScreenMask, backgroundHeight,
+                    boxCornerRadiusTopLeft, boxCornerSegmentsTopLeft,
+                    boxCornerRadiusTopRight, boxCornerSegmentsTopRight,
+                    boxCornerRadiusBottomRight, boxCornerSegmentsBottomRight,
+                    boxCornerRadiusBottomLeft, boxCornerSegmentsBottomLeft);
+            return;
+        }
+
+        // case: trim only left and right
+        if (boxContentOverflowY == Overflow.VISIBLE) {
+            float windowMaxExtent = Math.max(Graphics.getWindowWidth(), Graphics.getWindowHeight());
+            float fullScreenMask = 2 * windowMaxExtent;
+            float backgroundWidth = Math.max(0, getWidth() - boxBorderSize * 2); // TODO: not here
+            maskedRegion.setToRectangle(backgroundWidth, fullScreenMask,
+                    boxCornerRadiusTopLeft, boxCornerSegmentsTopLeft,
+                    boxCornerRadiusTopRight, boxCornerSegmentsTopRight,
+                    boxCornerRadiusBottomRight, boxCornerSegmentsBottomRight,
+                    boxCornerRadiusBottomLeft, boxCornerSegmentsBottomLeft);
+            return;
+        }
     }
 
     protected final float getContentHeightCustom(final Array<Widget> activeChildren) {
