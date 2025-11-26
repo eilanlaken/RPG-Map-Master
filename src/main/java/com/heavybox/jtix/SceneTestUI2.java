@@ -112,6 +112,7 @@ public class SceneTestUI2 implements Scene {
 
     @Override
     public void update() {
+        checkbox.update(1);
         if (Input.keyboard.isKeyPressed(Keyboard.Key.W)) {
             rect2.transform.y += 1;
         }
@@ -156,6 +157,7 @@ public class SceneTestUI2 implements Scene {
         container.render(renderer2D);
         //rect1.render(renderer2D);
         //rect2.render(renderer2D);
+        checkbox.render(renderer2D);
         //rect3.render(renderer2D);
         renderer2D.end();
     }

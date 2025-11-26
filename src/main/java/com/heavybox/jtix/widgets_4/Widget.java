@@ -183,7 +183,6 @@ public abstract class Widget {
             local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
             e.mouseLocalX = local.x;
             e.mouseLocalY = local.y;
-            onMouseEnter.handle(e);
             if (onMouseEnter != null) {
                 boolean handled = onMouseEnter.handle(e);
                 if (!handled) onMouseEnterDefault(e);
@@ -199,7 +198,6 @@ public abstract class Widget {
             local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
             e.mouseLocalX = local.x;
             e.mouseLocalY = local.y;
-            onMouseLeave.handle(e);
             if (onMouseLeave != null) {
                 boolean handled = onMouseLeave.handle(e);
                 if (!handled) onMouseLeaveDefault(e);
