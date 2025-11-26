@@ -18,20 +18,19 @@ public abstract class Widget {
     protected final Array<Widget> activeChildren = new Array<>(true, 1);
 
     /*** transform: positioning, rotation and scale ***/
-    public    final Transform transform       = new Transform();
-    protected final Transform transformScreen = new Transform(); // calculated
+    public    final Transform transform       = new Transform(); // used for absolute positioning from root and animations
+    protected final Transform transformScreen = new Transform(); // calculated every frame either by self or parent
     protected       float     offsetX         = 0; // set by the parent or anchor.
     protected       float     offsetY         = 0; // set by the parent or anchor.
-    public          Anchor    anchor          = Anchor.CENTER_CENTER;
-    public          float     anchorX         = 0;
-    public          float     anchorY         = 0;
+    public          Anchor    anchor          = null; // anchors one of the margins of the widget to the window
+    public          float     anchorX         = 0; // the anchor x distance to be maintained at all times
+    public          float     anchorY         = 0; // the anchor y distance to be maintained at all times
 
     /*** input - state management ***/
     protected final Region  region              = new Region(); // TODO: change to private.
     protected final Region  regionMask          = new Region(); // TODO: change tp private.
     private         boolean mouseRegisterClicks = false;
     private         boolean mouseInside         = false;
-    private         boolean mouseInsidePrev     = false;
 
     /*** input - event handlers ***/
     public Event.EventListenerMouseUp    onMouseUp    = null;
@@ -137,8 +136,10 @@ public abstract class Widget {
         float pointerX = Widgets.getPointerX();
         float pointerY = Widgets.getPointerY();
 
-        mouseInsidePrev = mouseInside;
-        mouseInside = region.containsPoint(pointerX, pointerY);
+        boolean mouseInsidePrev = mouseInside;
+        //mouseInside = region.containsPoint(pointerX, pointerY);
+        mouseInside = containsPoint(pointerX, pointerY);
+
         boolean mouseJustEntered = (!mouseInsidePrev && mouseInside) || (Input.mouse.cursorJustEnteredWindow() && mouseInside);
         boolean mouseJustLeft = (!mouseInside && mouseInsidePrev) || (Input.mouse.cursorJustLeftWindow() && mouseInsidePrev);
         if (Input.mouse.isButtonJustPressed(Mouse.Button.LEFT)) {
@@ -193,6 +194,20 @@ public abstract class Widget {
     // default implementation: set masking region same as input region.
     protected void configureInputMaskedRegion(final @NotNull Region maskedRegion) {
         configureInputRegion(maskedRegion);
+    }
+
+    private boolean containsPoint(float pointerX, float pointerY) {
+        if (parent == null) return region.containsPoint(pointerX, pointerY);
+        return region.containsPoint(pointerX, pointerY) && parent.maskContainsPoint(pointerX, pointerY);
+    }
+
+    private boolean maskContainsPoint(float pointerX, float pointerY) {
+        if (parent == null) {
+            if (!maskChildren()) return true;
+            else return regionMask.containsPoint(pointerX, pointerY);
+        }
+
+        return regionMask.containsPoint(pointerX, pointerY) && parent.containsPoint(pointerX, pointerY);
     }
 
     private void calculateGlobalTransform() {

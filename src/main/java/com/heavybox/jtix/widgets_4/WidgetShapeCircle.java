@@ -7,6 +7,7 @@ import org.jetbrains.annotations.NotNull;
 // TODO: add angle parameter <- improve renderer 2d to include drawCircleThin + drawCircleBorder with 'angle' parameter
 public class WidgetShapeCircle extends Widget implements WidgetShape {
 
+    // TODO: add angle
     public Type type = Type.FILLED;
     public float radius;
     public int refinement;

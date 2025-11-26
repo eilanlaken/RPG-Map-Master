@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class WidgetContainer extends Widget {
 
-    /* state */
+    /* state */ // TODO
     private float scrollOffsetX    = 0;
     private float scrollOffsetY    = 0;
     private float calculatedWidth  = 0;
