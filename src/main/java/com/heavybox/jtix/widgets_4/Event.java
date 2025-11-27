@@ -55,6 +55,28 @@ public abstract class Event {
 
     }
 
+    public static class EventResize extends Event {
+
+        public float prevWidth;
+        public float prevHeight;
+        public float newWidth;
+        public float newHeight;
+
+    }
+
+    public static class EventChildAdded extends Event {
+
+        public Widget widget;
+
+    }
+
+    public static class EventChildRemoved extends Event {
+
+        public Widget widget;
+        public int    index;
+
+    }
+
     @FunctionalInterface
     public interface EventListenerMouseClick {
         boolean handle(EventMouseClick e);
@@ -83,6 +105,21 @@ public abstract class Event {
     @FunctionalInterface
     public interface EventListenerMouseScroll {
         boolean handle(EventMouseScroll e);
+    }
+
+    @FunctionalInterface
+    public interface EventListenerResize {
+        boolean handle(EventResize e);
+    }
+
+    @FunctionalInterface
+    public interface EventListenerChildAdded {
+        boolean handle(EventChildAdded e);
+    }
+
+    @FunctionalInterface
+    public interface EventListenerChildRemoved {
+        boolean handle(EventChildRemoved e);
     }
 
 }

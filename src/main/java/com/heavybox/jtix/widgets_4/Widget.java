@@ -12,12 +12,15 @@ import org.jetbrains.annotations.NotNull;
 public abstract class Widget {
 
     /*** ui hierarchy ***/
-    public          boolean       active         = true;
     protected       Widget        parent         = null;
     protected final Array<Widget> children       = new Array<>(true, 1);
-    protected final Array<Widget> activeChildren = new Array<>(true, 1);
+    protected final Array<Widget> childrenLayout = new Array<>(true, 1);
 
-    /*** transform: positioning, rotation and scale ***/
+    /*** metrics: transform and dimensions ***/
+    public          float     width           = 0; // TODO: use for caching and event handling
+    public          float     height          = 0; // TODO: use for caching and event handling
+    public          float     prevWidth       = 0; // TODO: use for caching and event handling
+    public          float     prevHeight      = 0; // TODO: use for caching and event handling
     public    final Transform transform       = new Transform(); // used for absolute positioning from root and animations
     private   final Transform transformScreen = new Transform(); // calculated every frame either by self or parent
     protected       float     offsetX         = 0; // set by the parent or anchor.
@@ -35,20 +38,26 @@ public abstract class Widget {
 
     /*** input - event handlers ***/
     // TODO: remove these? Answer: No. use both methods (defaults) and variables (custom behaviour) + booleans to prevent default.
-    public Event.EventListenerMouseUp     onMouseUp     = null;
-    public Event.EventListenerMouseDown   onMouseDown   = null;
-    public Event.EventListenerMouseEnter  onMouseEnter  = null;
-    public Event.EventListenerMouseLeave  onMouseLeave  = null;
-    public Event.EventListenerMouseClick  onMouseClick  = null;
-    public Event.EventListenerMouseScroll onMouseScroll = null;
+    public Event.EventListenerMouseUp      onMouseUp      = null;
+    public Event.EventListenerMouseDown    onMouseDown    = null;
+    public Event.EventListenerMouseEnter   onMouseEnter   = null;
+    public Event.EventListenerMouseLeave   onMouseLeave   = null;
+    public Event.EventListenerMouseClick   onMouseClick   = null;
+    public Event.EventListenerMouseScroll  onMouseScroll  = null;
+    public Event.EventListenerResize       onResize       = null;
+    public Event.EventListenerChildAdded   onChildAdded   = null;
+    public Event.EventListenerChildRemoved onChildRemoved = null;
 
-    /*** placeholder method for event handling ***/
-    protected void onMouseUpDefault    (Event.EventMouseUp e)     {}
-    protected void onMouseDownDefault  (Event.EventMouseDown e)   {}
-    protected void onMouseEnterDefault (Event.EventMouseEnter e)  {}
-    protected void onMouseLeaveDefault (Event.EventMouseLeave e)  {}
-    protected void onMouseClickDefault (Event.EventMouseClick e)  {}
-    protected void onMouseScrollDefault(Event.EventMouseScroll e) {}
+    /*** default methods for event handling ***/
+    protected void onMouseUpDefault     (Event.EventMouseUp e)      {}
+    protected void onMouseDownDefault   (Event.EventMouseDown e)    {}
+    protected void onMouseEnterDefault  (Event.EventMouseEnter e)   {}
+    protected void onMouseLeaveDefault  (Event.EventMouseLeave e)   {}
+    protected void onMouseClickDefault  (Event.EventMouseClick e)   {}
+    protected void onMouseScrollDefault (Event.EventMouseScroll e)  {}
+    protected void onResizeDefault      (Event.EventResize e)       {}
+    protected void onChildAddedDefault  (Event.EventChildAdded e)   {}
+    protected void onChildRemovedDefault(Event.EventChildRemoved e) {}
 
     /*** Add and remove child methods ***/
 
@@ -60,18 +69,34 @@ public abstract class Widget {
         if (children.contains(widget, true)) return;
         children.add(widget);
         widget.parent = this;
+        Event.EventChildAdded e = new Event.EventChildAdded();
+        e.widget = widget;
+        if (onChildAdded != null) {
+            boolean handled = onChildAdded.handle(e);
+            if (!handled) onChildAddedDefault(e);
+        } else {
+            onChildAddedDefault(e);
+        }
     }
 
     public final void removeChild(Widget widget) {
         if (widget == null) throw new WidgetsException(Widget.class.getSimpleName() + " element cannot be null.");
         if (!children.contains(widget, true)) throw new WidgetsException(Widget.class.getSimpleName() + " does not contain the element " + widget + " as a child so it cannot be removed.");
 
-        children.removeValue(widget,true);
+        int index = children.removeValue(widget,true);
         widget.parent = null;
+        Event.EventChildRemoved e = new Event.EventChildRemoved();
+        e.widget = widget;
+        e.index = index;
+        if (onChildRemoved != null) {
+            boolean handled = onChildRemoved.handle(e);
+            if (!handled) onChildRemovedDefault(e);
+        } else {
+            onChildRemovedDefault(e);
+        }
     }
 
     public final void render(Renderer2D renderer2D) {
-        if (!active) return;
         draw(renderer2D, transformScreen.x, transformScreen.y, transformScreen.deg, transformScreen.sclX, transformScreen.sclY);
 
         /* if masking is enabled, draw the mask */
@@ -84,7 +109,7 @@ public abstract class Widget {
         }
 
         int maskingIndex = getMaskingIndex();
-        for (Widget child : activeChildren) {
+        for (Widget child : children) {
             // apply mask, if masking enabled
             if (maskChildren) {
                 renderer2D.enableMasking();
@@ -115,18 +140,22 @@ public abstract class Widget {
 
     // TODO: the heart of all the ui library is here.
     public void update(float delta) {
-        if (!active) return;
+        prevWidth = width;
+        prevHeight = height;
+
 
         calculateGlobalTransform();
-        activeChildren.clear();
+        childrenLayout.clear();
         for (Widget child : children) {
-            if (child.active) activeChildren.add(child);
+            if (child.anchor == null) childrenLayout.add(child);
         }
-        setActiveChildrenOffsets(activeChildren);
-
-        if (parent == null) {
+        setChildrenOffsets(childrenLayout);
+        if (parent == null) { // TODO: change to if anchor != null
             setOffsetsAnchor();
         }
+
+        width = getWidth();
+        height = getHeight();
 
         // TODO: maybe this should go to handleInput()
         configureInputRegion(region);
@@ -134,7 +163,7 @@ public abstract class Widget {
         configureInputMaskedRegion(regionMask);
         regionMask.transform(transformScreen);
 
-        for (Widget widget : activeChildren) {
+        for (Widget widget : children) {
             widget.update(delta);
         }
 
@@ -148,18 +177,22 @@ public abstract class Widget {
     // TODO: handle click outside
     // TODO: event propagation and bubbling
     protected boolean handleInput() {
+        // mouse input
         float pointerX = Widgets.getPointerX();
         float pointerY = Widgets.getPointerY();
         float verticalScroll = Input.mouse.getVerticalScroll();
-
         boolean mouseInsidePrev = mouseInside;
         mouseInside = containsPoint(pointerX, pointerY);
-
         boolean mouseJustEntered = (!mouseInsidePrev && mouseInside) || (Input.mouse.cursorJustEnteredWindow() && mouseInside);
         boolean mouseJustLeft = (!mouseInside && mouseInsidePrev) || (Input.mouse.cursorJustLeftWindow() && mouseInsidePrev);
         if (Input.mouse.isButtonJustPressed(Mouse.Button.LEFT)) {
             mouseRegisterClicks = mouseInside;
         }
+
+        // resize
+        float deltaWidth  = width - prevWidth;
+        float deltaHeight = height - prevHeight;
+        boolean resized = !MathUtils.isZero(deltaWidth) || !MathUtils.isZero(deltaHeight);
 
         /* mouse click */
         if (mouseRegisterClicks && Input.mouse.isButtonClicked(Mouse.Button.LEFT) && mouseInside) {
@@ -222,11 +255,26 @@ public abstract class Widget {
             }
         }
 
+        /* resize */
+        if (resized) {
+            Event.EventResize e = new Event.EventResize();
+            e.prevWidth = prevWidth;
+            e.prevHeight = prevHeight;
+            e.newWidth = width;
+            e.newHeight = height;
+            if (onResize != null) {
+                boolean handled = onResize.handle(e);
+                if (!handled) onResizeDefault(e);
+            } else {
+                onResizeDefault(e);
+            }
+        }
+
         return false;
     }
 
     // containers can override this, for example.
-    protected void setActiveChildrenOffsets(final @NotNull Array<Widget> activeChildren) {
+    protected void setChildrenOffsets(final @NotNull Array<Widget> activeChildren) {
         for (Widget widget : activeChildren) {
             widget.offsetX = 0;
             widget.offsetY = 0;
@@ -289,6 +337,7 @@ public abstract class Widget {
         else return 1;
     }
 
+    // TODO: make any ui element by anchorable to the bounds of its parent. (window if parent is null).
     private void setOffsetsAnchor() {
         if (anchor == null) return;
 

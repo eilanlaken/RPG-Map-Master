@@ -67,13 +67,15 @@ public class SceneTestUI2 implements Scene {
         image.height = 100;
         image.border = true;
 
-        container.boxWidthSizing = WidgetContainer.Sizing.STATIC;
-        container.boxHeightSizing = WidgetContainer.Sizing.STATIC;
+        container.boxWidthSizing = WidgetContainer.Sizing.DYNAMIC;
+        container.boxHeightSizing = WidgetContainer.Sizing.DYNAMIC;
         container.boxWidth = 200;
         container.boxHeight = 400;
-        container.boxCornerRadiusTopRight = 10;
-        container.boxPaddingBottom = 0;
-        container.boxPaddingTop = 0;
+        container.boxPaddingLeft = 40;
+        container.onResize = e -> {
+            System.out.println("resized");
+            return false;
+        };
         //container.anchor = Widget.Anchor.CENTER_LEFT;
         container.boxContentOverflowY = WidgetContainer.Overflow.SCROLLBAR;
         container.onMouseScroll = e -> {
@@ -98,11 +100,14 @@ public class SceneTestUI2 implements Scene {
         };
         //rect2.addChild(rect3);
 
+        rect2.anchor = Widget.Anchor.CENTER_RIGHT;
+
         container.boxLayout = WidgetContainer.Layout.VERTICAL;
         container.addChild(rect1);
         container.addChild(rect2);
         container.addChild(rect3);
 
+        container.anchor = Widget.Anchor.UPPER_LEFT;
     }
 
     @Override
@@ -139,6 +144,11 @@ public class SceneTestUI2 implements Scene {
             rect3.transform.x -= 1;
         }
 
+        if (Input.keyboard.isKeyJustPressed(Keyboard.Key.G)) {
+            container.boxHeightSizing = WidgetContainer.Sizing.STATIC;
+            container.boxHeight = 20;
+        }
+
         if (Input.mouse.isButtonPressed(Mouse.Button.RIGHT)) {
             rect1.transform.deg += 1;
         }
@@ -155,10 +165,6 @@ public class SceneTestUI2 implements Scene {
 
         renderer2D.begin();
         container.render(renderer2D);
-        //rect1.render(renderer2D);
-        //rect2.render(renderer2D);
-        checkbox.render(renderer2D);
-        //rect3.render(renderer2D);
         renderer2D.end();
     }
 

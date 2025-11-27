@@ -5,8 +5,6 @@ import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Graphics;
 import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.math.MathUtils;
-import com.heavybox.jtix.widgets.Node;
-import com.heavybox.jtix.widgets.NodeContainer;
 import org.jetbrains.annotations.NotNull;
 
 public class WidgetContainer extends Widget {
@@ -30,25 +28,25 @@ public class WidgetContainer extends Widget {
     public float     boxHeightMax                 = Float.POSITIVE_INFINITY;
     public float     boxHeight                    = 1;
     public Overflow  boxContentOverflowX          = Overflow.HIDDEN;
-    public Overflow  boxContentOverflowY          = Overflow.HIDDEN;
-    public Color     boxBackgroudColor            = Color.valueOf("#227BFF");
+    public Overflow  boxContentOverflowY          = Overflow.SCROLLBAR;
     public boolean   boxBackgroundEnabled         = true;
-    public int       boxPaddingTop                = 80;
-    public int       boxPaddingBottom             = 20;
-    public int       boxPaddingLeft               = 0;
-    public int       boxPaddingRight              = 0;
-    public int       boxChildSpacingVertical      = 5;
-    public int       boxChildSpacingHorizontal    = 5;
-    public int       boxCornerRadiusTopLeft       = 0;
-    public int       boxCornerRadiusTopRight      = 0;
-    public int       boxCornerRadiusBottomRight   = 0;
-    public int       boxCornerRadiusBottomLeft    = 0;
-    public int       boxCornerSegmentsTopLeft     = 10;
-    public int       boxCornerSegmentsTopRight    = 10;
-    public int       boxCornerSegmentsBottomRight = 10;
-    public int       boxCornerSegmentsBottomLeft  = 10;
-    public int       boxBorderSize                = 8;
-    public Color     boxBorderColor               = Color.RED.clone();
+    public Color     boxBackgroundColor           = Widgets.themeContainerBoxBackgroundColor;
+    public int       boxPaddingTop                = Widgets.themeContainerBoxPaddingTop;
+    public int       boxPaddingBottom             = Widgets.themeContainerBoxPaddingBottom;
+    public int       boxPaddingLeft               = Widgets.themeContainerBoxPaddingLeft;
+    public int       boxPaddingRight              = Widgets.themeContainerBoxPaddingRight;
+    public int       boxChildSpacingVertical      = Widgets.themeContainerBoxChildSpacingVertical;
+    public int       boxChildSpacingHorizontal    = Widgets.themeContainerBoxChildSpacingHorizontal;
+    public int       boxCornerRadiusTopLeft       = Widgets.themeContainerBoxCornerRadiusTopLeft;
+    public int       boxCornerRadiusTopRight      = Widgets.themeContainerBoxCornerRadiusTopRight;
+    public int       boxCornerRadiusBottomRight   = Widgets.themeContainerBoxCornerRadiusBottomRight;
+    public int       boxCornerRadiusBottomLeft    = Widgets.themeContainerBoxCornerRadiusBottomLeft;
+    public int       boxCornerSegmentsTopLeft     = Widgets.themeContainerBoxCornerSegmentsTopLeft;
+    public int       boxCornerSegmentsTopRight    = Widgets.themeContainerBoxCornerSegmentsTopRight;
+    public int       boxCornerSegmentsBottomRight = Widgets.themeContainerBoxCornerSegmentsBottomRight;
+    public int       boxCornerSegmentsBottomLeft  = Widgets.themeContainerBoxCornerSegmentsBottomLeft;
+    public int       boxBorderSize                = Widgets.themeContainerBoxBorderSize;
+    public Color     boxBorderColor               = Widgets.themeContainerBoxBorderColor;
 
     /*** default event handlers */
 
@@ -61,27 +59,27 @@ public class WidgetContainer extends Widget {
     /*** children layout ***/
 
     @Override
-    protected void setActiveChildrenOffsets(@NotNull Array<Widget> activeChildren) {
-        if (boxLayout == null) super.setActiveChildrenOffsets(activeChildren);
+    protected void setChildrenOffsets(@NotNull Array<Widget> widgets) {
+        if (boxLayout == null) super.setChildrenOffsets(widgets);
         switch (boxLayout) {
-            case STACK      -> setActiveChildrenOffsetsStack(activeChildren);
-            case VERTICAL   -> setActiveChildrenOffsetsVertical(activeChildren);
-            case HORIZONTAL -> setActiveChildrenOffsetsHorizontal(activeChildren);
-            case CUSTOM     -> setActiveChildrenOffsetsCustom(activeChildren);
+            case STACK      -> setChildrenOffsetsStack(widgets);
+            case VERTICAL   -> setChildrenOffsetsVertical(widgets);
+            case HORIZONTAL -> setChildrenOffsetsHorizontal(widgets);
+            case CUSTOM     -> setChildrenOffsetsCustom(widgets);
         }
     }
 
-    protected final void setActiveChildrenOffsetsStack(Array<Widget> activeChildren) {
-        for (Widget child : activeChildren) {
+    protected final void setChildrenOffsetsStack(Array<Widget> widgets) {
+        for (Widget child : widgets) {
             child.offsetX = boxPaddingLeft - (boxPaddingLeft + boxPaddingRight) * 0.5f;
             child.offsetY = boxPaddingBottom - (boxPaddingBottom + boxPaddingTop) * 0.5f;
         }
     }
 
-    protected final void setActiveChildrenOffsetsHorizontal(Array<Widget> activeChildren) {
+    protected final void setChildrenOffsetsHorizontal(Array<Widget> widgets) {
         float sclX = 1; // global transform
         float position_x = -(getWidth() * 0.5f - boxBorderSize - boxPaddingLeft) * sclX;
-        for (Widget child : activeChildren) {
+        for (Widget child : widgets) {
             float child_width = child.getWidth() * sclX;
             child.offsetX = position_x + child_width * 0.5f;
             child.offsetY = boxPaddingBottom - (boxPaddingBottom + boxPaddingTop) * 0.5f;
@@ -89,10 +87,10 @@ public class WidgetContainer extends Widget {
         }
     }
 
-    protected final void setActiveChildrenOffsetsVertical(Array<Widget> activeChildren) {
+    protected final void setChildrenOffsetsVertical(Array<Widget> widgets) {
         float sclY = 1; // global transform
         float position_y = (getHeight() * 0.5f - boxBorderSize - boxPaddingTop) * sclY;
-        for (Widget child : activeChildren) {
+        for (Widget child : widgets) {
             float child_height = child.getHeight() * sclY;
             child.offsetX = boxPaddingLeft - (boxPaddingLeft + boxPaddingRight) * 0.5f;
             child.offsetY = position_y - child_height * 0.5f;
@@ -101,8 +99,8 @@ public class WidgetContainer extends Widget {
     }
 
     // meant to be overriden by custom layout containers, like a wheel select.
-    protected void setActiveChildrenOffsetsCustom(Array<Widget> activeChildren) {
-        super.setActiveChildrenOffsets(activeChildren);
+    protected void setChildrenOffsetsCustom(Array<Widget> widgets) {
+        super.setChildrenOffsets(widgets);
     }
 
     // TODO: cache results of backgroundWidth and backgroundHeight
@@ -112,7 +110,7 @@ public class WidgetContainer extends Widget {
         float backgroundHeight = Math.max(0, getHeight() - boxBorderSize * 2); // TODO: not here.
 
         if (boxBackgroundEnabled) {
-            renderer2D.setColor(boxBackgroudColor);
+            renderer2D.setColor(boxBackgroundColor);
             renderer2D.drawRectangleFilled(backgroundWidth, backgroundHeight,
                     boxCornerRadiusTopLeft, boxCornerSegmentsTopLeft,
                     boxCornerRadiusTopRight, boxCornerSegmentsTopRight,
@@ -148,32 +146,32 @@ public class WidgetContainer extends Widget {
                 x, y, deg, sclX, sclY);
     }
 
-    protected final float getContentWidthStack(final Array<Widget> activeChildren) {
+    protected final float getContentWidthStack(final Array<Widget> widgets) {
         float maxWidth = Float.NEGATIVE_INFINITY;
-        for (Widget child : activeChildren) {
+        for (Widget child : widgets) {
             maxWidth = Math.max(child.getWidth(), maxWidth);
         }
         return Math.abs(maxWidth);
     }
 
-    protected final float getContentWidthHorizontal(final Array<Widget> activeChildren) {
+    protected final float getContentWidthHorizontal(final Array<Widget> widgets) {
         float width = 0;
-        for (Widget child : activeChildren) {
+        for (Widget child : widgets) {
             width += child.getWidth();
         }
-        width += Math.max(0f, boxChildSpacingHorizontal * (children.size - 1));
+        width += Math.max(0f, boxChildSpacingHorizontal * (widgets.size - 1));
         return width;
     }
 
-    protected float getContentWidthVertical(final Array<Widget> activeChildren) {
-        return getContentWidthStack(activeChildren);
+    protected float getContentWidthVertical(final Array<Widget> widgets) {
+        return getContentWidthStack(widgets);
     }
 
-    protected final float getContentWidthCustom(final Array<Widget> activeChildren) {
+    protected final float getContentWidthCustom(final Array<Widget> widgets) {
         float min_x = Float.POSITIVE_INFINITY;
         float max_x = Float.NEGATIVE_INFINITY;
 
-        for (Widget widget : activeChildren) {
+        for (Widget widget : widgets) {
             float left = widget.offsetX - widget.getWidth();
             float right = widget.offsetX + widget.getWidth();
             min_x = Math.min(min_x, left);
@@ -183,24 +181,24 @@ public class WidgetContainer extends Widget {
         return Math.abs(max_x - min_x);
     }
 
-    protected float getContentHeightStack(final Array<Widget> activeChildren) {
+    protected float getContentHeightStack(final Array<Widget> widgets) {
         float maxHeight = Float.NEGATIVE_INFINITY;
-        for (Widget child : children) {
+        for (Widget child : widgets) {
             maxHeight = Math.max(child.getHeight(), maxHeight);
         }
         return maxHeight;
     }
 
-    protected final float getContentHeightHorizontal(final Array<Widget> activeChildren) {
-        return getContentHeightStack(activeChildren);
+    protected final float getContentHeightHorizontal(final Array<Widget> widgets) {
+        return getContentHeightStack(widgets);
     }
 
-    protected final float getContentHeightVertical(final Array<Widget> activeChildren) {
+    protected final float getContentHeightVertical(final Array<Widget> widgets) {
         float height = 0;
-        for (Widget child : activeChildren) {
+        for (Widget child : widgets) {
             height += child.getHeight();
         }
-        height += Math.max(0f, boxChildSpacingVertical * (children.size - 1));
+        height += Math.max(0f, boxChildSpacingVertical * (widgets.size - 1));
         return height;
     }
 
@@ -273,11 +271,11 @@ public class WidgetContainer extends Widget {
         }
     }
 
-    protected final float getContentHeightCustom(final Array<Widget> activeChildren) {
+    protected final float getContentHeightCustom(final Array<Widget> widgets) {
         float min_y = Float.POSITIVE_INFINITY;
         float max_y = Float.NEGATIVE_INFINITY;
 
-        for (Widget widget : activeChildren) {
+        for (Widget widget : widgets) {
             float down = widget.offsetY - widget.getHeight();
             float up = widget.offsetY + widget.getHeight();
             min_y = Math.min(min_y, down);
@@ -287,21 +285,21 @@ public class WidgetContainer extends Widget {
         return Math.abs(max_y - min_y);
     }
 
-    protected final float getContentWidth(Array<Widget> activeChildren) {
+    protected final float getContentsWidth(Array<Widget> widgets) {
         return switch (boxLayout) {
-            case STACK      -> getContentWidthStack(activeChildren);
-            case HORIZONTAL -> getContentWidthHorizontal(activeChildren);
-            case VERTICAL   -> getContentWidthVertical(activeChildren);
-            case CUSTOM     -> getContentWidthCustom(activeChildren);
+            case STACK      -> getContentWidthStack(widgets);
+            case HORIZONTAL -> getContentWidthHorizontal(widgets);
+            case VERTICAL   -> getContentWidthVertical(widgets);
+            case CUSTOM     -> getContentWidthCustom(widgets);
         };
     }
 
-    protected final float getContentHeight(Array<Widget> activeChildren) {
+    protected final float getContentsHeight(Array<Widget> widgets) {
         return switch (boxLayout) {
-            case STACK      -> getContentHeightStack(activeChildren);
-            case HORIZONTAL -> getContentHeightHorizontal(activeChildren);
-            case VERTICAL   -> getContentHeightVertical(activeChildren);
-            case CUSTOM     -> getContentHeightCustom(activeChildren);
+            case STACK      -> getContentHeightStack(widgets);
+            case HORIZONTAL -> getContentHeightHorizontal(widgets);
+            case VERTICAL   -> getContentHeightVertical(widgets);
+            case CUSTOM     -> getContentHeightCustom(widgets);
         };
     }
 
@@ -310,7 +308,7 @@ public class WidgetContainer extends Widget {
         float width = switch (boxWidthSizing) {
             case STATIC   -> boxWidth;
             case VIEWPORT -> boxWidth * Graphics.getWindowWidth();
-            case DYNAMIC  -> getContentWidth(children) + boxPaddingLeft + boxPaddingRight + boxBorderSize + boxBorderSize;
+            case DYNAMIC  -> getContentsWidth(childrenLayout) + boxPaddingLeft + boxPaddingRight + boxBorderSize + boxBorderSize;
         };
         return MathUtils.clampFloat(width, boxWidthMin, boxWidthMax);
     }
@@ -320,12 +318,13 @@ public class WidgetContainer extends Widget {
         float height = switch (boxHeightSizing) {
             case STATIC   -> boxHeight;
             case VIEWPORT -> boxHeight * Graphics.getWindowHeight();
-            case DYNAMIC  -> getContentHeight(children) + boxPaddingTop + boxPaddingBottom + boxBorderSize + boxBorderSize;
+            case DYNAMIC  -> getContentsHeight(childrenLayout) + boxPaddingTop + boxPaddingBottom + boxBorderSize + boxBorderSize;
         };
         return MathUtils.clampFloat(height, boxHeightMin, boxHeightMax);
     }
 
-    /*** masking ***/
+    /*** MASKING ***/
+
     @Override
     public boolean maskChildren() {
         return boxContentOverflowX != Overflow.VISIBLE || boxContentOverflowY != Overflow.VISIBLE;

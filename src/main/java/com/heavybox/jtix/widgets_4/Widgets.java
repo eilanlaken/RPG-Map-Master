@@ -11,12 +11,31 @@ public final class Widgets {
     public static boolean debugMode = true; // TODO: use this when rendering: render regions if true.
 
     /*** global theme ***/
-    public static Font    themeTextFont         = null;
-    public static Color   themeTextColor        = Color.WHITE.clone();
-    public static int     themeTextSize         = 18;
-    public static float   themeTextLineHeight   = 1.2f;
-    public static boolean themeTextAntialiasing = true;
-    public static boolean themeTextWrapEnabled  = true;
+    // text
+    public static Font    themeTextFont                              = null;
+    public static Color   themeTextColor                             = Color.WHITE.clone();
+    public static int     themeTextSize                              = 18;
+    public static float   themeTextLineHeight                        = 1.2f;
+    public static boolean themeTextAntialiasing                      = true;
+    public static boolean themeTextWrapEnabled                       = true;
+    // containers
+    public static Color   themeContainerBoxBackgroundColor           = Color.valueOf("#227BFF");
+    public static int     themeContainerBoxPaddingTop                = 10;
+    public static int     themeContainerBoxPaddingBottom             = 10;
+    public static int     themeContainerBoxPaddingLeft               = 10;
+    public static int     themeContainerBoxPaddingRight              = 10;
+    public static int     themeContainerBoxChildSpacingVertical      = 5;
+    public static int     themeContainerBoxChildSpacingHorizontal    = 5;
+    public static int     themeContainerBoxCornerRadiusTopLeft       = 0;
+    public static int     themeContainerBoxCornerRadiusTopRight      = 0;
+    public static int     themeContainerBoxCornerRadiusBottomRight   = 0;
+    public static int     themeContainerBoxCornerRadiusBottomLeft    = 0;
+    public static int     themeContainerBoxCornerSegmentsTopLeft     = 10;
+    public static int     themeContainerBoxCornerSegmentsTopRight    = 10;
+    public static int     themeContainerBoxCornerSegmentsBottomRight = 10;
+    public static int     themeContainerBoxCornerSegmentsBottomLeft  = 10;
+    public static int     themeContainerBoxBorderSize                = 4;
+    public static Color   themeContainerBoxBorderColor               = Color.RED.clone();
 
     /*** input device state */
     private static float pointerX = 0;
