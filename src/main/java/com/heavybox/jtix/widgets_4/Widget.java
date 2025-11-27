@@ -150,7 +150,7 @@ public abstract class Widget {
             if (child.anchor == null) childrenLayout.add(child);
         }
         setChildrenOffsets(childrenLayout);
-        if (parent == null) { // TODO: change to if anchor != null
+        if (anchor != null) { // TODO: change to if anchor != null
             setOffsetsAnchor();
         }
 
@@ -339,62 +339,64 @@ public abstract class Widget {
 
     // TODO: make any ui element by anchorable to the bounds of its parent. (window if parent is null).
     private void setOffsetsAnchor() {
-        if (anchor == null) return;
 
-        float width = getWidth();
-        float height = getHeight();
-        float min_x = -width * 0.5f;
-        float max_x = width * 0.5f;
-        float min_y = -height * 0.5f;
-        float max_y = height * 0.5f;
+        float currentWidth = width;
+        float currentHeight = height;
+        float min_x = -currentWidth * 0.5f;
+        float max_x = currentWidth * 0.5f;
+        float min_y = -currentHeight * 0.5f;
+        float max_y = currentHeight * 0.5f;
 
         float screen_min_x;
         float screen_max_x;
         float screen_min_y;
         float screen_max_y;
 
+        float halfParentWidth = parent == null ? Graphics.getWindowWidth() * 0.5f : parent.getWidth() * 0.5f;
+        float halfParentHeight = parent == null ? Graphics.getWindowHeight() * 0.5f : parent.getHeight() * 0.5f;
+
         switch (anchor) {
             case CENTER_RIGHT:
-                screen_max_x = Graphics.getWindowWidth() * 0.5f - max_x;
+                screen_max_x = halfParentWidth - max_x;
                 offsetX = screen_max_x - anchorX;
                 offsetY = 0;
                 break;
             case CENTER_LEFT:
-                screen_min_x = min_x + Graphics.getWindowWidth() * 0.5f;
+                screen_min_x = min_x + halfParentWidth;
                 offsetX = anchorX - screen_min_x;
                 offsetY = 0;
                 break;
             case UPPER_CENTER:
-                screen_max_y = Graphics.getWindowHeight() * 0.5f - max_y;
+                screen_max_y = halfParentHeight - max_y;
                 offsetX = 0;
                 offsetY = screen_max_y - anchorY;
                 break;
             case BOTTOM_CENTER:
-                screen_min_y = min_y + Graphics.getWindowHeight() * 0.5f;
+                screen_min_y = min_y + halfParentHeight;
                 offsetX = 0;
                 offsetY = anchorY - screen_min_y;
                 break;
             case UPPER_LEFT:
-                screen_min_x = min_x + Graphics.getWindowWidth() * 0.5f;
-                screen_max_y = Graphics.getWindowHeight() * 0.5f - max_y;
+                screen_min_x = min_x + halfParentWidth;
+                screen_max_y = halfParentHeight - max_y;
                 offsetX = anchorX - screen_min_x;
                 offsetY = screen_max_y - anchorY;
                 break;
             case UPPER_RIGHT:
-                screen_max_x = Graphics.getWindowWidth() * 0.5f - max_x;
-                screen_max_y = Graphics.getWindowHeight() * 0.5f - max_y;
+                screen_max_x = halfParentWidth - max_x;
+                screen_max_y = halfParentHeight - max_y;
                 offsetX = screen_max_x - anchorX;
                 offsetY = screen_max_y - anchorY;
                 break;
             case BOTTOM_RIGHT:
-                screen_max_x = Graphics.getWindowWidth() * 0.5f - max_x;
-                screen_min_y = min_y + Graphics.getWindowHeight() * 0.5f;
+                screen_max_x = halfParentWidth - max_x;
+                screen_min_y = min_y + halfParentHeight;
                 offsetX = screen_max_x - anchorX;
                 offsetY = anchorY - screen_min_y;
                 break;
             case BOTTOM_LEFT:
-                screen_min_x = min_x + Graphics.getWindowWidth() * 0.5f;
-                screen_min_y = min_y + Graphics.getWindowHeight() * 0.5f;
+                screen_min_x = min_x + halfParentWidth;
+                screen_min_y = min_y + halfParentHeight;
                 offsetX = anchorX - screen_min_x;
                 offsetY = anchorY - screen_min_y;
                 break;
