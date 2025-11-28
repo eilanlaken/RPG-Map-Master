@@ -44,7 +44,7 @@ public class SceneTestUI2 implements Scene {
     WidgetImage image = new WidgetImage("assets/engine-tests/simpleImage.png");
 
     WidgetContainer container = new WidgetContainer();
-    WidgetScrollbar scrollbar = new WidgetScrollbar();
+    WidgetInputScrollbar scrollbar = new WidgetInputScrollbar();
 
     @Override
     public void setup() {

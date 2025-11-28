@@ -2,9 +2,10 @@ package com.heavybox.jtix.widgets_4;
 
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Renderer2D;
+import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Vector2;
 
-public class WidgetScrollbar extends Widget {
+public class WidgetInputScrollbar extends Widget implements WidgetInput<Float> {
 
     /* internal state */
     public float width = 10;
@@ -17,6 +18,12 @@ public class WidgetScrollbar extends Widget {
     public boolean styleDrawThumb = true;
     public Color styleBarColor = Color.valueOf("343538");
     public Color styleThumbColor = Color.valueOf("5c5d5e");
+
+    @Override
+    protected void onMouseScrollDefault(Event.EventMouseScroll e) {
+        value -= e.scrollValue * 0.1f;
+        value = MathUtils.clampFloat(value, 0, 1);
+    }
 
     @Override
     protected void draw(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
@@ -37,7 +44,8 @@ public class WidgetScrollbar extends Widget {
         Vector2 offset_transformed = new Vector2(offset_x, offset_y);
         offset_transformed.scl(sclX, sclY);
         offset_transformed.rotateDeg(deg);
-        renderer2D.setColor(1,0,0,0.2f);
+        //renderer2D.setColor(1,0,0,0.2f);
+        renderer2D.setColor(styleThumbColor);
         renderer2D.drawRectangleFilled(width, thumbHeight, x + offset_transformed.x, y + offset_transformed.y, deg, sclX, sclY);
     }
 
@@ -61,4 +69,13 @@ public class WidgetScrollbar extends Widget {
         return height;
     }
 
+    @Override
+    public Float getValue() {
+        return value;
+    }
+
+    @Override
+    public void setValue(Float value) {
+        this.value = value == null ? 0 : value;
+    }
 }
