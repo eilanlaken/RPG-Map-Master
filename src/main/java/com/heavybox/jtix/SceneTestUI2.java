@@ -22,24 +22,10 @@ public class SceneTestUI2 implements Scene {
     WidgetInputSlider slider = new WidgetInputSlider();
     WidgetInputCheckbox checkbox = new WidgetInputCheckbox();
     WidgetShapeLine line = new WidgetShapeLine(300,22, Color.RED);
-    WidgetShapeRectangle rect1 = new WidgetShapeRectangle(250,150,Color.YELLOW) {
-        @Override
-        public boolean maskChildren() {
-            return false;
-        }
-    };
-    WidgetShapeRectangle rect2 = new WidgetShapeRectangle(120,100,Color.RED){
-        @Override
-        public boolean maskChildren() {
-            return true;
-        }
-    };
-    WidgetShapeRectangle rect3 = new WidgetShapeRectangle(50,50,Color.BLUE){
-        @Override
-        public boolean maskChildren() {
-            return true;
-        }
-    };
+    WidgetShapeRectangle rect1 = new WidgetShapeRectangle(350,250,Color.YELLOW);
+    WidgetShapeRectangle rect2 = new WidgetShapeRectangle(350,250,Color.WHITE);
+    WidgetShapeRectangle rect3 = new WidgetShapeRectangle(350,250,Color.GREEN);
+    WidgetShapeRectangle rect4 = new WidgetShapeRectangle(350,250,Color.BROWN);
 
     WidgetImage image = new WidgetImage("assets/engine-tests/simpleImage.png");
 
@@ -62,29 +48,17 @@ public class SceneTestUI2 implements Scene {
         slider.transform.y = 100;
 
         rect2.type = WidgetShape.Type.FILLED;
-        line.type = WidgetShape.Type.BORDER;
 
-        image.width = 100;
-        image.height = 100;
-        image.border = true;
-
-        container.layoutWidthSizing = WidgetContainer.Sizing.DYNAMIC;
-        container.layoutHeightSizing = WidgetContainer.Sizing.DYNAMIC;
+        container.layoutWidthSizing = WidgetContainer.Sizing.STATIC;
+        container.layoutHeightSizing = WidgetContainer.Sizing.STATIC;
         container.layoutWidth = 200;
-        container.layoutHeight = 400;
-        container.boxPaddingLeft = 40;
-        container.onResize = e -> {
-            System.out.println("resized");
-            return false;
-        };
+        container.layoutHeight = 600;
+        container.boxPaddingLeft = 10;
+        container.boxPaddingRight = 10;
+
         //container.anchor = Widget.Anchor.CENTER_LEFT;
         container.layoutOverflowY = WidgetContainer.Overflow.SCROLLBAR;
-        container.onMouseScroll = e -> {
-            System.out.println("custom handler " + e.scrollValue);
-            return true;
-        };
-
-        image.transform.x = 100;
+        container.layoutOverflowX = WidgetContainer.Overflow.HIDDEN;
 
 
         rect1.onMouseClick = (e) -> {
@@ -101,14 +75,11 @@ public class SceneTestUI2 implements Scene {
         };
         //rect2.addChild(rect3);
 
-        rect2.anchor = Widget.Anchor.CENTER_RIGHT;
-
         container.layout = WidgetContainer.Layout.VERTICAL;
         container.addChild(rect1);
         container.addChild(rect2);
         container.addChild(rect3);
-
-        container.anchor = Widget.Anchor.UPPER_LEFT;
+        container.addChild(rect4);
     }
 
     @Override
@@ -118,7 +89,7 @@ public class SceneTestUI2 implements Scene {
 
     @Override
     public void update() {
-        scrollbar.update(1);
+        //scrollbar.update(1);
         checkbox.update(1);
         if (Input.keyboard.isKeyPressed(Keyboard.Key.W)) {
             rect2.transform.y += 1;
@@ -167,7 +138,7 @@ public class SceneTestUI2 implements Scene {
 
         renderer2D.begin();
         container.render(renderer2D);
-        scrollbar.render(renderer2D);
+        //scrollbar.render(renderer2D);
         renderer2D.end();
     }
 

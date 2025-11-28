@@ -48,6 +48,27 @@ public class WidgetContainer extends Widget {
     public int       boxBorderSize                = Widgets.themeContainerBoxBorderSize;
     public Color     boxBorderColor               = Widgets.themeContainerBoxBorderColor;
 
+    /* scrollbar */
+    private WidgetInputScrollbar scrollbar = new WidgetInputScrollbar();
+
+    public WidgetContainer() {
+        addChild(scrollbar);
+        scrollbar.anchor = Anchor.CENTER_RIGHT;
+    }
+
+    @Override
+    protected void onResizeDefault(Event.EventResize e) {
+        scrollbar.height = getHeight();
+    }
+
+    // this will make sure the scrollbar is always on top.
+    @Override
+    protected void onChildAddedDefault(Event.EventChildAdded e) {
+        int scrollbarChildIndex = children.indexOf(scrollbar, true);
+        children.set(scrollbarChildIndex, e.widget, true);
+        children.set(children.size - 1, scrollbar, true);
+    }
+
     /*** default event handlers */
 
     // TODO: make it scroll
