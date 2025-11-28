@@ -17,18 +17,18 @@ public class WidgetContainer extends Widget {
     private float backgroundWidth  = 0;
     private float backgroundHeight = 0;
 
-    /* box container visual properties (sizing, overflow, padding etc.) */
-    public Layout    boxLayout                    = Layout.STACK;
-    public Sizing    boxWidthSizing               = Sizing.DYNAMIC;
-    public float     boxWidthMin                  = 0;
-    public float     boxWidthMax                  = Float.POSITIVE_INFINITY;
-    public float     boxWidth                     = 1;
-    public Sizing    boxHeightSizing              = Sizing.DYNAMIC;
-    public float     boxHeightMin                 = 0;
-    public float     boxHeightMax                 = Float.POSITIVE_INFINITY;
-    public float     boxHeight                    = 1;
-    public Overflow  boxContentOverflowX          = Overflow.HIDDEN;
-    public Overflow  boxContentOverflowY          = Overflow.SCROLLBAR;
+    /* box container layout and style */
+    public Layout    layout                       = Layout.STACK;
+    public Sizing    layoutWidthSizing            = Sizing.DYNAMIC;
+    public float     layoutWidth                  = 1;
+    public float     layoutWidthMin               = 0;
+    public float     layoutWidthMax               = Float.POSITIVE_INFINITY;
+    public Sizing    layoutHeightSizing           = Sizing.DYNAMIC;
+    public float     layoutHeight                 = 1;
+    public float     layoutHeightMin              = 0;
+    public float     layoutHeightMax              = Float.POSITIVE_INFINITY;
+    public Overflow  layoutOverflowX              = Overflow.HIDDEN;
+    public Overflow  layoutOverflowY              = Overflow.SCROLLBAR;
     public boolean   boxBackgroundEnabled         = true;
     public Color     boxBackgroundColor           = Widgets.themeContainerBoxBackgroundColor;
     public int       boxPaddingTop                = Widgets.themeContainerBoxPaddingTop;
@@ -60,8 +60,8 @@ public class WidgetContainer extends Widget {
 
     @Override
     protected void setChildrenOffsets(@NotNull Array<Widget> widgets) {
-        if (boxLayout == null) super.setChildrenOffsets(widgets);
-        switch (boxLayout) {
+        if (layout == null) super.setChildrenOffsets(widgets);
+        switch (layout) {
             case STACK      -> setChildrenOffsetsStack(widgets);
             case VERTICAL   -> setChildrenOffsetsVertical(widgets);
             case HORIZONTAL -> setChildrenOffsetsHorizontal(widgets);
@@ -136,8 +136,8 @@ public class WidgetContainer extends Widget {
 
         final float windowMaxExtent = Math.max(Graphics.getWindowWidth(), Graphics.getWindowHeight());
         final float fullScreenMask = 2 * windowMaxExtent;
-        float maskWidth  = boxContentOverflowX == Overflow.VISIBLE ? fullScreenMask : backgroundWidth;
-        float maskHeight = boxContentOverflowY == Overflow.VISIBLE ? fullScreenMask : backgroundHeight;
+        float maskWidth  = layoutOverflowX == Overflow.VISIBLE ? fullScreenMask : backgroundWidth;
+        float maskHeight = layoutOverflowY == Overflow.VISIBLE ? fullScreenMask : backgroundHeight;
         renderer2D.drawRectangleFilled(maskWidth, maskHeight,
                 boxCornerRadiusTopLeft, boxCornerSegmentsTopLeft,
                 boxCornerRadiusTopRight, boxCornerSegmentsTopRight,
@@ -219,7 +219,7 @@ public class WidgetContainer extends Widget {
     @Override
     protected void configureInputMaskedRegion(@NotNull Region maskedRegion) {
         // case: mask matching container shape
-        if (boxContentOverflowX != Overflow.VISIBLE && boxContentOverflowY != Overflow.VISIBLE) {
+        if (layoutOverflowX != Overflow.VISIBLE && layoutOverflowY != Overflow.VISIBLE) {
             float backgroundWidth = Math.max(0, getWidth() - boxBorderSize * 2); // TODO: not here
             float backgroundHeight = Math.max(0, getHeight() - boxBorderSize * 2); // TODO: not here.
             maskedRegion.setToRectangle(
@@ -233,7 +233,7 @@ public class WidgetContainer extends Widget {
         }
 
         // case: full-screen mask
-        if (boxContentOverflowX == Overflow.VISIBLE && boxContentOverflowY == Overflow.VISIBLE) {
+        if (layoutOverflowX == Overflow.VISIBLE && layoutOverflowY == Overflow.VISIBLE) {
             float windowMaxExtent = Math.max(Graphics.getWindowWidth(), Graphics.getWindowHeight());
             float fullScreenMask = 2 * windowMaxExtent;
             maskedRegion.setToRectangle(fullScreenMask, fullScreenMask,
@@ -245,7 +245,7 @@ public class WidgetContainer extends Widget {
         }
 
         // case: trim only top and bottom
-        if (boxContentOverflowX == Overflow.VISIBLE) {
+        if (layoutOverflowX == Overflow.VISIBLE) {
             float windowMaxExtent = Math.max(Graphics.getWindowWidth(), Graphics.getWindowHeight());
             float fullScreenMask = 2 * windowMaxExtent;
             float backgroundHeight = Math.max(0, getHeight() - boxBorderSize * 2); // TODO: not here.
@@ -258,7 +258,7 @@ public class WidgetContainer extends Widget {
         }
 
         // case: trim only left and right
-        if (boxContentOverflowY == Overflow.VISIBLE) {
+        if (layoutOverflowY == Overflow.VISIBLE) {
             float windowMaxExtent = Math.max(Graphics.getWindowWidth(), Graphics.getWindowHeight());
             float fullScreenMask = 2 * windowMaxExtent;
             float backgroundWidth = Math.max(0, getWidth() - boxBorderSize * 2); // TODO: not here
@@ -286,7 +286,7 @@ public class WidgetContainer extends Widget {
     }
 
     protected final float getContentsWidth(Array<Widget> widgets) {
-        return switch (boxLayout) {
+        return switch (layout) {
             case STACK      -> getContentWidthStack(widgets);
             case HORIZONTAL -> getContentWidthHorizontal(widgets);
             case VERTICAL   -> getContentWidthVertical(widgets);
@@ -295,7 +295,7 @@ public class WidgetContainer extends Widget {
     }
 
     protected final float getContentsHeight(Array<Widget> widgets) {
-        return switch (boxLayout) {
+        return switch (layout) {
             case STACK      -> getContentHeightStack(widgets);
             case HORIZONTAL -> getContentHeightHorizontal(widgets);
             case VERTICAL   -> getContentHeightVertical(widgets);
@@ -305,29 +305,29 @@ public class WidgetContainer extends Widget {
 
     @Override
     protected float getWidth() {
-        float width = switch (boxWidthSizing) {
-            case STATIC   -> boxWidth;
-            case VIEWPORT -> boxWidth * Graphics.getWindowWidth();
+        float width = switch (layoutWidthSizing) {
+            case STATIC   -> layoutWidth;
+            case VIEWPORT -> layoutWidth * Graphics.getWindowWidth();
             case DYNAMIC  -> getContentsWidth(childrenLayout) + boxPaddingLeft + boxPaddingRight + boxBorderSize + boxBorderSize;
         };
-        return MathUtils.clampFloat(width, boxWidthMin, boxWidthMax);
+        return MathUtils.clampFloat(width, layoutWidthMin, layoutWidthMax);
     }
 
     @Override
     protected float getHeight() {
-        float height = switch (boxHeightSizing) {
-            case STATIC   -> boxHeight;
-            case VIEWPORT -> boxHeight * Graphics.getWindowHeight();
+        float height = switch (layoutHeightSizing) {
+            case STATIC   -> layoutHeight;
+            case VIEWPORT -> layoutHeight * Graphics.getWindowHeight();
             case DYNAMIC  -> getContentsHeight(childrenLayout) + boxPaddingTop + boxPaddingBottom + boxBorderSize + boxBorderSize;
         };
-        return MathUtils.clampFloat(height, boxHeightMin, boxHeightMax);
+        return MathUtils.clampFloat(height, layoutHeightMin, layoutHeightMax);
     }
 
     /*** MASKING ***/
 
     @Override
     public boolean maskChildren() {
-        return boxContentOverflowX != Overflow.VISIBLE || boxContentOverflowY != Overflow.VISIBLE;
+        return layoutOverflowX != Overflow.VISIBLE || layoutOverflowY != Overflow.VISIBLE;
     }
 
     /*** SUPPORTING ENUMS ***/

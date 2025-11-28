@@ -12,9 +12,11 @@ import org.jetbrains.annotations.NotNull;
 public abstract class Widget {
 
     /*** ui hierarchy ***/
+    public          boolean       active         = true;
     protected       Widget        parent         = null;
     protected final Array<Widget> children       = new Array<>(true, 1);
     protected final Array<Widget> childrenLayout = new Array<>(true, 1);
+    protected final Array<Widget> childrenActive = new Array<>(true, 1);
 
     /*** metrics: transform and dimensions ***/
     public          float     width           = 0; // TODO: use for caching and event handling
@@ -37,7 +39,6 @@ public abstract class Widget {
     private       boolean       mouseInside         = false;
 
     /*** input - event handlers ***/
-    // TODO: remove these? Answer: No. use both methods (defaults) and variables (custom behaviour) + booleans to prevent default.
     public Event.EventListenerMouseUp      onMouseUp      = null;
     public Event.EventListenerMouseDown    onMouseDown    = null;
     public Event.EventListenerMouseEnter   onMouseEnter   = null;
@@ -60,13 +61,12 @@ public abstract class Widget {
     protected void onChildRemovedDefault(Event.EventChildRemoved e) {}
 
     /*** Add and remove child methods ***/
-
     public final void addChild(Widget widget) {
         if (widget == null) throw new WidgetsException(Widget.class.getSimpleName() + " element cannot be null.");
         if (widget == this) throw new WidgetsException("Trying to parent a " + Widget.class.getSimpleName() + " to itself.");
         if (widget.parent != null) widget.parent.removeChild(widget);
-
         if (children.contains(widget, true)) return;
+
         children.add(widget);
         widget.parent = this;
         Event.EventChildAdded e = new Event.EventChildAdded();
@@ -109,7 +109,7 @@ public abstract class Widget {
         }
 
         int maskingIndex = getMaskingIndex();
-        for (Widget child : children) {
+        for (Widget child : childrenActive) {
             // apply mask, if masking enabled
             if (maskChildren) {
                 renderer2D.enableMasking();
@@ -145,12 +145,18 @@ public abstract class Widget {
 
 
         calculateGlobalTransform();
-        childrenLayout.clear();
+
+        childrenActive.clear();
         for (Widget child : children) {
+            if (child.active) childrenActive.add(child);
+        }
+
+        childrenLayout.clear();
+        for (Widget child : childrenActive) {
             if (child.anchor == null) childrenLayout.add(child);
         }
         setChildrenOffsets(childrenLayout);
-        if (anchor != null) { // TODO: change to if anchor != null
+        if (anchor != null) { // if the widget has an anchor, then it will position itself relative to the parent's / window borders
             setOffsetsAnchor();
         }
 
@@ -163,7 +169,7 @@ public abstract class Widget {
         configureInputMaskedRegion(regionMask);
         regionMask.transform(transformScreen);
 
-        for (Widget widget : children) {
+        for (Widget widget : childrenActive) {
             widget.update(delta);
         }
 
@@ -189,10 +195,16 @@ public abstract class Widget {
             mouseRegisterClicks = mouseInside;
         }
 
-        // resize
+        // dimensions change
         float deltaWidth  = width - prevWidth;
         float deltaHeight = height - prevHeight;
         boolean resized = !MathUtils.isZero(deltaWidth) || !MathUtils.isZero(deltaHeight);
+
+        // TODO
+        /* mouse up */
+
+        // TODO
+        /* mouse down */
 
         /* mouse click */
         if (mouseRegisterClicks && Input.mouse.isButtonClicked(Mouse.Button.LEFT) && mouseInside) {
@@ -331,13 +343,11 @@ public abstract class Widget {
         return false;
     }
 
-    // TODO: fix.
     final int getMaskingIndex() {
         if (parent != null && parent.maskChildren()) return parent.getMaskingIndex() + 1;
         else return 1;
     }
 
-    // TODO: make any ui element by anchorable to the bounds of its parent. (window if parent is null).
     private void setOffsetsAnchor() {
 
         float currentWidth = width;

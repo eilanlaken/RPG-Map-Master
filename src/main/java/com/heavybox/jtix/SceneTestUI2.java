@@ -44,6 +44,7 @@ public class SceneTestUI2 implements Scene {
     WidgetImage image = new WidgetImage("assets/engine-tests/simpleImage.png");
 
     WidgetContainer container = new WidgetContainer();
+    WidgetScrollbar scrollbar = new WidgetScrollbar();
 
     @Override
     public void setup() {
@@ -67,17 +68,17 @@ public class SceneTestUI2 implements Scene {
         image.height = 100;
         image.border = true;
 
-        container.boxWidthSizing = WidgetContainer.Sizing.DYNAMIC;
-        container.boxHeightSizing = WidgetContainer.Sizing.DYNAMIC;
-        container.boxWidth = 200;
-        container.boxHeight = 400;
+        container.layoutWidthSizing = WidgetContainer.Sizing.DYNAMIC;
+        container.layoutHeightSizing = WidgetContainer.Sizing.DYNAMIC;
+        container.layoutWidth = 200;
+        container.layoutHeight = 400;
         container.boxPaddingLeft = 40;
         container.onResize = e -> {
             System.out.println("resized");
             return false;
         };
         //container.anchor = Widget.Anchor.CENTER_LEFT;
-        container.boxContentOverflowY = WidgetContainer.Overflow.SCROLLBAR;
+        container.layoutOverflowY = WidgetContainer.Overflow.SCROLLBAR;
         container.onMouseScroll = e -> {
             System.out.println("custom handler " + e.scrollValue);
             return true;
@@ -102,7 +103,7 @@ public class SceneTestUI2 implements Scene {
 
         rect2.anchor = Widget.Anchor.CENTER_RIGHT;
 
-        container.boxLayout = WidgetContainer.Layout.VERTICAL;
+        container.layout = WidgetContainer.Layout.VERTICAL;
         container.addChild(rect1);
         container.addChild(rect2);
         container.addChild(rect3);
@@ -117,6 +118,7 @@ public class SceneTestUI2 implements Scene {
 
     @Override
     public void update() {
+        scrollbar.update(1);
         checkbox.update(1);
         if (Input.keyboard.isKeyPressed(Keyboard.Key.W)) {
             rect2.transform.y += 1;
@@ -145,19 +147,19 @@ public class SceneTestUI2 implements Scene {
         }
 
         if (Input.keyboard.isKeyJustPressed(Keyboard.Key.G)) {
-            container.boxHeightSizing = WidgetContainer.Sizing.STATIC;
-            container.boxHeight = 20;
+            container.layoutHeightSizing = WidgetContainer.Sizing.STATIC;
+            container.layoutHeight = 20;
         }
 
         if (Input.mouse.isButtonPressed(Mouse.Button.RIGHT)) {
-            rect1.transform.deg += 1;
+            container.transform.deg += 1;
         }
 
         //widgetText.update(1);
         container.update(1);
         //rect1.update(1);
-        if (Input.keyboard.isKeyPressed(Keyboard.Key.W)) {
-            ///widgetText.localTransform.deg += 2;
+        if (Input.keyboard.isKeyJustPressed(Keyboard.Key.SPACE)) {
+            rect3.active = false;
         }
 
         GL11.glClearColor(0.01f,0.01f,0.01f,1);
@@ -165,6 +167,7 @@ public class SceneTestUI2 implements Scene {
 
         renderer2D.begin();
         container.render(renderer2D);
+        scrollbar.render(renderer2D);
         renderer2D.end();
     }
 

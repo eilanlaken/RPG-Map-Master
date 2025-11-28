@@ -36,6 +36,10 @@ public final class Widgets {
     public static int     themeContainerBoxCornerSegmentsBottomLeft  = 10;
     public static int     themeContainerBoxBorderSize                = 4;
     public static Color   themeContainerBoxBorderColor               = Color.RED.clone();
+    // scrollbars
+    public static boolean themeScrollbarDrawForwardButton            = true;
+    public static boolean themeScrollbarDrawBackwardButton           = true;
+
 
     /*** input device state */
     private static float pointerX = 0;
