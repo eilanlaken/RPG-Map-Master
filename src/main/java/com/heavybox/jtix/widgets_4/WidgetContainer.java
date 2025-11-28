@@ -54,6 +54,7 @@ public class WidgetContainer extends Widget {
     public WidgetContainer() {
         addChild(scrollbar);
         scrollbar.anchor = Anchor.CENTER_RIGHT;
+        scrollbar.onMouseScroll = e -> true; // disable the default function
     }
 
     @Override
@@ -74,7 +75,7 @@ public class WidgetContainer extends Widget {
     // TODO: make it scroll
     @Override
     protected void onMouseScrollDefault(Event.EventMouseScroll e) {
-        System.out.println("default");
+        scrollbar.onMouseScrollDefault(e);
     }
 
     /*** children layout ***/
