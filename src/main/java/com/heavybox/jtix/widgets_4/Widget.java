@@ -171,7 +171,6 @@ public abstract class Widget {
         for (Widget child : children) {
             if (child.active) childrenActive.add(child);
         }
-
         childrenLayout.clear();
         for (Widget child : childrenActive) {
             if (child.anchor == null) childrenLayout.add(child);
@@ -189,12 +188,11 @@ public abstract class Widget {
         region.transform(transformScreen);
         configureInputMaskedRegion(regionMask);
         regionMask.transform(transformScreen);
+        handleInput();
 
         for (Widget widget : childrenActive) {
             widget.update(delta);
         }
-
-        handleInput();
 
         // probably do the lag stuff in ECS.
         fixedUpdate(delta);
@@ -462,7 +460,7 @@ public abstract class Widget {
     }
 
     // containers can override this, for example.
-    protected void setChildrenOffsets(final @NotNull Array<Widget> activeChildren) {
+    protected void setChildrenOffsets(final Array<Widget> activeChildren) {
         for (Widget widget : activeChildren) {
             widget.offsetX = 0;
             widget.offsetY = 0;

@@ -1,7 +1,9 @@
 package com.heavybox.jtix.widgets_4;
 
+import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Renderer2D;
+import com.heavybox.jtix.widgets.Node;
 
 public class WidgetInputTextField extends Widget implements WidgetInput<String> {
 
@@ -23,6 +25,9 @@ public class WidgetInputTextField extends Widget implements WidgetInput<String> 
     private WidgetText text = new WidgetText("");
 
     public WidgetInputTextField() {
+//        text.anchor = Anchor.CENTER_LEFT;
+//        text.anchorX = borderSize;
+//        text.anchorY = 0;
         addChild(text);
     }
 
@@ -38,16 +43,23 @@ public class WidgetInputTextField extends Widget implements WidgetInput<String> 
     @Override
     protected void onCodepointTypedDefault(Event.EventCodepointTyped e) {
         text.text += e.codePoints.toRawString();
+        setChildrenOffsets(childrenLayout); // this works - just to prevent the annoying 1 frame lag.
+        // but ideally, you would use ANCHORS. Need to modify anchor logic so that changes take place right after input.
     }
 
-    @Override
-    protected void onMouseLeftClickOutsideDefault(Event.EventMouseLeftClickOutside e) {
-
-    }
 
     @Override
     public boolean maskChildren() {
         return true;
+    }
+
+
+    @Override
+    protected void setChildrenOffsets(final Array<Widget> children) {
+        for (Widget child : children) {
+            child.offsetX = (text.getWidth() - width) * 0.5f + borderSize;
+            child.offsetY = 0;
+        }
     }
 
     @Override
@@ -70,9 +82,6 @@ public class WidgetInputTextField extends Widget implements WidgetInput<String> 
             elapsedTime -= caretBlinkSpeed;
             caretVisible = !caretVisible;
         }
-        text.anchor = Anchor.CENTER_LEFT;
-        text.anchorX = borderSize;
-        text.anchorY = 0;
     }
 
 
