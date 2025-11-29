@@ -32,29 +32,35 @@ public abstract class Widget {
     public          float     anchorY         = 0; // the anchor y distance to be maintained at all times
 
     /*** input - state management ***/
-    private final Region        region              = new Region(); // TODO: change to private.
-    private final Region        regionMask          = new Region(); // TODO: change tp private.
-    private final Array<Region> ancestorsRegions    = new Array<>(false, 1);
-    private       boolean       mouseRegisterClicks = false;
-    private       boolean       mouseInside         = false;
+    private final Region        region                    = new Region(); // TODO: change to private.
+    private final Region        regionMask                = new Region(); // TODO: change tp private.
+    private final Array<Region> ancestorsRegions          = new Array<>(false, 1);
+    private       boolean       mouseRegisterLeftClicks   = false;
+    private       boolean       mouseRegisterRightClicks  = false;
+    private       boolean       mouseRegisterMiddleClicks = false;
+    private       boolean       mouseInside               = false;
 
     /*** input - event handlers ***/
-    public Event.EventListenerMouseUp      onMouseUp      = null;
-    public Event.EventListenerMouseDown    onMouseDown    = null;
-    public Event.EventListenerMouseEnter   onMouseEnter   = null;
-    public Event.EventListenerMouseLeave   onMouseLeave   = null;
-    public Event.EventListenerMouseClick   onMouseClick   = null;
-    public Event.EventListenerMouseScroll  onMouseScroll  = null;
-    public Event.EventListenerResize       onResize       = null;
-    public Event.EventListenerChildAdded   onChildAdded   = null;
-    public Event.EventListenerChildRemoved onChildRemoved = null;
+    public Event.EventListenerMouseUp          onMouseUp          = null;
+    public Event.EventListenerMouseDown        onMouseDown        = null;
+    public Event.EventListenerMouseEnter       onMouseEnter       = null;
+    public Event.EventListenerMouseLeave       onMouseLeave       = null;
+    public Event.EventListenerMouseLeftClick   onMouseLeftClick   = null;
+    public Event.EventListenerMouseRightClick  onMouseRightClick  = null;
+    public Event.EventListenerMouseMiddleClick onMouseMiddleClick = null;
+    public Event.EventListenerMouseScroll      onMouseScroll      = null;
+    public Event.EventListenerResize           onResize           = null;
+    public Event.EventListenerChildAdded       onChildAdded       = null;
+    public Event.EventListenerChildRemoved     onChildRemoved     = null;
 
     /*** default methods for event handling ***/
     protected void onMouseUpDefault     (Event.EventMouseUp e)      {}
     protected void onMouseDownDefault   (Event.EventMouseDown e)    {}
     protected void onMouseEnterDefault  (Event.EventMouseEnter e)   {}
     protected void onMouseLeaveDefault  (Event.EventMouseLeave e)   {}
-    protected void onMouseClickDefault  (Event.EventMouseClick e)   {}
+    protected void onMouseLeftClickDefault(Event.EventMouseLeftClick e)   {}
+    protected void onMouseRightClickDefault(Event.EventMouseRightClick e)   {}
+    protected void onMouseMiddleClickDefault(Event.EventMouseMiddleClick e)   {}
     protected void onMouseScrollDefault (Event.EventMouseScroll e)  {}
     protected void onResizeDefault      (Event.EventResize e)       {}
     protected void onChildAddedDefault  (Event.EventChildAdded e)   {}
@@ -192,32 +198,107 @@ public abstract class Widget {
         boolean mouseJustEntered = (!mouseInsidePrev && mouseInside) || (Input.mouse.cursorJustEnteredWindow() && mouseInside);
         boolean mouseJustLeft = (!mouseInside && mouseInsidePrev) || (Input.mouse.cursorJustLeftWindow() && mouseInsidePrev);
         if (Input.mouse.isButtonJustPressed(Mouse.Button.LEFT)) {
-            mouseRegisterClicks = mouseInside;
+            mouseRegisterLeftClicks = mouseInside;
         }
+        if (Input.mouse.isButtonJustPressed(Mouse.Button.RIGHT)) {
+            mouseRegisterRightClicks = mouseInside;
+        }
+        if (Input.mouse.isButtonJustPressed(Mouse.Button.MIDDLE)) {
+            mouseRegisterMiddleClicks = mouseInside;
+        }
+        boolean mouseUpLeft = Input.mouse.isButtonJustReleased(Mouse.Button.LEFT);
+        boolean mouseUpRight = Input.mouse.isButtonJustReleased(Mouse.Button.RIGHT);
+        boolean mouseUpMiddle = Input.mouse.isButtonJustReleased(Mouse.Button.MIDDLE);
+        boolean mouseUp = mouseInside && (mouseUpLeft || mouseUpRight || mouseUpMiddle);
+
+        boolean mouseDownLeft = Input.mouse.isButtonJustPressed(Mouse.Button.LEFT);
+        boolean mouseDownRight = Input.mouse.isButtonJustPressed(Mouse.Button.RIGHT);
+        boolean mouseDownMiddle = Input.mouse.isButtonJustPressed(Mouse.Button.MIDDLE);
+        boolean mouseDown = mouseInside && (mouseDownLeft || mouseDownRight || mouseDownMiddle);
 
         // dimensions change
         float deltaWidth  = width - prevWidth;
         float deltaHeight = height - prevHeight;
         boolean resized = !MathUtils.isZero(deltaWidth) || !MathUtils.isZero(deltaHeight);
 
-        // TODO
-        /* mouse up */
-
-        // TODO
         /* mouse down */
-
-        /* mouse click */
-        if (mouseRegisterClicks && Input.mouse.isButtonClicked(Mouse.Button.LEFT) && mouseInside) {
-            Event.EventMouseClick e = new Event.EventMouseClick();
+        if (mouseDown) {
+            Event.EventMouseDown e = new Event.EventMouseDown();
             Vector2 local = new Vector2(pointerX, pointerY);
             local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
             e.mouseLocalX = local.x;
             e.mouseLocalY = local.y;
-            if (onMouseClick != null) {
-                boolean handled = onMouseClick.handle(e);
-                if (!handled) onMouseClickDefault(e);
+            e.buttonLeft = mouseDownLeft;
+            e.buttonRight = mouseDownRight;
+            e.buttonMiddle = mouseDownMiddle;
+            if (onMouseDown != null) {
+                boolean handled = onMouseDown.handle(e);
+                if (!handled) onMouseDownDefault(e);
             } else {
-                onMouseClickDefault(e);
+                onMouseDownDefault(e);
+            }
+        }
+
+        /* mouse up */
+        if (mouseUp) {
+            Event.EventMouseUp e = new Event.EventMouseUp();
+            Vector2 local = new Vector2(pointerX, pointerY);
+            local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
+            e.mouseLocalX = local.x;
+            e.mouseLocalY = local.y;
+            e.buttonLeft = mouseUpLeft;
+            e.buttonRight = mouseUpRight;
+            e.buttonMiddle = mouseUpMiddle;
+            if (onMouseUp != null) {
+                boolean handled = onMouseUp.handle(e);
+                if (!handled) onMouseUpDefault(e);
+            } else {
+                onMouseUpDefault(e);
+            }
+        }
+
+        /* mouse click - left */
+        if (mouseRegisterLeftClicks && Input.mouse.isButtonClicked(Mouse.Button.LEFT) && mouseInside) {
+            Event.EventMouseLeftClick e = new Event.EventMouseLeftClick();
+            Vector2 local = new Vector2(pointerX, pointerY);
+            local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
+            e.mouseLocalX = local.x;
+            e.mouseLocalY = local.y;
+            if (onMouseLeftClick != null) {
+                boolean handled = onMouseLeftClick.handle(e);
+                if (!handled) onMouseLeftClickDefault(e);
+            } else {
+                onMouseLeftClickDefault(e);
+            }
+        }
+
+        /* mouse click - right */
+        if (mouseRegisterRightClicks && Input.mouse.isButtonClicked(Mouse.Button.RIGHT) && mouseInside) {
+            Event.EventMouseRightClick e = new Event.EventMouseRightClick();
+            Vector2 local = new Vector2(pointerX, pointerY);
+            local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
+            e.mouseLocalX = local.x;
+            e.mouseLocalY = local.y;
+            if (onMouseRightClick != null) {
+                boolean handled = onMouseRightClick.handle(e);
+                if (!handled) onMouseRightClickDefault(e);
+            } else {
+                onMouseRightClickDefault(e);
+            }
+        }
+
+        /* mouse click - middle */
+        if (mouseRegisterMiddleClicks && Input.mouse.isButtonClicked(Mouse.Button.MIDDLE) && mouseInside) {
+            Event.EventMouseMiddleClick e = new Event.EventMouseMiddleClick();
+            Vector2 local = new Vector2(pointerX, pointerY);
+            local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
+            e.mouseLocalX = local.x;
+            e.mouseLocalY = local.y;
+            if (onMouseMiddleClick != null) {
+                boolean handled = onMouseMiddleClick.handle(e);
+                if (!handled) onMouseMiddleClickDefault(e);
+            } else {
+                onMouseMiddleClickDefault(e);
             }
         }
 

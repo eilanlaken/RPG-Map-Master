@@ -20,7 +20,7 @@ public final class Widgets {
     public static boolean themeTextWrapEnabled                       = true;
     // containers
     public static Color   themeContainerBoxBackgroundColor           = Color.valueOf("#227BFF");
-    public static int     themeContainerBoxPaddingTop                = 10;
+    public static int     themeContainerBoxPaddingTop                = 40;
     public static int     themeContainerBoxPaddingBottom             = 10;
     public static int     themeContainerBoxPaddingLeft               = 10;
     public static int     themeContainerBoxPaddingRight              = 10;

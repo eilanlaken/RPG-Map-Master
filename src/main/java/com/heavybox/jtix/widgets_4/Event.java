@@ -5,27 +5,44 @@ import com.heavybox.jtix.input.Mouse;
 // TODO: continue with keyboard event listeners, drag and drop events etc.
 public abstract class Event {
 
-    public static class EventMouseClick extends Event {
-
-        public Mouse.Button button;
-        public float        mouseLocalX;
-        public float        mouseLocalY;
-
-    }
-
     public static class EventMouseDown extends Event {
 
-        public Mouse.Button button;
-        public float        mouseLocalX;
-        public float        mouseLocalY;
+        public boolean buttonLeft   = false;
+        public boolean buttonRight  = false;
+        public boolean buttonMiddle = false;
+        public float   mouseLocalX;
+        public float   mouseLocalY;
 
     }
 
     public static class EventMouseUp extends Event {
 
-        public Mouse.Button button;
-        public float        mouseLocalX;
-        public float        mouseLocalY;
+        public boolean buttonLeft   = false;
+        public boolean buttonRight  = false;
+        public boolean buttonMiddle = false;
+        public float   mouseLocalX;
+        public float   mouseLocalY;
+
+    }
+
+    public static class EventMouseLeftClick extends Event {
+
+        public float mouseLocalX;
+        public float mouseLocalY;
+
+    }
+
+    public static class EventMouseRightClick extends Event {
+
+        public float mouseLocalX;
+        public float mouseLocalY;
+
+    }
+
+    public static class EventMouseMiddleClick extends Event {
+
+        public float mouseLocalX;
+        public float mouseLocalY;
 
     }
 
@@ -78,8 +95,18 @@ public abstract class Event {
     }
 
     @FunctionalInterface
-    public interface EventListenerMouseClick {
-        boolean handle(EventMouseClick e);
+    public interface EventListenerMouseLeftClick {
+        boolean handle(EventMouseLeftClick e);
+    }
+
+    @FunctionalInterface
+    public interface EventListenerMouseRightClick {
+        boolean handle(EventMouseRightClick e);
+    }
+
+    @FunctionalInterface
+    public interface EventListenerMouseMiddleClick {
+        boolean handle(EventMouseMiddleClick e);
     }
 
     @FunctionalInterface

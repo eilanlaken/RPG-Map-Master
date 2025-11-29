@@ -7,18 +7,18 @@ import org.lwjgl.glfw.*;
 public class Mouse {
 
     /* mouse info */
-    private int     prevCursorX      = 0;
-    private int     prevCursorY      = 0;
-    private int     cursorX          = 0;
-    private int     cursorY          = 0;
-    private int     cursorDeltaX     = 0;
-    private int     cursorDeltaY     = 0;
-    private boolean cursorHidden     = false;
-    private boolean cursorInWindow   = true;
+    private int     prevCursorX         = 0;
+    private int     prevCursorY         = 0;
+    private int     cursorX             = 0;
+    private int     cursorY             = 0;
+    private int     cursorDeltaX        = 0;
+    private int     cursorDeltaY        = 0;
+    private boolean cursorHidden        = false;
+    private boolean cursorInWindow      = true;
     private boolean cursorEnteredWindow = false;
     private boolean cursorLeftWindow    = false;
-    private float   verticalScroll   = 0;
-    private float   horizontalScroll = 0;
+    private float   verticalScroll      = 0;
+    private float   horizontalScroll    = 0;
 
     /* mouse state */
     private final int[] mouseButtonsPrevStates    = new int[5];
@@ -130,7 +130,6 @@ public class Mouse {
         return mouseButtonsCurrentStates[button.glfwCode] == GLFW.GLFW_RELEASE;
     }
 
-    // TODO: test
     public boolean isButtonJustReleased(final Button button) {
         return mouseButtonsCurrentStates[button.glfwCode] == GLFW.GLFW_RELEASE && mouseButtonsPrevStates[button.glfwCode] == GLFW.GLFW_PRESS;
     }

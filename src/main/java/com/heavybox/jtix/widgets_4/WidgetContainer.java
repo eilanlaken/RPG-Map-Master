@@ -12,8 +12,8 @@ public class WidgetContainer extends Widget {
     /* state */ // TODO
     private float scrollOffsetX    = 0;
     private float scrollOffsetY    = 0;
-    private float calculatedWidth  = 0;
-    private float calculatedHeight = 0;
+    private float contentWidth     = 0;
+    private float contentHeight    = 0;
     private float backgroundWidth  = 0;
     private float backgroundHeight = 0;
 
@@ -75,8 +75,34 @@ public class WidgetContainer extends Widget {
     // TODO: make it scroll
     @Override
     protected void onMouseScrollDefault(Event.EventMouseScroll e) {
+        if (!scrollbar.active) return;
         scrollbar.onMouseScrollDefault(e);
+        float scrollValue = scrollbar.getValue();
     }
+
+    /*** global container logic ***/
+    // marked as final to prevent override
+    // in order to add logic, just override the fixedUpdateContainer() method instead.
+    @Override
+    protected final void fixedUpdate(float delta) {
+        scrollbar.active = layoutOverflowY == Overflow.SCROLLBAR;
+        contentWidth = getContentsWidth(childrenLayout);
+        contentHeight = getContentsHeight(childrenLayout);
+        float diffHeight = height - contentHeight - boxPaddingTop - boxPaddingBottom;
+
+        if (!scrollbar.active) {
+            scrollOffsetY = 0; // reset scroll value if scrolling is disabled.
+        } else {
+            scrollOffsetY = -scrollbar.getValue() * diffHeight; // TODO
+        }
+
+        backgroundWidth = Math.max(0, getWidth() - boxBorderSize * 2); // TODO: not here
+        backgroundHeight = Math.max(0, getHeight() - boxBorderSize * 2); // TODO: not here.
+
+        fixedUpdateContainer(delta);
+    }
+
+    protected void fixedUpdateContainer(float delta) {}
 
     /*** children layout ***/
 
@@ -91,27 +117,31 @@ public class WidgetContainer extends Widget {
         }
     }
 
+    // TODO: consider global scale
+    // TODO: consider scroll
     protected final void setChildrenOffsetsStack(Array<Widget> widgets) {
         for (Widget child : widgets) {
             child.offsetX = boxPaddingLeft - (boxPaddingLeft + boxPaddingRight) * 0.5f;
-            child.offsetY = boxPaddingBottom - (boxPaddingBottom + boxPaddingTop) * 0.5f;
+            child.offsetY = boxPaddingBottom - (boxPaddingBottom + boxPaddingTop) * 0.5f + scrollOffsetY;
         }
     }
 
+    // TODO: consider global scale
     protected final void setChildrenOffsetsHorizontal(Array<Widget> widgets) {
         float sclX = 1; // global transform
         float position_x = -(getWidth() * 0.5f - boxBorderSize - boxPaddingLeft) * sclX;
         for (Widget child : widgets) {
             float child_width = child.getWidth() * sclX;
             child.offsetX = position_x + child_width * 0.5f;
-            child.offsetY = boxPaddingBottom - (boxPaddingBottom + boxPaddingTop) * 0.5f;
+            child.offsetY = boxPaddingBottom - (boxPaddingBottom + boxPaddingTop) * 0.5f + scrollOffsetY;
             position_x += child_width + boxChildSpacingHorizontal * sclX;
         }
     }
 
+    // TODO: consider global scale
     protected final void setChildrenOffsetsVertical(Array<Widget> widgets) {
         float sclY = 1; // global transform
-        float position_y = (getHeight() * 0.5f - boxBorderSize - boxPaddingTop) * sclY;
+        float position_y = (getHeight() * 0.5f - boxBorderSize - boxPaddingTop) * sclY + scrollOffsetY;
         for (Widget child : widgets) {
             float child_height = child.getHeight() * sclY;
             child.offsetX = boxPaddingLeft - (boxPaddingLeft + boxPaddingRight) * 0.5f;
@@ -128,9 +158,6 @@ public class WidgetContainer extends Widget {
     // TODO: cache results of backgroundWidth and backgroundHeight
     @Override
     protected void draw(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
-        float backgroundWidth = Math.max(0, getWidth() - boxBorderSize * 2); // TODO: not here
-        float backgroundHeight = Math.max(0, getHeight() - boxBorderSize * 2); // TODO: not here.
-
         if (boxBackgroundEnabled) {
             renderer2D.setColor(boxBackgroundColor);
             renderer2D.drawRectangleFilled(backgroundWidth, backgroundHeight,

@@ -24,7 +24,7 @@ public class WidgetInputCheckbox extends Widget implements WidgetInput<Boolean> 
 
     /*** DEFAULT INPUT HANDLERS ***/
     @Override
-    protected void onMouseClickDefault(Event.EventMouseClick e) {
+    protected void onMouseLeftClickDefault(Event.EventMouseLeftClick e) {
         setValue(!getValue());
     }
 

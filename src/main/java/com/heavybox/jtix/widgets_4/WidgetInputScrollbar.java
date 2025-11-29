@@ -10,7 +10,7 @@ public class WidgetInputScrollbar extends Widget implements WidgetInput<Float> {
     /* internal state */
     public float width = 10;
     public float height = 300; // calculated
-    public float value = 0.5f;
+    public float value = 0.0f;
     public float thumbHeight = 50;
 
     /* style */

@@ -49,27 +49,38 @@ public class SceneTestUI2 implements Scene {
 
         rect2.type = WidgetShape.Type.FILLED;
 
-        container.layoutWidthSizing = WidgetContainer.Sizing.STATIC;
+        container.layoutWidthSizing = WidgetContainer.Sizing.DYNAMIC;
         container.layoutHeightSizing = WidgetContainer.Sizing.STATIC;
         container.layoutWidth = 200;
         container.layoutHeight = 600;
         container.boxPaddingLeft = 10;
         container.boxPaddingRight = 10;
+        container.boxPaddingBottom = 100;
 
         //container.anchor = Widget.Anchor.CENTER_LEFT;
         container.layoutOverflowY = WidgetContainer.Overflow.SCROLLBAR;
         container.layoutOverflowX = WidgetContainer.Overflow.HIDDEN;
 
+        container.onMouseUp = e -> {
+            System.out.println(e.buttonLeft + " | " + e.buttonRight + " | " + e.buttonMiddle);
+            return false;
+        };
+        container.onMouseDown = e -> {
+            container.layoutOverflowY = WidgetContainer.Overflow.HIDDEN;
+            return false;
+        };
 
-        rect1.onMouseClick = (e) -> {
+
+
+        rect1.onMouseLeftClick = (e) -> {
             System.out.println("rect 1");
             return false;
         };
-        rect2.onMouseClick = (e) -> {
+        rect2.onMouseLeftClick = (e) -> {
             System.out.println("rect 2");
             return false;
         };
-        rect3.onMouseClick = (e) -> {
+        rect3.onMouseLeftClick = (e) -> {
             System.out.println("rect 3");
             return false;
         };
@@ -122,8 +133,8 @@ public class SceneTestUI2 implements Scene {
             container.layoutHeight = 20;
         }
 
-        if (Input.mouse.isButtonPressed(Mouse.Button.RIGHT)) {
-            container.transform.deg += 1;
+        if (Input.mouse.isButtonJustPressed(Mouse.Button.RIGHT)) {
+            //container.boxPaddingRight = 60;
         }
 
         //widgetText.update(1);
