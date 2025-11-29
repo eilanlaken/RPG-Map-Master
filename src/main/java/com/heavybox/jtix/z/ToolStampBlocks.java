@@ -15,7 +15,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import javax.crypto.spec.PSource;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
@@ -87,10 +86,10 @@ public class ToolStampBlocks extends Tool {
         float verticalScroll = Input.mouse.getVerticalScroll();
         boolean leftButtonClicked = Input.mouse.isButtonClicked(Mouse.Button.LEFT);
         boolean rightButtonClicked = Input.mouse.isButtonClicked(Mouse.Button.RIGHT);
-        boolean enterJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.ENTER);
-        boolean zJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.Z);
-        boolean xJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.X);
-        boolean tabJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.TAB);
+        boolean enterJustPressed = Input.keyboard.isKeyJustReleased(Keyboard.Key.ENTER);
+        boolean zJustPressed = Input.keyboard.isKeyJustReleased(Keyboard.Key.Z);
+        boolean xJustPressed = Input.keyboard.isKeyJustReleased(Keyboard.Key.X);
+        boolean tabJustPressed = Input.keyboard.isKeyJustReleased(Keyboard.Key.TAB);
 
         // tool settings - toggle mode
         if (rightButtonClicked) {

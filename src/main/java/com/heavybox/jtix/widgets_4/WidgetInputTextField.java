@@ -2,6 +2,7 @@ package com.heavybox.jtix.widgets_4;
 
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Renderer2D;
+import com.heavybox.jtix.input.Input;
 
 public class WidgetInputTextField extends Widget implements WidgetInput<String> {
 
@@ -28,8 +29,7 @@ public class WidgetInputTextField extends Widget implements WidgetInput<String> 
 
     @Override
     protected void onMouseLeftClickDefault(Event.EventMouseLeftClick e) {
-        if (!focused) {
-            focused = true;
+        if (!isFocused()) {
             caretPosition = value.length();
         } else { // if already focused, set caret position.
 
@@ -37,8 +37,13 @@ public class WidgetInputTextField extends Widget implements WidgetInput<String> 
     }
 
     @Override
+    protected void onKeyTypedDefault(Event.EventKeyTyped e) {
+        //System.out.println(e.codePoint);
+    }
+
+    @Override
     protected void onMouseLeftClickOutsideDefault(Event.EventMouseLeftClickOutside e) {
-        focused = false;
+
     }
 
     @Override

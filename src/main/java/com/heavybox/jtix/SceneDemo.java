@@ -139,9 +139,9 @@ public class SceneDemo implements Scene {
 
         // undo-redo
         boolean left_ctrl_pressed = Input.keyboard.isKeyPressed(Keyboard.Key.LEFT_CONTROL);
-        boolean left_ctrl_just_pressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.LEFT_CONTROL);
+        boolean left_ctrl_just_pressed = Input.keyboard.isKeyJustReleased(Keyboard.Key.LEFT_CONTROL);
         boolean left_shift_pressed = Input.keyboard.isKeyPressed(Keyboard.Key.LEFT_SHIFT);
-        boolean z_just_pressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.Z);
+        boolean z_just_pressed = Input.keyboard.isKeyJustReleased(Keyboard.Key.Z);
         if (left_ctrl_pressed && left_shift_pressed && z_just_pressed) {
             map.redo();
             return;
@@ -154,35 +154,35 @@ public class SceneDemo implements Scene {
         }
 
         // handle keyboard input
-        if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KEY_1) && activeTool != 0) {
+        if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KEY_1) && activeTool != 0) {
             tools[activeTool].deactivate();
             activeTool = 0; // terrain tool
             tools[activeTool].activate();
-        } else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KEY_2) && activeTool != 1) {
+        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KEY_2) && activeTool != 1) {
             tools[activeTool].deactivate();
             activeTool = 1; // tree tool
             tools[activeTool].activate();
-        } else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KEY_3) && activeTool != 2) {
+        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KEY_3) && activeTool != 2) {
             tools[activeTool].deactivate();
             activeTool = 2; //
             tools[activeTool].activate();
-        } else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KEY_4) && activeTool != 3) {
+        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KEY_4) && activeTool != 3) {
             tools[activeTool].deactivate();
             activeTool = 3; //
             tools[activeTool].activate();
-        } else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KEY_5) && activeTool != 4) {
+        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KEY_5) && activeTool != 4) {
             tools[activeTool].deactivate();
             activeTool = 4; //
             tools[activeTool].activate();
-        } else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KEY_6) && activeTool != 5) {
+        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KEY_6) && activeTool != 5) {
             tools[activeTool].deactivate();
             activeTool = 5; //
             tools[activeTool].activate();
-        } else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KEY_7) && activeTool != 6) {
+        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KEY_7) && activeTool != 6) {
             tools[activeTool].deactivate();
             activeTool = 6; //
             tools[activeTool].activate();
-        } else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KEY_8) && activeTool != 7) {
+        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KEY_8) && activeTool != 7) {
             tools[activeTool].deactivate();
             activeTool = 7; //
             tools[activeTool].activate();
@@ -192,17 +192,17 @@ public class SceneDemo implements Scene {
         tools[activeTool].update(Graphics.getDeltaTime());
 
         // save placeholder
-        if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KP_0)) {
+        if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KP_0)) {
             map.saveLayerAsImage(0);
-        } else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KP_1)) {
+        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KP_1)) {
             map.saveLayerAsImage(1);
-        } else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KP_2)) {
+        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KP_2)) {
             map.saveLayerAsImage(2);
-        } else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KP_3)) {
+        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KP_3)) {
             map.saveLayerAsImage(3);
-        } else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KP_4)) {
+        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KP_4)) {
             //map.saveLayerAsImage(4);
-        } else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KP_5)) {
+        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KP_5)) {
             map.saveLayerAsImage(5);
         }
 
@@ -210,7 +210,7 @@ public class SceneDemo implements Scene {
         // update ui
         widgetSidebar.update(Graphics.getDeltaTime());
         widgetSidebar.handleInput(Graphics.getDeltaTime());
-        if (Input.keyboard.isKeyJustPressed(Keyboard.Key.BACKSPACE)) {
+        if (Input.keyboard.isKeyJustReleased(Keyboard.Key.BACKSPACE)) {
             ui_visible = !ui_visible;
         }
         // TODO: remove

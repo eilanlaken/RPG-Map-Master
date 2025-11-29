@@ -87,6 +87,9 @@ public class SceneTestUI2 implements Scene {
 
     @Override
     public void update() {
+
+        if (!Input.keyboard.getCodepointPressed().isEmpty()) System.out.println(Input.keyboard.getCodepointPressed());
+
         //scrollbar.update(1);
         checkbox.update(1);
         if (Input.keyboard.isKeyPressed(Keyboard.Key.W)) {
@@ -115,7 +118,7 @@ public class SceneTestUI2 implements Scene {
             rect3.transform.x -= 1;
         }
 
-        if (Input.keyboard.isKeyJustPressed(Keyboard.Key.G)) {
+        if (Input.keyboard.isKeyJustReleased(Keyboard.Key.G)) {
             container.layoutHeightSizing = WidgetContainer.Sizing.STATIC;
             container.layoutHeight = 20;
         }
@@ -127,7 +130,7 @@ public class SceneTestUI2 implements Scene {
         //widgetText.update(1);
         container.update(1);
         //rect1.update(1);
-        if (Input.keyboard.isKeyJustPressed(Keyboard.Key.SPACE)) {
+        if (Input.keyboard.isKeyJustReleased(Keyboard.Key.SPACE)) {
             rect3.active = false;
         }
 

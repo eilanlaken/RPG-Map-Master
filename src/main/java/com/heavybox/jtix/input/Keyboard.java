@@ -1,42 +1,72 @@
 package com.heavybox.jtix.input;
 
 import com.heavybox.jtix.application.Application;
+import com.heavybox.jtix.collections.Array;
+import com.heavybox.jtix.collections.ArrayChar;
 import com.heavybox.jtix.collections.ArrayInt;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWCharCallback;
 import org.lwjgl.glfw.GLFWKeyCallback;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public final class Keyboard {
 
-    private final int[]    keysCurrentState = new int[Key.ketMaxKeyCode()];
-    private final ArrayInt keysPressed      = new ArrayInt(12);
-    private final ArrayInt keysHeld         = new ArrayInt(12);
-    private final ArrayInt keysJustPressed  = new ArrayInt(12);
-    private final ArrayInt codepointPressed = new ArrayInt(false, 5);
+    private final int[]      keysCurrentState  = new int[Key.ketMaxKeyCode()];
+    private final ArrayInt   keysDownCodes     = new ArrayInt(12);
+    private final ArrayInt   keysHeldCodes     = new ArrayInt(12);
+    private final ArrayInt   keysJustUpCodes   = new ArrayInt(12);
+    private final ArrayInt   keysJustDownCodes = new ArrayInt(12);
+    private final Array<Key> keysDown          = new Array<>(12);
+    private final Array<Key> keysHeld          = new Array<>(12);
+    private final Array<Key> keysJustUp        = new Array<>(12);
+    private final Array<Key> keysJustDown      = new Array<>(12);
+
+    private final ArrayChar codepointPressed   = new ArrayChar(false, 5);
 
     Keyboard() {
 
         GLFW.glfwSetKeyCallback(Application.getWindowHandle(), new GLFWKeyCallback() {
             @Override
-            public void invoke(long window, int key, int scanCode, int action, int mods) {
-                if (key < 0 || key >= keysCurrentState.length) return;
-                keysCurrentState[key] = action;
+            public void invoke(long window, int keyCode, int scanCode, int action, int mods) {
+                if (keyCode < 0 || keyCode >= keysCurrentState.length) return;
+                keysCurrentState[keyCode] = action;
+                Key key = Key.fromCode(keyCode);
                 switch (action) {
                     case GLFW.GLFW_PRESS: {
-                        if (!keysPressed.contains(key)) keysPressed.add(key);
-                        keysJustPressed.removeValue(key);
+                        if (!keysDownCodes.contains(keyCode)) {
+                            keysJustDownCodes.add(keyCode);
+                            keysJustDown.add(key);
+                            keysDownCodes.add(keyCode);
+                            keysDown.add(key);
+                        }
+                        keysJustUpCodes.removeValue(keyCode);
+                        keysJustUp.removeValue(key, true);
                         break;
                     }
                     case GLFW.GLFW_REPEAT: {
-                        if (!keysPressed.contains(key)) keysPressed.add(key);
-                        if (!keysHeld.contains(key)) keysHeld.add(key);
-                        keysJustPressed.removeValue(key);
+                        if (!keysDownCodes.contains(keyCode)) {
+                            keysDownCodes.add(keyCode);
+                            keysDown.add(key);
+                        }
+                        if (!keysHeldCodes.contains(keyCode)) {
+                            keysHeldCodes.add(keyCode);
+                            keysHeld.add(key);
+                        }
+                        keysJustUpCodes.removeValue(keyCode);
+                        keysJustUp.removeValue(key, true);
+                        keysJustDownCodes.removeValue(keyCode);
+                        keysJustDown.removeValue(key, true);
                         break;
                     }
                     case GLFW.GLFW_RELEASE: {
-                        keysJustPressed.add(key);
-                        keysPressed.removeValue(key);
-                        keysHeld.removeValue(key);
+                        keysJustUpCodes.add(keyCode);
+                        keysJustUp.add(key);
+                        keysDownCodes.removeValue(keyCode);
+                        keysDown.removeValue(key,true);
+                        keysHeldCodes.removeValue(keyCode);
+                        keysHeld.removeValue(key, true);
                         break;
                     }
                 }
@@ -48,14 +78,19 @@ public final class Keyboard {
             @Override
             public void invoke(long window, int codepoint) {
                 //System.out.printf("Codepoint: U+%04X, Character: %c%n", codepoint, (char) codepoint);
-                codepointPressed.add(codepoint);
+                codepointPressed.add((char) codepoint);
             }
         });
     }
 
     public boolean isKeyPressed(final Key key) {
-        if (key == Key.ANY_KEY) return keysPressed.size > 0;
+        if (key == Key.ANY_KEY) return keysDownCodes.size > 0;
         return keysCurrentState[key.glfwCode] == GLFW.GLFW_PRESS || keysCurrentState[key.glfwCode] == GLFW.GLFW_REPEAT;
+    }
+
+    public boolean isKeyJustPressed(final Key key) {
+        if (key == Key.ANY_KEY) return keysJustDownCodes.size > 0;
+        else return keysJustDownCodes.contains(key.glfwCode);
     }
 
     public boolean isKeyReleased(final Key key) {
@@ -63,23 +98,43 @@ public final class Keyboard {
         return keysCurrentState[key.glfwCode] == GLFW.GLFW_RELEASE;
     }
 
-    public boolean isKeyJustPressed(final Key key) {
-        if (key == Key.ANY_KEY) return keysJustPressed.size > 0;
-        else return keysJustPressed.contains(key.glfwCode);
+    public boolean isKeyJustReleased(final Key key) {
+        if (key == Key.ANY_KEY) return keysJustUpCodes.size > 0;
+        else return keysJustUpCodes.contains(key.glfwCode);
     }
 
     public boolean isKeyHeld(final Key key) {
-        if (key == Key.ANY_KEY) return keysHeld.size > 0;
+        if (key == Key.ANY_KEY) return keysHeldCodes.size > 0;
         return keysCurrentState[key.glfwCode] == GLFW.GLFW_REPEAT;
     }
 
-    public ArrayInt getCodepointPressed() {
+    public ArrayChar getCodepointPressed() {
         return codepointPressed;
+    }
+
+    public Array<Key> getKeysDown() {
+        return keysDown;
+    }
+
+    public Array<Key> getKeysHeld() {
+        return keysHeld;
+    }
+
+    public Array<Key> getKeysJustDown() {
+        return keysJustDown;
+    }
+
+    public Array<Key> getKeysJustUp() {
+        return keysJustUp;
     }
 
     void update() {
         /* reset internal state */
-        keysJustPressed.clear();
+        keysJustUpCodes.clear();
+        keysJustUp.clear();
+
+        keysJustDownCodes.clear();
+        keysJustDown.clear();
 
         codepointPressed.clear();
     }
@@ -209,6 +264,13 @@ public final class Keyboard {
         MENU(GLFW.GLFW_KEY_MENU),
         ;
 
+        private static final Map<Integer, Key> BY_CODE = new HashMap<>();
+        static {
+            for (Key k : values()) {
+                BY_CODE.put(k.glfwCode, k);
+            }
+        }
+
         final int glfwCode;
 
         Key(final int glfwCode) {
@@ -222,6 +284,10 @@ public final class Keyboard {
                 if (value.glfwCode > max) max = value.glfwCode;
             }
             return max;
+        }
+
+        public static Key fromCode(int code) {
+            return BY_CODE.get(code);
         }
 
     }

@@ -47,9 +47,9 @@ public class ToolStampDecorations extends Tool {
         float verticalScroll = Input.mouse.getVerticalScroll();
         boolean leftButtonClicked = Input.mouse.isButtonClicked(Mouse.Button.LEFT);
         boolean rightButtonClicked = Input.mouse.isButtonClicked(Mouse.Button.RIGHT);
-        boolean keyAJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.A);
-        boolean keyZJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.Z);
-        boolean keyLeftShiftJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.LEFT_SHIFT);
+        boolean keyAJustPressed = Input.keyboard.isKeyJustReleased(Keyboard.Key.A);
+        boolean keyZJustPressed = Input.keyboard.isKeyJustReleased(Keyboard.Key.Z);
+        boolean keyLeftShiftJustPressed = Input.keyboard.isKeyJustReleased(Keyboard.Key.LEFT_SHIFT);
 
         // tool settings
         float deltaScale = Input.keyboard.isKeyPressed(Keyboard.Key.S) ? -Input.mouse.getYDelta() / (Graphics.getWindowHeight() * 0.3f) : 0;

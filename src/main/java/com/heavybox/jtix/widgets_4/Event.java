@@ -1,6 +1,6 @@
 package com.heavybox.jtix.widgets_4;
 
-import com.heavybox.jtix.input.Mouse;
+import com.heavybox.jtix.input.Keyboard;
 
 // TODO: continue with keyboard event listeners, drag and drop events etc.
 public abstract class Event {
@@ -115,6 +115,29 @@ public abstract class Event {
 
     }
 
+    // TODO
+//    public static class EventKeyDown extends Event {
+//
+//        public Keyboard.Key key;
+//        public int          codePoint;
+//
+//    }
+//
+//    public static class EventKeyUp extends Event {
+//
+//        public Keyboard.Key key;
+//        public int          codePoint;
+//
+//    }
+
+    public static class EventKeyTyped extends Event {
+
+        public Keyboard.Key key;
+        public long         codePoint;
+
+    }
+
+
     @FunctionalInterface
     public interface EventListenerMouseLeftClick {
         boolean handle(EventMouseLeftClick e);
@@ -183,6 +206,11 @@ public abstract class Event {
     @FunctionalInterface
     public interface EventListenerChildRemoved {
         boolean handle(EventChildRemoved e);
+    }
+
+    @FunctionalInterface
+    public interface EventListenerKeyTyped {
+        boolean handle(EventKeyTyped e);
     }
 
 }

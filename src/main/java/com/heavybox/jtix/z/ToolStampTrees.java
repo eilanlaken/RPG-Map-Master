@@ -57,14 +57,14 @@ public class ToolStampTrees extends Tool {
             return;
         }
         // tool settings - tree colors
-        boolean treeColorsModified = Input.keyboard.isKeyJustPressed(Keyboard.Key.Q)
-                || Input.keyboard.isKeyJustPressed(Keyboard.Key.W)
-                || Input.keyboard.isKeyJustPressed(Keyboard.Key.E);
+        boolean treeColorsModified = Input.keyboard.isKeyJustReleased(Keyboard.Key.Q)
+                || Input.keyboard.isKeyJustReleased(Keyboard.Key.W)
+                || Input.keyboard.isKeyJustReleased(Keyboard.Key.E);
         if (treeColorsModified) {
             int index = 0;
-            if (Input.keyboard.isKeyJustPressed(Keyboard.Key.Q)) index = 0;
-            else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.W)) index = 1;
-            else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.E)) index = 2;
+            if (Input.keyboard.isKeyJustReleased(Keyboard.Key.Q)) index = 0;
+            else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.W)) index = 1;
+            else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.E)) index = 2;
             String color_q = TREE_COLORS[index];
             if (treeColors.contains(color_q) && treeColors.size() > 1) treeColors.remove(color_q);
             else treeColors.add(color_q);
@@ -73,14 +73,14 @@ public class ToolStampTrees extends Tool {
         }
 
         // tool settings - fruits color
-        boolean fruitColorsModified = Input.keyboard.isKeyJustPressed(Keyboard.Key.A)
-                || Input.keyboard.isKeyJustPressed(Keyboard.Key.S)
-                || Input.keyboard.isKeyJustPressed(Keyboard.Key.D);
+        boolean fruitColorsModified = Input.keyboard.isKeyJustReleased(Keyboard.Key.A)
+                || Input.keyboard.isKeyJustReleased(Keyboard.Key.S)
+                || Input.keyboard.isKeyJustReleased(Keyboard.Key.D);
         if (fruitColorsModified) {
             int index = 0;
-            if (Input.keyboard.isKeyJustPressed(Keyboard.Key.A)) index = 0;
-            else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.S)) index = 1;
-            else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.D)) index = 2;
+            if (Input.keyboard.isKeyJustReleased(Keyboard.Key.A)) index = 0;
+            else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.S)) index = 1;
+            else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.D)) index = 2;
             String color_q = FRUIT_COLORS[index];
             if (fruitColors.contains(color_q) && fruitColors.size() > 1) fruitColors.remove(color_q);
             else fruitColors.add(color_q);
@@ -109,7 +109,7 @@ public class ToolStampTrees extends Tool {
         }
 
         // tool settings - trunk probability
-        if (Input.keyboard.isKeyJustPressed(Keyboard.Key.R)) {
+        if (Input.keyboard.isKeyJustReleased(Keyboard.Key.R)) {
             addLeaves = !addLeaves;
             System.out.println("Add leaves: " + addLeaves);
         }

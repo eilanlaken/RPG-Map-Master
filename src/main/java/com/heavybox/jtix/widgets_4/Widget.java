@@ -4,6 +4,7 @@ import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.graphics.Graphics;
 import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.input.Input;
+import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Vector2;
@@ -42,8 +43,7 @@ public abstract class Widget {
     private       boolean       mouseRegisterRightClicksOutside  = false;
     private       boolean       mouseRegisterMiddleClicksOutside = false;
     private       boolean       mouseInside                      = false;
-    protected     boolean       focused                          = false;
-
+    private       boolean       focused                          = false;
 
     /*** input - event handlers ***/
     public Event.EventListenerMouseUp          onMouseUp                 = null;
@@ -60,6 +60,7 @@ public abstract class Widget {
     public Event.EventListenerResize           onResize                  = null;
     public Event.EventListenerChildAdded       onChildAdded              = null;
     public Event.EventListenerChildRemoved     onChildRemoved            = null;
+    public Event.EventListenerKeyTyped         onKeyTyped                = null;
 
     /*** default methods for event handling ***/
     protected void onMouseUpDefault     (Event.EventMouseUp e)      {}
@@ -76,6 +77,7 @@ public abstract class Widget {
     protected void onResizeDefault      (Event.EventResize e)       {}
     protected void onChildAddedDefault  (Event.EventChildAdded e)   {}
     protected void onChildRemovedDefault(Event.EventChildRemoved e) {}
+    protected void onKeyTypedDefault(Event.EventKeyTyped e) {}
 
     /*** Add and remove child methods ***/
     public final void addChild(Widget widget) {
@@ -149,6 +151,10 @@ public abstract class Widget {
     protected abstract float getWidth();
     protected abstract float getHeight();
 
+    public boolean isFocused() {
+        return focused;
+    }
+
     protected void drawMask(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
         draw(renderer2D, x, y, deg, sclX, sclY);
     }
@@ -198,7 +204,7 @@ public abstract class Widget {
     // TODO: handle click outside
     // TODO: event propagation and bubbling
     protected void handleInput() {
-        // mouse input
+        /*  mouse input */
         float pointerXPrev = Widgets.getPointerXPrev();
         float pointerYPrev = Widgets.getPointerYPrev();
         float pointerX = Widgets.getPointerX();
@@ -226,22 +232,23 @@ public abstract class Widget {
         if (Input.mouse.isButtonJustPressed(Mouse.Button.MIDDLE)) {
             mouseRegisterMiddleClicksOutside = !mouseInside;
         }
-
-
         boolean mouseUpLeft = Input.mouse.isButtonJustReleased(Mouse.Button.LEFT);
         boolean mouseUpRight = Input.mouse.isButtonJustReleased(Mouse.Button.RIGHT);
         boolean mouseUpMiddle = Input.mouse.isButtonJustReleased(Mouse.Button.MIDDLE);
         boolean mouseUp = mouseInside && (mouseUpLeft || mouseUpRight || mouseUpMiddle);
-
         boolean mouseDownLeft = Input.mouse.isButtonJustPressed(Mouse.Button.LEFT);
         boolean mouseDownRight = Input.mouse.isButtonJustPressed(Mouse.Button.RIGHT);
         boolean mouseDownMiddle = Input.mouse.isButtonJustPressed(Mouse.Button.MIDDLE);
         boolean mouseDown = mouseInside && (mouseDownLeft || mouseDownRight || mouseDownMiddle);
 
-        // dimensions change
+        /* key presses */
+        boolean keyPressed = Input.keyboard.isKeyPressed(Keyboard.Key.ANY_KEY);
+
+        /* dimensions change */
         float deltaWidth  = width - prevWidth;
         float deltaHeight = height - prevHeight;
         boolean resized = !MathUtils.isZero(deltaWidth) || !MathUtils.isZero(deltaHeight);
+
 
         /* mouse down */
         if (mouseDown) {
@@ -281,6 +288,7 @@ public abstract class Widget {
 
         /* mouse click - left */
         if (mouseRegisterLeftClicks && Input.mouse.isButtonClicked(Mouse.Button.LEFT) && mouseInside) {
+            focused = true;
             Event.EventMouseLeftClick e = new Event.EventMouseLeftClick();
             Vector2 local = new Vector2(pointerX, pointerY);
             local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
@@ -326,16 +334,17 @@ public abstract class Widget {
 
         /* mouse left click - outside */
         if (mouseRegisterLeftClicksOutside && Input.mouse.isButtonClicked(Mouse.Button.LEFT) && !mouseInside) {
-            Event.EventMouseRightClickOutside e = new Event.EventMouseRightClickOutside();
+            focused = false;
+            Event.EventMouseLeftClickOutside e = new Event.EventMouseLeftClickOutside();
             Vector2 local = new Vector2(pointerX, pointerY);
             local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
             e.mouseLocalX = local.x;
             e.mouseLocalY = local.y;
-            if (onMouseRightClickOutside != null) {
-                boolean handled = onMouseRightClickOutside.handle(e);
-                if (!handled) onMouseRightClickOutsideDefault(e);
+            if (onMouseLeftClickOutside != null) {
+                boolean handled = onMouseLeftClickOutside.handle(e);
+                if (!handled) onMouseLeftClickOutsideDefault(e);
             } else {
-                onMouseRightClickOutsideDefault(e);
+                onMouseLeftClickOutsideDefault(e);
             }
         }
 
@@ -435,6 +444,20 @@ public abstract class Widget {
                 if (!handled) onResizeDefault(e);
             } else {
                 onResizeDefault(e);
+            }
+        }
+
+        /* key presses */
+        if (focused && keyPressed) {
+            Event.EventKeyTyped e = new Event.EventKeyTyped();
+            e.codePoint = Input.keyboard.getCodepointPressed().isEmpty() ? -1 : Input.keyboard.getCodepointPressed().first();
+            // TODO: see which key just typed
+            // TODO: improve keyboard key handling.
+            if (onKeyTyped != null) {
+                boolean handled = onKeyTyped.handle(e);
+                if (!handled) onKeyTypedDefault(e);
+            } else {
+                onKeyTypedDefault(e);
             }
         }
 

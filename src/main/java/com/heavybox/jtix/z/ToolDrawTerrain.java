@@ -33,8 +33,8 @@ public class ToolDrawTerrain extends Tool {
         boolean leftButtonPressed = Input.mouse.isButtonPressed(Mouse.Button.LEFT);
         boolean leftButtonJustPressed = Input.mouse.isButtonJustPressed(Mouse.Button.LEFT);
         boolean sKeyPressed = Input.keyboard.isKeyPressed(Keyboard.Key.S);
-        boolean qKeyJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.Q);
-        boolean wKeyJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.W);
+        boolean qKeyJustPressed = Input.keyboard.isKeyJustReleased(Keyboard.Key.Q);
+        boolean wKeyJustPressed = Input.keyboard.isKeyJustReleased(Keyboard.Key.W);
         float dx = Input.mouse.getXDelta();
         float dy = Input.mouse.getYDelta();
         float verticalScroll = Input.mouse.getVerticalScroll();

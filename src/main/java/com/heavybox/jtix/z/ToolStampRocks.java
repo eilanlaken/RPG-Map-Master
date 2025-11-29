@@ -33,7 +33,7 @@ public class ToolStampRocks extends Tool {
         // input
         float verticalScroll = Input.mouse.getVerticalScroll();
         boolean leftJustPressed = Input.mouse.isButtonJustPressed(Mouse.Button.LEFT);
-        boolean tabJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.TAB);
+        boolean tabJustPressed = Input.keyboard.isKeyJustReleased(Keyboard.Key.TAB);
 
         float deltaScale = Input.keyboard.isKeyPressed(Keyboard.Key.S) ? -Input.mouse.getYDelta() / (Graphics.getWindowHeight() * 0.3f) : 0;
         sclX += deltaScale;
