@@ -88,8 +88,6 @@ public class SceneTestUI2 implements Scene {
     @Override
     public void update() {
 
-        if (!Input.keyboard.getCodepointPressed().isEmpty()) System.out.println(Input.keyboard.getCodepointPressed());
-
         //scrollbar.update(1);
         checkbox.update(1);
         if (Input.keyboard.isKeyPressed(Keyboard.Key.W)) {

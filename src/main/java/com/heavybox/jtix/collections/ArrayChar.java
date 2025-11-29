@@ -194,6 +194,16 @@ public class ArrayChar implements MemoryPool.Reset {
         return true;
     }
 
+    public String toRawString() {
+        if (size == 0) return "";
+        char[] items = this.items;
+        StringBuilder buffer = new StringBuilder(32);
+        for (int i = 0; i < size; i++) {
+            buffer.append(items[i]);
+        }
+        return buffer.toString();
+    }
+
     @Override
     public String toString () {
         if (size == 0) return "[]";

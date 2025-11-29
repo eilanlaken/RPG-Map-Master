@@ -2,7 +2,6 @@ package com.heavybox.jtix.widgets_4;
 
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Renderer2D;
-import com.heavybox.jtix.input.Input;
 
 public class WidgetInputTextField extends Widget implements WidgetInput<String> {
 
@@ -21,7 +20,7 @@ public class WidgetInputTextField extends Widget implements WidgetInput<String> 
     public float borderSize = 2;
     public Color caretColor = Color.BLACK.clone();
 
-    private WidgetText text = new WidgetText("ggg");
+    private WidgetText text = new WidgetText("");
 
     public WidgetInputTextField() {
         addChild(text);
@@ -37,8 +36,8 @@ public class WidgetInputTextField extends Widget implements WidgetInput<String> 
     }
 
     @Override
-    protected void onKeyTypedDefault(Event.EventKeyTyped e) {
-        //System.out.println(e.codePoint);
+    protected void onCodepointTypedDefault(Event.EventCodepointTyped e) {
+        text.text += e.codePoints.toRawString();
     }
 
     @Override

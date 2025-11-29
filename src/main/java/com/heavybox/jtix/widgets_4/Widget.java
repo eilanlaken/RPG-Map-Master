@@ -60,7 +60,7 @@ public abstract class Widget {
     public Event.EventListenerResize           onResize                  = null;
     public Event.EventListenerChildAdded       onChildAdded              = null;
     public Event.EventListenerChildRemoved     onChildRemoved            = null;
-    public Event.EventListenerKeyTyped         onKeyTyped                = null;
+    public Event.EventListenerCodepointTyped   onCodepointTyped          = null;
 
     /*** default methods for event handling ***/
     protected void onMouseUpDefault     (Event.EventMouseUp e)      {}
@@ -77,7 +77,7 @@ public abstract class Widget {
     protected void onResizeDefault      (Event.EventResize e)       {}
     protected void onChildAddedDefault  (Event.EventChildAdded e)   {}
     protected void onChildRemovedDefault(Event.EventChildRemoved e) {}
-    protected void onKeyTypedDefault(Event.EventKeyTyped e) {}
+    protected void onCodepointTypedDefault(Event.EventCodepointTyped e) {}
 
     /*** Add and remove child methods ***/
     public final void addChild(Widget widget) {
@@ -448,16 +448,14 @@ public abstract class Widget {
         }
 
         /* key presses */
-        if (focused && keyPressed) {
-            Event.EventKeyTyped e = new Event.EventKeyTyped();
-            e.codePoint = Input.keyboard.getCodepointPressed().isEmpty() ? -1 : Input.keyboard.getCodepointPressed().first();
-            // TODO: see which key just typed
-            // TODO: improve keyboard key handling.
-            if (onKeyTyped != null) {
-                boolean handled = onKeyTyped.handle(e);
-                if (!handled) onKeyTypedDefault(e);
+        if (focused && !Input.keyboard.getCodepointPressed().isEmpty()) {
+            Event.EventCodepointTyped e = new Event.EventCodepointTyped();
+            e.codePoints = Input.keyboard.getCodepointPressed();
+            if (onCodepointTyped != null) {
+                boolean handled = onCodepointTyped.handle(e);
+                if (!handled) onCodepointTypedDefault(e);
             } else {
-                onKeyTypedDefault(e);
+                onCodepointTypedDefault(e);
             }
         }
 
