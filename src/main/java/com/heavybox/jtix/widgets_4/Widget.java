@@ -42,6 +42,8 @@ public abstract class Widget {
     private       boolean       mouseRegisterRightClicksOutside  = false;
     private       boolean       mouseRegisterMiddleClicksOutside = false;
     private       boolean       mouseInside                      = false;
+    protected     boolean       focused                          = false;
+
 
     /*** input - event handlers ***/
     public Event.EventListenerMouseUp          onMouseUp                 = null;
