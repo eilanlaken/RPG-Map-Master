@@ -42,14 +42,18 @@ public final class Widgets {
 
 
     /*** input device state */
-    private static float pointerX = 0;
-    private static float pointerY = 0;
+    private static float pointerXPrev = 0;
+    private static float pointerYPrev = 0;
+    private static float pointerX     = 0;
+    private static float pointerY     = 0;
 
     private Widgets() {}
 
     public static void update() {
         float windowHalfWidth = Graphics.getWindowWidth() * 0.5f;
         float windowHalfHeight = Graphics.getWindowHeight() * 0.5f;
+        Widgets.pointerXPrev = Widgets.pointerX;
+        Widgets.pointerYPrev = Widgets.pointerY;
         Widgets.pointerX = Input.mouse.getX() - windowHalfWidth;
         Widgets.pointerY = windowHalfHeight - Input.mouse.getY();
     }
@@ -60,5 +64,13 @@ public final class Widgets {
 
     public static float getPointerY() {
         return pointerY;
+    }
+
+    public static float getPointerXPrev() {
+        return pointerXPrev;
+    }
+
+    public static float getPointerYPrev() {
+        return pointerYPrev;
     }
 }

@@ -21,7 +21,6 @@ public class SceneTestUI2 implements Scene {
     WidgetText widgetText2 = new WidgetText("hello2");
     WidgetInputSlider slider = new WidgetInputSlider();
     WidgetInputCheckbox checkbox = new WidgetInputCheckbox();
-    WidgetShapeLine line = new WidgetShapeLine(300,22, Color.RED);
     WidgetShapeRectangle rect1 = new WidgetShapeRectangle(350,250,Color.YELLOW);
     WidgetShapeRectangle rect2 = new WidgetShapeRectangle(350,250,Color.WHITE);
     WidgetShapeRectangle rect3 = new WidgetShapeRectangle(350,250,Color.GREEN);
@@ -61,36 +60,23 @@ public class SceneTestUI2 implements Scene {
         container.layoutOverflowY = WidgetContainer.Overflow.SCROLLBAR;
         container.layoutOverflowX = WidgetContainer.Overflow.HIDDEN;
 
-        container.onMouseUp = e -> {
-            System.out.println(e.buttonLeft + " | " + e.buttonRight + " | " + e.buttonMiddle);
-            return false;
-        };
-        container.onMouseDown = e -> {
-            container.layoutOverflowY = WidgetContainer.Overflow.HIDDEN;
+        container.onMouseMiddleClick = e -> {
+            System.out.println("in");
             return false;
         };
 
-
-
-        rect1.onMouseLeftClick = (e) -> {
-            System.out.println("rect 1");
+        container.onMouseMiddleClickOutside = e -> {
+            System.out.println("out");
             return false;
         };
-        rect2.onMouseLeftClick = (e) -> {
-            System.out.println("rect 2");
-            return false;
-        };
-        rect3.onMouseLeftClick = (e) -> {
-            System.out.println("rect 3");
-            return false;
-        };
-        //rect2.addChild(rect3);
 
         container.layout = WidgetContainer.Layout.VERTICAL;
         container.addChild(rect1);
         container.addChild(rect2);
         container.addChild(rect3);
         container.addChild(rect4);
+
+        container.transform.deg = 30;
     }
 
     @Override

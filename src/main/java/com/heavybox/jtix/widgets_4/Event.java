@@ -46,6 +46,27 @@ public abstract class Event {
 
     }
 
+    public static class EventMouseLeftClickOutside extends Event {
+
+        public float mouseLocalX;
+        public float mouseLocalY;
+
+    }
+
+    public static class EventMouseRightClickOutside extends Event {
+
+        public float mouseLocalX;
+        public float mouseLocalY;
+
+    }
+
+    public static class EventMouseMiddleClickOutside extends Event {
+
+        public float mouseLocalX;
+        public float mouseLocalY;
+
+    }
+
     public static class EventMouseEnter extends Event {
 
         public float mouseLocalXPrev;
@@ -107,6 +128,21 @@ public abstract class Event {
     @FunctionalInterface
     public interface EventListenerMouseMiddleClick {
         boolean handle(EventMouseMiddleClick e);
+    }
+
+    @FunctionalInterface
+    public interface EventListenerMouseLeftClickOutside {
+        boolean handle(EventMouseLeftClickOutside e);
+    }
+
+    @FunctionalInterface
+    public interface EventListenerMouseRightClickOutside {
+        boolean handle(EventMouseRightClickOutside e);
+    }
+
+    @FunctionalInterface
+    public interface EventListenerMouseMiddleClickOutside {
+        boolean handle(EventMouseMiddleClickOutside e);
     }
 
     @FunctionalInterface
