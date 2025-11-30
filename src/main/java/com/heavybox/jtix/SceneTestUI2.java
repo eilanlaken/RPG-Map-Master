@@ -87,6 +87,7 @@ public class SceneTestUI2 implements Scene {
 
     @Override
     public void update() {
+        float delta = Graphics.getDeltaTime();
 
         //scrollbar.update(1);
         checkbox.update(1);
@@ -132,7 +133,7 @@ public class SceneTestUI2 implements Scene {
             rect3.active = false;
         }
 
-        textField.update(1);
+        textField.update(delta);
 
         GL11.glClearColor(0.01f,0.01f,0.01f,1);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_STENCIL_BUFFER_BIT); // should probably clear the stencil

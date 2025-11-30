@@ -8,8 +8,13 @@ public class WidgetShapeRectangle extends Widget implements WidgetShape {
     public Type type = Type.FILLED;
     public float width;
     public float height;
-    public float borderSize = 5; // default
-    public Color color;
+    public float borderSize = 0; // default
+    public Color color = Color.WHITE.clone();
+
+    public WidgetShapeRectangle(float width, float height) {
+        this.width = width;
+        this.height = height;
+    }
 
     public WidgetShapeRectangle(float width, float height, Color color) {
         this.width = width;

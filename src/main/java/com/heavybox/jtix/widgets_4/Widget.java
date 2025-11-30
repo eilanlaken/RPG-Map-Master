@@ -15,6 +15,7 @@ public abstract class Widget {
     /*** ui hierarchy ***/
     public          boolean       active         = true;
     protected       Widget        parent         = null;
+    protected       boolean       hidden         = false;
     protected final Array<Widget> children       = new Array<>(true, 1);
     protected final Array<Widget> childrenLayout = new Array<>(true, 1);
     protected final Array<Widget> childrenActive = new Array<>(true, 1);
@@ -116,6 +117,7 @@ public abstract class Widget {
     }
 
     public final void render(Renderer2D renderer2D) {
+        if (hidden) return;
         draw(renderer2D, transformScreen.x, transformScreen.y, transformScreen.deg, transformScreen.sclX, transformScreen.sclY);
 
         /* if masking is enabled, draw the mask */

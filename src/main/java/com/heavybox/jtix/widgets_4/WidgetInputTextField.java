@@ -2,8 +2,8 @@ package com.heavybox.jtix.widgets_4;
 
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.graphics.Color;
+import com.heavybox.jtix.graphics.Font;
 import com.heavybox.jtix.graphics.Renderer2D;
-import com.heavybox.jtix.widgets.Node;
 
 public class WidgetInputTextField extends Widget implements WidgetInput<String> {
 
@@ -11,11 +11,12 @@ public class WidgetInputTextField extends Widget implements WidgetInput<String> 
     private String value = "";
     public float width = 200;
     public float height = 20;
-    public int caretPosition = 0;
+    public int caretIndex = 0;
     float elapsedTime = 0;
     private boolean caretVisible = true;
 
-
+    public Font textFont = Widgets.themeTextFont;
+    public float textSize = height;
     public float caretBlinkSpeed = 0.5f;
     public Color backgroundColor = Color.RED.clone();
     public Color borderColor = Color.YELLOW.clone();
@@ -23,29 +24,43 @@ public class WidgetInputTextField extends Widget implements WidgetInput<String> 
     public Color caretColor = Color.BLACK.clone();
 
     private WidgetText text = new WidgetText("");
+    private WidgetShapeRectangle caret = new WidgetShapeRectangle(2, 18);
 
     public WidgetInputTextField() {
         text.anchor = Anchor.CENTER_LEFT;
         text.anchorX = borderSize;
         text.anchorY = 0;
         addChild(text);
+
+        text.addChild(caret);
+        caret.anchor = Anchor.CENTER_LEFT;
     }
 
     @Override
     protected void onMouseLeftClickDefault(Event.EventMouseLeftClick e) {
         if (!isFocused()) {
-            caretPosition = value.length();
+            caretIndex = value.length();
         } else { // if already focused, set caret position.
 
         }
     }
 
     @Override
-    protected void onCodepointTypedDefault(Event.EventCodepointTyped e) {
-        text.text += e.codePoints.toRawString();
-        //setChildrenOffsets(childrenLayout); // this works - just to prevent the annoying 1 frame lag.
-        // but ideally, you would use ANCHORS. Need to modify anchor logic so that changes take place right after input.
+    protected void onResizeDefault(Event.EventResize e) {
+        // set font size
+        // set caret dimensions
     }
+
+    // TODO: add characters to the caret position
+    @Override
+    protected void onCodepointTypedDefault(Event.EventCodepointTyped e) {
+        String str = e.codePoints.toRawString();
+        text.text += str;
+        caretIndex += str.length();
+        // TODO: split string properly at caret position
+        caret.anchorX += Renderer2D.calculateStringLineWidth(str, text.font, text.size, text.antialiasing);
+    }
+
 
 
     @Override
@@ -82,6 +97,7 @@ public class WidgetInputTextField extends Widget implements WidgetInput<String> 
             elapsedTime -= caretBlinkSpeed;
             caretVisible = !caretVisible;
         }
+        caret.hidden = !isFocused() || !caretVisible;
     }
 
 
