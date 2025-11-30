@@ -163,10 +163,7 @@ public abstract class Widget {
 
     // TODO: the heart of all the ui library is here.
     public final void update(float delta) {
-        prevWidth = width;
-        prevHeight = height;
 
-        calculateGlobalTransform();
         childrenActive.clear();
         for (Widget child : children) {
             if (child.active) childrenActive.add(child);
@@ -175,20 +172,10 @@ public abstract class Widget {
         for (Widget child : childrenActive) {
             if (child.anchor == null) childrenLayout.add(child);
         }
-        setChildrenOffsets(childrenLayout);
-        if (anchor != null) { // if the widget has an anchor, then it will position itself relative to the parent's / window borders
-            setOffsetsAnchor();
-        }
 
-        width = getWidth();
-        height = getHeight();
-
-        // TODO: maybe this should go to handleInput()
-        configureInputRegion(region);
-        region.transform(transformScreen);
-        configureInputMaskedRegion(regionMask);
-        regionMask.transform(transformScreen);
-        handleInput();
+        calculateMetrics();
+        boolean eventFired = handleInput();
+        if (eventFired) calculateMetrics();
 
         for (Widget widget : childrenActive) {
             widget.update(delta);
@@ -198,10 +185,27 @@ public abstract class Widget {
         fixedUpdate(delta);
     }
 
+    private void calculateMetrics() {
+        setChildrenOffsets(childrenLayout);
+        setOffsetsAnchor();
+        prevWidth = width;
+        prevHeight = height;
+        width = getWidth();
+        height = getHeight();
+        calculateGlobalTransform();
+    }
+
     // TODO: handle input should be recursive?
     // TODO: handle click outside
     // TODO: event propagation and bubbling
-    protected void handleInput() {
+    protected boolean handleInput() {
+        configureInputRegion(region);
+        region.transform(transformScreen);
+        configureInputMaskedRegion(regionMask);
+        regionMask.transform(transformScreen);
+
+        boolean eventFired = false;
+
         /*  mouse input */
         float pointerXPrev = Widgets.getPointerXPrev();
         float pointerYPrev = Widgets.getPointerYPrev();
@@ -240,16 +244,16 @@ public abstract class Widget {
         boolean mouseDown = mouseInside && (mouseDownLeft || mouseDownRight || mouseDownMiddle);
 
         /* key presses */
-        boolean keyPressed = Input.keyboard.isKeyPressed(Keyboard.Key.ANY_KEY);
+        boolean codepointPressed = !Input.keyboard.getCodepointPressed().isEmpty();
 
         /* dimensions change */
         float deltaWidth  = width - prevWidth;
         float deltaHeight = height - prevHeight;
         boolean resized = !MathUtils.isZero(deltaWidth) || !MathUtils.isZero(deltaHeight);
 
-
         /* mouse down */
         if (mouseDown) {
+            eventFired = true;
             Event.EventMouseDown e = new Event.EventMouseDown();
             Vector2 local = new Vector2(pointerX, pointerY);
             local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
@@ -268,6 +272,7 @@ public abstract class Widget {
 
         /* mouse up */
         if (mouseUp) {
+            eventFired = true;
             Event.EventMouseUp e = new Event.EventMouseUp();
             Vector2 local = new Vector2(pointerX, pointerY);
             local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
@@ -286,6 +291,7 @@ public abstract class Widget {
 
         /* mouse click - left */
         if (mouseRegisterLeftClicks && Input.mouse.isButtonClicked(Mouse.Button.LEFT) && mouseInside) {
+            eventFired = true;
             focused = true;
             Event.EventMouseLeftClick e = new Event.EventMouseLeftClick();
             Vector2 local = new Vector2(pointerX, pointerY);
@@ -302,6 +308,7 @@ public abstract class Widget {
 
         /* mouse click - right */
         if (mouseRegisterRightClicks && Input.mouse.isButtonClicked(Mouse.Button.RIGHT) && mouseInside) {
+            eventFired = true;
             Event.EventMouseRightClick e = new Event.EventMouseRightClick();
             Vector2 local = new Vector2(pointerX, pointerY);
             local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
@@ -317,6 +324,7 @@ public abstract class Widget {
 
         /* mouse click - middle */
         if (mouseRegisterMiddleClicks && Input.mouse.isButtonClicked(Mouse.Button.MIDDLE) && mouseInside) {
+            eventFired = true;
             Event.EventMouseMiddleClick e = new Event.EventMouseMiddleClick();
             Vector2 local = new Vector2(pointerX, pointerY);
             local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
@@ -332,6 +340,7 @@ public abstract class Widget {
 
         /* mouse left click - outside */
         if (mouseRegisterLeftClicksOutside && Input.mouse.isButtonClicked(Mouse.Button.LEFT) && !mouseInside) {
+            eventFired = true;
             focused = false;
             Event.EventMouseLeftClickOutside e = new Event.EventMouseLeftClickOutside();
             Vector2 local = new Vector2(pointerX, pointerY);
@@ -348,6 +357,7 @@ public abstract class Widget {
 
         /* mouse right click - outside */
         if (mouseRegisterRightClicksOutside && Input.mouse.isButtonClicked(Mouse.Button.RIGHT) && !mouseInside) {
+            eventFired = true;
             Event.EventMouseRightClickOutside e = new Event.EventMouseRightClickOutside();
             Vector2 local = new Vector2(pointerX, pointerY);
             local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
@@ -363,6 +373,7 @@ public abstract class Widget {
 
         /* mouse middle click - outside */
         if (mouseRegisterMiddleClicksOutside && Input.mouse.isButtonClicked(Mouse.Button.MIDDLE) && !mouseInside) {
+            eventFired = true;
             Event.EventMouseMiddleClickOutside e = new Event.EventMouseMiddleClickOutside();
             Vector2 local = new Vector2(pointerX, pointerY);
             local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
@@ -378,6 +389,7 @@ public abstract class Widget {
 
         /* mouse enter */
         if (mouseJustEntered) {
+            eventFired = true;
             Event.EventMouseEnter e = new Event.EventMouseEnter();
             Vector2 localPrev = new Vector2(pointerXPrev, pointerYPrev);
             Vector2 local = new Vector2(pointerX, pointerY);
@@ -397,6 +409,7 @@ public abstract class Widget {
 
         /* mouse leave */
         if (mouseJustLeft) {
+            eventFired = true;
             Event.EventMouseLeave e = new Event.EventMouseLeave();
             Vector2 localPrev = new Vector2(pointerXPrev, pointerYPrev);
             Vector2 local = new Vector2(pointerX, pointerY);
@@ -416,6 +429,7 @@ public abstract class Widget {
 
         /* mouse scroll */
         if (mouseInside && verticalScroll != 0) {
+            eventFired = true;
             Event.EventMouseScroll e = new Event.EventMouseScroll();
             Vector2 local = new Vector2(pointerX, pointerY);
             local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
@@ -432,6 +446,7 @@ public abstract class Widget {
 
         /* resize */
         if (resized) {
+            eventFired = true;
             Event.EventResize e = new Event.EventResize();
             e.prevWidth = prevWidth;
             e.prevHeight = prevHeight;
@@ -445,8 +460,9 @@ public abstract class Widget {
             }
         }
 
-        /* key presses */
-        if (focused && !Input.keyboard.getCodepointPressed().isEmpty()) {
+        /* codepoint presses */
+        if (focused && codepointPressed) {
+            eventFired = true;
             Event.EventCodepointTyped e = new Event.EventCodepointTyped();
             e.codePoints = Input.keyboard.getCodepointPressed();
             if (onCodepointTyped != null) {
@@ -457,6 +473,7 @@ public abstract class Widget {
             }
         }
 
+        return eventFired; // change
     }
 
     // containers can override this, for example.
@@ -523,6 +540,7 @@ public abstract class Widget {
     }
 
     private void setOffsetsAnchor() {
+        if (anchor == null) return;
 
         float currentWidth = width;
         float currentHeight = height;

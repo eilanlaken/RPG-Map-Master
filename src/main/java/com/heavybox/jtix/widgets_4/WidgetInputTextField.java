@@ -25,9 +25,9 @@ public class WidgetInputTextField extends Widget implements WidgetInput<String> 
     private WidgetText text = new WidgetText("");
 
     public WidgetInputTextField() {
-//        text.anchor = Anchor.CENTER_LEFT;
-//        text.anchorX = borderSize;
-//        text.anchorY = 0;
+        text.anchor = Anchor.CENTER_LEFT;
+        text.anchorX = borderSize;
+        text.anchorY = 0;
         addChild(text);
     }
 
@@ -43,7 +43,7 @@ public class WidgetInputTextField extends Widget implements WidgetInput<String> 
     @Override
     protected void onCodepointTypedDefault(Event.EventCodepointTyped e) {
         text.text += e.codePoints.toRawString();
-        setChildrenOffsets(childrenLayout); // this works - just to prevent the annoying 1 frame lag.
+        //setChildrenOffsets(childrenLayout); // this works - just to prevent the annoying 1 frame lag.
         // but ideally, you would use ANCHORS. Need to modify anchor logic so that changes take place right after input.
     }
 
