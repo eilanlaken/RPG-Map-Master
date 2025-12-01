@@ -49,7 +49,8 @@ public class WidgetContainer extends Widget {
     public Color     boxBorderColor               = Widgets.themeContainerBoxBorderColor;
 
     /* scrollbar */
-    private WidgetInputScrollbar scrollbar = new WidgetInputScrollbar();
+    //private WidgetInputScrollbar_old scrollbar = new WidgetInputScrollbar_old();
+    private final WidgetInputScrollbar scrollbar = new WidgetInputScrollbar();
 
     public WidgetContainer() {
         addChild(scrollbar);
@@ -76,8 +77,7 @@ public class WidgetContainer extends Widget {
     @Override
     protected void onMouseScrollDefault(Event.EventMouseScroll e) {
         if (!scrollbar.active) return;
-        scrollbar.onMouseScrollDefault(e);
-        float scrollValue = scrollbar.getValue();
+        scrollbar.scroll(e.scrollValue * 0.1f);
     }
 
     /*** global container logic ***/

@@ -26,9 +26,11 @@ public class SceneTestUI2 implements Scene {
     WidgetImage image = new WidgetImage("assets/engine-tests/simpleImage.png");
 
     WidgetContainer container = new WidgetContainer();
-    WidgetInputScrollbar scrollbar = new WidgetInputScrollbar();
+    WidgetInputScrollbar_old scrollbar_old = new WidgetInputScrollbar_old();
 
     WidgetInputTextField textField = new WidgetInputTextField();
+
+    WidgetInputScrollbar scrollbar = new WidgetInputScrollbar();
 
     @Override
     public void setup() {
@@ -85,6 +87,7 @@ public class SceneTestUI2 implements Scene {
     @Override
     public void update() {
         float delta = Graphics.getDeltaTime();
+        //scrollbar.update(delta);
 
 //        //scrollbar.update(1);
 //        checkbox.update(1);
@@ -124,13 +127,13 @@ public class SceneTestUI2 implements Scene {
 //        }
 //
 //        //widgetText.update(1);
-//        container.update(1);
+        container.update(delta);
 //        //rect1.update(1);
 //        if (Input.keyboard.isKeyJustReleased(Keyboard.Key.SPACE)) {
 //            rect3.active = false;
 //        }
 
-        textField.update(delta);
+        //textField.update(delta);
 
         GL11.glClearColor(0.01f,0.01f,0.01f,1);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_STENCIL_BUFFER_BIT); // should probably clear the stencil
@@ -138,9 +141,10 @@ public class SceneTestUI2 implements Scene {
         textField.draggableY = true;
 
         renderer2D.begin();
-        //container.render(renderer2D);
         //scrollbar.render(renderer2D);
-        textField.render(renderer2D);
+        container.render(renderer2D);
+        //scrollbar.render(renderer2D);
+        //textField.render(renderer2D);
         renderer2D.end();
     }
 

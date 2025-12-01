@@ -31,39 +31,39 @@ public abstract class Widget {
     public          Anchor    anchor          = null; // anchors one of the margins of the widget to the window
     public          float     anchorX         = 0; // the anchor x distance to be maintained at all times
     public          float     anchorY         = 0; // the anchor y distance to be maintained at all times
-    public          boolean   draggableX = false;
-    public          boolean   draggableY = false;
+    public          boolean   draggableX      = false;
+    public          boolean   draggableY      = false;
 
     /*** input - state management ***/
-    private final Region        region                           = new Region(); // TODO: change to private.
-    private final Region        regionMask                       = new Region(); // TODO: change tp private.
-    private final Array<Region> ancestorsRegions                 = new Array<>(false, 1);
-    private       boolean       mouseRegisterLeftButtonActionsInside = false;
+    private final Region        region                                = new Region(); // TODO: change to private.
+    private final Region        regionMask                            = new Region(); // TODO: change tp private.
+    private final Array<Region> ancestorsRegions                      = new Array<>(false, 1);
+    private       boolean       mouseRegisterLeftButtonActionsInside  = false;
     private       boolean       mouseRegisterRightButtonActionsInside = false;
     private       boolean       mouseRegisterMiddleButtonActionInside = false;
-    private       boolean       mouseRegisterLeftClicksOutside   = false;
-    private       boolean       mouseRegisterRightClicksOutside  = false;
-    private       boolean       mouseRegisterMiddleClicksOutside = false;
-    private       boolean       mouseInside                      = false;
-    private       boolean       focused                          = false;
+    private       boolean       mouseRegisterLeftClicksOutside        = false;
+    private       boolean       mouseRegisterRightClicksOutside       = false;
+    private       boolean       mouseRegisterMiddleClicksOutside      = false;
+    private       boolean       mouseInside                           = false;
+    private       boolean       focused                               = false;
 
     /*** input - event handlers ***/
-    public Event.EventListenerMouseUp          onMouseUp                 = null;
-    public Event.EventListenerMouseDown        onMouseDown               = null;
-    public Event.EventListenerMouseEnter       onMouseEnter              = null;
-    public Event.EventListenerMouseLeave       onMouseLeave              = null;
-    public Event.EventListenerMouseLeftClick   onMouseLeftClick          = null;
-    public Event.EventListenerMouseRightClick  onMouseRightClick         = null;
-    public Event.EventListenerMouseMiddleClick onMouseMiddleClick        = null;
+    public Event.EventListenerMouseUp                 onMouseUp                 = null;
+    public Event.EventListenerMouseDown               onMouseDown               = null;
+    public Event.EventListenerMouseEnter              onMouseEnter              = null;
+    public Event.EventListenerMouseLeave              onMouseLeave              = null;
+    public Event.EventListenerMouseLeftClick          onMouseLeftClick          = null;
+    public Event.EventListenerMouseRightClick         onMouseRightClick         = null;
+    public Event.EventListenerMouseMiddleClick        onMouseMiddleClick        = null;
     public Event.EventListenerMouseLeftClickOutside   onMouseLeftClickOutside   = null;
     public Event.EventListenerMouseRightClickOutside  onMouseRightClickOutside  = null;
     public Event.EventListenerMouseMiddleClickOutside onMouseMiddleClickOutside = null;
-    public Event.EventListenerMouseScroll      onMouseScroll             = null;
-    public Event.EventListenerMouseLeftDragged onMouseLeftDragged             = null;
-    public Event.EventListenerResize           onResize                  = null;
-    public Event.EventListenerChildAdded       onChildAdded              = null;
-    public Event.EventListenerChildRemoved     onChildRemoved            = null;
-    public Event.EventListenerCodepointTyped   onCodepointTyped          = null;
+    public Event.EventListenerMouseScroll             onMouseScroll             = null;
+    public Event.EventListenerMouseLeftDragged        onMouseLeftDragged        = null;
+    public Event.EventListenerResize                  onResize                  = null;
+    public Event.EventListenerChildAdded              onChildAdded              = null;
+    public Event.EventListenerChildRemoved            onChildRemoved            = null;
+    public Event.EventListenerCodepointTyped          onCodepointTyped          = null;
 
     /*** default methods for event handling ***/
     protected void onMouseUpDefault     (Event.EventMouseUp e)      {}
@@ -251,9 +251,9 @@ public abstract class Widget {
         boolean mouseUpRight = Input.mouse.isButtonJustReleased(Mouse.Button.RIGHT);
         boolean mouseUpMiddle = Input.mouse.isButtonJustReleased(Mouse.Button.MIDDLE);
         boolean mouseUp = mouseInside && (mouseUpLeft || mouseUpRight || mouseUpMiddle);
-        boolean mouseDownLeft = Input.mouse.isButtonJustPressed(Mouse.Button.LEFT);
-        boolean mouseDownRight = Input.mouse.isButtonJustPressed(Mouse.Button.RIGHT);
-        boolean mouseDownMiddle = Input.mouse.isButtonJustPressed(Mouse.Button.MIDDLE);
+        boolean mouseDownLeft = Input.mouse.isButtonPressed(Mouse.Button.LEFT);
+        boolean mouseDownRight = Input.mouse.isButtonPressed(Mouse.Button.RIGHT);
+        boolean mouseDownMiddle = Input.mouse.isButtonPressed(Mouse.Button.MIDDLE);
         boolean mouseDown = mouseInside && (mouseDownLeft || mouseDownRight || mouseDownMiddle);
 
         /* key presses */
