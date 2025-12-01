@@ -93,7 +93,7 @@ public abstract class Event {
 
     }
 
-    public static class EventMouseLeftDragged extends Event {
+    public static class EventMouseDrag extends Event {
 
         public float mouseLocalXPrev;
         public float mouseLocalYPrev;
@@ -101,6 +101,20 @@ public abstract class Event {
         public float mouseLocalY;
         public float mouseLocalDeltaX;
         public float mouseLocalDeltaY;
+
+    }
+
+    public static class EventMouseDragStart extends Event {
+
+        public float mouseLocalX;
+        public float mouseLocalY;
+
+    }
+
+    public static class EventMouseDragEnd extends Event {
+
+        public float mouseLocalX;
+        public float mouseLocalY;
 
     }
 
@@ -204,8 +218,18 @@ public abstract class Event {
     }
 
     @FunctionalInterface
-    public interface EventListenerMouseLeftDragged {
-        boolean handle(EventMouseLeftDragged e);
+    public interface EventListenerMouseDrag {
+        boolean handle(EventMouseDrag e);
+    }
+
+    @FunctionalInterface
+    public interface EventListenerMouseDragStart {
+        boolean handle(EventMouseDragStart e);
+    }
+
+    @FunctionalInterface
+    public interface EventListenerMouseDragEnd {
+        boolean handle(EventMouseDragEnd e);
     }
 
     @FunctionalInterface

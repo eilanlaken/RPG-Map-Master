@@ -136,8 +136,8 @@ public class SceneTestUI2 implements Scene {
         GL11.glClearColor(0.01f,0.01f,0.01f,1);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_STENCIL_BUFFER_BIT); // should probably clear the stencil
 
-//        textField.draggableY = true;
-//        textField.draggableX = true;
+        textField.draggableY = true;
+        textField.draggableX = true;
 
         renderer2D.begin();
         //scrollbar.render(renderer2D);

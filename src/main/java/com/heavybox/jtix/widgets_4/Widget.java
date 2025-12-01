@@ -46,6 +46,7 @@ public abstract class Widget {
     private       boolean       mouseRegisterMiddleClicksOutside      = false;
     private       boolean       mouseInside                           = false;
     private       boolean       dragging                              = false;
+    private       boolean       draggingPrev                          = false;
     private       boolean       focused                               = false;
 
     /*** input - event handlers ***/
@@ -60,7 +61,9 @@ public abstract class Widget {
     public Event.EventListenerMouseRightClickOutside  onMouseRightClickOutside  = null;
     public Event.EventListenerMouseMiddleClickOutside onMouseMiddleClickOutside = null;
     public Event.EventListenerMouseScroll             onMouseScroll             = null;
-    public Event.EventListenerMouseLeftDragged        onMouseLeftDragged        = null;
+    public Event.EventListenerMouseDrag               onMouseDrag               = null;
+    public Event.EventListenerMouseDragStart          onMouseDragStart          = null;
+    public Event.EventListenerMouseDragEnd            onMouseDragEnd            = null;
     public Event.EventListenerResize                  onResize                  = null;
     public Event.EventListenerChildAdded              onChildAdded              = null;
     public Event.EventListenerChildRemoved            onChildRemoved            = null;
@@ -78,10 +81,9 @@ public abstract class Widget {
     protected void onMouseRightClickOutsideDefault(Event.EventMouseRightClickOutside e)   {}
     protected void onMouseMiddleClickOutsideDefault(Event.EventMouseMiddleClickOutside e)   {}
     protected void onMouseScrollDefault (Event.EventMouseScroll e)  {}
-    protected void onMouseLeftDraggedDefault (Event.EventMouseLeftDragged e)  {
-        if (draggableX) transform.x += e.mouseLocalDeltaX;
-        if (draggableY) transform.y += e.mouseLocalDeltaY;
-    }
+    protected void onMouseDragDefault(Event.EventMouseDrag e)  {}
+    protected void onMouseDragStartDefault(Event.EventMouseDragStart e)  {}
+    protected void onMouseDragEndDefault(Event.EventMouseDragEnd e)  {}
     protected void onResizeDefault      (Event.EventResize e)       {}
     protected void onChildAddedDefault  (Event.EventChildAdded e)   {}
     protected void onChildRemovedDefault(Event.EventChildRemoved e) {}
@@ -230,6 +232,7 @@ public abstract class Widget {
         boolean mouseJustLeft = (!mouseInside && mouseInsidePrev) || (Input.mouse.cursorJustLeftWindow() && mouseInsidePrev);
         boolean draggable = draggableX || draggableY;
         boolean leftMouseDrag = mouseInside && Input.mouse.moved() && Input.mouse.isButtonPressed(Mouse.Button.LEFT);
+        draggingPrev = dragging;
         if (mouseInside && Input.mouse.isButtonPressed(Mouse.Button.LEFT)) {
             dragging = true;
         }
@@ -465,10 +468,9 @@ public abstract class Widget {
         }
 
         /* mouse dragged */
-        //if (draggable && leftMouseDrag && mouseRegisterLeftButtonActionsInside) {
         if (draggable && dragging && mouseRegisterLeftButtonActionsInside) {
             eventFired = true;
-            Event.EventMouseLeftDragged e = new Event.EventMouseLeftDragged();
+            Event.EventMouseDrag e = new Event.EventMouseDrag();
             Vector2 localPrev = new Vector2(pointerXPrev, pointerYPrev);
             Vector2 local = new Vector2(pointerX, pointerY);
             local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
@@ -479,11 +481,40 @@ public abstract class Widget {
             e.mouseLocalY = local.y;
             e.mouseLocalDeltaX = local.x - localPrev.x;
             e.mouseLocalDeltaY = local.y - localPrev.y;
-            if (onMouseLeftDragged != null) {
-                boolean handled = onMouseLeftDragged.handle(e);
-                if (!handled) onMouseLeftDraggedDefault(e);
+            if (draggableX) transform.x += e.mouseLocalDeltaX;
+            if (draggableY) transform.y += e.mouseLocalDeltaY;
+            if (onMouseDrag != null) {
+                boolean handled = onMouseDrag.handle(e);
+                if (!handled) onMouseDragDefault(e);
             } else {
-                onMouseLeftDraggedDefault(e);
+                onMouseDragDefault(e);
+            }
+        }
+
+        // mouse drag start
+        if (draggable && dragging && !draggingPrev) {
+            eventFired = true;
+            Event.EventMouseDragStart e = new Event.EventMouseDragStart();
+            Vector2 local = new Vector2(pointerX, pointerY);
+            local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
+            if (onMouseDragStart != null) {
+                boolean handled = onMouseDragStart.handle(e);
+                if (!handled) onMouseDragStartDefault(e);
+            } else {
+                onMouseDragStartDefault(e);
+            }
+        }
+
+        if (draggable && !dragging && draggingPrev) {
+            eventFired = true;
+            Event.EventMouseDragEnd e = new Event.EventMouseDragEnd();
+            Vector2 local = new Vector2(pointerX, pointerY);
+            local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
+            if (onMouseDragEnd != null) {
+                boolean handled = onMouseDragEnd.handle(e);
+                if (!handled) onMouseDragEndDefault(e);
+            } else {
+                onMouseDragEndDefault(e);
             }
         }
 
