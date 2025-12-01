@@ -67,7 +67,8 @@ public abstract class Widget {
     public Event.EventListenerResize                  onResize                  = null;
     public Event.EventListenerChildAdded              onChildAdded              = null;
     public Event.EventListenerChildRemoved            onChildRemoved            = null;
-    public Event.EventListenerCodepointTyped          onCodepointTyped          = null;
+    public Event.EventListenerCodepointsTyped         onCodepointsTyped         = null;
+    public Event.EventListenerKeysJustPressed         onKeysJustPressed         = null;
 
     /*** default methods for event handling ***/
     protected void onMouseUpDefault     (Event.EventMouseUp e)      {}
@@ -87,7 +88,8 @@ public abstract class Widget {
     protected void onResizeDefault      (Event.EventResize e)       {}
     protected void onChildAddedDefault  (Event.EventChildAdded e)   {}
     protected void onChildRemovedDefault(Event.EventChildRemoved e) {}
-    protected void onCodepointTypedDefault(Event.EventCodepointTyped e) {}
+    protected void onCodepointsTypedDefault(Event.EventCodepointsTyped e) {}
+    protected void onKeysJustPressedDefault(Event.EventKeysJustPressed e) {}
 
     /*** Add and remove child methods ***/
     public final void addChild(Widget widget) {
@@ -210,7 +212,6 @@ public abstract class Widget {
     }
 
     // TODO: handle input should be recursive?
-    // TODO: handle click outside
     // TODO: event propagation and bubbling
     protected boolean handleInput() {
         configureInputRegion(region);
@@ -268,6 +269,7 @@ public abstract class Widget {
 
         /* key presses */
         boolean codepointPressed = !Input.keyboard.getCodepointPressed().isEmpty();
+        boolean keysJustPressed = !Input.keyboard.getKeysJustDown().isEmpty();
 
         /* dimensions change */
         float deltaWidth  = width - prevWidth;
@@ -537,13 +539,26 @@ public abstract class Widget {
         /* codepoint presses */
         if (focused && codepointPressed) {
             eventFired = true;
-            Event.EventCodepointTyped e = new Event.EventCodepointTyped();
+            Event.EventCodepointsTyped e = new Event.EventCodepointsTyped();
             e.codePoints = Input.keyboard.getCodepointPressed();
-            if (onCodepointTyped != null) {
-                boolean handled = onCodepointTyped.handle(e);
-                if (!handled) onCodepointTypedDefault(e);
+            if (onCodepointsTyped != null) {
+                boolean handled = onCodepointsTyped.handle(e);
+                if (!handled) onCodepointsTypedDefault(e);
             } else {
-                onCodepointTypedDefault(e);
+                onCodepointsTypedDefault(e);
+            }
+        }
+
+        /* keys pressed */
+        if (focused && keysJustPressed) {
+            eventFired = true;
+            Event.EventKeysJustPressed e = new Event.EventKeysJustPressed();
+            e.keys.addAll(Input.keyboard.getKeysDown());
+            if (onKeysJustPressed != null) {
+                boolean handled = onKeysJustPressed.handle(e);
+                if (!handled) onKeysJustPressedDefault(e);
+            } else {
+                onKeysJustPressedDefault(e);
             }
         }
 
@@ -602,6 +617,10 @@ public abstract class Widget {
         transformScreen.deg  = transform.deg + refDeg;
         transformScreen.sclX = transform.sclX * refSclX;
         transformScreen.sclY = transform.sclY * refSclY;
+    }
+
+    public void setFocused(boolean focused) {
+        this.focused = focused;
     }
 
     /***  masking - relevant to containers ***/

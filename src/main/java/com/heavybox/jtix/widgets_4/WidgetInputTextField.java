@@ -4,7 +4,10 @@ import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Font;
 import com.heavybox.jtix.graphics.Renderer2D;
+import com.heavybox.jtix.input.Keyboard;
 
+// TODO: handle key strokes: <-. -> , backspace, etc.
+// TODO: handle style and global theme
 public class WidgetInputTextField extends Widget implements WidgetInput<String> {
 
     /*** state ***/
@@ -47,6 +50,13 @@ public class WidgetInputTextField extends Widget implements WidgetInput<String> 
     }
 
     @Override
+    protected void onKeysJustPressedDefault(Event.EventKeysJustPressed e) {
+        if (e.keys.contains(Keyboard.Key.ENTER, true)) {
+            setFocused(false);
+        }
+    }
+
+    @Override
     protected void onResizeDefault(Event.EventResize e) {
         // set font size
         // set caret dimensions
@@ -54,7 +64,7 @@ public class WidgetInputTextField extends Widget implements WidgetInput<String> 
 
     // TODO: add characters to the caret position
     @Override
-    protected void onCodepointTypedDefault(Event.EventCodepointTyped e) {
+    protected void onCodepointsTypedDefault(Event.EventCodepointsTyped e) {
         String str = e.codePoints.toRawString();
         text.text += str;
         caretIndex += str.length();

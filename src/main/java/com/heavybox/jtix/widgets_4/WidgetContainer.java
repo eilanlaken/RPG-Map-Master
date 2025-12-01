@@ -72,8 +72,6 @@ public class WidgetContainer extends Widget {
     }
 
     /*** default event handlers */
-
-    // TODO: make it scroll
     @Override
     protected void onMouseScrollDefault(Event.EventMouseScroll e) {
         if (!scrollbar.active) return;
@@ -96,8 +94,8 @@ public class WidgetContainer extends Widget {
             scrollOffsetY = -scrollbar.getValue() * diffHeight; // TODO
         }
 
-        backgroundWidth = Math.max(0, getWidth() - boxBorderSize * 2); // TODO: not here
-        backgroundHeight = Math.max(0, getHeight() - boxBorderSize * 2); // TODO: not here.
+        backgroundWidth = Math.max(0, getWidth() - boxBorderSize * 2);
+        backgroundHeight = Math.max(0, getHeight() - boxBorderSize * 2);
 
         fixedUpdateContainer(delta);
     }
@@ -118,7 +116,6 @@ public class WidgetContainer extends Widget {
     }
 
     // TODO: consider global scale
-    // TODO: consider scroll
     protected final void setChildrenOffsetsStack(Array<Widget> widgets) {
         for (Widget child : widgets) {
             child.offsetX = boxPaddingLeft - (boxPaddingLeft + boxPaddingRight) * 0.5f;

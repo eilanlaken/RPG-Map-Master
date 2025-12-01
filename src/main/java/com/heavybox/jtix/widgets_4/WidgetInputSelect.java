@@ -3,6 +3,7 @@ package com.heavybox.jtix.widgets_4;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.graphics.Renderer2D;
 
+// for now, text select is more than enough.
 public class WidgetInputSelect extends Widget implements WidgetInput<String> {
 
     private String selected;

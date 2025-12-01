@@ -26,7 +26,6 @@ public class SceneTestUI2 implements Scene {
     WidgetImage image = new WidgetImage("assets/engine-tests/simpleImage.png");
 
     WidgetContainer container = new WidgetContainer();
-    WidgetInputScrollbar_old scrollbar_old = new WidgetInputScrollbar_old();
 
     WidgetInputTextField textField = new WidgetInputTextField();
 
@@ -131,19 +130,18 @@ public class SceneTestUI2 implements Scene {
 //            rect3.active = false;
 //        }
 
-        textField.update(delta);
+        //textField.update(delta);
+        container.update(delta);
 
         GL11.glClearColor(0.01f,0.01f,0.01f,1);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_STENCIL_BUFFER_BIT); // should probably clear the stencil
 
-        textField.draggableY = true;
-        textField.draggableX = true;
 
         renderer2D.begin();
         //scrollbar.render(renderer2D);
-        //container.render(renderer2D);
+        container.render(renderer2D);
         //scrollbar.render(renderer2D);
-        textField.render(renderer2D);
+        //textField.render(renderer2D);
         renderer2D.end();
     }
 

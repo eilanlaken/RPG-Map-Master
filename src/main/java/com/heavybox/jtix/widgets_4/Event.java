@@ -1,6 +1,8 @@
 package com.heavybox.jtix.widgets_4;
 
+import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.collections.ArrayChar;
+import com.heavybox.jtix.input.Keyboard;
 
 // TODO: continue with keyboard event listeners, drag and drop events etc.
 public abstract class Event {
@@ -155,9 +157,15 @@ public abstract class Event {
 //
 //    }
 
-    public static class EventCodepointTyped extends Event {
+    public static class EventCodepointsTyped extends Event {
 
         public ArrayChar codePoints;
+
+    }
+
+    public static class EventKeysJustPressed extends Event {
+
+        public Array<Keyboard.Key> keys = new Array<>(true, 1);
 
     }
 
@@ -248,8 +256,13 @@ public abstract class Event {
     }
 
     @FunctionalInterface
-    public interface EventListenerCodepointTyped {
-        boolean handle(EventCodepointTyped e);
+    public interface EventListenerCodepointsTyped {
+        boolean handle(EventCodepointsTyped e);
+    }
+
+    @FunctionalInterface
+    public interface EventListenerKeysJustPressed {
+        boolean handle(EventKeysJustPressed e);
     }
 
 }
