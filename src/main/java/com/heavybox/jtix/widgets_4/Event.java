@@ -93,6 +93,17 @@ public abstract class Event {
 
     }
 
+    public static class EventMouseLeftDragged extends Event {
+
+        public float mouseLocalXPrev;
+        public float mouseLocalYPrev;
+        public float mouseLocalX;
+        public float mouseLocalY;
+        public float mouseLocalDeltaX;
+        public float mouseLocalDeltaY;
+
+    }
+
     public static class EventResize extends Event {
 
         public float prevWidth;
@@ -190,6 +201,11 @@ public abstract class Event {
     @FunctionalInterface
     public interface EventListenerMouseScroll {
         boolean handle(EventMouseScroll e);
+    }
+
+    @FunctionalInterface
+    public interface EventListenerMouseLeftDragged {
+        boolean handle(EventMouseLeftDragged e);
     }
 
     @FunctionalInterface

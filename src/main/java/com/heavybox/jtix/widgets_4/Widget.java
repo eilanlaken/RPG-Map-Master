@@ -4,7 +4,6 @@ import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.graphics.Graphics;
 import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.input.Input;
-import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Vector2;
@@ -32,14 +31,16 @@ public abstract class Widget {
     public          Anchor    anchor          = null; // anchors one of the margins of the widget to the window
     public          float     anchorX         = 0; // the anchor x distance to be maintained at all times
     public          float     anchorY         = 0; // the anchor y distance to be maintained at all times
+    public          boolean   draggableX = false;
+    public          boolean   draggableY = false;
 
     /*** input - state management ***/
     private final Region        region                           = new Region(); // TODO: change to private.
     private final Region        regionMask                       = new Region(); // TODO: change tp private.
     private final Array<Region> ancestorsRegions                 = new Array<>(false, 1);
-    private       boolean       mouseRegisterLeftClicks          = false;
-    private       boolean       mouseRegisterRightClicks         = false;
-    private       boolean       mouseRegisterMiddleClicks        = false;
+    private       boolean       mouseRegisterLeftButtonActionsInside = false;
+    private       boolean       mouseRegisterRightButtonActionsInside = false;
+    private       boolean       mouseRegisterMiddleButtonActionInside = false;
     private       boolean       mouseRegisterLeftClicksOutside   = false;
     private       boolean       mouseRegisterRightClicksOutside  = false;
     private       boolean       mouseRegisterMiddleClicksOutside = false;
@@ -58,6 +59,7 @@ public abstract class Widget {
     public Event.EventListenerMouseRightClickOutside  onMouseRightClickOutside  = null;
     public Event.EventListenerMouseMiddleClickOutside onMouseMiddleClickOutside = null;
     public Event.EventListenerMouseScroll      onMouseScroll             = null;
+    public Event.EventListenerMouseLeftDragged onMouseLeftDragged             = null;
     public Event.EventListenerResize           onResize                  = null;
     public Event.EventListenerChildAdded       onChildAdded              = null;
     public Event.EventListenerChildRemoved     onChildRemoved            = null;
@@ -75,6 +77,10 @@ public abstract class Widget {
     protected void onMouseRightClickOutsideDefault(Event.EventMouseRightClickOutside e)   {}
     protected void onMouseMiddleClickOutsideDefault(Event.EventMouseMiddleClickOutside e)   {}
     protected void onMouseScrollDefault (Event.EventMouseScroll e)  {}
+    protected void onMouseLeftDraggedDefault (Event.EventMouseLeftDragged e)  {
+        if (draggableX) transform.x += e.mouseLocalDeltaX;
+        if (draggableY) transform.y += e.mouseLocalDeltaY;
+    }
     protected void onResizeDefault      (Event.EventResize e)       {}
     protected void onChildAddedDefault  (Event.EventChildAdded e)   {}
     protected void onChildRemovedDefault(Event.EventChildRemoved e) {}
@@ -163,9 +169,26 @@ public abstract class Widget {
 
     protected void fixedUpdate(float delta) {}
 
-    // TODO: the heart of all the ui library is here.
     public final void update(float delta) {
+        /* update internal state: set active children, global transform etc */
+        updateInternalState(); // TODO: it is probably ok to remove this if you call it once on init() or something, then every time the state is changed.
+        /* handle input. It is possible that an event changed the widget's internal state by adding children, changing size etc.
+        So if an event was fired, update the internal state again.
+         */
+        boolean eventFired = handleInput();
+        if (eventFired) updateInternalState();
 
+        /* update all children */
+        for (Widget widget : childrenActive) {
+            widget.update(delta);
+        }
+
+        /* injected fixed update */
+        // probably do the lag stuff in ECS.
+        fixedUpdate(delta);
+    }
+
+    private void updateInternalState() {
         childrenActive.clear();
         for (Widget child : children) {
             if (child.active) childrenActive.add(child);
@@ -174,20 +197,6 @@ public abstract class Widget {
         for (Widget child : childrenActive) {
             if (child.anchor == null) childrenLayout.add(child);
         }
-
-        calculateMetrics();
-        boolean eventFired = handleInput();
-        if (eventFired) calculateMetrics();
-
-        for (Widget widget : childrenActive) {
-            widget.update(delta);
-        }
-
-        // probably do the lag stuff in ECS.
-        fixedUpdate(delta);
-    }
-
-    private void calculateMetrics() {
         setChildrenOffsets(childrenLayout);
         setOffsetsAnchor();
         prevWidth = width;
@@ -218,14 +227,16 @@ public abstract class Widget {
         mouseInside = containsPoint(pointerX, pointerY);
         boolean mouseJustEntered = (!mouseInsidePrev && mouseInside) || (Input.mouse.cursorJustEnteredWindow() && mouseInside);
         boolean mouseJustLeft = (!mouseInside && mouseInsidePrev) || (Input.mouse.cursorJustLeftWindow() && mouseInsidePrev);
+        boolean draggable = draggableX || draggableY;
+        boolean leftMouseDrag = mouseInside && Input.mouse.moved() && Input.mouse.isButtonPressed(Mouse.Button.LEFT);
         if (Input.mouse.isButtonJustPressed(Mouse.Button.LEFT)) {
-            mouseRegisterLeftClicks = mouseInside;
+            mouseRegisterLeftButtonActionsInside = mouseInside;
         }
         if (Input.mouse.isButtonJustPressed(Mouse.Button.RIGHT)) {
-            mouseRegisterRightClicks = mouseInside;
+            mouseRegisterRightButtonActionsInside = mouseInside;
         }
         if (Input.mouse.isButtonJustPressed(Mouse.Button.MIDDLE)) {
-            mouseRegisterMiddleClicks = mouseInside;
+            mouseRegisterMiddleButtonActionInside = mouseInside;
         }
         if (Input.mouse.isButtonJustPressed(Mouse.Button.LEFT)) {
             mouseRegisterLeftClicksOutside = !mouseInside;
@@ -292,7 +303,7 @@ public abstract class Widget {
         }
 
         /* mouse click - left */
-        if (mouseRegisterLeftClicks && Input.mouse.isButtonClicked(Mouse.Button.LEFT) && mouseInside) {
+        if (mouseRegisterLeftButtonActionsInside && Input.mouse.isButtonClicked(Mouse.Button.LEFT) && mouseInside) {
             eventFired = true;
             focused = true;
             Event.EventMouseLeftClick e = new Event.EventMouseLeftClick();
@@ -309,7 +320,7 @@ public abstract class Widget {
         }
 
         /* mouse click - right */
-        if (mouseRegisterRightClicks && Input.mouse.isButtonClicked(Mouse.Button.RIGHT) && mouseInside) {
+        if (mouseRegisterRightButtonActionsInside && Input.mouse.isButtonClicked(Mouse.Button.RIGHT) && mouseInside) {
             eventFired = true;
             Event.EventMouseRightClick e = new Event.EventMouseRightClick();
             Vector2 local = new Vector2(pointerX, pointerY);
@@ -325,7 +336,7 @@ public abstract class Widget {
         }
 
         /* mouse click - middle */
-        if (mouseRegisterMiddleClicks && Input.mouse.isButtonClicked(Mouse.Button.MIDDLE) && mouseInside) {
+        if (mouseRegisterMiddleButtonActionInside && Input.mouse.isButtonClicked(Mouse.Button.MIDDLE) && mouseInside) {
             eventFired = true;
             Event.EventMouseMiddleClick e = new Event.EventMouseMiddleClick();
             Vector2 local = new Vector2(pointerX, pointerY);
@@ -446,6 +457,28 @@ public abstract class Widget {
             }
         }
 
+        /* mouse dragged */
+        if (draggable && leftMouseDrag && mouseRegisterLeftButtonActionsInside) {
+            eventFired = true;
+            Event.EventMouseLeftDragged e = new Event.EventMouseLeftDragged();
+            Vector2 localPrev = new Vector2(pointerXPrev, pointerYPrev);
+            Vector2 local = new Vector2(pointerX, pointerY);
+            local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
+            localPrev.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
+            e.mouseLocalXPrev = localPrev.x;
+            e.mouseLocalYPrev = localPrev.y;
+            e.mouseLocalX = local.x;
+            e.mouseLocalY = local.y;
+            e.mouseLocalDeltaX = local.x - localPrev.x;
+            e.mouseLocalDeltaY = local.y - localPrev.y;
+            if (onMouseLeftDragged != null) {
+                boolean handled = onMouseLeftDragged.handle(e);
+                if (!handled) onMouseLeftDraggedDefault(e);
+            } else {
+                onMouseLeftDraggedDefault(e);
+            }
+        }
+
         /* resize */
         if (resized) {
             eventFired = true;
@@ -495,6 +528,7 @@ public abstract class Widget {
         configureInputRegion(maskedRegion);
     }
 
+    // TODO: what if the parent is: not active? hidden?
     private boolean containsPoint(float pointerX, float pointerY) {
         if (!region.containsPoint(pointerX, pointerY)) return false;
 

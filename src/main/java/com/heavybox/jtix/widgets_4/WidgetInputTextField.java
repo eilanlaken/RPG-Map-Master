@@ -38,6 +38,7 @@ public class WidgetInputTextField extends Widget implements WidgetInput<String> 
 
     @Override
     protected void onMouseLeftClickDefault(Event.EventMouseLeftClick e) {
+        elapsedTime = 0;
         if (!isFocused()) {
             caretIndex = value.length();
         } else { // if already focused, set caret position.

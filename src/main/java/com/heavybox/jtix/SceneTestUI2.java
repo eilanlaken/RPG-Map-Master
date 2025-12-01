@@ -5,9 +5,6 @@ import com.heavybox.jtix.graphics.Camera;
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Graphics;
 import com.heavybox.jtix.graphics.Renderer2D;
-import com.heavybox.jtix.input.Input;
-import com.heavybox.jtix.input.Keyboard;
-import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.widgets_4.*;
 import org.lwjgl.opengl.GL11;
 
@@ -89,56 +86,56 @@ public class SceneTestUI2 implements Scene {
     public void update() {
         float delta = Graphics.getDeltaTime();
 
-        //scrollbar.update(1);
-        checkbox.update(1);
-        if (Input.keyboard.isKeyPressed(Keyboard.Key.W)) {
-            rect2.transform.y += 1;
-        }
-        if (Input.keyboard.isKeyPressed(Keyboard.Key.S)) {
-            rect2.transform.y -= 1;
-        }
-        if (Input.keyboard.isKeyPressed(Keyboard.Key.A)) {
-            rect2.transform.x += 1;
-        }
-        if (Input.keyboard.isKeyPressed(Keyboard.Key.D)) {
-            rect2.transform.x -= 1;
-        }
-
-        if (Input.keyboard.isKeyPressed(Keyboard.Key.UP)) {
-            rect3.transform.y += 1;
-        }
-        if (Input.keyboard.isKeyPressed(Keyboard.Key.DOWN)) {
-            rect3.transform.y -= 1;
-        }
-        if (Input.keyboard.isKeyPressed(Keyboard.Key.RIGHT)) {
-            rect3.transform.x += 1;
-        }
-        if (Input.keyboard.isKeyPressed(Keyboard.Key.LEFT)) {
-            rect3.transform.x -= 1;
-        }
-
-        if (Input.keyboard.isKeyJustReleased(Keyboard.Key.G)) {
-            container.layoutHeightSizing = WidgetContainer.Sizing.STATIC;
-            container.layoutHeight = 20;
-        }
-
-        if (Input.mouse.isButtonJustPressed(Mouse.Button.RIGHT)) {
-            //container.boxPaddingRight = 60;
-        }
-
-        //widgetText.update(1);
-        container.update(1);
-        //rect1.update(1);
-        if (Input.keyboard.isKeyJustReleased(Keyboard.Key.SPACE)) {
-            rect3.active = false;
-        }
+//        //scrollbar.update(1);
+//        checkbox.update(1);
+//        if (Input.keyboard.isKeyPressed(Keyboard.Key.W)) {
+//            rect2.transform.y += 1;
+//        }
+//        if (Input.keyboard.isKeyPressed(Keyboard.Key.S)) {
+//            rect2.transform.y -= 1;
+//        }
+//        if (Input.keyboard.isKeyPressed(Keyboard.Key.A)) {
+//            rect2.transform.x += 1;
+//        }
+//        if (Input.keyboard.isKeyPressed(Keyboard.Key.D)) {
+//            rect2.transform.x -= 1;
+//        }
+//
+//        if (Input.keyboard.isKeyPressed(Keyboard.Key.UP)) {
+//            rect3.transform.y += 1;
+//        }
+//        if (Input.keyboard.isKeyPressed(Keyboard.Key.DOWN)) {
+//            rect3.transform.y -= 1;
+//        }
+//        if (Input.keyboard.isKeyPressed(Keyboard.Key.RIGHT)) {
+//            rect3.transform.x += 1;
+//        }
+//        if (Input.keyboard.isKeyPressed(Keyboard.Key.LEFT)) {
+//            rect3.transform.x -= 1;
+//        }
+//
+//        if (Input.keyboard.isKeyJustReleased(Keyboard.Key.G)) {
+//            container.layoutHeightSizing = WidgetContainer.Sizing.STATIC;
+//            container.layoutHeight = 20;
+//        }
+//
+//        if (Input.mouse.isButtonJustPressed(Mouse.Button.RIGHT)) {
+//            //container.boxPaddingRight = 60;
+//        }
+//
+//        //widgetText.update(1);
+//        container.update(1);
+//        //rect1.update(1);
+//        if (Input.keyboard.isKeyJustReleased(Keyboard.Key.SPACE)) {
+//            rect3.active = false;
+//        }
 
         textField.update(delta);
 
         GL11.glClearColor(0.01f,0.01f,0.01f,1);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_STENCIL_BUFFER_BIT); // should probably clear the stencil
 
-
+        textField.draggableY = true;
 
         renderer2D.begin();
         //container.render(renderer2D);
