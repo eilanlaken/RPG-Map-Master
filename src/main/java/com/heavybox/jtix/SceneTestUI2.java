@@ -34,8 +34,6 @@ public class SceneTestUI2 implements Scene {
 
     @Override
     public void setup() {
-
-
         widgetText2.transform.x = 200;
         widgetText2.transform.y = 200;
 
@@ -127,24 +125,25 @@ public class SceneTestUI2 implements Scene {
 //        }
 //
 //        //widgetText.update(1);
-        container.update(delta);
+        //container.update(delta);
 //        //rect1.update(1);
 //        if (Input.keyboard.isKeyJustReleased(Keyboard.Key.SPACE)) {
 //            rect3.active = false;
 //        }
 
-        //textField.update(delta);
+        textField.update(delta);
 
         GL11.glClearColor(0.01f,0.01f,0.01f,1);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_STENCIL_BUFFER_BIT); // should probably clear the stencil
 
-        textField.draggableY = true;
+//        textField.draggableY = true;
+//        textField.draggableX = true;
 
         renderer2D.begin();
         //scrollbar.render(renderer2D);
-        container.render(renderer2D);
+        //container.render(renderer2D);
         //scrollbar.render(renderer2D);
-        //textField.render(renderer2D);
+        textField.render(renderer2D);
         renderer2D.end();
     }
 

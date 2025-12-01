@@ -45,6 +45,7 @@ public abstract class Widget {
     private       boolean       mouseRegisterRightClicksOutside       = false;
     private       boolean       mouseRegisterMiddleClicksOutside      = false;
     private       boolean       mouseInside                           = false;
+    private       boolean       dragging                              = false;
     private       boolean       focused                               = false;
 
     /*** input - event handlers ***/
@@ -229,6 +230,12 @@ public abstract class Widget {
         boolean mouseJustLeft = (!mouseInside && mouseInsidePrev) || (Input.mouse.cursorJustLeftWindow() && mouseInsidePrev);
         boolean draggable = draggableX || draggableY;
         boolean leftMouseDrag = mouseInside && Input.mouse.moved() && Input.mouse.isButtonPressed(Mouse.Button.LEFT);
+        if (mouseInside && Input.mouse.isButtonPressed(Mouse.Button.LEFT)) {
+            dragging = true;
+        }
+        if (Input.mouse.isButtonReleased(Mouse.Button.LEFT)) {
+            dragging = false;
+        }
         if (Input.mouse.isButtonJustPressed(Mouse.Button.LEFT)) {
             mouseRegisterLeftButtonActionsInside = mouseInside;
         }
@@ -458,7 +465,8 @@ public abstract class Widget {
         }
 
         /* mouse dragged */
-        if (draggable && leftMouseDrag && mouseRegisterLeftButtonActionsInside) {
+        //if (draggable && leftMouseDrag && mouseRegisterLeftButtonActionsInside) {
+        if (draggable && dragging && mouseRegisterLeftButtonActionsInside) {
             eventFired = true;
             Event.EventMouseLeftDragged e = new Event.EventMouseLeftDragged();
             Vector2 localPrev = new Vector2(pointerXPrev, pointerYPrev);

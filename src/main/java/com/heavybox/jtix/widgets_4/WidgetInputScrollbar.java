@@ -21,8 +21,6 @@ public class WidgetInputScrollbar extends Widget implements WidgetInput<Float> {
 
     public WidgetInputScrollbar() {
         addChild(thumb);
-        //thumb.draggableY = true;
-        //thumb.anchor = Anchor.UPPER_CENTER;
     }
 
     @Override
@@ -33,11 +31,10 @@ public class WidgetInputScrollbar extends Widget implements WidgetInput<Float> {
         updateThumbYPosition();
     }
 
-    public final float scroll(float amount) {
+    public final void scroll(float amount) {
         value -= amount;
         value = MathUtils.clampFloat(value, 0, 1);
         updateThumbYPosition();
-        return value;
     }
 
     @Override
