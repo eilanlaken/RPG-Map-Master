@@ -27,8 +27,9 @@ public class WidgetContainer extends Widget {
     public float     layoutHeight                 = 1;
     public float     layoutHeightMin              = 0;
     public float     layoutHeightMax              = Float.POSITIVE_INFINITY;
+    public boolean   layoutScrollbar              = true;
     public Overflow  layoutOverflowX              = Overflow.HIDDEN;
-    public Overflow  layoutOverflowY              = Overflow.SCROLLBAR;
+    public Overflow  layoutOverflowY              = Overflow.HIDDEN;
     public boolean   boxBackgroundEnabled         = true;
     public Color     boxBackgroundColor           = Widgets.themeContainerBoxBackgroundColor;
     public int       boxPaddingTop                = Widgets.themeContainerBoxPaddingTop;
@@ -83,7 +84,7 @@ public class WidgetContainer extends Widget {
     // in order to add logic, just override the fixedUpdateContainer() method instead.
     @Override
     protected final void fixedUpdate(float delta) {
-        scrollbar.active = layoutOverflowY == Overflow.SCROLLBAR;
+        scrollbar.active = layoutScrollbar;
         contentWidth = getContentsWidth(childrenLayout);
         contentHeight = getContentsHeight(childrenLayout);
         float diffHeight = height - contentHeight - boxPaddingTop - boxPaddingBottom;
@@ -395,11 +396,11 @@ public class WidgetContainer extends Widget {
         ;
     }
 
+    // TODO: remove this scrollbar value
     // controls how it handles overflow children.
     public enum Overflow {
         VISIBLE  ,   // does nothing, renders while ignoring the bounds
         HIDDEN   ,    // uses glScissors to clip the content, so only the pixels that land inside the box render. The rest get trimmed.
-        SCROLLBAR, // trims the content and adds scrollbars
         ;
     }
 

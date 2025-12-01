@@ -5,9 +5,28 @@ import com.heavybox.jtix.collections.ArrayChar;
 import com.heavybox.jtix.input.Keyboard;
 
 // TODO: continue with keyboard event listeners, drag and drop events etc.
+// TODO: add global transform to all events. Example use: you want to shoot sparkles onMouseEnter, and you need to know where the widget is.
 public abstract class Event {
 
+    public final float widgetX;
+    public final float widgetY;
+    public final float widgetDeg;
+    public final float widgetSclX;
+    public final float widgetSclY;
+
+    Event(final Transform global) {
+        this.widgetX = global.x;
+        this.widgetY = global.y;
+        this.widgetDeg = global.deg;
+        this.widgetSclX = global.sclX;
+        this.widgetSclY = global.sclY;
+    }
+
     public static class EventMouseDown extends Event {
+
+        EventMouseDown(final Transform global) {
+            super(global);
+        }
 
         public boolean buttonLeft   = false;
         public boolean buttonRight  = false;
@@ -19,6 +38,10 @@ public abstract class Event {
 
     public static class EventMouseUp extends Event {
 
+        EventMouseUp(final Transform global) {
+            super(global);
+        }
+
         public boolean buttonLeft   = false;
         public boolean buttonRight  = false;
         public boolean buttonMiddle = false;
@@ -29,12 +52,20 @@ public abstract class Event {
 
     public static class EventMouseLeftClick extends Event {
 
+        EventMouseLeftClick(final Transform global) {
+            super(global);
+        }
+
         public float mouseLocalX;
         public float mouseLocalY;
 
     }
 
     public static class EventMouseRightClick extends Event {
+
+        EventMouseRightClick(final Transform global) {
+            super(global);
+        }
 
         public float mouseLocalX;
         public float mouseLocalY;
@@ -43,12 +74,20 @@ public abstract class Event {
 
     public static class EventMouseMiddleClick extends Event {
 
+        EventMouseMiddleClick(final Transform global) {
+            super(global);
+        }
+
         public float mouseLocalX;
         public float mouseLocalY;
 
     }
 
     public static class EventMouseLeftClickOutside extends Event {
+
+        EventMouseLeftClickOutside(final Transform global) {
+            super(global);
+        }
 
         public float mouseLocalX;
         public float mouseLocalY;
@@ -57,6 +96,10 @@ public abstract class Event {
 
     public static class EventMouseRightClickOutside extends Event {
 
+        EventMouseRightClickOutside(final Transform global) {
+            super(global);
+        }
+
         public float mouseLocalX;
         public float mouseLocalY;
 
@@ -64,12 +107,20 @@ public abstract class Event {
 
     public static class EventMouseMiddleClickOutside extends Event {
 
+        EventMouseMiddleClickOutside(final Transform global) {
+            super(global);
+        }
+
         public float mouseLocalX;
         public float mouseLocalY;
 
     }
 
     public static class EventMouseEnter extends Event {
+
+        EventMouseEnter(final Transform global) {
+            super(global);
+        }
 
         public float mouseLocalXPrev;
         public float mouseLocalYPrev;
@@ -80,6 +131,10 @@ public abstract class Event {
 
     public static class EventMouseLeave extends Event {
 
+        EventMouseLeave(final Transform global) {
+            super(global);
+        }
+
         public float mouseLocalXPrev;
         public float mouseLocalYPrev;
         public float mouseLocalX;
@@ -89,6 +144,10 @@ public abstract class Event {
 
     public static class EventMouseScroll extends Event {
 
+        EventMouseScroll(final Transform global) {
+            super(global);
+        }
+
         public float scrollValue;
         public float mouseLocalX;
         public float mouseLocalY;
@@ -96,6 +155,10 @@ public abstract class Event {
     }
 
     public static class EventMouseDrag extends Event {
+
+        EventMouseDrag(final Transform global) {
+            super(global);
+        }
 
         public float mouseLocalXPrev;
         public float mouseLocalYPrev;
@@ -108,6 +171,10 @@ public abstract class Event {
 
     public static class EventMouseDragStart extends Event {
 
+        EventMouseDragStart(final Transform global) {
+            super(global);
+        }
+
         public float mouseLocalX;
         public float mouseLocalY;
 
@@ -115,12 +182,20 @@ public abstract class Event {
 
     public static class EventMouseDragEnd extends Event {
 
+        EventMouseDragEnd(final Transform global) {
+            super(global);
+        }
+
         public float mouseLocalX;
         public float mouseLocalY;
 
     }
 
     public static class EventResize extends Event {
+
+        EventResize(final Transform global) {
+            super(global);
+        }
 
         public float prevWidth;
         public float prevHeight;
@@ -131,39 +206,40 @@ public abstract class Event {
 
     public static class EventChildAdded extends Event {
 
+        EventChildAdded(final Transform global) {
+            super(global);
+        }
+
         public Widget widget;
 
     }
 
     public static class EventChildRemoved extends Event {
 
+        EventChildRemoved(final Transform global) {
+            super(global);
+        }
+
         public Widget widget;
         public int    index;
 
     }
 
-    // TODO
-//    public static class EventKeyDown extends Event {
-//
-//        public Keyboard.Key key;
-//        public int          codePoint;
-//
-//    }
-//
-//    public static class EventKeyUp extends Event {
-//
-//        public Keyboard.Key key;
-//        public int          codePoint;
-//
-//    }
-
     public static class EventCodepointsTyped extends Event {
+
+        EventCodepointsTyped(final Transform global) {
+            super(global);
+        }
 
         public ArrayChar codePoints;
 
     }
 
     public static class EventKeysJustPressed extends Event {
+
+        EventKeysJustPressed(final Transform global) {
+            super(global);
+        }
 
         public Array<Keyboard.Key> keys = new Array<>(true, 1);
 

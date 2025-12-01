@@ -55,7 +55,7 @@ public class SceneTestUI2 implements Scene {
         container.boxPaddingBottom = 100;
 
         //container.anchor = Widget.Anchor.CENTER_LEFT;
-        container.layoutOverflowY = WidgetContainer.Overflow.SCROLLBAR;
+        container.layoutOverflowY = WidgetContainer.Overflow.HIDDEN;
         container.layoutOverflowX = WidgetContainer.Overflow.HIDDEN;
 
         container.onMouseMiddleClick = e -> {

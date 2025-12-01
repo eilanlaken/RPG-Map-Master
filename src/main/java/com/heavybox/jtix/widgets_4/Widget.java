@@ -100,7 +100,7 @@ public abstract class Widget {
 
         children.add(widget);
         widget.parent = this;
-        Event.EventChildAdded e = new Event.EventChildAdded();
+        Event.EventChildAdded e = new Event.EventChildAdded(transformScreen);
         e.widget = widget;
         if (onChildAdded != null) {
             boolean handled = onChildAdded.handle(e);
@@ -116,7 +116,7 @@ public abstract class Widget {
 
         int index = children.removeValue(widget,true);
         widget.parent = null;
-        Event.EventChildRemoved e = new Event.EventChildRemoved();
+        Event.EventChildRemoved e = new Event.EventChildRemoved(transformScreen);
         e.widget = widget;
         e.index = index;
         if (onChildRemoved != null) {
@@ -279,7 +279,7 @@ public abstract class Widget {
         /* mouse down */
         if (mouseDown) {
             eventFired = true;
-            Event.EventMouseDown e = new Event.EventMouseDown();
+            Event.EventMouseDown e = new Event.EventMouseDown(transformScreen);
             Vector2 local = new Vector2(pointerX, pointerY);
             local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
             e.mouseLocalX = local.x;
@@ -298,7 +298,7 @@ public abstract class Widget {
         /* mouse up */
         if (mouseUp) {
             eventFired = true;
-            Event.EventMouseUp e = new Event.EventMouseUp();
+            Event.EventMouseUp e = new Event.EventMouseUp(transformScreen);
             Vector2 local = new Vector2(pointerX, pointerY);
             local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
             e.mouseLocalX = local.x;
@@ -318,7 +318,7 @@ public abstract class Widget {
         if (mouseRegisterLeftButtonActionsInside && Input.mouse.isButtonClicked(Mouse.Button.LEFT) && mouseInside) {
             eventFired = true;
             focused = true;
-            Event.EventMouseLeftClick e = new Event.EventMouseLeftClick();
+            Event.EventMouseLeftClick e = new Event.EventMouseLeftClick(transformScreen);
             Vector2 local = new Vector2(pointerX, pointerY);
             local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
             e.mouseLocalX = local.x;
@@ -334,7 +334,7 @@ public abstract class Widget {
         /* mouse click - right */
         if (mouseRegisterRightButtonActionsInside && Input.mouse.isButtonClicked(Mouse.Button.RIGHT) && mouseInside) {
             eventFired = true;
-            Event.EventMouseRightClick e = new Event.EventMouseRightClick();
+            Event.EventMouseRightClick e = new Event.EventMouseRightClick(transformScreen);
             Vector2 local = new Vector2(pointerX, pointerY);
             local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
             e.mouseLocalX = local.x;
@@ -350,7 +350,7 @@ public abstract class Widget {
         /* mouse click - middle */
         if (mouseRegisterMiddleButtonActionInside && Input.mouse.isButtonClicked(Mouse.Button.MIDDLE) && mouseInside) {
             eventFired = true;
-            Event.EventMouseMiddleClick e = new Event.EventMouseMiddleClick();
+            Event.EventMouseMiddleClick e = new Event.EventMouseMiddleClick(transformScreen);
             Vector2 local = new Vector2(pointerX, pointerY);
             local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
             e.mouseLocalX = local.x;
@@ -367,7 +367,7 @@ public abstract class Widget {
         if (mouseRegisterLeftClicksOutside && Input.mouse.isButtonClicked(Mouse.Button.LEFT) && !mouseInside) {
             eventFired = true;
             focused = false;
-            Event.EventMouseLeftClickOutside e = new Event.EventMouseLeftClickOutside();
+            Event.EventMouseLeftClickOutside e = new Event.EventMouseLeftClickOutside(transformScreen);
             Vector2 local = new Vector2(pointerX, pointerY);
             local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
             e.mouseLocalX = local.x;
@@ -383,7 +383,7 @@ public abstract class Widget {
         /* mouse right click - outside */
         if (mouseRegisterRightClicksOutside && Input.mouse.isButtonClicked(Mouse.Button.RIGHT) && !mouseInside) {
             eventFired = true;
-            Event.EventMouseRightClickOutside e = new Event.EventMouseRightClickOutside();
+            Event.EventMouseRightClickOutside e = new Event.EventMouseRightClickOutside(transformScreen);
             Vector2 local = new Vector2(pointerX, pointerY);
             local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
             e.mouseLocalX = local.x;
@@ -399,7 +399,7 @@ public abstract class Widget {
         /* mouse middle click - outside */
         if (mouseRegisterMiddleClicksOutside && Input.mouse.isButtonClicked(Mouse.Button.MIDDLE) && !mouseInside) {
             eventFired = true;
-            Event.EventMouseMiddleClickOutside e = new Event.EventMouseMiddleClickOutside();
+            Event.EventMouseMiddleClickOutside e = new Event.EventMouseMiddleClickOutside(transformScreen);
             Vector2 local = new Vector2(pointerX, pointerY);
             local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
             e.mouseLocalX = local.x;
@@ -415,7 +415,7 @@ public abstract class Widget {
         /* mouse enter */
         if (mouseJustEntered) {
             eventFired = true;
-            Event.EventMouseEnter e = new Event.EventMouseEnter();
+            Event.EventMouseEnter e = new Event.EventMouseEnter(transformScreen);
             Vector2 localPrev = new Vector2(pointerXPrev, pointerYPrev);
             Vector2 local = new Vector2(pointerX, pointerY);
             local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
@@ -435,7 +435,7 @@ public abstract class Widget {
         /* mouse leave */
         if (mouseJustLeft) {
             eventFired = true;
-            Event.EventMouseLeave e = new Event.EventMouseLeave();
+            Event.EventMouseLeave e = new Event.EventMouseLeave(transformScreen);
             Vector2 localPrev = new Vector2(pointerXPrev, pointerYPrev);
             Vector2 local = new Vector2(pointerX, pointerY);
             local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
@@ -455,7 +455,7 @@ public abstract class Widget {
         /* mouse scroll */
         if (mouseInside && verticalScroll != 0) {
             eventFired = true;
-            Event.EventMouseScroll e = new Event.EventMouseScroll();
+            Event.EventMouseScroll e = new Event.EventMouseScroll(transformScreen);
             Vector2 local = new Vector2(pointerX, pointerY);
             local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
             e.mouseLocalX = local.x;
@@ -472,7 +472,7 @@ public abstract class Widget {
         /* mouse dragged */
         if (draggable && dragging && mouseRegisterLeftButtonActionsInside) {
             eventFired = true;
-            Event.EventMouseDrag e = new Event.EventMouseDrag();
+            Event.EventMouseDrag e = new Event.EventMouseDrag(transformScreen);
             Vector2 localPrev = new Vector2(pointerXPrev, pointerYPrev);
             Vector2 local = new Vector2(pointerX, pointerY);
             local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
@@ -496,7 +496,7 @@ public abstract class Widget {
         // mouse drag start
         if (draggable && dragging && !draggingPrev) {
             eventFired = true;
-            Event.EventMouseDragStart e = new Event.EventMouseDragStart();
+            Event.EventMouseDragStart e = new Event.EventMouseDragStart(transformScreen);
             Vector2 local = new Vector2(pointerX, pointerY);
             local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
             if (onMouseDragStart != null) {
@@ -509,7 +509,7 @@ public abstract class Widget {
 
         if (draggable && !dragging && draggingPrev) {
             eventFired = true;
-            Event.EventMouseDragEnd e = new Event.EventMouseDragEnd();
+            Event.EventMouseDragEnd e = new Event.EventMouseDragEnd(transformScreen);
             Vector2 local = new Vector2(pointerX, pointerY);
             local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
             if (onMouseDragEnd != null) {
@@ -523,7 +523,7 @@ public abstract class Widget {
         /* resize */
         if (resized) {
             eventFired = true;
-            Event.EventResize e = new Event.EventResize();
+            Event.EventResize e = new Event.EventResize(transformScreen);
             e.prevWidth = prevWidth;
             e.prevHeight = prevHeight;
             e.newWidth = width;
@@ -539,7 +539,7 @@ public abstract class Widget {
         /* codepoint presses */
         if (focused && codepointPressed) {
             eventFired = true;
-            Event.EventCodepointsTyped e = new Event.EventCodepointsTyped();
+            Event.EventCodepointsTyped e = new Event.EventCodepointsTyped(transformScreen);
             e.codePoints = Input.keyboard.getCodepointPressed();
             if (onCodepointsTyped != null) {
                 boolean handled = onCodepointsTyped.handle(e);
@@ -552,7 +552,7 @@ public abstract class Widget {
         /* keys pressed */
         if (focused && keysJustPressed) {
             eventFired = true;
-            Event.EventKeysJustPressed e = new Event.EventKeysJustPressed();
+            Event.EventKeysJustPressed e = new Event.EventKeysJustPressed(transformScreen);
             e.keys.addAll(Input.keyboard.getKeysDown());
             if (onKeysJustPressed != null) {
                 boolean handled = onKeysJustPressed.handle(e);
