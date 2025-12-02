@@ -373,8 +373,8 @@ public class WidgetContainer extends Widget {
     /*** MASKING ***/
 
     @Override
-    public boolean maskChildren() {
-        return layoutOverflowX != Overflow.VISIBLE || layoutOverflowY != Overflow.VISIBLE;
+    public final boolean maskChildren() {
+        return layoutOverflowX == Overflow.HIDDEN || layoutOverflowY == Overflow.HIDDEN;
     }
 
     /*** SUPPORTING ENUMS ***/

@@ -4,6 +4,7 @@ import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.math.MathUtils;
 
+// TODO: make the thumb draggable
 public class WidgetInputScrollbar extends Widget implements WidgetInput<Float> {
 
     public float width = 10;
