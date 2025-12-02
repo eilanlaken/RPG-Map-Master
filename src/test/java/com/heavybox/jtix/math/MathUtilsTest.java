@@ -1139,4 +1139,20 @@ class MathUtilsTest {
         Assertions.assertFalse(MathUtils.polygonIsConvex(vertices_3));
     }
 
+    @Test
+    void binomial() {
+        Assertions.assertEquals(1, MathUtils.binomial(0, 0));
+        Assertions.assertEquals(1, MathUtils.binomial(5, 0));
+        Assertions.assertEquals(1, MathUtils.binomial(5, 5));
+        Assertions.assertEquals(0, MathUtils.binomial(3, 4)); // k > n
+
+        Assertions.assertEquals(2, MathUtils.binomial(2, 1));
+        Assertions.assertEquals(6, MathUtils.binomial(4, 2));
+        Assertions.assertEquals(10, MathUtils.binomial(5, 2));
+
+        Assertions.assertEquals(20, MathUtils.binomial(6, 3));
+        Assertions.assertEquals(56, MathUtils.binomial(8, 3));
+        Assertions.assertEquals(70, MathUtils.binomial(8, 4));
+    }
+
 }

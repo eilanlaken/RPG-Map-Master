@@ -1,12 +1,11 @@
 package com.heavybox.jtix.math;
 
-import com.heavybox.jtix.collections.Array;
-import com.heavybox.jtix.collections.ArrayFloat;
-import com.heavybox.jtix.collections.ArrayInt;
-import com.heavybox.jtix.collections.Collections;
+import com.heavybox.jtix.collections.*;
 import com.heavybox.jtix.memory.MemoryPool;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public final class MathUtils {
@@ -32,6 +31,9 @@ public final class MathUtils {
     private static final MemoryPool<Vector2>    vectors2Pool    = new MemoryPool<>(Vector2.class, 5);
     private static final Array<Vector2>         polygonVertices = new Array<>(false, 10);
     private static final ArrayInt               indexList       = new ArrayInt();
+
+    /* binomials lookup */
+    private static final Map<Tuple2<Integer, Integer>, Integer> binomialCoefficientsCache = new HashMap<>();
 
     private MathUtils() {}
 
@@ -255,6 +257,31 @@ public final class MathUtils {
     public static double exponential(float lambda) {
         if (!(lambda > 0.0)) throw new MathException("lambda must be positive: " + lambda);
         return -Math.log(1 - random.nextFloat()) / lambda;
+    }
+
+    public static long factorial(int n) {
+        if (n < 0) throw new MathException("factorial of negative number " + n + " is undefined.");
+        if (n >= Factorial.lookup.length) throw new MathException("Out of range: the result of " + n + "! is beyond the range of a long.");
+        return Factorial.lookup[n];
+    }
+
+    /**
+     * calculates the binomial coefficient n over k.
+     * @param n is the top number
+     * @param k is the bottom number
+     * @return (n k)
+     */
+    public static int binomial(int n, int k) {
+        if (k > n) return 0;
+        if (k == 0 || k == n) return 1;
+
+        Tuple2<Integer, Integer> key = new Tuple2<>(n, k);
+        Integer v = binomialCoefficientsCache.get(key);
+        if (v != null) return v;
+
+        int res = binomial(n - 1, k - 1) + binomial(n - 1, k);
+        binomialCoefficientsCache.put(key, res);
+        return res;
     }
 
     public static int clampInt(int value, int min, int max) {
@@ -729,26 +756,10 @@ public final class MathUtils {
         return x * x * x * (x * (x * 6 - 15) + 10);
     }
 
-    private static class Sin {
-
-        private static final float[] lookup = new float[SIN_COUNT];
-
-        static {
-            for (int i = 0; i < SIN_COUNT; i++) lookup[i] = (float)Math.sin((i + 0.5f) / SIN_COUNT * RADIANS_FULL);
-            lookup[0] = 0f;
-            lookup[(int)(90 * DEGREES_TO_INDEX) & SIN_MASK] = 1f;
-            lookup[(int)(180 * DEGREES_TO_INDEX) & SIN_MASK] = 0f;
-            lookup[(int)(270 * DEGREES_TO_INDEX) & SIN_MASK] = -1f;
-        }
-
-    }
-
-    // TODO: test
     public static float getAreaTriangle(float ax, float ay, float bx, float by, float cx, float cy) {
         return 0.5f * Math.abs((ax * (by - cy) + bx * (cy - ay) + cx * (ay - by)));
     }
 
-    // TODO: test
     public static float getAreaTriangle(Vector2 A, Vector2 B, Vector2 C) {
         return 0.5f * Math.abs((A.x * (B.y - C.y) + B.x * (C.y - A.y) + C.x * (A.y - B.y)));
     }
@@ -1298,11 +1309,52 @@ public final class MathUtils {
         return inside;
     }
 
-    // TODO: implement
-    public static void polygonGiftWrap(Array<Vector2> points, Array<Vector2> out) {
-        if (out == null) throw new MathException("out cannot be null");
-        if (points.size < 3) throw new MathException("points must contain at least 3 points. Got: " + points.size);
-        out.clear();
+    private static class Factorial {
+
+        private static final long[] lookup = new long[21];
+
+        static {
+            // for any n:
+            //        long res = 1;
+            //        for (int i = 2; i <= n; i++)
+            //            res *= i;
+            //        return res;
+            lookup[0] = 1;
+            lookup[1] = 1;
+            lookup[2] = 2;
+            lookup[3] = 6;
+            lookup[4] = 24;
+            lookup[5] = 120;
+            lookup[6] = 720;
+            lookup[7] = 5040;
+            lookup[8] = 40320;
+            lookup[9] = 362880;
+            lookup[10] = 3628800;
+            lookup[11] = 39916800;
+            lookup[12] = 479001600;
+            lookup[13] = 6227020800L;
+            lookup[14] = 87178291200L;
+            lookup[15] = 1307674368000L;
+            lookup[16] = 20922789888000L;
+            lookup[17] = 355687428096000L;
+            lookup[18] = 6402373705728000L;
+            lookup[19] = 121645100408832000L;
+            lookup[20] = 2432902008176640000L;
+        }
+
+    }
+
+    private static class Sin {
+
+        private static final float[] lookup = new float[SIN_COUNT];
+
+        static {
+            for (int i = 0; i < SIN_COUNT; i++) lookup[i] = (float)Math.sin((i + 0.5f) / SIN_COUNT * RADIANS_FULL);
+            lookup[0] = 0f;
+            lookup[(int)(90 * DEGREES_TO_INDEX) & SIN_MASK] = 1f;
+            lookup[(int)(180 * DEGREES_TO_INDEX) & SIN_MASK] = 0f;
+            lookup[(int)(270 * DEGREES_TO_INDEX) & SIN_MASK] = -1f;
+        }
 
     }
 
