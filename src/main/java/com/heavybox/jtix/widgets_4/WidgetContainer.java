@@ -27,7 +27,7 @@ public class WidgetContainer extends Widget {
     public float     layoutHeight                 = 1;
     public float     layoutHeightMin              = 0;
     public float     layoutHeightMax              = Float.POSITIVE_INFINITY;
-    public boolean   layoutScrollbar              = true;
+    public boolean   layoutAddScrollbar           = true;
     public Overflow  layoutOverflowX              = Overflow.HIDDEN;
     public Overflow  layoutOverflowY              = Overflow.HIDDEN;
     public boolean   boxBackgroundEnabled         = true;
@@ -61,7 +61,7 @@ public class WidgetContainer extends Widget {
 
     @Override
     protected void onResizeDefault(Event.EventResize e) {
-        scrollbar.height = getHeight();
+        scrollbar.length = getHeight();
     }
 
     // this will make sure the scrollbar is always on top.
@@ -80,11 +80,11 @@ public class WidgetContainer extends Widget {
     }
 
     /*** global container logic ***/
-    // marked as final to prevent override
     // in order to add logic, just override the fixedUpdateContainer() method instead.
     @Override
     protected final void fixedUpdate(float delta) {
-        scrollbar.active = layoutScrollbar;
+        // TODO: consider: when to add scrollbar, and which direction.
+        scrollbar.active = layoutAddScrollbar;
         contentWidth = getContentsWidth(childrenLayout);
         contentHeight = getContentsHeight(childrenLayout);
         float diffHeight = height - contentHeight - boxPaddingTop - boxPaddingBottom;
