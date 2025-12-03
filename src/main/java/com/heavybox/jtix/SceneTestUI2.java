@@ -135,17 +135,17 @@ public class SceneTestUI2 implements Scene {
 //            rect3.active = false;
 //        }
 
-        textField.update(delta);
-        //container.update(delta);
+        //textField.update(delta);
+        container.update(delta);
 
         GL11.glClearColor(0.01f,0.01f,0.01f,1);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_STENCIL_BUFFER_BIT); // should probably clear the stencil
 
         renderer2D.begin();
         //scrollbar.render(renderer2D);
-        //container.render(renderer2D);
+        container.render(renderer2D);
 
-        textField.render(renderer2D);
+        //textField.render(renderer2D);
         renderer2D.end();
     }
 

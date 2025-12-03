@@ -58,9 +58,6 @@ public class WidgetInputTextField extends Widget implements WidgetInput<String> 
         }
 
         if (e.keys.contains(Keyboard.Key.BACKSPACE, true) && !value.isEmpty() && caretIndex > 0) {
-            System.out.println(caretIndex);
-            System.out.println(value.substring(0, caretIndex - 1));
-            System.out.println(value.substring(caretIndex));
             value = value.substring(0, caretIndex - 1) + value.substring(caretIndex);
             caretIndex--;
         }
