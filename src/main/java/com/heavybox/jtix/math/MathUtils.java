@@ -756,6 +756,8 @@ public final class MathUtils {
         return x * x * x * (x * (x * 6 - 15) + 10);
     }
 
+    /*** GEOMETRY - triangles ***/
+
     public static float getAreaTriangle(float ax, float ay, float bx, float by, float cx, float cy) {
         return 0.5f * Math.abs((ax * (by - cy) + bx * (cy - ay) + cx * (ay - by)));
     }
@@ -783,6 +785,8 @@ public final class MathUtils {
         // Check if the sum of the areas of PAB, PBC, and PCA is the same as the area of ABC
         return floatsEqual(areaPAB + areaPBC + areaPCA, areaABC);
     }
+
+    /*** GEOMETRY - polygons ***/
 
     /**
      * Returns the winding order of a polygon.
@@ -1307,6 +1311,43 @@ public final class MathUtils {
         }
 
         return inside;
+    }
+
+    /*** GEOMETRY - curves ***/
+    public static void curveBezierGetPoints(@NotNull final ArrayFloat out, int refinement, Vector2... controlPoints) {
+        if (controlPoints == null) throw new MathException("controlPoints cannot be null.");
+        if (controlPoints.length == 0) throw new MathException("controlPoints must contain points. controlPoints.length is 0");
+        if (refinement < 1) refinement = 1;
+
+        out.clear();
+
+        float step = 1f / refinement;
+        float t = 0;
+        Vector2 point = new Vector2();
+        for (int index = 0; index <= refinement; index++) {
+            calculateBezier(point, t, controlPoints);
+            t += step;
+            out.add(point.x);
+            out.add(point.y);
+        }
+    }
+
+    public static void calculateBezier(@NotNull final Vector2 out, float t, Vector2... controlPoints) {
+        int n = controlPoints.length - 1;
+        float u = 1f - t;
+
+        float x = 0f;
+        float y = 0f;
+
+        for (int i = 0; i <= n; i++) {
+            int c = binomial(n, i);
+            float term = (float)(c * Math.pow(u, n - i) * Math.pow(t, i));
+            x += term * controlPoints[i].x;
+            y += term * controlPoints[i].y;
+        }
+
+        out.x = x;
+        out.y = y;
     }
 
     private static class Factorial {

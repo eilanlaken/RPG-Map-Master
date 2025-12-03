@@ -1,10 +1,13 @@
 package com.heavybox.jtix;
 
 import com.heavybox.jtix.application.Scene;
+import com.heavybox.jtix.collections.ArrayFloat;
 import com.heavybox.jtix.graphics.Camera;
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Graphics;
 import com.heavybox.jtix.graphics.Renderer2D;
+import com.heavybox.jtix.math.MathUtils;
+import com.heavybox.jtix.math.Vector2;
 import com.heavybox.jtix.widgets_4.*;
 import org.lwjgl.opengl.GL11;
 
@@ -30,6 +33,8 @@ public class SceneTestUI2 implements Scene {
     WidgetInputTextField textField = new WidgetInputTextField();
 
     WidgetInputScrollbar scrollbar = new WidgetInputScrollbar();
+
+    ArrayFloat out = new ArrayFloat();
 
     @Override
     public void setup() {
@@ -137,9 +142,19 @@ public class SceneTestUI2 implements Scene {
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_STENCIL_BUFFER_BIT); // should probably clear the stencil
 
 
+        MathUtils.curveBezierGetPoints(out, 30, new Vector2(0,0), new Vector2(200,200), new Vector2(400,0));
+        Vector2[] points = new Vector2[out.size / 2];
+        for (int i = 0; i < points.length; i++) {
+            points[i] = new Vector2();
+            points[i].x = out.get(2 * i);
+            points[i].y = out.get(2 * i + 1);
+        }
+
         renderer2D.begin();
+        renderer2D.drawCurveThin(points);
         //scrollbar.render(renderer2D);
-        container.render(renderer2D);
+        //container.render(renderer2D);
+
         //scrollbar.render(renderer2D);
         //textField.render(renderer2D);
         renderer2D.end();
