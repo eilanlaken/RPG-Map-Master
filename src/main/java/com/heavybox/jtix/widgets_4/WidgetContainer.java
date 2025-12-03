@@ -17,7 +17,7 @@ public class WidgetContainer extends Widget {
     private float backgroundWidth  = 0;
     private float backgroundHeight = 0;
 
-    /* box container layout and style */
+    /* box container layout */
     public Layout    layout                       = Layout.STACK;
     public Sizing    layoutWidthSizing            = Sizing.DYNAMIC;
     public float     layoutWidth                  = 1;
@@ -30,7 +30,9 @@ public class WidgetContainer extends Widget {
     public boolean   layoutAddScrollbar           = true;
     public Overflow  layoutOverflowX              = Overflow.HIDDEN;
     public Overflow  layoutOverflowY              = Overflow.HIDDEN;
-    public boolean   boxBackgroundEnabled         = true;
+
+    /* box container style */
+    public boolean   boxBackgroundVisible         = Widgets.themeContainerBoxBackgroundVisible;
     public Color     boxBackgroundColor           = Widgets.themeContainerBoxBackgroundColor;
     public int       boxPaddingTop                = Widgets.themeContainerBoxPaddingTop;
     public int       boxPaddingBottom             = Widgets.themeContainerBoxPaddingBottom;
@@ -156,7 +158,7 @@ public class WidgetContainer extends Widget {
     // TODO: cache results of backgroundWidth and backgroundHeight
     @Override
     protected void draw(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
-        if (boxBackgroundEnabled) {
+        if (boxBackgroundVisible) {
             renderer2D.setColor(boxBackgroundColor);
             renderer2D.drawRectangleFilled(backgroundWidth, backgroundHeight,
                     boxCornerRadiusTopLeft, boxCornerSegmentsTopLeft,

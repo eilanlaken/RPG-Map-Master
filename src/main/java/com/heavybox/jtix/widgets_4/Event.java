@@ -245,6 +245,17 @@ public abstract class Event {
 
     }
 
+    // TODO: not sure if this is the way to handle it.
+    public static class EventKeysPressed extends Event {
+
+        EventKeysPressed(final Transform global) {
+            super(global);
+        }
+
+        public Array<Keyboard.Key> keys = new Array<>(true, 1);
+
+    }
+
 
     @FunctionalInterface
     public interface EventListenerMouseLeftClick {
@@ -339,6 +350,11 @@ public abstract class Event {
     @FunctionalInterface
     public interface EventListenerKeysJustPressed {
         boolean handle(EventKeysJustPressed e);
+    }
+
+    @FunctionalInterface
+    public interface EventListenerKeysPressed {
+        boolean handle(EventKeysPressed e);
     }
 
 }

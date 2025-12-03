@@ -89,7 +89,7 @@ public class SceneTestUI2 implements Scene {
     @Override
     public void update() {
         float delta = Graphics.getDeltaTime();
-        scrollbar.update(delta);
+        //scrollbar.update(delta);
 
 //        //scrollbar.update(1);
 //        checkbox.update(1);
@@ -135,7 +135,7 @@ public class SceneTestUI2 implements Scene {
 //            rect3.active = false;
 //        }
 
-        //textField.update(delta);
+        textField.update(delta);
         //container.update(delta);
 
         GL11.glClearColor(0.01f,0.01f,0.01f,1);
@@ -145,8 +145,7 @@ public class SceneTestUI2 implements Scene {
         //scrollbar.render(renderer2D);
         //container.render(renderer2D);
 
-        scrollbar.render(renderer2D);
-        //textField.render(renderer2D);
+        textField.render(renderer2D);
         renderer2D.end();
     }
 

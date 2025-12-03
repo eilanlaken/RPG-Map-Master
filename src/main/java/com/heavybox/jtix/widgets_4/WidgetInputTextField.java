@@ -26,8 +26,9 @@ public class WidgetInputTextField extends Widget implements WidgetInput<String> 
     public float borderSize = 2;
     public Color caretColor = Color.BLACK.clone();
 
-    private WidgetText text = new WidgetText("");
-    private WidgetShapeRectangle caret = new WidgetShapeRectangle(2, 18);
+    /*  built in children. */
+    private final WidgetText           text  = new WidgetText("");
+    private final WidgetShapeRectangle caret = new WidgetShapeRectangle(2, 18);
 
     public WidgetInputTextField() {
         text.anchor = Anchor.CENTER_LEFT;
@@ -53,7 +54,28 @@ public class WidgetInputTextField extends Widget implements WidgetInput<String> 
     protected void onKeysJustPressedDefault(Event.EventKeysJustPressed e) {
         if (e.keys.contains(Keyboard.Key.ENTER, true)) {
             setFocused(false);
+            return;
         }
+
+        if (e.keys.contains(Keyboard.Key.BACKSPACE, true) && !value.isEmpty() && caretIndex > 0) {
+            System.out.println(caretIndex);
+            System.out.println(value.substring(0, caretIndex - 1));
+            System.out.println(value.substring(caretIndex));
+            value = value.substring(0, caretIndex - 1) + value.substring(caretIndex);
+            caretIndex--;
+        }
+    }
+
+    @Override
+    protected void onKeysPressedDefault(Event.EventKeysPressed e) {
+        // delete a character and move caret back (if not empty)
+//        if (e.keys.contains(Keyboard.Key.BACKSPACE, true) && !value.isEmpty() && caretIndex > 0) {
+//            System.out.println(caretIndex);
+//            System.out.println(value.substring(0, caretIndex - 1));
+//            System.out.println(value.substring(caretIndex));
+//            value = value.substring(0, caretIndex - 1) + value.substring(caretIndex);
+//            caretIndex--;
+//        }
     }
 
     @Override
@@ -66,26 +88,14 @@ public class WidgetInputTextField extends Widget implements WidgetInput<String> 
     @Override
     protected void onCodepointsTypedDefault(Event.EventCodepointsTyped e) {
         String str = e.codePoints.toRawString();
-        text.text += str;
+        value += str;
         caretIndex += str.length();
         // TODO: split string properly at caret position
-        caret.anchorX += Renderer2D.calculateStringLineWidth(str, text.font, text.size, text.antialiasing);
     }
-
-
 
     @Override
     public boolean maskChildren() {
         return true;
-    }
-
-
-    @Override
-    protected void setChildrenOffsets(final Array<Widget> children) {
-        for (Widget child : children) {
-            child.offsetX = (text.getWidth() - width) * 0.5f + borderSize;
-            child.offsetY = 0;
-        }
     }
 
     @Override
@@ -109,6 +119,8 @@ public class WidgetInputTextField extends Widget implements WidgetInput<String> 
             caretVisible = !caretVisible;
         }
         caret.hidden = !isFocused() || !caretVisible;
+        caret.anchorX = Renderer2D.calculateStringLineWidth(value, 0, caretIndex, text.font, text.size, text.antialiasing);
+        text.text = getValue();
     }
 
 

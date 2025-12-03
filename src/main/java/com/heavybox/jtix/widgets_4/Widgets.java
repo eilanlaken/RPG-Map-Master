@@ -19,6 +19,7 @@ public final class Widgets {
     public static boolean themeTextAntialiasing                      = true;
     public static boolean themeTextWrapEnabled                       = true;
     // containers
+    public static boolean themeContainerBoxBackgroundVisible         = true;
     public static Color   themeContainerBoxBackgroundColor           = Color.valueOf("#227BFF");
     public static int     themeContainerBoxPaddingTop                = 40;
     public static int     themeContainerBoxPaddingBottom             = 10;

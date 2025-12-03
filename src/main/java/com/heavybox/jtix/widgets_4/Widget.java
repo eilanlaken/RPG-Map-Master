@@ -69,6 +69,7 @@ public abstract class Widget {
     public Event.EventListenerChildRemoved            onChildRemoved            = null;
     public Event.EventListenerCodepointsTyped         onCodepointsTyped         = null;
     public Event.EventListenerKeysJustPressed         onKeysJustPressed         = null;
+    public Event.EventListenerKeysPressed             onKeysPressed             = null;
 
     /*** default methods for event handling ***/
     protected void onMouseUpDefault     (Event.EventMouseUp e)      {}
@@ -90,6 +91,7 @@ public abstract class Widget {
     protected void onChildRemovedDefault(Event.EventChildRemoved e) {}
     protected void onCodepointsTypedDefault(Event.EventCodepointsTyped e) {}
     protected void onKeysJustPressedDefault(Event.EventKeysJustPressed e) {}
+    protected void onKeysPressedDefault(Event.EventKeysPressed e) {}
 
     /*** Add and remove child methods ***/
     public final void addChild(Widget widget) {
@@ -177,6 +179,10 @@ public abstract class Widget {
     public final void update(float delta) {
         /* update internal state: set active children, global transform etc */
         updateInternalState(); // TODO: it is probably ok to remove this if you call it once on init() or something, then every time the state is changed.
+
+        /* injected fixed update */
+        // probably do the lag stuff in ECS.
+        fixedUpdate(delta);
         /* handle input. It is possible that an event changed the widget's internal state by adding children, changing size etc.
         So if an event was fired, update the internal state again.
          */
@@ -188,9 +194,6 @@ public abstract class Widget {
             widget.update(delta);
         }
 
-        /* injected fixed update */
-        // probably do the lag stuff in ECS.
-        fixedUpdate(delta);
     }
 
     private void updateInternalState() {
@@ -270,6 +273,7 @@ public abstract class Widget {
         /* key presses */
         boolean codepointPressed = !Input.keyboard.getCodepointPressed().isEmpty();
         boolean keysJustPressed = !Input.keyboard.getKeysJustDown().isEmpty();
+        boolean keysPressed = !Input.keyboard.getKeysDown().isEmpty();
 
         /* dimensions change */
         float deltaWidth  = width - prevWidth;
@@ -549,16 +553,30 @@ public abstract class Widget {
             }
         }
 
-        /* keys pressed */
+        /* keys just pressed */
         if (focused && keysJustPressed) {
             eventFired = true;
             Event.EventKeysJustPressed e = new Event.EventKeysJustPressed(transformScreen);
-            e.keys.addAll(Input.keyboard.getKeysDown());
+            e.keys.addAll(Input.keyboard.getKeysJustDown());
             if (onKeysJustPressed != null) {
                 boolean handled = onKeysJustPressed.handle(e);
                 if (!handled) onKeysJustPressedDefault(e);
             } else {
                 onKeysJustPressedDefault(e);
+            }
+        }
+
+        /* keys pressed */
+        // TODO: set cool down time for keys as part of a widget handler.
+        if (focused && keysPressed) {
+            eventFired = true;
+            Event.EventKeysPressed e = new Event.EventKeysPressed(transformScreen);
+            e.keys.addAll(Input.keyboard.getKeysDown());
+            if (onKeysPressed != null) {
+                boolean handled = onKeysPressed.handle(e);
+                if (!handled) onKeysPressedDefault(e);
+            } else {
+                onKeysPressedDefault(e);
             }
         }
 
