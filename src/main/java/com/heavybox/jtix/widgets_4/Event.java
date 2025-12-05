@@ -4,8 +4,6 @@ import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.collections.ArrayChar;
 import com.heavybox.jtix.input.Keyboard;
 
-// TODO: continue with keyboard event listeners, drag and drop events etc.
-// TODO: add global transform to all events. Example use: you want to shoot sparkles onMouseEnter, and you need to know where the widget is.
 public abstract class Event {
 
     public final float widgetX;

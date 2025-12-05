@@ -57,13 +57,25 @@ public class WidgetContainer extends Widget {
 
     public WidgetContainer() {
         addChild(scrollbar);
-        scrollbar.anchor = Anchor.CENTER_RIGHT;
+        scrollbar.anchor = Anchor.TOP_RIGHT;
         scrollbar.onMouseScroll = e -> true; // disable the default function
     }
 
     @Override
     protected void onResizeDefault(Event.EventResize e) {
-        scrollbar.length = getHeight();
+        if (layout == Layout.VERTICAL) {
+            scrollbar.length = backgroundHeight;
+            scrollbar.anchor = Anchor.TOP_RIGHT;
+            scrollbar.anchorY = boxBorderSize;
+            scrollbar.anchorX = 0;
+            scrollbar.type = WidgetInputScrollbar.Type.VERTICAL;
+        } else if (layout == Layout.HORIZONTAL) {
+            scrollbar.length = backgroundWidth;
+            scrollbar.anchor = Anchor.BOTTOM_LEFT;
+            scrollbar.anchorX = boxBorderSize;
+            scrollbar.anchorY = 0;
+            scrollbar.type = WidgetInputScrollbar.Type.HORIZONTAL;
+        }
     }
 
     // this will make sure the scrollbar is always on top.
@@ -86,15 +98,36 @@ public class WidgetContainer extends Widget {
     @Override
     protected final void fixedUpdate(float delta) {
         // TODO: consider: when to add scrollbar, and which direction.
-        scrollbar.active = layoutAddScrollbar;
         contentWidth = getContentsWidth(childrenLayout);
         contentHeight = getContentsHeight(childrenLayout);
-        float diffHeight = height - contentHeight - boxPaddingTop - boxPaddingBottom;
+        float verticalOverflow = height - contentHeight - boxPaddingTop - boxPaddingBottom;
+        float horizontalOverflow = width - contentWidth - boxPaddingLeft - boxPaddingRight;
+
+        scrollbar.active = layoutAddScrollbar;
+        if (layout == Layout.VERTICAL && verticalOverflow > 0) scrollbar.active = false;
+        else if (layout == Layout.HORIZONTAL && horizontalOverflow > 0) scrollbar.active = false;
 
         if (!scrollbar.active) {
             scrollOffsetY = 0; // reset scroll value if scrolling is disabled.
-        } else {
-            scrollOffsetY = -scrollbar.getValue() * diffHeight; // TODO
+            scrollOffsetX = 0; // reset scroll value if scrolling is disabled.
+        } else if (layout == Layout.VERTICAL) {
+            scrollbar.length = backgroundHeight;
+            scrollbar.anchor = Anchor.TOP_RIGHT;
+            scrollbar.anchorY = boxBorderSize;
+            scrollbar.anchorX = 0;
+            scrollbar.type = WidgetInputScrollbar.Type.VERTICAL;
+
+            scrollOffsetX = 0;
+            scrollOffsetY = -scrollbar.getValue() * verticalOverflow; // TODO
+        } else if (layout == Layout.HORIZONTAL) {
+            scrollbar.length = backgroundWidth;
+            scrollbar.anchor = Anchor.BOTTOM_LEFT;
+            scrollbar.anchorX = boxBorderSize;
+            scrollbar.anchorY = 0;
+            scrollbar.type = WidgetInputScrollbar.Type.HORIZONTAL;
+
+            scrollOffsetY = 0;
+            scrollOffsetX = -scrollbar.getValue() * horizontalOverflow; // TODO
         }
 
         backgroundWidth = Math.max(0, getWidth() - boxBorderSize * 2);
@@ -129,11 +162,11 @@ public class WidgetContainer extends Widget {
     // TODO: consider global scale
     protected final void setChildrenOffsetsHorizontal(Array<Widget> widgets) {
         float sclX = 1; // global transform
-        float position_x = -(getWidth() * 0.5f - boxBorderSize - boxPaddingLeft) * sclX;
+        float position_x = -(getWidth() * 0.5f - boxBorderSize - boxPaddingLeft + scrollOffsetX) * sclX;
         for (Widget child : widgets) {
             float child_width = child.getWidth() * sclX;
             child.offsetX = position_x + child_width * 0.5f;
-            child.offsetY = boxPaddingBottom - (boxPaddingBottom + boxPaddingTop) * 0.5f + scrollOffsetY;
+            child.offsetY = boxPaddingBottom - (boxPaddingBottom + boxPaddingTop) * 0.5f;
             position_x += child_width + boxChildSpacingHorizontal * sclX;
         }
     }

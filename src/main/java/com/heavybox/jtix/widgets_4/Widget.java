@@ -680,7 +680,7 @@ public abstract class Widget {
                 offsetX = anchorX - screen_min_x;
                 offsetY = 0;
                 break;
-            case UPPER_CENTER:
+            case TOP_CENTER:
                 screen_max_y = halfParentHeight - max_y;
                 offsetX = 0;
                 offsetY = screen_max_y - anchorY;
@@ -690,13 +690,13 @@ public abstract class Widget {
                 offsetX = 0;
                 offsetY = anchorY - screen_min_y;
                 break;
-            case UPPER_LEFT:
+            case TOP_LEFT:
                 screen_min_x = min_x + halfParentWidth;
                 screen_max_y = halfParentHeight - max_y;
                 offsetX = anchorX - screen_min_x;
                 offsetY = screen_max_y - anchorY;
                 break;
-            case UPPER_RIGHT:
+            case TOP_RIGHT:
                 screen_max_x = halfParentWidth - max_x;
                 screen_max_y = halfParentHeight - max_y;
                 offsetX = screen_max_x - anchorX;
@@ -724,7 +724,7 @@ public abstract class Widget {
     // when the parent is null, it's the window edges.
     // this is important to make the ui responsive.
     public enum Anchor {
-        UPPER_LEFT ,  UPPER_CENTER,  UPPER_RIGHT,
+        TOP_LEFT   , TOP_CENTER   , TOP_RIGHT   ,
         CENTER_LEFT, CENTER_CENTER, CENTER_RIGHT,
         BOTTOM_LEFT, BOTTOM_CENTER, BOTTOM_RIGHT,
         ;

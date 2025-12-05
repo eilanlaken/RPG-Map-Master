@@ -8,6 +8,7 @@ import org.jetbrains.annotations.NotNull;
 public class WidgetShapeCircle extends Widget implements WidgetShape {
 
     // TODO: add angle
+    public float arcDeg = 360;
     public Type type = Type.FILLED;
     public float radius;
     public int refinement;
@@ -25,15 +26,15 @@ public class WidgetShapeCircle extends Widget implements WidgetShape {
     protected void draw(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
         renderer2D.setColor(color);
         if (type == Type.FILLED) {
-            renderer2D.drawCircleFilled(radius, refinement, x, y, deg, sclX, sclY);
+            renderer2D.drawCircleFilled(radius, refinement, arcDeg, x, y, deg, sclX, sclY);
             return;
         }
         if (type == Type.OUTLINE) {
-            renderer2D.drawCircleThin(radius, refinement, x, y, deg, sclX, sclY);
+            renderer2D.drawCircleThin(radius, refinement, arcDeg, x, y, deg, sclX, sclY);
             return;
         }
         if (type == Type.BORDER) {
-            renderer2D.drawCircleBorder(radius, borderSize, refinement, x, y, deg, sclX, sclY);
+            renderer2D.drawCircleBorder(radius, borderSize, arcDeg, refinement, x, y, deg, sclX, sclY);
             return;
         }
 

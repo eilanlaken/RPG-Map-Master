@@ -6,6 +6,8 @@ import com.heavybox.jtix.graphics.Camera;
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Graphics;
 import com.heavybox.jtix.graphics.Renderer2D;
+import com.heavybox.jtix.input.Input;
+import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Vector2;
 import com.heavybox.jtix.widgets_4.*;
@@ -54,10 +56,12 @@ public class SceneTestUI2 implements Scene {
         container.layoutWidthSizing = WidgetContainer.Sizing.DYNAMIC;
         container.layoutHeightSizing = WidgetContainer.Sizing.STATIC;
         container.layoutWidth = 200;
-        container.layoutHeight = 600;
+        container.layoutHeight = 400;
         container.boxPaddingLeft = 10;
         container.boxPaddingRight = 10;
-        container.boxPaddingBottom = 100;
+        container.boxPaddingBottom = 50;
+        container.boxPaddingTop = 50;
+        container.layoutAddScrollbar = true;
 
         //container.anchor = Widget.Anchor.CENTER_LEFT;
         container.layoutOverflowY = WidgetContainer.Overflow.HIDDEN;
@@ -75,9 +79,9 @@ public class SceneTestUI2 implements Scene {
 
         container.layout = WidgetContainer.Layout.VERTICAL;
         container.addChild(rect1);
-        container.addChild(rect2);
-        container.addChild(rect3);
-        container.addChild(rect4);
+        //container.addChild(rect2);
+        //container.addChild(rect3);
+        //container.addChild(rect4);
 
     }
 
@@ -124,9 +128,10 @@ public class SceneTestUI2 implements Scene {
 //            container.layoutHeight = 20;
 //        }
 //
-//        if (Input.mouse.isButtonJustPressed(Mouse.Button.RIGHT)) {
-//            //container.boxPaddingRight = 60;
-//        }
+        if (Input.mouse.isButtonJustPressed(Mouse.Button.RIGHT)) {
+            WidgetShapeRectangle rect = new WidgetShapeRectangle(350,250,Color.WHITE);
+            container.addChild(rect);
+        }
 //
 //        //widgetText.update(1);
         //container.update(delta);
