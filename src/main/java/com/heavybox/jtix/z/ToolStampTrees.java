@@ -187,7 +187,7 @@ public class ToolStampTrees extends Tool {
                 return;
             }
 
-            if (mode == Mode.DENSE || mode == Mode.SPARSE) {
+            if (mode == Mode.SPARSE) {
                 int i = 0;
                 for (Vector2 position : positions) {
                     float x = position.x;
@@ -285,7 +285,6 @@ public class ToolStampTrees extends Tool {
     public enum Mode {
         REGULAR,
         CYPRESS,
-        DENSE,
         SPARSE,
         BUSH,
         ;

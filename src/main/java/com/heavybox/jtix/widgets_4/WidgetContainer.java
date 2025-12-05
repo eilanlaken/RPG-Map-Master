@@ -12,8 +12,6 @@ public class WidgetContainer extends Widget {
     /* state */ // TODO
     private float scrollOffsetX    = 0;
     private float scrollOffsetY    = 0;
-    private float contentWidth     = 0;
-    private float contentHeight    = 0;
     private float backgroundWidth  = 0;
     private float backgroundHeight = 0;
 
@@ -98,8 +96,8 @@ public class WidgetContainer extends Widget {
     @Override
     protected final void fixedUpdate(float delta) {
         // TODO: consider: when to add scrollbar, and which direction.
-        contentWidth = getContentsWidth(childrenLayout);
-        contentHeight = getContentsHeight(childrenLayout);
+        float contentWidth = getContentsWidth(childrenLayout);
+        float contentHeight = getContentsHeight(childrenLayout);
         float verticalOverflow = height - contentHeight - boxPaddingTop - boxPaddingBottom;
         float horizontalOverflow = width - contentWidth - boxPaddingLeft - boxPaddingRight;
 
