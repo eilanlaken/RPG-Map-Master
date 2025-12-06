@@ -8,8 +8,6 @@ import com.heavybox.jtix.graphics.Graphics;
 import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Mouse;
-import com.heavybox.jtix.math.MathUtils;
-import com.heavybox.jtix.math.Vector2;
 import com.heavybox.jtix.widgets_4.*;
 import org.lwjgl.opengl.GL11;
 
@@ -141,15 +139,15 @@ public class SceneTestUI2 implements Scene {
 //        }
 
         //textField.update(delta);
-        container.update(delta);
-
+        //container.update(delta);
+        image.update(delta);
         GL11.glClearColor(0.01f,0.01f,0.01f,1);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_STENCIL_BUFFER_BIT); // should probably clear the stencil
 
         renderer2D.begin();
         //scrollbar.render(renderer2D);
-        container.render(renderer2D);
-
+//        container.render(renderer2D);
+        image.render(renderer2D);
         //textField.render(renderer2D);
         renderer2D.end();
     }
