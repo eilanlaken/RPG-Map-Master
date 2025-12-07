@@ -27,6 +27,11 @@ public class ToolDrawTerrain extends Tool {
     }
 
     @Override
+    public String getName() {
+        return "Terrain Brush";
+    }
+
+    @Override
     public void update(float delta) {
         // input
         boolean rightButtonClicked = Input.mouse.isButtonClicked(Mouse.Button.RIGHT);

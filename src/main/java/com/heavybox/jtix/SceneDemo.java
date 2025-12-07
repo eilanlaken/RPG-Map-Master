@@ -8,8 +8,6 @@ import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.Vector3;
 import com.heavybox.jtix.tools.ToolsTexturePacker;
-import com.heavybox.jtix.widgets.Widget;
-import com.heavybox.jtix.widgets_4.WidgetImage;
 import com.heavybox.jtix.z.*;
 import org.lwjgl.opengl.GL11;
 
@@ -27,7 +25,8 @@ public class SceneDemo implements Scene {
 
     // user-interface
     //WidgetImage actionBarNew;
-    WidgetActionsBar actionsBar;
+    private WidgetActionsBar actionsBar;
+    private WidgetStatisticsBar statisticsBar;
 
     public SceneDemo() {
         renderer2D = new Renderer2D();
@@ -98,6 +97,7 @@ public class SceneDemo implements Scene {
 
         // user - interface
         actionsBar = new WidgetActionsBar();
+        statisticsBar = new WidgetStatisticsBar(camera);
 //        widgetTopMenu.anchor = Widget.Anchor.TOP_CENTER;
 //        widgetTopMenu.anchorY = 0;
     }
@@ -198,6 +198,7 @@ public class SceneDemo implements Scene {
 
 
         actionsBar.update(delta);
+        statisticsBar.update(delta);
 
         map.update(delta);
         map.render(renderer2D);
@@ -217,6 +218,7 @@ public class SceneDemo implements Scene {
         // draw UI
         renderer2D.begin();
         actionsBar.render(renderer2D);
+        statisticsBar.render(renderer2D);
         renderer2D.end();
 
     }

@@ -42,6 +42,11 @@ public class ToolStampDecorations extends Tool {
     }
 
     @Override
+    public String getName() {
+        return "Decorations Brush";
+    }
+
+    @Override
     public void update(float delta) {
         // inputs
         float verticalScroll = Input.mouse.getVerticalScroll();

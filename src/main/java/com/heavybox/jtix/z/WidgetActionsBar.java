@@ -1,10 +1,8 @@
 package com.heavybox.jtix.z;
 
-import com.heavybox.jtix.application.Application;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.TexturePack;
-import com.heavybox.jtix.networking.Networking;
 import com.heavybox.jtix.widgets_4.WidgetContainer;
 import com.heavybox.jtix.widgets_4.WidgetImage;
 

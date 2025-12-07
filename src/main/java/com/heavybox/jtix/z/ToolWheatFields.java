@@ -39,6 +39,11 @@ public class ToolWheatFields extends Tool {
     }
 
     @Override
+    public String getName() {
+        return "Fields Brush";
+    }
+
+    @Override
     public void update(float delta) {
         baseType += (int) Input.mouse.getVerticalScroll();
         baseType %= bases.length;

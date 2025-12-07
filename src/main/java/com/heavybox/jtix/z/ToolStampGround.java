@@ -25,6 +25,11 @@ public class ToolStampGround extends Tool {
         sclY = 0.5f;
     }
 
+    @Override
+    public String getName() {
+        return "Blocks Brush";
+    }
+
     private void nextMode() {
         Mode[] values = Mode.values();
         int index = currentMode.ordinal();

@@ -23,6 +23,11 @@ public class ToolStampRocks extends Tool {
         sclY = 1f;
     }
 
+    @Override
+    public String getName() {
+        return "Rocks Brush";
+    }
+
     private void selectRandomIndex() {
         currentIndex = MathUtils.randomUniformInt(0,6);
         region = layer3.getRegion("assets/textures-layer-3/" + currentMode.name().toLowerCase() + "_" + currentIndex + ".png");

@@ -81,6 +81,11 @@ public class ToolStampBlocks extends Tool {
     }
 
     @Override
+    public String getName() {
+        return "Architecture Brush";
+    }
+
+    @Override
     public void update(float delta) {
         // input
         float verticalScroll = Input.mouse.getVerticalScroll();

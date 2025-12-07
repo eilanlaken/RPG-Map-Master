@@ -45,6 +45,11 @@ public class ToolStampTrees extends Tool {
     }
 
     @Override
+    public String getName() {
+        return "Tree Brush";
+    }
+
+    @Override
     public void update(float delta) {
         // tool settings - mode
         if (Input.mouse.getVerticalScroll() > 0 && Input.keyboard.isKeyPressed(Keyboard.Key.LEFT_CONTROL)) {
