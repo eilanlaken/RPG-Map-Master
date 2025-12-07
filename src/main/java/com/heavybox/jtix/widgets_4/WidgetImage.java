@@ -9,26 +9,28 @@ import com.heavybox.jtix.graphics.TextureRegion;
 public class WidgetImage extends WidgetContainer {
 
     private final WidgetImageContent imageContent;
-    public String src;
     public TextureRegion img = null;
 
-    public float imgWidth = 110;
-    public float imgHeight = 110;
+    public float imgWidth = 0;
+    public float imgHeight = 0;
     public float zoom = 1f;
     public Color tint = Color.WHITE.clone();
 
     public WidgetImage(final String src) {
-        this.src = src;
-        Texture texture = null;
         boolean loaded = Assets.isLoaded(src);
-        if (loaded) {
-            texture = Assets.get(src);
-        } else {
-            texture = new Texture(src);
-        }
+        Texture texture = loaded ? Assets.get(src) : new Texture(src);
         img = new TextureRegion(texture);
-
         this.imageContent = new WidgetImageContent(this);
+        init();
+    }
+
+    public WidgetImage(TextureRegion region) {
+        this.img = region;
+        this.imageContent = new WidgetImageContent(this);
+        init();
+    }
+
+    private void init() {
         layout = Layout.STACK;
         layoutAddScrollbar = false;
         boxBackgroundVisible = false;
@@ -54,8 +56,6 @@ public class WidgetImage extends WidgetContainer {
 
         final WidgetImage container;
 
-
-        // TODO: implement multiple constructors
         public WidgetImageContent(final WidgetImage container) {
             this.container = container;
         }

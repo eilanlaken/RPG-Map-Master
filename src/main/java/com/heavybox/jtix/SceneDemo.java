@@ -9,6 +9,7 @@ import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.Vector3;
 import com.heavybox.jtix.tools.ToolsTexturePacker;
 import com.heavybox.jtix.widgets.Widget;
+import com.heavybox.jtix.widgets_4.WidgetImage;
 import com.heavybox.jtix.z.*;
 import org.lwjgl.opengl.GL11;
 
@@ -25,8 +26,8 @@ public class SceneDemo implements Scene {
     public int activeTool = 0;
 
     // user-interface
-    public boolean ui_visible = false;
-    public int mockupIndex = 0;
+    //WidgetImage actionBarNew;
+    WidgetActionsBar actionsBar;
 
     public SceneDemo() {
         renderer2D = new Renderer2D();
@@ -45,6 +46,8 @@ public class SceneDemo implements Scene {
             ToolsTexturePacker.packTextures("assets/texture-packs", "layer_4", 0, 2, ToolsTexturePacker.TexturePackSize.XX_LARGE_8192, "assets/textures-layer-4", true);
             // pack layer 5 (decorations)
             ToolsTexturePacker.packTextures("assets/texture-packs", "layer_5", 0, 2, ToolsTexturePacker.TexturePackSize.XX_LARGE_8192, "assets/textures-layer-5", true);
+            // pack ui assets
+            ToolsTexturePacker.packTextures("assets/texture-packs", "user-interface", 0, 2, ToolsTexturePacker.TexturePackSize.XX_LARGE_8192, "assets/user-interface", true);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -75,10 +78,11 @@ public class SceneDemo implements Scene {
         Assets.loadTexturePack("assets/texture-packs/layer_3.yml");
 
         // layer 5
+        // TODO: remove
         Assets.loadTexture("assets/textures-layer-5/decorations_sun.png");
 
         // user-interface
-
+        Assets.loadTexturePack("assets/texture-packs/user-interface.yml");
 
         Assets.finishLoading();
 
@@ -93,7 +97,7 @@ public class SceneDemo implements Scene {
         tools[6] = new ToolStampDecorations(map);
 
         // user - interface
-
+        actionsBar = new WidgetActionsBar();
 //        widgetTopMenu.anchor = Widget.Anchor.TOP_CENTER;
 //        widgetTopMenu.anchorY = 0;
     }
@@ -192,18 +196,8 @@ public class SceneDemo implements Scene {
             map.saveLayerAsImage(5);
         }
 
-        // user - interface
-        // update ui
-        if (Input.keyboard.isKeyJustReleased(Keyboard.Key.BACKSPACE)) {
-            ui_visible = !ui_visible;
-        }
-        // TODO: remove
-        if (activeTool == 0) mockupIndex = 1;
-        else if (activeTool == 2) mockupIndex = 2;
-        else if (activeTool == 4) mockupIndex = 3;
-        else mockupIndex = 0;
-//        widgetTopMenu.update(Graphics.getDeltaTime());
-//        widgetTopMenu.handleInput(Graphics.getDeltaTime());
+
+        actionsBar.update(delta);
 
         map.update(delta);
         map.render(renderer2D);
@@ -222,6 +216,7 @@ public class SceneDemo implements Scene {
 
         // draw UI
         renderer2D.begin();
+        actionsBar.render(renderer2D);
         renderer2D.end();
 
     }
