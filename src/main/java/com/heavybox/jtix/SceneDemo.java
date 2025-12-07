@@ -24,9 +24,10 @@ public class SceneDemo implements Scene {
     public int activeTool = 0;
 
     // user-interface
-    //WidgetImage actionBarNew;
     private WidgetActionsBar actionsBar;
     private WidgetStatisticsBar statisticsBar;
+    private WidgetToolbar toolbar;
+    private WidgetToolSettings toolSettings;
 
     public SceneDemo() {
         renderer2D = new Renderer2D();
@@ -98,6 +99,8 @@ public class SceneDemo implements Scene {
         // user - interface
         actionsBar = new WidgetActionsBar();
         statisticsBar = new WidgetStatisticsBar(camera);
+        toolbar = new WidgetToolbar();
+        toolSettings = new WidgetToolSettings();
 //        widgetTopMenu.anchor = Widget.Anchor.TOP_CENTER;
 //        widgetTopMenu.anchorY = 0;
     }
@@ -199,6 +202,8 @@ public class SceneDemo implements Scene {
 
         actionsBar.update(delta);
         statisticsBar.update(delta);
+        toolbar.update(delta);
+        toolSettings.update(delta);
 
         map.update(delta);
         map.render(renderer2D);
@@ -219,6 +224,8 @@ public class SceneDemo implements Scene {
         renderer2D.begin();
         actionsBar.render(renderer2D);
         statisticsBar.render(renderer2D);
+        toolbar.render(renderer2D);
+        toolSettings.render(renderer2D);
         renderer2D.end();
 
     }

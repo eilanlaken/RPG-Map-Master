@@ -72,26 +72,26 @@ public abstract class Widget {
     public Event.EventListenerKeysPressed             onKeysPressed             = null;
 
     /*** default methods for event handling ***/
-    protected void onMouseUpDefault     (Event.EventMouseUp e)      {}
-    protected void onMouseDownDefault   (Event.EventMouseDown e)    {}
-    protected void onMouseEnterDefault  (Event.EventMouseEnter e)   {}
-    protected void onMouseLeaveDefault  (Event.EventMouseLeave e)   {}
-    protected void onMouseLeftClickDefault(Event.EventMouseLeftClick e)   {}
-    protected void onMouseRightClickDefault(Event.EventMouseRightClick e)   {}
-    protected void onMouseMiddleClickDefault(Event.EventMouseMiddleClick e)   {}
-    protected void onMouseLeftClickOutsideDefault(Event.EventMouseLeftClickOutside e)   {}
-    protected void onMouseRightClickOutsideDefault(Event.EventMouseRightClickOutside e)   {}
-    protected void onMouseMiddleClickOutsideDefault(Event.EventMouseMiddleClickOutside e)   {}
-    protected void onMouseScrollDefault (Event.EventMouseScroll e)  {}
-    protected void onMouseDragDefault(Event.EventMouseDrag e)  {}
-    protected void onMouseDragStartDefault(Event.EventMouseDragStart e)  {}
-    protected void onMouseDragEndDefault(Event.EventMouseDragEnd e)  {}
-    protected void onResizeDefault      (Event.EventResize e)       {}
-    protected void onChildAddedDefault  (Event.EventChildAdded e)   {}
-    protected void onChildRemovedDefault(Event.EventChildRemoved e) {}
-    protected void onCodepointsTypedDefault(Event.EventCodepointsTyped e) {}
-    protected void onKeysJustPressedDefault(Event.EventKeysJustPressed e) {}
-    protected void onKeysPressedDefault(Event.EventKeysPressed e) {}
+    protected void onMouseUpDefault                (Event.EventMouseUp e)                 {}
+    protected void onMouseDownDefault              (Event.EventMouseDown e)               {}
+    protected void onMouseEnterDefault             (Event.EventMouseEnter e)              {}
+    protected void onMouseLeaveDefault             (Event.EventMouseLeave e)              {}
+    protected void onMouseLeftClickDefault         (Event.EventMouseLeftClick e)          {}
+    protected void onMouseRightClickDefault        (Event.EventMouseRightClick e)         {}
+    protected void onMouseMiddleClickDefault       (Event.EventMouseMiddleClick e)        {}
+    protected void onMouseLeftClickOutsideDefault  (Event.EventMouseLeftClickOutside e)   {}
+    protected void onMouseRightClickOutsideDefault (Event.EventMouseRightClickOutside e)  {}
+    protected void onMouseMiddleClickOutsideDefault(Event.EventMouseMiddleClickOutside e) {}
+    protected void onMouseScrollDefault            (Event.EventMouseScroll e)             {}
+    protected void onMouseDragDefault              (Event.EventMouseDrag e)               {}
+    protected void onMouseDragStartDefault         (Event.EventMouseDragStart e)          {}
+    protected void onMouseDragEndDefault           (Event.EventMouseDragEnd e)            {}
+    protected void onResizeDefault                 (Event.EventResize e)                  {}
+    protected void onChildAddedDefault             (Event.EventChildAdded e)              {}
+    protected void onChildRemovedDefault           (Event.EventChildRemoved e)            {}
+    protected void onCodepointsTypedDefault        (Event.EventCodepointsTyped e)         {}
+    protected void onKeysJustPressedDefault        (Event.EventKeysJustPressed e)         {}
+    protected void onKeysPressedDefault            (Event.EventKeysPressed e)             {}
 
     /*** Add and remove child methods ***/
     public final void addChild(Widget widget) {
@@ -131,14 +131,22 @@ public abstract class Widget {
 
     public final void render(Renderer2D renderer2D) {
         if (hidden) return;
-        draw(renderer2D, transformScreen.x, transformScreen.y, transformScreen.deg, transformScreen.sclX, transformScreen.sclY);
+        try {
+            draw(renderer2D, transformScreen.x, transformScreen.y, transformScreen.deg, transformScreen.sclX, transformScreen.sclY);
+        } catch (Exception e) {
+            // ignored: probably trying to draw 0 vertices polygon
+        }
 
         /* if masking is enabled, draw the mask */
         boolean maskChildren = maskChildren();
         if (maskChildren) {
             renderer2D.beginStencil();
             renderer2D.setStencilModeIncrement();
-            drawMask(renderer2D, transformScreen.x, transformScreen.y, transformScreen.deg, transformScreen.sclX, transformScreen.sclY);
+            try {
+                drawMask(renderer2D, transformScreen.x, transformScreen.y, transformScreen.deg, transformScreen.sclX, transformScreen.sclY);
+            } catch (Exception e) {
+                // ignored: probably trying to draw 0 vertices polygon
+            }
             renderer2D.endStencil();
         }
 
@@ -157,7 +165,11 @@ public abstract class Widget {
         if (maskChildren) {
             renderer2D.beginStencil();
             renderer2D.setStencilModeDecrement();
-            drawMask(renderer2D, transformScreen.x, transformScreen.y, transformScreen.deg, transformScreen.sclX, transformScreen.sclY);
+            try {
+                drawMask(renderer2D, transformScreen.x, transformScreen.y, transformScreen.deg, transformScreen.sclX, transformScreen.sclY);
+            } catch (Exception e) {
+                // ignored: probably trying to draw 0 vertices polygon
+            }
             renderer2D.endStencil();
         }
     }

@@ -14,10 +14,20 @@ regions:
   offsetY: 21
   originalHeight: 88
   originalWidth: 88
-  packedHeight: 45
-  packedWidth: 66
+  packedHeight: 47
+  packedWidth: 68
   textureIndex: 0
-  x: 150
+  x: 166
+  y: 55
+- name: assets/user-interface/tool-bar-decorations.png
+  offsetX: 16
+  offsetY: 18
+  originalHeight: 88
+  originalWidth: 88
+  packedHeight: 54
+  packedWidth: 53
+  textureIndex: 0
+  x: 65
   y: 2
 - name: assets/user-interface/tool-bar-terrain.png
   offsetX: 6
@@ -27,8 +37,8 @@ regions:
   packedHeight: 37
   packedWidth: 76
   textureIndex: 0
-  x: 2
-  y: 72
+  x: 122
+  y: 106
 - name: assets/user-interface/action-bar-new.png
   offsetX: 23
   offsetY: 15
@@ -37,7 +47,7 @@ regions:
   packedHeight: 54
   packedWidth: 40
   textureIndex: 0
-  x: 65
+  x: 122
   y: 2
 - name: assets/user-interface/tool-bar-props.png
   offsetX: 26
@@ -47,7 +57,7 @@ regions:
   packedHeight: 49
   packedWidth: 37
   textureIndex: 0
-  x: 109
+  x: 166
   y: 2
 - name: assets/user-interface/action-bar-save-as.png
   offsetX: 23
@@ -57,8 +67,8 @@ regions:
   packedHeight: 40
   packedWidth: 40
   textureIndex: 0
-  x: 150
-  y: 51
+  x: 122
+  y: 60
 - name: assets/user-interface/action-bar-close.png
   offsetX: 26
   offsetY: 21
@@ -67,8 +77,8 @@ regions:
   packedHeight: 40
   packedWidth: 33
   textureIndex: 0
-  x: 109
-  y: 55
+  x: 2
+  y: 72
 - name: assets/user-interface/action-bar-redo.png
   offsetX: 23
   offsetY: 26
@@ -77,8 +87,8 @@ regions:
   packedHeight: 32
   packedWidth: 40
   textureIndex: 0
-  x: 190
-  y: 96
+  x: 202
+  y: 106
 - name: assets/user-interface/action-bar-undo.png
   offsetX: 22
   offsetY: 26
@@ -87,8 +97,8 @@ regions:
   packedHeight: 32
   packedWidth: 40
   textureIndex: 0
-  x: 146
-  y: 95
+  x: 39
+  y: 107
 - name: assets/user-interface/action-bar-export.png
   offsetX: 21
   offsetY: 28
@@ -97,8 +107,8 @@ regions:
   packedHeight: 28
   packedWidth: 45
   textureIndex: 0
-  x: 82
-  y: 99
+  x: 202
+  y: 142
 - name: assets/user-interface/tool-bar-architecture.png
   offsetX: 30
   offsetY: 22
@@ -107,10 +117,10 @@ regions:
   packedHeight: 43
   packedWidth: 28
   textureIndex: 0
-  x: 220
-  y: 2
+  x: 65
+  y: 60
 - name: assets/user-interface/tool-bar-text.png
-  offsetX: 20
+  offsetX: 19
   offsetY: 34
   originalHeight: 88
   originalWidth: 88
@@ -118,7 +128,7 @@ regions:
   packedWidth: 49
   textureIndex: 0
   x: 2
-  y: 113
+  y: 143
 - name: assets/user-interface/action-bar-help.png
   offsetX: 33
   offsetY: 20
@@ -127,8 +137,8 @@ regions:
   packedHeight: 43
   packedWidth: 21
   textureIndex: 0
-  x: 220
-  y: 49
+  x: 97
+  y: 60
 - name: assets/user-interface/action-bar-load.png
   offsetX: 25
   offsetY: 25
@@ -138,7 +148,7 @@ regions:
   packedWidth: 39
   textureIndex: 0
   x: 55
-  y: 131
+  y: 143
 textures:
 - file: user-interface_0.png
   height: 256
