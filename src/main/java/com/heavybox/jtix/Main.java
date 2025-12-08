@@ -12,8 +12,8 @@ public class Main {
         ApplicationSettings settings = new ApplicationSettings();
         //settings.resizable = false;
         Application.init(settings);
-        Application.launch(new SceneDemo());
-        //Application.launch(new SceneTestUI2());
+        //Application.launch(new SceneDemo());
+        Application.launch(new SceneTestUI2());
     }
 
 }

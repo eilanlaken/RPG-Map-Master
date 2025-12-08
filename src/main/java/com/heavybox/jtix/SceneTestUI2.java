@@ -21,7 +21,7 @@ public class SceneTestUI2 implements Scene {
     WidgetText widgetText2 = new WidgetText("hello2");
     WidgetInputSlider slider = new WidgetInputSlider();
     WidgetInputCheckbox checkbox = new WidgetInputCheckbox();
-    WidgetShapeRectangle rect1 = new WidgetShapeRectangle(350,250,Color.YELLOW);
+    WidgetShapeRectangle rect1 = new WidgetShapeRectangle(150,30,Color.YELLOW);
     WidgetShapeRectangle rect2 = new WidgetShapeRectangle(350,250,Color.WHITE);
     WidgetShapeRectangle rect3 = new WidgetShapeRectangle(350,250,Color.GREEN);
     WidgetShapeRectangle rect4 = new WidgetShapeRectangle(350,250,Color.BROWN);
@@ -48,8 +48,6 @@ public class SceneTestUI2 implements Scene {
         slider.transform.deg = 30;
         slider.transform.x = 100;
         slider.transform.y = 100;
-
-        rect2.type = WidgetShape.Type.FILLED;
 
         container.layoutWidthSizing = WidgetContainer.Sizing.DYNAMIC;
         container.layoutHeightSizing = WidgetContainer.Sizing.STATIC;
@@ -127,12 +125,12 @@ public class SceneTestUI2 implements Scene {
 //        }
 //
         if (Input.mouse.isButtonJustPressed(Mouse.Button.RIGHT)) {
-            WidgetShapeRectangle rect = new WidgetShapeRectangle(350,250,Color.WHITE);
+            WidgetShapeRectangle rect = new WidgetShapeRectangle(100,50,Color.WHITE);
             container.addChild(rect);
         }
 //
 //        //widgetText.update(1);
-        //container.update(delta);
+        container.update(delta);
 //        //rect1.update(1);
 //        if (Input.keyboard.isKeyJustReleased(Keyboard.Key.SPACE)) {
 //            rect3.active = false;
@@ -140,7 +138,7 @@ public class SceneTestUI2 implements Scene {
 
         //textField.update(delta);
         //container.update(delta);
-        image.update(delta);
+        //image.update(delta);
         image.zoom = 0.3f;
         image.boxBackgroundVisible = true;
         image.boxBackgroundColor = Color.BLUE;
@@ -149,8 +147,8 @@ public class SceneTestUI2 implements Scene {
 
         renderer2D.begin();
         //scrollbar.render(renderer2D);
-//        container.render(renderer2D);
-        image.render(renderer2D);
+        container.render(renderer2D);
+        //image.render(renderer2D);
         //textField.render(renderer2D);
         renderer2D.end();
     }

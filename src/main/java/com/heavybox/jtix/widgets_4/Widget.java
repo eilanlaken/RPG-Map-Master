@@ -215,7 +215,8 @@ public abstract class Widget {
         }
         childrenLayout.clear();
         for (Widget child : childrenActive) {
-            if (child.anchor == null) childrenLayout.add(child);
+            //if (child.anchor == null) childrenLayout.add(child);
+            childrenLayout.add(child);
         }
         setChildrenOffsets(childrenLayout);
         setOffsetsAnchor();
