@@ -134,7 +134,7 @@ public abstract class Widget {
         try {
             draw(renderer2D, transformScreen.x, transformScreen.y, transformScreen.deg, transformScreen.sclX, transformScreen.sclY);
         } catch (Exception e) {
-            // ignored: probably trying to draw 0 vertices polygon
+            //throw e;
         }
 
         /* if masking is enabled, draw the mask */
@@ -145,7 +145,7 @@ public abstract class Widget {
             try {
                 drawMask(renderer2D, transformScreen.x, transformScreen.y, transformScreen.deg, transformScreen.sclX, transformScreen.sclY);
             } catch (Exception e) {
-                // ignored: probably trying to draw 0 vertices polygon
+                //throw e;
             }
             renderer2D.endStencil();
         }
@@ -168,7 +168,7 @@ public abstract class Widget {
             try {
                 drawMask(renderer2D, transformScreen.x, transformScreen.y, transformScreen.deg, transformScreen.sclX, transformScreen.sclY);
             } catch (Exception e) {
-                // ignored: probably trying to draw 0 vertices polygon
+                //throw e;
             }
             renderer2D.endStencil();
         }

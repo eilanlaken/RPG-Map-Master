@@ -186,6 +186,36 @@ class MathUtilsTest {
     }
 
     @Test
+    void removeDegenerateVertices() {
+        float[] p4 = new float[] {
+                0.0f, 0.0f,
+                0.0f, 0.0f,
+                1.0f, 0.0f,
+                2.0f, 0.0f,
+                1.0f, 2.0f,
+                0.0f, 0.0f,
+        };
+        ArrayFloat p4_removedDegenerateVertices = new ArrayFloat();
+        MathUtils.polygonRemoveDegenerateVertices(p4, p4_removedDegenerateVertices);
+
+        Assertions.assertEquals(0.0f, p4_removedDegenerateVertices.get(0));
+        Assertions.assertEquals(0.0f, p4_removedDegenerateVertices.get(1));
+        Assertions.assertEquals(2.0f, p4_removedDegenerateVertices.get(2));
+        Assertions.assertEquals(0.0f, p4_removedDegenerateVertices.get(3));
+        Assertions.assertEquals(1.0f, p4_removedDegenerateVertices.get(4));
+        Assertions.assertEquals(2.0f, p4_removedDegenerateVertices.get(5));
+
+        float[] p5 = new float[] {
+                0.0f, 0.0f,
+                0.0f, 0.0f,
+                0.0f, 0.0f,
+        };
+        ArrayFloat p5_removedDegenerateVertices = new ArrayFloat();
+        MathUtils.polygonRemoveDegenerateVertices(p5, p5_removedDegenerateVertices);
+        Assertions.assertEquals(0, p5_removedDegenerateVertices.size);
+    }
+
+    @Test
     public void clampFloat() {
         float v1 = MathUtils.clampFloat(0.0f, -1.0f, 1.0f);
         Assertions.assertEquals(0.0f, v1, MathUtils.FLOAT_ROUNDING_ERROR);

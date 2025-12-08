@@ -227,7 +227,7 @@ public class WidgetContainer extends Widget {
     }
 
     protected final float getContentWidthStack(final Array<Widget> widgets) {
-        float maxWidth = Float.NEGATIVE_INFINITY;
+        float maxWidth = 0;
         for (Widget child : widgets) {
             maxWidth = Math.max(child.getWidth(), maxWidth);
         }
@@ -248,21 +248,21 @@ public class WidgetContainer extends Widget {
     }
 
     protected final float getContentWidthCustom(final Array<Widget> widgets) {
+        if (widgets == null || widgets.isEmpty()) return 0;
+
         float min_x = Float.POSITIVE_INFINITY;
         float max_x = Float.NEGATIVE_INFINITY;
-
         for (Widget widget : widgets) {
             float left = widget.offsetX - widget.getWidth();
             float right = widget.offsetX + widget.getWidth();
             min_x = Math.min(min_x, left);
             max_x = Math.max(max_x, right);
         }
-
         return Math.abs(max_x - min_x);
     }
 
     protected float getContentHeightStack(final Array<Widget> widgets) {
-        float maxHeight = Float.NEGATIVE_INFINITY;
+        float maxHeight = 0;
         for (Widget child : widgets) {
             maxHeight = Math.max(child.getHeight(), maxHeight);
         }
@@ -352,16 +352,16 @@ public class WidgetContainer extends Widget {
     }
 
     protected final float getContentHeightCustom(final Array<Widget> widgets) {
+        if (widgets == null || widgets.isEmpty()) return 0;
+
         float min_y = Float.POSITIVE_INFINITY;
         float max_y = Float.NEGATIVE_INFINITY;
-
         for (Widget widget : widgets) {
             float down = widget.offsetY - widget.getHeight();
             float up = widget.offsetY + widget.getHeight();
             min_y = Math.min(min_y, down);
             max_y = Math.max(max_y, up);
         }
-
         return Math.abs(max_y - min_y);
     }
 
