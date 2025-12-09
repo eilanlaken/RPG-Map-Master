@@ -7,6 +7,9 @@ import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.math.MathUtils;
 import org.jetbrains.annotations.NotNull;
 
+// TODO: maybe refactor into 3 simpler classes:
+// TODO: WidgetContainerVertical
+// TODO: WidgetContainerHorizontal
 public class WidgetContainer extends Widget {
 
     /* state */ // TODO

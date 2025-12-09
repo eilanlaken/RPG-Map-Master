@@ -1,5 +1,6 @@
 package com.heavybox.jtix.z;
 
+import com.heavybox.jtix.RPGMapMakerScene;
 import com.heavybox.jtix.graphics.Camera;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.math.Vector3;
@@ -14,11 +15,13 @@ public class WidgetStatisticsBar extends WidgetContainer {
     private final WidgetText cameraZoom = new WidgetText("");
 
     /* references */
+    private final RPGMapMakerScene scene;
     private final Camera camera;
     private float cameraZoomPrev;
 
-    public WidgetStatisticsBar(final Camera camera) {
-        this.camera = camera;
+    public WidgetStatisticsBar(final RPGMapMakerScene scene) {
+        this.scene = scene;
+        this.camera = scene.getCamera();
 
         layout = Layout.HORIZONTAL;
         layoutOverflowX = Overflow.VISIBLE;

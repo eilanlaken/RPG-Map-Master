@@ -1,5 +1,6 @@
 package com.heavybox.jtix.z;
 
+import com.heavybox.jtix.RPGMapMakerScene;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.TexturePack;
@@ -8,11 +9,16 @@ import com.heavybox.jtix.widgets_4.WidgetImage;
 
 public class WidgetToolbar extends WidgetContainer {
 
+    /* references */
+    public Map map;
+
     public static final int BUTTON_SIZE = 42;
 
     public int selected = 0;
 
-    public WidgetToolbar() {
+    public WidgetToolbar(RPGMapMakerScene scene) {
+        this.map = scene.getMap();
+
         layout = Layout.VERTICAL;
         layoutAddScrollbar = false;
         layoutWidthSizing = Sizing.DYNAMIC;

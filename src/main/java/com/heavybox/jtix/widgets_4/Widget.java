@@ -215,8 +215,7 @@ public abstract class Widget {
         }
         childrenLayout.clear();
         for (Widget child : childrenActive) {
-            //if (child.anchor == null) childrenLayout.add(child);
-            childrenLayout.add(child);
+            if (child.anchor == null) childrenLayout.add(child);
         }
         setChildrenOffsets(childrenLayout);
         setOffsetsAnchor();
@@ -686,21 +685,21 @@ public abstract class Widget {
             case CENTER_RIGHT:
                 screen_max_x = halfParentWidth - max_x;
                 offsetX = screen_max_x - anchorX;
-                offsetY = 0;
+                //offsetY = 0;
                 break;
             case CENTER_LEFT:
                 screen_min_x = min_x + halfParentWidth;
                 offsetX = anchorX - screen_min_x;
-                offsetY = 0;
+                //offsetY = 0;
                 break;
             case TOP_CENTER:
                 screen_max_y = halfParentHeight - max_y;
-                offsetX = 0;
+                //offsetX = 0;
                 offsetY = screen_max_y - anchorY;
                 break;
             case BOTTOM_CENTER:
                 screen_min_y = min_y + halfParentHeight;
-                offsetX = 0;
+                //offsetX = 0;
                 offsetY = anchorY - screen_min_y;
                 break;
             case TOP_LEFT:
@@ -728,7 +727,14 @@ public abstract class Widget {
                 offsetY = anchorY - screen_min_y;
                 break;
             case CENTER_CENTER:
-                // TODO
+                screen_min_x = min_x + halfParentWidth;
+                screen_min_y = min_y + halfParentHeight;
+                screen_max_x = halfParentWidth - max_x;
+                screen_max_y = halfParentHeight - max_y;
+                float center_x = (screen_min_x + screen_max_x) * 0.5f;
+                float center_y = (screen_min_y + screen_max_y) * 0.5f;
+                offsetX = anchorX - center_x;
+                offsetY = anchorY - center_y;
                 break;
         }
     }
@@ -737,10 +743,20 @@ public abstract class Widget {
     // when the parent is null, it's the window edges.
     // this is important to make the ui responsive.
     public enum Anchor {
-        TOP_LEFT   , TOP_CENTER   , TOP_RIGHT   ,
-        CENTER_LEFT, CENTER_CENTER, CENTER_RIGHT,
-        BOTTOM_LEFT, BOTTOM_CENTER, BOTTOM_RIGHT,
+
+        TOP_LEFT(true, true),     TOP_CENTER(false, true),    TOP_RIGHT(true, true),
+        CENTER_LEFT(true, false), CENTER_CENTER(true, true),  CENTER_RIGHT(true, false),
+        BOTTOM_LEFT(true, true),  BOTTOM_CENTER(false, true), BOTTOM_RIGHT(true, true),
         ;
+
+        public final boolean affectsX;
+        public final boolean affectsY;
+
+        Anchor(final boolean affectsX, final boolean affectsY) {
+            this.affectsX = affectsX;
+            this.affectsY = affectsY;
+        }
+
     }
 
 }

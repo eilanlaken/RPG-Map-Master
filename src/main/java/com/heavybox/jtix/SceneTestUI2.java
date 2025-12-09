@@ -52,7 +52,7 @@ public class SceneTestUI2 implements Scene {
         container.layoutWidthSizing = WidgetContainer.Sizing.DYNAMIC;
         container.layoutHeightSizing = WidgetContainer.Sizing.STATIC;
         container.layoutWidth = 200;
-        container.layoutHeight = 400;
+        container.layoutHeight = 300;
         container.boxPaddingLeft = 10;
         container.boxPaddingRight = 10;
         container.boxPaddingBottom = 50;
@@ -125,7 +125,10 @@ public class SceneTestUI2 implements Scene {
 //        }
 //
         if (Input.mouse.isButtonJustPressed(Mouse.Button.RIGHT)) {
-            WidgetShapeRectangle rect = new WidgetShapeRectangle(100,50,Color.WHITE);
+            WidgetShapeRectangle rect = new WidgetShapeRectangle(100,50, Color.random());
+            //rect.anchor = Widget.Anchor.CENTER_RIGHT;
+            rect.anchorX = 0;
+            rect.anchorY = 50;
             container.addChild(rect);
         }
 //

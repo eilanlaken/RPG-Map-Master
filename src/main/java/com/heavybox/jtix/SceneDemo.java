@@ -13,7 +13,7 @@ import org.lwjgl.opengl.GL11;
 
 // contact points polygon vs polygon:
 // https://www.youtube.com/watch?v=5gDC1GU3Ivg
-public class SceneDemo implements Scene {
+public class SceneDemo implements Scene, RPGMapMakerScene {
 
     private Renderer2D renderer2D;
     public final Camera camera = new Camera(Camera.Mode.ORTHOGRAPHIC, Graphics.getWindowWidth(), Graphics.getWindowHeight(), 2, 0, 100, 75);
@@ -78,8 +78,6 @@ public class SceneDemo implements Scene {
         Assets.loadTexturePack("assets/texture-packs/layer_3.yml");
 
         // layer 5
-        // TODO: remove
-        Assets.loadTexture("assets/textures-layer-5/decorations_sun.png");
 
         // user-interface
         Assets.loadTexturePack("assets/texture-packs/user-interface.yml");
@@ -98,8 +96,8 @@ public class SceneDemo implements Scene {
 
         // user - interface
         actionsBar = new WidgetActionsBar();
-        statisticsBar = new WidgetStatisticsBar(camera);
-        toolbar = new WidgetToolbar();
+        statisticsBar = new WidgetStatisticsBar(this);
+        toolbar = new WidgetToolbar(this);
         toolSettings = new WidgetToolSettings();
 //        widgetTopMenu.anchor = Widget.Anchor.TOP_CENTER;
 //        widgetTopMenu.anchorY = 0;
@@ -241,4 +239,13 @@ public class SceneDemo implements Scene {
         camera.update();
     }
 
+    @Override
+    public Map getMap() {
+        return map;
+    }
+
+    @Override
+    public Camera getCamera() {
+        return camera;
+    }
 }
