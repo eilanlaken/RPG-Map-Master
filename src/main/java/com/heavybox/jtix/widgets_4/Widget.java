@@ -72,26 +72,26 @@ public abstract class Widget {
     public Event.EventListenerKeysPressed             onKeysPressed             = null;
 
     /*** default methods for event handling ***/
-    protected void onMouseUpDefault                (Event.EventMouseUp e)                 {}
-    protected void onMouseDownDefault              (Event.EventMouseDown e)               {}
-    protected void onMouseEnterDefault             (Event.EventMouseEnter e)              {}
-    protected void onMouseLeaveDefault             (Event.EventMouseLeave e)              {}
-    protected void onMouseLeftClickDefault         (Event.EventMouseLeftClick e)          {}
-    protected void onMouseRightClickDefault        (Event.EventMouseRightClick e)         {}
-    protected void onMouseMiddleClickDefault       (Event.EventMouseMiddleClick e)        {}
-    protected void onMouseLeftClickOutsideDefault  (Event.EventMouseLeftClickOutside e)   {}
-    protected void onMouseRightClickOutsideDefault (Event.EventMouseRightClickOutside e)  {}
-    protected void onMouseMiddleClickOutsideDefault(Event.EventMouseMiddleClickOutside e) {}
-    protected void onMouseScrollDefault            (Event.EventMouseScroll e)             {}
-    protected void onMouseDragDefault              (Event.EventMouseDrag e)               {}
-    protected void onMouseDragStartDefault         (Event.EventMouseDragStart e)          {}
-    protected void onMouseDragEndDefault           (Event.EventMouseDragEnd e)            {}
-    protected void onResizeDefault                 (Event.EventResize e)                  {}
-    protected void onChildAddedDefault             (Event.EventChildAdded e)              {}
-    protected void onChildRemovedDefault           (Event.EventChildRemoved e)            {}
-    protected void onCodepointsTypedDefault        (Event.EventCodepointsTyped e)         {}
-    protected void onKeysJustPressedDefault        (Event.EventKeysJustPressed e)         {}
-    protected void onKeysPressedDefault            (Event.EventKeysPressed e)             {}
+    protected boolean onMouseUpDefault                (Event.EventMouseUp e)                 {return true;}
+    protected boolean onMouseDownDefault              (Event.EventMouseDown e)               {return true;}
+    protected boolean onMouseEnterDefault             (Event.EventMouseEnter e)              {return true;}
+    protected boolean onMouseLeaveDefault             (Event.EventMouseLeave e)              {return true;}
+    protected boolean onMouseLeftClickDefault         (Event.EventMouseLeftClick e)          {return true;}
+    protected boolean onMouseRightClickDefault        (Event.EventMouseRightClick e)         {return true;}
+    protected boolean onMouseMiddleClickDefault       (Event.EventMouseMiddleClick e)        {return true;}
+    protected boolean onMouseLeftClickOutsideDefault  (Event.EventMouseLeftClickOutside e)   {return false;}
+    protected boolean onMouseRightClickOutsideDefault (Event.EventMouseRightClickOutside e)  {return false;}
+    protected boolean onMouseMiddleClickOutsideDefault(Event.EventMouseMiddleClickOutside e) {return false;}
+    protected boolean onMouseScrollDefault            (Event.EventMouseScroll e)             {return true;}
+    protected boolean onMouseDragDefault              (Event.EventMouseDrag e)               {return true;}
+    protected boolean onMouseDragStartDefault         (Event.EventMouseDragStart e)          {return false;}
+    protected boolean onMouseDragEndDefault           (Event.EventMouseDragEnd e)            {return false;}
+    protected boolean onResizeDefault                 (Event.EventResize e)                  {return false;}
+    protected boolean onChildAddedDefault             (Event.EventChildAdded e)              {return false;}
+    protected boolean onChildRemovedDefault           (Event.EventChildRemoved e)            {return false;}
+    protected boolean onCodepointsTypedDefault        (Event.EventCodepointsTyped e)         {return false;}
+    protected boolean onKeysJustPressedDefault        (Event.EventKeysJustPressed e)         {return false;}
+    protected boolean onKeysPressedDefault            (Event.EventKeysPressed e)             {return false;}
 
     /*** Add and remove child methods ***/
     public final void addChild(Widget widget) {
@@ -104,12 +104,8 @@ public abstract class Widget {
         widget.parent = this;
         Event.EventChildAdded e = new Event.EventChildAdded(transformScreen);
         e.widget = widget;
-        if (onChildAdded != null) {
-            boolean handled = onChildAdded.handle(e);
-            if (!handled) onChildAddedDefault(e);
-        } else {
-            onChildAddedDefault(e);
-        }
+        if (onChildAdded != null) onChildAdded.handle(e);
+        onChildAddedDefault(e);
     }
 
     public final void removeChild(Widget widget) {
@@ -121,12 +117,8 @@ public abstract class Widget {
         Event.EventChildRemoved e = new Event.EventChildRemoved(transformScreen);
         e.widget = widget;
         e.index = index;
-        if (onChildRemoved != null) {
-            boolean handled = onChildRemoved.handle(e);
-            if (!handled) onChildRemovedDefault(e);
-        } else {
-            onChildRemovedDefault(e);
-        }
+        if (onChildRemoved != null) onChildRemoved.handle(e);
+        onChildRemovedDefault(e);
     }
 
     public final void render(Renderer2D renderer2D) {
@@ -229,12 +221,15 @@ public abstract class Widget {
     // TODO: handle input should be recursive?
     // TODO: event propagation and bubbling
     protected boolean handleInput() {
+        /* input region */
         configureInputRegion(region);
         region.transform(transformScreen);
         configureInputMaskedRegion(regionMask);
         regionMask.transform(transformScreen);
 
+        /* flag that will be returned true if event was fired, false otherwise. */
         boolean eventFired = false;
+        boolean inputHandled = false;
 
         /*  mouse input */
         float pointerXPrev = Widgets.getPointerXPrev();
@@ -247,7 +242,6 @@ public abstract class Widget {
         boolean mouseJustEntered = (!mouseInsidePrev && mouseInside) || (Input.mouse.cursorJustEnteredWindow() && mouseInside);
         boolean mouseJustLeft = (!mouseInside && mouseInsidePrev) || (Input.mouse.cursorJustLeftWindow() && mouseInsidePrev);
         boolean draggable = draggableX || draggableY;
-        boolean leftMouseDrag = mouseInside && Input.mouse.moved() && Input.mouse.isButtonPressed(Mouse.Button.LEFT);
         draggingPrev = dragging;
         if (mouseInside && Input.mouse.isButtonPressed(Mouse.Button.LEFT)) {
             dragging = true;
@@ -303,12 +297,8 @@ public abstract class Widget {
             e.buttonLeft = mouseDownLeft;
             e.buttonRight = mouseDownRight;
             e.buttonMiddle = mouseDownMiddle;
-            if (onMouseDown != null) {
-                boolean handled = onMouseDown.handle(e);
-                if (!handled) onMouseDownDefault(e);
-            } else {
-                onMouseDownDefault(e);
-            }
+            if (onMouseDown != null) onMouseDown.handle(e);
+            onMouseDownDefault(e);
         }
 
         /* mouse up */
@@ -322,12 +312,8 @@ public abstract class Widget {
             e.buttonLeft = mouseUpLeft;
             e.buttonRight = mouseUpRight;
             e.buttonMiddle = mouseUpMiddle;
-            if (onMouseUp != null) {
-                boolean handled = onMouseUp.handle(e);
-                if (!handled) onMouseUpDefault(e);
-            } else {
-                onMouseUpDefault(e);
-            }
+            if (onMouseUp != null) onMouseUp.handle(e);
+            onMouseUpDefault(e);
         }
 
         /* mouse click - left */
@@ -339,12 +325,8 @@ public abstract class Widget {
             local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
             e.mouseLocalX = local.x;
             e.mouseLocalY = local.y;
-            if (onMouseLeftClick != null) {
-                boolean handled = onMouseLeftClick.handle(e);
-                if (!handled) onMouseLeftClickDefault(e);
-            } else {
-                onMouseLeftClickDefault(e);
-            }
+            if (onMouseLeftClick != null) onMouseLeftClick.handle(e);
+            onMouseLeftClickDefault(e);
         }
 
         /* mouse click - right */
@@ -355,12 +337,8 @@ public abstract class Widget {
             local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
             e.mouseLocalX = local.x;
             e.mouseLocalY = local.y;
-            if (onMouseRightClick != null) {
-                boolean handled = onMouseRightClick.handle(e);
-                if (!handled) onMouseRightClickDefault(e);
-            } else {
-                onMouseRightClickDefault(e);
-            }
+            if (onMouseRightClick != null) onMouseRightClick.handle(e);
+            onMouseRightClickDefault(e);
         }
 
         /* mouse click - middle */
@@ -371,12 +349,8 @@ public abstract class Widget {
             local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
             e.mouseLocalX = local.x;
             e.mouseLocalY = local.y;
-            if (onMouseMiddleClick != null) {
-                boolean handled = onMouseMiddleClick.handle(e);
-                if (!handled) onMouseMiddleClickDefault(e);
-            } else {
-                onMouseMiddleClickDefault(e);
-            }
+            if (onMouseMiddleClick != null) onMouseMiddleClick.handle(e);
+            onMouseMiddleClickDefault(e);
         }
 
         /* mouse left click - outside */
@@ -388,12 +362,8 @@ public abstract class Widget {
             local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
             e.mouseLocalX = local.x;
             e.mouseLocalY = local.y;
-            if (onMouseLeftClickOutside != null) {
-                boolean handled = onMouseLeftClickOutside.handle(e);
-                if (!handled) onMouseLeftClickOutsideDefault(e);
-            } else {
-                onMouseLeftClickOutsideDefault(e);
-            }
+            if (onMouseLeftClickOutside != null) onMouseLeftClickOutside.handle(e);
+            onMouseLeftClickOutsideDefault(e);
         }
 
         /* mouse right click - outside */
@@ -404,12 +374,8 @@ public abstract class Widget {
             local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
             e.mouseLocalX = local.x;
             e.mouseLocalY = local.y;
-            if (onMouseRightClickOutside != null) {
-                boolean handled = onMouseRightClickOutside.handle(e);
-                if (!handled) onMouseRightClickOutsideDefault(e);
-            } else {
-                onMouseRightClickOutsideDefault(e);
-            }
+            if (onMouseRightClickOutside != null) onMouseRightClickOutside.handle(e);
+            onMouseRightClickOutsideDefault(e);
         }
 
         /* mouse middle click - outside */
@@ -420,12 +386,8 @@ public abstract class Widget {
             local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
             e.mouseLocalX = local.x;
             e.mouseLocalY = local.y;
-            if (onMouseMiddleClickOutside != null) {
-                boolean handled = onMouseMiddleClickOutside.handle(e);
-                if (!handled) onMouseMiddleClickOutsideDefault(e);
-            } else {
-                onMouseMiddleClickOutsideDefault(e);
-            }
+            if (onMouseMiddleClickOutside != null) onMouseMiddleClickOutside.handle(e);
+            onMouseMiddleClickOutsideDefault(e);
         }
 
         /* mouse enter */
@@ -440,12 +402,8 @@ public abstract class Widget {
             e.mouseLocalYPrev = localPrev.y;
             e.mouseLocalX = local.x;
             e.mouseLocalY = local.y;
-            if (onMouseEnter != null) {
-                boolean handled = onMouseEnter.handle(e);
-                if (!handled) onMouseEnterDefault(e);
-            } else {
-                onMouseEnterDefault(e);
-            }
+            if (onMouseEnter != null) onMouseEnter.handle(e);
+            onMouseEnterDefault(e);
         }
 
         /* mouse leave */
@@ -460,12 +418,8 @@ public abstract class Widget {
             e.mouseLocalYPrev = localPrev.y;
             e.mouseLocalX = local.x;
             e.mouseLocalY = local.y;
-            if (onMouseLeave != null) {
-                boolean handled = onMouseLeave.handle(e);
-                if (!handled) onMouseLeaveDefault(e);
-            } else {
-                onMouseLeaveDefault(e);
-            }
+            if (onMouseLeave != null) onMouseLeave.handle(e);
+            onMouseLeaveDefault(e);
         }
 
         /* mouse scroll */
@@ -477,12 +431,8 @@ public abstract class Widget {
             e.mouseLocalX = local.x;
             e.mouseLocalY = local.y;
             e.scrollValue = verticalScroll;
-            if (onMouseScroll != null) {
-                boolean handled = onMouseScroll.handle(e);
-                if (!handled) onMouseScrollDefault(e);
-            } else {
-                onMouseScrollDefault(e);
-            }
+            if (onMouseScroll != null) onMouseScroll.handle(e);
+            onMouseScrollDefault(e);
         }
 
         /* mouse dragged */
@@ -501,12 +451,8 @@ public abstract class Widget {
             e.mouseLocalDeltaY = local.y - localPrev.y;
             if (draggableX) transform.x += e.mouseLocalDeltaX;
             if (draggableY) transform.y += e.mouseLocalDeltaY;
-            if (onMouseDrag != null) {
-                boolean handled = onMouseDrag.handle(e);
-                if (!handled) onMouseDragDefault(e);
-            } else {
-                onMouseDragDefault(e);
-            }
+            if (onMouseDrag != null) onMouseDrag.handle(e);
+            onMouseDragDefault(e);
         }
 
         // mouse drag start
@@ -515,12 +461,8 @@ public abstract class Widget {
             Event.EventMouseDragStart e = new Event.EventMouseDragStart(transformScreen);
             Vector2 local = new Vector2(pointerX, pointerY);
             local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
-            if (onMouseDragStart != null) {
-                boolean handled = onMouseDragStart.handle(e);
-                if (!handled) onMouseDragStartDefault(e);
-            } else {
-                onMouseDragStartDefault(e);
-            }
+            if (onMouseDragStart != null) onMouseDragStart.handle(e);
+            onMouseDragStartDefault(e);
         }
 
         if (draggable && !dragging && draggingPrev) {
@@ -528,12 +470,8 @@ public abstract class Widget {
             Event.EventMouseDragEnd e = new Event.EventMouseDragEnd(transformScreen);
             Vector2 local = new Vector2(pointerX, pointerY);
             local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
-            if (onMouseDragEnd != null) {
-                boolean handled = onMouseDragEnd.handle(e);
-                if (!handled) onMouseDragEndDefault(e);
-            } else {
-                onMouseDragEndDefault(e);
-            }
+            if (onMouseDragEnd != null) onMouseDragEnd.handle(e);
+            onMouseDragEndDefault(e);
         }
 
         /* resize */
@@ -544,12 +482,8 @@ public abstract class Widget {
             e.prevHeight = prevHeight;
             e.newWidth = width;
             e.newHeight = height;
-            if (onResize != null) {
-                boolean handled = onResize.handle(e);
-                if (!handled) onResizeDefault(e);
-            } else {
-                onResizeDefault(e);
-            }
+            if (onResize != null) onResize.handle(e);
+            onResizeDefault(e);
         }
 
         /* codepoint presses */
@@ -557,12 +491,8 @@ public abstract class Widget {
             eventFired = true;
             Event.EventCodepointsTyped e = new Event.EventCodepointsTyped(transformScreen);
             e.codePoints = Input.keyboard.getCodepointPressed();
-            if (onCodepointsTyped != null) {
-                boolean handled = onCodepointsTyped.handle(e);
-                if (!handled) onCodepointsTypedDefault(e);
-            } else {
-                onCodepointsTypedDefault(e);
-            }
+            if (onCodepointsTyped != null) onCodepointsTyped.handle(e);
+            onCodepointsTypedDefault(e);
         }
 
         /* keys just pressed */
@@ -570,12 +500,8 @@ public abstract class Widget {
             eventFired = true;
             Event.EventKeysJustPressed e = new Event.EventKeysJustPressed(transformScreen);
             e.keys.addAll(Input.keyboard.getKeysJustDown());
-            if (onKeysJustPressed != null) {
-                boolean handled = onKeysJustPressed.handle(e);
-                if (!handled) onKeysJustPressedDefault(e);
-            } else {
-                onKeysJustPressedDefault(e);
-            }
+            if (onKeysJustPressed != null) onKeysJustPressed.handle(e);
+            onKeysJustPressedDefault(e);
         }
 
         /* keys pressed */
@@ -584,12 +510,8 @@ public abstract class Widget {
             eventFired = true;
             Event.EventKeysPressed e = new Event.EventKeysPressed(transformScreen);
             e.keys.addAll(Input.keyboard.getKeysDown());
-            if (onKeysPressed != null) {
-                boolean handled = onKeysPressed.handle(e);
-                if (!handled) onKeysPressedDefault(e);
-            } else {
-                onKeysPressedDefault(e);
-            }
+            if (onKeysPressed != null) onKeysPressed.handle(e);
+            onKeysPressedDefault(e);
         }
 
         return eventFired; // change

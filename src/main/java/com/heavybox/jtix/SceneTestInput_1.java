@@ -11,7 +11,7 @@ import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.widgets_4.*;
 import org.lwjgl.opengl.GL11;
 
-public class SceneTestUI2 implements Scene {
+public class SceneTestInput_1 implements Scene {
 
     // create basic UI elements. 
     public Renderer2D renderer2D = new Renderer2D();

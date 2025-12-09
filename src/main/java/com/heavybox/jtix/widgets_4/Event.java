@@ -243,7 +243,6 @@ public abstract class Event {
 
     }
 
-    // TODO: not sure if this is the way to handle it.
     public static class EventKeysPressed extends Event {
 
         EventKeysPressed(final Transform global) {
@@ -257,102 +256,102 @@ public abstract class Event {
 
     @FunctionalInterface
     public interface EventListenerMouseLeftClick {
-        boolean handle(EventMouseLeftClick e);
+        void handle(EventMouseLeftClick e);
     }
 
     @FunctionalInterface
     public interface EventListenerMouseRightClick {
-        boolean handle(EventMouseRightClick e);
+        void handle(EventMouseRightClick e);
     }
 
     @FunctionalInterface
     public interface EventListenerMouseMiddleClick {
-        boolean handle(EventMouseMiddleClick e);
+        void handle(EventMouseMiddleClick e);
     }
 
     @FunctionalInterface
     public interface EventListenerMouseLeftClickOutside {
-        boolean handle(EventMouseLeftClickOutside e);
+        void handle(EventMouseLeftClickOutside e);
     }
 
     @FunctionalInterface
     public interface EventListenerMouseRightClickOutside {
-        boolean handle(EventMouseRightClickOutside e);
+        void handle(EventMouseRightClickOutside e);
     }
 
     @FunctionalInterface
     public interface EventListenerMouseMiddleClickOutside {
-        boolean handle(EventMouseMiddleClickOutside e);
+        void handle(EventMouseMiddleClickOutside e);
     }
 
     @FunctionalInterface
     public interface EventListenerMouseDown {
-        boolean handle(EventMouseDown e);
+        void handle(EventMouseDown e);
     }
 
     @FunctionalInterface
     public interface EventListenerMouseUp {
-        boolean handle(EventMouseUp e);
+        void handle(EventMouseUp e);
     }
 
     @FunctionalInterface
     public interface EventListenerMouseEnter {
-        boolean handle(EventMouseEnter e);
+        void handle(EventMouseEnter e);
     }
 
     @FunctionalInterface
     public interface EventListenerMouseLeave {
-        boolean handle(EventMouseLeave e);
+        void handle(EventMouseLeave e);
     }
 
     @FunctionalInterface
     public interface EventListenerMouseScroll {
-        boolean handle(EventMouseScroll e);
+        void handle(EventMouseScroll e);
     }
 
     @FunctionalInterface
     public interface EventListenerMouseDrag {
-        boolean handle(EventMouseDrag e);
+        void handle(EventMouseDrag e);
     }
 
     @FunctionalInterface
     public interface EventListenerMouseDragStart {
-        boolean handle(EventMouseDragStart e);
+        void handle(EventMouseDragStart e);
     }
 
     @FunctionalInterface
     public interface EventListenerMouseDragEnd {
-        boolean handle(EventMouseDragEnd e);
+        void handle(EventMouseDragEnd e);
     }
 
     @FunctionalInterface
     public interface EventListenerResize {
-        boolean handle(EventResize e);
+        void handle(EventResize e);
     }
 
     @FunctionalInterface
     public interface EventListenerChildAdded {
-        boolean handle(EventChildAdded e);
+        void handle(EventChildAdded e);
     }
 
     @FunctionalInterface
     public interface EventListenerChildRemoved {
-        boolean handle(EventChildRemoved e);
+        void handle(EventChildRemoved e);
     }
 
     @FunctionalInterface
     public interface EventListenerCodepointsTyped {
-        boolean handle(EventCodepointsTyped e);
+        void handle(EventCodepointsTyped e);
     }
 
     @FunctionalInterface
     public interface EventListenerKeysJustPressed {
-        boolean handle(EventKeysJustPressed e);
+        void handle(EventKeysJustPressed e);
     }
 
     @FunctionalInterface
     public interface EventListenerKeysPressed {
-        boolean handle(EventKeysPressed e);
+        void handle(EventKeysPressed e);
     }
 
 }

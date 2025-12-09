@@ -59,11 +59,11 @@ public class WidgetContainer extends Widget {
     public WidgetContainer() {
         addChild(scrollbar);
         scrollbar.anchor = Anchor.TOP_RIGHT;
-        scrollbar.onMouseScroll = e -> true; // disable the default function
+        //scrollbar.onMouseScroll = e -> true; // disable the default function
     }
 
     @Override
-    protected void onResizeDefault(Event.EventResize e) {
+    protected boolean onResizeDefault(Event.EventResize e) {
         if (layout == Layout.VERTICAL) {
             scrollbar.length = backgroundHeight;
             scrollbar.anchor = Anchor.TOP_RIGHT;
@@ -77,21 +77,23 @@ public class WidgetContainer extends Widget {
             scrollbar.anchorY = 0;
             scrollbar.type = WidgetInputScrollbar.Type.HORIZONTAL;
         }
+        return true;
     }
 
     // this will make sure the scrollbar is always on top.
     @Override
-    protected void onChildAddedDefault(Event.EventChildAdded e) {
+    protected boolean onChildAddedDefault(Event.EventChildAdded e) {
         int scrollbarChildIndex = children.indexOf(scrollbar, true);
         children.set(scrollbarChildIndex, e.widget, true);
         children.set(children.size - 1, scrollbar, true);
+        return true;
     }
 
     /*** default event handlers */
     @Override
-    protected void onMouseScrollDefault(Event.EventMouseScroll e) {
-        if (!scrollbar.active) return;
-        scrollbar.scroll(e.scrollValue * 0.1f);
+    protected boolean onMouseScrollDefault(Event.EventMouseScroll e) {
+        if (scrollbar.active) scrollbar.scroll(e.scrollValue * 0.1f);
+        return true;
     }
 
     /*** global container logic ***/

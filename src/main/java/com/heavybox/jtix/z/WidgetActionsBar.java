@@ -46,11 +46,9 @@ public class WidgetActionsBar extends WidgetContainer {
         actionBarNew.imgHeight = BUTTON_SIZE;
         actionBarNew.onMouseEnter = e -> {
             actionBarNew.boxBackgroundColor = Color.valueOf("2a2a2a");
-            return false;
         };
         actionBarNew.onMouseLeave = e -> {
             actionBarNew.boxBackgroundColor = Color.valueOf("101010");
-            return false;
         };
 
         WidgetImage actionBarLoad = new WidgetImage(ui.getRegion("assets/user-interface/action-bar-load.png"));
@@ -61,15 +59,12 @@ public class WidgetActionsBar extends WidgetContainer {
         actionBarLoad.imgHeight = BUTTON_SIZE;
         actionBarLoad.onMouseLeftClick = e -> {
 
-            return false;
         };
         actionBarLoad.onMouseEnter = e -> {
             actionBarLoad.boxBackgroundColor = Color.valueOf("2a2a2a");
-            return false;
         };
         actionBarLoad.onMouseLeave = e -> {
             actionBarLoad.boxBackgroundColor = Color.valueOf("101010");
-            return false;
         };
 
         WidgetImage actionBarSaveAs = new WidgetImage(ui.getRegion("assets/user-interface/action-bar-save-as.png"));
@@ -80,11 +75,9 @@ public class WidgetActionsBar extends WidgetContainer {
         actionBarSaveAs.imgHeight = BUTTON_SIZE;
         actionBarSaveAs.onMouseEnter = e -> {
             actionBarSaveAs.boxBackgroundColor = Color.valueOf("2a2a2a");
-            return false;
         };
         actionBarSaveAs.onMouseLeave = e -> {
             actionBarSaveAs.boxBackgroundColor = Color.valueOf("101010");
-            return false;
         };
 
         WidgetImage actionBarExport = new WidgetImage(ui.getRegion("assets/user-interface/action-bar-export.png"));
@@ -95,11 +88,9 @@ public class WidgetActionsBar extends WidgetContainer {
         actionBarExport.imgHeight = BUTTON_SIZE;
         actionBarExport.onMouseEnter = e -> {
             actionBarExport.boxBackgroundColor = Color.valueOf("2a2a2a");
-            return false;
         };
         actionBarExport.onMouseLeave = e -> {
             actionBarExport.boxBackgroundColor = Color.valueOf("101010");
-            return false;
         };
 
         WidgetImage actionBarUndo = new WidgetImage(ui.getRegion("assets/user-interface/action-bar-undo.png"));
@@ -109,15 +100,12 @@ public class WidgetActionsBar extends WidgetContainer {
         actionBarUndo.imgWidth = BUTTON_SIZE;
         actionBarUndo.imgHeight = BUTTON_SIZE;
         actionBarUndo.onMouseLeftClick = e -> {
-            return false;
         };
         actionBarUndo.onMouseEnter = e -> {
             actionBarUndo.boxBackgroundColor = Color.valueOf("2a2a2a");
-            return false;
         };
         actionBarUndo.onMouseLeave = e -> {
             actionBarUndo.boxBackgroundColor = Color.valueOf("101010");
-            return false;
         };
 
         WidgetImage actionBarRedo = new WidgetImage(ui.getRegion("assets/user-interface/action-bar-redo.png"));
@@ -127,15 +115,12 @@ public class WidgetActionsBar extends WidgetContainer {
         actionBarRedo.imgWidth = BUTTON_SIZE;
         actionBarRedo.imgHeight = BUTTON_SIZE;
         actionBarRedo.onMouseLeftClick = e -> {
-            return false;
         };
         actionBarRedo.onMouseEnter = e -> {
             actionBarRedo.boxBackgroundColor = Color.valueOf("2a2a2a");
-            return false;
         };
         actionBarRedo.onMouseLeave = e -> {
             actionBarRedo.boxBackgroundColor = Color.valueOf("101010");
-            return false;
         };
 
 

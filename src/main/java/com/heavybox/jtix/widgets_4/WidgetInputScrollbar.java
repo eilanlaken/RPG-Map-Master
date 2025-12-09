@@ -29,11 +29,13 @@ public class WidgetInputScrollbar extends Widget implements WidgetInput<Float> {
     }
 
     @Override
-    protected void onMouseScrollDefault(Event.EventMouseScroll e) {
-        value -= e.scrollValue * 0.1f;
-        value = MathUtils.clampFloat(value, 0, 1);
-
-        updateThumbPosition();
+    protected boolean onMouseScrollDefault(Event.EventMouseScroll e) {
+//        value -= e.scrollValue * 0.1f;
+//        value = MathUtils.clampFloat(value, 0, 1);
+//
+//        updateThumbPosition();
+//        return true;
+        return true;
     }
 
     public final void scroll(float amount) {
@@ -43,7 +45,7 @@ public class WidgetInputScrollbar extends Widget implements WidgetInput<Float> {
     }
 
     @Override
-    protected void onMouseDownDefault(Event.EventMouseDown e) {
+    protected boolean onMouseDownDefault(Event.EventMouseDown e) {
         float local = type == Type.VERTICAL ? e.mouseLocalY : e.mouseLocalX;
 
         float min = -0.5f * length + 0.5f * thumbLength;
@@ -62,6 +64,7 @@ public class WidgetInputScrollbar extends Widget implements WidgetInput<Float> {
         value = MathUtils.clampFloat(value, 0, 1);
 
         updateThumbPosition();
+        return true;
     }
 
     @Override

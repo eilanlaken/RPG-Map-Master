@@ -53,15 +53,12 @@ public class WidgetToolbar extends WidgetContainer {
         toolTerrain.imgHeight = BUTTON_SIZE;
         toolTerrain.onMouseLeftClick = e -> {
 
-            return false;
         };
         toolTerrain.onMouseEnter = e -> {
             toolTerrain.boxBackgroundColor = Color.valueOf("2a2a2a");
-            return false;
         };
         toolTerrain.onMouseLeave = e -> {
             toolTerrain.boxBackgroundColor = Color.valueOf("101010");
-            return false;
         };
 
 
@@ -73,15 +70,12 @@ public class WidgetToolbar extends WidgetContainer {
         toolNature.imgHeight = BUTTON_SIZE;
         toolNature.onMouseLeftClick = e -> {
 
-            return false;
         };
         toolNature.onMouseEnter = e -> {
             toolNature.boxBackgroundColor = Color.valueOf("2a2a2a");
-            return false;
         };
         toolNature.onMouseLeave = e -> {
             toolNature.boxBackgroundColor = Color.valueOf("101010");
-            return false;
         };
 
         WidgetImage toolArchitecture = new WidgetImage(ui.getRegion("assets/user-interface/tool-bar-architecture.png"));
@@ -92,15 +86,12 @@ public class WidgetToolbar extends WidgetContainer {
         toolArchitecture.imgHeight = BUTTON_SIZE;
         toolArchitecture.onMouseLeftClick = e -> {
 
-            return false;
         };
         toolArchitecture.onMouseEnter = e -> {
             toolArchitecture.boxBackgroundColor = Color.valueOf("2a2a2a");
-            return false;
         };
         toolArchitecture.onMouseLeave = e -> {
             toolArchitecture.boxBackgroundColor = Color.valueOf("101010");
-            return false;
         };
 
         WidgetImage toolProps = new WidgetImage(ui.getRegion("assets/user-interface/tool-bar-props.png"));
@@ -111,15 +102,12 @@ public class WidgetToolbar extends WidgetContainer {
         toolProps.imgHeight = BUTTON_SIZE;
         toolProps.onMouseLeftClick = e -> {
 
-            return false;
         };
         toolProps.onMouseEnter = e -> {
             toolProps.boxBackgroundColor = Color.valueOf("2a2a2a");
-            return false;
         };
         toolProps.onMouseLeave = e -> {
             toolProps.boxBackgroundColor = Color.valueOf("101010");
-            return false;
         };
 
         WidgetImage toolText = new WidgetImage(ui.getRegion("assets/user-interface/tool-bar-text.png"));
@@ -130,15 +118,12 @@ public class WidgetToolbar extends WidgetContainer {
         toolText.imgHeight = BUTTON_SIZE;
         toolText.onMouseLeftClick = e -> {
 
-            return false;
         };
         toolText.onMouseEnter = e -> {
             toolText.boxBackgroundColor = Color.valueOf("2a2a2a");
-            return false;
         };
         toolText.onMouseLeave = e -> {
             toolText.boxBackgroundColor = Color.valueOf("101010");
-            return false;
         };
 
         WidgetImage toolSelect = new WidgetImage(ui.getRegion("assets/user-interface/tool-bar-select.png"));
@@ -149,15 +134,12 @@ public class WidgetToolbar extends WidgetContainer {
         toolSelect.imgHeight = BUTTON_SIZE;
         toolSelect.onMouseLeftClick = e -> {
 
-            return false;
         };
         toolSelect.onMouseEnter = e -> {
             toolSelect.boxBackgroundColor = Color.valueOf("2a2a2a");
-            return false;
         };
         toolSelect.onMouseLeave = e -> {
             toolSelect.boxBackgroundColor = Color.valueOf("101010");
-            return false;
         };
 
         WidgetImage toolDecorations = new WidgetImage(ui.getRegion("assets/user-interface/tool-bar-decorations.png"));
@@ -168,15 +150,12 @@ public class WidgetToolbar extends WidgetContainer {
         toolDecorations.imgHeight = BUTTON_SIZE;
         toolDecorations.onMouseLeftClick = e -> {
 
-            return false;
         };
         toolDecorations.onMouseEnter = e -> {
             toolDecorations.boxBackgroundColor = Color.valueOf("2a2a2a");
-            return false;
         };
         toolDecorations.onMouseLeave = e -> {
             toolDecorations.boxBackgroundColor = Color.valueOf("101010");
-            return false;
         };
 
         addChild(toolTerrain);

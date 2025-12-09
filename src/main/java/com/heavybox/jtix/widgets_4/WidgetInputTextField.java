@@ -41,30 +41,34 @@ public class WidgetInputTextField extends Widget implements WidgetInput<String> 
     }
 
     @Override
-    protected void onMouseLeftClickDefault(Event.EventMouseLeftClick e) {
+    protected boolean onMouseLeftClickDefault(Event.EventMouseLeftClick e) {
         elapsedTime = 0;
         if (!isFocused()) {
             caretIndex = value.length();
         } else { // if already focused, set caret position.
 
         }
+        return true;
     }
 
     @Override
-    protected void onKeysJustPressedDefault(Event.EventKeysJustPressed e) {
+    protected boolean onKeysJustPressedDefault(Event.EventKeysJustPressed e) {
         if (e.keys.contains(Keyboard.Key.ENTER, true)) {
             setFocused(false);
-            return;
+            return true;
         }
 
         if (e.keys.contains(Keyboard.Key.BACKSPACE, true) && !value.isEmpty() && caretIndex > 0) {
             value = value.substring(0, caretIndex - 1) + value.substring(caretIndex);
             caretIndex--;
+            return true;
         }
+
+        return true;
     }
 
     @Override
-    protected void onKeysPressedDefault(Event.EventKeysPressed e) {
+    protected boolean onKeysPressedDefault(Event.EventKeysPressed e) {
         // delete a character and move caret back (if not empty)
 //        if (e.keys.contains(Keyboard.Key.BACKSPACE, true) && !value.isEmpty() && caretIndex > 0) {
 //            System.out.println(caretIndex);
@@ -73,21 +77,24 @@ public class WidgetInputTextField extends Widget implements WidgetInput<String> 
 //            value = value.substring(0, caretIndex - 1) + value.substring(caretIndex);
 //            caretIndex--;
 //        }
+        return true;
     }
 
     @Override
-    protected void onResizeDefault(Event.EventResize e) {
+    protected boolean onResizeDefault(Event.EventResize e) {
         // set font size
         // set caret dimensions
+        return true;
     }
 
     // TODO: add characters to the caret position
     @Override
-    protected void onCodepointsTypedDefault(Event.EventCodepointsTyped e) {
+    protected boolean onCodepointsTypedDefault(Event.EventCodepointsTyped e) {
         String str = e.codePoints.toRawString();
         value += str;
         caretIndex += str.length();
         // TODO: split string properly at caret position
+        return true;
     }
 
     @Override

@@ -21,9 +21,10 @@ public class WidgetInputSlider extends Widget implements WidgetInput<Float> {
 
     /*** DEFAULT INPUT HANDLERS ***/
     @Override
-    protected void onMouseLeftClickDefault(Event.EventMouseLeftClick e) {
+    protected boolean onMouseLeftClickDefault(Event.EventMouseLeftClick e) {
         float value = 0.5f + e.mouseLocalX / width;
         setValue(value);
+        return true;
     }
 
     /*** RENDERING ***/

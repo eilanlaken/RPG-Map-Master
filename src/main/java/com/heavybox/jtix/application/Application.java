@@ -276,8 +276,6 @@ public class Application {
         GLFW.glfwSetFramebufferSizeCallback(windowHandle, null);
         GLFW.glfwDestroyWindow(windowHandle);
 
-
-
         windowResizeCallback.free();
         windowFocusChangeCallback.free();
         windowMinimizedCallback.free();
@@ -299,7 +297,8 @@ public class Application {
     }
 
     public static void playScene(@NotNull Scene scene) {
-        if (!running) throw new ApplicationException("Application not running. Function playScene() must be called with the starting scene, after init.");
+        if (!running) throw new ApplicationException("Application not running. Use launch() method if this is the first scene you are playing. Function playScene() should be called when switching scenes.");
+        Input.clearLayers(); // scenes should set up their own input handling logic.
         if (currentScene != null) {
             currentScene.finish();
         }
