@@ -11,16 +11,20 @@ public class WidgetStatisticsBar extends WidgetContainer {
 
     private final Vector3 screen = new Vector3(Input.mouse.getX(), Input.mouse.getY(), 0);
 
+    private final WidgetText objectCount = new WidgetText("Objects: 0 |");
     private final WidgetText mousePosition = new WidgetText("");
     private final WidgetText cameraZoom = new WidgetText("");
 
     /* references */
     private final RPGMapMakerScene scene;
+    private final Map map;
     private final Camera camera;
     private float cameraZoomPrev;
+    private int objectCountPrev = 0;
 
     public WidgetStatisticsBar(final RPGMapMakerScene scene) {
         this.scene = scene;
+        this.map = scene.getMap();
         this.camera = scene.getCamera();
 
         layout = Layout.HORIZONTAL;
@@ -40,12 +44,18 @@ public class WidgetStatisticsBar extends WidgetContainer {
         anchorX = 50;
         anchorY = 50;
 
+        addChild(objectCount);
         addChild(mousePosition);
         addChild(cameraZoom);
     }
 
     @Override
     protected void fixedUpdateContainer(float delta) {
+        if (this.map.layer3.allTokens.size != objectCountPrev) {
+            objectCountPrev = this.map.layer3.allTokens.size;
+            objectCount.text = "Objects: " + this.map.layer3.allTokens.size + " |";
+        }
+
         if (Input.mouse.moved()) {
             screen.set(Input.mouse.getX(), Input.mouse.getY(), 0);
             camera.unProject(screen);
