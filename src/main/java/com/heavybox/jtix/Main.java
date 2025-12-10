@@ -14,7 +14,8 @@ public class Main {
         Application.init(settings);
         //Application.launch(new SceneDemo());
         //Application.launch(new SceneTestUI2());
-        Application.launch(new SceneTestInput_1());
+        //Application.launch(new SceneTestInput_1());
+        Application.launch(new SceneWidgetsInput());
     }
 
 }

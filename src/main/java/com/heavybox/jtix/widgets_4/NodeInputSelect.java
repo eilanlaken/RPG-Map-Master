@@ -4,7 +4,7 @@ import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.graphics.Renderer2D;
 
 // for now, text select is more than enough.
-public class WidgetInputSelect extends Widget implements WidgetInput<String> {
+public class NodeInputSelect extends Node implements NodeInput<String> {
 
     private String selected;
     private Array<String> options = new Array<>(true, 3);

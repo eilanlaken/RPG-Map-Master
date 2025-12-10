@@ -3,15 +3,15 @@ package com.heavybox.jtix.z;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.TexturePack;
-import com.heavybox.jtix.widgets_4.WidgetContainer;
-import com.heavybox.jtix.widgets_4.WidgetImage;
+import com.heavybox.jtix.widgets_4.NodeContainer;
+import com.heavybox.jtix.widgets_4.NodeImage;
 
-public class WidgetActionsBar extends WidgetContainer {
+public class NodeActionsBar extends NodeContainer {
 
     public static final int BUTTON_SIZE = 42;
 
     // probably get a reference to the scene or map or whatever.
-    public WidgetActionsBar() {
+    public NodeActionsBar() {
         layout = Layout.HORIZONTAL;
         layoutOverflowX = Overflow.VISIBLE;
         layoutOverflowY = Overflow.VISIBLE;
@@ -38,7 +38,7 @@ public class WidgetActionsBar extends WidgetContainer {
     private void addChildren() {
         TexturePack ui = Assets.get("assets/texture-packs/user-interface.yml");
 
-        WidgetImage actionBarNew = new WidgetImage(ui.getRegion("assets/user-interface/action-bar-new.png"));
+        NodeImage actionBarNew = new NodeImage(ui.getRegion("assets/user-interface/action-bar-new.png"));
         actionBarNew.boxBackgroundVisible = true;
         actionBarNew.boxBackgroundColor = Color.valueOf("101010");
         actionBarNew.boxBorderSize = 0;
@@ -51,7 +51,7 @@ public class WidgetActionsBar extends WidgetContainer {
             actionBarNew.boxBackgroundColor = Color.valueOf("101010");
         };
 
-        WidgetImage actionBarLoad = new WidgetImage(ui.getRegion("assets/user-interface/action-bar-load.png"));
+        NodeImage actionBarLoad = new NodeImage(ui.getRegion("assets/user-interface/action-bar-load.png"));
         actionBarLoad.boxBackgroundVisible = true;
         actionBarLoad.boxBackgroundColor = Color.valueOf("101010");
         actionBarLoad.boxBorderSize = 0;
@@ -67,7 +67,7 @@ public class WidgetActionsBar extends WidgetContainer {
             actionBarLoad.boxBackgroundColor = Color.valueOf("101010");
         };
 
-        WidgetImage actionBarSaveAs = new WidgetImage(ui.getRegion("assets/user-interface/action-bar-save-as.png"));
+        NodeImage actionBarSaveAs = new NodeImage(ui.getRegion("assets/user-interface/action-bar-save-as.png"));
         actionBarSaveAs.boxBackgroundVisible = true;
         actionBarSaveAs.boxBackgroundColor = Color.valueOf("101010");
         actionBarSaveAs.boxBorderSize = 0;
@@ -80,7 +80,7 @@ public class WidgetActionsBar extends WidgetContainer {
             actionBarSaveAs.boxBackgroundColor = Color.valueOf("101010");
         };
 
-        WidgetImage actionBarExport = new WidgetImage(ui.getRegion("assets/user-interface/action-bar-export.png"));
+        NodeImage actionBarExport = new NodeImage(ui.getRegion("assets/user-interface/action-bar-export.png"));
         actionBarExport.boxBackgroundVisible = true;
         actionBarExport.boxBackgroundColor = Color.valueOf("101010");
         actionBarExport.boxBorderSize = 0;
@@ -93,7 +93,7 @@ public class WidgetActionsBar extends WidgetContainer {
             actionBarExport.boxBackgroundColor = Color.valueOf("101010");
         };
 
-        WidgetImage actionBarUndo = new WidgetImage(ui.getRegion("assets/user-interface/action-bar-undo.png"));
+        NodeImage actionBarUndo = new NodeImage(ui.getRegion("assets/user-interface/action-bar-undo.png"));
         actionBarUndo.boxBackgroundVisible = true;
         actionBarUndo.boxBackgroundColor = Color.valueOf("101010");
         actionBarUndo.boxBorderSize = 0;
@@ -108,7 +108,7 @@ public class WidgetActionsBar extends WidgetContainer {
             actionBarUndo.boxBackgroundColor = Color.valueOf("101010");
         };
 
-        WidgetImage actionBarRedo = new WidgetImage(ui.getRegion("assets/user-interface/action-bar-redo.png"));
+        NodeImage actionBarRedo = new NodeImage(ui.getRegion("assets/user-interface/action-bar-redo.png"));
         actionBarRedo.boxBackgroundVisible = true;
         actionBarRedo.boxBackgroundColor = Color.valueOf("101010");
         actionBarRedo.boxBorderSize = 0;

@@ -41,7 +41,6 @@ public final class Widgets {
     public static boolean themeScrollbarDrawForwardButton            = true;
     public static boolean themeScrollbarDrawBackwardButton           = true;
 
-
     /*** input device state */
     private static float pointerXPrev = 0;
     private static float pointerYPrev = 0;

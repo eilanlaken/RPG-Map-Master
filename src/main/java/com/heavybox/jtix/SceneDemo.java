@@ -8,6 +8,7 @@ import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.Vector3;
 import com.heavybox.jtix.tools.ToolsTexturePacker;
+import com.heavybox.jtix.widgets_4.Widget;
 import com.heavybox.jtix.z.*;
 import org.lwjgl.opengl.GL11;
 
@@ -24,10 +25,11 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
     public int activeTool = 0;
 
     // user-interface
-    private WidgetActionsBar actionsBar;
-    private WidgetStatisticsBar statisticsBar;
-    private WidgetToolbar toolbar;
-    private WidgetToolSettings toolSettings;
+    private final Widget widgetActionsBar = new Widget();
+    private final Widget widgetStatisticsBar = new Widget();
+    private final Widget widgetTools = new Widget();
+    private NodeToolbar toolbar;
+    private NodeToolSettings toolSettings;
 
     public SceneDemo() {
         renderer2D = new Renderer2D();
@@ -95,10 +97,15 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
         tools[6] = new ToolStampDecorations(map);
 
         // user - interface
-        actionsBar = new WidgetActionsBar();
-        statisticsBar = new WidgetStatisticsBar(this);
-        toolbar = new WidgetToolbar(this);
-        toolSettings = new WidgetToolSettings();
+        NodeActionsBar actionsBar = new NodeActionsBar();
+        NodeStatisticsBar statisticsBar = new NodeStatisticsBar(this);
+        toolbar = new NodeToolbar(this);
+        toolSettings = new NodeToolSettings();
+
+        widgetStatisticsBar.addNode(statisticsBar);
+        widgetActionsBar.addNodes(actionsBar);
+        widgetTools.addNodes(toolbar, toolSettings);
+//        widgetActionsBar.addNodes(actionsBar, toolbar, toolSettings);
 //        widgetTopMenu.anchor = Widget.Anchor.TOP_CENTER;
 //        widgetTopMenu.anchorY = 0;
     }
@@ -198,10 +205,9 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
         }
 
 
-        actionsBar.update(delta);
-        statisticsBar.update(delta);
-        toolbar.update(delta);
-        toolSettings.update(delta);
+        widgetActionsBar.update();
+        widgetStatisticsBar.update();
+        widgetTools.update();
 
         map.update(delta);
         map.render(renderer2D);
@@ -220,10 +226,9 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
 
         // draw UI
         renderer2D.begin();
-        actionsBar.render(renderer2D);
-        statisticsBar.render(renderer2D);
-        toolbar.render(renderer2D);
-        toolSettings.render(renderer2D);
+        widgetActionsBar.render(renderer2D);
+        widgetStatisticsBar.render(renderer2D);
+        widgetTools.render(renderer2D);
         renderer2D.end();
 
     }

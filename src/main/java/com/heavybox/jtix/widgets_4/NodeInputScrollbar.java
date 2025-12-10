@@ -7,7 +7,8 @@ import org.jetbrains.annotations.NotNull;
 
 // TODO: make the thumb draggable
 // TODO: support both vertical and horizontal scrollbars
-public class WidgetInputScrollbar extends Widget implements WidgetInput<Float> {
+// TODO: add optional images as thumbs etc.
+public class NodeInputScrollbar extends Node implements NodeInput<Float> {
 
     public @NotNull Type type = Type.VERTICAL;
 
@@ -18,13 +19,12 @@ public class WidgetInputScrollbar extends Widget implements WidgetInput<Float> {
 
     /* style */
     public boolean styleDrawBar = true;
-    public boolean styleDrawThumb = true;
     public Color styleBarColor = Color.valueOf("343538");
     public Color styleThumbColor = Color.valueOf("5c5d5e");
 
-    private final WidgetShapeRectangle thumb = new WidgetShapeRectangle(thickness, thumbLength, styleThumbColor);
+    private final NodeShapeRectangle thumb = new NodeShapeRectangle(thickness, thumbLength, styleThumbColor);
 
-    public WidgetInputScrollbar() {
+    public NodeInputScrollbar() {
         addChild(thumb);
     }
 

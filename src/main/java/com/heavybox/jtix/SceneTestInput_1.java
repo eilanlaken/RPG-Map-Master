@@ -17,22 +17,22 @@ public class SceneTestInput_1 implements Scene {
     public Renderer2D renderer2D = new Renderer2D();
     Camera camera = new Camera(Camera.Mode.ORTHOGRAPHIC, Graphics.getWindowWidth(), Graphics.getWindowHeight(), 1, 0, 100, 1);
 
-    WidgetText widgetText = new WidgetText("hello");
-    WidgetText widgetText2 = new WidgetText("hello2");
-    WidgetInputSlider slider = new WidgetInputSlider();
-    WidgetInputCheckbox checkbox = new WidgetInputCheckbox();
-    WidgetShapeRectangle rect1 = new WidgetShapeRectangle(150,30,Color.YELLOW);
-    WidgetShapeRectangle rect2 = new WidgetShapeRectangle(350,250,Color.WHITE);
-    WidgetShapeRectangle rect3 = new WidgetShapeRectangle(350,250,Color.GREEN);
-    WidgetShapeRectangle rect4 = new WidgetShapeRectangle(350,250,Color.BROWN);
+    NodeText widgetText = new NodeText("hello");
+    NodeText widgetText2 = new NodeText("hello2");
+    NodeInputSlider slider = new NodeInputSlider();
+    NodeInputCheckbox checkbox = new NodeInputCheckbox();
+    NodeShapeRectangle rect1 = new NodeShapeRectangle(150,30,Color.YELLOW);
+    NodeShapeRectangle rect2 = new NodeShapeRectangle(350,250,Color.WHITE);
+    NodeShapeRectangle rect3 = new NodeShapeRectangle(350,250,Color.GREEN);
+    NodeShapeRectangle rect4 = new NodeShapeRectangle(350,250,Color.BROWN);
 
-    WidgetImage image = new WidgetImage("assets/engine-tests/simpleImage.png");
+    NodeImage image = new NodeImage("assets/engine-tests/simpleImage.png");
 
-    WidgetContainer container = new WidgetContainer();
+    NodeContainer container = new NodeContainer();
 
-    WidgetInputTextField textField = new WidgetInputTextField();
+    NodeInputTextField textField = new NodeInputTextField();
 
-    WidgetInputScrollbar scrollbar = new WidgetInputScrollbar();
+    NodeInputScrollbar scrollbar = new NodeInputScrollbar();
 
     ArrayFloat out = new ArrayFloat();
 
@@ -42,15 +42,15 @@ public class SceneTestInput_1 implements Scene {
         widgetText2.transform.y = 200;
 
         widgetText.addChild(widgetText2);
-        widgetText.anchor = Widget.Anchor.CENTER_LEFT;
+        widgetText.anchor = Node.Anchor.CENTER_LEFT;
         widgetText.anchorX = 200;
 
         slider.transform.deg = 30;
         slider.transform.x = 100;
         slider.transform.y = 100;
 
-        container.layoutWidthSizing = WidgetContainer.Sizing.DYNAMIC;
-        container.layoutHeightSizing = WidgetContainer.Sizing.STATIC;
+        container.layoutWidthSizing = NodeContainer.Sizing.DYNAMIC;
+        container.layoutHeightSizing = NodeContainer.Sizing.STATIC;
         container.layoutWidth = 200;
         container.layoutHeight = 300;
         container.boxPaddingLeft = 10;
@@ -60,8 +60,8 @@ public class SceneTestInput_1 implements Scene {
         container.layoutAddScrollbar = true;
 
         //container.anchor = Widget.Anchor.CENTER_LEFT;
-        container.layoutOverflowY = WidgetContainer.Overflow.HIDDEN;
-        container.layoutOverflowX = WidgetContainer.Overflow.HIDDEN;
+        container.layoutOverflowY = NodeContainer.Overflow.HIDDEN;
+        container.layoutOverflowX = NodeContainer.Overflow.HIDDEN;
 
         container.onMouseMiddleClick = e -> {
             System.out.println("in");
@@ -71,7 +71,7 @@ public class SceneTestInput_1 implements Scene {
             System.out.println("out");
         };
 
-        container.layout = WidgetContainer.Layout.VERTICAL;
+        container.layout = NodeContainer.Layout.VERTICAL;
         container.addChild(rect1);
         //container.addChild(rect2);
         //container.addChild(rect3);
@@ -81,7 +81,7 @@ public class SceneTestInput_1 implements Scene {
 
     @Override
     public void start() {
-        scrollbar.type = WidgetInputScrollbar.Type.VERTICAL;
+        scrollbar.type = NodeInputScrollbar.Type.VERTICAL;
     }
 
     @Override
@@ -90,7 +90,7 @@ public class SceneTestInput_1 implements Scene {
         //scrollbar.update(delta);
 
 //        //scrollbar.update(1);
-        checkbox.update(1);
+
 //        if (Input.keyboard.isKeyPressed(Keyboard.Key.W)) {
 //            rect2.transform.y += 1;
 //        }
@@ -123,7 +123,7 @@ public class SceneTestInput_1 implements Scene {
 //        }
 //
         if (Input.mouse.isButtonJustPressed(Mouse.Button.RIGHT)) {
-            WidgetShapeRectangle rect = new WidgetShapeRectangle(100,50, Color.random());
+            NodeShapeRectangle rect = new NodeShapeRectangle(100,50, Color.random());
             //rect.anchor = Widget.Anchor.CENTER_RIGHT;
             rect.anchorX = 0;
             rect.anchorY = 50;
@@ -131,7 +131,7 @@ public class SceneTestInput_1 implements Scene {
         }
 //
 //        //widgetText.update(1);
-        container.update(delta);
+
 //        //rect1.update(1);
 //        if (Input.keyboard.isKeyJustReleased(Keyboard.Key.SPACE)) {
 //            rect3.active = false;
@@ -148,8 +148,8 @@ public class SceneTestInput_1 implements Scene {
 
         renderer2D.begin();
         //scrollbar.render(renderer2D);
-        container.render(renderer2D);
-        checkbox.render(renderer2D);
+        //container.render(renderer2D);
+        //checkbox.render(renderer2D);
         //image.render(renderer2D);
         //textField.render(renderer2D);
         renderer2D.end();

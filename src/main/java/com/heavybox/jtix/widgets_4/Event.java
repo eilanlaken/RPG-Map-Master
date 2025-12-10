@@ -6,18 +6,18 @@ import com.heavybox.jtix.input.Keyboard;
 
 public abstract class Event {
 
-    public final float widgetX;
-    public final float widgetY;
-    public final float widgetDeg;
-    public final float widgetSclX;
-    public final float widgetSclY;
+    public final float nodeX;
+    public final float nodeY;
+    public final float nodeDeg;
+    public final float nodeSclX;
+    public final float nodeSclY;
 
     Event(final Transform global) {
-        this.widgetX = global.x;
-        this.widgetY = global.y;
-        this.widgetDeg = global.deg;
-        this.widgetSclX = global.sclX;
-        this.widgetSclY = global.sclY;
+        this.nodeX = global.x;
+        this.nodeY = global.y;
+        this.nodeDeg = global.deg;
+        this.nodeSclX = global.sclX;
+        this.nodeSclY = global.sclY;
     }
 
     public static class EventMouseDown extends Event {
@@ -208,7 +208,7 @@ public abstract class Event {
             super(global);
         }
 
-        public Widget widget;
+        public Node node;
 
     }
 
@@ -218,7 +218,7 @@ public abstract class Event {
             super(global);
         }
 
-        public Widget widget;
+        public Node node;
         public int    index;
 
     }

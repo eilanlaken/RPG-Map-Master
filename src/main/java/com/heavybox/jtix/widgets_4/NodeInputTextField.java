@@ -1,6 +1,5 @@
 package com.heavybox.jtix.widgets_4;
 
-import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Font;
 import com.heavybox.jtix.graphics.Renderer2D;
@@ -8,7 +7,7 @@ import com.heavybox.jtix.input.Keyboard;
 
 // TODO: handle key strokes: <-. -> , backspace, etc.
 // TODO: handle style and global theme
-public class WidgetInputTextField extends Widget implements WidgetInput<String> {
+public class NodeInputTextField extends Node implements NodeInput<String> {
 
     /*** state ***/
     private String value = "";
@@ -27,10 +26,10 @@ public class WidgetInputTextField extends Widget implements WidgetInput<String> 
     public Color caretColor = Color.BLACK.clone();
 
     /*  built in children. */
-    private final WidgetText           text  = new WidgetText("");
-    private final WidgetShapeRectangle caret = new WidgetShapeRectangle(2, 18);
+    private final NodeText text  = new NodeText("");
+    private final NodeShapeRectangle caret = new NodeShapeRectangle(2, 18);
 
-    public WidgetInputTextField() {
+    public NodeInputTextField() {
         text.anchor = Anchor.CENTER_LEFT;
         text.anchorX = borderSize;
         text.anchorY = 0;

@@ -6,9 +6,9 @@ import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.graphics.Texture;
 import com.heavybox.jtix.graphics.TextureRegion;
 
-public class WidgetImage extends WidgetContainer {
+public class NodeImage extends NodeContainer {
 
-    private final WidgetImageContent imageContent;
+    private final NodeImageContent imageContent;
     public TextureRegion img = null;
 
     public float imgWidth = 0;
@@ -16,17 +16,17 @@ public class WidgetImage extends WidgetContainer {
     public float zoom = 1f;
     public Color tint = Color.WHITE.clone();
 
-    public WidgetImage(final String src) {
+    public NodeImage(final String src) {
         boolean loaded = Assets.isLoaded(src);
         Texture texture = loaded ? Assets.get(src) : new Texture(src);
         img = new TextureRegion(texture);
-        this.imageContent = new WidgetImageContent(this);
+        this.imageContent = new NodeImageContent(this);
         init();
     }
 
-    public WidgetImage(TextureRegion region) {
+    public NodeImage(TextureRegion region) {
         this.img = region;
-        this.imageContent = new WidgetImageContent(this);
+        this.imageContent = new NodeImageContent(this);
         init();
     }
 
@@ -52,11 +52,11 @@ public class WidgetImage extends WidgetContainer {
         layoutHeight = imageContent.getHeight();
     }
 
-    private static class WidgetImageContent extends Widget {
+    private static class NodeImageContent extends Node {
 
-        final WidgetImage container;
+        final NodeImage container;
 
-        public WidgetImageContent(final WidgetImage container) {
+        public NodeImageContent(final NodeImage container) {
             this.container = container;
         }
 

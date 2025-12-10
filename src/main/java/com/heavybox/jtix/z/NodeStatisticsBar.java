@@ -4,16 +4,16 @@ import com.heavybox.jtix.RPGMapMakerScene;
 import com.heavybox.jtix.graphics.Camera;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.math.Vector3;
-import com.heavybox.jtix.widgets_4.WidgetContainer;
-import com.heavybox.jtix.widgets_4.WidgetText;
+import com.heavybox.jtix.widgets_4.NodeContainer;
+import com.heavybox.jtix.widgets_4.NodeText;
 
-public class WidgetStatisticsBar extends WidgetContainer {
+public class NodeStatisticsBar extends NodeContainer {
 
     private final Vector3 screen = new Vector3(Input.mouse.getX(), Input.mouse.getY(), 0);
 
-    private final WidgetText objectCount = new WidgetText("Objects: 0 |");
-    private final WidgetText mousePosition = new WidgetText("");
-    private final WidgetText cameraZoom = new WidgetText("");
+    private final NodeText objectCount = new NodeText("Objects: 0 |");
+    private final NodeText mousePosition = new NodeText("");
+    private final NodeText cameraZoom = new NodeText("");
 
     /* references */
     private final RPGMapMakerScene scene;
@@ -22,7 +22,7 @@ public class WidgetStatisticsBar extends WidgetContainer {
     private float cameraZoomPrev;
     private int objectCountPrev = 0;
 
-    public WidgetStatisticsBar(final RPGMapMakerScene scene) {
+    public NodeStatisticsBar(final RPGMapMakerScene scene) {
         this.scene = scene;
         this.map = scene.getMap();
         this.camera = scene.getCamera();

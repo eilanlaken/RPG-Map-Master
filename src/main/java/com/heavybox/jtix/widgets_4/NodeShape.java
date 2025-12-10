@@ -1,6 +1,6 @@
 package com.heavybox.jtix.widgets_4;
 
-public interface WidgetShape {
+public interface NodeShape {
 
     enum Type {
         FILLED,

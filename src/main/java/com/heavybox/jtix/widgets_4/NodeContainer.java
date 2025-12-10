@@ -8,9 +8,10 @@ import com.heavybox.jtix.math.MathUtils;
 import org.jetbrains.annotations.NotNull;
 
 // TODO: maybe refactor into 3 simpler classes:
-// TODO: WidgetContainerVertical
-// TODO: WidgetContainerHorizontal
-public class WidgetContainer extends Widget {
+// TODO: NodeContainer
+// TODO: NodeContainerVertical
+// TODO: NodeContainerHorizontal
+public class NodeContainer extends Node {
 
     /* state */ // TODO
     private float scrollOffsetX    = 0;
@@ -54,12 +55,11 @@ public class WidgetContainer extends Widget {
 
     /* scrollbar */
     //private WidgetInputScrollbar_old scrollbar = new WidgetInputScrollbar_old();
-    private final WidgetInputScrollbar scrollbar = new WidgetInputScrollbar();
+    private final NodeInputScrollbar scrollbar = new NodeInputScrollbar();
 
-    public WidgetContainer() {
+    public NodeContainer() {
         addChild(scrollbar);
         scrollbar.anchor = Anchor.TOP_RIGHT;
-        //scrollbar.onMouseScroll = e -> true; // disable the default function
     }
 
     @Override
@@ -69,13 +69,13 @@ public class WidgetContainer extends Widget {
             scrollbar.anchor = Anchor.TOP_RIGHT;
             scrollbar.anchorY = boxBorderSize;
             scrollbar.anchorX = 0;
-            scrollbar.type = WidgetInputScrollbar.Type.VERTICAL;
+            scrollbar.type = NodeInputScrollbar.Type.VERTICAL;
         } else if (layout == Layout.HORIZONTAL) {
             scrollbar.length = backgroundWidth;
             scrollbar.anchor = Anchor.BOTTOM_LEFT;
             scrollbar.anchorX = boxBorderSize;
             scrollbar.anchorY = 0;
-            scrollbar.type = WidgetInputScrollbar.Type.HORIZONTAL;
+            scrollbar.type = NodeInputScrollbar.Type.HORIZONTAL;
         }
         return true;
     }
@@ -84,7 +84,7 @@ public class WidgetContainer extends Widget {
     @Override
     protected boolean onChildAddedDefault(Event.EventChildAdded e) {
         int scrollbarChildIndex = children.indexOf(scrollbar, true);
-        children.set(scrollbarChildIndex, e.widget, true);
+        children.set(scrollbarChildIndex, e.node, true);
         children.set(children.size - 1, scrollbar, true);
         return true;
     }
@@ -118,7 +118,7 @@ public class WidgetContainer extends Widget {
             scrollbar.anchor = Anchor.TOP_RIGHT;
             scrollbar.anchorY = boxBorderSize;
             scrollbar.anchorX = 0;
-            scrollbar.type = WidgetInputScrollbar.Type.VERTICAL;
+            scrollbar.type = NodeInputScrollbar.Type.VERTICAL;
 
             scrollOffsetX = 0;
             scrollOffsetY = -scrollbar.getValue() * verticalOverflow; // TODO
@@ -127,7 +127,7 @@ public class WidgetContainer extends Widget {
             scrollbar.anchor = Anchor.BOTTOM_LEFT;
             scrollbar.anchorX = boxBorderSize;
             scrollbar.anchorY = 0;
-            scrollbar.type = WidgetInputScrollbar.Type.HORIZONTAL;
+            scrollbar.type = NodeInputScrollbar.Type.HORIZONTAL;
 
             scrollOffsetY = 0;
             scrollOffsetX = -scrollbar.getValue() * horizontalOverflow; // TODO
@@ -144,7 +144,7 @@ public class WidgetContainer extends Widget {
     /*** children layout ***/
 
     @Override
-    protected void setChildrenOffsets(@NotNull Array<Widget> widgets) {
+    protected void setChildrenOffsets(@NotNull Array<Node> widgets) {
         if (layout == null) super.setChildrenOffsets(widgets);
         switch (layout) {
             case STACK      -> setChildrenOffsetsStack(widgets);
@@ -155,18 +155,18 @@ public class WidgetContainer extends Widget {
     }
 
     // TODO: consider global scale
-    protected final void setChildrenOffsetsStack(Array<Widget> widgets) {
-        for (Widget child : widgets) {
+    protected final void setChildrenOffsetsStack(Array<Node> widgets) {
+        for (Node child : widgets) {
             child.offsetX = boxPaddingLeft - (boxPaddingLeft + boxPaddingRight) * 0.5f;
             child.offsetY = boxPaddingBottom - (boxPaddingBottom + boxPaddingTop) * 0.5f + scrollOffsetY;
         }
     }
 
     // TODO: consider global scale
-    protected final void setChildrenOffsetsHorizontal(Array<Widget> widgets) {
+    protected final void setChildrenOffsetsHorizontal(Array<Node> widgets) {
         float sclX = 1; // global transform
         float position_x = -(getWidth() * 0.5f - boxBorderSize - boxPaddingLeft + scrollOffsetX) * sclX;
-        for (Widget child : widgets) {
+        for (Node child : widgets) {
             float child_width = child.getWidth() * sclX;
             child.offsetX = position_x + child_width * 0.5f;
             child.offsetY = boxPaddingBottom - (boxPaddingBottom + boxPaddingTop) * 0.5f;
@@ -175,10 +175,10 @@ public class WidgetContainer extends Widget {
     }
 
     // TODO: consider global scale
-    protected final void setChildrenOffsetsVertical(Array<Widget> widgets) {
+    protected final void setChildrenOffsetsVertical(Array<Node> widgets) {
         float sclY = 1; // global transform
         float position_y = (getHeight() * 0.5f - boxBorderSize - boxPaddingTop) * sclY + scrollOffsetY;
-        for (Widget child : widgets) {
+        for (Node child : widgets) {
             float child_height = child.getHeight() * sclY;
             child.offsetX = boxPaddingLeft - (boxPaddingLeft + boxPaddingRight) * 0.5f;
             child.offsetY = position_y - child_height * 0.5f;
@@ -187,7 +187,7 @@ public class WidgetContainer extends Widget {
     }
 
     // meant to be overriden by custom layout containers, like a wheel select.
-    protected void setChildrenOffsetsCustom(Array<Widget> widgets) {
+    protected void setChildrenOffsetsCustom(Array<Node> widgets) {
         super.setChildrenOffsets(widgets);
     }
 
@@ -231,56 +231,56 @@ public class WidgetContainer extends Widget {
                 x, y, deg, sclX, sclY);
     }
 
-    protected final float getContentWidthStack(final Array<Widget> widgets) {
+    protected final float getContentWidthStack(final Array<Node> widgets) {
         float maxWidth = 0;
-        for (Widget child : widgets) {
+        for (Node child : widgets) {
             maxWidth = Math.max(child.getWidth(), maxWidth);
         }
         return Math.abs(maxWidth);
     }
 
-    protected final float getContentWidthHorizontal(final Array<Widget> widgets) {
+    protected final float getContentWidthHorizontal(final Array<Node> widgets) {
         float width = 0;
-        for (Widget child : widgets) {
+        for (Node child : widgets) {
             width += child.getWidth();
         }
         width += Math.max(0f, boxChildSpacingHorizontal * (widgets.size - 1));
         return width;
     }
 
-    protected float getContentWidthVertical(final Array<Widget> widgets) {
+    protected float getContentWidthVertical(final Array<Node> widgets) {
         return getContentWidthStack(widgets);
     }
 
-    protected final float getContentWidthCustom(final Array<Widget> widgets) {
+    protected final float getContentWidthCustom(final Array<Node> widgets) {
         if (widgets == null || widgets.isEmpty()) return 0;
 
         float min_x = Float.POSITIVE_INFINITY;
         float max_x = Float.NEGATIVE_INFINITY;
-        for (Widget widget : widgets) {
-            float left = widget.offsetX - widget.getWidth();
-            float right = widget.offsetX + widget.getWidth();
+        for (Node node : widgets) {
+            float left = node.offsetX - node.getWidth();
+            float right = node.offsetX + node.getWidth();
             min_x = Math.min(min_x, left);
             max_x = Math.max(max_x, right);
         }
         return Math.abs(max_x - min_x);
     }
 
-    protected float getContentHeightStack(final Array<Widget> widgets) {
+    protected float getContentHeightStack(final Array<Node> widgets) {
         float maxHeight = 0;
-        for (Widget child : widgets) {
+        for (Node child : widgets) {
             maxHeight = Math.max(child.getHeight(), maxHeight);
         }
         return maxHeight;
     }
 
-    protected final float getContentHeightHorizontal(final Array<Widget> widgets) {
+    protected final float getContentHeightHorizontal(final Array<Node> widgets) {
         return getContentHeightStack(widgets);
     }
 
-    protected final float getContentHeightVertical(final Array<Widget> widgets) {
+    protected final float getContentHeightVertical(final Array<Node> widgets) {
         float height = 0;
-        for (Widget child : widgets) {
+        for (Node child : widgets) {
             height += child.getHeight();
         }
         height += Math.max(0f, boxChildSpacingVertical * (widgets.size - 1));
@@ -356,21 +356,21 @@ public class WidgetContainer extends Widget {
         }
     }
 
-    protected final float getContentHeightCustom(final Array<Widget> widgets) {
+    protected final float getContentHeightCustom(final Array<Node> widgets) {
         if (widgets == null || widgets.isEmpty()) return 0;
 
         float min_y = Float.POSITIVE_INFINITY;
         float max_y = Float.NEGATIVE_INFINITY;
-        for (Widget widget : widgets) {
-            float down = widget.offsetY - widget.getHeight();
-            float up = widget.offsetY + widget.getHeight();
+        for (Node node : widgets) {
+            float down = node.offsetY - node.getHeight();
+            float up = node.offsetY + node.getHeight();
             min_y = Math.min(min_y, down);
             max_y = Math.max(max_y, up);
         }
         return Math.abs(max_y - min_y);
     }
 
-    protected final float getContentsWidth(Array<Widget> widgets) {
+    protected final float getContentsWidth(Array<Node> widgets) {
         return switch (layout) {
             case STACK      -> getContentWidthStack(widgets);
             case HORIZONTAL -> getContentWidthHorizontal(widgets);
@@ -379,7 +379,7 @@ public class WidgetContainer extends Widget {
         };
     }
 
-    protected final float getContentsHeight(Array<Widget> widgets) {
+    protected final float getContentsHeight(Array<Node> widgets) {
         return switch (layout) {
             case STACK      -> getContentHeightStack(widgets);
             case HORIZONTAL -> getContentHeightHorizontal(widgets);

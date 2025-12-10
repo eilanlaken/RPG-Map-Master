@@ -5,7 +5,7 @@ import com.heavybox.jtix.graphics.Renderer2D;
 import org.jetbrains.annotations.NotNull;
 
 // TODO: add angle parameter <- improve renderer 2d to include drawCircleThin + drawCircleBorder with 'angle' parameter
-public class WidgetShapeCircle extends Widget implements WidgetShape {
+public class NodeShapeCircle extends Node implements NodeShape {
 
     // TODO: add angle
     public float arcDeg = 360;
@@ -15,7 +15,7 @@ public class WidgetShapeCircle extends Widget implements WidgetShape {
     public Color color;
     public float borderSize;
 
-    public WidgetShapeCircle(float radius, int refinement, final Color color) {
+    public NodeShapeCircle(float radius, int refinement, final Color color) {
         this.radius = radius;
         this.refinement = refinement;
         this.color = color.clone();
