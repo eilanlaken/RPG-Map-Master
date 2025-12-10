@@ -6,9 +6,9 @@ import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.graphics.Texture;
 import com.heavybox.jtix.graphics.TextureRegion;
 
-public class NodeImage extends NodeContainer {
+public class WidgetNodeImage extends WidgetNodeContainerStack {
 
-    private final NodeImageContent imageContent;
+    private final WidgetNodeImageContent imageContent;
     public TextureRegion img = null;
 
     public float imgWidth = 0;
@@ -16,47 +16,45 @@ public class NodeImage extends NodeContainer {
     public float zoom = 1f;
     public Color tint = Color.WHITE.clone();
 
-    public NodeImage(final String src) {
+    public WidgetNodeImage(final String src) {
         boolean loaded = Assets.isLoaded(src);
         Texture texture = loaded ? Assets.get(src) : new Texture(src);
         img = new TextureRegion(texture);
-        this.imageContent = new NodeImageContent(this);
+        this.imageContent = new WidgetNodeImageContent(this);
         init();
     }
 
-    public NodeImage(TextureRegion region) {
+    public WidgetNodeImage(TextureRegion region) {
         this.img = region;
-        this.imageContent = new NodeImageContent(this);
+        this.imageContent = new WidgetNodeImageContent(this);
         init();
     }
 
     private void init() {
-        layout = Layout.STACK;
-        layoutAddScrollbar = false;
         boxBackgroundVisible = false;
         boxPaddingTop = 0;
         boxPaddingBottom = 0;
         boxPaddingRight = 0;
         boxPaddingLeft = 0;
-        layoutOverflowX = Overflow.HIDDEN;
-        layoutOverflowY = Overflow.HIDDEN;
-        layoutWidthSizing = Sizing.STATIC;
-        layoutHeightSizing = Sizing.STATIC;
+        overflowX = Overflow.HIDDEN;
+        overflowY = Overflow.HIDDEN;
+        widthSizing = Sizing.STATIC;
+        heightSizing = Sizing.STATIC;
 
         addChild(imageContent);
     }
 
     @Override
-    protected void fixedUpdateContainer(float delta) {
-        layoutWidth = imageContent.getWidth();
-        layoutHeight = imageContent.getHeight();
+    public void fixedUpdateContainer(float delta) {
+        widthValue = imageContent.getWidth();
+        heightValue = imageContent.getHeight();
     }
 
-    private static class NodeImageContent extends Node {
+    private static class WidgetNodeImageContent extends WidgetNode {
 
-        final NodeImage container;
+        final WidgetNodeImage container;
 
-        public NodeImageContent(final NodeImage container) {
+        public WidgetNodeImageContent(final WidgetNodeImage container) {
             this.container = container;
         }
 

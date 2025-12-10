@@ -3,16 +3,15 @@ package com.heavybox.jtix.z;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.TexturePack;
-import com.heavybox.jtix.widgets_4.NodeContainer;
-import com.heavybox.jtix.widgets_4.NodeImage;
+import com.heavybox.jtix.widgets_4.WidgetNodeContainerHorizontal;
+import com.heavybox.jtix.widgets_4.WidgetNodeImage;
 
-public class NodeActionsBar extends NodeContainer {
+public class WidgetNodeActionsBar extends WidgetNodeContainerHorizontal {
 
     public static final int BUTTON_SIZE = 42;
 
     // probably get a reference to the scene or map or whatever.
-    public NodeActionsBar() {
-        layout = Layout.HORIZONTAL;
+    public WidgetNodeActionsBar() {
         layoutOverflowX = Overflow.VISIBLE;
         layoutOverflowY = Overflow.VISIBLE;
         layoutAddScrollbar = false;
@@ -22,7 +21,7 @@ public class NodeActionsBar extends NodeContainer {
         boxBorderColor = Color.valueOf("e7b524");
         boxBackgroundVisible = true;
         boxBackgroundColor = Color.valueOf("0f0e0a");
-        boxChildSpacingHorizontal = 5;
+        boxChildSpacing = 5;
         boxPaddingTop = 0;
         boxPaddingBottom = 0;
         boxPaddingLeft = 0;
@@ -38,7 +37,7 @@ public class NodeActionsBar extends NodeContainer {
     private void addChildren() {
         TexturePack ui = Assets.get("assets/texture-packs/user-interface.yml");
 
-        NodeImage actionBarNew = new NodeImage(ui.getRegion("assets/user-interface/action-bar-new.png"));
+        WidgetNodeImage actionBarNew = new WidgetNodeImage(ui.getRegion("assets/user-interface/action-bar-new.png"));
         actionBarNew.boxBackgroundVisible = true;
         actionBarNew.boxBackgroundColor = Color.valueOf("101010");
         actionBarNew.boxBorderSize = 0;
@@ -51,7 +50,7 @@ public class NodeActionsBar extends NodeContainer {
             actionBarNew.boxBackgroundColor = Color.valueOf("101010");
         };
 
-        NodeImage actionBarLoad = new NodeImage(ui.getRegion("assets/user-interface/action-bar-load.png"));
+        WidgetNodeImage actionBarLoad = new WidgetNodeImage(ui.getRegion("assets/user-interface/action-bar-load.png"));
         actionBarLoad.boxBackgroundVisible = true;
         actionBarLoad.boxBackgroundColor = Color.valueOf("101010");
         actionBarLoad.boxBorderSize = 0;
@@ -67,7 +66,7 @@ public class NodeActionsBar extends NodeContainer {
             actionBarLoad.boxBackgroundColor = Color.valueOf("101010");
         };
 
-        NodeImage actionBarSaveAs = new NodeImage(ui.getRegion("assets/user-interface/action-bar-save-as.png"));
+        WidgetNodeImage actionBarSaveAs = new WidgetNodeImage(ui.getRegion("assets/user-interface/action-bar-save-as.png"));
         actionBarSaveAs.boxBackgroundVisible = true;
         actionBarSaveAs.boxBackgroundColor = Color.valueOf("101010");
         actionBarSaveAs.boxBorderSize = 0;
@@ -80,7 +79,7 @@ public class NodeActionsBar extends NodeContainer {
             actionBarSaveAs.boxBackgroundColor = Color.valueOf("101010");
         };
 
-        NodeImage actionBarExport = new NodeImage(ui.getRegion("assets/user-interface/action-bar-export.png"));
+        WidgetNodeImage actionBarExport = new WidgetNodeImage(ui.getRegion("assets/user-interface/action-bar-export.png"));
         actionBarExport.boxBackgroundVisible = true;
         actionBarExport.boxBackgroundColor = Color.valueOf("101010");
         actionBarExport.boxBorderSize = 0;
@@ -93,7 +92,7 @@ public class NodeActionsBar extends NodeContainer {
             actionBarExport.boxBackgroundColor = Color.valueOf("101010");
         };
 
-        NodeImage actionBarUndo = new NodeImage(ui.getRegion("assets/user-interface/action-bar-undo.png"));
+        WidgetNodeImage actionBarUndo = new WidgetNodeImage(ui.getRegion("assets/user-interface/action-bar-undo.png"));
         actionBarUndo.boxBackgroundVisible = true;
         actionBarUndo.boxBackgroundColor = Color.valueOf("101010");
         actionBarUndo.boxBorderSize = 0;
@@ -108,7 +107,7 @@ public class NodeActionsBar extends NodeContainer {
             actionBarUndo.boxBackgroundColor = Color.valueOf("101010");
         };
 
-        NodeImage actionBarRedo = new NodeImage(ui.getRegion("assets/user-interface/action-bar-redo.png"));
+        WidgetNodeImage actionBarRedo = new WidgetNodeImage(ui.getRegion("assets/user-interface/action-bar-redo.png"));
         actionBarRedo.boxBackgroundVisible = true;
         actionBarRedo.boxBackgroundColor = Color.valueOf("101010");
         actionBarRedo.boxBorderSize = 0;

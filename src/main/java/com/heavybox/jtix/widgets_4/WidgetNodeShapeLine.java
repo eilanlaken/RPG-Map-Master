@@ -3,14 +3,14 @@ package com.heavybox.jtix.widgets_4;
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Renderer2D;
 
-public class NodeShapeLine extends Node implements NodeShape {
+public class WidgetNodeShapeLine extends WidgetNode implements WidgetNodeShape {
 
     public Type type = Type.OUTLINE;
     public float length;
     public float thickness;
     public Color color;
 
-    public NodeShapeLine(float length, float thickness, final Color color) {
+    public WidgetNodeShapeLine(float length, float thickness, final Color color) {
         this.length = length;
         this.thickness = thickness;
         this.color = color.clone();

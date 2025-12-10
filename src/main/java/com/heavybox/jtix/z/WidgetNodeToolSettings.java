@@ -1,12 +1,11 @@
 package com.heavybox.jtix.z;
 
 import com.heavybox.jtix.graphics.Color;
-import com.heavybox.jtix.widgets_4.NodeContainer;
+import com.heavybox.jtix.widgets_4.WidgetNodeContainerVertical;
 
-public class NodeToolSettings extends NodeContainer {
+public class WidgetNodeToolSettings extends WidgetNodeContainerVertical {
 
-    public NodeToolSettings() {
-        layout = Layout.VERTICAL;
+    public WidgetNodeToolSettings() {
         layoutWidthSizing = Sizing.STATIC;
         layoutHeightSizing = Sizing.STATIC;
         layoutOverflowX = Overflow.VISIBLE;

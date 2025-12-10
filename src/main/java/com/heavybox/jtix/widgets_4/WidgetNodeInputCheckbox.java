@@ -4,7 +4,7 @@ import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.math.MathUtils;
 
-public class NodeInputCheckbox extends Node implements NodeInput<Boolean> {
+public class WidgetNodeInputCheckbox extends WidgetNode implements WidgetNodeInput<Boolean> {
 
     private static final float BASE_SIZE = 26;
 

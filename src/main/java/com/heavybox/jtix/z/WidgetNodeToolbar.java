@@ -4,10 +4,10 @@ import com.heavybox.jtix.RPGMapMakerScene;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.TexturePack;
-import com.heavybox.jtix.widgets_4.NodeContainer;
-import com.heavybox.jtix.widgets_4.NodeImage;
+import com.heavybox.jtix.widgets_4.WidgetNodeContainerVertical;
+import com.heavybox.jtix.widgets_4.WidgetNodeImage;
 
-public class NodeToolbar extends NodeContainer {
+public class WidgetNodeToolbar extends WidgetNodeContainerVertical {
 
     /* references */
     public Map map;
@@ -16,10 +16,9 @@ public class NodeToolbar extends NodeContainer {
 
     public int selected = 0;
 
-    public NodeToolbar(RPGMapMakerScene scene) {
+    public WidgetNodeToolbar(RPGMapMakerScene scene) {
         this.map = scene.getMap();
 
-        layout = Layout.VERTICAL;
         layoutAddScrollbar = false;
         layoutWidthSizing = Sizing.DYNAMIC;
         layoutHeightSizing = Sizing.DYNAMIC;
@@ -33,7 +32,7 @@ public class NodeToolbar extends NodeContainer {
         boxPaddingBottom = 0;
         boxPaddingLeft = 0;
         boxPaddingRight = 0;
-        boxChildSpacingHorizontal = 5;
+        boxChildSpacing = 5;
 
         anchor = Anchor.TOP_LEFT;
         anchorX = 0;
@@ -45,7 +44,7 @@ public class NodeToolbar extends NodeContainer {
     private void addChildren() {
         TexturePack ui = Assets.get("assets/texture-packs/user-interface.yml");
 
-        NodeImage toolTerrain = new NodeImage(ui.getRegion("assets/user-interface/tool-bar-terrain.png"));
+        WidgetNodeImage toolTerrain = new WidgetNodeImage(ui.getRegion("assets/user-interface/tool-bar-terrain.png"));
         toolTerrain.boxBackgroundVisible = true;
         toolTerrain.boxBackgroundColor = Color.valueOf("101010");
         toolTerrain.boxBorderSize = 0;
@@ -62,7 +61,7 @@ public class NodeToolbar extends NodeContainer {
         };
 
 
-        NodeImage toolNature = new NodeImage(ui.getRegion("assets/user-interface/tool-bar-nature.png"));
+        WidgetNodeImage toolNature = new WidgetNodeImage(ui.getRegion("assets/user-interface/tool-bar-nature.png"));
         toolNature.boxBackgroundVisible = true;
         toolNature.boxBackgroundColor = Color.valueOf("101010");
         toolNature.boxBorderSize = 0;
@@ -78,7 +77,7 @@ public class NodeToolbar extends NodeContainer {
             toolNature.boxBackgroundColor = Color.valueOf("101010");
         };
 
-        NodeImage toolArchitecture = new NodeImage(ui.getRegion("assets/user-interface/tool-bar-architecture.png"));
+        WidgetNodeImage toolArchitecture = new WidgetNodeImage(ui.getRegion("assets/user-interface/tool-bar-architecture.png"));
         toolArchitecture.boxBackgroundVisible = true;
         toolArchitecture.boxBackgroundColor = Color.valueOf("101010");
         toolArchitecture.boxBorderSize = 0;
@@ -94,7 +93,7 @@ public class NodeToolbar extends NodeContainer {
             toolArchitecture.boxBackgroundColor = Color.valueOf("101010");
         };
 
-        NodeImage toolProps = new NodeImage(ui.getRegion("assets/user-interface/tool-bar-props.png"));
+        WidgetNodeImage toolProps = new WidgetNodeImage(ui.getRegion("assets/user-interface/tool-bar-props.png"));
         toolProps.boxBackgroundVisible = true;
         toolProps.boxBackgroundColor = Color.valueOf("101010");
         toolProps.boxBorderSize = 0;
@@ -110,7 +109,7 @@ public class NodeToolbar extends NodeContainer {
             toolProps.boxBackgroundColor = Color.valueOf("101010");
         };
 
-        NodeImage toolText = new NodeImage(ui.getRegion("assets/user-interface/tool-bar-text.png"));
+        WidgetNodeImage toolText = new WidgetNodeImage(ui.getRegion("assets/user-interface/tool-bar-text.png"));
         toolText.boxBackgroundVisible = true;
         toolText.boxBackgroundColor = Color.valueOf("101010");
         toolText.boxBorderSize = 0;
@@ -126,7 +125,7 @@ public class NodeToolbar extends NodeContainer {
             toolText.boxBackgroundColor = Color.valueOf("101010");
         };
 
-        NodeImage toolSelect = new NodeImage(ui.getRegion("assets/user-interface/tool-bar-select.png"));
+        WidgetNodeImage toolSelect = new WidgetNodeImage(ui.getRegion("assets/user-interface/tool-bar-select.png"));
         toolSelect.boxBackgroundVisible = true;
         toolSelect.boxBackgroundColor = Color.valueOf("101010");
         toolSelect.boxBorderSize = 0;
@@ -142,7 +141,7 @@ public class NodeToolbar extends NodeContainer {
             toolSelect.boxBackgroundColor = Color.valueOf("101010");
         };
 
-        NodeImage toolDecorations = new NodeImage(ui.getRegion("assets/user-interface/tool-bar-decorations.png"));
+        WidgetNodeImage toolDecorations = new WidgetNodeImage(ui.getRegion("assets/user-interface/tool-bar-decorations.png"));
         toolDecorations.boxBackgroundVisible = true;
         toolDecorations.boxBackgroundColor = Color.valueOf("101010");
         toolDecorations.boxBorderSize = 0;
@@ -168,7 +167,7 @@ public class NodeToolbar extends NodeContainer {
     }
 
     @Override
-    protected void fixedUpdateContainer(float delta) {
+    public void fixedUpdateContainer(float delta) {
 
     }
 }

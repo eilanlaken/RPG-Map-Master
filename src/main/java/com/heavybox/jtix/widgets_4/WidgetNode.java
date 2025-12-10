@@ -9,15 +9,20 @@ import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Vector2;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class Node {
+public abstract class WidgetNode {
+
+    /*** Widget manager reference ***/
+    // TODO: must prevent nodes from belonging to two different Widgets.
+    // TODO: must consider the case of adding and removing children.
+    Widget widget = null;
 
     /*** ui hierarchy ***/
-    public          boolean     active         = true;
-    private         Node        parent         = null;
-    protected       boolean     hidden         = false;
-    protected final Array<Node> children       = new Array<>(true, 1);
-    protected final Array<Node> childrenLayout = new Array<>(true, 1);
-    protected final Array<Node> childrenActive = new Array<>(true, 1);
+    private         WidgetNode        parent         = null;
+    protected       boolean           hidden         = false;
+    public          boolean           active         = true;
+    protected final Array<WidgetNode> children       = new Array<>(true, 1);
+    protected final Array<WidgetNode> childrenLayout = new Array<>(true, 1);
+    protected final Array<WidgetNode> childrenActive = new Array<>(true, 1);
 
     /*** metrics: transform and dimensions ***/
     public          float     width           = 0; // TODO: use for caching and event handling
@@ -46,7 +51,6 @@ public abstract class Node {
     private       boolean       mouseRegisterMiddleClicksOutside      = false;
     private       boolean       mouseInside                           = false;
     private       boolean       dragging                              = false;
-    private       boolean       draggingPrev                          = false;
     private       boolean       focused                               = false;
 
     /*** input - event handlers ***/
@@ -94,9 +98,9 @@ public abstract class Node {
     protected boolean onKeysPressedDefault            (Event.EventKeysPressed e)             {return false;}
 
     /*** Add and remove child methods ***/
-    public final void addChild(Node node) {
-        if (node == null) throw new WidgetsException(Node.class.getSimpleName() + " element cannot be null.");
-        if (node == this) throw new WidgetsException("Trying to parent a " + Node.class.getSimpleName() + " to itself.");
+    public final void addChild(WidgetNode node) {
+        if (node == null) throw new WidgetsException(WidgetNode.class.getSimpleName() + " element cannot be null.");
+        if (node == this) throw new WidgetsException("Trying to parent a " + WidgetNode.class.getSimpleName() + " to itself.");
         if (node.parent != null) node.parent.removeChild(node);
         if (children.contains(node, true)) return;
 
@@ -108,9 +112,9 @@ public abstract class Node {
         onChildAddedDefault(e);
     }
 
-    public final void removeChild(Node node) {
-        if (node == null) throw new WidgetsException(Node.class.getSimpleName() + " element cannot be null.");
-        if (!children.contains(node, true)) throw new WidgetsException(Node.class.getSimpleName() + " does not contain the element " + node + " as a child so it cannot be removed.");
+    public final void removeChild(WidgetNode node) {
+        if (node == null) throw new WidgetsException(WidgetNode.class.getSimpleName() + " element cannot be null.");
+        if (!children.contains(node, true)) throw new WidgetsException(WidgetNode.class.getSimpleName() + " does not contain the element " + node + " as a child so it cannot be removed.");
 
         int index = children.removeValue(node,true);
         node.parent = null;
@@ -143,7 +147,7 @@ public abstract class Node {
         }
 
         int maskingIndex = getMaskingIndex();
-        for (Node child : childrenActive) {
+        for (WidgetNode child : childrenActive) {
             // apply mask, if masking enabled
             if (maskChildren) {
                 renderer2D.enableMasking();
@@ -194,18 +198,18 @@ public abstract class Node {
         if (eventFired) updateInternalState();
 
         /* update all children */
-        for (Node node : childrenActive) {
+        for (WidgetNode node : childrenActive) {
             node.update(delta);
         }
     }
 
     private void updateInternalState() {
         childrenActive.clear();
-        for (Node child : children) {
+        for (WidgetNode child : children) {
             if (child.active) childrenActive.add(child);
         }
         childrenLayout.clear();
-        for (Node child : childrenActive) {
+        for (WidgetNode child : childrenActive) {
             if (child.anchor == null) childrenLayout.add(child);
         }
         setChildrenOffsets(childrenLayout);
@@ -241,7 +245,7 @@ public abstract class Node {
         boolean mouseJustEntered = (!mouseInsidePrev && mouseInside) || (Input.mouse.cursorJustEnteredWindow() && mouseInside);
         boolean mouseJustLeft = (!mouseInside && mouseInsidePrev) || (Input.mouse.cursorJustLeftWindow() && mouseInsidePrev);
         boolean draggable = draggableX || draggableY;
-        draggingPrev = dragging;
+        boolean draggingPrev = dragging;
         if (mouseInside && Input.mouse.isButtonPressed(Mouse.Button.LEFT)) {
             dragging = true;
         }
@@ -517,8 +521,8 @@ public abstract class Node {
     }
 
     // containers can override this, for example.
-    protected void setChildrenOffsets(final Array<Node> activeChildren) {
-        for (Node node : activeChildren) {
+    protected void setChildrenOffsets(final Array<WidgetNode> activeChildren) {
+        for (WidgetNode node : activeChildren) {
             node.offsetX = 0;
             node.offsetY = 0;
         }
@@ -538,7 +542,7 @@ public abstract class Node {
         if (!region.containsPoint(pointerX, pointerY)) return false;
 
         ancestorsRegions.clear();
-        Node p = parent;
+        WidgetNode p = parent;
         while (p != null) {
             if (p.maskChildren()) {
                 ancestorsRegions.add(p.regionMask);
@@ -590,6 +594,15 @@ public abstract class Node {
 
     public boolean hasChildren() {
         return !children.isEmpty();
+    }
+
+    void setWidget(final Widget widget) {
+        if (this.widget != null) throw new WidgetsException("WidgetNode " + this.getClass().getSimpleName() + " already belongs to Widget " + this.widget + ".");
+
+        this.widget = widget;
+        for (WidgetNode child : children) {
+            child.setWidget(widget);
+        }
     }
 
     private void setOffsetsAnchor() {

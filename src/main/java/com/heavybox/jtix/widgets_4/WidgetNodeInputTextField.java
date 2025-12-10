@@ -7,7 +7,7 @@ import com.heavybox.jtix.input.Keyboard;
 
 // TODO: handle key strokes: <-. -> , backspace, etc.
 // TODO: handle style and global theme
-public class NodeInputTextField extends Node implements NodeInput<String> {
+public class WidgetNodeInputTextField extends WidgetNode implements WidgetNodeInput<String> {
 
     /*** state ***/
     private String value = "";
@@ -26,10 +26,10 @@ public class NodeInputTextField extends Node implements NodeInput<String> {
     public Color caretColor = Color.BLACK.clone();
 
     /*  built in children. */
-    private final NodeText text  = new NodeText("");
-    private final NodeShapeRectangle caret = new NodeShapeRectangle(2, 18);
+    private final WidgetNodeText text  = new WidgetNodeText("");
+    private final WidgetNodeShapeRectangle caret = new WidgetNodeShapeRectangle(2, 18);
 
-    public NodeInputTextField() {
+    public WidgetNodeInputTextField() {
         text.anchor = Anchor.CENTER_LEFT;
         text.anchorX = borderSize;
         text.anchorY = 0;

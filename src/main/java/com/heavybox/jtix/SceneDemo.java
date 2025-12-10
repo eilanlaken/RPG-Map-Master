@@ -28,8 +28,8 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
     private final Widget widgetActionsBar = new Widget();
     private final Widget widgetStatisticsBar = new Widget();
     private final Widget widgetTools = new Widget();
-    private NodeToolbar toolbar;
-    private NodeToolSettings toolSettings;
+    private WidgetNodeToolbar toolbar;
+    private WidgetNodeToolSettings toolSettings;
 
     public SceneDemo() {
         renderer2D = new Renderer2D();
@@ -97,10 +97,10 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
         tools[6] = new ToolStampDecorations(map);
 
         // user - interface
-        NodeActionsBar actionsBar = new NodeActionsBar();
-        NodeStatisticsBar statisticsBar = new NodeStatisticsBar(this);
-        toolbar = new NodeToolbar(this);
-        toolSettings = new NodeToolSettings();
+        WidgetNodeActionsBar actionsBar = new WidgetNodeActionsBar();
+        WidgetNodeStatisticsBar statisticsBar = new WidgetNodeStatisticsBar(this);
+        toolbar = new WidgetNodeToolbar(this);
+        toolSettings = new WidgetNodeToolSettings();
 
         widgetStatisticsBar.addNode(statisticsBar);
         widgetActionsBar.addNodes(actionsBar);

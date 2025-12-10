@@ -4,7 +4,7 @@ import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Font;
 import com.heavybox.jtix.graphics.Renderer2D;
 
-public class NodeText extends Node {
+public class WidgetNodeText extends WidgetNode {
 
     /* state */
     public String  text         = null;
@@ -15,7 +15,7 @@ public class NodeText extends Node {
     public boolean antialiasing = Widgets.themeTextAntialiasing;
     public int     size         = Widgets.themeTextSize;
 
-    public NodeText(String text) {
+    public WidgetNodeText(String text) {
         this.text = text;
     }
 

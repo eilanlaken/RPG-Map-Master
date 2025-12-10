@@ -208,7 +208,7 @@ public abstract class Event {
             super(global);
         }
 
-        public Node node;
+        public WidgetNode node;
 
     }
 
@@ -218,8 +218,8 @@ public abstract class Event {
             super(global);
         }
 
-        public Node node;
-        public int    index;
+        public WidgetNode node;
+        public int        index;
 
     }
 

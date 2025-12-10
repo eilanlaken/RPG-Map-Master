@@ -5,7 +5,7 @@ import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Vector2;
 
-public class NodeInputSlider extends Node implements NodeInput<Float> {
+public class WidgetNodeInputSlider extends WidgetNode implements WidgetNodeInput<Float> {
 
     public float width     = 200;
     public float thickness = 7.5f;

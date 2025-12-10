@@ -4,16 +4,16 @@ import com.heavybox.jtix.RPGMapMakerScene;
 import com.heavybox.jtix.graphics.Camera;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.math.Vector3;
-import com.heavybox.jtix.widgets_4.NodeContainer;
-import com.heavybox.jtix.widgets_4.NodeText;
+import com.heavybox.jtix.widgets_4.WidgetNodeContainerHorizontal;
+import com.heavybox.jtix.widgets_4.WidgetNodeText;
 
-public class NodeStatisticsBar extends NodeContainer {
+public class WidgetNodeStatisticsBar extends WidgetNodeContainerHorizontal {
 
     private final Vector3 screen = new Vector3(Input.mouse.getX(), Input.mouse.getY(), 0);
 
-    private final NodeText objectCount = new NodeText("Objects: 0 |");
-    private final NodeText mousePosition = new NodeText("");
-    private final NodeText cameraZoom = new NodeText("");
+    private final WidgetNodeText objectCount = new WidgetNodeText("Objects: 0 |");
+    private final WidgetNodeText mousePosition = new WidgetNodeText("");
+    private final WidgetNodeText cameraZoom = new WidgetNodeText("");
 
     /* references */
     private final RPGMapMakerScene scene;
@@ -22,12 +22,11 @@ public class NodeStatisticsBar extends NodeContainer {
     private float cameraZoomPrev;
     private int objectCountPrev = 0;
 
-    public NodeStatisticsBar(final RPGMapMakerScene scene) {
+    public WidgetNodeStatisticsBar(final RPGMapMakerScene scene) {
         this.scene = scene;
         this.map = scene.getMap();
         this.camera = scene.getCamera();
 
-        layout = Layout.HORIZONTAL;
         layoutOverflowX = Overflow.VISIBLE;
         layoutOverflowY = Overflow.VISIBLE;
         layoutAddScrollbar = false;
@@ -39,7 +38,7 @@ public class NodeStatisticsBar extends NodeContainer {
         boxPaddingBottom = 0;
         boxPaddingLeft = 0;
         boxPaddingRight = 0;
-        boxChildSpacingHorizontal = 5;
+        boxChildSpacing = 5;
         anchor = Anchor.TOP_RIGHT;
         anchorX = 50;
         anchorY = 50;
@@ -50,7 +49,7 @@ public class NodeStatisticsBar extends NodeContainer {
     }
 
     @Override
-    protected void fixedUpdateContainer(float delta) {
+    public void fixedUpdateContainer(float delta) {
         if (this.map.layer3.allTokens.size != objectCountPrev) {
             objectCountPrev = this.map.layer3.allTokens.size;
             objectCount.text = "Objects: " + this.map.layer3.allTokens.size + " |";

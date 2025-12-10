@@ -3,7 +3,7 @@ package com.heavybox.jtix.widgets_4;
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Renderer2D;
 
-public class NodeShapeRectangle extends Node implements NodeShape {
+public class WidgetNodeShapeRectangle extends WidgetNode implements WidgetNodeShape {
 
     public Type type = Type.FILLED;
     public float width;
@@ -11,12 +11,12 @@ public class NodeShapeRectangle extends Node implements NodeShape {
     public float borderSize = 0; // default
     public Color color = Color.WHITE.clone();
 
-    public NodeShapeRectangle(float width, float height) {
+    public WidgetNodeShapeRectangle(float width, float height) {
         this.width = width;
         this.height = height;
     }
 
-    public NodeShapeRectangle(float width, float height, Color color) {
+    public WidgetNodeShapeRectangle(float width, float height, Color color) {
         this.width = width;
         this.height = height;
         this.color = color.clone();
