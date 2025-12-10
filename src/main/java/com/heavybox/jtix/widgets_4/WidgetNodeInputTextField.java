@@ -30,13 +30,13 @@ public class WidgetNodeInputTextField extends WidgetNode implements WidgetNodeIn
     private final WidgetNodeShapeRectangle caret = new WidgetNodeShapeRectangle(2, 18);
 
     public WidgetNodeInputTextField() {
-        text.anchor = Anchor.CENTER_LEFT;
+        text.anchor = Anchor.PARENT_CENTER_LEFT;
         text.anchorX = borderSize;
         text.anchorY = 0;
         addChild(text);
 
         text.addChild(caret);
-        caret.anchor = Anchor.CENTER_LEFT;
+        caret.anchor = Anchor.PARENT_CENTER_LEFT;
     }
 
     @Override

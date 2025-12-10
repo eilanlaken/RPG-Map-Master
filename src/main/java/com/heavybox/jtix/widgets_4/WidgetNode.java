@@ -106,6 +106,7 @@ public abstract class WidgetNode {
 
         children.add(node);
         node.parent = this;
+        node.setWidget(this.widget);
         Event.EventChildAdded e = new Event.EventChildAdded(transformScreen);
         e.node = node;
         if (onChildAdded != null) onChildAdded.handle(e);
@@ -118,6 +119,7 @@ public abstract class WidgetNode {
 
         int index = children.removeValue(node,true);
         node.parent = null;
+        node.setWidget(null);
         Event.EventChildRemoved e = new Event.EventChildRemoved(transformScreen);
         e.node = node;
         e.index = index;
@@ -597,6 +599,8 @@ public abstract class WidgetNode {
     }
 
     void setWidget(final Widget widget) {
+        if (this.widget == widget) return;
+        if (widget == null) this.widget = null;
         if (this.widget != null) throw new WidgetsException("WidgetNode " + this.getClass().getSimpleName() + " already belongs to Widget " + this.widget + ".");
 
         this.widget = widget;
@@ -610,6 +614,8 @@ public abstract class WidgetNode {
 
         float currentWidth = width;
         float currentHeight = height;
+        float halfWidth = width * 0.5f;
+        float halfHeight = height * 0.5f;
         float min_x = -currentWidth * 0.5f;
         float max_x = currentWidth * 0.5f;
         float min_y = -currentHeight * 0.5f;
@@ -619,64 +625,126 @@ public abstract class WidgetNode {
         float screen_max_x;
         float screen_min_y;
         float screen_max_y;
+        float center_x;
+        float center_y;
 
         float halfParentWidth = parent == null ? Graphics.getWindowWidth() * 0.5f : parent.getWidth() * 0.5f;
         float halfParentHeight = parent == null ? Graphics.getWindowHeight() * 0.5f : parent.getHeight() * 0.5f;
 
+        float cursorX = Widgets.getPointerX();
+        float cursorY = Widgets.getPointerY();
+
+        float parent_screen_x = parent == null ? 0 : parent.transformScreen.x;
+        float parent_screen_y = parent == null ? 0 : parent.transformScreen.y;
+
         switch (anchor) {
-            case CENTER_RIGHT:
+            case PARENT_CENTER_RIGHT:
                 screen_max_x = halfParentWidth - max_x;
                 offsetX = screen_max_x - anchorX;
                 //offsetY = 0;
                 break;
-            case CENTER_LEFT:
+            case PARENT_CENTER_LEFT:
                 screen_min_x = min_x + halfParentWidth;
                 offsetX = anchorX - screen_min_x;
                 //offsetY = 0;
                 break;
-            case TOP_CENTER:
+            case PARENT_TOP_CENTER:
                 screen_max_y = halfParentHeight - max_y;
                 //offsetX = 0;
                 offsetY = screen_max_y - anchorY;
                 break;
-            case BOTTOM_CENTER:
+            case PARENT_BOTTOM_CENTER:
                 screen_min_y = min_y + halfParentHeight;
                 //offsetX = 0;
                 offsetY = anchorY - screen_min_y;
                 break;
-            case TOP_LEFT:
+            case PARENT_TOP_LEFT:
                 screen_min_x = min_x + halfParentWidth;
                 screen_max_y = halfParentHeight - max_y;
                 offsetX = anchorX - screen_min_x;
                 offsetY = screen_max_y - anchorY;
                 break;
-            case TOP_RIGHT:
+            case PARENT_TOP_RIGHT:
                 screen_max_x = halfParentWidth - max_x;
                 screen_max_y = halfParentHeight - max_y;
                 offsetX = screen_max_x - anchorX;
                 offsetY = screen_max_y - anchorY;
                 break;
-            case BOTTOM_RIGHT:
+            case PARENT_BOTTOM_RIGHT:
                 screen_max_x = halfParentWidth - max_x;
                 screen_min_y = min_y + halfParentHeight;
                 offsetX = screen_max_x - anchorX;
                 offsetY = anchorY - screen_min_y;
                 break;
-            case BOTTOM_LEFT:
+            case PARENT_BOTTOM_LEFT:
                 screen_min_x = min_x + halfParentWidth;
                 screen_min_y = min_y + halfParentHeight;
                 offsetX = anchorX - screen_min_x;
                 offsetY = anchorY - screen_min_y;
                 break;
-            case CENTER_CENTER:
+            case PARENT_CENTER_CENTER:
                 screen_min_x = min_x + halfParentWidth;
                 screen_min_y = min_y + halfParentHeight;
                 screen_max_x = halfParentWidth - max_x;
                 screen_max_y = halfParentHeight - max_y;
-                float center_x = (screen_min_x + screen_max_x) * 0.5f;
-                float center_y = (screen_min_y + screen_max_y) * 0.5f;
+                center_x = (screen_min_x + screen_max_x) * 0.5f;
+                center_y = (screen_min_y + screen_max_y) * 0.5f;
                 offsetX = anchorX - center_x;
                 offsetY = anchorY - center_y;
+                break;
+            case CURSOR_TOP_LEFT:
+                screen_min_x = halfWidth;
+                screen_max_y = -halfHeight;
+                offsetX = (cursorX + screen_min_x - parent_screen_x) + anchorX;
+                offsetY = (cursorY + screen_max_y - parent_screen_y) + anchorY;
+                break;
+            case CURSOR_TOP_CENTER:
+                screen_max_y = -halfHeight;
+                offsetX = (cursorX - parent_screen_x) + anchorX;
+                offsetY = (cursorY + screen_max_y - parent_screen_y) + anchorY;
+                break;
+            case CURSOR_TOP_RIGHT:
+                screen_max_x = -halfWidth;
+                screen_max_y = -halfHeight;
+                offsetX = (cursorX + screen_max_x - parent_screen_x) + anchorX;
+                offsetY = (cursorY + screen_max_y - parent_screen_y) + anchorY;
+                break;
+            case CURSOR_CENTER_LEFT:
+                screen_min_x = halfWidth;
+                offsetX = (cursorX + screen_min_x - parent_screen_x) + anchorX;
+                offsetY = (cursorY + 0 - parent_screen_y) + anchorY;
+                break;
+            case CURSOR_CENTER_RIGHT:
+                screen_min_x = -halfWidth;
+                offsetX = (cursorX + screen_min_x - parent_screen_x) + anchorX;
+                offsetY = (cursorY + 0 - parent_screen_y) + anchorY;
+                break;
+            case CURSOR_BOTTOM_LEFT:
+                screen_min_x = halfWidth;
+                screen_min_y = halfHeight;
+                offsetX = (cursorX + screen_min_x - parent_screen_x) + anchorX;
+                offsetY = (cursorY + screen_min_y - parent_screen_y) + anchorY;
+                break;
+            case CURSOR_BOTTOM_CENTER:
+                screen_max_y = halfHeight;
+                offsetX = (cursorX - parent_screen_x) + anchorX;
+                offsetY = (cursorY + screen_max_y - parent_screen_y) + anchorY;
+                break;
+            case CURSOR_BOTTOM_RIGHT:
+                screen_max_x = -halfWidth;
+                screen_min_y = halfHeight;
+                offsetX = (cursorX + screen_max_x - parent_screen_x) + anchorX;
+                offsetY = (cursorY + screen_min_y - parent_screen_y) + anchorY;
+                break;
+            case CURSOR_CENTER_CENTER:
+                screen_min_x = min_x + halfWidth;
+                screen_min_y = min_y + halfHeight;
+                screen_max_x = halfWidth - max_x;
+                screen_max_y = halfHeight - max_y;
+                center_x = (screen_min_x + screen_max_x) * 0.5f;
+                center_y = (screen_min_y + screen_max_y) * 0.5f;
+                offsetX = (cursorX - center_x - parent_screen_x) + anchorX;
+                offsetY = (cursorY - center_y - parent_screen_y) + anchorY;
                 break;
         }
     }
@@ -691,18 +759,15 @@ public abstract class WidgetNode {
     // this is important to make the ui responsive.
     public enum Anchor {
 
-        TOP_LEFT(true, true),     TOP_CENTER(false, true),    TOP_RIGHT(true, true),
-        CENTER_LEFT(true, false), CENTER_CENTER(true, true),  CENTER_RIGHT(true, false),
-        BOTTOM_LEFT(true, true),  BOTTOM_CENTER(false, true), BOTTOM_RIGHT(true, true),
+        PARENT_TOP_LEFT,     PARENT_TOP_CENTER,    PARENT_TOP_RIGHT,
+        PARENT_CENTER_LEFT, PARENT_CENTER_CENTER,  PARENT_CENTER_RIGHT,
+        PARENT_BOTTOM_LEFT,  PARENT_BOTTOM_CENTER, PARENT_BOTTOM_RIGHT,
+
+        // TODO
+        CURSOR_TOP_LEFT,     CURSOR_TOP_CENTER,    CURSOR_TOP_RIGHT,
+        CURSOR_CENTER_LEFT, CURSOR_CENTER_CENTER,  CURSOR_CENTER_RIGHT,
+        CURSOR_BOTTOM_LEFT,  CURSOR_BOTTOM_CENTER, CURSOR_BOTTOM_RIGHT,
         ;
-
-        public final boolean affectsX;
-        public final boolean affectsY;
-
-        Anchor(final boolean affectsX, final boolean affectsY) {
-            this.affectsX = affectsX;
-            this.affectsY = affectsY;
-        }
 
     }
 

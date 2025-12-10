@@ -34,7 +34,7 @@ public class WidgetNodeToolbar extends WidgetNodeContainerVertical {
         boxPaddingRight = 0;
         boxChildSpacing = 5;
 
-        anchor = Anchor.TOP_LEFT;
+        anchor = Anchor.PARENT_TOP_LEFT;
         anchorX = 0;
         anchorY = 200;
 

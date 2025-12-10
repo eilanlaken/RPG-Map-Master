@@ -53,13 +53,13 @@ public class WidgetNodeContainerVertical extends WidgetNode implements WidgetNod
 
     public WidgetNodeContainerVertical() {
         addChild(scrollbar);
-        scrollbar.anchor = Anchor.TOP_RIGHT;
+        scrollbar.anchor = Anchor.PARENT_TOP_RIGHT;
     }
 
     @Override
     protected boolean onResizeDefault(Event.EventResize e) {
         scrollbar.length = backgroundHeight;
-        scrollbar.anchor = Anchor.TOP_RIGHT;
+        scrollbar.anchor = Anchor.PARENT_TOP_RIGHT;
         scrollbar.anchorY = boxBorderSize;
         scrollbar.anchorX = 0;
         scrollbar.type = WidgetNodeInputScrollbar.Type.VERTICAL;
@@ -96,7 +96,7 @@ public class WidgetNodeContainerVertical extends WidgetNode implements WidgetNod
             scrollOffsetY = 0; // reset scroll value if scrolling is disabled.
         } else {
             scrollbar.length = backgroundHeight;
-            scrollbar.anchor = Anchor.TOP_RIGHT;
+            scrollbar.anchor = Anchor.PARENT_TOP_RIGHT;
             scrollbar.anchorY = boxBorderSize;
             scrollbar.anchorX = 0;
             scrollbar.type = WidgetNodeInputScrollbar.Type.VERTICAL;

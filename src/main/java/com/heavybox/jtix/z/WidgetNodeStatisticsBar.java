@@ -39,7 +39,7 @@ public class WidgetNodeStatisticsBar extends WidgetNodeContainerHorizontal {
         boxPaddingLeft = 0;
         boxPaddingRight = 0;
         boxChildSpacing = 5;
-        anchor = Anchor.TOP_RIGHT;
+        anchor = Anchor.PARENT_TOP_RIGHT;
         anchorX = 50;
         anchorY = 50;
 

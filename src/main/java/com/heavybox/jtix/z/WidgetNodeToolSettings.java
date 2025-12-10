@@ -24,7 +24,7 @@ public class WidgetNodeToolSettings extends WidgetNodeContainerVertical {
         boxPaddingLeft = 2;
         boxPaddingRight = 2;
 
-        anchor = Anchor.TOP_LEFT;
+        anchor = Anchor.PARENT_TOP_LEFT;
         anchorX = 42;
         anchorY = 200;
 

@@ -29,6 +29,8 @@ public class SceneNewContainers implements Scene, InputLayer {
         container.boxPaddingRight = 10;
         container.boxPaddingBottom = 50;
         container.boxPaddingTop = 50;
+        container.overflowX = WidgetNodeContainer.Overflow.VISIBLE;
+        container.overflowY = WidgetNodeContainer.Overflow.VISIBLE;
         container.onMouseMiddleClick = e -> {
             System.out.println("in");
         };
@@ -36,9 +38,11 @@ public class SceneNewContainers implements Scene, InputLayer {
             System.out.println("out");
         };
 
+        container.anchor = WidgetNode.Anchor.PARENT_BOTTOM_LEFT;
+
         widget_1.addNodes(container);
 
-        rectangle.anchor = WidgetNode.Anchor.CENTER_RIGHT;
+        rectangle.anchor = WidgetNode.Anchor.PARENT_CENTER_RIGHT;
         rectangle.anchorX = 200;
 
         widget_2.addNode(rectangle);
@@ -49,6 +53,8 @@ public class SceneNewContainers implements Scene, InputLayer {
 
     }
 
+    private WidgetNode currentRect;
+
     @Override
     public void update() {
 
@@ -56,6 +62,11 @@ public class SceneNewContainers implements Scene, InputLayer {
         if (Input.mouse.isButtonJustPressed(Mouse.Button.RIGHT)) {
             WidgetNodeShapeRectangle rect = new WidgetNodeShapeRectangle(100,50, Color.random());
             container.addChild(rect);
+            this.currentRect = rect;
+        } else if (Input.mouse.isButtonJustPressed(Mouse.Button.LEFT)) {
+            currentRect.anchor = WidgetNode.Anchor.CURSOR_BOTTOM_RIGHT;
+            currentRect.anchorX = 50;
+            currentRect.anchorY = 50;
         }
 
         widget_1.update();

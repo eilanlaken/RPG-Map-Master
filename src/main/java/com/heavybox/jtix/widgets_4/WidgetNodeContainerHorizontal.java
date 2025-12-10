@@ -51,13 +51,13 @@ public class WidgetNodeContainerHorizontal extends WidgetNode implements WidgetN
 
     public WidgetNodeContainerHorizontal() {
         addChild(scrollbar);
-        scrollbar.anchor = Anchor.TOP_RIGHT;
+        scrollbar.anchor = Anchor.PARENT_TOP_RIGHT;
     }
 
     @Override
     protected boolean onResizeDefault(Event.EventResize e) {
         scrollbar.length = backgroundWidth;
-        scrollbar.anchor = Anchor.BOTTOM_LEFT;
+        scrollbar.anchor = Anchor.PARENT_BOTTOM_LEFT;
         scrollbar.anchorX = boxBorderSize;
         scrollbar.anchorY = 0;
         scrollbar.type = WidgetNodeInputScrollbar.Type.HORIZONTAL;
@@ -94,7 +94,7 @@ public class WidgetNodeContainerHorizontal extends WidgetNode implements WidgetN
             scrollOffsetX = 0; // reset scroll value if scrolling is disabled.
         } else {
             scrollbar.length = backgroundWidth;
-            scrollbar.anchor = Anchor.BOTTOM_LEFT;
+            scrollbar.anchor = Anchor.PARENT_BOTTOM_LEFT;
             scrollbar.anchorX = boxBorderSize;
             scrollbar.anchorY = 0;
             scrollbar.type = WidgetNodeInputScrollbar.Type.HORIZONTAL;

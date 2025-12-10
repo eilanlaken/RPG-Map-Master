@@ -27,7 +27,7 @@ public class WidgetNodeActionsBar extends WidgetNodeContainerHorizontal {
         boxPaddingLeft = 0;
         boxPaddingRight = 0;
 
-        anchor = Anchor.TOP_LEFT;
+        anchor = Anchor.PARENT_TOP_LEFT;
         anchorX = 50;
         anchorY = 50;
 
