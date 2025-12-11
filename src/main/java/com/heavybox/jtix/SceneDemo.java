@@ -9,6 +9,7 @@ import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.Vector3;
 import com.heavybox.jtix.tools.ToolsTexturePacker;
 import com.heavybox.jtix.widgets_4.Widget;
+import com.heavybox.jtix.widgets_4.Widgets;
 import com.heavybox.jtix.z.*;
 import org.lwjgl.opengl.GL11;
 
@@ -28,8 +29,10 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
     private final Widget widgetActionsBar = new Widget();
     private final Widget widgetStatisticsBar = new Widget();
     private final Widget widgetTools = new Widget();
+    private final Widget widgetTooltip = new Widget();
     private WidgetNodeToolbar toolbar;
     private WidgetNodeToolSettings toolSettings;
+    private WidgetNodeToolTip tooltip;
 
     public SceneDemo() {
         renderer2D = new Renderer2D();
@@ -101,13 +104,12 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
         WidgetNodeStatisticsBar statisticsBar = new WidgetNodeStatisticsBar(this);
         toolbar = new WidgetNodeToolbar(this);
         toolSettings = new WidgetNodeToolSettings();
+        tooltip = new WidgetNodeToolTip();
 
         widgetStatisticsBar.addNode(statisticsBar);
         widgetActionsBar.addNodes(actionsBar);
         widgetTools.addNodes(toolbar, toolSettings);
-//        widgetActionsBar.addNodes(actionsBar, toolbar, toolSettings);
-//        widgetTopMenu.anchor = Widget.Anchor.TOP_CENTER;
-//        widgetTopMenu.anchorY = 0;
+        widgetTooltip.addNode(tooltip);
     }
 
     @Override
@@ -117,7 +119,11 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
 
     @Override
     public void start() {
+        Font f = Widgets.themeTextFont;
+        String str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789|,.:";
+
         camera.update();
+
     }
 
 
@@ -208,6 +214,7 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
         widgetActionsBar.update();
         widgetStatisticsBar.update();
         widgetTools.update();
+        widgetTooltip.update();
 
         map.update(delta);
         map.render(renderer2D);
@@ -224,11 +231,18 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
         if (activeTool != -1) tools[activeTool].renderToolOverlay(renderer2D, screen.x, screen.y);
         renderer2D.end();
 
+        // TODO: fix this shit.
+        renderer2D.begin();
+        renderer2D.setFont(Widgets.themeTextFont);
+        renderer2D.drawStringLine("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789|,.:", Widgets.themeTextSize, Widgets.themeTextAntialiasing, 0,0,0,1,1);
+        renderer2D.end();
+
         // draw UI
         renderer2D.begin();
         widgetActionsBar.render(renderer2D);
         widgetStatisticsBar.render(renderer2D);
         widgetTools.render(renderer2D);
+        //widgetTooltip.render(renderer2D);
         renderer2D.end();
 
     }

@@ -19,10 +19,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-/*
-TODO:
-harfbuzz example:
-https://github.com/tangrams/harfbuzz-example/blob/master/src/main.cpp
+/***
+ * TODO: serious rendering bug with Fonts.
+ * TODO: it simply does not work.
  */
 public class Font implements MemoryResource {
 
@@ -55,7 +54,8 @@ public class Font implements MemoryResource {
         ftFace = FT_Face.create(face);
     }
 
-    Glyph getGlyph(final char c, int size, boolean antialiasing) {
+    // TODO: make package private
+    public Glyph getGlyph(final char c, int size, boolean antialiasing) {
         Tuple3<Character, Integer, Boolean> props = new Tuple3<>(c,size,antialiasing);
         Glyph glyph = cache.get(props);
         if (glyph != null) return glyph;

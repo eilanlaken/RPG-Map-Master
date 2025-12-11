@@ -18,7 +18,7 @@ public abstract class WidgetNode {
 
     /*** ui hierarchy ***/
     private         WidgetNode        parent         = null;
-    protected       boolean           hidden         = false;
+    public          boolean           hidden         = false;
     public          boolean           active         = true;
     protected final Array<WidgetNode> children       = new Array<>(true, 1);
     protected final Array<WidgetNode> childrenLayout = new Array<>(true, 1);
@@ -134,6 +134,7 @@ public abstract class WidgetNode {
         } catch (Exception e) {
             //throw e;
         }
+        if (childrenActive.isEmpty()) return;
 
         /* if masking is enabled, draw the mask */
         boolean maskChildren = maskChildren();

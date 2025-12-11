@@ -4,6 +4,8 @@ import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Font;
 import com.heavybox.jtix.graphics.Renderer2D;
 
+// TODO: better text node.
+// TODO: text layout, background etc.
 public class WidgetNodeText extends WidgetNode {
 
     /* state */

@@ -351,7 +351,7 @@ public class Renderer2D implements MemoryResourceHolder {
     public void endStencil() {
         if (!drawingToStencil) throw new GraphicsException("call to beginMask() expected before endMask()");
         flush();
-        GL11.glColorMask(true, true, true, true); // Disable color buffer writes
+        GL11.glColorMask(true, true, true, true); // Enable color buffer writes
         GL11.glStencilOp(GL11.GL_KEEP, GL11.GL_KEEP, GL11.GL_KEEP); // Do not modify stencil values
         drawingToStencil = false;
     }
@@ -371,7 +371,8 @@ public class Renderer2D implements MemoryResourceHolder {
 
     // enable disable masking
     public void enableMasking() {
-        //if (drawingToStencil) throw new GraphicsException("Cannot apply mask when drawing to a stencil buffer");
+        if (drawingToStencil) throw new GraphicsException("Cannot apply mask when drawing to a stencil buffer");
+        flush();
         maskingEnabled = true;
         GL11.glEnable(GL11.GL_STENCIL_TEST);
         setMaskingFunctionEquals(1);
@@ -2899,8 +2900,15 @@ public class Renderer2D implements MemoryResourceHolder {
         drawStringLine(line, size, antialiasing, 0, line.length(), offsetX, offsetY, x,y,deg,sclX,sclY);
     }
 
+    public void drawStringLine(final String line, int size, boolean antialiasing, float x, float y, float deg, float sclX, float sclY) {
+        drawStringLine(line, size, antialiasing, 0, line.length(),0, 0, x, y, deg, sclX, sclY);
+    }
+
+    // TODO: serious bug here.
+    // TODO: text rendering is impossible ATM.
     public void drawStringLine(final String line, int size, boolean antialiasing, int startIndex, int endIndex, float offsetX, float offsetY, float x, float y, float deg, float sclX, float sclY) {
         if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
+        flush();
         if (!ensureCapacity(line.length() * 4, line.length() * 4)) flush();
 
         setMode(GL11.GL_TRIANGLES);
@@ -2984,151 +2992,6 @@ public class Renderer2D implements MemoryResourceHolder {
         }
 
         vectors2Pool.freeAll(vertices);
-    }
-
-    public void drawStringLine(final String line, int size, boolean antialiasing, float x, float y, float deg, float sclX, float sclY) {
-        drawStringLine(line, size, antialiasing, 0, line.length(),0, 0, x, y, deg, sclX, sclY);
-    }
-
-    // TODO: test
-    @Deprecated public void drawStringLine(final String text, int size, boolean antialiasing, float x, float y, boolean centralize) {
-        if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
-        if (!ensureCapacity(text.length() * 4, text.length() * 4)) flush();
-
-        setMode(GL11.GL_TRIANGLES);
-
-        /* calculate the line total width */
-        float total_width = 0;
-        for (int i = 0; i < text.length(); i++) {
-            char c = text.charAt(i);
-            final Font.Glyph glyph = currentFont.getGlyph(c, size, antialiasing);
-            if (glyph == null) continue;
-            total_width += glyph.advanceX;
-        }
-
-        /* render a quad for every character */
-        float penX = centralize ? x - total_width * 0.5f : x;
-        float penY = centralize ? y - size * 0.25f : y - size * 0.5f;
-        for (int i = 0; i < text.length(); i++) {
-            char c = text.charAt(i);
-            final Font.Glyph glyph = currentFont.getGlyph(c, size, antialiasing);
-            if (glyph == null) continue;
-
-            setTexture(glyph.texture);
-
-            /* calculate the quad's x, y, width, height */
-            float char_x = penX + glyph.bearingX;
-            float char_y = penY - (glyph.height - glyph.bearingY);
-            float w = glyph.width;
-            float h = glyph.height;
-
-            /* calculate the quad's uv coordinates */
-            float u0 = glyph.atlasX * glyph.texture.invWidth;
-            float v0 = (glyph.atlasY) * glyph.texture.invHeight;
-            float u1 = (glyph.atlasX + glyph.width) * glyph.texture.invWidth;
-            float v1 = (glyph.atlasY + glyph.height) * glyph.texture.invHeight;
-
-            /* put vertices */
-            positions.put(char_x).put(char_y + h);
-            colors.put(currentTint);
-            textCoords.put(u0).put(v0);
-
-            positions.put(char_x).put(char_y);
-            colors.put(currentTint);
-            textCoords.put(u0).put(v1);
-
-            positions.put(char_x + w).put(char_y);
-            colors.put(currentTint);
-            textCoords.put(u1).put(v1);
-
-            positions.put(char_x + w).put(char_y + h);
-            colors.put(currentTint);
-            textCoords.put(u1).put(v0);
-
-            /* put indices */
-            int startVertex = this.vertexIndex;
-            indices.put(startVertex + 0);
-            indices.put(startVertex + 1);
-            indices.put(startVertex + 3);
-            indices.put(startVertex + 3);
-            indices.put(startVertex + 1);
-            indices.put(startVertex + 2);
-            vertexIndex += 4;
-
-            penX += glyph.advanceX;
-            penY += glyph.advanceY;
-        }
-    }
-
-    // allows text markup modifiers: <b> <i> <h> <ul> <del> <sup> <sub> <color=#fff>
-    @Deprecated public void drawStringLine(final String text, int size, @Nullable Font font, boolean antialiasing, float x, float y, boolean centralize) {
-        if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
-        if (!ensureCapacity(text.length() * 4, text.length() * 4)) flush();
-        if (font == null) font = defaultFont;
-
-        setMode(GL11.GL_TRIANGLES);
-
-        /* calculate the line total width */
-        float total_width = 0;
-        for (int i = 0; i < text.length(); i++) {
-            char c = text.charAt(i);
-            final Font.Glyph glyph = font.getGlyph(c, size, antialiasing);
-            if (glyph == null) continue;
-            total_width += glyph.advanceX;
-        }
-
-        /* render a quad for every character */
-        float penX = centralize ? x - total_width * 0.5f : x;
-        float penY = centralize ? y - size * 0.25f : y - size * 0.5f;
-        for (int i = 0; i < text.length(); i++) {
-            char c = text.charAt(i);
-            final Font.Glyph glyph = font.getGlyph(c, size, antialiasing);
-            if (glyph == null) continue;
-
-            setTexture(glyph.texture);
-
-            /* calculate the quad's x, y, width, height */
-            float char_x = penX + glyph.bearingX;
-            float char_y = penY - (glyph.height - glyph.bearingY);
-            float w = glyph.width;
-            float h = glyph.height;
-
-            /* calculate the quad's uv coordinates */
-            float u0 = glyph.atlasX * glyph.texture.invWidth;
-            float v0 = (glyph.atlasY) * glyph.texture.invHeight;
-            float u1 = (glyph.atlasX + glyph.width) * glyph.texture.invWidth;
-            float v1 = (glyph.atlasY + glyph.height) * glyph.texture.invHeight;
-
-            /* put vertices */
-            positions.put(char_x).put(char_y + h);
-            colors.put(currentTint);
-            textCoords.put(u0).put(v0);
-
-            positions.put(char_x).put(char_y);
-            colors.put(currentTint);
-            textCoords.put(u0).put(v1);
-
-            positions.put(char_x + w).put(char_y);
-            colors.put(currentTint);
-            textCoords.put(u1).put(v1);
-
-            positions.put(char_x + w).put(char_y + h);
-            colors.put(currentTint);
-            textCoords.put(u1).put(v0);
-
-            /* put indices */
-            int startVertex = this.vertexIndex;
-            indices.put(startVertex + 0);
-            indices.put(startVertex + 1);
-            indices.put(startVertex + 3);
-            indices.put(startVertex + 3);
-            indices.put(startVertex + 1);
-            indices.put(startVertex + 2);
-            vertexIndex += 4;
-
-            penX += glyph.advanceX;
-            penY += glyph.advanceY;
-        }
     }
 
     /* Rendering primitives: Functions */

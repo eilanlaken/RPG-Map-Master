@@ -5,10 +5,14 @@ import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.TexturePack;
 import com.heavybox.jtix.widgets_4.WidgetNodeContainerHorizontal;
 import com.heavybox.jtix.widgets_4.WidgetNodeImage;
+import com.heavybox.jtix.widgets_4.WidgetNodeShapeRectangle;
+import com.heavybox.jtix.widgets_4.WidgetNodeText;
 
 public class WidgetNodeActionsBar extends WidgetNodeContainerHorizontal {
 
     public static final int BUTTON_SIZE = 42;
+
+    public WidgetNodeShapeRectangle toolTip = new WidgetNodeShapeRectangle(50, 100);
 
     // probably get a reference to the scene or map or whatever.
     public WidgetNodeActionsBar() {
@@ -31,6 +35,9 @@ public class WidgetNodeActionsBar extends WidgetNodeContainerHorizontal {
         anchorX = 50;
         anchorY = 50;
 
+        toolTip.anchor = Anchor.CURSOR_TOP_LEFT;
+        toolTip.anchorX = 20;
+
         addChildren();
     }
 
@@ -45,6 +52,7 @@ public class WidgetNodeActionsBar extends WidgetNodeContainerHorizontal {
         actionBarNew.imgHeight = BUTTON_SIZE;
         actionBarNew.onMouseEnter = e -> {
             actionBarNew.boxBackgroundColor = Color.valueOf("2a2a2a");
+//            toolTip.text = "Create New Project...";
         };
         actionBarNew.onMouseLeave = e -> {
             actionBarNew.boxBackgroundColor = Color.valueOf("101010");
@@ -61,6 +69,7 @@ public class WidgetNodeActionsBar extends WidgetNodeContainerHorizontal {
         };
         actionBarLoad.onMouseEnter = e -> {
             actionBarLoad.boxBackgroundColor = Color.valueOf("2a2a2a");
+            //toolTip.text = "Load Project...";
         };
         actionBarLoad.onMouseLeave = e -> {
             actionBarLoad.boxBackgroundColor = Color.valueOf("101010");
@@ -74,6 +83,7 @@ public class WidgetNodeActionsBar extends WidgetNodeContainerHorizontal {
         actionBarSaveAs.imgHeight = BUTTON_SIZE;
         actionBarSaveAs.onMouseEnter = e -> {
             actionBarSaveAs.boxBackgroundColor = Color.valueOf("2a2a2a");
+            //toolTip.text = "Save As...";
         };
         actionBarSaveAs.onMouseLeave = e -> {
             actionBarSaveAs.boxBackgroundColor = Color.valueOf("101010");
@@ -87,6 +97,7 @@ public class WidgetNodeActionsBar extends WidgetNodeContainerHorizontal {
         actionBarExport.imgHeight = BUTTON_SIZE;
         actionBarExport.onMouseEnter = e -> {
             actionBarExport.boxBackgroundColor = Color.valueOf("2a2a2a");
+            //toolTip.text = "Export Map...";
         };
         actionBarExport.onMouseLeave = e -> {
             actionBarExport.boxBackgroundColor = Color.valueOf("101010");
@@ -102,6 +113,7 @@ public class WidgetNodeActionsBar extends WidgetNodeContainerHorizontal {
         };
         actionBarUndo.onMouseEnter = e -> {
             actionBarUndo.boxBackgroundColor = Color.valueOf("2a2a2a");
+            //toolTip.text = "Undo";
         };
         actionBarUndo.onMouseLeave = e -> {
             actionBarUndo.boxBackgroundColor = Color.valueOf("101010");
@@ -117,6 +129,7 @@ public class WidgetNodeActionsBar extends WidgetNodeContainerHorizontal {
         };
         actionBarRedo.onMouseEnter = e -> {
             actionBarRedo.boxBackgroundColor = Color.valueOf("2a2a2a");
+            //toolTip.text = "Redo";
         };
         actionBarRedo.onMouseLeave = e -> {
             actionBarRedo.boxBackgroundColor = Color.valueOf("101010");
@@ -130,6 +143,20 @@ public class WidgetNodeActionsBar extends WidgetNodeContainerHorizontal {
         addChild(actionBarExport);
         addChild(actionBarUndo);
         addChild(actionBarRedo);
+
+        // tooltip
+        addChild(toolTip);
+        toolTip.hidden = true;
+        //toolTip.text = "hello";
+
+        onMouseEnter = e -> {
+            toolTip.hidden = false;
+
+        };
+        onMouseLeave = e -> {
+            toolTip.hidden = true;
+
+        };
     }
 
 }
