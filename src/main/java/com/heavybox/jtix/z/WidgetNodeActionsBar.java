@@ -12,7 +12,7 @@ public class WidgetNodeActionsBar extends WidgetNodeContainerHorizontal {
 
     public static final int BUTTON_SIZE = 42;
 
-    public WidgetNodeText toolTip = new WidgetNodeText("");
+    public WidgetNodeToolTip toolTip = new WidgetNodeToolTip();
 
     // probably get a reference to the scene or map or whatever.
     public WidgetNodeActionsBar() {
@@ -52,7 +52,7 @@ public class WidgetNodeActionsBar extends WidgetNodeContainerHorizontal {
         actionBarNew.imgHeight = BUTTON_SIZE;
         actionBarNew.onMouseEnter = e -> {
             actionBarNew.boxBackgroundColor = Color.valueOf("2a2a2a");
-            toolTip.text = "Create New Project...";
+            toolTip.tip.text = "Create New Project...";
         };
         actionBarNew.onMouseLeave = e -> {
             actionBarNew.boxBackgroundColor = Color.valueOf("101010");
@@ -69,7 +69,7 @@ public class WidgetNodeActionsBar extends WidgetNodeContainerHorizontal {
         };
         actionBarLoad.onMouseEnter = e -> {
             actionBarLoad.boxBackgroundColor = Color.valueOf("2a2a2a");
-            toolTip.text = "Load Project...";
+            toolTip.tip.text = "Load Project...";
         };
         actionBarLoad.onMouseLeave = e -> {
             actionBarLoad.boxBackgroundColor = Color.valueOf("101010");
@@ -83,7 +83,7 @@ public class WidgetNodeActionsBar extends WidgetNodeContainerHorizontal {
         actionBarSaveAs.imgHeight = BUTTON_SIZE;
         actionBarSaveAs.onMouseEnter = e -> {
             actionBarSaveAs.boxBackgroundColor = Color.valueOf("2a2a2a");
-            toolTip.text = "Save As...";
+            toolTip.tip.text = "Save As...";
         };
         actionBarSaveAs.onMouseLeave = e -> {
             actionBarSaveAs.boxBackgroundColor = Color.valueOf("101010");
@@ -97,7 +97,7 @@ public class WidgetNodeActionsBar extends WidgetNodeContainerHorizontal {
         actionBarExport.imgHeight = BUTTON_SIZE;
         actionBarExport.onMouseEnter = e -> {
             actionBarExport.boxBackgroundColor = Color.valueOf("2a2a2a");
-            toolTip.text = "Export Map...";
+            toolTip.tip.text = "Export Map...";
         };
         actionBarExport.onMouseLeave = e -> {
             actionBarExport.boxBackgroundColor = Color.valueOf("101010");
@@ -113,7 +113,7 @@ public class WidgetNodeActionsBar extends WidgetNodeContainerHorizontal {
         };
         actionBarUndo.onMouseEnter = e -> {
             actionBarUndo.boxBackgroundColor = Color.valueOf("2a2a2a");
-            toolTip.text = "Undo";
+            toolTip.tip.text = "Undo";
         };
         actionBarUndo.onMouseLeave = e -> {
             actionBarUndo.boxBackgroundColor = Color.valueOf("101010");
@@ -129,7 +129,7 @@ public class WidgetNodeActionsBar extends WidgetNodeContainerHorizontal {
         };
         actionBarRedo.onMouseEnter = e -> {
             actionBarRedo.boxBackgroundColor = Color.valueOf("2a2a2a");
-            toolTip.text = "Redo";
+            toolTip.tip.text = "Redo";
         };
         actionBarRedo.onMouseLeave = e -> {
             actionBarRedo.boxBackgroundColor = Color.valueOf("101010");

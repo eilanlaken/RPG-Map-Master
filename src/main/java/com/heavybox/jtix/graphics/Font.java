@@ -54,7 +54,6 @@ public class Font implements MemoryResource {
         if (glyph != null) return glyph;
         //int pageSize = Math.min(2048, MathUtils.nextPowerOf2i(size * 5));
         int pageSize = 1024;
-        System.out.println(size);
         GlyphPage notebook = glyphsPages.computeIfAbsent(size, k -> new GlyphPage(pageSize)); // get notebook for given size
         glyph = notebook.draw(c, size, antialiasing);
         cache.put(props, glyph);

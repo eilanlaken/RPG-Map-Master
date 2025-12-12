@@ -231,12 +231,6 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
         if (activeTool != -1) tools[activeTool].renderToolOverlay(renderer2D, screen.x, screen.y);
         renderer2D.end();
 
-        // TODO: fix this shit.
-        renderer2D.begin();
-        renderer2D.setFont(Widgets.themeTextFont);
-        renderer2D.drawStringLine("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789|,.:", Widgets.themeTextSize, Widgets.themeTextAntialiasing, 0,0,0,1,1);
-        renderer2D.end();
-
         // draw UI
         renderer2D.begin();
         widgetActionsBar.render(renderer2D);
