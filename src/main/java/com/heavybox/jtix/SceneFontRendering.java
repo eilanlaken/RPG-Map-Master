@@ -34,8 +34,6 @@ public class SceneFontRendering implements Scene {
         renderer2D.setFont(Widgets.themeTextFont);
         // TODO problem with page flipping
         renderer2D.drawStringLine("abcdefghijklmnABCDEFGHIJKLMNOPQRSTUVWXYZ|,.:", Widgets.themeTextSize, Widgets.themeTextAntialiasing, 0,300,0,1,1);
-        if (f.getPages().get(0) == null) System.out.println("hi");
-        System.out.println(f.getPages().get(0));
         //renderer2D.drawTexture(f.getPages().get(0), 0,0,0,1,1);
         //renderer2D.drawStringLine("a|,.:", Widgets.themeTextSize, Widgets.themeTextAntialiasing, 0,0,0,1,1);
         renderer2D.end();

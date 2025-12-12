@@ -3,7 +3,6 @@ package com.heavybox.jtix.graphics;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.collections.Tuple3;
-import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.memory.MemoryResource;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.PointerBuffer;
@@ -22,8 +21,8 @@ import java.util.Map;
 public class Font implements MemoryResource {
 
     private final FT_Face                                         ftFace;
-    private final Map<Integer, GlyphNotebook>                     glyphsNotebooks = new HashMap<>();
-    private final Map<Tuple3<Character, Integer, Boolean>, Glyph> cache           = new HashMap<>(); // <char, size, antialiasing?> -> Glyph
+    private final Map<Integer, GlyphPage>                         glyphsPages = new HashMap<>();
+    private final Map<Tuple3<Character, Integer, Boolean>, Glyph> cache       = new HashMap<>(); // <char, size, antialiasing?> -> Glyph
     private final ByteBuffer                                      buffer;  // TODO: probably clear on delete or something.
 
     public Font(final String fontPath) {
@@ -56,7 +55,7 @@ public class Font implements MemoryResource {
         //int pageSize = Math.min(2048, MathUtils.nextPowerOf2i(size * 5));
         int pageSize = 1024;
         System.out.println(size);
-        GlyphNotebook notebook = glyphsNotebooks.computeIfAbsent(size, k -> new GlyphNotebook(pageSize)); // get notebook for given size
+        GlyphPage notebook = glyphsPages.computeIfAbsent(size, k -> new GlyphPage(pageSize)); // get notebook for given size
         glyph = notebook.draw(c, size, antialiasing);
         cache.put(props, glyph);
         return glyph;
@@ -65,25 +64,23 @@ public class Font implements MemoryResource {
     @Override
     public void delete() {
         FreeType.FT_Done_Face(ftFace);
-        for (Map.Entry<Integer, GlyphNotebook> entry : glyphsNotebooks.entrySet()) {
-            GlyphNotebook value = entry.getValue();
-            for (Texture page : value.pages) {
-                page.delete();
-            }
+        for (Map.Entry<Integer, GlyphPage> entry : glyphsPages.entrySet()) {
+            GlyphPage value = entry.getValue();
+            value.page.delete();
         }
     }
 
     // TODO: remove:
     public Array<Texture> getPages() {
-        var a = glyphsNotebooks.values();
+        var a = glyphsPages.values();
         Array<Texture> pages = new Array<>();
-        for (GlyphNotebook glyphNotebook : a) {
-            pages.addAll(glyphNotebook.pages);
+        for (GlyphPage glyphPage : a) {
+            //pages.addAll(glyphPage.pages);
         }
         return pages;
     }
 
-    private final class GlyphNotebook {
+    private final class GlyphPage {
 
         private static final int PADDING = 5;
 
@@ -91,30 +88,22 @@ public class Font implements MemoryResource {
         private int penY = PADDING;
         private int verticalSpan = 0; // The vertical span of the current written line
 
-        public  final Array<Texture> pages = new Array<>(true,1);
-        private final int            pageSize;
+        public  final Texture page;
+        private final int     pageSize;
 
-        private GlyphNotebook(int pageSize) {
+        private GlyphPage(int pageSize) {
             this.pageSize = pageSize;
+            ByteBuffer bufferEmpty = ByteBuffer.allocateDirect(pageSize * pageSize * 4);
+            this.page = new Texture(pageSize, pageSize, bufferEmpty,
+                    Texture.FilterMag.NEAREST, Texture.FilterMin.NEAREST,
+                    Texture.Wrap.CLAMP_TO_EDGE, Texture.Wrap.CLAMP_TO_EDGE,1,true);
         }
 
         // TODO: add SDF using
         // TODO: https://stackoverflow.com/questions/71185718/how-to-use-ft-render-mode-sdf-in-freetype
         // TODO: FT_RENDER_MODE_SDF
         private Glyph draw(char c, int size, boolean antialiasing) {
-            /* if size is used for the first time, create the first texture */
-            if (pages.size == 0) {
-                ByteBuffer bufferEmpty = ByteBuffer.allocateDirect(pageSize * pageSize * 4);
-                Texture page = new Texture(pageSize, pageSize, bufferEmpty,
-                        Texture.FilterMag.NEAREST, Texture.FilterMin.NEAREST,
-                        Texture.Wrap.CLAMP_TO_EDGE, Texture.Wrap.CLAMP_TO_EDGE,1,true);
-                pages.add(page);
-            }
-
-            /* set the face size */
-            //FreeType.FT_Set_Pixel_Sizes(ftFace, size, size);
             FreeType.FT_Set_Pixel_Sizes(ftFace, 0, size);
-            //FreeType.nFT_Set_Char_Size(ftFace.address(), size, size, Graphics.getWindowWidth(), Graphics.getWindowHeight());
 
             /* rasterize the character */
             if (antialiasing) FreeType.FT_Load_Char(ftFace, c, FreeType.FT_LOAD_RENDER | FreeType.FT_LOAD_FORCE_AUTOHINT);
@@ -174,7 +163,7 @@ public class Font implements MemoryResource {
             verticalSpan = Math.max(verticalSpan, data.height);
 
             if (penX + PADDING + data.width < pageSize && penY + PADDING + data.height < pageSize) {
-                TextureBinder.bind(pages.last());
+                TextureBinder.bind(page);
                 GL11.glTexSubImage2D(
                         GL11.GL_TEXTURE_2D,
                         0,
@@ -188,18 +177,19 @@ public class Font implements MemoryResource {
                 );
                 data.atlasX = penX;
                 data.atlasY = penY;
-                data.texture = pages.last();
+                data.texture = page;
 
                 penX += PADDING + data.width;
                 return data;
             }
 
             // move to a new line
-            if (penX + PADDING + data.width >= pageSize && penY + verticalSpan + PADDING + data.height < pageSize) {
+            else {
+            //if (penX + PADDING + data.width >= pageSize && penY + verticalSpan + PADDING + data.height < pageSize) {
                 penX = PADDING;
                 penY += verticalSpan + PADDING;
 
-                TextureBinder.bind(pages.last());
+                TextureBinder.bind(page);
                 GL11.glTexSubImage2D(
                         GL11.GL_TEXTURE_2D,
                         0,
@@ -213,40 +203,11 @@ public class Font implements MemoryResource {
                 );
                 data.atlasX = penX;
                 data.atlasY = penY;
-                data.texture = pages.last();
+                data.texture = page;
 
                 penX += PADDING + data.width;
                 return data;
             }
-
-            // flip page
-            System.out.println("flip");
-            ByteBuffer bufferEmpty = ByteBuffer.allocateDirect(pageSize * pageSize * 4);
-            Texture page = new Texture(pageSize, pageSize, bufferEmpty,
-                    Texture.FilterMag.NEAREST, Texture.FilterMin.NEAREST,
-                    Texture.Wrap.CLAMP_TO_EDGE, Texture.Wrap.CLAMP_TO_EDGE, 1, true);
-            penX = PADDING;
-            penY = PADDING;
-            pages.add(page);
-
-            TextureBinder.bind(page);
-            GL11.glTexSubImage2D(
-                    GL11.GL_TEXTURE_2D,
-                    0,
-                    penX,
-                    penY,
-                    data.width,
-                    data.height,
-                    GL11.GL_RGBA,
-                    GL11.GL_UNSIGNED_BYTE,
-                    buffer          // Data
-            );
-            data.atlasX = penX;
-            data.atlasY = penY;
-            data.texture = pages.last();
-
-            penX += PADDING + data.width;
-            return data;
         }
 
     }
