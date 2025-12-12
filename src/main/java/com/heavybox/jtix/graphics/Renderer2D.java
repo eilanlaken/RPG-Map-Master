@@ -43,7 +43,7 @@ public class Renderer2D implements MemoryResourceHolder {
     private static final Shader  defaultShader  = createDefaultShaderProgram();
     private static final Texture defaultTexture = createDefaultTexture();
     private static final Camera  defaultCamera  = createDefaultCamera();
-    private static final Font    defaultFont    = createDefaultFont();
+    public static final Font    defaultFont    = createDefaultFont(); // change back to private
 
     /* memory pools */ // TODO: remove all these memory pools. Replace with static? arrays.
     private final MemoryPool<Vector2>    vectors2Pool   = new MemoryPool<>(Vector2.class, 10);

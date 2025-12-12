@@ -308,6 +308,11 @@ public class Texture implements MemoryResource {
         handle = -1;
     }
 
+    @Override
+    public String toString() {
+        return "Texture ID: " + handle + ", Slot: " + slot;
+    }
+
     public enum Precision {
 
         BITS_8,
