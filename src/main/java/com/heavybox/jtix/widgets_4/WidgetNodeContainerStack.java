@@ -31,7 +31,7 @@ public class WidgetNodeContainerStack extends WidgetNode implements WidgetNodeCo
 
     /* box container style */
     public boolean   boxBackgroundVisible         = Widgets.themeContainerBoxBackgroundVisible;
-    public Color     boxBackgroundColor           = Widgets.themeContainerBoxBackgroundColor;
+    public Color     boxBackgroundColor           = Widgets.themeContainerBoxBackgroundColor.clone();
     public int       boxPaddingTop                = Widgets.themeContainerBoxPaddingTop;
     public int       boxPaddingBottom             = Widgets.themeContainerBoxPaddingBottom;
     public int       boxPaddingLeft               = Widgets.themeContainerBoxPaddingLeft;
@@ -45,7 +45,7 @@ public class WidgetNodeContainerStack extends WidgetNode implements WidgetNodeCo
     public int       boxCornerSegmentsBottomRight = Widgets.themeContainerBoxCornerSegmentsBottomRight;
     public int       boxCornerSegmentsBottomLeft  = Widgets.themeContainerBoxCornerSegmentsBottomLeft;
     public int       boxBorderSize                = Widgets.themeContainerBoxBorderSize;
-    public Color     boxBorderColor               = Widgets.themeContainerBoxBorderColor;
+    public Color     boxBorderColor               = Widgets.themeContainerBoxBorderColor.clone();
 
     /*** global container logic ***/
     // in order to add logic, just override the fixedUpdateContainer() method instead.

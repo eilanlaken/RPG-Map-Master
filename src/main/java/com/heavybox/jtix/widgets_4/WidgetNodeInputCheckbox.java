@@ -12,12 +12,15 @@ public class WidgetNodeInputCheckbox extends WidgetNode implements WidgetNodeInp
     public boolean checked = true;
 
     /* rendering - colors */
+    // TODO: get from theme.
+    // TODO: add images set to global theme
     public final Color borderColorUnchecked     = Color.valueOf("767676");
     public final Color borderColorChecked       = Color.valueOf("0075FF");
     public final Color checkmarkBackgroundColor = Color.valueOf("0075FF");
     public final Color checkmarkColor           = Color.valueOf("FFFFFF");
 
     /* rendering - dimensions */
+    // TODO: get from theme.
     public float size         = 1;
     public float borderSize   = 5;
     public float cornerRadius = 5;

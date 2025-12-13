@@ -40,6 +40,10 @@ public final class Widgets {
     // scrollbars
     public static boolean themeScrollbarDrawForwardButton            = true;
     public static boolean themeScrollbarDrawBackwardButton           = true;
+    // images
+    // input - text fields
+    // input - checkbox
+    // input - radio button
 
     /*** input device state */
     private static float pointerXPrev = 0;
@@ -61,16 +65,13 @@ public final class Widgets {
     public static float getPointerX() {
         return pointerX;
     }
+    public static float getPointerY() { return pointerY; }
+    public static float getPointerXPrev() { return pointerXPrev; }
+    public static float getPointerYPrev() { return pointerYPrev; }
 
-    public static float getPointerY() {
-        return pointerY;
+    public static void useGlobalTheme() {
+
     }
 
-    public static float getPointerXPrev() {
-        return pointerXPrev;
-    }
 
-    public static float getPointerYPrev() {
-        return pointerYPrev;
-    }
 }

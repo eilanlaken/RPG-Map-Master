@@ -29,7 +29,7 @@ public class WidgetNodeContainerHorizontal extends WidgetNode implements WidgetN
 
     /* box container style */
     public boolean   boxBackgroundVisible         = Widgets.themeContainerBoxBackgroundVisible;
-    public Color     boxBackgroundColor           = Widgets.themeContainerBoxBackgroundColor;
+    public Color     boxBackgroundColor           = Widgets.themeContainerBoxBackgroundColor.clone();
     public int       boxPaddingTop                = Widgets.themeContainerBoxPaddingTop;
     public int       boxPaddingBottom             = Widgets.themeContainerBoxPaddingBottom;
     public int       boxPaddingLeft               = Widgets.themeContainerBoxPaddingLeft;
@@ -44,7 +44,7 @@ public class WidgetNodeContainerHorizontal extends WidgetNode implements WidgetN
     public int       boxCornerSegmentsBottomRight = Widgets.themeContainerBoxCornerSegmentsBottomRight;
     public int       boxCornerSegmentsBottomLeft  = Widgets.themeContainerBoxCornerSegmentsBottomLeft;
     public int       boxBorderSize                = Widgets.themeContainerBoxBorderSize;
-    public Color     boxBorderColor               = Widgets.themeContainerBoxBorderColor;
+    public Color     boxBorderColor               = Widgets.themeContainerBoxBorderColor.clone();
 
     /* scrollbar */
     private final WidgetNodeInputScrollbar scrollbar = new WidgetNodeInputScrollbar();

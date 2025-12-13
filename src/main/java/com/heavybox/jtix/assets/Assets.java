@@ -8,6 +8,7 @@ import com.heavybox.jtix.collections.Queue;
 import com.heavybox.jtix.graphics.*;
 import com.heavybox.jtix.graphics.Font;
 import com.heavybox.jtix.memory.MemoryResource;
+import com.heavybox.jtix.widgets_4.Theme;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.system.MemoryUtil;
 import org.yaml.snakeyaml.DumperOptions;
@@ -113,6 +114,10 @@ public final class Assets {
         options.put("magFilter", magFilter);
         options.put("minFilter", minFilter);
         load(Texture.class, filepath, options,false);
+    }
+
+    public synchronized static void loadTheme(final String filepath) {
+        load(Theme.class, filepath, null, false);
     }
 
     public synchronized static void loadTexture(String filepath) {
@@ -225,6 +230,7 @@ public final class Assets {
         if (type == Shader.class)      return new AssetLoaderShader();
         if (type == TexturePack.class) return new AssetLoaderTexturePack();
         if (type == Font.class)        return new AssetLoaderFont();
+        if (type == Theme.class)       return new AssetLoaderTheme();
         if (type == Model.class)       return new AssetLoader3DModel();
         if (type == Scene3D.class)  return new AssetLoader3DScene();
 

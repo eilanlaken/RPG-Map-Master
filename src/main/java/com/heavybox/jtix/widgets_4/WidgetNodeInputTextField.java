@@ -17,6 +17,7 @@ public class WidgetNodeInputTextField extends WidgetNode implements WidgetNodeIn
     float elapsedTime = 0;
     private boolean caretVisible = true;
 
+    // TODO: set from global theme
     public Font textFont = Widgets.themeTextFont;
     public float textSize = height;
     public float caretBlinkSpeed = 0.5f;

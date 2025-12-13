@@ -15,6 +15,7 @@ public class WidgetNodeInputSlider extends WidgetNode implements WidgetNodeInput
     public float max = 1;
     public float val = 0.5f; // sliding will change this fraction.
 
+    // TODO: set from global theme
     protected final Color colorBar = Color.GRAY.clone();
     protected final Color colorThumb = Color.valueOf("0075FF");
     protected final Color colorFill  = Color.valueOf("0075FF");

@@ -12,12 +12,14 @@ public class WidgetNodeInputScrollbar extends WidgetNode implements WidgetNodeIn
 
     public @NotNull Type type = Type.VERTICAL;
 
+    // TODO: use theme
     public float thickness = 10;
     public float length = 300; // calculated
     public float value = 0.0f;
     public float thumbLength = 50;
 
     /* style */
+    // TODO: use theme
     public boolean styleDrawBar = true;
     public Color styleBarColor = Color.valueOf("343538");
     public Color styleThumbColor = Color.valueOf("5c5d5e");

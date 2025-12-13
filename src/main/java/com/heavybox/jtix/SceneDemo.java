@@ -236,7 +236,6 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
         widgetActionsBar.render(renderer2D);
         widgetStatisticsBar.render(renderer2D);
         widgetTools.render(renderer2D);
-        //widgetTooltip.render(renderer2D);
         renderer2D.end();
 
     }

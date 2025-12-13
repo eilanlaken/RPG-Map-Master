@@ -8,8 +8,10 @@ import com.heavybox.jtix.input.InputLayer;
 // a container of nodes
 public class Widget implements InputLayer {
 
-    public int zIndex;
-    public boolean active = true;
+    /*** programmer set user-data for in game logic ***/
+    public Object  userData = null;
+    public int     zIndex   = 1;
+    public boolean active   = true;
 
     private final Array<WidgetNode> nodes = new Array<>(true, 1);
 
