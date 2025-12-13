@@ -15,12 +15,12 @@ public class WidgetNodeInputCheckbox extends WidgetNode implements WidgetNodeInp
     /* rendering - colors */
     // TODO: get from theme.
     // TODO: add images set to global theme
-    public static TextureRegion themeCheckboxUnchecked = Widgets.themeCheckboxUnchecked;
-    public static TextureRegion themeCheckboxChecked   = Widgets.themeCheckboxChecked;
-    public final Color borderColorUnchecked            = Widgets.themeCheckboxBorderColorUnchecked.clone();
-    public final Color borderColorChecked              = Widgets.themeCheckboxBorderColorChecked.clone();
-    public final Color checkmarkBackgroundColor        = Widgets.themeCheckboxBackgroundColorCheckmark.clone();
-    public final Color checkmarkColor                  = Widgets.themeCheckboxColorCheckmark.clone();
+    public TextureRegion themeCheckboxImageUnchecked = Widgets.themeCheckboxImageUnchecked;
+    public TextureRegion themeCheckboxImageChecked   = Widgets.themeCheckboxImageChecked;
+    public Color         borderColorUnchecked        = Widgets.themeCheckboxBorderColorUnchecked.clone();
+    public Color         borderColorChecked          = Widgets.themeCheckboxBorderColorChecked.clone();
+    public Color         checkmarkBackgroundColor    = Widgets.themeCheckboxBackgroundColorCheckmark.clone();
+    public Color         checkmarkColor              = Widgets.themeCheckboxColorCheckmark.clone();
 
     /* rendering - dimensions */
     // TODO: get from theme.
@@ -44,8 +44,8 @@ public class WidgetNodeInputCheckbox extends WidgetNode implements WidgetNodeInp
     }
 
     protected void drawBox(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
-        if (themeCheckboxUnchecked != null) {
-            renderer2D.drawTextureRegion(themeCheckboxUnchecked, x,y,deg,size * sclX,size * sclY);
+        if (themeCheckboxImageUnchecked != null) {
+            renderer2D.drawTextureRegion(themeCheckboxImageUnchecked, x,y,deg,size * sclX,size * sclY);
             return;
         }
 
@@ -61,8 +61,8 @@ public class WidgetNodeInputCheckbox extends WidgetNode implements WidgetNodeInp
     }
 
     protected void drawCheckmark(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
-        if (themeCheckboxChecked != null) {
-            renderer2D.drawTextureRegion(themeCheckboxChecked, x,y,deg,size * sclX,size * sclY);
+        if (themeCheckboxImageChecked != null) {
+            renderer2D.drawTextureRegion(themeCheckboxImageChecked, x,y,deg,size * sclX,size * sclY);
             return;
         }
 

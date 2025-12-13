@@ -1,11 +1,13 @@
 package com.heavybox.jtix;
 
 import com.heavybox.jtix.application.Scene;
+import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Font;
 import com.heavybox.jtix.graphics.FrameBufferBinder;
 import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.tools.ToolsThemeGenerator;
+import com.heavybox.jtix.widgets_4.Theme;
 import com.heavybox.jtix.widgets_4.Widget;
 import com.heavybox.jtix.widgets_4.WidgetNodeInputCheckbox;
 import com.heavybox.jtix.widgets_4.Widgets;
@@ -28,11 +30,15 @@ public class SceneWidgetsThemes implements Scene {
         } catch (Exception e) {
 
         }
+
+        Assets.loadTheme("assets/user-interface-theme/widgets-theme.yml");
+        Assets.finishLoading();
     }
 
     @Override
     public void start() {
-        Widgets.setGlobalTheme(null);
+        Theme theme = Assets.get("assets/user-interface-theme/widgets-theme.yml");
+        Widgets.setGlobalTheme(theme);
         checkbox = new WidgetNodeInputCheckbox();
         widget.addNode(checkbox);
     }

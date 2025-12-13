@@ -57,6 +57,7 @@ public final class TexturePack implements MemoryResource {
     }
 
     public TextureRegion getRegion(final String name) {
+        if (name == null) return null;
         final TextureRegion region = namedRegions.get(name);
         if (region == null) throw new RuntimeException("The " + TexturePack.class.getSimpleName() + " does not contain a region named " + name);
         return region;

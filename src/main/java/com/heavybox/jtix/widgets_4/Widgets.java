@@ -45,8 +45,8 @@ public final class Widgets {
     // images
     // input - text fields
     // input - checkbox
-    public static TextureRegion themeCheckboxUnchecked                = null;
-    public static TextureRegion themeCheckboxChecked                  = null;
+    public static TextureRegion themeCheckboxImageUnchecked           = null;
+    public static TextureRegion themeCheckboxImageChecked             = null;
     public static Color         themeCheckboxBorderColorUnchecked     = Color.valueOf("767676");
     public static Color         themeCheckboxBorderColorChecked       = Color.valueOf("0075FF");
     public static Color         themeCheckboxBackgroundColorCheckmark = Color.valueOf("0075FF");
@@ -78,8 +78,17 @@ public final class Widgets {
     public static float getPointerYPrev() { return pointerYPrev; }
 
     public static void setGlobalTheme(@Nullable Theme theme) {
-
+        if (theme == null) {
+            setGlobalThemeToDefault();
+            return;
+        }
+        // let's do checkbox first
+        themeCheckboxImageChecked = theme.themeCheckboxImageChecked;
+        themeCheckboxImageUnchecked = theme.themeCheckboxImageUnchecked;
     }
 
+    public static void setGlobalThemeToDefault() {
+        // TODO
+    }
 
 }

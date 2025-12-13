@@ -1,5 +1,8 @@
 theme:
+  texturePackPath:                       assets/user-interface-theme/widgets-theme-pack.yml
   checkbox:
+    themeCheckboxImageUnchecked:           assets/user-interface-theme/checkbox-unchecked.png
+    themeCheckboxImageChecked:             assets/user-interface-theme/checkbox-checked.png
     themeCheckboxColorBorderUnchecked:     null
     themeCheckboxColorBorderChecked:       null
     themeCheckboxColorCheckmarkBackground: { r: 0.498, g: 1.000, b: 0.000, a: 1.000 }

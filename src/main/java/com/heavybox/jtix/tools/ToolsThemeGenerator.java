@@ -24,10 +24,12 @@ public final class ToolsThemeGenerator {
     public static void generateTheme(String outputDirectory, String outputName) {
         final Set<String> imagePaths = gatherAllImagePaths();
         boolean generatedTexturePack = false;
+        String texturePackPath = null;
         try {
             if (!imagePaths.isEmpty()) {
                 generatedTexturePack = true;
                 String[] paths = imagePaths.toArray(new String[0]);
+                texturePackPath = outputDirectory + "/" + outputName + "-pack.yml";
                 ToolsTexturePacker.packTextures(outputDirectory, outputName + "-pack", 2, 2, ToolsTexturePacker.TexturePackSize.LARGE_2048, paths);
             }
         } catch (Exception e) {
@@ -38,12 +40,19 @@ public final class ToolsThemeGenerator {
         // export yaml
         String yaml = """
         theme:
+          texturePackPath:                       %s
           checkbox:
+            themeCheckboxImageUnchecked:           %s
+            themeCheckboxImageChecked:             %s
             themeCheckboxColorBorderUnchecked:     %s
             themeCheckboxColorBorderChecked:       %s
             themeCheckboxColorCheckmarkBackground: %s
             themeCheckboxColorCheckmark:           %s
         """.formatted(
+            texturePackPath,
+            // checkbox
+            themeCheckboxImageUnchecked,
+            themeCheckboxImageChecked,
             colorToYaml(themeCheckboxColorBorderUnchecked),
             colorToYaml(themeCheckboxColorBorderChecked),
             colorToYaml(themeCheckboxColorCheckmarkBackground),
