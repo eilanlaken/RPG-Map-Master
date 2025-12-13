@@ -3,7 +3,9 @@ package com.heavybox.jtix.widgets_4;
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Font;
 import com.heavybox.jtix.graphics.Graphics;
+import com.heavybox.jtix.graphics.TextureRegion;
 import com.heavybox.jtix.input.Input;
+import org.jetbrains.annotations.Nullable;
 
 public final class Widgets {
 
@@ -43,6 +45,12 @@ public final class Widgets {
     // images
     // input - text fields
     // input - checkbox
+    public static TextureRegion themeCheckboxUnchecked                = null;
+    public static TextureRegion themeCheckboxChecked                  = null;
+    public static Color         themeCheckboxBorderColorUnchecked     = Color.valueOf("767676");
+    public static Color         themeCheckboxBorderColorChecked       = Color.valueOf("0075FF");
+    public static Color         themeCheckboxBackgroundColorCheckmark = Color.valueOf("0075FF");
+    public static Color         themeCheckboxColorCheckmark           = Color.valueOf("FFFFFF");
     // input - radio button
 
     /*** input device state */
@@ -69,7 +77,7 @@ public final class Widgets {
     public static float getPointerXPrev() { return pointerXPrev; }
     public static float getPointerYPrev() { return pointerYPrev; }
 
-    public static void useGlobalTheme() {
+    public static void setGlobalTheme(@Nullable Theme theme) {
 
     }
 

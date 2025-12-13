@@ -2,6 +2,7 @@ package com.heavybox.jtix.widgets_4;
 
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Renderer2D;
+import com.heavybox.jtix.graphics.TextureRegion;
 import com.heavybox.jtix.math.MathUtils;
 
 public class WidgetNodeInputCheckbox extends WidgetNode implements WidgetNodeInput<Boolean> {
@@ -14,10 +15,12 @@ public class WidgetNodeInputCheckbox extends WidgetNode implements WidgetNodeInp
     /* rendering - colors */
     // TODO: get from theme.
     // TODO: add images set to global theme
-    public final Color borderColorUnchecked     = Color.valueOf("767676");
-    public final Color borderColorChecked       = Color.valueOf("0075FF");
-    public final Color checkmarkBackgroundColor = Color.valueOf("0075FF");
-    public final Color checkmarkColor           = Color.valueOf("FFFFFF");
+    public static TextureRegion themeCheckboxUnchecked = Widgets.themeCheckboxUnchecked;
+    public static TextureRegion themeCheckboxChecked   = Widgets.themeCheckboxChecked;
+    public final Color borderColorUnchecked            = Widgets.themeCheckboxBorderColorUnchecked.clone();
+    public final Color borderColorChecked              = Widgets.themeCheckboxBorderColorChecked.clone();
+    public final Color checkmarkBackgroundColor        = Widgets.themeCheckboxBackgroundColorCheckmark.clone();
+    public final Color checkmarkColor                  = Widgets.themeCheckboxColorCheckmark.clone();
 
     /* rendering - dimensions */
     // TODO: get from theme.
@@ -41,6 +44,11 @@ public class WidgetNodeInputCheckbox extends WidgetNode implements WidgetNodeInp
     }
 
     protected void drawBox(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
+        if (themeCheckboxUnchecked != null) {
+            renderer2D.drawTextureRegion(themeCheckboxUnchecked, x,y,deg,size * sclX,size * sclY);
+            return;
+        }
+
         float radius = MathUtils.clampFloat(cornerRadius, 0, BASE_SIZE * 0.5f);
         renderer2D.setColor(checked ? borderColorChecked : borderColorUnchecked);
         renderer2D.drawRectangleBorder(BASE_SIZE, BASE_SIZE, borderSize,
@@ -53,6 +61,11 @@ public class WidgetNodeInputCheckbox extends WidgetNode implements WidgetNodeInp
     }
 
     protected void drawCheckmark(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
+        if (themeCheckboxChecked != null) {
+            renderer2D.drawTextureRegion(themeCheckboxChecked, x,y,deg,size * sclX,size * sclY);
+            return;
+        }
+
         float radius = MathUtils.clampFloat(cornerRadius, 0, BASE_SIZE * 0.5f);
         renderer2D.setColor(checkmarkBackgroundColor);
         renderer2D.drawRectangleFilled(BASE_SIZE, BASE_SIZE,

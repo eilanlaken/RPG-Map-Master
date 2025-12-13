@@ -60,7 +60,6 @@ public final class ToolsTexturePacker {
         return false;
     }
 
-    // TODO: error here:
     public static void packTextures(String outputDirectory, String outputName, int extrude, int padding, TexturePackSize maxTexturesSize, final String ...texturePaths) throws IOException {
         /* check if TexturePack was already generated and updated using the same options and input textures. */
         if (alreadyPacked(outputDirectory, outputName, extrude, padding, maxTexturesSize, texturePaths)) return;
