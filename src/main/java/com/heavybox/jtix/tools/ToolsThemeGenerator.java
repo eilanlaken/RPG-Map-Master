@@ -11,6 +11,9 @@ public final class ToolsThemeGenerator {
 
     // a bunch of static variables containing defaults + paths.
 
+    /* container */ // TODO: add nine 9 patch support
+
+
     /* checkbox */
     public static String themeCheckboxImageUnchecked           = null;
     public static String themeCheckboxImageChecked             = null;

@@ -638,6 +638,19 @@ public class Renderer2D implements MemoryResourceHolder {
         vectors2Pool.free(arm3);
     }
 
+    // TODO
+    public void drawTextureNinePatch(@NotNull Texture texture,
+                                     int topLeftWidth,     int topLeftHeight,
+                                     int topRightWidth,    int topRightHeight,
+                                     int bottomRightWidth, int bottomRightHeight,
+                                     int bottomLeftWidth,  int bottomLeftHeight,
+                                     float x, float y, float degrees, float scaleX, float scaleY) {
+        throw new UnsupportedOperationException("Not implemented yet");
+    }
+
+
+
+
     public void drawTextureRegion(TextureRegion region, float x, float y, float degrees, float scaleX, float scaleY) {
         if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
         if (!ensureCapacity(4, 6)) flush();
