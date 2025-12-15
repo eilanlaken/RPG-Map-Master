@@ -23,7 +23,7 @@ public class ToolStampDecorations extends Tool {
         super(map);
 
         // TODO: put this back in
-        //if (true) return;
+        if (true) return;
 
         Array<String> layer5Assets = Assets.getDirectoryFiles("assets/textures-layer-5", true);
         for (String layer5Asset : layer5Assets) {

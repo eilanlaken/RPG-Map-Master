@@ -54,6 +54,8 @@ public class SceneWidgetsThemes implements Scene {
 
         renderer2D.begin();
         widget.render(renderer2D);
+        renderer2D.drawStringLine("hello abcdefg", 18, true, 0,-200,0,1,1);
+        renderer2D.drawStringLine("hello abcdefg", 34, true, 0,300,0,1,1);
         renderer2D.end();
     }
 

@@ -9,12 +9,24 @@ import com.heavybox.jtix.widgets_4.WidgetNodeImage;
 
 public class WidgetNodeToolbar extends WidgetNodeContainerVertical {
 
-    /* references */
-    public Map map;
-
     public static final int BUTTON_SIZE = 42;
 
+    /* references and state */
+    public Map map;
     public int selected = 0;
+
+    /* child node references */
+    private WidgetNodeToolTip toolTip = new WidgetNodeToolTip();
+
+    private WidgetNodeImage toolTerrain;
+    private WidgetNodeImage toolWheatFields;
+    private WidgetNodeImage toolNature;
+    private WidgetNodeImage toolArchitecture;
+    private WidgetNodeImage toolRocks;
+    private WidgetNodeImage toolProps;
+    private WidgetNodeImage toolText;
+    private WidgetNodeImage toolSelect;
+    private WidgetNodeImage toolDecorations;
 
     public WidgetNodeToolbar(RPGMapMakerScene scene) {
         this.map = scene.getMap();
@@ -38,13 +50,23 @@ public class WidgetNodeToolbar extends WidgetNodeContainerVertical {
         anchorX = 0;
         anchorY = 200;
 
+        toolTip.anchor = Anchor.CURSOR_TOP_LEFT;
+        toolTip.anchorX = 20;
+        toolTip.hidden = true;
+        onMouseEnter = e -> {
+            toolTip.hidden = false;
+        };
+        onMouseLeave = e -> {
+            toolTip.hidden = true;
+        };
+
         addChildren();
     }
 
     private void addChildren() {
         TexturePack ui = Assets.get("assets/texture-packs/user-interface.yml");
 
-        WidgetNodeImage toolTerrain = new WidgetNodeImage(ui.getRegion("assets/user-interface/tool-bar-terrain.png"));
+        toolTerrain = new WidgetNodeImage(ui.getRegion("assets/user-interface/tool-bar-terrain.png"));
         toolTerrain.boxBackgroundVisible = true;
         toolTerrain.boxBackgroundColor = Color.valueOf("101010");
         toolTerrain.boxBorderSize = 0;
@@ -55,13 +77,31 @@ public class WidgetNodeToolbar extends WidgetNodeContainerVertical {
         };
         toolTerrain.onMouseEnter = e -> {
             toolTerrain.boxBackgroundColor = Color.valueOf("2a2a2a");
+            toolTip.tip.text = "Terrain Tool";
         };
         toolTerrain.onMouseLeave = e -> {
             toolTerrain.boxBackgroundColor = Color.valueOf("101010");
         };
 
+        toolWheatFields = new WidgetNodeImage(ui.getRegion("assets/user-interface/tool-bar-wheat-fields.png"));
+        toolWheatFields.boxBackgroundVisible = true;
+        toolWheatFields.boxBackgroundColor = Color.valueOf("101010");
+        toolWheatFields.boxBorderSize = 0;
+        toolWheatFields.imgWidth = BUTTON_SIZE;
+        toolWheatFields.imgHeight = BUTTON_SIZE;
+        toolWheatFields.onMouseLeftClick = e -> {
 
-        WidgetNodeImage toolNature = new WidgetNodeImage(ui.getRegion("assets/user-interface/tool-bar-nature.png"));
+        };
+        toolWheatFields.onMouseEnter = e -> {
+            toolWheatFields.boxBackgroundColor = Color.valueOf("2a2a2a");
+            toolTip.tip.text = "Wheat Fields Tool";
+        };
+        toolWheatFields.onMouseLeave = e -> {
+            toolWheatFields.boxBackgroundColor = Color.valueOf("101010");
+        };
+
+
+        toolNature = new WidgetNodeImage(ui.getRegion("assets/user-interface/tool-bar-nature.png"));
         toolNature.boxBackgroundVisible = true;
         toolNature.boxBackgroundColor = Color.valueOf("101010");
         toolNature.boxBorderSize = 0;
@@ -72,12 +112,13 @@ public class WidgetNodeToolbar extends WidgetNodeContainerVertical {
         };
         toolNature.onMouseEnter = e -> {
             toolNature.boxBackgroundColor = Color.valueOf("2a2a2a");
+            toolTip.tip.text = "Trees Tool";
         };
         toolNature.onMouseLeave = e -> {
             toolNature.boxBackgroundColor = Color.valueOf("101010");
         };
 
-        WidgetNodeImage toolArchitecture = new WidgetNodeImage(ui.getRegion("assets/user-interface/tool-bar-architecture.png"));
+        toolArchitecture = new WidgetNodeImage(ui.getRegion("assets/user-interface/tool-bar-architecture.png"));
         toolArchitecture.boxBackgroundVisible = true;
         toolArchitecture.boxBackgroundColor = Color.valueOf("101010");
         toolArchitecture.boxBorderSize = 0;
@@ -88,12 +129,30 @@ public class WidgetNodeToolbar extends WidgetNodeContainerVertical {
         };
         toolArchitecture.onMouseEnter = e -> {
             toolArchitecture.boxBackgroundColor = Color.valueOf("2a2a2a");
+            toolTip.tip.text = "Architecture Tool";
         };
         toolArchitecture.onMouseLeave = e -> {
             toolArchitecture.boxBackgroundColor = Color.valueOf("101010");
         };
 
-        WidgetNodeImage toolProps = new WidgetNodeImage(ui.getRegion("assets/user-interface/tool-bar-props.png"));
+        toolRocks = new WidgetNodeImage(ui.getRegion("assets/user-interface/tool-bar-rocks.png"));
+        toolRocks.boxBackgroundVisible = true;
+        toolRocks.boxBackgroundColor = Color.valueOf("101010");
+        toolRocks.boxBorderSize = 0;
+        toolRocks.imgWidth = BUTTON_SIZE;
+        toolRocks.imgHeight = BUTTON_SIZE;
+        toolRocks.onMouseLeftClick = e -> {
+
+        };
+        toolRocks.onMouseEnter = e -> {
+            toolRocks.boxBackgroundColor = Color.valueOf("2a2a2a");
+            toolTip.tip.text = "Rocks & Boulders Tool";
+        };
+        toolRocks.onMouseLeave = e -> {
+            toolRocks.boxBackgroundColor = Color.valueOf("101010");
+        };
+
+        toolProps = new WidgetNodeImage(ui.getRegion("assets/user-interface/tool-bar-props.png"));
         toolProps.boxBackgroundVisible = true;
         toolProps.boxBackgroundColor = Color.valueOf("101010");
         toolProps.boxBorderSize = 0;
@@ -104,12 +163,13 @@ public class WidgetNodeToolbar extends WidgetNodeContainerVertical {
         };
         toolProps.onMouseEnter = e -> {
             toolProps.boxBackgroundColor = Color.valueOf("2a2a2a");
+            toolTip.tip.text = "Props Tool";
         };
         toolProps.onMouseLeave = e -> {
             toolProps.boxBackgroundColor = Color.valueOf("101010");
         };
 
-        WidgetNodeImage toolText = new WidgetNodeImage(ui.getRegion("assets/user-interface/tool-bar-text.png"));
+        toolText = new WidgetNodeImage(ui.getRegion("assets/user-interface/tool-bar-text.png"));
         toolText.boxBackgroundVisible = true;
         toolText.boxBackgroundColor = Color.valueOf("101010");
         toolText.boxBorderSize = 0;
@@ -120,12 +180,13 @@ public class WidgetNodeToolbar extends WidgetNodeContainerVertical {
         };
         toolText.onMouseEnter = e -> {
             toolText.boxBackgroundColor = Color.valueOf("2a2a2a");
+            toolTip.tip.text = "Text Tool";
         };
         toolText.onMouseLeave = e -> {
             toolText.boxBackgroundColor = Color.valueOf("101010");
         };
 
-        WidgetNodeImage toolSelect = new WidgetNodeImage(ui.getRegion("assets/user-interface/tool-bar-select.png"));
+        toolSelect = new WidgetNodeImage(ui.getRegion("assets/user-interface/tool-bar-select.png"));
         toolSelect.boxBackgroundVisible = true;
         toolSelect.boxBackgroundColor = Color.valueOf("101010");
         toolSelect.boxBorderSize = 0;
@@ -136,12 +197,13 @@ public class WidgetNodeToolbar extends WidgetNodeContainerVertical {
         };
         toolSelect.onMouseEnter = e -> {
             toolSelect.boxBackgroundColor = Color.valueOf("2a2a2a");
+            toolTip.tip.text = "Selection Tool";
         };
         toolSelect.onMouseLeave = e -> {
             toolSelect.boxBackgroundColor = Color.valueOf("101010");
         };
 
-        WidgetNodeImage toolDecorations = new WidgetNodeImage(ui.getRegion("assets/user-interface/tool-bar-decorations.png"));
+        toolDecorations = new WidgetNodeImage(ui.getRegion("assets/user-interface/tool-bar-decorations.png"));
         toolDecorations.boxBackgroundVisible = true;
         toolDecorations.boxBackgroundColor = Color.valueOf("101010");
         toolDecorations.boxBorderSize = 0;
@@ -152,18 +214,22 @@ public class WidgetNodeToolbar extends WidgetNodeContainerVertical {
         };
         toolDecorations.onMouseEnter = e -> {
             toolDecorations.boxBackgroundColor = Color.valueOf("2a2a2a");
+            toolTip.tip.text = "Decorations Tool";
         };
         toolDecorations.onMouseLeave = e -> {
             toolDecorations.boxBackgroundColor = Color.valueOf("101010");
         };
 
         addChild(toolTerrain);
+        addChild(toolWheatFields);
         addChild(toolNature);
         addChild(toolArchitecture);
+        addChild(toolRocks);
         addChild(toolProps);
         addChild(toolText);
         addChild(toolDecorations);
         addChild(toolSelect);
+        addChild(toolTip);
     }
 
     @Override
