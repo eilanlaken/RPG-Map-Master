@@ -14,7 +14,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class ToolStampTrees extends Tool {
+public class ToolBrushTrees extends Tool {
 
     public static final int TREE_DENSITY = 68; // The minimal distance between trees
     public final TexturePack layer3;
@@ -32,7 +32,7 @@ public class ToolStampTrees extends Tool {
     private final Array<Vector2> positions = new Array<>(false, 10);
     private final Array<MapToken> trees = new Array<>();
 
-    public ToolStampTrees(Map map) {
+    public ToolBrushTrees(Map map) {
         super(map);
         sclX = 0.25f;
         sclY = 0.25f;

@@ -90,13 +90,13 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
 
         map = new Map(false);
 
-        tools[0] = new ToolDrawTerrain(map);
-        tools[1] = new ToolWheatFields(map);
-        tools[2] = new ToolStampTrees(map);
-        tools[3] = new ToolStampProps(map);
-        tools[4] = new ToolStampBlocks(map);
-        tools[5] = new ToolStampRocks(map);
-        tools[6] = new ToolStampDecorations(map);
+        tools[0] = new ToolBrushTerrain(map);
+        tools[1] = new ToolBrushFields(map);
+        tools[2] = new ToolBrushTrees(map);
+        tools[3] = new ToolBrushProps(map);
+        tools[4] = new ToolBrushArchitecture(map);
+        tools[5] = new ToolBrushRocks(map);
+        tools[6] = new ToolBrushDecorations(map);
 
         // user - interface
         WidgetNodeActionsBar actionsBar = new WidgetNodeActionsBar();
@@ -192,19 +192,19 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
         tools[activeTool].y = screen.y;
         tools[activeTool].update(Graphics.getDeltaTime());
 
-        // save placeholder
+        // export placeholder
         if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KP_0)) {
-            map.saveLayerAsImage(0);
+            map.exportLayerAsImage(0);
         } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KP_1)) {
-            map.saveLayerAsImage(1);
+            map.exportLayerAsImage(1);
         } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KP_2)) {
-            map.saveLayerAsImage(2);
+            map.exportLayerAsImage(2);
         } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KP_3)) {
-            map.saveLayerAsImage(3);
+            map.exportLayerAsImage(3);
         } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KP_4)) {
             //map.saveLayerAsImage(4);
         } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KP_5)) {
-            map.saveLayerAsImage(5);
+            map.exportLayerAsImage(5);
         }
 
 
@@ -264,4 +264,30 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
     public Camera getCamera() {
         return camera;
     }
+
+    @Override
+    public void undo() {
+
+    }
+
+    @Override
+    public void redo() {
+
+    }
+
+    @Override
+    public void saveAs(String path) {
+
+    }
+
+    @Override
+    public void exportAs(String path) {
+
+    }
+
+    @Override
+    public void load(String path) {
+
+    }
+
 }

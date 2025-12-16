@@ -29,6 +29,16 @@ regions:
   textureIndex: 0
   x: 2987
   y: 557
+- name: assets/textures-layer-5/decoration_animal_crow_0.png
+  offsetX: 0
+  offsetY: 0
+  originalHeight: 503
+  originalWidth: 772
+  packedHeight: 503
+  packedWidth: 772
+  textureIndex: 0
+  x: 1541
+  y: 773
 - name: assets/textures-layer-5/decorations_sun_1.png
   offsetX: 0
   offsetY: 2
@@ -49,6 +59,16 @@ regions:
   textureIndex: 0
   x: 2987
   y: 2
+- name: assets/textures-layer-5/decoration_animal_goat_0.png
+  offsetX: 134
+  offsetY: 18
+  originalHeight: 503
+  originalWidth: 772
+  packedHeight: 485
+  packedWidth: 580
+  textureIndex: 0
+  x: 2
+  y: 931
 - name: assets/textures-layer-5/decorations_character_guardian_0.png
   offsetX: 20
   offsetY: 11
@@ -77,7 +97,7 @@ regions:
   packedHeight: 495
   packedWidth: 513
   textureIndex: 0
-  x: 2225
+  x: 2317
   y: 648
 - name: assets/textures-layer-5/decorations_grass_patch.png
   offsetX: 1
@@ -87,8 +107,8 @@ regions:
   packedHeight: 166
   packedWidth: 994
   textureIndex: 0
-  x: 517
-  y: 983
+  x: 3087
+  y: 1259
 - name: assets/textures-layer-5/decorations_character_assasin.png
   offsetX: 0
   offsetY: 0
@@ -127,8 +147,8 @@ regions:
   packedHeight: 198
   packedWidth: 258
   textureIndex: 0
-  x: 988
-  y: 781
+  x: 1196
+  y: 985
 - name: assets/textures-layer-5/decorations_tree_acer_red_1.png
   offsetX: 35
   offsetY: 241
@@ -137,8 +157,8 @@ regions:
   packedHeight: 198
   packedWidth: 258
   textureIndex: 0
-  x: 1250
-  y: 781
+  x: 586
+  y: 931
 - name: assets/textures-layer-5/decorations_tree_acer_yellow_1.png
   offsetX: 35
   offsetY: 241
@@ -147,8 +167,8 @@ regions:
   packedHeight: 198
   packedWidth: 258
   textureIndex: 0
-  x: 1712
-  y: 773
+  x: 3763
+  y: 809
 - name: assets/textures-layer-5/decorations_tree_acer_red_0.png
   offsetX: 35
   offsetY: 242
@@ -157,8 +177,8 @@ regions:
   packedHeight: 197
   packedWidth: 258
   textureIndex: 0
-  x: 2
-  y: 931
+  x: 3763
+  y: 1011
 - name: assets/textures-layer-5/decorations_tree_acer_yellow_0.png
   offsetX: 35
   offsetY: 242
@@ -167,8 +187,8 @@ regions:
   packedHeight: 197
   packedWidth: 258
   textureIndex: 0
-  x: 3763
-  y: 809
+  x: 848
+  y: 988
 - name: assets/textures-layer-5/decorations_tree_acer_green_1.png
   offsetX: 35
   offsetY: 242
@@ -177,8 +197,8 @@ regions:
   packedHeight: 197
   packedWidth: 249
   textureIndex: 0
-  x: 264
-  y: 931
+  x: 2834
+  y: 1064
 - name: assets/textures-layer-5/decorations_sun_0.png
   offsetX: 0
   offsetY: 0
@@ -187,8 +207,8 @@ regions:
   packedHeight: 203
   packedWidth: 204
   textureIndex: 0
-  x: 2750
-  y: 625
+  x: 988
+  y: 781
 - name: assets/textures-layer-5/decorations_flowers_0.png
   offsetX: 0
   offsetY: 12
@@ -197,8 +217,8 @@ regions:
   packedHeight: 191
   packedWidth: 184
   textureIndex: 0
-  x: 1974
-  y: 773
+  x: 3087
+  y: 1064
 - name: assets/textures-layer-5/decorations_moon_0.png
   offsetX: 0
   offsetY: 2
@@ -207,8 +227,8 @@ regions:
   packedHeight: 200
   packedWidth: 167
   textureIndex: 0
-  x: 1541
-  y: 773
+  x: 1196
+  y: 781
 - name: assets/textures-layer-5/decorations_flowers_1.png
   offsetX: 9
   offsetY: 12
@@ -217,8 +237,8 @@ regions:
   packedHeight: 166
   packedWidth: 175
   textureIndex: 0
-  x: 2742
-  y: 832
+  x: 586
+  y: 1133
 - name: assets/textures-layer-5/decorations_flowers_4.png
   offsetX: 9
   offsetY: 0
@@ -227,8 +247,8 @@ regions:
   packedHeight: 156
   packedWidth: 171
   textureIndex: 0
-  x: 1974
-  y: 968
+  x: 2317
+  y: 1147
 - name: assets/textures-layer-5/decorations_flowers_3.png
   offsetX: 9
   offsetY: 0
@@ -237,8 +257,8 @@ regions:
   packedHeight: 141
   packedWidth: 175
   textureIndex: 0
-  x: 1515
-  y: 977
+  x: 1110
+  y: 1187
 - name: assets/textures-layer-5/decorations_flowers_5.png
   offsetX: 9
   offsetY: 0
@@ -247,8 +267,8 @@ regions:
   packedHeight: 139
   packedWidth: 168
   textureIndex: 0
-  x: 2742
-  y: 1002
+  x: 1289
+  y: 1187
 - name: assets/textures-layer-5/decorations_flowers_2.png
   offsetX: 9
   offsetY: 12
@@ -257,8 +277,8 @@ regions:
   packedHeight: 120
   packedWidth: 175
   textureIndex: 0
-  x: 3898
-  y: 1010
+  x: 900
+  y: 1189
 - name: assets/textures-layer-5/decorations_moon_1.png
   offsetX: 0
   offsetY: 0
@@ -267,8 +287,8 @@ regions:
   packedHeight: 139
   packedWidth: 131
   textureIndex: 0
-  x: 3763
-  y: 1010
+  x: 765
+  y: 1189
 - name: assets/textures-layer-5/decorations_egg_embryo_red.png
   offsetX: 2
   offsetY: 130
@@ -277,8 +297,8 @@ regions:
   packedHeight: 147
   packedWidth: 105
   textureIndex: 0
-  x: 1712
-  y: 975
+  x: 2492
+  y: 1147
 - name: assets/textures-layer-5/decorations_egg_plain_red.png
   offsetX: 2
   offsetY: 130
@@ -287,8 +307,8 @@ regions:
   packedHeight: 147
   packedWidth: 105
   textureIndex: 0
-  x: 1821
-  y: 975
+  x: 2601
+  y: 1147
 - name: assets/textures-layer-5/border_1_edge.png
   offsetX: 0
   offsetY: 0
@@ -297,8 +317,8 @@ regions:
   packedHeight: 42
   packedWidth: 118
   textureIndex: 0
-  x: 3036
-  y: 1064
+  x: 2710
+  y: 1193
 - name: assets/textures-layer-5/border_1_tile.png
   offsetX: 0
   offsetY: 0
@@ -307,8 +327,8 @@ regions:
   packedHeight: 42
   packedWidth: 118
   textureIndex: 0
-  x: 2914
-  y: 1064
+  x: 2710
+  y: 1147
 - name: assets/textures-layer-5/decorations_flower_rose_0.png
   offsetX: 8
   offsetY: 51
@@ -317,8 +337,8 @@ regions:
   packedHeight: 64
   packedWidth: 36
   textureIndex: 0
-  x: 2921
-  y: 832
+  x: 1499
+  y: 781
 - name: assets/textures-layer-5/decorations_flower_rose_2.png
   offsetX: 4
   offsetY: 52
@@ -327,8 +347,8 @@ regions:
   packedHeight: 67
   packedWidth: 34
   textureIndex: 0
-  x: 2162
-  y: 773
+  x: 1461
+  y: 781
 - name: assets/textures-layer-5/decorations_flower_rose_1.png
   offsetX: 12
   offsetY: 54
@@ -337,8 +357,8 @@ regions:
   packedHeight: 59
   packedWidth: 35
   textureIndex: 0
-  x: 2162
-  y: 844
+  x: 1499
+  y: 849
 textures:
 - file: layer_5_0.png
   height: 2048

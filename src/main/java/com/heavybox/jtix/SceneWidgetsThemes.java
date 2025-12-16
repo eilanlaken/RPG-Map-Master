@@ -4,10 +4,7 @@ import com.heavybox.jtix.application.Scene;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.graphics.*;
 import com.heavybox.jtix.tools.ToolsThemeGenerator;
-import com.heavybox.jtix.widgets_4.Theme;
-import com.heavybox.jtix.widgets_4.Widget;
-import com.heavybox.jtix.widgets_4.WidgetNodeInputCheckbox;
-import com.heavybox.jtix.widgets_4.Widgets;
+import com.heavybox.jtix.widgets_4.*;
 import org.lwjgl.opengl.GL11;
 
 public class SceneWidgetsThemes implements Scene {
@@ -16,6 +13,7 @@ public class SceneWidgetsThemes implements Scene {
 
     Widget widget = new Widget();
     WidgetNodeInputCheckbox checkbox;
+    WidgetNodeInputOptions options;
 
     Texture ninePatch;
 
@@ -41,7 +39,8 @@ public class SceneWidgetsThemes implements Scene {
         Theme theme = Assets.get("assets/user-interface-theme/widgets-theme.yml");
         Widgets.setGlobalTheme(theme);
         checkbox = new WidgetNodeInputCheckbox();
-        widget.addNode(checkbox);
+        options = new WidgetNodeInputOptions("hello", "popo");
+        widget.addNode(options);
     }
 
     @Override
@@ -54,8 +53,6 @@ public class SceneWidgetsThemes implements Scene {
 
         renderer2D.begin();
         widget.render(renderer2D);
-        renderer2D.drawStringLine("hello abcdefg", 18, true, 0,-200,0,1,1);
-        renderer2D.drawStringLine("hello abcdefg", 34, true, 0,300,0,1,1);
         renderer2D.end();
     }
 

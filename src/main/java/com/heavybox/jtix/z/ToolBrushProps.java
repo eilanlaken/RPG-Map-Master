@@ -14,7 +14,7 @@ import com.heavybox.jtix.math.Vector2;
 // TODO: overhaul the props tool
 // TODO: asset discovery based on name prefix
 // TODO: brush modes: point, line, curve, polygon
-public class ToolStampProps extends Tool {
+public class ToolBrushProps extends Tool {
 
     public final TexturePack layer3;
 
@@ -26,7 +26,7 @@ public class ToolStampProps extends Tool {
 
     private Mode mode = Mode.values()[0];
 
-    public ToolStampProps(Map map) {
+    public ToolBrushProps(Map map) {
         super(map);
         sclX = 0.25f;
         sclY = 0.25f;

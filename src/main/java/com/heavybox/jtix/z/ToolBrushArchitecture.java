@@ -20,7 +20,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.util.Comparator;
 
-public class ToolStampBlocks extends Tool {
+public class ToolBrushArchitecture extends Tool {
 
     private static final Array<Combination> COMBINATIONS = new Array<>(true, 10);
     static {
@@ -72,7 +72,7 @@ public class ToolStampBlocks extends Tool {
     public int comboIndex = MathUtils.randomUniformInt(0, COMBINATIONS.size);
 
 
-    public ToolStampBlocks(Map map) {
+    public ToolBrushArchitecture(Map map) {
         super(map);
         layer3 = Assets.get("assets/texture-packs/layer_3.yml");
         sclX = 0.5f;

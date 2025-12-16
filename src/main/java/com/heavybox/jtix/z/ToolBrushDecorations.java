@@ -9,7 +9,7 @@ import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.MathUtils;
 
 // THIS IS JUST FOR THE DEMO
-public class ToolStampDecorations extends Tool {
+public class ToolBrushDecorations extends Tool {
 
     private Layer layer = Layer.FOREGROUND;
     Array<String> decorationsPaths = new Array<>();
@@ -19,7 +19,7 @@ public class ToolStampDecorations extends Tool {
 
     private boolean flipped = false;
 
-    public ToolStampDecorations(Map map) {
+    public ToolBrushDecorations(Map map) {
         super(map);
 
         // TODO: put this back in

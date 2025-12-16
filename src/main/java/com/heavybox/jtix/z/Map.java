@@ -138,7 +138,7 @@ public class Map {
         return mapFinal.getColorAttachment0();
     }
 
-    public void saveLayerAsImage(int layer) {
+    public void exportLayerAsImage(int layer) {
         Texture texture;
         if (layer == 0) texture = layer0.getTexture();
         else if (layer == 1) texture = layer1.getTexture();
