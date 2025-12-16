@@ -48,8 +48,8 @@ public class SceneWidgetsThemes implements Scene {
 
         grid.boxPaddingBottom = 2;
         grid.boxPaddingTop = 2;
-        grid.boxPaddingLeft = 2;
-        grid.boxPaddingRight = 12;
+        grid.boxPaddingLeft = 233;
+        grid.boxPaddingRight = 44;
         grid.layout = WidgetNodeContainerGrid.Layout.FILL_ROWS;
         grid.layoutRowCapacity = 4;
 

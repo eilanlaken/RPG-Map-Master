@@ -139,22 +139,23 @@ public class WidgetNodeContainerGrid extends WidgetNode implements WidgetNodeCon
         if (layout == Layout.FILL_ROWS) {
             int rows = (int) Math.ceil((float) children.size / layoutRowCapacity);
             if (rows == 1) { // for the first row, it behaves like a horizontal container
-                float position_x = -gridCellWidth * children.size * 0.5f + boxBorderSize + boxPaddingLeft - boxChildSpacingHorizontal;
+                //float position_x = -gridCellWidth * children.size * 0.5f + boxBorderSize + boxPaddingLeft - boxPaddingRight - boxChildSpacingHorizontal * (children.size - 1) * 0.5f;
+                float position_x = -(getWidth() * 0.5f - boxBorderSize - boxPaddingLeft);
                 for (WidgetNode child : children) {
                     child.offsetX = position_x + gridCellWidth * 0.5f;
                     child.offsetY = boxPaddingBottom - (boxPaddingBottom + boxPaddingTop) * 0.5f;
                     position_x += gridCellWidth + boxChildSpacingHorizontal;
                 }
             } else {
-                float position_x = -((gridCellWidth-boxChildSpacingHorizontal) * layoutRowCapacity * 0.5f - boxBorderSize - boxPaddingLeft) * 1;
-                float position_y = (getHeight() * 0.5f - boxBorderSize - boxPaddingTop) * 1;
+                float position_x = -(getWidth() * 0.5f - boxBorderSize - boxPaddingLeft);
+                float position_y = getHeight() * 0.5f - boxBorderSize - boxPaddingTop;
                 for (int i = 0; i < children.size; i++) {
                     WidgetNode child = children.get(i);
                     child.offsetX = position_x;
                     child.offsetY = position_y - gridCellHeight * 0.5f;
                     position_x += gridCellWidth + boxChildSpacingHorizontal;
                     if ((i + 1) % layoutRowCapacity == 0) {
-                        position_x = -((gridCellWidth-boxChildSpacingHorizontal) * layoutRowCapacity * 0.5f - boxBorderSize - boxPaddingLeft) * 1;
+                        position_x = -(getWidth() * 0.5f - boxBorderSize - boxPaddingLeft);
                         position_y -= gridCellHeight + boxChildSpacingVertical;
                     }
                 }
@@ -198,30 +199,32 @@ public class WidgetNodeContainerGrid extends WidgetNode implements WidgetNodeCon
     public float getContentHeight(Array<WidgetNode> widgets) {
         if (widgets == null || widgets.isEmpty()) return 0;
 
-        float min_y = Float.POSITIVE_INFINITY;
-        float max_y = Float.NEGATIVE_INFINITY;
-        for (WidgetNode node : widgets) {
-            float down = node.offsetY - gridCellHeight * 0.5f;
-            float up = node.offsetY + gridCellHeight * 0.5f;
-            min_y = Math.min(min_y, down);
-            max_y = Math.max(max_y, up);
+        if (layout == Layout.FILL_ROWS) {
+            int rows = (int) Math.ceil((float) widgets.size / layoutRowCapacity);
+            return gridCellHeight * rows + boxChildSpacingVertical * (rows - 1);
         }
-        return Math.abs(max_y - min_y);
+
+        // else: layout == FILL_COLUMNS
+
+        return 0;
     }
 
     @Override
     public float getContentWidth(Array<WidgetNode> widgets) {
         if (widgets == null || widgets.isEmpty()) return 0;
 
-        float min_x = Float.POSITIVE_INFINITY;
-        float max_x = Float.NEGATIVE_INFINITY;
-        for (WidgetNode node : widgets) {
-            float left = node.offsetX - gridCellWidth * 0.5f;
-            float right = node.offsetX + gridCellWidth * 0.5f;
-            min_x = Math.min(min_x, left);
-            max_x = Math.max(max_x, right);
+        if (layout == Layout.FILL_ROWS) {
+            if (widgets.size <= layoutRowCapacity) { // sort of a horizontal container
+                return gridCellWidth * widgets.size + boxChildSpacingHorizontal * (widgets.size - 1);
+            }
+
+            else return gridCellWidth * layoutRowCapacity + boxChildSpacingHorizontal * (layoutRowCapacity - 1);
         }
-        return Math.abs(max_x - min_x);
+
+        // else: layout == FILL_COLUMNS
+
+
+        return 0;
     }
 
     @Override
