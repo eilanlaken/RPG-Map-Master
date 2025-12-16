@@ -11,6 +11,9 @@ import java.nio.ByteBuffer;
 
 public class Map {
 
+    // TODO: customize width and height
+    public int width;
+    public int height;
 
     public MapLayer_0 layer0; // Terrain layer (wheat fields)
     public MapLayer_1 layer1; // Ground layer (wheat fields)

@@ -2,6 +2,7 @@ package com.heavybox.jtix;
 
 import com.heavybox.jtix.application.Scene;
 import com.heavybox.jtix.assets.Assets;
+import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.graphics.*;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Keyboard;
@@ -244,6 +245,14 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
         camera.viewportWidth = width;
         camera.viewportHeight = height;
         camera.update();
+    }
+
+    @Override
+    public void windowFilesDraggedAndDropped(Array<String> filePaths) {
+        // TODO:
+        /*
+        This will create a new brush with the assets as the tokens.
+         */
     }
 
     @Override

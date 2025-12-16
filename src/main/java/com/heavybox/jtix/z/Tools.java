@@ -1,7 +1,16 @@
 package com.heavybox.jtix.z;
 
-public class Tools {
+import com.heavybox.jtix.collections.Array;
 
-    public static Tool activeTool;
+public final class Tools {
+
+    private Tools() {}
+
+    public static Array<Tool> tools = new Array<>(true, 10);
+    public static int activeToolIndex = 0;
+
+    static void initTools() {
+
+    }
 
 }
