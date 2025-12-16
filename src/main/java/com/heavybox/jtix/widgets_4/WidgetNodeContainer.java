@@ -12,8 +12,8 @@ public interface WidgetNodeContainer {
         float min_y = Float.POSITIVE_INFINITY;
         float max_y = Float.NEGATIVE_INFINITY;
         for (WidgetNode node : widgets) {
-            float down = node.offsetY - node.getHeight();
-            float up = node.offsetY + node.getHeight();
+            float down = node.offsetY - node.getHeight() * 0.5f;
+            float up = node.offsetY + node.getHeight() * 0.5f;
             min_y = Math.min(min_y, down);
             max_y = Math.max(max_y, up);
         }
@@ -26,8 +26,8 @@ public interface WidgetNodeContainer {
         float min_x = Float.POSITIVE_INFINITY;
         float max_x = Float.NEGATIVE_INFINITY;
         for (WidgetNode node : widgets) {
-            float left = node.offsetX - node.getWidth();
-            float right = node.offsetX + node.getWidth();
+            float left = node.offsetX - node.getWidth() * 0.5f;
+            float right = node.offsetX + node.getWidth() * 0.5f;
             min_x = Math.min(min_x, left);
             max_x = Math.max(max_x, right);
         }

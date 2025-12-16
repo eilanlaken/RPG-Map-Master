@@ -29,6 +29,8 @@ public final class Widgets {
     public static int     themeContainerBoxPaddingRight              = 10;
     public static int     themeContainerBoxChildSpacingVertical      = 5;
     public static int     themeContainerBoxChildSpacingHorizontal    = 5;
+    public static int     themeContainerGridBoxChildSpacingVertical = 5;
+    public static int     themeContainerGridBoxChildSpacingHorizontal = 5;
     public static int     themeContainerBoxCornerRadiusTopLeft       = 0;
     public static int     themeContainerBoxCornerRadiusTopRight      = 0;
     public static int     themeContainerBoxCornerRadiusBottomRight   = 0;

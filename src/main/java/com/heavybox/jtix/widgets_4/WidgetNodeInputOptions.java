@@ -3,44 +3,36 @@ package com.heavybox.jtix.widgets_4;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Renderer2D;
-import com.heavybox.jtix.math.Vector2;
-import org.jetbrains.annotations.NotNull;
 
-// TODO: must consider scale.
-public class WidgetNodeInputOptions extends WidgetNode implements WidgetNodeInput<String> {
+// TODO: scrap that and replace with ContainerGrid
+public class WidgetNodeInputOptions extends WidgetNode implements WidgetNodeInput<Integer> {
 
-    private String selectedOption;
+    private int selectedOption;
     private Array<String> options = new Array<>(true, 3);
 
     // rendering - get defaults from theme.
-    @NotNull
-    public Layout layout = Layout.VERTICAL;
-    public float  layoutChildSpacing = 5;
-    public float  layoutInnerSpacing = 5;
-    public Color  colorSelected = Color.valueOf("0075FF");
-    public Color  colorUnselected = Color.valueOf("767676");
-    public float  radius = 7;
+    public float layoutChildSpacing = 33;
+    public float layoutInnerSpacing = 8;
+    public Color colorSelected = Color.valueOf("0075FF");
+    public Color colorUnselected = Color.valueOf("767676");
+    public float radius = 7;
 
     public WidgetNodeInputOptions(String... options) {
         for (String option : options) {
             if (option == null) continue;
             this.options.add(option);
         }
-        this.selectedOption = this.options.first();
+        this.selectedOption = 0;
     }
 
     @Override
     protected void draw(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
-        if (layout == Layout.VERTICAL) {
-            float current_y = getHeight() * 0.5f;
-            // TODO transform the offset
-            for (String option : options) {
-                drawOption(renderer2D, option, true, x,y + current_y,deg,sclX,sclY);
-                current_y -= getOptionHeight(option) + layoutChildSpacing;
-            }
-            return;
+        float offset_x = -getWidth() * 0.25f;
+        for (int i = 0; i < options.size; i++) {
+            String option = options.get(i);
+            drawOption(renderer2D, option, i == selectedOption, x + offset_x, y, deg, sclX, sclY);
+            offset_x += getOptionWidth(option) + layoutChildSpacing;
         }
-
     }
 
     protected void drawOption(Renderer2D renderer2D, String option, boolean selected, float x, float y, float deg, float sclX, float sclY) {
@@ -61,32 +53,24 @@ public class WidgetNodeInputOptions extends WidgetNode implements WidgetNodeInpu
 
     @Override
     protected float getWidth() {
-        if (layout == Layout.VERTICAL) {
-            float max = 0;
-            for (String option : options) {
-                max = Math.max(max, Renderer2D.calculateStringLineWidth(option, null, Widgets.themeTextSize, Widgets.themeTextAntialiasing));
-            }
-            return max + radius * 2 + layoutInnerSpacing;
+        float sum = 0;
+        for (String option : options) {
+            sum += getOptionWidth(option) + layoutChildSpacing;
         }
-
-        return 0;
+        sum -= layoutChildSpacing;
+        return sum;
     }
 
     @Override
     protected float getHeight() {
-        if (layout == Layout.VERTICAL) {
-            float sum = 0;
-            for (String option : options) {
-                sum += getOptionHeight(option) + layoutChildSpacing;
-            }
-            return sum - layoutChildSpacing;
-        }
-
-        return 0;
+        float max = 0;
+        max = Math.max(max, Widgets.themeTextSize);
+        max = Math.max(max, radius * 2);
+        return max;
     }
 
     @Override
-    public String getValue() {
+    public Integer getValue() {
         return selectedOption;
     }
 
@@ -97,18 +81,9 @@ public class WidgetNodeInputOptions extends WidgetNode implements WidgetNodeInpu
     }
 
     @Override
-    public void setValue(String value) {
-        if (options.contains(value, true)) {
-            this.selectedOption = options.first();
-            return;
-        }
+    public void setValue(Integer value) {
         this.selectedOption = value;
-    }
-
-    public enum Layout {
-        VERTICAL,
-        HORIZONTAL,
-        ;
+        if (this.selectedOption >= options.size) this.selectedOption = 0;
     }
 
 }

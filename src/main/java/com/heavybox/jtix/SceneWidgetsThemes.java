@@ -3,6 +3,9 @@ package com.heavybox.jtix;
 import com.heavybox.jtix.application.Scene;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.graphics.*;
+import com.heavybox.jtix.input.Input;
+import com.heavybox.jtix.input.Mouse;
+import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.tools.ToolsThemeGenerator;
 import com.heavybox.jtix.widgets_4.*;
 import org.lwjgl.opengl.GL11;
@@ -14,6 +17,8 @@ public class SceneWidgetsThemes implements Scene {
     Widget widget = new Widget();
     WidgetNodeInputCheckbox checkbox;
     WidgetNodeInputOptions options;
+
+    WidgetNodeContainerGrid grid = new WidgetNodeContainerGrid();
 
     Texture ninePatch;
 
@@ -40,11 +45,25 @@ public class SceneWidgetsThemes implements Scene {
         Widgets.setGlobalTheme(theme);
         checkbox = new WidgetNodeInputCheckbox();
         options = new WidgetNodeInputOptions("hello", "popo");
-        widget.addNode(options);
+
+        grid.boxPaddingBottom = 2;
+        grid.boxPaddingTop = 2;
+        grid.boxPaddingLeft = 2;
+        grid.boxPaddingRight = 12;
+        grid.layout = WidgetNodeContainerGrid.Layout.FILL_ROWS;
+        grid.layoutRowCapacity = 4;
+
+        widget.addNode(grid);
     }
 
     @Override
     public void update() {
+        if (Input.mouse.isButtonClicked(Mouse.Button.LEFT)) {
+            WidgetNodeShapeRectangle rect = new WidgetNodeShapeRectangle(40 + MathUtils.randomUniformFloat(0,0),
+                    40 + MathUtils.randomUniformFloat(0,0), Color.RED);
+            grid.addChild(rect);
+        }
+
         widget.update();
 
         FrameBufferBinder.bind(null);

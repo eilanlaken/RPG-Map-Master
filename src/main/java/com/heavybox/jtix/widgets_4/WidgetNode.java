@@ -524,8 +524,8 @@ public abstract class WidgetNode {
     }
 
     // containers can override this, for example.
-    protected void setChildrenOffsets(final Array<WidgetNode> activeChildren) {
-        for (WidgetNode node : activeChildren) {
+    protected void setChildrenOffsets(final Array<WidgetNode> childrenLayout) {
+        for (WidgetNode node : childrenLayout) {
             node.offsetX = 0;
             node.offsetY = 0;
         }
