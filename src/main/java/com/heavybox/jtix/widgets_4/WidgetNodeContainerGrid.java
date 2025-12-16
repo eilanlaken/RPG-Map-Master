@@ -29,7 +29,6 @@ public class WidgetNodeContainerGrid extends WidgetNode implements WidgetNodeCon
     public float     layoutHeight                 = 1;
     public float     layoutHeightMin              = 0;
     public float     layoutHeightMax              = Float.POSITIVE_INFINITY;
-    public boolean   layoutAddScrollbar           = true;
     public Overflow  layoutOverflowX              = Overflow.HIDDEN;
     public Overflow  layoutOverflowY              = Overflow.HIDDEN;
 

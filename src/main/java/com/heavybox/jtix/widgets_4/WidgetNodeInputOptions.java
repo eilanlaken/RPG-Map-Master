@@ -2,71 +2,43 @@ package com.heavybox.jtix.widgets_4;
 
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.graphics.Color;
-import com.heavybox.jtix.graphics.Renderer2D;
 
-// TODO: scrap that and replace with ContainerGrid
-public class WidgetNodeInputOptions extends WidgetNode implements WidgetNodeInput<Integer> {
+public class WidgetNodeInputOptions extends WidgetNodeContainerGrid implements WidgetNodeInput<Integer> {
 
-    private int selectedOption;
-    private Array<String> options = new Array<>(true, 3);
+    private int selectedOption = 0;
+    private final Array<String> options = new Array<>(true, 3);
 
     // rendering - get defaults from theme.
     public float layoutChildSpacing = 33;
     public float layoutInnerSpacing = 8;
-    public Color colorSelected = Color.valueOf("0075FF");
-    public Color colorUnselected = Color.valueOf("767676");
+    public Color colorSelected = Color.valueOf("0075FF"); // TODO: grab from theme
+    public Color colorUnselected = Color.valueOf("767676"); // TODO: grab from theme
     public float radius = 7;
 
-    public WidgetNodeInputOptions(String... options) {
+    public WidgetNodeInputOptions(int defaultSelected, String... options) {
+        layout = Layout.FILL_ROWS;
+        layoutHeightSizing = Sizing.DYNAMIC;
+        layoutWidthSizing = Sizing.DYNAMIC;
+        layoutRowCapacity = 5;
+        layoutColumnCapacity = 5;
+        layoutOverflowX = Overflow.VISIBLE;
+        layoutOverflowY = Overflow.VISIBLE;
+        boxBackgroundVisible = false;
+        boxBorderSize = 0;
+
         for (String option : options) {
             if (option == null) continue;
             this.options.add(option);
         }
-        this.selectedOption = 0;
-    }
 
-    @Override
-    protected void draw(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
-        float offset_x = -getWidth() * 0.25f;
-        for (int i = 0; i < options.size; i++) {
-            String option = options.get(i);
-            drawOption(renderer2D, option, i == selectedOption, x + offset_x, y, deg, sclX, sclY);
-            offset_x += getOptionWidth(option) + layoutChildSpacing;
+        if (defaultSelected < 0 || defaultSelected >= this.options.size) defaultSelected = 0;
+        for (int i = 0; i < this.options.size; i++) {
+            String option = this.options.get(i);
+            boolean selected = i == defaultSelected;
+            WidgetNodeOption optionWidget = new WidgetNodeOption(option, selected ? Color.valueOf("0075FF") : Color.valueOf("767676"));
+            optionWidget.selected = selected;
+            addChild(optionWidget);
         }
-    }
-
-    protected void drawOption(Renderer2D renderer2D, String option, boolean selected, float x, float y, float deg, float sclX, float sclY) {
-        renderer2D.setColor(selected ? colorSelected : colorUnselected);
-        renderer2D.drawCircleFilled(radius, 20, x - getOptionWidth(option) * 0.5f - layoutInnerSpacing, y, deg, sclX, sclY);
-        renderer2D.setColor(Widgets.themeTextColor);
-        renderer2D.drawStringLine(option, Widgets.themeTextSize, Widgets.themeTextAntialiasing, x, y, deg, sclX, sclY);
-    }
-
-
-    private float getOptionWidth(String option) {
-        return radius * 2 + layoutInnerSpacing + Renderer2D.calculateStringLineWidth(option, null, Widgets.themeTextSize, Widgets.themeTextAntialiasing);
-    }
-
-    private float getOptionHeight(String option) {
-        return Math.max(radius * 2, Widgets.themeTextSize);
-    }
-
-    @Override
-    protected float getWidth() {
-        float sum = 0;
-        for (String option : options) {
-            sum += getOptionWidth(option) + layoutChildSpacing;
-        }
-        sum -= layoutChildSpacing;
-        return sum;
-    }
-
-    @Override
-    protected float getHeight() {
-        float max = 0;
-        max = Math.max(max, Widgets.themeTextSize);
-        max = Math.max(max, radius * 2);
-        return max;
     }
 
     @Override
@@ -75,15 +47,64 @@ public class WidgetNodeInputOptions extends WidgetNode implements WidgetNodeInpu
     }
 
     @Override
-    protected boolean onMouseLeftClickDefault(Event.EventMouseLeftClick e) {
-        // TODO: select option
-        return true;
+    public void setValue(Integer value) {
+        if (value == null || value < 0 || value >= options.size) {
+            selectedOption = 0;
+            return;
+        }
+
+        selectedOption = value;
+
+        for (int i = 0; i < children.size; i++) {
+            WidgetNode child = children.get(i);
+            if (!(child instanceof WidgetNodeOption)) continue;
+            WidgetNodeOption option = (WidgetNodeOption) child;
+            option.selected = i == selectedOption;
+            option.circle.color = option.selected ? colorSelected : colorUnselected;
+        }
     }
 
-    @Override
-    public void setValue(Integer value) {
-        this.selectedOption = value;
-        if (this.selectedOption >= options.size) this.selectedOption = 0;
+    private void selectOption(WidgetNodeOption option) {
+        for (int i = 0; i < children.size; i++) {
+            WidgetNode child = children.get(i);
+            if (option == child) {
+                setValue(i);
+                return;
+            }
+        }
+    }
+
+    private static final class WidgetNodeOption extends WidgetNodeContainerHorizontal {
+
+        private boolean selected = false;
+
+        private final WidgetNodeShapeCircle circle;
+        private final WidgetNodeText optionText;
+
+        WidgetNodeOption(String option, final Color color) {
+            WidgetNodeOption.this.boxBackgroundVisible = false;
+            WidgetNodeOption.this.layoutOverflowX = Overflow.VISIBLE;
+            WidgetNodeOption.this.layoutOverflowY = Overflow.VISIBLE;
+            WidgetNodeOption.this.layoutWidthSizing = Sizing.DYNAMIC;
+            WidgetNodeOption.this.layoutHeightSizing = Sizing.DYNAMIC;
+            WidgetNodeOption.this.boxBorderSize = 0;
+            WidgetNodeOption.this.boxChildSpacing = 5;
+            WidgetNodeOption.this.layoutAddScrollbar = false;
+
+            circle = new WidgetNodeShapeCircle(8, 16, color);
+            optionText = new WidgetNodeText(option);
+
+            addChild(circle);
+            addChild(optionText);
+        }
+
+        @Override
+        protected boolean onMouseLeftClickDefault(Event.EventMouseLeftClick e) {
+            WidgetNodeInputOptions parent = (WidgetNodeInputOptions) getParent();
+            parent.selectOption(this);
+            return false;
+        }
+
     }
 
 }

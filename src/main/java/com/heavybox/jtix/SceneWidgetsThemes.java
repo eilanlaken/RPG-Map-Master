@@ -44,16 +44,16 @@ public class SceneWidgetsThemes implements Scene {
         Theme theme = Assets.get("assets/user-interface-theme/widgets-theme.yml");
         Widgets.setGlobalTheme(theme);
         checkbox = new WidgetNodeInputCheckbox();
-        options = new WidgetNodeInputOptions("hello", "popo");
+        options = new WidgetNodeInputOptions(3,"hello", "bye", "123");
 
         grid.boxPaddingBottom = 2;
-        grid.boxPaddingTop = 2;
+        grid.boxPaddingTop = 20;
         grid.boxPaddingLeft = 233;
         grid.boxPaddingRight = 44;
         grid.layout = WidgetNodeContainerGrid.Layout.FILL_ROWS;
         grid.layoutRowCapacity = 4;
 
-        widget.addNode(grid);
+        widget.addNode(options);
     }
 
     @Override

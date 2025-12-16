@@ -88,7 +88,8 @@ public class WidgetNodeContainerHorizontal extends WidgetNode implements WidgetN
         float horizontalOverflow = width - contentWidth - boxPaddingLeft - boxPaddingRight;
 
         scrollbar.active = layoutAddScrollbar;
-        if (horizontalOverflow > 0) scrollbar.active = false;
+        if (horizontalOverflow >= 0) scrollbar.active = false;
+        System.out.println(horizontalOverflow);
 
         if (!scrollbar.active) {
             scrollOffsetX = 0; // reset scroll value if scrolling is disabled.

@@ -90,7 +90,7 @@ public class WidgetNodeContainerVertical extends WidgetNode implements WidgetNod
         float verticalOverflow = height - contentHeight - boxPaddingTop - boxPaddingBottom;
 
         scrollbar.active = layoutAddScrollbar;
-        if (verticalOverflow > 0) scrollbar.active = false;
+        if (verticalOverflow >= 0) scrollbar.active = false;
 
         if (!scrollbar.active) {
             scrollOffsetY = 0; // reset scroll value if scrolling is disabled.

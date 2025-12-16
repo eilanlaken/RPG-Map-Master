@@ -595,6 +595,8 @@ public abstract class WidgetNode {
         return parent != null;
     }
 
+    public WidgetNode getParent() { return parent; }
+
     public boolean hasChildren() {
         return !children.isEmpty();
     }
