@@ -44,7 +44,7 @@ public class SceneWidgetsThemes implements Scene {
         Theme theme = Assets.get("assets/user-interface-theme/widgets-theme.yml");
         Widgets.setGlobalTheme(theme);
         checkbox = new WidgetNodeInputCheckbox();
-        options = new WidgetNodeInputOptions(3,"hello", "bye", "123");
+        options = new WidgetNodeInputOptions(3,"hello", "bye", "123", "hhhhh", "kkkkk", "jjjjjj");
 
         grid.boxPaddingBottom = 2;
         grid.boxPaddingTop = 20;
