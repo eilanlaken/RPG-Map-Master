@@ -14,9 +14,6 @@ import java.util.regex.Pattern;
 
 public class Shader implements MemoryResource {
 
-    @Deprecated private static final Pattern GLSL_COMMENT_PATTERN   = Pattern.compile("//.*|/\\*[^*]*\\*+(?:[^/*][^*]*\\*+)*/");
-    @Deprecated private static final Pattern GLSL_LAYOUT_IN_PATTERN = Pattern.compile("layout\\s*\\(\\s*location\\s*=\\s*\\d+\\s*\\)\\s*(in|attribute)");
-
     private boolean deleted = false;
 
     public final String vertexShaderSource;
@@ -307,18 +304,6 @@ public class Shader implements MemoryResource {
 
     public boolean hasVertexAttribute(final VertexAttribute attribute) {
         return (vertexAttributesBitmask & attribute.bitmask) != 0;
-    }
-
-    @Deprecated private String preprocessVertexShader(final String vertexShaderSource) {
-        Matcher comments = GLSL_COMMENT_PATTERN.matcher(vertexShaderSource);
-        String noComments = comments.replaceAll("");
-        Matcher layouts = GLSL_LAYOUT_IN_PATTERN.matcher(noComments);
-        return layouts.replaceAll("in");
-    }
-
-    @Deprecated private String preprocessFragmentShader(final String fragmentShaderSource) {
-        // TODO: see how this should be preprocessed
-        return fragmentShaderSource;
     }
 
     // TODO: maybe change back to protected. This is very error prone because a uniform bind is a state change that must be observed by the Renderer2D.
