@@ -7,6 +7,7 @@ import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.graphics.TextureRegion;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Keyboard;
+import com.heavybox.jtix.math.MathUtils;
 
 public class ToolDebug extends Tool {
 
@@ -56,6 +57,7 @@ public class ToolDebug extends Tool {
 
     @Override
     public void activate() {
+        System.out.println("active");
         tokensPreview.clear();
 
         if (brushMode == BrushMode.POINT) {
@@ -66,8 +68,17 @@ public class ToolDebug extends Tool {
     // TODO
     private void fillCircleWithTokens() {
         tokensPreview.clear();
-        for (int i = 0; i < batchCount; i++) {
+        float slice = 2.0f * MathUtils.PI / batchCount;
 
+        for (int i = 0; i < batchCount; i++) {
+            float radius = MathUtils.randomUniformFloat(0,1) * spreadRadius; // distance from center
+            float angle  = i * slice + MathUtils.randomUniformFloat(0,1) * slice;
+
+            float offsetX = MathUtils.cosRad(angle) * radius;
+            float offsetY = MathUtils.sinRad(angle) * radius;
+
+            MapTokenDebug token = new MapTokenDebug(Color.randomOpaque(), x + offsetX, y + offsetY, 0, 1,1);
+            tokensPreview.add(token);
         }
     }
 
@@ -111,6 +122,7 @@ public class ToolDebug extends Tool {
             renderer2D.setColor(tint);
             renderer2D.drawRectangleFilled(60,30,x + toolX,y + toolY,deg,sclX,sclY);
         }
+
     }
 
 }

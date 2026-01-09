@@ -31,6 +31,7 @@ public final class Tools {
         toolDebug = new ToolDebug(scene);
 
         tools.add(toolDebug);
+        selectTool(0);
     }
 
     public static void selectTool(int index) {

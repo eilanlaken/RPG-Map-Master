@@ -89,8 +89,7 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
 
         map = new Map(false);
 
-        // TODO: replace with static Tools
-        Tools.initTools(this);
+
 
         tools[0] = new ToolBrushTerrain(map);
         tools[1] = new ToolBrushFields(map);
@@ -118,11 +117,9 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
 
     @Override
     public void start() {
-        Font f = Widgets.themeTextFont;
-        String str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789|,.:";
-
         camera.update();
-
+        // TODO: replace with static Tools
+        Tools.initTools(this);
     }
 
 
