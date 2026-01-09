@@ -1,5 +1,6 @@
 package com.heavybox.jtix.z;
 
+import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.TextureRegion;
 
 import java.util.Arrays;
@@ -7,6 +8,7 @@ import java.util.Objects;
 
 public class CommandTokenCreate extends Command {
 
+    public Color tint = Color.WHITE;
     public MapToken.Type type = MapToken.Type.UNSPECIFIED;
     public TextureRegion[] regions;
 

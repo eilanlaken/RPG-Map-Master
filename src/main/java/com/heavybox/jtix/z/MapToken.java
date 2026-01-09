@@ -1,10 +1,12 @@
 package com.heavybox.jtix.z;
 
+import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.graphics.TextureRegion;
 
 public class MapToken {
 
+    public Color tint = Color.WHITE;
     public Type type = Type.UNSPECIFIED;
     public final int layer;
     public float x, y, deg, sclX, sclY;
@@ -31,15 +33,19 @@ public class MapToken {
     }
 
     public void render(Renderer2D renderer2D) {
+        renderer2D.setColor(tint);
         for (TextureRegion region : regions) {
             renderer2D.drawTextureRegion(region, x, y, deg, sclX, sclY);
         }
+        renderer2D.setColor(Color.WHITE);
     }
 
     public void renderPreview(Renderer2D renderer2D, float toolX, float toolY) {
+        renderer2D.setColor(tint);
         for (TextureRegion region : regions) {
             renderer2D.drawTextureRegion(region, x + toolX, y + toolY, deg, sclX, sclY);
         }
+        renderer2D.setColor(Color.WHITE);
     }
 
     public enum Type {

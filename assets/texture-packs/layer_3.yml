@@ -6347,7 +6347,7 @@ regions:
   packedHeight: 29
   packedWidth: 153
   textureIndex: 0
-  x: 874
+  x: 938
   y: 2141
 - name: assets/textures-layer-3/hills_green_1.png
   offsetX: 34
@@ -6357,7 +6357,7 @@ regions:
   packedHeight: 29
   packedWidth: 153
   textureIndex: 0
-  x: 1031
+  x: 1095
   y: 2141
 - name: assets/textures-layer-3/castle_building_narrow_short_orc_0.png
   offsetX: 66
@@ -7489,6 +7489,16 @@ regions:
   textureIndex: 0
   x: 4026
   y: 2138
+- name: assets/textures-layer-3/debug_rect.png
+  offsetX: 0
+  offsetY: 0
+  originalHeight: 30
+  originalWidth: 60
+  packedHeight: 30
+  packedWidth: 60
+  textureIndex: 0
+  x: 874
+  y: 2141
 - name: assets/textures-layer-3/prop_barrels_0.png
   offsetX: 45
   offsetY: 47
@@ -7537,7 +7547,7 @@ regions:
   packedHeight: 27
   packedWidth: 62
   textureIndex: 0
-  x: 1188
+  x: 1327
   y: 2141
 - name: assets/textures-layer-3/prop_flower_rose_1.png
   offsetX: 40
@@ -7577,7 +7587,7 @@ regions:
   packedHeight: 27
   packedWidth: 49
   textureIndex: 0
-  x: 1327
+  x: 1393
   y: 2141
 - name: assets/textures-layer-3/prop_road_signs_4.png
   offsetX: 20
@@ -7607,7 +7617,7 @@ regions:
   packedHeight: 39
   packedWidth: 32
   textureIndex: 0
-  x: 2851
+  x: 3990
   y: 2139
 - name: assets/textures-layer-3/prop_wild_egg_brown_5.png
   offsetX: 3
@@ -7617,7 +7627,7 @@ regions:
   packedHeight: 39
   packedWidth: 32
   textureIndex: 0
-  x: 3990
+  x: 2851
   y: 2139
 - name: assets/textures-layer-3/prop_sack_5.png
   offsetX: 15
@@ -7677,7 +7687,7 @@ regions:
   packedHeight: 22
   packedWidth: 49
   textureIndex: 0
-  x: 1433
+  x: 1499
   y: 2141
 - name: assets/textures-layer-3/prop_lodge_5.png
   offsetX: 39
@@ -7687,7 +7697,7 @@ regions:
   packedHeight: 22
   packedWidth: 49
   textureIndex: 0
-  x: 1380
+  x: 1446
   y: 2141
 - name: assets/textures-layer-3/prop_sack_3.png
   offsetX: 15
@@ -7697,7 +7707,7 @@ regions:
   packedHeight: 32
   packedWidth: 33
   textureIndex: 0
-  x: 800
+  x: 837
   y: 2141
 - name: assets/textures-layer-3/prop_sack_4.png
   offsetX: 15
@@ -7707,7 +7717,7 @@ regions:
   packedHeight: 32
   packedWidth: 33
   textureIndex: 0
-  x: 837
+  x: 800
   y: 2141
 - name: assets/textures-layer-3/prop_pile_1.png
   offsetX: 43
@@ -7717,7 +7727,7 @@ regions:
   packedHeight: 22
   packedWidth: 44
   textureIndex: 0
-  x: 1486
+  x: 1552
   y: 2141
 - name: assets/textures-layer-3/prop_sack_2.png
   offsetX: 20
@@ -7737,7 +7747,7 @@ regions:
   packedHeight: 15
   packedWidth: 47
   textureIndex: 0
-  x: 1607
+  x: 1673
   y: 2141
 - name: assets/textures-layer-3/prop_fence_bar.png
   offsetX: 60
@@ -7747,7 +7757,7 @@ regions:
   packedHeight: 15
   packedWidth: 47
   textureIndex: 0
-  x: 1556
+  x: 1622
   y: 2141
 - name: assets/textures-layer-3/prop_sack_1.png
   offsetX: 20
@@ -7757,7 +7767,7 @@ regions:
   packedHeight: 26
   packedWidth: 22
   textureIndex: 0
-  x: 1254
+  x: 1252
   y: 2141
 - name: assets/textures-layer-3/prop_chopped_trunk.png
   offsetX: 54
@@ -7777,7 +7787,7 @@ regions:
   packedHeight: 21
   packedWidth: 18
   textureIndex: 0
-  x: 1534
+  x: 1600
   y: 2141
 - name: assets/textures-layer-3/prop_fence_post.png
   offsetX: 56
@@ -7797,7 +7807,7 @@ regions:
   packedHeight: 11
   packedWidth: 17
   textureIndex: 0
-  x: 1658
+  x: 1724
   y: 2141
 - name: assets/textures-layer-3/stone_small_5.png
   offsetX: 23
@@ -7847,7 +7857,7 @@ regions:
   packedHeight: 10
   packedWidth: 17
   textureIndex: 0
-  x: 1679
+  x: 1745
   y: 2141
 - name: assets/textures-layer-3/stone_small_1.png
   offsetX: 23
@@ -7857,7 +7867,7 @@ regions:
   packedHeight: 10
   packedWidth: 17
   textureIndex: 0
-  x: 1700
+  x: 1766
   y: 2141
 - name: assets/textures-layer-3/prop_fence_high_0.png
   offsetX: 13
@@ -7897,7 +7907,7 @@ regions:
   packedHeight: 8
   packedWidth: 15
   textureIndex: 0
-  x: 1740
+  x: 1806
   y: 2141
 - name: assets/textures-layer-3/stone_small_3.png
   offsetX: 25
@@ -7907,7 +7917,7 @@ regions:
   packedHeight: 8
   packedWidth: 15
   textureIndex: 0
-  x: 1721
+  x: 1787
   y: 2141
 textures:
 - file: layer_3_0.png
