@@ -1,20 +1,34 @@
 package com.heavybox.jtix.z;
 
+import com.heavybox.jtix.RPGMapMakerScene;
 import com.heavybox.jtix.graphics.Renderer2D;
 
 public abstract class Tool {
 
+    public static final float MINIMUM_TOKEN_SPACING = 0.5f;
+
     // TODO
-    public BrushMode brushMode;
-    public float density = 0.5f;
+    public BrushMode brushMode = BrushMode.POINT;
+    public boolean free = true;
+    public int batchCount = 1;
+    public float spreadRadius = 5; // in pixels
 
-    public float x, y;
-    public float deg;
-    public float sclX = 1, sclY = 1;
-    protected final Map map;
+    public float x    = 0;
+    public float y    = 0;
+    public float deg  = 0;
+    public float sclX = 1;
+    public float sclY = 1;
 
-    public Tool(Map map) {
+    protected Map map;
+    protected RPGMapMakerScene scene;
+
+    @Deprecated public Tool(Map map) {
         this.map = map;
+    }
+
+    public Tool(RPGMapMakerScene scene) {
+        this.scene = scene;
+        this.map = scene.getMap();
     }
 
     public abstract void update(float delta);

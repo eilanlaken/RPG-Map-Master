@@ -30,7 +30,7 @@ public class Map {
     public Array<Command> commandsHistory = new Array<>(true, 10);
     public Array<Command> commandsQueue = new Array<>(true, 10);
 
-    public final Camera camera = new Camera(Camera.Mode.ORTHOGRAPHIC, 1920, 1080, 1, 0, 100, 75);
+    private final Camera camera = new Camera(Camera.Mode.ORTHOGRAPHIC, 1920, 1080, 1, 0, 100, 75);
 
 
     private boolean needsRedraw = false;

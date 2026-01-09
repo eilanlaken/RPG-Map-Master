@@ -21,7 +21,7 @@ public class ToolBrushTrees extends Tool {
     public static final String[] FRUIT_COLORS = {"red", "orange", "green"};
     public static final String[] TREE_COLORS = {"green", "red", "yellow"};
 
-    public Mode mode = Mode.REGULAR;
+    public TreeType treeType = TreeType.REGULAR;
     public int batchSize = 10;
     public boolean addLeaves = true;
     public float addTrunkProbability = 1.0f;
@@ -53,12 +53,12 @@ public class ToolBrushTrees extends Tool {
     public void update(float delta) {
         // tool settings - mode
         if (Input.mouse.getVerticalScroll() > 0 && Input.keyboard.isKeyPressed(Keyboard.Key.LEFT_CONTROL)) {
-            mode = Mode.values()[(mode.ordinal() + 1) % Mode.values().length]; // next
-            System.out.println(mode);
+            treeType = TreeType.values()[(treeType.ordinal() + 1) % TreeType.values().length]; // next
+            System.out.println(treeType);
             return;
         } else if (Input.mouse.getVerticalScroll() < 0 && Input.keyboard.isKeyPressed(Keyboard.Key.LEFT_CONTROL)) {
-            mode = Mode.values()[(mode.ordinal() - 1 + Mode.values().length) % Mode.values().length];
-            System.out.println(mode);
+            treeType = TreeType.values()[(treeType.ordinal() - 1 + TreeType.values().length) % TreeType.values().length];
+            System.out.println(treeType);
             return;
         }
         // tool settings - tree colors
@@ -142,20 +142,20 @@ public class ToolBrushTrees extends Tool {
 
             setPositions();
 
-            if (mode == Mode.REGULAR) {
+            if (treeType == TreeType.REGULAR) {
                 int i = 0;
                 for (Vector2 position : positions) {
                     float x = position.x;
                     float y = position.y;
                     List<String> treeColorsList = new ArrayList<>(treeColors);
                     String treeColor = treeColorsList.get(MathUtils.randomUniformInt(0, treeColorsList.size()));
-                    TextureRegion base = addLeaves ? layer3.getRegion("assets/textures-layer-3/tree_" + mode.name().toLowerCase() + "_" + treeColor + "_" + MathUtils.randomUniformInt(0, 6) + ".png") : null;
+                    TextureRegion base = addLeaves ? layer3.getRegion("assets/textures-layer-3/tree_" + treeType.name().toLowerCase() + "_" + treeColor + "_" + MathUtils.randomUniformInt(0, 6) + ".png") : null;
                     boolean addTrunk = MathUtils.randomUniformFloat(0, 1) < addTrunkProbability;
-                    TextureRegion trunk = addTrunk ? layer3.getRegion("assets/textures-layer-3/tree_" + mode.name().toLowerCase() + "_trunk_" + MathUtils.randomUniformInt(1, 6) + ".png") : null;
+                    TextureRegion trunk = addTrunk ? layer3.getRegion("assets/textures-layer-3/tree_" + treeType.name().toLowerCase() + "_trunk_" + MathUtils.randomUniformInt(1, 6) + ".png") : null;
                     boolean addFruits = addLeaves && MathUtils.randomUniformFloat(0, 1) < addFruitsProbability;
                     List<String> fruitColorsList = new ArrayList<>(fruitColors);
                     String fruitColor = fruitColorsList.get(MathUtils.randomUniformInt(0, fruitColorsList.size()));
-                    TextureRegion fruits = addFruits ? layer3.getRegion("assets/textures-layer-3/tree_" + mode.name().toLowerCase() + "_fruits_" + fruitColor + ".png") : null;
+                    TextureRegion fruits = addFruits ? layer3.getRegion("assets/textures-layer-3/tree_" + treeType.name().toLowerCase() + "_fruits_" + fruitColor + ".png") : null;
                     CommandTokenCreate createPlant = new CommandTokenCreate(
                             3,
                             x, y, deg, sclX, sclY, true,
@@ -168,18 +168,18 @@ public class ToolBrushTrees extends Tool {
                 return;
             }
 
-            if (mode == Mode.CYPRESS) {
+            if (treeType == TreeType.CYPRESS) {
                 int i = 0;
                 for (Vector2 position : positions) {
                     float x = position.x;
                     float y = position.y;
-                    TextureRegion base = addLeaves ? layer3.getRegion("assets/textures-layer-3/tree_" + mode.name().toLowerCase() + "_" + MathUtils.randomUniformInt(0, 6) + ".png") : null;
+                    TextureRegion base = addLeaves ? layer3.getRegion("assets/textures-layer-3/tree_" + treeType.name().toLowerCase() + "_" + MathUtils.randomUniformInt(0, 6) + ".png") : null;
                     boolean addTrunk = MathUtils.randomUniformFloat(0, 1) < addTrunkProbability;
-                    TextureRegion trunk = addTrunk ? layer3.getRegion("assets/textures-layer-3/tree_" + mode.name().toLowerCase() + "_trunk_" + MathUtils.randomUniformInt(1, 6) + ".png") : null;
+                    TextureRegion trunk = addTrunk ? layer3.getRegion("assets/textures-layer-3/tree_" + treeType.name().toLowerCase() + "_trunk_" + MathUtils.randomUniformInt(1, 6) + ".png") : null;
                     boolean addFruits = addLeaves && MathUtils.randomUniformFloat(0, 1) < addFruitsProbability;
                     List<String> fruitColorsList = new ArrayList<>(fruitColors);
                     String fruitColor = fruitColorsList.get(MathUtils.randomUniformInt(0, fruitColorsList.size()));
-                    TextureRegion fruits = addFruits ? layer3.getRegion("assets/textures-layer-3/tree_" + mode.name().toLowerCase() + "_fruits_" + fruitColor + ".png") : null;
+                    TextureRegion fruits = addFruits ? layer3.getRegion("assets/textures-layer-3/tree_" + treeType.name().toLowerCase() + "_fruits_" + fruitColor + ".png") : null;
                     CommandTokenCreate createPlant = new CommandTokenCreate(
                             3,
                             x, y, deg, sclX, sclY, true,
@@ -192,16 +192,16 @@ public class ToolBrushTrees extends Tool {
                 return;
             }
 
-            if (mode == Mode.SPARSE) {
+            if (treeType == TreeType.SPARSE) {
                 int i = 0;
                 for (Vector2 position : positions) {
                     float x = position.x;
                     float y = position.y;
-                    TextureRegion base = layer3.getRegion("assets/textures-layer-3/tree_" + mode.name().toLowerCase() + "_" + MathUtils.randomUniformInt(0, 6) + ".png");
+                    TextureRegion base = layer3.getRegion("assets/textures-layer-3/tree_" + treeType.name().toLowerCase() + "_" + MathUtils.randomUniformInt(0, 6) + ".png");
                     boolean addFruits = MathUtils.randomUniformFloat(0, 1) < addFruitsProbability;
                     List<String> fruitColorsList = new ArrayList<>(fruitColors);
                     String fruitColor = fruitColorsList.get(MathUtils.randomUniformInt(0, fruitColorsList.size()));
-                    TextureRegion fruits = addFruits ? layer3.getRegion("assets/textures-layer-3/tree_" + mode.name().toLowerCase() + "_fruits_" + fruitColor + ".png") : null;
+                    TextureRegion fruits = addFruits ? layer3.getRegion("assets/textures-layer-3/tree_" + treeType.name().toLowerCase() + "_fruits_" + fruitColor + ".png") : null;
                     CommandTokenCreate createPlant = new CommandTokenCreate(
                             3,
                             x, y, deg, 2 * sclX, 2 * sclY, true,
@@ -214,7 +214,7 @@ public class ToolBrushTrees extends Tool {
                 return;
             }
 
-            if (mode == Mode.BUSH) {
+            if (treeType == TreeType.BUSH) {
                 int i = 0;
                 for (Vector2 position : positions) {
                     float x = position.x;
@@ -223,7 +223,7 @@ public class ToolBrushTrees extends Tool {
                     boolean addFruits = MathUtils.randomUniformFloat(0, 1) < addFruitsProbability;
                     List<String> fruitColorsList = new ArrayList<>(fruitColors);
                     String fruitColor = fruitColorsList.get(MathUtils.randomUniformInt(0, fruitColorsList.size()));
-                    TextureRegion fruits = addFruits ? layer3.getRegion("assets/textures-layer-3/tree_" + mode.name().toLowerCase() + "_fruits_" + fruitColor + ".png") : null;
+                    TextureRegion fruits = addFruits ? layer3.getRegion("assets/textures-layer-3/tree_" + treeType.name().toLowerCase() + "_fruits_" + fruitColor + ".png") : null;
                     CommandTokenCreate createPlant = new CommandTokenCreate(
                             3,
                             x, y, deg, sclX, sclY, true, base, fruits
@@ -287,7 +287,7 @@ public class ToolBrushTrees extends Tool {
 
     }
 
-    public enum Mode {
+    public enum TreeType {
         REGULAR,
         CYPRESS,
         SPARSE,

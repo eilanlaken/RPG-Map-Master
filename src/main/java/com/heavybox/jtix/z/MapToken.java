@@ -36,6 +36,12 @@ public class MapToken {
         }
     }
 
+    public void renderPreview(Renderer2D renderer2D, float toolX, float toolY) {
+        for (TextureRegion region : regions) {
+            renderer2D.drawTextureRegion(region, x + toolX, y + toolY, deg, sclX, sclY);
+        }
+    }
+
     public enum Type {
         UNSPECIFIED,
         TREE,

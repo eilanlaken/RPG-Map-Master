@@ -18,7 +18,7 @@ import org.lwjgl.opengl.GL11;
 // https://www.youtube.com/watch?v=5gDC1GU3Ivg
 public class SceneDemo implements Scene, RPGMapMakerScene {
 
-    private Renderer2D renderer2D;
+    private final Renderer2D renderer2D;
     public final Camera camera = new Camera(Camera.Mode.ORTHOGRAPHIC, Graphics.getWindowWidth(), Graphics.getWindowHeight(), 2, 0, 100, 75);
 
     // tools - refactor immediately after working version
@@ -89,6 +89,9 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
 
         map = new Map(false);
 
+        // TODO: replace with static Tools
+        Tools.initTools(this);
+
         tools[0] = new ToolBrushTerrain(map);
         tools[1] = new ToolBrushFields(map);
         tools[2] = new ToolBrushTrees(map);
@@ -153,43 +156,43 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
             return;
         }
 
-        // handle keyboard input
-        if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KEY_1) && activeTool != 0) {
-            tools[activeTool].deactivate();
-            activeTool = 0; // terrain tool
-            tools[activeTool].activate();
-        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KEY_2) && activeTool != 1) {
-            tools[activeTool].deactivate();
-            activeTool = 1; // tree tool
-            tools[activeTool].activate();
-        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KEY_3) && activeTool != 2) {
-            tools[activeTool].deactivate();
-            activeTool = 2; //
-            tools[activeTool].activate();
-        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KEY_4) && activeTool != 3) {
-            tools[activeTool].deactivate();
-            activeTool = 3; //
-            tools[activeTool].activate();
-        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KEY_5) && activeTool != 4) {
-            tools[activeTool].deactivate();
-            activeTool = 4; //
-            tools[activeTool].activate();
-        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KEY_6) && activeTool != 5) {
-            tools[activeTool].deactivate();
-            activeTool = 5; //
-            tools[activeTool].activate();
-        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KEY_7) && activeTool != 6) {
-            tools[activeTool].deactivate();
-            activeTool = 6; //
-            tools[activeTool].activate();
-        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KEY_8) && activeTool != 7) {
-            tools[activeTool].deactivate();
-            activeTool = 7; //
-            tools[activeTool].activate();
-        }
-        tools[activeTool].x = screen.x;
-        tools[activeTool].y = screen.y;
-        tools[activeTool].update(Graphics.getDeltaTime());
+//        // handle keyboard input
+//        if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KEY_1) && activeTool != 0) {
+//            tools[activeTool].deactivate();
+//            activeTool = 0; // terrain tool
+//            tools[activeTool].activate();
+//        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KEY_2) && activeTool != 1) {
+//            tools[activeTool].deactivate();
+//            activeTool = 1; // tree tool
+//            tools[activeTool].activate();
+//        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KEY_3) && activeTool != 2) {
+//            tools[activeTool].deactivate();
+//            activeTool = 2; //
+//            tools[activeTool].activate();
+//        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KEY_4) && activeTool != 3) {
+//            tools[activeTool].deactivate();
+//            activeTool = 3; //
+//            tools[activeTool].activate();
+//        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KEY_5) && activeTool != 4) {
+//            tools[activeTool].deactivate();
+//            activeTool = 4; //
+//            tools[activeTool].activate();
+//        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KEY_6) && activeTool != 5) {
+//            tools[activeTool].deactivate();
+//            activeTool = 5; //
+//            tools[activeTool].activate();
+//        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KEY_7) && activeTool != 6) {
+//            tools[activeTool].deactivate();
+//            activeTool = 6; //
+//            tools[activeTool].activate();
+//        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KEY_8) && activeTool != 7) {
+//            tools[activeTool].deactivate();
+//            activeTool = 7; //
+//            tools[activeTool].activate();
+//        }
+//        tools[activeTool].x = screen.x;
+//        tools[activeTool].y = screen.y;
+//        tools[activeTool].update(Graphics.getDeltaTime());
 
         // export placeholder
         if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KP_0)) {
@@ -206,14 +209,8 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
             map.exportLayerAsImage(5);
         }
 
-
-        widgetActionsBar.update();
-        widgetStatisticsBar.update();
-        widgetTools.update();
-
         map.update(delta);
         map.render(renderer2D);
-
         FrameBufferBinder.bind(null);
         GL11.glClearColor(0.01f,0.01f,0.01f,1);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_STENCIL_BUFFER_BIT); // should probably clear the stencil
@@ -221,16 +218,24 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
         renderer2D.drawTexture(map.getTexture(), 0, 0, 0, 1, 1);
         renderer2D.end();
 
+        // update tools
+        Tools.update();
         // draw tools overlay
         renderer2D.begin(camera);
-        if (activeTool != -1) tools[activeTool].renderToolOverlay(renderer2D, screen.x, screen.y);
+        //if (activeTool != -1) tools[activeTool].renderToolOverlay(renderer2D, screen.x, screen.y);
+        Tools.render(renderer2D, screen.x, screen.y);
         renderer2D.end();
 
-        // draw UI
+        // update user interface
+        widgetActionsBar.update();
+        widgetStatisticsBar.update();
+        widgetTools.update();
+
+        // render user interface
         renderer2D.begin();
-        widgetActionsBar.render(renderer2D);
-        widgetStatisticsBar.render(renderer2D);
-        widgetTools.render(renderer2D);
+//        widgetActionsBar.render(renderer2D);
+//        widgetStatisticsBar.render(renderer2D);
+//        widgetTools.render(renderer2D);
         renderer2D.end();
 
     }
