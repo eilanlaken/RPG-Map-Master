@@ -187,10 +187,8 @@ public class ToolDebug extends Tool {
         for (int i = 0; i < batchCount; i++) {
             float radius = MathUtils.randomUniformFloat(0,1) * spreadRadius; // distance from center
             float angle  = angleOffset + i * half_slice + MathUtils.randomUniformFloat(0,1);
-
             float offsetX = MathUtils.cosRad(angle) * radius;
             float offsetY = MathUtils.sinRad(angle) * radius;
-
             MapToken token = new MapToken(3, lineStart.x + offsetX, lineStart.y + offsetY, 0, 1,1, atlas.getRegion("assets/textures-layer-3/debug_rect.png"));
             token.tint = Color.randomOpaque();
             tokensPreview.add(token);
@@ -216,10 +214,8 @@ public class ToolDebug extends Tool {
         for (int i = 0; i < batchCount; i++) {
             float radius = MathUtils.randomUniformFloat(0,1) * spreadRadius; // distance from center
             float angle  = angleOffset + i * half_slice + MathUtils.randomUniformFloat(0,1) + MathUtils.PI;
-
             float offsetX = MathUtils.cosRad(angle) * radius;
             float offsetY = MathUtils.sinRad(angle) * radius;
-
             MapToken token = new MapToken(3, x + offsetX, y + offsetY, 0, 1,1, atlas.getRegion("assets/textures-layer-3/debug_rect.png"));
             token.tint = Color.randomOpaque();
             tokensPreview.add(token);
