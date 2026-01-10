@@ -1,5 +1,6 @@
 package com.heavybox.jtix.z;
 
+import com.heavybox.jtix.RPGMapMakerScene;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Renderer2D;
@@ -17,8 +18,8 @@ public class ToolBrushGround extends Tool {
     public TexturePack layer3;
     public TextureRegion region;
 
-    public ToolBrushGround(Map map) {
-        super(map);
+    public ToolBrushGround(RPGMapMakerScene scene) {
+        super(scene);
         layer3 = Assets.get("assets/texture-packs/layer_3.yml");
         region = layer3.getRegion("assets/textures-layer-3/mountains_brown_0.png");
         sclX = 0.5f;

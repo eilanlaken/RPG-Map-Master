@@ -126,6 +126,7 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
     @Override
     public void update() {
         float delta = Graphics.getDeltaTime();
+
         // handle mouse input and camera movement
         Vector3 screen = new Vector3(Input.mouse.getX(), Input.mouse.getY(), 0);
         camera.unProject(screen);

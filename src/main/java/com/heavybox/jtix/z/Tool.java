@@ -1,7 +1,9 @@
 package com.heavybox.jtix.z;
 
 import com.heavybox.jtix.RPGMapMakerScene;
+import com.heavybox.jtix.collections.Collections;
 import com.heavybox.jtix.graphics.Renderer2D;
+import com.heavybox.jtix.math.Vector2;
 
 public abstract class Tool {
 
@@ -12,6 +14,8 @@ public abstract class Tool {
     public boolean free = true;
     public int batchCount = 33;
     public float spreadRadius = 155; // in pixels
+    public Vector2 lineStart = new Vector2();
+    public Vector2 lineEnd = new Vector2();
 
     public float x    = 0;
     public float y    = 0;
@@ -22,14 +26,18 @@ public abstract class Tool {
     protected Map map;
     protected RPGMapMakerScene scene;
 
-    @Deprecated public Tool(Map map) {
-        this.map = map;
-    }
-
     public Tool(RPGMapMakerScene scene) {
         this.scene = scene;
         this.map = scene.getMap();
     }
+
+    public void switchToNextBrushMode() {
+        onSwitchMode();
+        free = true;
+        brushMode = Collections.enumNext(brushMode);
+    }
+
+    protected void onSwitchMode() {}
 
     public abstract void update(float delta);
     public abstract void renderToolOverlay(Renderer2D renderer2D, float x, float y);

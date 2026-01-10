@@ -5,6 +5,7 @@ import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.graphics.Graphics;
 import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.input.Input;
+import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.math.Vector3;
 
 public final class Tools {
@@ -41,6 +42,8 @@ public final class Tools {
     }
 
     public static void update() {
+        boolean leftShiftJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.LEFT_SHIFT);
+
         Vector3 screen = new Vector3(Input.mouse.getX(), Input.mouse.getY(), 0);
         scene.getCamera().unProject(screen);
 
@@ -48,6 +51,8 @@ public final class Tools {
         activeTool.x = screen.x;
         activeTool.y = screen.y;
         activeTool.update(Graphics.getDeltaTime());
+
+        if (leftShiftJustPressed) activeTool.switchToNextBrushMode();
     }
 
     public static void render(Renderer2D renderer2D, float x, float y) {

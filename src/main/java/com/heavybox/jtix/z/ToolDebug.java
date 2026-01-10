@@ -27,11 +27,10 @@ public class ToolDebug extends Tool {
         region = atlas.getRegion("assets/textures-layer-3/debug_rect.png");
     }
 
-    public void switchToNextMode() {
-        free = true;
-        tokensPreview.clear();
+    @Override
+    protected void onSwitchMode() {
+        refillCircleWithTokens();
         alreadyCreatedTokens.clear();
-        brushMode = Collections.enumNext(brushMode);
     }
 
     @Override
@@ -39,7 +38,8 @@ public class ToolDebug extends Tool {
         // handle mode switching, clicking actions etc.
         // TODO: take input layers into account
         boolean leftShiftJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.LEFT_SHIFT);
-        boolean leftPressedAndMoved = Input.mouse.isButtonPressed(Mouse.Button.LEFT) && Input.mouse.moved();
+        boolean mouseMoved = Input.mouse.moved();
+        boolean leftPressedAndMoved = Input.mouse.isButtonPressed(Mouse.Button.LEFT) && mouseMoved;
         boolean leftClicked = Input.mouse.isButtonClicked(Mouse.Button.LEFT);
 
         if (brushMode == BrushMode.POINT) {
@@ -49,8 +49,16 @@ public class ToolDebug extends Tool {
             return;
         }
 
-        if (brushMode == BrushMode.LINE) {
-
+        if (brushMode == BrushMode.LINE && free) {
+            if (leftClicked) {
+                lineStart.x = x;
+                lineStart.y = y;
+                free = false;
+            }
+            return;
+        }
+        if (brushMode == BrushMode.LINE && !free) {
+            if (mouseMoved) refillLineWithTokens();
             return;
         }
 
@@ -102,10 +110,21 @@ public class ToolDebug extends Tool {
 
         // render tool overlay when brush mode is set to lines
         if (brushMode == BrushMode.LINE && free) {
-
+            renderer2D.setColor(Color.RED);
+            renderer2D.drawCircleThin(Math.max(spreadRadius, 5), 10, x, y, 0,1,1);
         }
         if (brushMode == BrushMode.LINE && !free) {
+            float dx = x - lineStart.x;
+            float dy = y - lineStart.y;
+            float angle = MathUtils.radiansToDegrees * MathUtils.atan2(dy, dx);
+            renderer2D.setColor(1,0,0,0.2f);
+            renderer2D.drawCircleFilled(Math.max(spreadRadius, 5), 10, 180, lineStart.x, lineStart.y, angle + 90,1,1);
+            renderer2D.drawLineFilled(lineStart.x, lineStart.y, x, y, 2 * Math.max(spreadRadius, 5));
+            renderer2D.drawCircleFilled(Math.max(spreadRadius, 5), 10, 180, x, y, angle - 90,1,1);
 
+            for (MapToken token : tokensPreview) {
+                token.renderPreview(renderer2D, lineStart.x, lineStart.y);
+            }
         }
 
         // render tool overlay when brush mode is set to polygons
@@ -134,9 +153,12 @@ public class ToolDebug extends Tool {
         tokensPreview.clear();
         float slice = 2.0f * MathUtils.PI / batchCount;
 
+        float dx = x - lineStart.x;
+        float dy = y - lineStart.y;
+        float angleOffset = MathUtils.radiansToDegrees * MathUtils.atan2(dy, dx);
         for (int i = 0; i < batchCount; i++) {
             float radius = MathUtils.randomUniformFloat(0,1) * spreadRadius; // distance from center
-            float angle  = i * slice + MathUtils.randomUniformFloat(0,1) * slice;
+            float angle  = i * slice + MathUtils.randomUniformFloat(0,1) * slice + angleOffset;
 
             float offsetX = MathUtils.cosRad(angle) * radius;
             float offsetY = MathUtils.sinRad(angle) * radius;
@@ -148,7 +170,26 @@ public class ToolDebug extends Tool {
     }
 
     // TODO
-    private void fillRectangleWithTokens(float size, float angle) {
+    private void refillLineWithTokens() {
+        tokensPreview.clear();
+
+        // first, let's estimate the size of the batch.
+        float rectArea = 2 * spreadRadius * Vector2.dst(lineStart.x, lineStart.y, x, y);
+        float factor = rectArea / (MathUtils.PI * spreadRadius * spreadRadius);
+        int rectBatchCount = (int) (factor * batchCount);
+
+        float half_slice = MathUtils.PI / batchCount;
+        for (int i = 0; i < batchCount; i++) {
+            float radius = MathUtils.randomUniformFloat(0,1) * spreadRadius; // distance from center
+            float angle  = i * half_slice + MathUtils.randomUniformFloat(0,1) * half_slice + 90;
+
+            float offsetX = MathUtils.cosRad(angle) * radius;
+            float offsetY = MathUtils.sinRad(angle) * radius;
+
+            MapToken token = new MapToken(3, offsetX, offsetY, 0, 1,1, atlas.getRegion("assets/textures-layer-3/debug_rect.png"));
+            token.tint = Color.randomOpaque();
+            tokensPreview.add(token);
+        }
 
     }
 
