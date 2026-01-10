@@ -1,5 +1,6 @@
 package com.heavybox.jtix.z;
 
+import com.heavybox.jtix.RPGMapMakerScene;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.graphics.*;
@@ -19,8 +20,8 @@ public class ToolBrushDecorations extends Tool {
 
     private boolean flipped = false;
 
-    public ToolBrushDecorations(Map map) {
-        super(map);
+    public ToolBrushDecorations(RPGMapMakerScene scene) {
+        super(scene);
 
         // TODO: put this back in
         if (true) return;

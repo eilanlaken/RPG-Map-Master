@@ -34,6 +34,7 @@ public class MapLayer_3 implements MapLayer {
             MapToken mapToken = new MapToken(cmd.layer, cmd.x, cmd.y, cmd.deg, cmd.sclX, cmd.sclY, cmd.regions);
             mapToken.type = cmd.type;
             mapToken.tint = cmd.tint.equals(Color.WHITE) ? Color.WHITE : cmd.tint.clone();
+            mapToken.sourceTool = cmd.sourceTool;
             allTokens.add(mapToken);
             return;
         }

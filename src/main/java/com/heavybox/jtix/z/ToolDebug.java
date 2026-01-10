@@ -6,19 +6,24 @@ import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.graphics.TexturePack;
+import com.heavybox.jtix.graphics.TextureRegion;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.MathUtils;
+import com.heavybox.jtix.math.Vector2;
 
 public class ToolDebug extends Tool {
 
     private final TexturePack atlas;
+    private final TextureRegion region;
     private final Array<MapToken> tokensPreview = new Array<>();
+    private final Array<MapToken> alreadyCreatedTokens = new Array<>();
 
     public ToolDebug(RPGMapMakerScene scene) {
         super(scene);
         atlas = Assets.get("assets/texture-packs/layer_3.yml");
+        region = atlas.getRegion("assets/textures-layer-3/debug_rect.png");
     }
 
     @Override
@@ -48,13 +53,25 @@ public class ToolDebug extends Tool {
     }
 
     private void spawnTokens() {
+        map.getAllTokens(region, alreadyCreatedTokens);
+
         for (MapToken token : tokensPreview) {
             // TODO: consider density
+            Vector2 position = new Vector2(token.x + x, token.y + y);
+            float minDistance = Float.POSITIVE_INFINITY;
+            for (MapToken mapToken : alreadyCreatedTokens) {
+                float distanceSquared = Vector2.dst2(position.x, position.y, mapToken.x, mapToken.y);
+                minDistance = Math.min(distanceSquared, minDistance);
+            }
+            minDistance = (float) Math.sqrt(minDistance);
+            if (minDistance < Tool.MINIMUM_TOKEN_SPACING * region.originalWidth) continue;
+
             CommandTokenCreate createToken = new CommandTokenCreate(
                     3,
                     token.x + x, token.y + y, deg, sclX, sclY, true,
                     atlas.getRegion("assets/textures-layer-3/debug_rect.png")
             );
+            createToken.sourceTool = this.getClass();
             createToken.tint = token.tint;
             map.addCommand(createToken);
         }
@@ -104,7 +121,7 @@ public class ToolDebug extends Tool {
         }
     }
 
-    // TODO
+    // TODO - filter against self. If a token is too close to one already in the circle, don't add it.
     private void refillCircleWithTokens() {
         tokensPreview.clear();
         float slice = 2.0f * MathUtils.PI / batchCount;

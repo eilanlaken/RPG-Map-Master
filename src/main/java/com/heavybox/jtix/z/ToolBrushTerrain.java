@@ -1,5 +1,6 @@
 package com.heavybox.jtix.z;
 
+import com.heavybox.jtix.RPGMapMakerScene;
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Graphics;
 import com.heavybox.jtix.graphics.Renderer2D;
@@ -19,8 +20,8 @@ public class ToolBrushTerrain extends Tool {
     public float scale = 0.5f;
     public float size = 200;
 
-    public ToolBrushTerrain(Map map) {
-        super(map);
+    public ToolBrushTerrain(RPGMapMakerScene scene) {
+        super(scene);
         brushAdd = new Texture("assets/tools/terrain-brush-draw.png");
         brushSub = new Texture("assets/tools/terrain-brush-erase.png");
         sclX = sclY = scale;

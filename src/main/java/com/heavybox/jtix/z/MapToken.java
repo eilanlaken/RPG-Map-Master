@@ -6,10 +6,14 @@ import com.heavybox.jtix.graphics.TextureRegion;
 
 public class MapToken {
 
+    // TODO
+    public Class<? extends Tool> sourceTool;
+
     public Color tint = Color.WHITE;
-    public Type type = Type.UNSPECIFIED;
+    public Type type = Type.UNSPECIFIED; // maybe deprecate.
     public final int layer;
     public float x, y, deg, sclX, sclY;
+    public final float width, height;
     public TextureRegion[] regions;
 
     public MapToken(int layer, float x, float y, float deg, float sclX, float sclY, TextureRegion... regions) {
@@ -20,16 +24,15 @@ public class MapToken {
         this.sclX = sclX;
         this.sclY = sclY;
         this.regions = regions;
-    }
 
-    public MapToken(int layer, float x, float y, TextureRegion... regions) {
-        this.layer = layer;
-        this.x = x;
-        this.y = y;
-        this.deg = 0;
-        this.sclX = 1;
-        this.sclY = 1;
-        this.regions = regions;
+        float maxWidth = 0;
+        float maxHeight = 0;
+        for (TextureRegion region : regions) {
+            maxWidth = Math.max(maxWidth, region.packedWidth);
+            maxHeight = Math.max(maxHeight, region.packedHeight);
+        }
+        width = maxWidth;
+        height = maxHeight;
     }
 
     public void render(Renderer2D renderer2D) {

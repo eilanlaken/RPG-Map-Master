@@ -91,13 +91,13 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
 
 
 
-        tools[0] = new ToolBrushTerrain(map);
-        tools[1] = new ToolBrushFields(map);
-        tools[2] = new ToolBrushTrees(map);
-        tools[3] = new ToolBrushProps(map);
-        tools[4] = new ToolBrushArchitecture(map);
-        tools[5] = new ToolBrushRocks(map);
-        tools[6] = new ToolBrushDecorations(map);
+        tools[0] = new ToolBrushTerrain(this);
+        tools[1] = new ToolBrushFields(this);
+        tools[2] = new ToolBrushTrees(this);
+        tools[3] = new ToolBrushProps(this);
+        tools[4] = new ToolBrushArchitecture(this);
+        tools[5] = new ToolBrushRocks(this);
+        tools[6] = new ToolBrushDecorations(this);
 
         // user - interface
         WidgetNodeActionsBar actionsBar = new WidgetNodeActionsBar();

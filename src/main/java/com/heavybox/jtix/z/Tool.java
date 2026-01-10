@@ -10,7 +10,7 @@ public abstract class Tool {
     // TODO
     public BrushMode brushMode = BrushMode.POINT;
     public boolean free = true;
-    public int batchCount = 100;
+    public int batchCount = 33;
     public float spreadRadius = 155; // in pixels
 
     public float x    = 0;

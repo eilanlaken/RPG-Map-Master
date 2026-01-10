@@ -64,6 +64,20 @@ public class Map {
         }
     }
 
+    public void getAllTokens(final Class<? extends Tool> sourceTool, Array<MapToken> out) {
+        out.clear();
+        for (MapToken mapToken : layer3.allTokens) {
+            if (mapToken.sourceTool == sourceTool) out.add(mapToken);
+        }
+    }
+
+    public void getAllTokens(final TextureRegion withRegion, Array<MapToken> out) {
+        out.clear();
+        for (MapToken mapToken : layer3.allTokens) {
+            if (mapToken.regions[0] == withRegion) out.add(mapToken);
+        }
+    }
+
     private void executeCommand(Command command) {
         if (command.layer == 0) layer0.executeCommand(command);
         if (command.layer == 1) layer1.executeCommand(command);

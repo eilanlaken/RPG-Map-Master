@@ -1,5 +1,6 @@
 package com.heavybox.jtix.z;
 
+import com.heavybox.jtix.RPGMapMakerScene;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.graphics.Color;
@@ -26,8 +27,8 @@ public class ToolBrushProps extends Tool {
 
     private Mode mode = Mode.values()[0];
 
-    public ToolBrushProps(Map map) {
-        super(map);
+    public ToolBrushProps(RPGMapMakerScene scene) {
+        super(scene);
         sclX = 0.25f;
         sclY = 0.25f;
         layer3 = Assets.get("assets/texture-packs/layer_3.yml");

@@ -1,5 +1,6 @@
 package com.heavybox.jtix.z;
 
+import com.heavybox.jtix.RPGMapMakerScene;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.graphics.Color;
@@ -28,8 +29,8 @@ public class ToolBrushFields extends Tool {
     private boolean addLines = true;
     private int harvestType = 0; // 0 = none, 1 = part, 2 = full
 
-    public ToolBrushFields(Map map) {
-        super(map);
+    public ToolBrushFields(RPGMapMakerScene scene) {
+        super(scene);
         bases[0] = Assets.get("assets/textures-layer-1/terrain-wheat-field-base_0.png");
         bases[1] = Assets.get("assets/textures-layer-1/terrain-wheat-field-base_1.png");
         bases[2] = Assets.get("assets/textures-layer-1/terrain-wheat-field-base_2.png");

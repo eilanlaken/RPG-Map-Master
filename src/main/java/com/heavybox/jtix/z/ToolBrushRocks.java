@@ -1,5 +1,6 @@
 package com.heavybox.jtix.z;
 
+import com.heavybox.jtix.RPGMapMakerScene;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.graphics.*;
 import com.heavybox.jtix.input.Input;
@@ -15,8 +16,8 @@ public class ToolBrushRocks extends Tool {
     public TexturePack layer3;
     public TextureRegion region;
 
-    public ToolBrushRocks(Map map) {
-        super(map);
+    public ToolBrushRocks(RPGMapMakerScene scene) {
+        super(scene);
         layer3 = Assets.get("assets/texture-packs/layer_3.yml");
         region = layer3.getRegion("assets/textures-layer-3/boulder_plain_big_0.png");
         sclX = 1f;
