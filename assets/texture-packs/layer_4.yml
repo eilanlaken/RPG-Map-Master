@@ -1,24 +1,4 @@
 regions:
-- name: assets/textures-layer-4/sun-rays.png
-  offsetX: 0
-  offsetY: 0
-  originalHeight: 2065
-  originalWidth: 2065
-  packedHeight: 2065
-  packedWidth: 2065
-  textureIndex: 0
-  x: 2
-  y: 2
-- name: assets/textures-layer-4/rainbow.png
-  offsetX: 0
-  offsetY: 77
-  originalHeight: 286
-  originalWidth: 385
-  packedHeight: 209
-  packedWidth: 385
-  textureIndex: 0
-  x: 2851
-  y: 254
 - name: assets/textures-layer-4/cloud_2.png
   offsetX: 0
   offsetY: 0
@@ -27,7 +7,7 @@ regions:
   packedHeight: 256
   packedWidth: 256
   textureIndex: 0
-  x: 2071
+  x: 522
   y: 2
 - name: assets/textures-layer-4/cloud_3.png
   offsetX: 0
@@ -37,7 +17,7 @@ regions:
   packedHeight: 256
   packedWidth: 256
   textureIndex: 0
-  x: 2331
+  x: 2
   y: 2
 - name: assets/textures-layer-4/cloud_4.png
   offsetX: 0
@@ -47,7 +27,7 @@ regions:
   packedHeight: 256
   packedWidth: 256
   textureIndex: 0
-  x: 2591
+  x: 262
   y: 2
 - name: assets/textures-layer-4/cloud_1.png
   offsetX: 4
@@ -57,8 +37,8 @@ regions:
   packedHeight: 248
   packedWidth: 246
   textureIndex: 0
-  x: 2851
-  y: 2
+  x: 2
+  y: 262
 - name: assets/textures-layer-4/cloud_5.png
   offsetX: 4
   offsetY: 4
@@ -67,8 +47,8 @@ regions:
   packedHeight: 246
   packedWidth: 248
   textureIndex: 0
-  x: 3101
-  y: 2
+  x: 252
+  y: 262
 - name: assets/textures-layer-4/cloud_10.png
   offsetX: 7
   offsetY: 19
@@ -77,8 +57,8 @@ regions:
   packedHeight: 237
   packedWidth: 249
   textureIndex: 0
-  x: 3353
-  y: 2
+  x: 504
+  y: 262
 - name: assets/textures-layer-4/cloud_6.png
   offsetX: 7
   offsetY: 19
@@ -87,8 +67,8 @@ regions:
   packedHeight: 237
   packedWidth: 249
   textureIndex: 0
-  x: 3606
-  y: 2
+  x: 757
+  y: 262
 - name: assets/textures-layer-4/cloud_8.png
   offsetX: 7
   offsetY: 19
@@ -97,8 +77,8 @@ regions:
   packedHeight: 237
   packedWidth: 249
   textureIndex: 0
-  x: 3353
-  y: 243
+  x: 504
+  y: 503
 - name: assets/textures-layer-4/cloud_9.png
   offsetX: 2
   offsetY: 0
@@ -107,8 +87,8 @@ regions:
   packedHeight: 231
   packedWidth: 254
   textureIndex: 0
-  x: 3606
-  y: 243
+  x: 757
+  y: 503
 - name: assets/textures-layer-4/cloud_7.png
   offsetX: 12
   offsetY: 44
@@ -117,8 +97,8 @@ regions:
   packedHeight: 183
   packedWidth: 244
   textureIndex: 0
-  x: 2071
-  y: 262
+  x: 252
+  y: 512
 - name: assets/textures-layer-4/cloud_11.png
   offsetX: 12
   offsetY: 44
@@ -127,12 +107,12 @@ regions:
   packedHeight: 181
   packedWidth: 244
   textureIndex: 0
-  x: 2319
-  y: 262
+  x: 2
+  y: 514
 textures:
 - file: layer_4_0.png
-  height: 4096
-  width: 4096
+  height: 1024
+  width: 1024
 options:
   padding: 2
   extrude: 0
