@@ -11,6 +11,28 @@ class CollectionsTest {
     }
 
     @Test
+    void enumNext() {
+        TestEnum x = TestEnum.A;
+        x = Collections.enumNext(x);
+        Assertions.assertEquals(TestEnum.B, x);
+        x = Collections.enumNext(x);
+        Assertions.assertEquals(TestEnum.C, x);
+        x = Collections.enumNext(x);
+        Assertions.assertEquals(TestEnum.A, x);
+    }
+
+    @Test
+    void enumPrev() {
+        TestEnum x = TestEnum.A;
+        x = Collections.enumPrev(x);
+        Assertions.assertEquals(TestEnum.C, x);
+        x = Collections.enumPrev(x);
+        Assertions.assertEquals(TestEnum.B, x);
+        x = Collections.enumPrev(x);
+        Assertions.assertEquals(TestEnum.A, x);
+    }
+
+    @Test
     void isSorted() {
         int[] a1 = new int[] {};
         Assertions.assertTrue(Collections.isSorted(a1, true));
@@ -35,6 +57,10 @@ class CollectionsTest {
         int[] a6 = new int[] {5,4,3,2,1};
         Assertions.assertTrue(Collections.isSorted(a6, false));
         Assertions.assertFalse(Collections.isSorted(a6, true));
+    }
+
+    private enum TestEnum {
+        A,B,C;
     }
 
 }

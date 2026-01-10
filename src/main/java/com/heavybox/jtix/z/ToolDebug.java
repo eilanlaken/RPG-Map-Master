@@ -3,6 +3,7 @@ package com.heavybox.jtix.z;
 import com.heavybox.jtix.RPGMapMakerScene;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.collections.Array;
+import com.heavybox.jtix.collections.Collections;
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.graphics.TexturePack;
@@ -26,11 +27,18 @@ public class ToolDebug extends Tool {
         region = atlas.getRegion("assets/textures-layer-3/debug_rect.png");
     }
 
+    public void switchToNextMode() {
+        free = true;
+        tokensPreview.clear();
+        alreadyCreatedTokens.clear();
+        brushMode = Collections.enumNext(brushMode);
+    }
+
     @Override
     public void update(float delta) {
         // handle mode switching, clicking actions etc.
         // TODO: take input layers into account
-        boolean inputLeftShiftJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.LEFT_SHIFT);
+        boolean leftShiftJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.LEFT_SHIFT);
         boolean leftPressedAndMoved = Input.mouse.isButtonPressed(Mouse.Button.LEFT) && Input.mouse.moved();
         boolean leftClicked = Input.mouse.isButtonClicked(Mouse.Button.LEFT);
 

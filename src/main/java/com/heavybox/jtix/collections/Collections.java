@@ -16,6 +16,17 @@ public final class Collections {
         return java.lang.reflect.Array.newInstance(clazz, size);
     }
 
+    public static <E extends Enum<E>> E enumNext(E value) {
+        E[] values = value.getDeclaringClass().getEnumConstants();
+        return values[(value.ordinal() + 1) % values.length];
+    }
+
+    public static <E extends Enum<E>> E enumPrev(E value) {
+        E[] values = value.getDeclaringClass().getEnumConstants();
+        if (value.ordinal() == 0) return values[values.length - 1];
+        return values[(value.ordinal() - 1)];
+    }
+
     public static int tableSize(int capacity, float loadFactor) {
         if (capacity < 0) throw new IllegalArgumentException("capacity must be >= 0: " + capacity);
         int tableSize = MathUtils.nextPowerOf2i(Math.max(2, (int) Math.ceil(capacity / loadFactor)));
