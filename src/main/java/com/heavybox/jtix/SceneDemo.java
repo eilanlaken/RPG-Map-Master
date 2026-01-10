@@ -46,9 +46,7 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
             ToolsTexturePacker.packTextures("assets/texture-packs", "layer_2", 0, 2, ToolsTexturePacker.TexturePackSize.XX_LARGE_8192, "assets/textures-layer-2", true);
             // pack layer 3
             ToolsTexturePacker.packTextures("assets/texture-packs", "layer_3", 0, 2, ToolsTexturePacker.TexturePackSize.XX_LARGE_8192, "assets/textures-layer-3", true);
-            // pack layer 4
-            ToolsTexturePacker.packTextures("assets/texture-packs", "layer_4", 0, 2, ToolsTexturePacker.TexturePackSize.XX_LARGE_8192, "assets/textures-layer-4", true);
-            //We don't pack layer 5
+            //We don't pack layer 4
             // pack ui assets
             ToolsTexturePacker.packTextures("assets/texture-packs", "user-interface", 0, 2, ToolsTexturePacker.TexturePackSize.XX_LARGE_8192, "assets/user-interface", true);
 

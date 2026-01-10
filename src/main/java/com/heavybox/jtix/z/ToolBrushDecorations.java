@@ -26,11 +26,11 @@ public class ToolBrushDecorations extends Tool {
         // TODO: put this back in
         if (true) return;
 
-        Array<String> layer5Assets = Assets.getDirectoryFiles("assets/textures-layer-5", true);
-        for (String layer5Asset : layer5Assets) {
-            System.out.println(layer5Asset);
-            if (layer5Asset.startsWith("assets/textures-layer-5/decorations_") || layer5Asset.startsWith("assets\\textures-layer-5\\decorations_")) {
-                decorationsPaths.add(layer5Asset);
+        Array<String> layer4Assets = Assets.getDirectoryFiles("assets/textures-layer-4", true);
+        for (String layer4Asset : layer4Assets) {
+            System.out.println(layer4Asset);
+            if (layer4Asset.startsWith("assets/textures-layer-4/decorations_") || layer4Asset.startsWith("assets\\textures-layer-4\\decorations_")) {
+                decorationsPaths.add(layer4Asset);
             }
         }
 
