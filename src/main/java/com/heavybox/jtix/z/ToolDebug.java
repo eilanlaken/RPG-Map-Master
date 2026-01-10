@@ -29,7 +29,7 @@ public class ToolDebug extends Tool {
 
     @Override
     protected void onSwitchMode() {
-        refillCircleWithTokens();
+        tokensPreview.clear();
         alreadyCreatedTokens.clear();
     }
 
@@ -123,7 +123,7 @@ public class ToolDebug extends Tool {
             renderer2D.drawCircleFilled(Math.max(spreadRadius, 5), 10, 180, x, y, angle - 90,1,1);
 
             for (MapToken token : tokensPreview) {
-                token.renderPreview(renderer2D, lineStart.x, lineStart.y);
+                token.render(renderer2D);
             }
         }
 
@@ -178,19 +178,52 @@ public class ToolDebug extends Tool {
         float factor = rectArea / (MathUtils.PI * spreadRadius * spreadRadius);
         int rectBatchCount = (int) (factor * batchCount);
 
+        float dx = x - lineStart.x;
+        float dy = y - lineStart.y;
+        float angleOffset = MathUtils.atan2(dy, dx) + MathUtils.PI_HALF;
         float half_slice = MathUtils.PI / batchCount;
+
+        // first half circle (at lineStar)
         for (int i = 0; i < batchCount; i++) {
             float radius = MathUtils.randomUniformFloat(0,1) * spreadRadius; // distance from center
-            float angle  = i * half_slice + MathUtils.randomUniformFloat(0,1) * half_slice + 90;
+            float angle  = angleOffset + i * half_slice + MathUtils.randomUniformFloat(0,1);
 
             float offsetX = MathUtils.cosRad(angle) * radius;
             float offsetY = MathUtils.sinRad(angle) * radius;
 
-            MapToken token = new MapToken(3, offsetX, offsetY, 0, 1,1, atlas.getRegion("assets/textures-layer-3/debug_rect.png"));
+            MapToken token = new MapToken(3, lineStart.x + offsetX, lineStart.y + offsetY, 0, 1,1, atlas.getRegion("assets/textures-layer-3/debug_rect.png"));
             token.tint = Color.randomOpaque();
             tokensPreview.add(token);
         }
 
+        // fill rectangular area
+        float width = Vector2.dst(lineStart.x, lineStart.y, x, y);
+        float degTilt = MathUtils.atan2(dy, dx) * MathUtils.radiansToDegrees;
+        Vector2 norm = new Vector2(dx, dy).nor();
+        Vector2 prep = new Vector2(norm).rotate90(1);
+        Vector2 offset = new Vector2();
+        for (int i = 0; i < rectBatchCount; i++) {
+            float normScale = MathUtils.randomUniformFloat(0, width);
+            float prepScale = MathUtils.randomUniformFloat(-spreadRadius, spreadRadius);
+            offset.set(norm.x * normScale, norm.y * normScale);
+            offset.add(prep.x * prepScale, prep.y * prepScale);
+            MapToken token = new MapToken(3, lineStart.x + offset.x, lineStart.y + offset.y, 0, 1,1, atlas.getRegion("assets/textures-layer-3/debug_rect.png"));
+            token.tint = Color.randomOpaque();
+            tokensPreview.add(token);
+        }
+
+        // second half circle (at lineEnd)
+        for (int i = 0; i < batchCount; i++) {
+            float radius = MathUtils.randomUniformFloat(0,1) * spreadRadius; // distance from center
+            float angle  = angleOffset + i * half_slice + MathUtils.randomUniformFloat(0,1) + MathUtils.PI;
+
+            float offsetX = MathUtils.cosRad(angle) * radius;
+            float offsetY = MathUtils.sinRad(angle) * radius;
+
+            MapToken token = new MapToken(3, x + offsetX, y + offsetY, 0, 1,1, atlas.getRegion("assets/textures-layer-3/debug_rect.png"));
+            token.tint = Color.randomOpaque();
+            tokensPreview.add(token);
+        }
     }
 
     // TODO

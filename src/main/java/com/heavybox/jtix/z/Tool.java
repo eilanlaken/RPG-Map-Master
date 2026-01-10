@@ -32,9 +32,9 @@ public abstract class Tool {
     }
 
     public void switchToNextBrushMode() {
-        onSwitchMode();
         free = true;
         brushMode = Collections.enumNext(brushMode);
+        onSwitchMode();
     }
 
     protected void onSwitchMode() {}
