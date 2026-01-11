@@ -10,7 +10,7 @@ import com.heavybox.jtix.widgets_4.WidgetNodeText;
 
 public class WidgetNodeActionsBar extends WidgetNodeContainerHorizontal {
 
-    public static final int BUTTON_SIZE = 42;
+    public static final int BUTTON_SIZE = 44;
 
     public WidgetNodeToolTip toolTip = new WidgetNodeToolTip();
 

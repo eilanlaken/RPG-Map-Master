@@ -87,8 +87,6 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
 
         map = new Map(false);
 
-
-
         tools[0] = new ToolBrushTerrain(this);
         tools[1] = new ToolBrushFields(this);
         tools[2] = new ToolBrushTrees(this);

@@ -9,7 +9,7 @@ import com.heavybox.jtix.widgets_4.WidgetNodeImage;
 
 public class WidgetNodeToolbar extends WidgetNodeContainerVertical {
 
-    public static final int BUTTON_SIZE = 42;
+    public static final int BUTTON_SIZE = 44;
 
     /* references and state */
     public Map map;
