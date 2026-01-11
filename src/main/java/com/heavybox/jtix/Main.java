@@ -17,7 +17,7 @@ public class Main {
         //Application.launch(new SceneTestInput_1());
         //Application.launch(new SceneWidgetsInput());
         //Application.launch(new SceneNewContainers());
-        //Application.launch(new SceneFontRendering());
+//        Application.launch(new SceneFontRendering());
         //Application.launch(new SceneWidgetsThemes());
     }
 

@@ -44,17 +44,17 @@ public class MapLayer_0 implements MapLayer {
     private boolean changed = true;
 
     public MapLayer_0() {
-        terrainGrass = Assets.get("assets/textures-layer-0/terrain-grass_1920x1080.png");
-        terrainGrounds[0] = Assets.get("assets/textures-layer-0/terrain-grass_1920x1080.png");
-        terrainGrounds[1] = Assets.get("assets/textures-layer-0/terrain-slate_1920x1080.png");
+        terrainGrass = Assets.get("assets/textures-layer-0/terrain-grass_1920x1080.jpg");
+        terrainGrounds[0] = Assets.get("assets/textures-layer-0/terrain-grass_1920x1080.jpg");
+        terrainGrounds[1] = Assets.get("assets/textures-layer-0/terrain-slate_1920x1080.jpg");
 
-        terrainWater = Assets.get("assets/textures-layer-0/terrain-water_1920x1080.png");
-        terrainLiquids[0] = Assets.get("assets/textures-layer-0/terrain-water_1920x1080.png");
-        terrainLiquids[1] = Assets.get("assets/textures-layer-0/terrain-lava_1920x1080.png");
-        terrainLiquids[2] = Assets.get("assets/textures-layer-0/terrain-acid_1920x1080.png");
+        terrainWater = Assets.get("assets/textures-layer-0/terrain-water_1920x1080.jpg");
+        terrainLiquids[0] = Assets.get("assets/textures-layer-0/terrain-water_1920x1080.jpg");
+        terrainLiquids[1] = Assets.get("assets/textures-layer-0/terrain-lava_1920x1080.jpg");
+        terrainLiquids[2] = Assets.get("assets/textures-layer-0/terrain-acid_1920x1080.jpg");
 
-        terrainStones = Assets.get("assets/textures-layer-0/terrain-stones_1920x1080.png");
-        terrainRoad = Assets.get("assets/textures-layer-0/terrain-road_1920x1080.png");
+        terrainStones = Assets.get("assets/textures-layer-0/terrain-stones_1920x1080.jpg");
+        terrainRoad = Assets.get("assets/textures-layer-0/terrain-road_1920x1080.jpg");
         terrainSteepness = Assets.get("assets/textures-layer-0/terrain-rock_1920x1080.jpg");
         brushSub = new Texture("assets/tools/terrain-brush-erase.png");
         brushAdd = new Texture("assets/tools/terrain-brush-draw.png");
@@ -159,13 +159,13 @@ public class MapLayer_0 implements MapLayer {
         renderer2D.setShaderAttribute("u_texture_map_1", terrainBlendMap.getColorAttachment("attachment_1"));
         renderer2D.setShaderAttribute("u_texture_1", terrainRoad);
 
-        renderer2D.setShaderAttribute("u_texture_mask", terrainMask.getColorAttachment0());
+        renderer2D.setShaderAttribute("u_texture_mask", terrainMask.getDefaultColorAttachment());
         renderer2D.setShaderAttribute("u_texture_steepness", terrainSteepness);
         renderer2D.drawTexture(terrainGrounds[terrainGroundsIndex], 0, 0, 0, 1, -1);
 
         renderer2D.setShader(null);
         renderer2D.setColor(1,1,1,0.2f);
-        renderer2D.drawTexture(terrainBlendMap.getColorAttachment0(), 0,0,0,1,-1);
+        renderer2D.drawTexture(terrainBlendMap.getDefaultColorAttachment(), 0,0,0,1,-1);
 
         renderer2D.end();
 
@@ -200,6 +200,6 @@ public class MapLayer_0 implements MapLayer {
     public Texture getTexture() {
         //return terrainBlendMap.getColorAttachment("attachment_0");
         //return terrainBlendMap.getColorAttachment0();
-        return layer0.getColorAttachment0(); // for now.
+        return layer0.getDefaultColorAttachment(); // for now.
     }
 }

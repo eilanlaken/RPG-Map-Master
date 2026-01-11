@@ -186,7 +186,7 @@ public class FrameBuffer implements MemoryResource {
         return handle;
     }
 
-    @Deprecated public Texture getColorAttachment0() {
+    public Texture getDefaultColorAttachment() {
         return colorAttachment0;
     }
 

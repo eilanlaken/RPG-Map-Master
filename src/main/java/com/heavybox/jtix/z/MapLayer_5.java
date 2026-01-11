@@ -1,11 +1,8 @@
 package com.heavybox.jtix.z;
 
-import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.graphics.*;
 import org.lwjgl.opengl.GL11;
-
-import java.util.Comparator;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -77,7 +74,7 @@ public class MapLayer_5 implements MapLayer {
 
     @Override
     public Texture getTexture() {
-        return layer5.getColorAttachment0();
+        return layer5.getDefaultColorAttachment();
     }
 
 }

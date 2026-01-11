@@ -3,10 +3,7 @@ package com.heavybox.jtix.z;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.graphics.*;
-import com.heavybox.jtix.math.Vector2;
 import org.lwjgl.opengl.GL11;
-
-import java.util.Arrays;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
@@ -83,7 +80,7 @@ public class MapLayer_1 implements MapLayer {
 
     @Override
     public Texture getTexture() {
-        return layer1.getColorAttachment0();
+        return layer1.getDefaultColorAttachment();
     }
 
 }

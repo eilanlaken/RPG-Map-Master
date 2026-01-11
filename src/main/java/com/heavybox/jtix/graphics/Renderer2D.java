@@ -11,7 +11,6 @@ import org.jetbrains.annotations.Nullable;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.*;
 import org.lwjgl.system.MemoryUtil;
-import org.lwjgl.system.NativeType;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -26,9 +25,6 @@ import java.util.Objects;
 import java.util.Stack;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
-import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
 
 // TODO: convert to a static class. Renderer2D.
 // TODO: in Graphics.cleanup(), call Renderer2D.delete()
@@ -1253,7 +1249,7 @@ public class Renderer2D implements MemoryResourceHolder {
         drawRectangleFilled(null, width, height, x, y, degrees, scaleX, scaleY);
     }
 
-    public void drawRectangleFilled(@Nullable Texture texture, float width, float height, float x, float y, float degrees, float scaleX, float scaleY) {
+    @Deprecated public void drawRectangleFilled_old(@Nullable Texture texture, float width, float height, float x, float y, float degrees, float scaleX, float scaleY) {
         if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
         if (!ensureCapacity(4,6)) flush();
 
@@ -1299,6 +1295,83 @@ public class Renderer2D implements MemoryResourceHolder {
         positions.put(arm3.x + x).put(arm3.y + y);
         colors.put(currentTint);
         textCoords.put(1).put(0);
+
+        /* put indices */
+        int startVertex = this.vertexIndex;
+        indices.put(startVertex + 0);
+        indices.put(startVertex + 1);
+        indices.put(startVertex + 2);
+        indices.put(startVertex + 2);
+        indices.put(startVertex + 3);
+        indices.put(startVertex + 0);
+        vertexIndex += 4;
+
+        /* free resources */
+        vectors2Pool.free(arm0);
+        vectors2Pool.free(arm1);
+        vectors2Pool.free(arm2);
+        vectors2Pool.free(arm3);
+    }
+
+    public void drawRectangleFilled(@Nullable Texture texture, float width, float height, float x, float y, float degrees, float scaleX, float scaleY) {
+        if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
+        if (!ensureCapacity(4,6)) flush();
+
+        float uSpan = 1f;
+        float vSpan = 1f;
+
+        if (texture != null) {
+            uSpan = width  / texture.width;
+            vSpan = height / texture.height;
+        }
+
+        setMode(GL11.GL_TRIANGLES);
+        setTexture(texture);
+
+        float widthHalf  = width  * scaleX * 0.5f;
+        float heightHalf = height * scaleY * 0.5f;
+
+        Vector2 arm0 = vectors2Pool.allocate();
+        Vector2 arm1 = vectors2Pool.allocate();
+        Vector2 arm2 = vectors2Pool.allocate();
+        Vector2 arm3 = vectors2Pool.allocate();
+
+        arm0.x = -widthHalf;
+        arm0.y =  heightHalf;
+        arm0.rotateDeg(degrees);
+
+        arm1.x = -widthHalf;
+        arm1.y = -heightHalf;
+        arm1.rotateDeg(degrees);
+
+        arm2.x =  widthHalf;
+        arm2.y = -heightHalf;
+        arm2.rotateDeg(degrees);
+
+        arm3.x = widthHalf;
+        arm3.y = heightHalf;
+        arm3.rotateDeg(degrees);
+
+        float u0 = 0.5f - uSpan * 0.5f;
+        float u1 = 0.5f + uSpan * 0.5f;
+        float v0 = 0.5f - vSpan * 0.5f;
+        float v1 = 0.5f + vSpan * 0.5f;
+
+        positions.put(arm0.x + x).put(arm0.y + y);
+        colors.put(currentTint);
+        textCoords.put(u0).put(v0);
+
+        positions.put(arm1.x + x).put(arm1.y + y);
+        colors.put(currentTint);
+        textCoords.put(u0).put(v1);
+
+        positions.put(arm2.x + x).put(arm2.y + y);
+        colors.put(currentTint);
+        textCoords.put(u1).put(v1);
+
+        positions.put(arm3.x + x).put(arm3.y + y);
+        colors.put(currentTint);
+        textCoords.put(u1).put(v0);
 
         /* put indices */
         int startVertex = this.vertexIndex;

@@ -149,7 +149,7 @@ public class Map {
     }
 
     public Texture getTexture() {
-        return mapFinal.getColorAttachment0();
+        return mapFinal.getDefaultColorAttachment();
     }
 
     public void exportLayerAsImage(int layer) {

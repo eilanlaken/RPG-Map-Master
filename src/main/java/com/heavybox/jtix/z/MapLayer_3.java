@@ -81,7 +81,7 @@ public class MapLayer_3 implements MapLayer {
 
     @Override
     public Texture getTexture() {
-        return layer3.getColorAttachment0();
+        return layer3.getDefaultColorAttachment();
     }
 
 }
