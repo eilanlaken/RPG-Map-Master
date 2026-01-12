@@ -16,12 +16,14 @@ public class MapLayer_3 implements MapLayer {
     private boolean changed = false;
 
     // Tokens layer
-    private FrameBuffer layer3 = new FrameBuffer(1920, 1080);
+    private FrameBuffer layer3;
     public Array<MapToken> allTokens = new Array<>(false, 10); // TODO: maybe refactor to be member of Map
     private final TexturePack tokensAtlas;
-    public final Camera camera = new Camera(Camera.Mode.ORTHOGRAPHIC, 1920, 1080, 1, 0, 100, 75);
+    public final Camera camera;
 
-    public MapLayer_3() {
+    public MapLayer_3(int width, int height) {
+        layer3 = new FrameBuffer(width, height);
+        camera = new Camera(Camera.Mode.ORTHOGRAPHIC, width, height, 1, 0, 100, 75);
         this.tokensAtlas = Assets.get("assets/texture-packs/layer_3.yml");
     }
 

@@ -10,8 +10,8 @@ import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
 
 public class MapLayer_1 implements MapLayer {
 
-    private FrameBuffer layer1 = new FrameBuffer(1920, 1080);
-    public final Camera camera = new Camera(Camera.Mode.ORTHOGRAPHIC, 1920, 1080, 1, 0, 100, 75);
+    private FrameBuffer layer1;
+    public final Camera camera;
 
     private final Texture[] bases = new Texture[5];
     private final Texture lines;
@@ -21,7 +21,9 @@ public class MapLayer_1 implements MapLayer {
     public Array<CommandCreateWheatField> commandCreateWheatFields = new Array<>(true, 5);
     public Array<CommandCreateWheatField> newWheatFields = new Array<>(true, 5);
 
-    public MapLayer_1() {
+    public MapLayer_1(int width, int height) {
+        layer1 = new FrameBuffer(width, height);
+        camera = new Camera(Camera.Mode.ORTHOGRAPHIC, width, height, 1, 0, 100, 75);
         bases[0] = Assets.get("assets/textures-layer-1/terrain-wheat-field-base_0.png");
         bases[1] = Assets.get("assets/textures-layer-1/terrain-wheat-field-base_1.png");
         bases[2] = Assets.get("assets/textures-layer-1/terrain-wheat-field-base_2.png");

@@ -12,12 +12,13 @@ public class MapLayer_5 implements MapLayer {
     private boolean changed = false;
 
     // Tokens layer
-    private FrameBuffer layer5 = new FrameBuffer(1920, 1080);
+    private FrameBuffer layer5;
     public Array<MapToken> allTokens = new Array<>(false, 10); // TODO: maybe refactor to be member of Map
-    public final Camera camera = new Camera(Camera.Mode.ORTHOGRAPHIC, 1920, 1080, 1, 0, 100, 75);
+    public final Camera camera;
 
-    public MapLayer_5() {
-
+    public MapLayer_5(int width, int height) {
+        layer5 = new FrameBuffer(width, height);
+        camera = new Camera(Camera.Mode.ORTHOGRAPHIC, width, height, 1, 0, 100, 75);
     }
 
     @Override

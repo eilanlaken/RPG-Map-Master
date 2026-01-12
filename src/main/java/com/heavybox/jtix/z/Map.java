@@ -12,8 +12,8 @@ import java.nio.ByteBuffer;
 public class Map {
 
     // TODO: customize width and height
-    public int width;
-    public int height;
+    public int width; // 1920
+    public int height; // 1080
 
     public MapLayer_0 layer0; // Terrain layer (wheat fields)
     public MapLayer_1 layer1; // Ground layer (wheat fields)
@@ -24,22 +24,26 @@ public class Map {
 
     // Text layer
 
-    public FrameBuffer mapFinal = new FrameBuffer(1920, 1080);
+    public FrameBuffer mapFinal;
 
     private int commandsIndex = 0;
     public Array<Command> commandsHistory = new Array<>(true, 10);
     public Array<Command> commandsQueue = new Array<>(true, 10);
 
-    private final Camera camera = new Camera(Camera.Mode.ORTHOGRAPHIC, 1920, 1080, 1, 0, 100, 75);
+    private final Camera camera;
 
 
     private boolean needsRedraw = false;
 
-    public Map(boolean initEmpty) {
-        layer0 = new MapLayer_0();
-        layer1 = new MapLayer_1();
-        layer3 = new MapLayer_3();
-        layer5 = new MapLayer_5();
+    public Map(int width, int height) {
+        this.width = width;
+        this.height = height;
+        camera = new Camera(Camera.Mode.ORTHOGRAPHIC, width, height, 1, 0, 100, 75);
+        layer0 = new MapLayer_0(width, height);
+        layer1 = new MapLayer_1(width, height);
+        layer3 = new MapLayer_3(width, height);
+        layer5 = new MapLayer_5(width, height);
+        mapFinal = new FrameBuffer(width, height);
     }
 
     public void addCommand(Command command) {
@@ -163,18 +167,18 @@ public class Map {
         ByteBuffer buffer = texture.getPixmapBytes();
 
         // Create BufferedImage
-        BufferedImage image = new BufferedImage(1920, 1080, BufferedImage.TYPE_INT_ARGB);
+        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
-        for (int y = 0; y < 1080; y++) {
-            for (int x = 0; x < 1920; x++) {
-                int i = (x + (1920 * y)) * 4;
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                int i = (x + (width * y)) * 4;
                 int r = buffer.get(i) & 0xFF;
                 int g = buffer.get(i + 1) & 0xFF;
                 int b = buffer.get(i + 2) & 0xFF;
                 int a = buffer.get(i + 3) & 0xFF;
 
                 // Flip vertically, since OpenGL textures start bottom-left
-                image.setRGB(x, 1080 - y - 1,
+                image.setRGB(x, height - y - 1,
                         ((a & 0xFF) << 24) |
                                 ((r & 0xFF) << 16) |
                                 ((g & 0xFF) << 8)  |

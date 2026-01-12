@@ -53,6 +53,7 @@ public class ToolDebug extends Tool {
             if (leftClicked) {
                 lineStart.x = x;
                 lineStart.y = y;
+                refillLineWithTokens();
                 free = false;
             }
             return;

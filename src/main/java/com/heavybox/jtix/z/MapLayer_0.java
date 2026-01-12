@@ -9,11 +9,11 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class MapLayer_0 implements MapLayer {
 
-    private FrameBuffer layer0 = new FrameBuffer(1920, 1080);
+    private final FrameBuffer layer0;
+    private final FrameBuffer terrainBlendMap;
+    private final FrameBuffer terrainMask;
 
-    private FrameBuffer terrainBlendMap = new FrameBuffer(1920, 1080); // <- draw roads here
-    private FrameBuffer terrainMask = new FrameBuffer(1920, 1080); // <- draw terrain here
-    public final Camera camera = new Camera(Camera.Mode.ORTHOGRAPHIC, 1920, 1080, 1, 0, 100, 75);
+    public final Camera camera;
 
     private Texture backgroundMorning;
 
@@ -43,7 +43,11 @@ public class MapLayer_0 implements MapLayer {
 
     private boolean changed = true;
 
-    public MapLayer_0() {
+    public MapLayer_0(int width, int height) {
+        layer0 = new FrameBuffer(width, height);
+        terrainMask = new FrameBuffer(width, height); // <- draw terrain here
+        camera = new Camera(Camera.Mode.ORTHOGRAPHIC, width, height, 1, 0, 100, 75);
+
         terrainGrass = Assets.get("assets/textures-layer-0/terrain-grass_1920x1080.jpg");
         terrainGrounds[0] = Assets.get("assets/textures-layer-0/terrain-grass_1920x1080.jpg");
         terrainGrounds[1] = Assets.get("assets/textures-layer-0/terrain-slate_1920x1080.jpg");
@@ -69,8 +73,8 @@ public class MapLayer_0 implements MapLayer {
 
         // blendmap frame buffer
         terrainBlendMap = FrameBufferBuilder.begin()
-                .setWidth(1920)
-                .setHeight(1080)
+                .setWidth(width)
+                .setHeight(height)
                 .addColorAttachment("attachment_0")
                 .addColorAttachment("attachment_1")
                 .end();
