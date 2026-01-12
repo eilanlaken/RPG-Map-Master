@@ -9,6 +9,9 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class MapLayer_0 implements MapLayer {
 
+    // TODO: get from map.
+    public int width, height;
+
     private final FrameBuffer layer0;
     private final FrameBuffer terrainBlendMap;
     private final FrameBuffer terrainMask;
@@ -44,6 +47,9 @@ public class MapLayer_0 implements MapLayer {
     private boolean changed = true;
 
     public MapLayer_0(int width, int height) {
+        this.width = width;
+        this.height = height;
+
         layer0 = new FrameBuffer(width, height);
         terrainMask = new FrameBuffer(width, height); // <- draw terrain here
         camera = new Camera(Camera.Mode.ORTHOGRAPHIC, width, height, 1, 0, 100, 75);
@@ -156,7 +162,8 @@ public class MapLayer_0 implements MapLayer {
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
         renderer2D.begin(camera);
         renderer2D.setBlending(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-        renderer2D.drawTexture(terrainLiquids[terrainLiquidsIndex], 0, 0, 0, 1, -1);
+        //renderer2D.drawTexture(terrainLiquids[terrainLiquidsIndex], 0, 0, 0, 1, -1);
+        renderer2D.drawRectangleFilled(terrainLiquids[terrainLiquidsIndex], width, height,0, 0, 0, 1, -1);
         renderer2D.setShader(terrainShader);
         renderer2D.setShaderAttribute("u_texture_map_0", terrainBlendMap.getColorAttachment("attachment_0"));
         renderer2D.setShaderAttribute("u_texture_0", terrainStones);
@@ -165,7 +172,8 @@ public class MapLayer_0 implements MapLayer {
 
         renderer2D.setShaderAttribute("u_texture_mask", terrainMask.getDefaultColorAttachment());
         renderer2D.setShaderAttribute("u_texture_steepness", terrainSteepness);
-        renderer2D.drawTexture(terrainGrounds[terrainGroundsIndex], 0, 0, 0, 1, -1);
+//        renderer2D.drawTexture(terrainGrounds[terrainGroundsIndex], 0, 0, 0, 1, -1);
+        renderer2D.drawRectangleFilled(terrainGrounds[terrainGroundsIndex], width, height, 0, 0, 0, 1, -1);
 
         renderer2D.setShader(null);
         renderer2D.setColor(1,1,1,0.2f);

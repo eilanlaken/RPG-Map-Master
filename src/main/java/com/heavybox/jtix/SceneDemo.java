@@ -88,8 +88,8 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
 
         Assets.finishLoading();
 
-        //map = new Map(2048, 2048);
-        map = new Map(1920, 1080);
+        map = new Map(2048, 2048);
+        //map = new Map(1920, 1080);
 
         tools[0] = new ToolBrushTerrain(this);
         tools[1] = new ToolBrushFields(this);
