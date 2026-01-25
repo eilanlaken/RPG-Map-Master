@@ -2689,8 +2689,8 @@ regions:
   textureIndex: 0
   x: 2752
   y: 1790
-- name: assets/textures-layer-3/tree_cypress_4.png
-  offsetX: 108
+- name: assets/textures-layer-3/tree_cypress_0.png
+  offsetX: 95
   offsetY: 252
   originalHeight: 512
   originalWidth: 256
@@ -2699,8 +2699,8 @@ regions:
   textureIndex: 0
   x: 2303
   y: 2
-- name: assets/textures-layer-3/tree_cypress_5.png
-  offsetX: 95
+- name: assets/textures-layer-3/tree_cypress_1.png
+  offsetX: 108
   offsetY: 252
   originalHeight: 512
   originalWidth: 256
@@ -3180,7 +3180,7 @@ regions:
   x: 2194
   y: 1500
 - name: assets/textures-layer-3/tree_cypress_2.png
-  offsetX: 106
+  offsetX: 99
   offsetY: 253
   originalHeight: 512
   originalWidth: 256
@@ -3190,7 +3190,7 @@ regions:
   x: 2366
   y: 2
 - name: assets/textures-layer-3/tree_cypress_3.png
-  offsetX: 99
+  offsetX: 106
   offsetY: 253
   originalHeight: 512
   originalWidth: 256
@@ -3509,8 +3509,8 @@ regions:
   textureIndex: 0
   x: 329
   y: 1702
-- name: assets/textures-layer-3/tree_cypress_0.png
-  offsetX: 105
+- name: assets/textures-layer-3/tree_cypress_4.png
+  offsetX: 97
   offsetY: 255
   originalHeight: 512
   originalWidth: 256
@@ -3519,8 +3519,8 @@ regions:
   textureIndex: 0
   x: 3465
   y: 2
-- name: assets/textures-layer-3/tree_cypress_1.png
-  offsetX: 97
+- name: assets/textures-layer-3/tree_cypress_5.png
+  offsetX: 105
   offsetY: 255
   originalHeight: 512
   originalWidth: 256
