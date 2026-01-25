@@ -14,6 +14,8 @@ import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Vector2;
 
+// This will be a basic brush.
+// Other brushes will extend it
 public class ToolDebug extends Tool {
 
     private final TexturePack atlas;

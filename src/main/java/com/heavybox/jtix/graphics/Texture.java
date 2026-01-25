@@ -121,8 +121,7 @@ public class Texture implements MemoryResource {
 
         TextureBinder.bind(this);
         GL11.glPixelStorei(GL11.GL_UNPACK_ALIGNMENT, 1);
-        GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL11.GL_RGBA, width, height, 0, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, bytes);
-        //GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL30.GL_R16, width, height, 0, GL11.GL_RED, GL11.GL_UNSIGNED_SHORT, bytes); // TODO: support this too.
+        GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL11.GL_RGBA, width, height, 0, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, bytes); // TODO
         if (this.filterMin == FilterMin.NEAREST_MIPMAP_LINEAR ||
             this.filterMin == FilterMin.LINEAR_MIPMAP_LINEAR  ||
             this.filterMin == FilterMin.LINEAR_MIPMAP_NEAREST ||
