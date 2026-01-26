@@ -257,7 +257,7 @@ regions:
   packedHeight: 135
   packedWidth: 138
   textureIndex: 0
-  x: 2574
+  x: 2211
   y: 514
 - name: assets/textures-layer-3/castle_building_diagonal_tall_right_elf_2.png
   offsetX: 43
@@ -267,7 +267,7 @@ regions:
   packedHeight: 135
   packedWidth: 138
   textureIndex: 0
-  x: 2211
+  x: 2574
   y: 514
 - name: assets/textures-layer-3/castle_wall_back_left_elf_5.png
   offsetX: 0
@@ -277,8 +277,8 @@ regions:
   packedHeight: 143
   packedWidth: 129
   textureIndex: 0
-  x: 1833
-  y: 367
+  x: 2289
+  y: 366
 - name: assets/textures-layer-3/castle_wall_back_right_elf_5.png
   offsetX: 90
   offsetY: 181
@@ -287,8 +287,8 @@ regions:
   packedHeight: 143
   packedWidth: 129
   textureIndex: 0
-  x: 2289
-  y: 366
+  x: 1833
+  y: 367
 - name: assets/textures-layer-3/castle_wall_back_left_elf_0.png
   offsetX: 0
   offsetY: 181
@@ -317,8 +317,8 @@ regions:
   packedHeight: 131
   packedWidth: 138
   textureIndex: 0
-  x: 115
-  y: 768
+  x: 309
+  y: 712
 - name: assets/textures-layer-3/castle_building_diagonal_tall_right_elf_3.png
   offsetX: 43
   offsetY: 192
@@ -327,8 +327,8 @@ regions:
   packedHeight: 131
   packedWidth: 138
   textureIndex: 0
-  x: 309
-  y: 712
+  x: 115
+  y: 768
 - name: assets/textures-layer-3/tree_confiner_0.png
   offsetX: 92
   offsetY: 251
@@ -337,7 +337,7 @@ regions:
   packedHeight: 176
   packedWidth: 102
   textureIndex: 0
-  x: 3677
+  x: 3783
   y: 2
 - name: assets/textures-layer-3/tree_confiner_3.png
   offsetX: 86
@@ -347,7 +347,7 @@ regions:
   packedHeight: 176
   packedWidth: 102
   textureIndex: 0
-  x: 3783
+  x: 3677
   y: 2
 - name: assets/textures-layer-3/castle_wall_front_left_elf_1.png
   offsetX: 0
@@ -357,7 +357,7 @@ regions:
   packedHeight: 152
   packedWidth: 118
   textureIndex: 0
-  x: 1852
+  x: 1974
   y: 211
 - name: assets/textures-layer-3/castle_wall_front_left_elf_3.png
   offsetX: 0
@@ -367,8 +367,8 @@ regions:
   packedHeight: 152
   packedWidth: 118
   textureIndex: 0
-  x: 961
-  y: 227
+  x: 1852
+  y: 211
 - name: assets/textures-layer-3/castle_wall_front_left_elf_4.png
   offsetX: 0
   offsetY: 166
@@ -377,8 +377,8 @@ regions:
   packedHeight: 152
   packedWidth: 118
   textureIndex: 0
-  x: 2096
-  y: 211
+  x: 1711
+  y: 222
 - name: assets/textures-layer-3/castle_wall_front_left_elf_5.png
   offsetX: 0
   offsetY: 166
@@ -387,7 +387,7 @@ regions:
   packedHeight: 152
   packedWidth: 118
   textureIndex: 0
-  x: 1478
+  x: 1356
   y: 225
 - name: assets/textures-layer-3/castle_wall_front_right_elf_1.png
   offsetX: 102
@@ -397,8 +397,8 @@ regions:
   packedHeight: 152
   packedWidth: 118
   textureIndex: 0
-  x: 1974
-  y: 211
+  x: 1478
+  y: 225
 - name: assets/textures-layer-3/castle_wall_front_right_elf_3.png
   offsetX: 102
   offsetY: 166
@@ -407,8 +407,8 @@ regions:
   packedHeight: 152
   packedWidth: 118
   textureIndex: 0
-  x: 1711
-  y: 222
+  x: 961
+  y: 227
 - name: assets/textures-layer-3/castle_wall_front_right_elf_4.png
   offsetX: 102
   offsetY: 166
@@ -427,8 +427,8 @@ regions:
   packedHeight: 152
   packedWidth: 118
   textureIndex: 0
-  x: 1356
-  y: 225
+  x: 2096
+  y: 211
 - name: assets/textures-layer-3/boulder_plain_small_1.png
   offsetX: 68
   offsetY: 162
@@ -437,7 +437,7 @@ regions:
   packedHeight: 103
   packedWidth: 171
   textureIndex: 0
-  x: 1867
+  x: 2332
   y: 1396
 - name: assets/textures-layer-3/boulder_plain_small_2.png
   offsetX: 67
@@ -447,7 +447,7 @@ regions:
   packedHeight: 103
   packedWidth: 171
   textureIndex: 0
-  x: 2332
+  x: 1867
   y: 1396
 - name: assets/textures-layer-3/boulder_plain_small_3.png
   offsetX: 67
@@ -467,8 +467,8 @@ regions:
   packedHeight: 105
   packedWidth: 167
   textureIndex: 0
-  x: 1767
-  y: 1287
+  x: 967
+  y: 1288
 - name: assets/textures-layer-3/castle_building_diagonal_short_left_elf_1.png
   offsetX: 39
   offsetY: 192
@@ -487,8 +487,8 @@ regions:
   packedHeight: 105
   packedWidth: 167
   textureIndex: 0
-  x: 3048
-  y: 1287
+  x: 482
+  y: 1288
 - name: assets/textures-layer-3/castle_building_diagonal_short_right_elf_3.png
   offsetX: 14
   offsetY: 192
@@ -497,8 +497,8 @@ regions:
   packedHeight: 105
   packedWidth: 167
   textureIndex: 0
-  x: 482
-  y: 1288
+  x: 1767
+  y: 1287
 - name: assets/textures-layer-3/castle_building_diagonal_short_right_elf_4.png
   offsetX: 14
   offsetY: 192
@@ -517,8 +517,8 @@ regions:
   packedHeight: 105
   packedWidth: 167
   textureIndex: 0
-  x: 967
-  y: 1288
+  x: 3048
+  y: 1287
 - name: assets/textures-layer-3/castle_tower_tall_human_2.png
   offsetX: 0
   offsetY: 216
@@ -557,8 +557,8 @@ regions:
   packedHeight: 135
   packedWidth: 129
   textureIndex: 0
-  x: 3151
-  y: 519
+  x: 3572
+  y: 516
 - name: assets/textures-layer-3/castle_wall_back_left_elf_2.png
   offsetX: 0
   offsetY: 181
@@ -567,8 +567,8 @@ regions:
   packedHeight: 135
   packedWidth: 129
   textureIndex: 0
-  x: 3838
-  y: 516
+  x: 3151
+  y: 519
 - name: assets/textures-layer-3/castle_wall_back_left_elf_4.png
   offsetX: 0
   offsetY: 181
@@ -587,8 +587,8 @@ regions:
   packedHeight: 135
   packedWidth: 129
   textureIndex: 0
-  x: 3018
-  y: 519
+  x: 3838
+  y: 516
 - name: assets/textures-layer-3/castle_wall_back_right_elf_2.png
   offsetX: 90
   offsetY: 181
@@ -597,8 +597,8 @@ regions:
   packedHeight: 135
   packedWidth: 129
   textureIndex: 0
-  x: 3572
-  y: 516
+  x: 3018
+  y: 519
 - name: assets/textures-layer-3/castle_wall_back_right_elf_4.png
   offsetX: 90
   offsetY: 181
@@ -727,7 +727,7 @@ regions:
   packedHeight: 140
   packedWidth: 117
   textureIndex: 0
-  x: 3018
+  x: 3139
   y: 375
 - name: assets/textures-layer-3/castle_wall_back_right_elf_3.png
   offsetX: 102
@@ -737,7 +737,7 @@ regions:
   packedHeight: 140
   packedWidth: 117
   textureIndex: 0
-  x: 3139
+  x: 3018
   y: 375
 - name: assets/textures-layer-3/castle_tower_tall_dwarf_4.png
   offsetX: 78
@@ -747,7 +747,7 @@ regions:
   packedHeight: 221
   packedWidth: 74
   textureIndex: 0
-  x: 961
+  x: 1039
   y: 2
 - name: assets/textures-layer-3/castle_tower_tall_dwarf_5.png
   offsetX: 78
@@ -757,7 +757,7 @@ regions:
   packedHeight: 221
   packedWidth: 74
   textureIndex: 0
-  x: 1039
+  x: 961
   y: 2
 - name: assets/textures-layer-3/prop_pillar_stone_tall_2.png
   offsetX: 6
@@ -767,7 +767,7 @@ regions:
   packedHeight: 283
   packedWidth: 57
   textureIndex: 0
-  x: 276
+  x: 337
   y: 2
 - name: assets/textures-layer-3/prop_pillar_stone_tall_4.png
   offsetX: 5
@@ -777,7 +777,7 @@ regions:
   packedHeight: 283
   packedWidth: 57
   textureIndex: 0
-  x: 337
+  x: 276
   y: 2
 - name: assets/textures-layer-3/castle_building_diagonal_tall_left_elf_4.png
   offsetX: 51
@@ -817,7 +817,7 @@ regions:
   packedHeight: 107
   packedWidth: 148
   textureIndex: 0
-  x: 3538
+  x: 3386
   y: 1286
 - name: assets/textures-layer-3/castle_bridge_horizontal_orc_4.png
   offsetX: 39
@@ -827,7 +827,7 @@ regions:
   packedHeight: 107
   packedWidth: 148
   textureIndex: 0
-  x: 3386
+  x: 3538
   y: 1286
 - name: assets/textures-layer-3/castle_bridge_horizontal_orc_5.png
   offsetX: 39
@@ -857,8 +857,8 @@ regions:
   packedHeight: 135
   packedWidth: 113
   textureIndex: 0
-  x: 778
-  y: 526
+  x: 1273
+  y: 523
 - name: assets/textures-layer-3/castle_wall_front_left_orc_1.png
   offsetX: 1
   offsetY: 166
@@ -867,39 +867,9 @@ regions:
   packedHeight: 135
   packedWidth: 113
   textureIndex: 0
-  x: 343
-  y: 573
+  x: 1674
+  y: 521
 - name: assets/textures-layer-3/castle_wall_front_left_orc_2.png
-  offsetX: 1
-  offsetY: 166
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 135
-  packedWidth: 113
-  textureIndex: 0
-  x: 1507
-  y: 523
-- name: assets/textures-layer-3/castle_wall_front_left_orc_3.png
-  offsetX: 1
-  offsetY: 166
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 135
-  packedWidth: 113
-  textureIndex: 0
-  x: 1390
-  y: 523
-- name: assets/textures-layer-3/castle_wall_front_left_orc_4.png
-  offsetX: 1
-  offsetY: 166
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 135
-  packedWidth: 113
-  textureIndex: 0
-  x: 1273
-  y: 523
-- name: assets/textures-layer-3/castle_wall_front_left_orc_5.png
   offsetX: 1
   offsetY: 166
   originalHeight: 445
@@ -909,6 +879,36 @@ regions:
   textureIndex: 0
   x: 1156
   y: 523
+- name: assets/textures-layer-3/castle_wall_front_left_orc_3.png
+  offsetX: 1
+  offsetY: 166
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 135
+  packedWidth: 113
+  textureIndex: 0
+  x: 343
+  y: 573
+- name: assets/textures-layer-3/castle_wall_front_left_orc_4.png
+  offsetX: 1
+  offsetY: 166
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 135
+  packedWidth: 113
+  textureIndex: 0
+  x: 778
+  y: 526
+- name: assets/textures-layer-3/castle_wall_front_left_orc_5.png
+  offsetX: 1
+  offsetY: 166
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 135
+  packedWidth: 113
+  textureIndex: 0
+  x: 908
+  y: 525
 - name: assets/textures-layer-3/castle_wall_front_right_orc_0.png
   offsetX: 106
   offsetY: 166
@@ -917,7 +917,7 @@ regions:
   packedHeight: 135
   packedWidth: 113
   textureIndex: 0
-  x: 1039
+  x: 1507
   y: 523
 - name: assets/textures-layer-3/castle_wall_front_right_orc_1.png
   offsetX: 106
@@ -927,8 +927,8 @@ regions:
   packedHeight: 135
   packedWidth: 113
   textureIndex: 0
-  x: 908
-  y: 525
+  x: 1390
+  y: 523
 - name: assets/textures-layer-3/castle_wall_front_right_orc_2.png
   offsetX: 106
   offsetY: 166
@@ -937,19 +937,9 @@ regions:
   packedHeight: 135
   packedWidth: 113
   textureIndex: 0
-  x: 555
-  y: 572
+  x: 1039
+  y: 523
 - name: assets/textures-layer-3/castle_wall_front_right_orc_3.png
-  offsetX: 106
-  offsetY: 166
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 135
-  packedWidth: 113
-  textureIndex: 0
-  x: 1674
-  y: 521
-- name: assets/textures-layer-3/castle_wall_front_right_orc_4.png
   offsetX: 106
   offsetY: 166
   originalHeight: 445
@@ -959,6 +949,16 @@ regions:
   textureIndex: 0
   x: 3284
   y: 519
+- name: assets/textures-layer-3/castle_wall_front_right_orc_4.png
+  offsetX: 106
+  offsetY: 166
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 135
+  packedWidth: 113
+  textureIndex: 0
+  x: 555
+  y: 572
 - name: assets/textures-layer-3/castle_wall_front_right_orc_5.png
   offsetX: 106
   offsetY: 166
@@ -1057,8 +1057,8 @@ regions:
   packedHeight: 135
   packedWidth: 109
   textureIndex: 0
-  x: 3971
-  y: 645
+  x: 2
+  y: 652
 - name: assets/textures-layer-3/castle_wall_front_left_human_1.png
   offsetX: 2
   offsetY: 166
@@ -1067,99 +1067,9 @@ regions:
   packedHeight: 135
   packedWidth: 109
   textureIndex: 0
-  x: 2466
-  y: 653
+  x: 2353
+  y: 652
 - name: assets/textures-layer-3/castle_wall_front_left_human_2.png
-  offsetX: 2
-  offsetY: 166
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 135
-  packedWidth: 109
-  textureIndex: 0
-  x: 2579
-  y: 653
-- name: assets/textures-layer-3/castle_wall_front_left_human_3.png
-  offsetX: 2
-  offsetY: 166
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 135
-  packedWidth: 109
-  textureIndex: 0
-  x: 1138
-  y: 662
-- name: assets/textures-layer-3/castle_wall_front_left_human_4.png
-  offsetX: 2
-  offsetY: 166
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 135
-  packedWidth: 109
-  textureIndex: 0
-  x: 1025
-  y: 662
-- name: assets/textures-layer-3/castle_wall_front_left_human_5.png
-  offsetX: 2
-  offsetY: 166
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 135
-  packedWidth: 109
-  textureIndex: 0
-  x: 1624
-  y: 660
-- name: assets/textures-layer-3/castle_wall_front_left_undead_0.png
-  offsetX: 2
-  offsetY: 166
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 135
-  packedWidth: 109
-  textureIndex: 0
-  x: 3257
-  y: 658
-- name: assets/textures-layer-3/castle_wall_front_left_undead_1.png
-  offsetX: 2
-  offsetY: 166
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 135
-  packedWidth: 109
-  textureIndex: 0
-  x: 3144
-  y: 658
-- name: assets/textures-layer-3/castle_wall_front_left_undead_2.png
-  offsetX: 2
-  offsetY: 166
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 135
-  packedWidth: 109
-  textureIndex: 0
-  x: 3031
-  y: 658
-- name: assets/textures-layer-3/castle_wall_front_left_undead_3.png
-  offsetX: 2
-  offsetY: 166
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 135
-  packedWidth: 109
-  textureIndex: 0
-  x: 196
-  y: 629
-- name: assets/textures-layer-3/castle_wall_front_left_undead_4.png
-  offsetX: 2
-  offsetY: 166
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 135
-  packedWidth: 109
-  textureIndex: 0
-  x: 3853
-  y: 655
-- name: assets/textures-layer-3/castle_wall_front_left_undead_5.png
   offsetX: 2
   offsetY: 166
   originalHeight: 445
@@ -1169,6 +1079,96 @@ regions:
   textureIndex: 0
   x: 3740
   y: 655
+- name: assets/textures-layer-3/castle_wall_front_left_human_3.png
+  offsetX: 2
+  offsetY: 166
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 135
+  packedWidth: 109
+  textureIndex: 0
+  x: 1025
+  y: 662
+- name: assets/textures-layer-3/castle_wall_front_left_human_4.png
+  offsetX: 2
+  offsetY: 166
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 135
+  packedWidth: 109
+  textureIndex: 0
+  x: 1624
+  y: 660
+- name: assets/textures-layer-3/castle_wall_front_left_human_5.png
+  offsetX: 2
+  offsetY: 166
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 135
+  packedWidth: 109
+  textureIndex: 0
+  x: 3257
+  y: 658
+- name: assets/textures-layer-3/castle_wall_front_left_undead_0.png
+  offsetX: 2
+  offsetY: 166
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 135
+  packedWidth: 109
+  textureIndex: 0
+  x: 3853
+  y: 655
+- name: assets/textures-layer-3/castle_wall_front_left_undead_1.png
+  offsetX: 2
+  offsetY: 166
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 135
+  packedWidth: 109
+  textureIndex: 0
+  x: 1791
+  y: 655
+- name: assets/textures-layer-3/castle_wall_front_left_undead_2.png
+  offsetX: 2
+  offsetY: 166
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 135
+  packedWidth: 109
+  textureIndex: 0
+  x: 196
+  y: 629
+- name: assets/textures-layer-3/castle_wall_front_left_undead_3.png
+  offsetX: 2
+  offsetY: 166
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 135
+  packedWidth: 109
+  textureIndex: 0
+  x: 3971
+  y: 645
+- name: assets/textures-layer-3/castle_wall_front_left_undead_4.png
+  offsetX: 2
+  offsetY: 166
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 135
+  packedWidth: 109
+  textureIndex: 0
+  x: 3401
+  y: 649
+- name: assets/textures-layer-3/castle_wall_front_left_undead_5.png
+  offsetX: 2
+  offsetY: 166
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 135
+  packedWidth: 109
+  textureIndex: 0
+  x: 1138
+  y: 662
 - name: assets/textures-layer-3/castle_wall_front_right_human_0.png
   offsetX: 109
   offsetY: 166
@@ -1177,8 +1177,8 @@ regions:
   packedHeight: 135
   packedWidth: 109
   textureIndex: 0
-  x: 3627
-  y: 655
+  x: 3144
+  y: 658
 - name: assets/textures-layer-3/castle_wall_front_right_human_1.png
   offsetX: 109
   offsetY: 166
@@ -1187,19 +1187,9 @@ regions:
   packedHeight: 135
   packedWidth: 109
   textureIndex: 0
-  x: 3514
-  y: 655
+  x: 3031
+  y: 658
 - name: assets/textures-layer-3/castle_wall_front_right_human_2.png
-  offsetX: 109
-  offsetY: 166
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 135
-  packedWidth: 109
-  textureIndex: 0
-  x: 2017
-  y: 655
-- name: assets/textures-layer-3/castle_wall_front_right_human_3.png
   offsetX: 109
   offsetY: 166
   originalHeight: 445
@@ -1209,6 +1199,16 @@ regions:
   textureIndex: 0
   x: 2918
   y: 658
+- name: assets/textures-layer-3/castle_wall_front_right_human_3.png
+  offsetX: 109
+  offsetY: 166
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 135
+  packedWidth: 109
+  textureIndex: 0
+  x: 3627
+  y: 655
 - name: assets/textures-layer-3/castle_wall_front_right_human_4.png
   offsetX: 109
   offsetY: 166
@@ -1217,7 +1217,7 @@ regions:
   packedHeight: 135
   packedWidth: 109
   textureIndex: 0
-  x: 1904
+  x: 3514
   y: 655
 - name: assets/textures-layer-3/castle_wall_front_right_human_5.png
   offsetX: 109
@@ -1227,7 +1227,7 @@ regions:
   packedHeight: 135
   packedWidth: 109
   textureIndex: 0
-  x: 1791
+  x: 2017
   y: 655
 - name: assets/textures-layer-3/castle_wall_front_right_undead_0.png
   offsetX: 109
@@ -1237,8 +1237,8 @@ regions:
   packedHeight: 135
   packedWidth: 109
   textureIndex: 0
-  x: 2805
-  y: 653
+  x: 1904
+  y: 655
 - name: assets/textures-layer-3/castle_wall_front_right_undead_1.png
   offsetX: 109
   offsetY: 166
@@ -1247,7 +1247,7 @@ regions:
   packedHeight: 135
   packedWidth: 109
   textureIndex: 0
-  x: 2692
+  x: 2805
   y: 653
 - name: assets/textures-layer-3/castle_wall_front_right_undead_2.png
   offsetX: 109
@@ -1257,7 +1257,7 @@ regions:
   packedHeight: 135
   packedWidth: 109
   textureIndex: 0
-  x: 2211
+  x: 2692
   y: 653
 - name: assets/textures-layer-3/castle_wall_front_right_undead_3.png
   offsetX: 109
@@ -1267,8 +1267,8 @@ regions:
   packedHeight: 135
   packedWidth: 109
   textureIndex: 0
-  x: 2353
-  y: 652
+  x: 2579
+  y: 653
 - name: assets/textures-layer-3/castle_wall_front_right_undead_4.png
   offsetX: 109
   offsetY: 166
@@ -1277,8 +1277,8 @@ regions:
   packedHeight: 135
   packedWidth: 109
   textureIndex: 0
-  x: 2
-  y: 652
+  x: 2466
+  y: 653
 - name: assets/textures-layer-3/castle_wall_front_right_undead_5.png
   offsetX: 109
   offsetY: 166
@@ -1287,8 +1287,8 @@ regions:
   packedHeight: 135
   packedWidth: 109
   textureIndex: 0
-  x: 3401
-  y: 649
+  x: 2211
+  y: 653
 - name: assets/textures-layer-3/tree_confiner_1.png
   offsetX: 92
   offsetY: 251
@@ -1307,8 +1307,8 @@ regions:
   packedHeight: 99
   packedWidth: 148
   textureIndex: 0
-  x: 2042
-  y: 1398
+  x: 3178
+  y: 1501
 - name: assets/textures-layer-3/castle_bridge_horizontal_orc_1.png
   offsetX: 39
   offsetY: 210
@@ -1317,8 +1317,8 @@ regions:
   packedHeight: 99
   packedWidth: 148
   textureIndex: 0
-  x: 3178
-  y: 1501
+  x: 2042
+  y: 1398
 - name: assets/textures-layer-3/castle_bridge_horizontal_orc_2.png
   offsetX: 39
   offsetY: 210
@@ -1327,8 +1327,8 @@ regions:
   packedHeight: 99
   packedWidth: 148
   textureIndex: 0
-  x: 2559
-  y: 1400
+  x: 118
+  y: 1439
 - name: assets/textures-layer-3/castle_bridge_horizontal_undead_0.png
   offsetX: 39
   offsetY: 210
@@ -1347,8 +1347,8 @@ regions:
   packedHeight: 99
   packedWidth: 148
   textureIndex: 0
-  x: 118
-  y: 1439
+  x: 2559
+  y: 1400
 - name: assets/textures-layer-3/castle_bridge_horizontal_undead_4.png
   offsetX: 39
   offsetY: 210
@@ -1357,7 +1357,7 @@ regions:
   packedHeight: 99
   packedWidth: 148
   textureIndex: 0
-  x: 3178
+  x: 3930
   y: 1398
 - name: assets/textures-layer-3/castle_bridge_horizontal_undead_5.png
   offsetX: 39
@@ -1367,7 +1367,7 @@ regions:
   packedHeight: 99
   packedWidth: 148
   textureIndex: 0
-  x: 3930
+  x: 3178
   y: 1398
 - name: assets/textures-layer-3/castle_bridge_horizontal_human_2.png
   offsetX: 39
@@ -1397,7 +1397,7 @@ regions:
   packedHeight: 96
   packedWidth: 151
   textureIndex: 0
-  x: 2308
+  x: 2463
   y: 1503
 - name: assets/textures-layer-3/castle_bridge_horizontal_elf_1.png
   offsetX: 37
@@ -1407,7 +1407,7 @@ regions:
   packedHeight: 96
   packedWidth: 151
   textureIndex: 0
-  x: 2463
+  x: 1867
   y: 1503
 - name: assets/textures-layer-3/castle_bridge_horizontal_elf_2.png
   offsetX: 37
@@ -1417,7 +1417,7 @@ regions:
   packedHeight: 96
   packedWidth: 151
   textureIndex: 0
-  x: 903
+  x: 2308
   y: 1503
 - name: assets/textures-layer-3/castle_bridge_horizontal_elf_3.png
   offsetX: 37
@@ -1427,7 +1427,7 @@ regions:
   packedHeight: 96
   packedWidth: 151
   textureIndex: 0
-  x: 1058
+  x: 903
   y: 1503
 - name: assets/textures-layer-3/castle_bridge_horizontal_elf_4.png
   offsetX: 37
@@ -1437,7 +1437,7 @@ regions:
   packedHeight: 96
   packedWidth: 151
   textureIndex: 0
-  x: 1867
+  x: 1058
   y: 1503
 - name: assets/textures-layer-3/prop_pillar_stone_short_3.png
   offsetX: 1
@@ -1497,7 +1497,7 @@ regions:
   packedHeight: 189
   packedWidth: 73
   textureIndex: 0
-  x: 3523
+  x: 3600
   y: 2
 - name: assets/textures-layer-3/castle_tower_tall_dwarf_3.png
   offsetX: 79
@@ -1507,7 +1507,7 @@ regions:
   packedHeight: 189
   packedWidth: 73
   textureIndex: 0
-  x: 3600
+  x: 3523
   y: 2
 - name: assets/textures-layer-3/castle_building_diagonal_tall_left_human_0.png
   offsetX: 34
@@ -1517,8 +1517,8 @@ regions:
   packedHeight: 125
   packedWidth: 110
   textureIndex: 0
-  x: 2829
-  y: 797
+  x: 3734
+  y: 794
 - name: assets/textures-layer-3/castle_building_diagonal_tall_left_human_1.png
   offsetX: 34
   offsetY: 192
@@ -1537,8 +1537,8 @@ regions:
   packedHeight: 125
   packedWidth: 110
   textureIndex: 0
-  x: 2943
-  y: 797
+  x: 3506
+  y: 794
 - name: assets/textures-layer-3/castle_building_diagonal_tall_left_human_3.png
   offsetX: 34
   offsetY: 192
@@ -1547,8 +1547,8 @@ regions:
   packedHeight: 125
   packedWidth: 110
   textureIndex: 0
-  x: 1493
-  y: 797
+  x: 1965
+  y: 794
 - name: assets/textures-layer-3/castle_building_diagonal_tall_left_human_4.png
   offsetX: 34
   offsetY: 192
@@ -1577,39 +1577,9 @@ regions:
   packedHeight: 125
   packedWidth: 110
   textureIndex: 0
-  x: 1965
-  y: 794
-- name: assets/textures-layer-3/castle_building_diagonal_tall_right_human_1.png
-  offsetX: 35
-  offsetY: 192
-  originalHeight: 445
-  originalWidth: 179
-  packedHeight: 125
-  packedWidth: 110
-  textureIndex: 0
-  x: 3506
-  y: 794
-- name: assets/textures-layer-3/castle_building_diagonal_tall_right_human_2.png
-  offsetX: 35
-  offsetY: 192
-  originalHeight: 445
-  originalWidth: 179
-  packedHeight: 125
-  packedWidth: 110
-  textureIndex: 0
   x: 2715
   y: 792
-- name: assets/textures-layer-3/castle_building_diagonal_tall_right_human_3.png
-  offsetX: 35
-  offsetY: 192
-  originalHeight: 445
-  originalWidth: 179
-  packedHeight: 125
-  packedWidth: 110
-  textureIndex: 0
-  x: 3734
-  y: 794
-- name: assets/textures-layer-3/castle_building_diagonal_tall_right_human_4.png
+- name: assets/textures-layer-3/castle_building_diagonal_tall_right_human_1.png
   offsetX: 35
   offsetY: 192
   originalHeight: 445
@@ -1619,7 +1589,7 @@ regions:
   textureIndex: 0
   x: 3848
   y: 794
-- name: assets/textures-layer-3/castle_building_diagonal_tall_right_human_5.png
+- name: assets/textures-layer-3/castle_building_diagonal_tall_right_human_2.png
   offsetX: 35
   offsetY: 192
   originalHeight: 445
@@ -1629,6 +1599,36 @@ regions:
   textureIndex: 0
   x: 3057
   y: 797
+- name: assets/textures-layer-3/castle_building_diagonal_tall_right_human_3.png
+  offsetX: 35
+  offsetY: 192
+  originalHeight: 445
+  originalWidth: 179
+  packedHeight: 125
+  packedWidth: 110
+  textureIndex: 0
+  x: 1493
+  y: 797
+- name: assets/textures-layer-3/castle_building_diagonal_tall_right_human_4.png
+  offsetX: 35
+  offsetY: 192
+  originalHeight: 445
+  originalWidth: 179
+  packedHeight: 125
+  packedWidth: 110
+  textureIndex: 0
+  x: 2829
+  y: 797
+- name: assets/textures-layer-3/castle_building_diagonal_tall_right_human_5.png
+  offsetX: 35
+  offsetY: 192
+  originalHeight: 445
+  originalWidth: 179
+  packedHeight: 125
+  packedWidth: 110
+  textureIndex: 0
+  x: 2943
+  y: 797
 - name: assets/textures-layer-3/castle_bridge_horizontal_dwarf_5.png
   offsetX: 38
   offsetY: 209
@@ -1637,59 +1637,9 @@ regions:
   packedHeight: 89
   packedWidth: 154
   textureIndex: 0
-  x: 3562
-  y: 1698
+  x: 2
+  y: 1695
 - name: assets/textures-layer-3/castle_wall_back_left_dwarf_0.png
-  offsetX: 0
-  offsetY: 181
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 114
-  packedWidth: 119
-  textureIndex: 0
-  x: 1779
-  y: 1169
-- name: assets/textures-layer-3/castle_wall_back_left_dwarf_1.png
-  offsetX: 0
-  offsetY: 181
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 114
-  packedWidth: 119
-  textureIndex: 0
-  x: 2437
-  y: 1169
-- name: assets/textures-layer-3/castle_wall_back_left_dwarf_2.png
-  offsetX: 0
-  offsetY: 181
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 114
-  packedWidth: 119
-  textureIndex: 0
-  x: 1212
-  y: 1170
-- name: assets/textures-layer-3/castle_wall_back_left_dwarf_3.png
-  offsetX: 0
-  offsetY: 181
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 114
-  packedWidth: 119
-  textureIndex: 0
-  x: 3509
-  y: 1168
-- name: assets/textures-layer-3/castle_wall_back_left_dwarf_4.png
-  offsetX: 0
-  offsetY: 181
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 114
-  packedWidth: 119
-  textureIndex: 0
-  x: 3632
-  y: 1168
-- name: assets/textures-layer-3/castle_wall_back_left_dwarf_5.png
   offsetX: 0
   offsetY: 181
   originalHeight: 445
@@ -1699,8 +1649,28 @@ regions:
   textureIndex: 0
   x: 1458
   y: 1170
-- name: assets/textures-layer-3/castle_wall_back_right_dwarf_0.png
-  offsetX: 101
+- name: assets/textures-layer-3/castle_wall_back_left_dwarf_1.png
+  offsetX: 0
+  offsetY: 181
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 114
+  packedWidth: 119
+  textureIndex: 0
+  x: 2925
+  y: 1170
+- name: assets/textures-layer-3/castle_wall_back_left_dwarf_2.png
+  offsetX: 0
+  offsetY: 181
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 114
+  packedWidth: 119
+  textureIndex: 0
+  x: 3632
+  y: 1168
+- name: assets/textures-layer-3/castle_wall_back_left_dwarf_3.png
+  offsetX: 0
   offsetY: 181
   originalHeight: 445
   originalWidth: 220
@@ -1709,17 +1679,27 @@ regions:
   textureIndex: 0
   x: 3386
   y: 1168
-- name: assets/textures-layer-3/castle_wall_back_right_dwarf_1.png
-  offsetX: 101
+- name: assets/textures-layer-3/castle_wall_back_left_dwarf_4.png
+  offsetX: 0
   offsetY: 181
   originalHeight: 445
   originalWidth: 220
   packedHeight: 114
   packedWidth: 119
   textureIndex: 0
-  x: 1089
+  x: 1779
+  y: 1169
+- name: assets/textures-layer-3/castle_wall_back_left_dwarf_5.png
+  offsetX: 0
+  offsetY: 181
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 114
+  packedWidth: 119
+  textureIndex: 0
+  x: 1581
   y: 1170
-- name: assets/textures-layer-3/castle_wall_back_right_dwarf_2.png
+- name: assets/textures-layer-3/castle_wall_back_right_dwarf_0.png
   offsetX: 101
   offsetY: 181
   originalHeight: 445
@@ -1729,7 +1709,7 @@ regions:
   textureIndex: 0
   x: 1335
   y: 1170
-- name: assets/textures-layer-3/castle_wall_back_right_dwarf_3.png
+- name: assets/textures-layer-3/castle_wall_back_right_dwarf_1.png
   offsetX: 101
   offsetY: 181
   originalHeight: 445
@@ -1737,9 +1717,19 @@ regions:
   packedHeight: 114
   packedWidth: 119
   textureIndex: 0
-  x: 2925
+  x: 1212
   y: 1170
-- name: assets/textures-layer-3/castle_wall_back_right_dwarf_4.png
+- name: assets/textures-layer-3/castle_wall_back_right_dwarf_2.png
+  offsetX: 101
+  offsetY: 181
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 114
+  packedWidth: 119
+  textureIndex: 0
+  x: 3509
+  y: 1168
+- name: assets/textures-layer-3/castle_wall_back_right_dwarf_3.png
   offsetX: 101
   offsetY: 181
   originalHeight: 445
@@ -1749,6 +1739,16 @@ regions:
   textureIndex: 0
   x: 2802
   y: 1170
+- name: assets/textures-layer-3/castle_wall_back_right_dwarf_4.png
+  offsetX: 101
+  offsetY: 181
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 114
+  packedWidth: 119
+  textureIndex: 0
+  x: 2437
+  y: 1169
 - name: assets/textures-layer-3/castle_wall_back_right_dwarf_5.png
   offsetX: 101
   offsetY: 181
@@ -1757,7 +1757,7 @@ regions:
   packedHeight: 114
   packedWidth: 119
   textureIndex: 0
-  x: 1581
+  x: 1089
   y: 1170
 - name: assets/textures-layer-3/castle_tower_tall_dwarf_0.png
   offsetX: 80
@@ -1787,7 +1787,7 @@ regions:
   packedHeight: 87
   packedWidth: 154
   textureIndex: 0
-  x: 2774
+  x: 1135
   y: 1699
 - name: assets/textures-layer-3/castle_tower_tall_elf_2.png
   offsetX: 84
@@ -1817,8 +1817,8 @@ regions:
   packedHeight: 88
   packedWidth: 151
   textureIndex: 0
-  x: 1286
-  y: 1699
+  x: 3562
+  y: 1698
 - name: assets/textures-layer-3/castle_building_diagonal_tall_left_orc_0.png
   offsetX: 34
   offsetY: 192
@@ -1827,8 +1827,8 @@ regions:
   packedHeight: 118
   packedWidth: 112
   textureIndex: 0
-  x: 3059
-  y: 926
+  x: 2381
+  y: 927
 - name: assets/textures-layer-3/castle_building_diagonal_tall_left_orc_1.png
   offsetX: 34
   offsetY: 192
@@ -1837,8 +1837,8 @@ regions:
   packedHeight: 118
   packedWidth: 112
   textureIndex: 0
-  x: 2943
-  y: 926
+  x: 759
+  y: 927
 - name: assets/textures-layer-3/castle_building_diagonal_tall_left_orc_2.png
   offsetX: 34
   offsetY: 192
@@ -1847,8 +1847,8 @@ regions:
   packedHeight: 118
   packedWidth: 112
   textureIndex: 0
-  x: 643
-  y: 927
+  x: 1101
+  y: 926
 - name: assets/textures-layer-3/castle_building_diagonal_tall_left_orc_3.png
   offsetX: 34
   offsetY: 192
@@ -1877,7 +1877,7 @@ regions:
   packedHeight: 118
   packedWidth: 112
   textureIndex: 0
-  x: 759
+  x: 643
   y: 927
 - name: assets/textures-layer-3/castle_building_diagonal_tall_right_orc_0.png
   offsetX: 33
@@ -1887,7 +1887,7 @@ regions:
   packedHeight: 118
   packedWidth: 112
   textureIndex: 0
-  x: 1101
+  x: 2827
   y: 926
 - name: assets/textures-layer-3/castle_building_diagonal_tall_right_orc_1.png
   offsetX: 33
@@ -1897,7 +1897,7 @@ regions:
   packedHeight: 118
   packedWidth: 112
   textureIndex: 0
-  x: 1463
+  x: 3175
   y: 926
 - name: assets/textures-layer-3/castle_building_diagonal_tall_right_orc_2.png
   offsetX: 33
@@ -1907,7 +1907,7 @@ regions:
   packedHeight: 118
   packedWidth: 112
   textureIndex: 0
-  x: 2265
+  x: 3059
   y: 926
 - name: assets/textures-layer-3/castle_building_diagonal_tall_right_orc_3.png
   offsetX: 33
@@ -1917,7 +1917,7 @@ regions:
   packedHeight: 118
   packedWidth: 112
   textureIndex: 0
-  x: 2827
+  x: 2943
   y: 926
 - name: assets/textures-layer-3/castle_building_diagonal_tall_right_orc_4.png
   offsetX: 33
@@ -1927,7 +1927,7 @@ regions:
   packedHeight: 118
   packedWidth: 112
   textureIndex: 0
-  x: 3175
+  x: 2265
   y: 926
 - name: assets/textures-layer-3/castle_building_diagonal_tall_right_orc_5.png
   offsetX: 33
@@ -1937,8 +1937,8 @@ regions:
   packedHeight: 118
   packedWidth: 112
   textureIndex: 0
-  x: 2381
-  y: 927
+  x: 1463
+  y: 926
 - name: assets/textures-layer-3/castle_wall_back_left_orc_0.png
   offsetX: 5
   offsetY: 181
@@ -1947,8 +1947,8 @@ regions:
   packedHeight: 118
   packedWidth: 111
   textureIndex: 0
-  x: 416
-  y: 972
+  x: 1906
+  y: 1047
 - name: assets/textures-layer-3/castle_wall_back_left_orc_1.png
   offsetX: 5
   offsetY: 181
@@ -1957,8 +1957,8 @@ regions:
   packedHeight: 118
   packedWidth: 111
   textureIndex: 0
-  x: 875
-  y: 1048
+  x: 1791
+  y: 1047
 - name: assets/textures-layer-3/castle_wall_back_left_orc_2.png
   offsetX: 5
   offsetY: 181
@@ -1967,8 +1967,8 @@ regions:
   packedHeight: 118
   packedWidth: 111
   textureIndex: 0
-  x: 75
-  y: 1028
+  x: 3726
+  y: 1046
 - name: assets/textures-layer-3/castle_wall_back_left_orc_3.png
   offsetX: 5
   offsetY: 181
@@ -1977,8 +1977,8 @@ regions:
   packedHeight: 118
   packedWidth: 111
   textureIndex: 0
-  x: 3936
-  y: 1041
+  x: 3611
+  y: 1046
 - name: assets/textures-layer-3/castle_wall_back_left_orc_4.png
   offsetX: 5
   offsetY: 181
@@ -1987,7 +1987,7 @@ regions:
   packedHeight: 118
   packedWidth: 111
   textureIndex: 0
-  x: 2706
+  x: 3496
   y: 1046
 - name: assets/textures-layer-3/castle_wall_back_left_orc_5.png
   offsetX: 5
@@ -1997,8 +1997,8 @@ regions:
   packedHeight: 118
   packedWidth: 111
   textureIndex: 0
-  x: 3381
-  y: 1046
+  x: 2497
+  y: 1047
 - name: assets/textures-layer-3/castle_wall_back_right_orc_0.png
   offsetX: 104
   offsetY: 181
@@ -2007,7 +2007,7 @@ regions:
   packedHeight: 118
   packedWidth: 111
   textureIndex: 0
-  x: 3496
+  x: 3381
   y: 1046
 - name: assets/textures-layer-3/castle_wall_back_right_orc_1.png
   offsetX: 104
@@ -2017,7 +2017,7 @@ regions:
   packedHeight: 118
   packedWidth: 111
   textureIndex: 0
-  x: 3611
+  x: 2706
   y: 1046
 - name: assets/textures-layer-3/castle_wall_back_right_orc_2.png
   offsetX: 104
@@ -2027,8 +2027,8 @@ regions:
   packedHeight: 118
   packedWidth: 111
   textureIndex: 0
-  x: 3726
-  y: 1046
+  x: 3936
+  y: 1041
 - name: assets/textures-layer-3/castle_wall_back_right_orc_3.png
   offsetX: 104
   offsetY: 181
@@ -2037,8 +2037,8 @@ regions:
   packedHeight: 118
   packedWidth: 111
   textureIndex: 0
-  x: 1791
-  y: 1047
+  x: 75
+  y: 1028
 - name: assets/textures-layer-3/castle_wall_back_right_orc_4.png
   offsetX: 104
   offsetY: 181
@@ -2047,8 +2047,8 @@ regions:
   packedHeight: 118
   packedWidth: 111
   textureIndex: 0
-  x: 1906
-  y: 1047
+  x: 875
+  y: 1048
 - name: assets/textures-layer-3/castle_wall_back_right_orc_5.png
   offsetX: 104
   offsetY: 181
@@ -2057,8 +2057,8 @@ regions:
   packedHeight: 118
   packedWidth: 111
   textureIndex: 0
-  x: 2497
-  y: 1047
+  x: 416
+  y: 972
 - name: assets/textures-layer-3/castle_bridge_horizontal_human_4.png
   offsetX: 39
   offsetY: 210
@@ -2067,39 +2067,9 @@ regions:
   packedHeight: 89
   packedWidth: 147
   textureIndex: 0
-  x: 1135
-  y: 1699
+  x: 3247
+  y: 1698
 - name: assets/textures-layer-3/castle_building_diagonal_tall_left_undead_0.png
-  offsetX: 36
-  offsetY: 193
-  originalHeight: 445
-  originalWidth: 179
-  packedHeight: 121
-  packedWidth: 108
-  textureIndex: 0
-  x: 188
-  y: 903
-- name: assets/textures-layer-3/castle_building_diagonal_tall_left_undead_1.png
-  offsetX: 36
-  offsetY: 193
-  originalHeight: 445
-  originalWidth: 179
-  packedHeight: 121
-  packedWidth: 108
-  textureIndex: 0
-  x: 76
-  y: 903
-- name: assets/textures-layer-3/castle_building_diagonal_tall_left_undead_2.png
-  offsetX: 36
-  offsetY: 193
-  originalHeight: 445
-  originalWidth: 179
-  packedHeight: 121
-  packedWidth: 108
-  textureIndex: 0
-  x: 1375
-  y: 800
-- name: assets/textures-layer-3/castle_building_diagonal_tall_left_undead_3.png
   offsetX: 36
   offsetY: 193
   originalHeight: 445
@@ -2109,7 +2079,27 @@ regions:
   textureIndex: 0
   x: 3962
   y: 916
-- name: assets/textures-layer-3/castle_building_diagonal_tall_left_undead_4.png
+- name: assets/textures-layer-3/castle_building_diagonal_tall_left_undead_1.png
+  offsetX: 36
+  offsetY: 193
+  originalHeight: 445
+  originalWidth: 179
+  packedHeight: 121
+  packedWidth: 108
+  textureIndex: 0
+  x: 188
+  y: 903
+- name: assets/textures-layer-3/castle_building_diagonal_tall_left_undead_2.png
+  offsetX: 36
+  offsetY: 193
+  originalHeight: 445
+  originalWidth: 179
+  packedHeight: 121
+  packedWidth: 108
+  textureIndex: 0
+  x: 76
+  y: 903
+- name: assets/textures-layer-3/castle_building_diagonal_tall_left_undead_3.png
   offsetX: 36
   offsetY: 193
   originalHeight: 445
@@ -2119,6 +2109,16 @@ regions:
   textureIndex: 0
   x: 2715
   y: 921
+- name: assets/textures-layer-3/castle_building_diagonal_tall_left_undead_4.png
+  offsetX: 36
+  offsetY: 193
+  originalHeight: 445
+  originalWidth: 179
+  packedHeight: 121
+  packedWidth: 108
+  textureIndex: 0
+  x: 1375
+  y: 800
 - name: assets/textures-layer-3/castle_building_diagonal_tall_left_undead_5.png
   offsetX: 36
   offsetY: 193
@@ -2197,8 +2197,8 @@ regions:
   packedHeight: 67
   packedWidth: 195
   textureIndex: 0
-  x: 1507
-  y: 1952
+  x: 984
+  y: 1950
 - name: assets/textures-layer-3/hills_green_3.png
   offsetX: 4
   offsetY: 41
@@ -2207,8 +2207,8 @@ regions:
   packedHeight: 67
   packedWidth: 195
   textureIndex: 0
-  x: 1175
-  y: 1952
+  x: 2654
+  y: 1950
 - name: assets/textures-layer-3/tree_bush_0.png
   offsetX: 58
   offsetY: 205
@@ -2247,99 +2247,9 @@ regions:
   packedHeight: 118
   packedWidth: 109
   textureIndex: 0
-  x: 3160
-  y: 1048
+  x: 2021
+  y: 1049
 - name: assets/textures-layer-3/castle_wall_back_left_human_1.png
-  offsetX: 6
-  offsetY: 181
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 118
-  packedWidth: 109
-  textureIndex: 0
-  x: 3047
-  y: 1048
-- name: assets/textures-layer-3/castle_wall_back_left_human_2.png
-  offsetX: 6
-  offsetY: 181
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 118
-  packedWidth: 109
-  textureIndex: 0
-  x: 2934
-  y: 1048
-- name: assets/textures-layer-3/castle_wall_back_left_human_3.png
-  offsetX: 6
-  offsetY: 181
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 118
-  packedWidth: 109
-  textureIndex: 0
-  x: 2821
-  y: 1048
-- name: assets/textures-layer-3/castle_wall_back_left_human_4.png
-  offsetX: 6
-  offsetY: 181
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 118
-  packedWidth: 109
-  textureIndex: 0
-  x: 2211
-  y: 1048
-- name: assets/textures-layer-3/castle_wall_back_left_human_5.png
-  offsetX: 6
-  offsetY: 181
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 118
-  packedWidth: 109
-  textureIndex: 0
-  x: 3954
-  y: 1163
-- name: assets/textures-layer-3/castle_wall_back_left_undead_0.png
-  offsetX: 6
-  offsetY: 181
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 118
-  packedWidth: 109
-  textureIndex: 0
-  x: 1553
-  y: 1048
-- name: assets/textures-layer-3/castle_wall_back_left_undead_1.png
-  offsetX: 6
-  offsetY: 181
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 118
-  packedWidth: 109
-  textureIndex: 0
-  x: 1440
-  y: 1048
-- name: assets/textures-layer-3/castle_wall_back_left_undead_2.png
-  offsetX: 6
-  offsetY: 181
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 118
-  packedWidth: 109
-  textureIndex: 0
-  x: 1327
-  y: 1048
-- name: assets/textures-layer-3/castle_wall_back_left_undead_3.png
-  offsetX: 6
-  offsetY: 181
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 118
-  packedWidth: 109
-  textureIndex: 0
-  x: 1214
-  y: 1048
-- name: assets/textures-layer-3/castle_wall_back_left_undead_4.png
   offsetX: 6
   offsetY: 181
   originalHeight: 445
@@ -2349,7 +2259,7 @@ regions:
   textureIndex: 0
   x: 1101
   y: 1048
-- name: assets/textures-layer-3/castle_wall_back_left_undead_5.png
+- name: assets/textures-layer-3/castle_wall_back_left_human_2.png
   offsetX: 6
   offsetY: 181
   originalHeight: 445
@@ -2357,20 +2267,10 @@ regions:
   packedHeight: 118
   packedWidth: 109
   textureIndex: 0
-  x: 1666
-  y: 1048
-- name: assets/textures-layer-3/castle_wall_back_right_human_0.png
-  offsetX: 105
-  offsetY: 181
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 118
-  packedWidth: 109
-  textureIndex: 0
-  x: 3273
-  y: 1168
-- name: assets/textures-layer-3/castle_wall_back_right_human_1.png
-  offsetX: 105
+  x: 2
+  y: 1150
+- name: assets/textures-layer-3/castle_wall_back_left_human_3.png
+  offsetX: 6
   offsetY: 181
   originalHeight: 445
   originalWidth: 220
@@ -2379,8 +2279,8 @@ regions:
   textureIndex: 0
   x: 531
   y: 1049
-- name: assets/textures-layer-3/castle_wall_back_right_human_2.png
-  offsetX: 105
+- name: assets/textures-layer-3/castle_wall_back_left_human_4.png
+  offsetX: 6
   offsetY: 181
   originalHeight: 445
   originalWidth: 220
@@ -2389,8 +2289,8 @@ regions:
   textureIndex: 0
   x: 644
   y: 1049
-- name: assets/textures-layer-3/castle_wall_back_right_human_3.png
-  offsetX: 105
+- name: assets/textures-layer-3/castle_wall_back_left_human_5.png
+  offsetX: 6
   offsetY: 181
   originalHeight: 445
   originalWidth: 220
@@ -2399,18 +2299,8 @@ regions:
   textureIndex: 0
   x: 757
   y: 1049
-- name: assets/textures-layer-3/castle_wall_back_right_human_4.png
-  offsetX: 105
-  offsetY: 181
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 118
-  packedWidth: 109
-  textureIndex: 0
-  x: 2021
-  y: 1049
-- name: assets/textures-layer-3/castle_wall_back_right_human_5.png
-  offsetX: 105
+- name: assets/textures-layer-3/castle_wall_back_left_undead_0.png
+  offsetX: 6
   offsetY: 181
   originalHeight: 445
   originalWidth: 220
@@ -2419,17 +2309,57 @@ regions:
   textureIndex: 0
   x: 2324
   y: 1049
-- name: assets/textures-layer-3/castle_wall_back_right_undead_0.png
-  offsetX: 105
+- name: assets/textures-layer-3/castle_wall_back_left_undead_1.png
+  offsetX: 6
   offsetY: 181
   originalHeight: 445
   originalWidth: 220
   packedHeight: 118
   packedWidth: 109
   textureIndex: 0
-  x: 190
+  x: 416
   y: 1094
-- name: assets/textures-layer-3/castle_wall_back_right_undead_1.png
+- name: assets/textures-layer-3/castle_wall_back_left_undead_2.png
+  offsetX: 6
+  offsetY: 181
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 118
+  packedWidth: 109
+  textureIndex: 0
+  x: 3841
+  y: 1163
+- name: assets/textures-layer-3/castle_wall_back_left_undead_3.png
+  offsetX: 6
+  offsetY: 181
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 118
+  packedWidth: 109
+  textureIndex: 0
+  x: 3954
+  y: 1163
+- name: assets/textures-layer-3/castle_wall_back_left_undead_4.png
+  offsetX: 6
+  offsetY: 181
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 118
+  packedWidth: 109
+  textureIndex: 0
+  x: 2612
+  y: 1168
+- name: assets/textures-layer-3/castle_wall_back_left_undead_5.png
+  offsetX: 6
+  offsetY: 181
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 118
+  packedWidth: 109
+  textureIndex: 0
+  x: 3273
+  y: 1168
+- name: assets/textures-layer-3/castle_wall_back_right_human_0.png
   offsetX: 105
   offsetY: 181
   originalHeight: 445
@@ -2439,6 +2369,76 @@ regions:
   textureIndex: 0
   x: 303
   y: 1094
+- name: assets/textures-layer-3/castle_wall_back_right_human_1.png
+  offsetX: 105
+  offsetY: 181
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 118
+  packedWidth: 109
+  textureIndex: 0
+  x: 190
+  y: 1094
+- name: assets/textures-layer-3/castle_wall_back_right_human_2.png
+  offsetX: 105
+  offsetY: 181
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 118
+  packedWidth: 109
+  textureIndex: 0
+  x: 3160
+  y: 1048
+- name: assets/textures-layer-3/castle_wall_back_right_human_3.png
+  offsetX: 105
+  offsetY: 181
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 118
+  packedWidth: 109
+  textureIndex: 0
+  x: 3047
+  y: 1048
+- name: assets/textures-layer-3/castle_wall_back_right_human_4.png
+  offsetX: 105
+  offsetY: 181
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 118
+  packedWidth: 109
+  textureIndex: 0
+  x: 2934
+  y: 1048
+- name: assets/textures-layer-3/castle_wall_back_right_human_5.png
+  offsetX: 105
+  offsetY: 181
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 118
+  packedWidth: 109
+  textureIndex: 0
+  x: 2821
+  y: 1048
+- name: assets/textures-layer-3/castle_wall_back_right_undead_0.png
+  offsetX: 105
+  offsetY: 181
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 118
+  packedWidth: 109
+  textureIndex: 0
+  x: 2211
+  y: 1048
+- name: assets/textures-layer-3/castle_wall_back_right_undead_1.png
+  offsetX: 105
+  offsetY: 181
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 118
+  packedWidth: 109
+  textureIndex: 0
+  x: 1666
+  y: 1048
 - name: assets/textures-layer-3/castle_wall_back_right_undead_2.png
   offsetX: 105
   offsetY: 181
@@ -2447,8 +2447,8 @@ regions:
   packedHeight: 118
   packedWidth: 109
   textureIndex: 0
-  x: 416
-  y: 1094
+  x: 1553
+  y: 1048
 - name: assets/textures-layer-3/castle_wall_back_right_undead_3.png
   offsetX: 105
   offsetY: 181
@@ -2457,8 +2457,8 @@ regions:
   packedHeight: 118
   packedWidth: 109
   textureIndex: 0
-  x: 2
-  y: 1150
+  x: 1440
+  y: 1048
 - name: assets/textures-layer-3/castle_wall_back_right_undead_4.png
   offsetX: 105
   offsetY: 181
@@ -2467,8 +2467,8 @@ regions:
   packedHeight: 118
   packedWidth: 109
   textureIndex: 0
-  x: 3841
-  y: 1163
+  x: 1327
+  y: 1048
 - name: assets/textures-layer-3/castle_wall_back_right_undead_5.png
   offsetX: 105
   offsetY: 181
@@ -2477,8 +2477,8 @@ regions:
   packedHeight: 118
   packedWidth: 109
   textureIndex: 0
-  x: 2612
-  y: 1168
+  x: 1214
+  y: 1048
 - name: assets/textures-layer-3/castle_building_diagonal_short_left_elf_4.png
   offsetX: 44
   offsetY: 192
@@ -2507,7 +2507,7 @@ regions:
   packedHeight: 120
   packedWidth: 107
   textureIndex: 0
-  x: 1791
+  x: 1902
   y: 923
 - name: assets/textures-layer-3/castle_wall_front_right_dwarf_5.png
   offsetX: 105
@@ -2517,7 +2517,7 @@ regions:
   packedHeight: 120
   packedWidth: 107
   textureIndex: 0
-  x: 1902
+  x: 1791
   y: 923
 - name: assets/textures-layer-3/castle_tower_short_elf_0.png
   offsetX: 80
@@ -2537,7 +2537,7 @@ regions:
   packedHeight: 119
   packedWidth: 107
   textureIndex: 0
-  x: 3714
+  x: 3381
   y: 923
 - name: assets/textures-layer-3/castle_wall_front_left_dwarf_1.png
   offsetX: 8
@@ -2547,8 +2547,8 @@ regions:
   packedHeight: 119
   packedWidth: 107
   textureIndex: 0
-  x: 2595
-  y: 924
+  x: 3603
+  y: 923
 - name: assets/textures-layer-3/castle_wall_front_left_dwarf_2.png
   offsetX: 8
   offsetY: 173
@@ -2557,7 +2557,7 @@ regions:
   packedHeight: 119
   packedWidth: 107
   textureIndex: 0
-  x: 3825
+  x: 3714
   y: 923
 - name: assets/textures-layer-3/castle_wall_front_left_dwarf_3.png
   offsetX: 8
@@ -2567,7 +2567,7 @@ regions:
   packedHeight: 119
   packedWidth: 107
   textureIndex: 0
-  x: 3381
+  x: 3825
   y: 923
 - name: assets/textures-layer-3/castle_wall_front_left_dwarf_4.png
   offsetX: 8
@@ -2577,19 +2577,9 @@ regions:
   packedHeight: 119
   packedWidth: 107
   textureIndex: 0
-  x: 3492
-  y: 923
+  x: 2595
+  y: 924
 - name: assets/textures-layer-3/castle_wall_front_right_dwarf_0.png
-  offsetX: 105
-  offsetY: 173
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 119
-  packedWidth: 107
-  textureIndex: 0
-  x: 3603
-  y: 923
-- name: assets/textures-layer-3/castle_wall_front_right_dwarf_1.png
   offsetX: 105
   offsetY: 173
   originalHeight: 445
@@ -2599,7 +2589,7 @@ regions:
   textureIndex: 0
   x: 891
   y: 925
-- name: assets/textures-layer-3/castle_wall_front_right_dwarf_2.png
+- name: assets/textures-layer-3/castle_wall_front_right_dwarf_1.png
   offsetX: 105
   offsetY: 173
   originalHeight: 445
@@ -2609,6 +2599,16 @@ regions:
   textureIndex: 0
   x: 1241
   y: 925
+- name: assets/textures-layer-3/castle_wall_front_right_dwarf_2.png
+  offsetX: 105
+  offsetY: 173
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 119
+  packedWidth: 107
+  textureIndex: 0
+  x: 3492
+  y: 923
 - name: assets/textures-layer-3/castle_wall_front_right_dwarf_3.png
   offsetX: 105
   offsetY: 173
@@ -2667,8 +2667,8 @@ regions:
   packedHeight: 79
   packedWidth: 159
   textureIndex: 0
-  x: 562
-  y: 1791
+  x: 2402
+  y: 1790
 - name: assets/textures-layer-3/castle_bridge_horizontal_human_1.png
   offsetX: 39
   offsetY: 210
@@ -2677,8 +2677,8 @@ regions:
   packedHeight: 84
   packedWidth: 147
   textureIndex: 0
-  x: 117
-  y: 1735
+  x: 329
+  y: 1702
 - name: assets/textures-layer-3/castle_bridge_horizontal_dwarf_1.png
   offsetX: 38
   offsetY: 209
@@ -2687,7 +2687,7 @@ regions:
   packedHeight: 81
   packedWidth: 151
   textureIndex: 0
-  x: 2752
+  x: 1672
   y: 1790
 - name: assets/textures-layer-3/tree_cypress_0.png
   offsetX: 95
@@ -2697,7 +2697,7 @@ regions:
   packedHeight: 204
   packedWidth: 59
   textureIndex: 0
-  x: 2303
+  x: 2240
   y: 2
 - name: assets/textures-layer-3/tree_cypress_1.png
   offsetX: 108
@@ -2707,7 +2707,7 @@ regions:
   packedHeight: 204
   packedWidth: 59
   textureIndex: 0
-  x: 2240
+  x: 2303
   y: 2
 - name: assets/textures-layer-3/castle_bridge_horizontal_dwarf_4.png
   offsetX: 38
@@ -2717,8 +2717,8 @@ regions:
   packedHeight: 77
   packedWidth: 154
   textureIndex: 0
-  x: 3026
-  y: 1791
+  x: 3558
+  y: 1790
 - name: assets/textures-layer-3/castle_building_wide_tall_human_2.png
   offsetX: 23
   offsetY: 212
@@ -2727,8 +2727,8 @@ regions:
   packedHeight: 87
   packedWidth: 135
   textureIndex: 0
-  x: 981
-  y: 1700
+  x: 2774
+  y: 1699
 - name: assets/textures-layer-3/castle_building_wide_tall_human_4.png
   offsetX: 23
   offsetY: 216
@@ -2737,8 +2737,8 @@ regions:
   packedHeight: 87
   packedWidth: 135
   textureIndex: 0
-  x: 842
-  y: 1700
+  x: 1293
+  y: 1699
 - name: assets/textures-layer-3/prop_pillar_stone_short_0.png
   offsetX: 4
   offsetY: 347
@@ -2767,29 +2767,9 @@ regions:
   packedHeight: 104
   packedWidth: 112
   textureIndex: 0
-  x: 165
-  y: 1331
+  x: 2
+  y: 1387
 - name: assets/textures-layer-3/castle_building_diagonal_tall_left_dwarf_1.png
-  offsetX: 54
-  offsetY: 189
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 104
-  packedWidth: 112
-  textureIndex: 0
-  x: 281
-  y: 1331
-- name: assets/textures-layer-3/castle_building_diagonal_tall_left_dwarf_2.png
-  offsetX: 54
-  offsetY: 189
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 104
-  packedWidth: 112
-  textureIndex: 0
-  x: 2918
-  y: 1288
-- name: assets/textures-layer-3/castle_building_diagonal_tall_left_dwarf_3.png
   offsetX: 54
   offsetY: 189
   originalHeight: 445
@@ -2799,7 +2779,7 @@ regions:
   textureIndex: 0
   x: 1461
   y: 1288
-- name: assets/textures-layer-3/castle_building_diagonal_tall_left_dwarf_4.png
+- name: assets/textures-layer-3/castle_building_diagonal_tall_left_dwarf_2.png
   offsetX: 54
   offsetY: 189
   originalHeight: 445
@@ -2809,7 +2789,7 @@ regions:
   textureIndex: 0
   x: 2802
   y: 1288
-- name: assets/textures-layer-3/castle_building_diagonal_tall_left_dwarf_5.png
+- name: assets/textures-layer-3/castle_building_diagonal_tall_left_dwarf_3.png
   offsetX: 54
   offsetY: 189
   originalHeight: 445
@@ -2817,9 +2797,19 @@ regions:
   packedHeight: 104
   packedWidth: 112
   textureIndex: 0
-  x: 1577
+  x: 165
+  y: 1331
+- name: assets/textures-layer-3/castle_building_diagonal_tall_left_dwarf_4.png
+  offsetX: 54
+  offsetY: 189
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 104
+  packedWidth: 112
+  textureIndex: 0
+  x: 2918
   y: 1288
-- name: assets/textures-layer-3/castle_building_diagonal_tall_right_dwarf_0.png
+- name: assets/textures-layer-3/castle_building_diagonal_tall_left_dwarf_5.png
   offsetX: 54
   offsetY: 189
   originalHeight: 445
@@ -2829,27 +2819,7 @@ regions:
   textureIndex: 0
   x: 2610
   y: 1290
-- name: assets/textures-layer-3/castle_building_diagonal_tall_right_dwarf_1.png
-  offsetX: 54
-  offsetY: 189
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 104
-  packedWidth: 112
-  textureIndex: 0
-  x: 2
-  y: 1387
-- name: assets/textures-layer-3/castle_building_diagonal_tall_right_dwarf_2.png
-  offsetX: 54
-  offsetY: 189
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 104
-  packedWidth: 112
-  textureIndex: 0
-  x: 3690
-  y: 1395
-- name: assets/textures-layer-3/castle_building_diagonal_tall_right_dwarf_3.png
+- name: assets/textures-layer-3/castle_building_diagonal_tall_right_dwarf_0.png
   offsetX: 54
   offsetY: 189
   originalHeight: 445
@@ -2859,17 +2829,7 @@ regions:
   textureIndex: 0
   x: 1309
   y: 1396
-- name: assets/textures-layer-3/castle_building_diagonal_tall_right_dwarf_4.png
-  offsetX: 54
-  offsetY: 189
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 104
-  packedWidth: 112
-  textureIndex: 0
-  x: 3219
-  y: 1290
-- name: assets/textures-layer-3/castle_building_diagonal_tall_right_dwarf_5.png
+- name: assets/textures-layer-3/castle_building_diagonal_tall_right_dwarf_1.png
   offsetX: 54
   offsetY: 189
   originalHeight: 445
@@ -2879,47 +2839,47 @@ regions:
   textureIndex: 0
   x: 1425
   y: 1396
+- name: assets/textures-layer-3/castle_building_diagonal_tall_right_dwarf_2.png
+  offsetX: 54
+  offsetY: 189
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 104
+  packedWidth: 112
+  textureIndex: 0
+  x: 281
+  y: 1331
+- name: assets/textures-layer-3/castle_building_diagonal_tall_right_dwarf_3.png
+  offsetX: 54
+  offsetY: 189
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 104
+  packedWidth: 112
+  textureIndex: 0
+  x: 1577
+  y: 1288
+- name: assets/textures-layer-3/castle_building_diagonal_tall_right_dwarf_4.png
+  offsetX: 54
+  offsetY: 189
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 104
+  packedWidth: 112
+  textureIndex: 0
+  x: 3690
+  y: 1395
+- name: assets/textures-layer-3/castle_building_diagonal_tall_right_dwarf_5.png
+  offsetX: 54
+  offsetY: 189
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 104
+  packedWidth: 112
+  textureIndex: 0
+  x: 3219
+  y: 1290
 - name: assets/textures-layer-3/castle_building_wide_tall_undead_0.png
-  offsetX: 22
-  offsetY: 212
-  originalHeight: 445
-  originalWidth: 179
-  packedHeight: 86
-  packedWidth: 135
-  textureIndex: 0
-  x: 2520
-  y: 1700
-- name: assets/textures-layer-3/castle_building_wide_tall_undead_1.png
-  offsetX: 22
-  offsetY: 212
-  originalHeight: 445
-  originalWidth: 179
-  packedHeight: 86
-  packedWidth: 135
-  textureIndex: 0
-  x: 2381
-  y: 1700
-- name: assets/textures-layer-3/castle_building_wide_tall_undead_2.png
-  offsetX: 22
-  offsetY: 212
-  originalHeight: 445
-  originalWidth: 179
-  packedHeight: 86
-  packedWidth: 135
-  textureIndex: 0
-  x: 2242
-  y: 1700
-- name: assets/textures-layer-3/castle_building_wide_tall_undead_3.png
-  offsetX: 22
-  offsetY: 212
-  originalHeight: 445
-  originalWidth: 179
-  packedHeight: 86
-  packedWidth: 135
-  textureIndex: 0
-  x: 1816
-  y: 1700
-- name: assets/textures-layer-3/castle_building_wide_tall_undead_4.png
   offsetX: 22
   offsetY: 212
   originalHeight: 445
@@ -2929,7 +2889,7 @@ regions:
   textureIndex: 0
   x: 1677
   y: 1700
-- name: assets/textures-layer-3/castle_building_wide_tall_undead_5.png
+- name: assets/textures-layer-3/castle_building_wide_tall_undead_1.png
   offsetX: 22
   offsetY: 212
   originalHeight: 445
@@ -2938,6 +2898,46 @@ regions:
   packedWidth: 135
   textureIndex: 0
   x: 2103
+  y: 1700
+- name: assets/textures-layer-3/castle_building_wide_tall_undead_2.png
+  offsetX: 22
+  offsetY: 212
+  originalHeight: 445
+  originalWidth: 179
+  packedHeight: 86
+  packedWidth: 135
+  textureIndex: 0
+  x: 1816
+  y: 1700
+- name: assets/textures-layer-3/castle_building_wide_tall_undead_3.png
+  offsetX: 22
+  offsetY: 212
+  originalHeight: 445
+  originalWidth: 179
+  packedHeight: 86
+  packedWidth: 135
+  textureIndex: 0
+  x: 842
+  y: 1700
+- name: assets/textures-layer-3/castle_building_wide_tall_undead_4.png
+  offsetX: 22
+  offsetY: 212
+  originalHeight: 445
+  originalWidth: 179
+  packedHeight: 86
+  packedWidth: 135
+  textureIndex: 0
+  x: 2242
+  y: 1700
+- name: assets/textures-layer-3/castle_building_wide_tall_undead_5.png
+  offsetX: 22
+  offsetY: 212
+  originalHeight: 445
+  originalWidth: 179
+  packedHeight: 86
+  packedWidth: 135
+  textureIndex: 0
+  x: 981
   y: 1700
 - name: assets/textures-layer-3/prop_pillar_stone_short_5.png
   offsetX: 1
@@ -2957,8 +2957,8 @@ regions:
   packedHeight: 84
   packedWidth: 135
   textureIndex: 0
-  x: 1719
-  y: 1790
+  x: 1432
+  y: 1789
 - name: assets/textures-layer-3/castle_building_wide_tall_human_1.png
   offsetX: 23
   offsetY: 215
@@ -2967,8 +2967,8 @@ regions:
   packedHeight: 84
   packedWidth: 135
   textureIndex: 0
-  x: 1441
-  y: 1789
+  x: 160
+  y: 1735
 - name: assets/textures-layer-3/castle_building_wide_tall_human_3.png
   offsetX: 22
   offsetY: 214
@@ -2977,8 +2977,8 @@ regions:
   packedHeight: 84
   packedWidth: 135
   textureIndex: 0
-  x: 1580
-  y: 1790
+  x: 2
+  y: 1788
 - name: assets/textures-layer-3/tree_confiner_5.png
   offsetX: 89
   offsetY: 266
@@ -2997,7 +2997,7 @@ regions:
   packedHeight: 86
   packedWidth: 131
   textureIndex: 0
-  x: 3846
+  x: 2381
   y: 1700
 - name: assets/textures-layer-3/tree_confiner_2.png
   offsetX: 96
@@ -3017,8 +3017,8 @@ regions:
   packedHeight: 150
   packedWidth: 74
   textureIndex: 0
-  x: 1600
-  y: 225
+  x: 1117
+  y: 226
 - name: assets/textures-layer-3/castle_tower_short_dwarf_5.png
   offsetX: 78
   offsetY: 208
@@ -3027,19 +3027,9 @@ regions:
   packedHeight: 150
   packedWidth: 74
   textureIndex: 0
-  x: 1117
-  y: 226
+  x: 1600
+  y: 225
 - name: assets/textures-layer-3/castle_tower_short_human_0.png
-  offsetX: 5
-  offsetY: 216
-  originalHeight: 445
-  originalWidth: 80
-  packedHeight: 147
-  packedWidth: 75
-  textureIndex: 0
-  x: 144
-  y: 351
-- name: assets/textures-layer-3/castle_tower_short_human_1.png
   offsetX: 5
   offsetY: 216
   originalHeight: 445
@@ -3049,6 +3039,16 @@ regions:
   textureIndex: 0
   x: 276
   y: 289
+- name: assets/textures-layer-3/castle_tower_short_human_1.png
+  offsetX: 5
+  offsetY: 216
+  originalHeight: 445
+  originalWidth: 80
+  packedHeight: 147
+  packedWidth: 75
+  textureIndex: 0
+  x: 144
+  y: 351
 - name: assets/textures-layer-3/castle_tower_short_human_2.png
   offsetX: 5
   offsetY: 216
@@ -3067,7 +3067,7 @@ regions:
   packedHeight: 98
   packedWidth: 110
   textureIndex: 0
-  x: 3806
+  x: 1641
   y: 1502
 - name: assets/textures-layer-3/castle_building_diagonal_short_left_human_1.png
   offsetX: 34
@@ -3077,7 +3077,7 @@ regions:
   packedHeight: 98
   packedWidth: 110
   textureIndex: 0
-  x: 1641
+  x: 789
   y: 1502
 - name: assets/textures-layer-3/castle_building_diagonal_short_left_human_2.png
   offsetX: 34
@@ -3087,8 +3087,8 @@ regions:
   packedHeight: 98
   packedWidth: 110
   textureIndex: 0
-  x: 384
-  y: 1503
+  x: 3920
+  y: 1501
 - name: assets/textures-layer-3/castle_building_diagonal_short_left_human_3.png
   offsetX: 34
   offsetY: 193
@@ -3097,19 +3097,9 @@ regions:
   packedHeight: 98
   packedWidth: 110
   textureIndex: 0
-  x: 789
-  y: 1502
+  x: 2194
+  y: 1500
 - name: assets/textures-layer-3/castle_building_diagonal_short_left_human_4.png
-  offsetX: 34
-  offsetY: 193
-  originalHeight: 445
-  originalWidth: 179
-  packedHeight: 98
-  packedWidth: 110
-  textureIndex: 0
-  x: 2
-  y: 1495
-- name: assets/textures-layer-3/castle_building_diagonal_short_left_human_5.png
   offsetX: 34
   offsetY: 193
   originalHeight: 445
@@ -3119,38 +3109,8 @@ regions:
   textureIndex: 0
   x: 3806
   y: 1400
-- name: assets/textures-layer-3/castle_building_diagonal_short_right_human_0.png
-  offsetX: 35
-  offsetY: 193
-  originalHeight: 445
-  originalWidth: 179
-  packedHeight: 98
-  packedWidth: 110
-  textureIndex: 0
-  x: 2194
-  y: 1398
-- name: assets/textures-layer-3/castle_building_diagonal_short_right_human_1.png
-  offsetX: 35
-  offsetY: 193
-  originalHeight: 445
-  originalWidth: 179
-  packedHeight: 98
-  packedWidth: 110
-  textureIndex: 0
-  x: 270
-  y: 1439
-- name: assets/textures-layer-3/castle_building_diagonal_short_right_human_2.png
-  offsetX: 35
-  offsetY: 193
-  originalHeight: 445
-  originalWidth: 179
-  packedHeight: 98
-  packedWidth: 110
-  textureIndex: 0
-  x: 3920
-  y: 1501
-- name: assets/textures-layer-3/castle_building_diagonal_short_right_human_3.png
-  offsetX: 35
+- name: assets/textures-layer-3/castle_building_diagonal_short_left_human_5.png
+  offsetX: 34
   offsetY: 193
   originalHeight: 445
   originalWidth: 179
@@ -3159,7 +3119,17 @@ regions:
   textureIndex: 0
   x: 612
   y: 1503
-- name: assets/textures-layer-3/castle_building_diagonal_short_right_human_4.png
+- name: assets/textures-layer-3/castle_building_diagonal_short_right_human_0.png
+  offsetX: 35
+  offsetY: 193
+  originalHeight: 445
+  originalWidth: 179
+  packedHeight: 98
+  packedWidth: 110
+  textureIndex: 0
+  x: 3806
+  y: 1502
+- name: assets/textures-layer-3/castle_building_diagonal_short_right_human_1.png
   offsetX: 35
   offsetY: 193
   originalHeight: 445
@@ -3169,7 +3139,17 @@ regions:
   textureIndex: 0
   x: 498
   y: 1503
-- name: assets/textures-layer-3/castle_building_diagonal_short_right_human_5.png
+- name: assets/textures-layer-3/castle_building_diagonal_short_right_human_2.png
+  offsetX: 35
+  offsetY: 193
+  originalHeight: 445
+  originalWidth: 179
+  packedHeight: 98
+  packedWidth: 110
+  textureIndex: 0
+  x: 270
+  y: 1439
+- name: assets/textures-layer-3/castle_building_diagonal_short_right_human_3.png
   offsetX: 35
   offsetY: 193
   originalHeight: 445
@@ -3178,7 +3158,27 @@ regions:
   packedWidth: 110
   textureIndex: 0
   x: 2194
-  y: 1500
+  y: 1398
+- name: assets/textures-layer-3/castle_building_diagonal_short_right_human_4.png
+  offsetX: 35
+  offsetY: 193
+  originalHeight: 445
+  originalWidth: 179
+  packedHeight: 98
+  packedWidth: 110
+  textureIndex: 0
+  x: 2
+  y: 1495
+- name: assets/textures-layer-3/castle_building_diagonal_short_right_human_5.png
+  offsetX: 35
+  offsetY: 193
+  originalHeight: 445
+  originalWidth: 179
+  packedHeight: 98
+  packedWidth: 110
+  textureIndex: 0
+  x: 384
+  y: 1503
 - name: assets/textures-layer-3/tree_cypress_2.png
   offsetX: 99
   offsetY: 253
@@ -3217,7 +3217,7 @@ regions:
   packedHeight: 81
   packedWidth: 132
   textureIndex: 0
-  x: 3412
+  x: 1827
   y: 1790
 - name: assets/textures-layer-3/castle_building_wide_tall_elf_3.png
   offsetX: 49
@@ -3227,7 +3227,7 @@ regions:
   packedHeight: 85
   packedWidth: 125
   textureIndex: 0
-  x: 3412
+  x: 1955
   y: 1701
 - name: assets/textures-layer-3/castle_building_diagonal_short_left_dwarf_0.png
   offsetX: 53
@@ -3237,8 +3237,8 @@ regions:
   packedHeight: 93
   packedWidth: 112
   textureIndex: 0
-  x: 1755
-  y: 1603
+  x: 3614
+  y: 1601
 - name: assets/textures-layer-3/castle_building_diagonal_short_left_dwarf_1.png
   offsetX: 53
   offsetY: 189
@@ -3247,8 +3247,8 @@ regions:
   packedHeight: 93
   packedWidth: 112
   textureIndex: 0
-  x: 1871
-  y: 1603
+  x: 1987
+  y: 1604
 - name: assets/textures-layer-3/castle_building_diagonal_short_left_dwarf_2.png
   offsetX: 53
   offsetY: 189
@@ -3257,19 +3257,9 @@ regions:
   packedHeight: 93
   packedWidth: 112
   textureIndex: 0
-  x: 2194
-  y: 1603
+  x: 497
+  y: 1605
 - name: assets/textures-layer-3/castle_building_diagonal_short_left_dwarf_3.png
-  offsetX: 53
-  offsetY: 189
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 93
-  packedWidth: 112
-  textureIndex: 0
-  x: 2310
-  y: 1603
-- name: assets/textures-layer-3/castle_building_diagonal_short_left_dwarf_4.png
   offsetX: 53
   offsetY: 189
   originalHeight: 445
@@ -3279,6 +3269,16 @@ regions:
   textureIndex: 0
   x: 2426
   y: 1603
+- name: assets/textures-layer-3/castle_building_diagonal_short_left_dwarf_4.png
+  offsetX: 53
+  offsetY: 189
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 93
+  packedWidth: 112
+  textureIndex: 0
+  x: 2310
+  y: 1603
 - name: assets/textures-layer-3/castle_building_diagonal_short_left_dwarf_5.png
   offsetX: 53
   offsetY: 189
@@ -3287,8 +3287,8 @@ regions:
   packedHeight: 93
   packedWidth: 112
   textureIndex: 0
-  x: 2542
-  y: 1603
+  x: 381
+  y: 1605
 - name: assets/textures-layer-3/castle_building_diagonal_short_left_orc_0.png
   offsetX: 34
   offsetY: 193
@@ -3297,7 +3297,7 @@ regions:
   packedHeight: 93
   packedWidth: 112
   textureIndex: 0
-  x: 2658
+  x: 1755
   y: 1603
 - name: assets/textures-layer-3/castle_building_diagonal_short_left_orc_1.png
   offsetX: 34
@@ -3307,7 +3307,7 @@ regions:
   packedHeight: 93
   packedWidth: 112
   textureIndex: 0
-  x: 3920
+  x: 1019
   y: 1603
 - name: assets/textures-layer-3/castle_building_diagonal_short_left_orc_2.png
   offsetX: 34
@@ -3317,8 +3317,8 @@ regions:
   packedHeight: 93
   packedWidth: 112
   textureIndex: 0
-  x: 726
-  y: 1604
+  x: 1329
+  y: 1602
 - name: assets/textures-layer-3/castle_building_diagonal_short_left_orc_3.png
   offsetX: 34
   offsetY: 193
@@ -3327,8 +3327,8 @@ regions:
   packedHeight: 93
   packedWidth: 112
   textureIndex: 0
-  x: 1561
-  y: 1604
+  x: 1213
+  y: 1602
 - name: assets/textures-layer-3/castle_building_diagonal_short_left_orc_4.png
   offsetX: 34
   offsetY: 193
@@ -3337,8 +3337,8 @@ regions:
   packedHeight: 93
   packedWidth: 112
   textureIndex: 0
-  x: 1987
-  y: 1604
+  x: 3330
+  y: 1601
 - name: assets/textures-layer-3/castle_building_diagonal_short_left_orc_5.png
   offsetX: 34
   offsetY: 193
@@ -3347,7 +3347,7 @@ regions:
   packedHeight: 93
   packedWidth: 112
   textureIndex: 0
-  x: 3065
+  x: 3730
   y: 1604
 - name: assets/textures-layer-3/castle_building_diagonal_short_right_dwarf_0.png
   offsetX: 55
@@ -3357,7 +3357,7 @@ regions:
   packedHeight: 93
   packedWidth: 112
   textureIndex: 0
-  x: 3181
+  x: 3131
   y: 1604
 - name: assets/textures-layer-3/castle_building_diagonal_short_right_dwarf_1.png
   offsetX: 55
@@ -3367,8 +3367,8 @@ regions:
   packedHeight: 93
   packedWidth: 112
   textureIndex: 0
-  x: 3730
-  y: 1604
+  x: 3015
+  y: 1601
 - name: assets/textures-layer-3/castle_building_diagonal_short_right_dwarf_2.png
   offsetX: 55
   offsetY: 189
@@ -3377,8 +3377,8 @@ regions:
   packedHeight: 93
   packedWidth: 112
   textureIndex: 0
-  x: 3446
-  y: 1604
+  x: 1445
+  y: 1602
 - name: assets/textures-layer-3/castle_building_diagonal_short_right_dwarf_3.png
   offsetX: 55
   offsetY: 189
@@ -3387,8 +3387,8 @@ regions:
   packedHeight: 93
   packedWidth: 112
   textureIndex: 0
-  x: 497
-  y: 1605
+  x: 903
+  y: 1603
 - name: assets/textures-layer-3/castle_building_diagonal_short_right_dwarf_4.png
   offsetX: 55
   offsetY: 189
@@ -3397,7 +3397,7 @@ regions:
   packedHeight: 93
   packedWidth: 112
   textureIndex: 0
-  x: 1019
+  x: 1871
   y: 1603
 - name: assets/textures-layer-3/castle_building_diagonal_short_right_dwarf_5.png
   offsetX: 55
@@ -3407,8 +3407,8 @@ regions:
   packedHeight: 93
   packedWidth: 112
   textureIndex: 0
-  x: 3330
-  y: 1601
+  x: 2194
+  y: 1603
 - name: assets/textures-layer-3/castle_building_diagonal_short_right_orc_0.png
   offsetX: 33
   offsetY: 193
@@ -3417,8 +3417,8 @@ regions:
   packedHeight: 93
   packedWidth: 112
   textureIndex: 0
-  x: 3614
-  y: 1601
+  x: 2542
+  y: 1603
 - name: assets/textures-layer-3/castle_building_diagonal_short_right_orc_1.png
   offsetX: 33
   offsetY: 193
@@ -3427,8 +3427,8 @@ regions:
   packedHeight: 93
   packedWidth: 112
   textureIndex: 0
-  x: 1213
-  y: 1602
+  x: 2658
+  y: 1603
 - name: assets/textures-layer-3/castle_building_diagonal_short_right_orc_2.png
   offsetX: 33
   offsetY: 193
@@ -3437,8 +3437,8 @@ regions:
   packedHeight: 93
   packedWidth: 112
   textureIndex: 0
-  x: 1329
-  y: 1602
+  x: 3920
+  y: 1603
 - name: assets/textures-layer-3/castle_building_diagonal_short_right_orc_3.png
   offsetX: 33
   offsetY: 193
@@ -3447,8 +3447,8 @@ regions:
   packedHeight: 93
   packedWidth: 112
   textureIndex: 0
-  x: 1445
-  y: 1602
+  x: 726
+  y: 1604
 - name: assets/textures-layer-3/castle_building_diagonal_short_right_orc_4.png
   offsetX: 33
   offsetY: 193
@@ -3457,8 +3457,8 @@ regions:
   packedHeight: 93
   packedWidth: 112
   textureIndex: 0
-  x: 903
-  y: 1603
+  x: 1561
+  y: 1604
 - name: assets/textures-layer-3/castle_building_diagonal_short_right_orc_5.png
   offsetX: 33
   offsetY: 193
@@ -3467,8 +3467,8 @@ regions:
   packedHeight: 93
   packedWidth: 112
   textureIndex: 0
-  x: 381
-  y: 1605
+  x: 3446
+  y: 1604
 - name: assets/textures-layer-3/tree_regular_1.png
   offsetX: 81
   offsetY: 269
@@ -3487,8 +3487,8 @@ regions:
   packedHeight: 85
   packedWidth: 122
   textureIndex: 0
-  x: 455
-  y: 1702
+  x: 3717
+  y: 1701
 - name: assets/textures-layer-3/castle_building_wide_tall_elf_1.png
   offsetX: 50
   offsetY: 211
@@ -3497,7 +3497,7 @@ regions:
   packedHeight: 85
   packedWidth: 122
   textureIndex: 0
-  x: 3720
+  x: 3398
   y: 1701
 - name: assets/textures-layer-3/castle_building_wide_tall_elf_2.png
   offsetX: 50
@@ -3507,8 +3507,8 @@ regions:
   packedHeight: 85
   packedWidth: 122
   textureIndex: 0
-  x: 329
-  y: 1702
+  x: 3112
+  y: 1701
 - name: assets/textures-layer-3/tree_cypress_4.png
   offsetX: 97
   offsetY: 255
@@ -3517,7 +3517,7 @@ regions:
   packedHeight: 192
   packedWidth: 54
   textureIndex: 0
-  x: 3465
+  x: 3407
   y: 2
 - name: assets/textures-layer-3/tree_cypress_5.png
   offsetX: 105
@@ -3527,7 +3527,7 @@ regions:
   packedHeight: 192
   packedWidth: 54
   textureIndex: 0
-  x: 3407
+  x: 3465
   y: 2
 - name: assets/textures-layer-3/castle_tower_short_elf_3.png
   offsetX: 74
@@ -3537,8 +3537,8 @@ regions:
   packedHeight: 172
   packedWidth: 60
   textureIndex: 0
-  x: 3523
-  y: 195
+  x: 3984
+  y: 179
 - name: assets/textures-layer-3/castle_tower_short_elf_4.png
   offsetX: 85
   offsetY: 216
@@ -3547,8 +3547,8 @@ regions:
   packedHeight: 172
   packedWidth: 60
   textureIndex: 0
-  x: 3984
-  y: 179
+  x: 3523
+  y: 195
 - name: assets/textures-layer-3/castle_building_wide_short_elf_4.png
   offsetX: 49
   offsetY: 212
@@ -3557,7 +3557,7 @@ regions:
   packedHeight: 82
   packedWidth: 125
   textureIndex: 0
-  x: 2075
+  x: 393
   y: 1790
 - name: assets/textures-layer-3/castle_building_wide_short_elf_3.png
   offsetX: 44
@@ -3567,28 +3567,8 @@ regions:
   packedHeight: 80
   packedWidth: 127
   textureIndex: 0
-  x: 302
-  y: 1791
-- name: assets/textures-layer-3/prop_hut_0.png
-  offsetX: 9
-  offsetY: 19
-  originalHeight: 128
-  originalWidth: 128
-  packedHeight: 91
-  packedWidth: 111
-  textureIndex: 0
-  x: 2
-  y: 1695
-- name: assets/textures-layer-3/prop_hut_1.png
-  offsetX: 8
-  offsetY: 19
-  originalHeight: 128
-  originalWidth: 128
-  packedHeight: 91
-  packedWidth: 111
-  textureIndex: 0
-  x: 3297
-  y: 1698
+  x: 2090
+  y: 1790
 - name: assets/textures-layer-3/castle_building_narrow_tall_elf_0.png
   offsetX: 72
   offsetY: 213
@@ -3607,69 +3587,9 @@ regions:
   packedHeight: 94
   packedWidth: 107
   textureIndex: 0
-  x: 2
-  y: 1597
-- name: assets/textures-layer-3/castle_building_diagonal_short_left_undead_1.png
-  offsetX: 36
-  offsetY: 194
-  originalHeight: 445
-  originalWidth: 179
-  packedHeight: 94
-  packedWidth: 107
-  textureIndex: 0
-  x: 116
-  y: 1542
-- name: assets/textures-layer-3/castle_building_diagonal_short_left_undead_2.png
-  offsetX: 36
-  offsetY: 194
-  originalHeight: 445
-  originalWidth: 179
-  packedHeight: 94
-  packedWidth: 107
-  textureIndex: 0
-  x: 1755
-  y: 1504
-- name: assets/textures-layer-3/castle_building_diagonal_short_left_undead_3.png
-  offsetX: 36
-  offsetY: 194
-  originalHeight: 445
-  originalWidth: 179
-  packedHeight: 94
-  packedWidth: 107
-  textureIndex: 0
-  x: 1497
-  y: 1504
-- name: assets/textures-layer-3/castle_building_diagonal_short_left_undead_4.png
-  offsetX: 36
-  offsetY: 194
-  originalHeight: 445
-  originalWidth: 179
-  packedHeight: 94
-  packedWidth: 107
-  textureIndex: 0
-  x: 1386
-  y: 1504
-- name: assets/textures-layer-3/castle_building_diagonal_short_left_undead_5.png
-  offsetX: 36
-  offsetY: 194
-  originalHeight: 445
-  originalWidth: 179
-  packedHeight: 94
-  packedWidth: 107
-  textureIndex: 0
-  x: 1275
-  y: 1504
-- name: assets/textures-layer-3/castle_building_diagonal_short_right_undead_0.png
-  offsetX: 36
-  offsetY: 194
-  originalHeight: 445
-  originalWidth: 179
-  packedHeight: 94
-  packedWidth: 107
-  textureIndex: 0
-  x: 3665
+  x: 3016
   y: 1503
-- name: assets/textures-layer-3/castle_building_diagonal_short_right_undead_1.png
+- name: assets/textures-layer-3/castle_building_diagonal_short_left_undead_1.png
   offsetX: 36
   offsetY: 194
   originalHeight: 445
@@ -3679,6 +3599,66 @@ regions:
   textureIndex: 0
   x: 3330
   y: 1503
+- name: assets/textures-layer-3/castle_building_diagonal_short_left_undead_2.png
+  offsetX: 36
+  offsetY: 194
+  originalHeight: 445
+  originalWidth: 179
+  packedHeight: 94
+  packedWidth: 107
+  textureIndex: 0
+  x: 270
+  y: 1541
+- name: assets/textures-layer-3/castle_building_diagonal_short_left_undead_3.png
+  offsetX: 36
+  offsetY: 194
+  originalHeight: 445
+  originalWidth: 179
+  packedHeight: 94
+  packedWidth: 107
+  textureIndex: 0
+  x: 2
+  y: 1597
+- name: assets/textures-layer-3/castle_building_diagonal_short_left_undead_4.png
+  offsetX: 36
+  offsetY: 194
+  originalHeight: 445
+  originalWidth: 179
+  packedHeight: 94
+  packedWidth: 107
+  textureIndex: 0
+  x: 2794
+  y: 1601
+- name: assets/textures-layer-3/castle_building_diagonal_short_left_undead_5.png
+  offsetX: 36
+  offsetY: 194
+  originalHeight: 445
+  originalWidth: 179
+  packedHeight: 94
+  packedWidth: 107
+  textureIndex: 0
+  x: 3665
+  y: 1503
+- name: assets/textures-layer-3/castle_building_diagonal_short_right_undead_0.png
+  offsetX: 36
+  offsetY: 194
+  originalHeight: 445
+  originalWidth: 179
+  packedHeight: 94
+  packedWidth: 107
+  textureIndex: 0
+  x: 2905
+  y: 1503
+- name: assets/textures-layer-3/castle_building_diagonal_short_right_undead_1.png
+  offsetX: 36
+  offsetY: 194
+  originalHeight: 445
+  originalWidth: 179
+  packedHeight: 94
+  packedWidth: 107
+  textureIndex: 0
+  x: 1386
+  y: 1504
 - name: assets/textures-layer-3/castle_building_diagonal_short_right_undead_2.png
   offsetX: 36
   offsetY: 194
@@ -3687,7 +3667,7 @@ regions:
   packedHeight: 94
   packedWidth: 107
   textureIndex: 0
-  x: 2844
+  x: 2794
   y: 1503
 - name: assets/textures-layer-3/castle_building_diagonal_short_right_undead_3.png
   offsetX: 36
@@ -3697,8 +3677,8 @@ regions:
   packedHeight: 94
   packedWidth: 107
   textureIndex: 0
-  x: 2844
-  y: 1601
+  x: 1755
+  y: 1504
 - name: assets/textures-layer-3/castle_building_diagonal_short_right_undead_4.png
   offsetX: 36
   offsetY: 194
@@ -3707,8 +3687,8 @@ regions:
   packedHeight: 94
   packedWidth: 107
   textureIndex: 0
-  x: 2955
-  y: 1503
+  x: 116
+  y: 1542
 - name: assets/textures-layer-3/castle_building_diagonal_short_right_undead_5.png
   offsetX: 36
   offsetY: 194
@@ -3717,8 +3697,8 @@ regions:
   packedHeight: 94
   packedWidth: 107
   textureIndex: 0
-  x: 3066
-  y: 1503
+  x: 1497
+  y: 1504
 - name: assets/textures-layer-3/tree_bush_5.png
   offsetX: 58
   offsetY: 205
@@ -3727,8 +3707,8 @@ regions:
   packedHeight: 94
   packedWidth: 107
   textureIndex: 0
-  x: 270
-  y: 1541
+  x: 1275
+  y: 1504
 - name: assets/textures-layer-3/castle_building_wide_short_elf_1.png
   offsetX: 49
   offsetY: 212
@@ -3737,7 +3717,7 @@ regions:
   packedHeight: 82
   packedWidth: 122
   textureIndex: 0
-  x: 2204
+  x: 809
   y: 1790
 - name: assets/textures-layer-3/castle_building_wide_short_elf_5.png
   offsetX: 49
@@ -3747,8 +3727,8 @@ regions:
   packedHeight: 80
   packedWidth: 125
   textureIndex: 0
-  x: 433
-  y: 1791
+  x: 2221
+  y: 1790
 - name: assets/textures-layer-3/prop_windmill_4.png
   offsetX: 4
   offsetY: 53
@@ -3757,7 +3737,7 @@ regions:
   packedHeight: 104
   packedWidth: 96
   textureIndex: 0
-  x: 1767
+  x: 1541
   y: 1396
 - name: assets/textures-layer-3/prop_windmill_5.png
   offsetX: 4
@@ -3767,7 +3747,7 @@ regions:
   packedHeight: 104
   packedWidth: 96
   textureIndex: 0
-  x: 1541
+  x: 1767
   y: 1396
 - name: assets/textures-layer-3/castle_building_wide_tall_orc_0.png
   offsetX: 32
@@ -3777,8 +3757,8 @@ regions:
   packedHeight: 86
   packedWidth: 116
   textureIndex: 0
-  x: 2932
-  y: 1699
+  x: 613
+  y: 1701
 - name: assets/textures-layer-3/castle_building_wide_tall_orc_1.png
   offsetX: 32
   offsetY: 212
@@ -3787,8 +3767,8 @@ regions:
   packedHeight: 86
   packedWidth: 116
   textureIndex: 0
-  x: 613
-  y: 1701
+  x: 2516
+  y: 1700
 - name: assets/textures-layer-3/castle_building_wide_tall_orc_2.png
   offsetX: 32
   offsetY: 212
@@ -3797,7 +3777,7 @@ regions:
   packedHeight: 86
   packedWidth: 116
   textureIndex: 0
-  x: 1441
+  x: 1432
   y: 1699
 - name: assets/textures-layer-3/castle_building_wide_tall_orc_3.png
   offsetX: 32
@@ -3807,8 +3787,8 @@ regions:
   packedHeight: 86
   packedWidth: 116
   textureIndex: 0
-  x: 1955
-  y: 1701
+  x: 2636
+  y: 1700
 - name: assets/textures-layer-3/castle_building_wide_tall_orc_4.png
   offsetX: 32
   offsetY: 212
@@ -3817,8 +3797,8 @@ regions:
   packedHeight: 86
   packedWidth: 116
   textureIndex: 0
-  x: 3052
-  y: 1701
+  x: 3846
+  y: 1700
 - name: assets/textures-layer-3/castle_building_wide_tall_orc_5.png
   offsetX: 32
   offsetY: 212
@@ -3827,8 +3807,8 @@ regions:
   packedHeight: 86
   packedWidth: 116
   textureIndex: 0
-  x: 3172
-  y: 1701
+  x: 3966
+  y: 1700
 - name: assets/textures-layer-3/tree_bush_4.png
   offsetX: 58
   offsetY: 205
@@ -3837,7 +3817,7 @@ regions:
   packedHeight: 94
   packedWidth: 106
   textureIndex: 0
-  x: 2955
+  x: 2905
   y: 1601
 - name: assets/textures-layer-3/castle_building_wide_short_elf_2.png
   offsetX: 49
@@ -3847,7 +3827,7 @@ regions:
   packedHeight: 81
   packedWidth: 123
   textureIndex: 0
-  x: 3720
+  x: 1963
   y: 1790
 - name: assets/textures-layer-3/prop_pillar_stone_short_2.png
   offsetX: 6
@@ -3927,7 +3907,7 @@ regions:
   packedHeight: 120
   packedWidth: 78
   textureIndex: 0
-  x: 3299
+  x: 2013
   y: 923
 - name: assets/textures-layer-3/castle_tower_short_human_5.png
   offsetX: 2
@@ -3937,7 +3917,7 @@ regions:
   packedHeight: 120
   packedWidth: 78
   textureIndex: 0
-  x: 2013
+  x: 3299
   y: 923
 - name: assets/textures-layer-3/hills_brown_1.png
   offsetX: 5
@@ -3947,8 +3927,8 @@ regions:
   packedHeight: 47
   packedWidth: 199
   textureIndex: 0
-  x: 1955
-  y: 2141
+  x: 2
+  y: 2105
 - name: assets/textures-layer-3/hills_green_4.png
   offsetX: 5
   offsetY: 51
@@ -3957,8 +3937,8 @@ regions:
   packedHeight: 47
   packedWidth: 199
   textureIndex: 0
-  x: 2
-  y: 2106
+  x: 2255
+  y: 2139
 - name: assets/textures-layer-3/boulder_plain_small_5.png
   offsetX: 96
   offsetY: 157
@@ -3967,7 +3947,7 @@ regions:
   packedHeight: 82
   packedWidth: 114
   textureIndex: 0
-  x: 2330
+  x: 935
   y: 1790
 - name: assets/textures-layer-3/castle_building_wide_tall_dwarf_0.png
   offsetX: 50
@@ -3977,8 +3957,8 @@ regions:
   packedHeight: 77
   packedWidth: 121
   textureIndex: 0
-  x: 1286
-  y: 1791
+  x: 3716
+  y: 1790
 - name: assets/textures-layer-3/castle_building_wide_tall_dwarf_1.png
   offsetX: 50
   offsetY: 216
@@ -3987,8 +3967,8 @@ regions:
   packedHeight: 77
   packedWidth: 121
   textureIndex: 0
-  x: 1924
-  y: 1791
+  x: 3112
+  y: 1790
 - name: assets/textures-layer-3/castle_building_wide_tall_dwarf_2.png
   offsetX: 50
   offsetY: 216
@@ -3997,8 +3977,8 @@ regions:
   packedHeight: 77
   packedWidth: 121
   textureIndex: 0
-  x: 3548
-  y: 1791
+  x: 3841
+  y: 1790
 - name: assets/textures-layer-3/castle_building_wide_tall_dwarf_3.png
   offsetX: 50
   offsetY: 216
@@ -4007,8 +3987,8 @@ regions:
   packedHeight: 77
   packedWidth: 121
   textureIndex: 0
-  x: 3184
-  y: 1793
+  x: 3966
+  y: 1790
 - name: assets/textures-layer-3/castle_building_wide_tall_dwarf_5.png
   offsetX: 50
   offsetY: 216
@@ -4017,8 +3997,8 @@ regions:
   packedHeight: 77
   packedWidth: 121
   textureIndex: 0
-  x: 1057
-  y: 1792
+  x: 3398
+  y: 1790
 - name: assets/textures-layer-3/castle_building_wide_tall_dwarf_4.png
   offsetX: 50
   offsetY: 217
@@ -4027,8 +4007,8 @@ regions:
   packedHeight: 76
   packedWidth: 121
   textureIndex: 0
-  x: 96
-  y: 1823
+  x: 588
+  y: 1791
 - name: assets/textures-layer-3/hills_brown_0.png
   offsetX: 27
   offsetY: 59
@@ -4037,8 +4017,8 @@ regions:
   packedHeight: 55
   packedWidth: 167
   textureIndex: 0
-  x: 1450
-  y: 2088
+  x: 3699
+  y: 2083
 - name: assets/textures-layer-3/hills_green_5.png
   offsetX: 27
   offsetY: 59
@@ -4047,19 +4027,9 @@ regions:
   packedHeight: 55
   packedWidth: 167
   textureIndex: 0
-  x: 1279
-  y: 2088
+  x: 3528
+  y: 2083
 - name: assets/textures-layer-3/castle_tower_short_orc_2.png
-  offsetX: 6
-  offsetY: 216
-  originalHeight: 445
-  originalWidth: 80
-  packedHeight: 131
-  packedWidth: 70
-  textureIndex: 0
-  x: 1493
-  y: 662
-- name: assets/textures-layer-3/castle_tower_short_orc_3.png
   offsetX: 6
   offsetY: 216
   originalHeight: 445
@@ -4069,6 +4039,16 @@ regions:
   textureIndex: 0
   x: 917
   y: 664
+- name: assets/textures-layer-3/castle_tower_short_orc_3.png
+  offsetX: 6
+  offsetY: 216
+  originalHeight: 445
+  originalWidth: 80
+  packedHeight: 131
+  packedWidth: 70
+  textureIndex: 0
+  x: 1493
+  y: 662
 - name: assets/textures-layer-3/castle_building_narrow_tall_elf_3.png
   offsetX: 77
   offsetY: 213
@@ -4117,8 +4097,8 @@ regions:
   packedHeight: 118
   packedWidth: 73
   textureIndex: 0
-  x: 2134
-  y: 1049
+  x: 2725
+  y: 1168
 - name: assets/textures-layer-3/castle_tower_short_dwarf_3.png
   offsetX: 79
   offsetY: 208
@@ -4127,8 +4107,8 @@ regions:
   packedHeight: 118
   packedWidth: 73
   textureIndex: 0
-  x: 2725
-  y: 1168
+  x: 2134
+  y: 1049
 - name: assets/textures-layer-3/tree_bush_1.png
   offsetX: 62
   offsetY: 207
@@ -4137,7 +4117,7 @@ regions:
   packedHeight: 82
   packedWidth: 104
   textureIndex: 0
-  x: 2448
+  x: 1053
   y: 1790
 - name: assets/textures-layer-3/castle_tower_tall_undead_5.png
   offsetX: 20
@@ -4157,8 +4137,8 @@ regions:
   packedHeight: 121
   packedWidth: 69
   textureIndex: 0
-  x: 2
-  y: 921
+  x: 1718
+  y: 923
 - name: assets/textures-layer-3/castle_tower_short_dwarf_1.png
   offsetX: 80
   offsetY: 208
@@ -4167,8 +4147,8 @@ regions:
   packedHeight: 121
   packedWidth: 69
   textureIndex: 0
-  x: 1718
-  y: 923
+  x: 2
+  y: 921
 - name: assets/textures-layer-3/castle_tower_tall_human_1.png
   offsetX: 18
   offsetY: 217
@@ -4187,8 +4167,8 @@ regions:
   packedHeight: 89
   packedWidth: 93
   textureIndex: 0
-  x: 117
-  y: 1640
+  x: 3015
+  y: 1698
 - name: assets/textures-layer-3/tree_cypress_fruits_green.png
   offsetX: 90
   offsetY: 284
@@ -4197,7 +4177,7 @@ regions:
   packedHeight: 142
   packedWidth: 58
   textureIndex: 0
-  x: 2422
+  x: 2484
   y: 366
 - name: assets/textures-layer-3/tree_cypress_fruits_orange.png
   offsetX: 90
@@ -4207,7 +4187,7 @@ regions:
   packedHeight: 142
   packedWidth: 58
   textureIndex: 0
-  x: 2484
+  x: 2422
   y: 366
 - name: assets/textures-layer-3/tree_cypress_fruits_red.png
   offsetX: 90
@@ -4227,8 +4207,8 @@ regions:
   packedHeight: 84
   packedWidth: 98
   textureIndex: 0
-  x: 3981
-  y: 1700
+  x: 733
+  y: 1701
 - name: assets/textures-layer-3/castle_tower_tall_undead_0.png
   offsetX: 20
   offsetY: 217
@@ -4237,7 +4217,7 @@ regions:
   packedHeight: 194
   packedWidth: 42
   textureIndex: 0
-  x: 2982
+  x: 3120
   y: 2
 - name: assets/textures-layer-3/castle_tower_tall_undead_1.png
   offsetX: 20
@@ -4247,7 +4227,7 @@ regions:
   packedHeight: 194
   packedWidth: 42
   textureIndex: 0
-  x: 3028
+  x: 3166
   y: 2
 - name: assets/textures-layer-3/castle_tower_tall_undead_2.png
   offsetX: 20
@@ -4267,7 +4247,7 @@ regions:
   packedHeight: 194
   packedWidth: 42
   textureIndex: 0
-  x: 3120
+  x: 2982
   y: 2
 - name: assets/textures-layer-3/castle_tower_tall_undead_4.png
   offsetX: 20
@@ -4277,7 +4257,7 @@ regions:
   packedHeight: 194
   packedWidth: 42
   textureIndex: 0
-  x: 3166
+  x: 3028
   y: 2
 - name: assets/textures-layer-3/boulder_grass_small_5.png
   offsetX: 102
@@ -4287,8 +4267,8 @@ regions:
   packedHeight: 63
   packedWidth: 129
   textureIndex: 0
-  x: 2164
-  y: 2022
+  x: 2853
+  y: 2020
 - name: assets/textures-layer-3/hills_brown_3.png
   offsetX: 30
   offsetY: 57
@@ -4297,8 +4277,8 @@ regions:
   packedHeight: 53
   packedWidth: 153
   textureIndex: 0
-  x: 3654
-  y: 2089
+  x: 1029
+  y: 2086
 - name: assets/textures-layer-3/hills_green_2.png
   offsetX: 30
   offsetY: 57
@@ -4307,8 +4287,18 @@ regions:
   packedHeight: 53
   packedWidth: 153
   textureIndex: 0
-  x: 2164
-  y: 2089
+  x: 872
+  y: 2086
+- name: assets/textures-layer-3/prop_hut_6.png
+  offsetX: 18
+  offsetY: 21
+  originalHeight: 128
+  originalWidth: 128
+  packedHeight: 83
+  packedWidth: 97
+  textureIndex: 0
+  x: 1571
+  y: 1789
 - name: assets/textures-layer-3/castle_building_narrow_short_elf_3.png
   offsetX: 74
   offsetY: 213
@@ -4317,7 +4307,7 @@ regions:
   packedHeight: 112
   packedWidth: 71
   textureIndex: 0
-  x: 1704
+  x: 870
   y: 1170
 - name: assets/textures-layer-3/castle_building_narrow_short_elf_5.png
   offsetX: 74
@@ -4327,7 +4317,7 @@ regions:
   packedHeight: 112
   packedWidth: 71
   textureIndex: 0
-  x: 870
+  x: 1704
   y: 1170
 - name: assets/textures-layer-3/castle_tower_short_elf_5.png
   offsetX: 85
@@ -4347,8 +4337,8 @@ regions:
   packedHeight: 79
   packedWidth: 96
   textureIndex: 0
-  x: 809
-  y: 1791
+  x: 2565
+  y: 1790
 - name: assets/textures-layer-3/castle_tower_short_elf_1.png
   offsetX: 85
   offsetY: 216
@@ -4377,7 +4367,7 @@ regions:
   packedHeight: 83
   packedWidth: 90
   textureIndex: 0
-  x: 2932
+  x: 2913
   y: 1789
 - name: assets/textures-layer-3/prop_windmill_3.png
   offsetX: 4
@@ -4387,7 +4377,7 @@ regions:
   packedHeight: 83
   packedWidth: 90
   textureIndex: 0
-  x: 2
+  x: 299
   y: 1790
 - name: assets/textures-layer-3/castle_tower_tall_human_3.png
   offsetX: 21
@@ -4417,7 +4407,7 @@ regions:
   packedHeight: 84
   packedWidth: 88
   textureIndex: 0
-  x: 733
+  x: 1571
   y: 1701
 - name: assets/textures-layer-3/castle_building_narrow_short_elf_4.png
   offsetX: 79
@@ -4457,8 +4447,8 @@ regions:
   packedHeight: 64
   packedWidth: 111
   textureIndex: 0
-  x: 2049
-  y: 1954
+  x: 117
+  y: 1977
 - name: assets/textures-layer-3/castle_building_wide_short_orc_1.png
   offsetX: 34
   offsetY: 212
@@ -4467,8 +4457,8 @@ regions:
   packedHeight: 64
   packedWidth: 111
   textureIndex: 0
-  x: 2164
-  y: 1954
+  x: 1876
+  y: 1953
 - name: assets/textures-layer-3/castle_building_wide_short_orc_2.png
   offsetX: 34
   offsetY: 212
@@ -4477,8 +4467,8 @@ regions:
   packedHeight: 64
   packedWidth: 111
   textureIndex: 0
-  x: 2279
-  y: 1954
+  x: 391
+  y: 1953
 - name: assets/textures-layer-3/castle_building_wide_short_orc_3.png
   offsetX: 34
   offsetY: 212
@@ -4487,8 +4477,8 @@ regions:
   packedHeight: 64
   packedWidth: 111
   textureIndex: 0
-  x: 2049
-  y: 2022
+  x: 2
+  y: 1953
 - name: assets/textures-layer-3/castle_building_wide_short_orc_4.png
   offsetX: 34
   offsetY: 212
@@ -4497,8 +4487,8 @@ regions:
   packedHeight: 64
   packedWidth: 111
   textureIndex: 0
-  x: 1843
-  y: 2022
+  x: 1761
+  y: 1953
 - name: assets/textures-layer-3/castle_building_wide_short_orc_5.png
   offsetX: 34
   offsetY: 212
@@ -4507,8 +4497,8 @@ regions:
   packedHeight: 64
   packedWidth: 111
   textureIndex: 0
-  x: 77
-  y: 1977
+  x: 1646
+  y: 1953
 - name: assets/textures-layer-3/hills_brown_5.png
   offsetX: 49
   offsetY: 54
@@ -4517,8 +4507,8 @@ regions:
   packedHeight: 59
   packedWidth: 120
   textureIndex: 0
-  x: 533
-  y: 2026
+  x: 2131
+  y: 2022
 - name: assets/textures-layer-3/hills_green_0.png
   offsetX: 49
   offsetY: 54
@@ -4527,8 +4517,8 @@ regions:
   packedHeight: 59
   packedWidth: 120
   textureIndex: 0
-  x: 944
-  y: 2025
+  x: 2007
+  y: 2022
 - name: assets/textures-layer-3/prop_pile_0.png
   offsetX: 18
   offsetY: 44
@@ -4537,8 +4527,8 @@ regions:
   packedHeight: 84
   packedWidth: 83
   textureIndex: 0
-  x: 3981
-  y: 1788
+  x: 480
+  y: 1702
 - name: assets/textures-layer-3/castle_building_wide_short_dwarf_0.png
   offsetX: 50
   offsetY: 210
@@ -4547,8 +4537,8 @@ regions:
   packedHeight: 57
   packedWidth: 121
   textureIndex: 0
-  x: 39
-  y: 2045
+  x: 2986
+  y: 2023
 - name: assets/textures-layer-3/tree_sparse_1.png
   offsetX: 0
   offsetY: 78
@@ -4567,8 +4557,8 @@ regions:
   packedHeight: 57
   packedWidth: 120
   textureIndex: 0
-  x: 261
-  y: 2088
+  x: 3235
+  y: 2023
 - name: assets/textures-layer-3/castle_building_wide_short_human_5.png
   offsetX: 30
   offsetY: 210
@@ -4577,8 +4567,8 @@ regions:
   packedHeight: 57
   packedWidth: 120
   textureIndex: 0
-  x: 657
-  y: 2087
+  x: 3111
+  y: 2023
 - name: assets/textures-layer-3/prop_flower_ghost_3.png
   offsetX: 23
   offsetY: 98
@@ -4597,8 +4587,8 @@ regions:
   packedHeight: 56
   packedWidth: 121
   textureIndex: 0
-  x: 906
-  y: 2088
+  x: 3404
+  y: 2023
 - name: assets/textures-layer-3/castle_building_wide_short_dwarf_4.png
   offsetX: 50
   offsetY: 211
@@ -4607,8 +4597,8 @@ regions:
   packedHeight: 56
   packedWidth: 121
   textureIndex: 0
-  x: 385
-  y: 2088
+  x: 3529
+  y: 2023
 - name: assets/textures-layer-3/castle_building_wide_short_dwarf_5.png
   offsetX: 50
   offsetY: 211
@@ -4617,8 +4607,8 @@ regions:
   packedHeight: 56
   packedWidth: 121
   textureIndex: 0
-  x: 781
-  y: 2088
+  x: 3654
+  y: 2023
 - name: assets/textures-layer-3/castle_building_wide_short_human_3.png
   offsetX: 30
   offsetY: 211
@@ -4627,8 +4617,8 @@ regions:
   packedHeight: 56
   packedWidth: 120
   textureIndex: 0
-  x: 1155
-  y: 2088
+  x: 107
+  y: 2045
 - name: assets/textures-layer-3/castle_building_wide_short_human_4.png
   offsetX: 30
   offsetY: 211
@@ -4637,8 +4627,8 @@ regions:
   packedHeight: 56
   packedWidth: 120
   textureIndex: 0
-  x: 1031
-  y: 2088
+  x: 3404
+  y: 2083
 - name: assets/textures-layer-3/tree_sparse_2.png
   offsetX: 1
   offsetY: 72
@@ -4667,8 +4657,8 @@ regions:
   packedHeight: 55
   packedWidth: 121
   textureIndex: 0
-  x: 1621
-  y: 2088
+  x: 2986
+  y: 2084
 - name: assets/textures-layer-3/castle_building_wide_short_dwarf_3.png
   offsetX: 50
   offsetY: 212
@@ -4677,8 +4667,8 @@ regions:
   packedHeight: 55
   packedWidth: 121
   textureIndex: 0
-  x: 2457
-  y: 2088
+  x: 3111
+  y: 2084
 - name: assets/textures-layer-3/castle_building_narrow_tall_elf_1.png
   offsetX: 84
   offsetY: 213
@@ -4707,8 +4697,8 @@ regions:
   packedHeight: 55
   packedWidth: 120
   textureIndex: 0
-  x: 3282
-  y: 2088
+  x: 2705
+  y: 2085
 - name: assets/textures-layer-3/castle_building_wide_short_human_1.png
   offsetX: 30
   offsetY: 212
@@ -4717,8 +4707,8 @@ regions:
   packedHeight: 55
   packedWidth: 120
   textureIndex: 0
-  x: 3406
-  y: 2088
+  x: 2131
+  y: 2085
 - name: assets/textures-layer-3/castle_building_wide_short_undead_0.png
   offsetX: 30
   offsetY: 212
@@ -4727,8 +4717,8 @@ regions:
   packedHeight: 55
   packedWidth: 120
   textureIndex: 0
-  x: 3078
-  y: 2088
+  x: 405
+  y: 2086
 - name: assets/textures-layer-3/castle_building_wide_short_undead_1.png
   offsetX: 30
   offsetY: 212
@@ -4737,8 +4727,8 @@ regions:
   packedHeight: 55
   packedWidth: 120
   textureIndex: 0
-  x: 2954
-  y: 2088
+  x: 529
+  y: 2086
 - name: assets/textures-layer-3/castle_building_wide_short_undead_2.png
   offsetX: 30
   offsetY: 212
@@ -4747,8 +4737,8 @@ regions:
   packedHeight: 55
   packedWidth: 120
   textureIndex: 0
-  x: 3530
-  y: 2088
+  x: 2007
+  y: 2085
 - name: assets/textures-layer-3/castle_building_wide_short_undead_3.png
   offsetX: 30
   offsetY: 212
@@ -4757,8 +4747,8 @@ regions:
   packedHeight: 55
   packedWidth: 120
   textureIndex: 0
-  x: 2582
-  y: 2088
+  x: 2581
+  y: 2085
 - name: assets/textures-layer-3/castle_building_wide_short_undead_4.png
   offsetX: 30
   offsetY: 212
@@ -4767,8 +4757,8 @@ regions:
   packedHeight: 55
   packedWidth: 120
   textureIndex: 0
-  x: 2706
-  y: 2088
+  x: 3236
+  y: 2084
 - name: assets/textures-layer-3/castle_building_wide_short_undead_5.png
   offsetX: 30
   offsetY: 212
@@ -4777,49 +4767,9 @@ regions:
   packedHeight: 55
   packedWidth: 120
   textureIndex: 0
-  x: 2830
-  y: 2088
+  x: 660
+  y: 2085
 - name: assets/textures-layer-3/castle_building_narrow_tall_dwarf_0.png
-  offsetX: 86
-  offsetY: 213
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 142
-  packedWidth: 46
-  textureIndex: 0
-  x: 3338
-  y: 373
-- name: assets/textures-layer-3/castle_building_narrow_tall_dwarf_1.png
-  offsetX: 86
-  offsetY: 213
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 142
-  packedWidth: 46
-  textureIndex: 0
-  x: 3522
-  y: 371
-- name: assets/textures-layer-3/castle_building_narrow_tall_dwarf_2.png
-  offsetX: 86
-  offsetY: 213
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 142
-  packedWidth: 46
-  textureIndex: 0
-  x: 2918
-  y: 368
-- name: assets/textures-layer-3/castle_building_narrow_tall_dwarf_3.png
-  offsetX: 86
-  offsetY: 213
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 142
-  packedWidth: 46
-  textureIndex: 0
-  x: 3587
-  y: 370
-- name: assets/textures-layer-3/castle_building_narrow_tall_dwarf_4.png
   offsetX: 86
   offsetY: 213
   originalHeight: 445
@@ -4829,7 +4779,27 @@ regions:
   textureIndex: 0
   x: 3388
   y: 373
-- name: assets/textures-layer-3/castle_building_narrow_tall_dwarf_5.png
+- name: assets/textures-layer-3/castle_building_narrow_tall_dwarf_1.png
+  offsetX: 86
+  offsetY: 213
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 142
+  packedWidth: 46
+  textureIndex: 0
+  x: 2918
+  y: 368
+- name: assets/textures-layer-3/castle_building_narrow_tall_dwarf_2.png
+  offsetX: 86
+  offsetY: 213
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 142
+  packedWidth: 46
+  textureIndex: 0
+  x: 3522
+  y: 371
+- name: assets/textures-layer-3/castle_building_narrow_tall_dwarf_3.png
   offsetX: 86
   offsetY: 213
   originalHeight: 445
@@ -4839,57 +4809,27 @@ regions:
   textureIndex: 0
   x: 2968
   y: 375
+- name: assets/textures-layer-3/castle_building_narrow_tall_dwarf_4.png
+  offsetX: 86
+  offsetY: 213
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 142
+  packedWidth: 46
+  textureIndex: 0
+  x: 3587
+  y: 370
+- name: assets/textures-layer-3/castle_building_narrow_tall_dwarf_5.png
+  offsetX: 86
+  offsetY: 213
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 142
+  packedWidth: 46
+  textureIndex: 0
+  x: 3338
+  y: 373
 - name: assets/textures-layer-3/castle_building_narrow_tall_undead_0.png
-  offsetX: 66
-  offsetY: 213
-  originalHeight: 445
-  originalWidth: 179
-  packedHeight: 138
-  packedWidth: 47
-  textureIndex: 0
-  x: 1421
-  y: 381
-- name: assets/textures-layer-3/castle_building_narrow_tall_undead_1.png
-  offsetX: 66
-  offsetY: 213
-  originalHeight: 445
-  originalWidth: 179
-  packedHeight: 138
-  packedWidth: 47
-  textureIndex: 0
-  x: 807
-  y: 384
-- name: assets/textures-layer-3/castle_building_narrow_tall_undead_2.png
-  offsetX: 66
-  offsetY: 213
-  originalHeight: 445
-  originalWidth: 179
-  packedHeight: 138
-  packedWidth: 47
-  textureIndex: 0
-  x: 988
-  y: 383
-- name: assets/textures-layer-3/castle_building_narrow_tall_undead_3.png
-  offsetX: 66
-  offsetY: 213
-  originalHeight: 445
-  originalWidth: 179
-  packedHeight: 138
-  packedWidth: 47
-  textureIndex: 0
-  x: 937
-  y: 383
-- name: assets/textures-layer-3/castle_building_narrow_tall_undead_4.png
-  offsetX: 66
-  offsetY: 213
-  originalHeight: 445
-  originalWidth: 179
-  packedHeight: 138
-  packedWidth: 47
-  textureIndex: 0
-  x: 1472
-  y: 381
-- name: assets/textures-layer-3/castle_building_narrow_tall_undead_5.png
   offsetX: 66
   offsetY: 213
   originalHeight: 445
@@ -4899,6 +4839,66 @@ regions:
   textureIndex: 0
   x: 1523
   y: 381
+- name: assets/textures-layer-3/castle_building_narrow_tall_undead_1.png
+  offsetX: 66
+  offsetY: 213
+  originalHeight: 445
+  originalWidth: 179
+  packedHeight: 138
+  packedWidth: 47
+  textureIndex: 0
+  x: 937
+  y: 383
+- name: assets/textures-layer-3/castle_building_narrow_tall_undead_2.png
+  offsetX: 66
+  offsetY: 213
+  originalHeight: 445
+  originalWidth: 179
+  packedHeight: 138
+  packedWidth: 47
+  textureIndex: 0
+  x: 1421
+  y: 381
+- name: assets/textures-layer-3/castle_building_narrow_tall_undead_3.png
+  offsetX: 66
+  offsetY: 213
+  originalHeight: 445
+  originalWidth: 179
+  packedHeight: 138
+  packedWidth: 47
+  textureIndex: 0
+  x: 807
+  y: 384
+- name: assets/textures-layer-3/castle_building_narrow_tall_undead_4.png
+  offsetX: 66
+  offsetY: 213
+  originalHeight: 445
+  originalWidth: 179
+  packedHeight: 138
+  packedWidth: 47
+  textureIndex: 0
+  x: 988
+  y: 383
+- name: assets/textures-layer-3/castle_building_narrow_tall_undead_5.png
+  offsetX: 66
+  offsetY: 213
+  originalHeight: 445
+  originalWidth: 179
+  packedHeight: 138
+  packedWidth: 47
+  textureIndex: 0
+  x: 1472
+  y: 381
+- name: assets/textures-layer-3/rock_big_0.png
+  offsetX: 9
+  offsetY: 63
+  originalHeight: 144
+  originalWidth: 100
+  packedHeight: 75
+  packedWidth: 86
+  textureIndex: 0
+  x: 588
+  y: 1871
 - name: assets/textures-layer-3/boulder_grass_small_4.png
   offsetX: 106
   offsetY: 129
@@ -4907,8 +4907,8 @@ regions:
   packedHeight: 61
   packedWidth: 105
   textureIndex: 0
-  x: 261
-  y: 2023
+  x: 551
+  y: 2021
 - name: assets/textures-layer-3/prop_flower_ghost_2.png
   offsetX: 23
   offsetY: 103
@@ -4919,57 +4919,7 @@ regions:
   textureIndex: 0
   x: 1902
   y: 1169
-- name: assets/textures-layer-3/rock_big_6.png
-  offsetX: 9
-  offsetY: 53
-  originalHeight: 128
-  originalWidth: 100
-  packedHeight: 75
-  packedWidth: 85
-  textureIndex: 0
-  x: 1974
-  y: 1872
 - name: assets/textures-layer-3/castle_building_narrow_tall_human_0.png
-  offsetX: 66
-  offsetY: 213
-  originalHeight: 445
-  originalWidth: 179
-  packedHeight: 138
-  packedWidth: 46
-  textureIndex: 0
-  x: 858
-  y: 384
-- name: assets/textures-layer-3/castle_building_narrow_tall_human_1.png
-  offsetX: 66
-  offsetY: 213
-  originalHeight: 445
-  originalWidth: 179
-  packedHeight: 138
-  packedWidth: 46
-  textureIndex: 0
-  x: 728
-  y: 427
-- name: assets/textures-layer-3/castle_building_narrow_tall_human_2.png
-  offsetX: 66
-  offsetY: 213
-  originalHeight: 445
-  originalWidth: 179
-  packedHeight: 138
-  packedWidth: 46
-  textureIndex: 0
-  x: 505
-  y: 431
-- name: assets/textures-layer-3/castle_building_narrow_tall_human_3.png
-  offsetX: 66
-  offsetY: 213
-  originalHeight: 445
-  originalWidth: 179
-  packedHeight: 138
-  packedWidth: 46
-  textureIndex: 0
-  x: 405
-  y: 431
-- name: assets/textures-layer-3/castle_building_narrow_tall_human_4.png
   offsetX: 66
   offsetY: 213
   originalHeight: 445
@@ -4979,7 +4929,17 @@ regions:
   textureIndex: 0
   x: 455
   y: 431
-- name: assets/textures-layer-3/castle_building_narrow_tall_human_5.png
+- name: assets/textures-layer-3/castle_building_narrow_tall_human_1.png
+  offsetX: 66
+  offsetY: 213
+  originalHeight: 445
+  originalWidth: 179
+  packedHeight: 138
+  packedWidth: 46
+  textureIndex: 0
+  x: 405
+  y: 431
+- name: assets/textures-layer-3/castle_building_narrow_tall_human_2.png
   offsetX: 66
   offsetY: 213
   originalHeight: 445
@@ -4989,6 +4949,36 @@ regions:
   textureIndex: 0
   x: 355
   y: 431
+- name: assets/textures-layer-3/castle_building_narrow_tall_human_3.png
+  offsetX: 66
+  offsetY: 213
+  originalHeight: 445
+  originalWidth: 179
+  packedHeight: 138
+  packedWidth: 46
+  textureIndex: 0
+  x: 728
+  y: 427
+- name: assets/textures-layer-3/castle_building_narrow_tall_human_4.png
+  offsetX: 66
+  offsetY: 213
+  originalHeight: 445
+  originalWidth: 179
+  packedHeight: 138
+  packedWidth: 46
+  textureIndex: 0
+  x: 505
+  y: 431
+- name: assets/textures-layer-3/castle_building_narrow_tall_human_5.png
+  offsetX: 66
+  offsetY: 213
+  originalHeight: 445
+  originalWidth: 179
+  packedHeight: 138
+  packedWidth: 46
+  textureIndex: 0
+  x: 858
+  y: 384
 - name: assets/textures-layer-3/tree_sparse_3.png
   offsetX: 3
   offsetY: 71
@@ -5007,8 +4997,8 @@ regions:
   packedHeight: 74
   packedWidth: 85
   textureIndex: 0
-  x: 3074
-  y: 1872
+  x: 3897
+  y: 1871
 - name: assets/textures-layer-3/castle_cube_left_elf_1.png
   offsetX: 72
   offsetY: 200
@@ -5017,8 +5007,8 @@ regions:
   packedHeight: 74
   packedWidth: 85
   textureIndex: 0
-  x: 3548
-  y: 1872
+  x: 3274
+  y: 1871
 - name: assets/textures-layer-3/castle_cube_left_elf_2.png
   offsetX: 72
   offsetY: 200
@@ -5027,8 +5017,8 @@ regions:
   packedHeight: 74
   packedWidth: 85
   textureIndex: 0
-  x: 961
-  y: 1873
+  x: 3185
+  y: 1871
 - name: assets/textures-layer-3/castle_cube_left_elf_3.png
   offsetX: 72
   offsetY: 200
@@ -5037,8 +5027,8 @@ regions:
   packedHeight: 74
   packedWidth: 85
   textureIndex: 0
-  x: 1050
-  y: 1873
+  x: 3096
+  y: 1871
 - name: assets/textures-layer-3/castle_cube_left_elf_4.png
   offsetX: 72
   offsetY: 200
@@ -5047,8 +5037,8 @@ regions:
   packedHeight: 74
   packedWidth: 85
   textureIndex: 0
-  x: 3309
-  y: 1873
+  x: 3007
+  y: 1871
 - name: assets/textures-layer-3/castle_cube_left_elf_5.png
   offsetX: 72
   offsetY: 200
@@ -5057,8 +5047,8 @@ regions:
   packedHeight: 74
   packedWidth: 85
   textureIndex: 0
-  x: 562
-  y: 1874
+  x: 3452
+  y: 1871
 - name: assets/textures-layer-3/castle_cube_right_elf_0.png
   offsetX: 63
   offsetY: 200
@@ -5067,8 +5057,8 @@ regions:
   packedHeight: 74
   packedWidth: 85
   textureIndex: 0
-  x: 459
-  y: 1875
+  x: 3808
+  y: 1871
 - name: assets/textures-layer-3/castle_cube_right_elf_1.png
   offsetX: 63
   offsetY: 200
@@ -5077,8 +5067,8 @@ regions:
   packedHeight: 74
   packedWidth: 85
   textureIndex: 0
-  x: 370
-  y: 1875
+  x: 3719
+  y: 1871
 - name: assets/textures-layer-3/castle_cube_right_elf_2.png
   offsetX: 63
   offsetY: 200
@@ -5087,8 +5077,8 @@ regions:
   packedHeight: 74
   packedWidth: 85
   textureIndex: 0
-  x: 281
-  y: 1875
+  x: 3630
+  y: 1871
 - name: assets/textures-layer-3/castle_cube_right_elf_3.png
   offsetX: 63
   offsetY: 200
@@ -5097,8 +5087,8 @@ regions:
   packedHeight: 74
   packedWidth: 85
   textureIndex: 0
-  x: 3881
-  y: 1874
+  x: 3541
+  y: 1871
 - name: assets/textures-layer-3/castle_cube_right_elf_4.png
   offsetX: 63
   offsetY: 200
@@ -5107,8 +5097,8 @@ regions:
   packedHeight: 74
   packedWidth: 85
   textureIndex: 0
-  x: 3163
-  y: 1874
+  x: 3986
+  y: 1871
 - name: assets/textures-layer-3/castle_cube_right_elf_5.png
   offsetX: 63
   offsetY: 200
@@ -5117,8 +5107,8 @@ regions:
   packedHeight: 74
   packedWidth: 85
   textureIndex: 0
-  x: 809
-  y: 1874
+  x: 3363
+  y: 1871
 - name: assets/textures-layer-3/castle_tower_short_human_4.png
   offsetX: 12
   offsetY: 213
@@ -5139,6 +5129,16 @@ regions:
   textureIndex: 0
   x: 1962
   y: 1169
+- name: assets/textures-layer-3/rock_big_2.png
+  offsetX: 8
+  offsetY: 61
+  originalHeight: 144
+  originalWidth: 100
+  packedHeight: 73
+  packedWidth: 85
+  textureIndex: 0
+  x: 2
+  y: 1876
 - name: assets/textures-layer-3/prop_boxes_5.png
   offsetX: 31
   offsetY: 25
@@ -5147,8 +5147,8 @@ regions:
   packedHeight: 86
   packedWidth: 72
   textureIndex: 0
-  x: 2659
-  y: 1700
+  x: 2913
+  y: 1699
 - name: assets/textures-layer-3/boulder_grass_small_1.png
   offsetX: 113
   offsetY: 130
@@ -5157,8 +5157,8 @@ regions:
   packedHeight: 60
   packedWidth: 103
   textureIndex: 0
-  x: 3026
-  y: 2024
+  x: 2581
+  y: 2021
 - name: assets/textures-layer-3/prop_boxes_3.png
   offsetX: 27
   offsetY: 25
@@ -5177,8 +5177,8 @@ regions:
   packedHeight: 143
   packedWidth: 42
   textureIndex: 0
-  x: 223
-  y: 341
+  x: 4051
+  y: 179
 - name: assets/textures-layer-3/castle_tower_short_undead_1.png
   offsetX: 21
   offsetY: 214
@@ -5197,8 +5197,8 @@ regions:
   packedHeight: 143
   packedWidth: 42
   textureIndex: 0
-  x: 4051
-  y: 179
+  x: 223
+  y: 341
 - name: assets/textures-layer-3/tree_bush_fruits_green.png
   offsetX: 66
   offsetY: 221
@@ -5207,8 +5207,8 @@ regions:
   packedHeight: 67
   packedWidth: 88
   textureIndex: 0
-  x: 2930
-  y: 1952
+  x: 1183
+  y: 1950
 - name: assets/textures-layer-3/tree_bush_fruits_orange.png
   offsetX: 66
   offsetY: 221
@@ -5217,8 +5217,8 @@ regions:
   packedHeight: 67
   packedWidth: 88
   textureIndex: 0
-  x: 1706
-  y: 1952
+  x: 3947
+  y: 1949
 - name: assets/textures-layer-3/tree_bush_fruits_red.png
   offsetX: 66
   offsetY: 221
@@ -5227,29 +5227,9 @@ regions:
   packedHeight: 67
   packedWidth: 88
   textureIndex: 0
-  x: 2587
-  y: 1952
-- name: assets/textures-layer-3/rock_big_0.png
-  offsetX: 10
-  offsetY: 52
-  originalHeight: 128
-  originalWidth: 100
-  packedHeight: 72
-  packedWidth: 81
-  textureIndex: 0
-  x: 2587
-  y: 1876
+  x: 556
+  y: 1950
 - name: assets/textures-layer-3/castle_tower_short_undead_3.png
-  offsetX: 21
-  offsetY: 214
-  originalHeight: 445
-  originalWidth: 80
-  packedHeight: 136
-  packedWidth: 42
-  textureIndex: 0
-  x: 3438
-  y: 509
-- name: assets/textures-layer-3/castle_tower_short_undead_4.png
   offsetX: 21
   offsetY: 214
   originalHeight: 445
@@ -5259,7 +5239,7 @@ regions:
   textureIndex: 0
   x: 4051
   y: 473
-- name: assets/textures-layer-3/castle_tower_short_undead_5.png
+- name: assets/textures-layer-3/castle_tower_short_undead_4.png
   offsetX: 21
   offsetY: 214
   originalHeight: 445
@@ -5269,6 +5249,16 @@ regions:
   textureIndex: 0
   x: 3996
   y: 505
+- name: assets/textures-layer-3/castle_tower_short_undead_5.png
+  offsetX: 21
+  offsetY: 214
+  originalHeight: 445
+  originalWidth: 80
+  packedHeight: 136
+  packedWidth: 42
+  textureIndex: 0
+  x: 3438
+  y: 509
 - name: assets/textures-layer-3/prop_flower_ghost_5.png
   offsetX: 27
   offsetY: 103
@@ -5287,19 +5277,9 @@ regions:
   packedHeight: 122
   packedWidth: 46
   textureIndex: 0
-  x: 917
-  y: 799
-- name: assets/textures-layer-3/castle_building_narrow_tall_orc_1.png
-  offsetX: 66
-  offsetY: 215
-  originalHeight: 445
-  originalWidth: 179
-  packedHeight: 122
-  packedWidth: 46
-  textureIndex: 0
   x: 2265
   y: 792
-- name: assets/textures-layer-3/castle_building_narrow_tall_orc_2.png
+- name: assets/textures-layer-3/castle_building_narrow_tall_orc_1.png
   offsetX: 66
   offsetY: 215
   originalHeight: 445
@@ -5309,17 +5289,7 @@ regions:
   textureIndex: 0
   x: 257
   y: 768
-- name: assets/textures-layer-3/castle_building_narrow_tall_orc_3.png
-  offsetX: 66
-  offsetY: 215
-  originalHeight: 445
-  originalWidth: 179
-  packedHeight: 122
-  packedWidth: 46
-  textureIndex: 0
-  x: 2079
-  y: 794
-- name: assets/textures-layer-3/castle_building_narrow_tall_orc_4.png
+- name: assets/textures-layer-3/castle_building_narrow_tall_orc_2.png
   offsetX: 66
   offsetY: 215
   originalHeight: 445
@@ -5329,7 +5299,7 @@ regions:
   textureIndex: 0
   x: 3299
   y: 797
-- name: assets/textures-layer-3/castle_building_narrow_tall_orc_5.png
+- name: assets/textures-layer-3/castle_building_narrow_tall_orc_3.png
   offsetX: 66
   offsetY: 215
   originalHeight: 445
@@ -5339,6 +5309,26 @@ regions:
   textureIndex: 0
   x: 967
   y: 799
+- name: assets/textures-layer-3/castle_building_narrow_tall_orc_4.png
+  offsetX: 66
+  offsetY: 215
+  originalHeight: 445
+  originalWidth: 179
+  packedHeight: 122
+  packedWidth: 46
+  textureIndex: 0
+  x: 917
+  y: 799
+- name: assets/textures-layer-3/castle_building_narrow_tall_orc_5.png
+  offsetX: 66
+  offsetY: 215
+  originalHeight: 445
+  originalWidth: 179
+  packedHeight: 122
+  packedWidth: 46
+  textureIndex: 0
+  x: 2079
+  y: 794
 - name: assets/textures-layer-3/boulder_grass_small_2.png
   offsetX: 104
   offsetY: 120
@@ -5347,8 +5337,8 @@ regions:
   packedHeight: 50
   packedWidth: 112
   textureIndex: 0
-  x: 1839
-  y: 2090
+  x: 1626
+  y: 2086
 - name: assets/textures-layer-3/boulder_grass_small_3.png
   offsetX: 109
   offsetY: 120
@@ -5357,8 +5347,8 @@ regions:
   packedHeight: 50
   packedWidth: 112
   textureIndex: 0
-  x: 3811
-  y: 2089
+  x: 1742
+  y: 2086
 - name: assets/textures-layer-3/prop_flower_ghost_0.png
   offsetX: 31
   offsetY: 103
@@ -5387,8 +5377,8 @@ regions:
   packedHeight: 70
   packedWidth: 78
   textureIndex: 0
-  x: 1760
-  y: 1878
+  x: 130
+  y: 1903
 - name: assets/textures-layer-3/castle_cube_left_dwarf_1.png
   offsetX: 76
   offsetY: 189
@@ -5397,8 +5387,8 @@ regions:
   packedHeight: 70
   packedWidth: 78
   textureIndex: 0
-  x: 1596
-  y: 1878
+  x: 1489
+  y: 1877
 - name: assets/textures-layer-3/castle_cube_left_dwarf_2.png
   offsetX: 76
   offsetY: 189
@@ -5407,7 +5397,7 @@ regions:
   packedHeight: 70
   packedWidth: 78
   textureIndex: 0
-  x: 2
+  x: 1407
   y: 1877
 - name: assets/textures-layer-3/castle_cube_left_dwarf_3.png
   offsetX: 76
@@ -5417,8 +5407,8 @@ regions:
   packedHeight: 70
   packedWidth: 78
   textureIndex: 0
-  x: 84
-  y: 1903
+  x: 291
+  y: 1877
 - name: assets/textures-layer-3/castle_cube_left_dwarf_4.png
   offsetX: 76
   offsetY: 189
@@ -5427,8 +5417,8 @@ regions:
   packedHeight: 70
   packedWidth: 78
   textureIndex: 0
-  x: 3623
-  y: 1950
+  x: 2907
+  y: 1876
 - name: assets/textures-layer-3/castle_cube_left_dwarf_5.png
   offsetX: 76
   offsetY: 189
@@ -5437,8 +5427,8 @@ regions:
   packedHeight: 70
   packedWidth: 78
   textureIndex: 0
-  x: 1432
-  y: 1877
+  x: 1571
+  y: 1876
 - name: assets/textures-layer-3/castle_cube_right_dwarf_0.png
   offsetX: 66
   offsetY: 189
@@ -5447,8 +5437,8 @@ regions:
   packedHeight: 70
   packedWidth: 78
   textureIndex: 0
-  x: 3541
-  y: 1950
+  x: 1230
+  y: 1876
 - name: assets/textures-layer-3/castle_cube_right_dwarf_1.png
   offsetX: 66
   offsetY: 189
@@ -5457,8 +5447,8 @@ regions:
   packedHeight: 70
   packedWidth: 78
   textureIndex: 0
-  x: 725
-  y: 1877
+  x: 1148
+  y: 1876
 - name: assets/textures-layer-3/castle_cube_right_dwarf_2.png
   offsetX: 66
   offsetY: 189
@@ -5467,8 +5457,8 @@ regions:
   packedHeight: 70
   packedWidth: 78
   textureIndex: 0
-  x: 1678
-  y: 1878
+  x: 678
+  y: 1949
 - name: assets/textures-layer-3/castle_cube_right_dwarf_3.png
   offsetX: 66
   offsetY: 189
@@ -5477,8 +5467,8 @@ regions:
   packedHeight: 70
   packedWidth: 78
   textureIndex: 0
-  x: 3074
-  y: 1950
+  x: 1066
+  y: 1876
 - name: assets/textures-layer-3/castle_cube_right_dwarf_4.png
   offsetX: 66
   offsetY: 189
@@ -5487,8 +5477,8 @@ regions:
   packedHeight: 70
   packedWidth: 78
   textureIndex: 0
-  x: 166
-  y: 1903
+  x: 984
+  y: 1876
 - name: assets/textures-layer-3/castle_cube_right_dwarf_5.png
   offsetX: 66
   offsetY: 189
@@ -5497,8 +5487,8 @@ regions:
   packedHeight: 70
   packedWidth: 78
   textureIndex: 0
-  x: 1514
-  y: 1878
+  x: 2989
+  y: 1949
 - name: assets/textures-layer-3/tree_sparse_4.png
   offsetX: 5
   offsetY: 82
@@ -5537,7 +5527,7 @@ regions:
   packedHeight: 73
   packedWidth: 72
   textureIndex: 0
-  x: 2463
+  x: 393
   y: 1876
 - name: assets/textures-layer-3/tree_regular_fruits_green.png
   offsetX: 90
@@ -5547,8 +5537,8 @@ regions:
   packedHeight: 74
   packedWidth: 70
   textureIndex: 0
-  x: 651
-  y: 1874
+  x: 2402
+  y: 1873
 - name: assets/textures-layer-3/tree_regular_fruits_orange.png
   offsetX: 90
   offsetY: 288
@@ -5557,7 +5547,7 @@ regions:
   packedHeight: 74
   packedWidth: 70
   textureIndex: 0
-  x: 3637
+  x: 2665
   y: 1872
 - name: assets/textures-layer-3/tree_regular_fruits_red.png
   offsetX: 90
@@ -5567,8 +5557,8 @@ regions:
   packedHeight: 74
   packedWidth: 70
   textureIndex: 0
-  x: 2752
-  y: 1875
+  x: 2476
+  y: 1873
 - name: assets/textures-layer-3/castle_building_narrow_short_dwarf_1.png
   offsetX: 86
   offsetY: 213
@@ -5587,7 +5577,7 @@ regions:
   packedHeight: 112
   packedWidth: 46
   textureIndex: 0
-  x: 2021
+  x: 2071
   y: 1171
 - name: assets/textures-layer-3/castle_building_narrow_short_human_5.png
   offsetX: 66
@@ -5597,7 +5587,7 @@ regions:
   packedHeight: 112
   packedWidth: 46
   textureIndex: 0
-  x: 2071
+  x: 2021
   y: 1171
 - name: assets/textures-layer-3/tree_sparse_0.png
   offsetX: 0
@@ -5617,8 +5607,8 @@ regions:
   packedHeight: 111
   packedWidth: 46
   textureIndex: 0
-  x: 3819
-  y: 1285
+  x: 2275
+  y: 1171
 - name: assets/textures-layer-3/castle_building_narrow_short_dwarf_2.png
   offsetX: 86
   offsetY: 214
@@ -5627,7 +5617,7 @@ regions:
   packedHeight: 111
   packedWidth: 46
   textureIndex: 0
-  x: 382
+  x: 282
   y: 1216
 - name: assets/textures-layer-3/castle_building_narrow_short_dwarf_3.png
   offsetX: 86
@@ -5637,7 +5627,7 @@ regions:
   packedHeight: 111
   packedWidth: 46
   textureIndex: 0
-  x: 332
+  x: 382
   y: 1216
 - name: assets/textures-layer-3/castle_building_narrow_short_dwarf_5.png
   offsetX: 86
@@ -5647,8 +5637,8 @@ regions:
   packedHeight: 111
   packedWidth: 46
   textureIndex: 0
-  x: 52
-  y: 1272
+  x: 432
+  y: 1216
 - name: assets/textures-layer-3/castle_building_narrow_short_human_0.png
   offsetX: 66
   offsetY: 213
@@ -5657,8 +5647,8 @@ regions:
   packedHeight: 111
   packedWidth: 46
   textureIndex: 0
-  x: 282
-  y: 1216
+  x: 115
+  y: 1271
 - name: assets/textures-layer-3/castle_building_narrow_short_human_1.png
   offsetX: 66
   offsetY: 213
@@ -5667,9 +5657,19 @@ regions:
   packedHeight: 111
   packedWidth: 46
   textureIndex: 0
-  x: 232
-  y: 1216
+  x: 2
+  y: 1272
 - name: assets/textures-layer-3/castle_building_narrow_short_human_2.png
+  offsetX: 66
+  offsetY: 213
+  originalHeight: 445
+  originalWidth: 179
+  packedHeight: 111
+  packedWidth: 46
+  textureIndex: 0
+  x: 52
+  y: 1272
+- name: assets/textures-layer-3/castle_building_narrow_short_human_3.png
   offsetX: 66
   offsetY: 213
   originalHeight: 445
@@ -5679,16 +5679,6 @@ regions:
   textureIndex: 0
   x: 2560
   y: 1285
-- name: assets/textures-layer-3/castle_building_narrow_short_human_3.png
-  offsetX: 66
-  offsetY: 213
-  originalHeight: 445
-  originalWidth: 179
-  packedHeight: 111
-  packedWidth: 46
-  textureIndex: 0
-  x: 2375
-  y: 1171
 - name: assets/textures-layer-3/castle_building_narrow_short_human_4.png
   offsetX: 66
   offsetY: 213
@@ -5697,8 +5687,8 @@ regions:
   packedHeight: 111
   packedWidth: 46
   textureIndex: 0
-  x: 2325
-  y: 1171
+  x: 3819
+  y: 1285
 - name: assets/textures-layer-3/castle_building_narrow_short_undead_0.png
   offsetX: 66
   offsetY: 213
@@ -5707,8 +5697,8 @@ regions:
   packedHeight: 111
   packedWidth: 46
   textureIndex: 0
-  x: 2275
-  y: 1171
+  x: 332
+  y: 1216
 - name: assets/textures-layer-3/castle_building_narrow_short_undead_1.png
   offsetX: 66
   offsetY: 213
@@ -5717,8 +5707,8 @@ regions:
   packedHeight: 111
   packedWidth: 46
   textureIndex: 0
-  x: 2121
-  y: 1171
+  x: 232
+  y: 1216
 - name: assets/textures-layer-3/castle_building_narrow_short_undead_2.png
   offsetX: 66
   offsetY: 213
@@ -5737,8 +5727,8 @@ regions:
   packedHeight: 111
   packedWidth: 46
   textureIndex: 0
-  x: 432
-  y: 1216
+  x: 2375
+  y: 1171
 - name: assets/textures-layer-3/castle_building_narrow_short_undead_4.png
   offsetX: 66
   offsetY: 213
@@ -5747,8 +5737,8 @@ regions:
   packedHeight: 111
   packedWidth: 46
   textureIndex: 0
-  x: 115
-  y: 1271
+  x: 2325
+  y: 1171
 - name: assets/textures-layer-3/castle_building_narrow_short_undead_5.png
   offsetX: 66
   offsetY: 213
@@ -5757,8 +5747,8 @@ regions:
   packedHeight: 111
   packedWidth: 46
   textureIndex: 0
-  x: 2
-  y: 1272
+  x: 2121
+  y: 1171
 - name: assets/textures-layer-3/tree_globose_3.png
   offsetX: 104
   offsetY: 254
@@ -5767,7 +5757,7 @@ regions:
   packedHeight: 82
   packedWidth: 62
   textureIndex: 0
-  x: 1858
+  x: 1161
   y: 1790
 - name: assets/textures-layer-3/tree_globose_4.png
   offsetX: 113
@@ -5777,18 +5767,18 @@ regions:
   packedHeight: 82
   packedWidth: 62
   textureIndex: 0
-  x: 2556
+  x: 522
   y: 1790
-- name: assets/textures-layer-3/rock_big_1.png
+- name: assets/textures-layer-3/rock_big_7.png
   offsetX: 9
-  offsetY: 53
-  originalHeight: 128
+  offsetY: 61
+  originalHeight: 144
   originalWidth: 100
   packedHeight: 61
   packedWidth: 82
   textureIndex: 0
-  x: 370
-  y: 2023
+  x: 405
+  y: 2021
 - name: assets/textures-layer-3/tree_globose_1.png
   offsetX: 106
   offsetY: 255
@@ -5797,7 +5787,7 @@ regions:
   packedHeight: 82
   packedWidth: 61
   textureIndex: 0
-  x: 2622
+  x: 1292
   y: 1790
 - name: assets/textures-layer-3/tree_globose_2.png
   offsetX: 112
@@ -5807,7 +5797,7 @@ regions:
   packedHeight: 82
   packedWidth: 61
   textureIndex: 0
-  x: 2687
+  x: 1227
   y: 1790
 - name: assets/textures-layer-3/castle_cube_left_undead_0.png
   offsetX: 34
@@ -5817,8 +5807,8 @@ regions:
   packedHeight: 70
   packedWidth: 71
   textureIndex: 0
-  x: 623
-  y: 1952
+  x: 3146
+  y: 1949
 - name: assets/textures-layer-3/castle_cube_left_undead_1.png
   offsetX: 34
   offsetY: 63
@@ -5827,8 +5817,8 @@ regions:
   packedHeight: 70
   packedWidth: 71
   textureIndex: 0
-  x: 548
-  y: 1952
+  x: 3296
+  y: 1949
 - name: assets/textures-layer-3/castle_cube_left_undead_2.png
   offsetX: 34
   offsetY: 63
@@ -5837,8 +5827,8 @@ regions:
   packedHeight: 70
   packedWidth: 71
   textureIndex: 0
-  x: 3970
-  y: 1951
+  x: 3371
+  y: 1949
 - name: assets/textures-layer-3/castle_cube_left_undead_3.png
   offsetX: 34
   offsetY: 63
@@ -5847,8 +5837,8 @@ regions:
   packedHeight: 70
   packedWidth: 71
   textureIndex: 0
-  x: 3304
-  y: 1951
+  x: 3446
+  y: 1949
 - name: assets/textures-layer-3/castle_cube_left_undead_4.png
   offsetX: 34
   offsetY: 63
@@ -5857,8 +5847,8 @@ regions:
   packedHeight: 70
   packedWidth: 71
   textureIndex: 0
-  x: 1974
-  y: 1951
+  x: 3521
+  y: 1949
 - name: assets/textures-layer-3/castle_cube_left_undead_5.png
   offsetX: 34
   offsetY: 63
@@ -5867,8 +5857,8 @@ regions:
   packedHeight: 70
   packedWidth: 71
   textureIndex: 0
-  x: 1432
-  y: 1951
+  x: 3821
+  y: 1949
 - name: assets/textures-layer-3/castle_cube_right_undead_0.png
   offsetX: 23
   offsetY: 63
@@ -5877,8 +5867,8 @@ regions:
   packedHeight: 70
   packedWidth: 71
   textureIndex: 0
-  x: 1100
-  y: 1951
+  x: 3746
+  y: 1949
 - name: assets/textures-layer-3/castle_cube_right_undead_1.png
   offsetX: 23
   offsetY: 63
@@ -5887,8 +5877,8 @@ regions:
   packedHeight: 70
   packedWidth: 71
   textureIndex: 0
-  x: 800
-  y: 1952
+  x: 3671
+  y: 1949
 - name: assets/textures-layer-3/castle_cube_right_undead_2.png
   offsetX: 23
   offsetY: 63
@@ -5897,8 +5887,8 @@ regions:
   packedHeight: 70
   packedWidth: 71
   textureIndex: 0
-  x: 1025
-  y: 1951
+  x: 3596
+  y: 1949
 - name: assets/textures-layer-3/castle_cube_right_undead_3.png
   offsetX: 23
   offsetY: 63
@@ -5907,8 +5897,8 @@ regions:
   packedHeight: 70
   packedWidth: 71
   textureIndex: 0
-  x: 950
-  y: 1951
+  x: 3221
+  y: 1949
 - name: assets/textures-layer-3/castle_cube_right_undead_4.png
   offsetX: 23
   offsetY: 63
@@ -5917,8 +5907,8 @@ regions:
   packedHeight: 70
   packedWidth: 71
   textureIndex: 0
-  x: 725
-  y: 1951
+  x: 3071
+  y: 1949
 - name: assets/textures-layer-3/castle_cube_right_undead_5.png
   offsetX: 23
   offsetY: 63
@@ -5927,8 +5917,8 @@ regions:
   packedHeight: 70
   packedWidth: 71
   textureIndex: 0
-  x: 2
-  y: 1951
+  x: 212
+  y: 1903
 - name: assets/textures-layer-3/tree_regular_trunk_0.png
   offsetX: 104
   offsetY: 246
@@ -5938,27 +5928,27 @@ regions:
   packedWidth: 48
   textureIndex: 0
   x: 2507
-  y: 1395
-- name: assets/textures-layer-3/prop_hut_6.png
-  offsetX: 41
-  offsetY: 23
-  originalHeight: 128
-  originalWidth: 128
-  packedHeight: 104
-  packedWidth: 46
-  textureIndex: 0
-  x: 2494
   y: 1287
-- name: assets/textures-layer-3/rock_big_4.png
+- name: assets/textures-layer-3/rock_big_3.png
   offsetX: 15
-  offsetY: 52
-  originalHeight: 128
+  offsetY: 62
+  originalHeight: 144
   originalWidth: 100
   packedHeight: 67
-  packedWidth: 71
+  packedWidth: 72
   textureIndex: 0
-  x: 3156
-  y: 1952
+  x: 1275
+  y: 1950
+- name: assets/textures-layer-3/prop_hut_2.png
+  offsetX: 40
+  offsetY: 22
+  originalHeight: 128
+  originalWidth: 128
+  packedHeight: 100
+  packedWidth: 48
+  textureIndex: 0
+  x: 2507
+  y: 1392
 - name: assets/textures-layer-3/castle_cube_left_human_0.png
   offsetX: 33
   offsetY: 63
@@ -5967,8 +5957,8 @@ regions:
   packedHeight: 66
   packedWidth: 71
   textureIndex: 0
-  x: 248
-  y: 1953
+  x: 287
+  y: 1951
 - name: assets/textures-layer-3/castle_cube_left_human_1.png
   offsetX: 33
   offsetY: 63
@@ -5977,8 +5967,8 @@ regions:
   packedHeight: 66
   packedWidth: 71
   textureIndex: 0
-  x: 323
-  y: 1953
+  x: 902
+  y: 1951
 - name: assets/textures-layer-3/castle_cube_left_human_2.png
   offsetX: 33
   offsetY: 63
@@ -5987,8 +5977,8 @@ regions:
   packedHeight: 66
   packedWidth: 71
   textureIndex: 0
-  x: 398
-  y: 1953
+  x: 1407
+  y: 1951
 - name: assets/textures-layer-3/castle_cube_left_human_3.png
   offsetX: 33
   offsetY: 63
@@ -5997,8 +5987,8 @@ regions:
   packedHeight: 66
   packedWidth: 71
   textureIndex: 0
-  x: 473
-  y: 1953
+  x: 2097
+  y: 1952
 - name: assets/textures-layer-3/castle_cube_left_human_4.png
   offsetX: 33
   offsetY: 63
@@ -6007,8 +5997,8 @@ regions:
   packedHeight: 66
   packedWidth: 71
   textureIndex: 0
-  x: 2463
-  y: 1953
+  x: 2904
+  y: 1950
 - name: assets/textures-layer-3/castle_cube_left_human_5.png
   offsetX: 33
   offsetY: 63
@@ -6017,8 +6007,8 @@ regions:
   packedHeight: 66
   packedWidth: 71
   textureIndex: 0
-  x: 2829
-  y: 1953
+  x: 1482
+  y: 1951
 - name: assets/textures-layer-3/castle_cube_right_human_0.png
   offsetX: 24
   offsetY: 63
@@ -6027,8 +6017,8 @@ regions:
   packedHeight: 66
   packedWidth: 71
   textureIndex: 0
-  x: 3379
-  y: 1953
+  x: 2394
+  y: 1951
 - name: assets/textures-layer-3/castle_cube_right_human_1.png
   offsetX: 24
   offsetY: 63
@@ -6037,8 +6027,8 @@ regions:
   packedHeight: 66
   packedWidth: 71
   textureIndex: 0
-  x: 3454
-  y: 1953
+  x: 1571
+  y: 1950
 - name: assets/textures-layer-3/castle_cube_right_human_2.png
   offsetX: 24
   offsetY: 63
@@ -6047,8 +6037,8 @@ regions:
   packedHeight: 66
   packedWidth: 71
   textureIndex: 0
-  x: 3705
-  y: 1953
+  x: 2469
+  y: 1951
 - name: assets/textures-layer-3/castle_cube_right_human_3.png
   offsetX: 24
   offsetY: 63
@@ -6057,8 +6047,8 @@ regions:
   packedHeight: 66
   packedWidth: 71
   textureIndex: 0
-  x: 2754
-  y: 1953
+  x: 2022
+  y: 1952
 - name: assets/textures-layer-3/castle_cube_right_human_4.png
   offsetX: 24
   offsetY: 63
@@ -6067,8 +6057,8 @@ regions:
   packedHeight: 66
   packedWidth: 71
   textureIndex: 0
-  x: 2679
-  y: 1953
+  x: 805
+  y: 1952
 - name: assets/textures-layer-3/castle_cube_right_human_5.png
   offsetX: 24
   offsetY: 63
@@ -6077,8 +6067,8 @@ regions:
   packedHeight: 66
   packedWidth: 71
   textureIndex: 0
-  x: 3861
-  y: 1952
+  x: 2544
+  y: 1951
 - name: assets/textures-layer-3/tree_regular_trunk_5.png
   offsetX: 103
   offsetY: 248
@@ -6087,7 +6077,7 @@ regions:
   packedHeight: 97
   packedWidth: 48
   textureIndex: 0
-  x: 3615
+  x: 1225
   y: 1397
 - name: assets/textures-layer-3/prop_straw_5.png
   offsetX: 24
@@ -6097,18 +6087,8 @@ regions:
   packedHeight: 52
   packedWidth: 89
   textureIndex: 0
-  x: 1746
-  y: 2088
-- name: assets/textures-layer-3/prop_hut_7.png
-  offsetX: 41
-  offsetY: 23
-  originalHeight: 128
-  originalWidth: 128
-  packedHeight: 98
-  packedWidth: 46
-  textureIndex: 0
-  x: 1225
-  y: 1397
+  x: 1320
+  y: 2086
 - name: assets/textures-layer-3/castle_cube_left_orc_0.png
   offsetX: 32
   offsetY: 63
@@ -6117,8 +6097,8 @@ regions:
   packedHeight: 61
   packedWidth: 73
   textureIndex: 0
-  x: 2611
-  y: 2023
+  x: 1780
+  y: 2021
 - name: assets/textures-layer-3/castle_cube_left_orc_1.png
   offsetX: 32
   offsetY: 63
@@ -6127,8 +6107,8 @@ regions:
   packedHeight: 61
   packedWidth: 73
   textureIndex: 0
-  x: 2688
-  y: 2023
+  x: 1703
+  y: 2021
 - name: assets/textures-layer-3/castle_cube_left_orc_2.png
   offsetX: 32
   offsetY: 63
@@ -6137,8 +6117,8 @@ regions:
   packedHeight: 61
   packedWidth: 73
   textureIndex: 0
-  x: 1329
-  y: 2023
+  x: 1419
+  y: 2021
 - name: assets/textures-layer-3/castle_cube_left_orc_3.png
   offsetX: 32
   offsetY: 63
@@ -6147,8 +6127,8 @@ regions:
   packedHeight: 61
   packedWidth: 73
   textureIndex: 0
-  x: 1252
-  y: 2023
+  x: 880
+  y: 2021
 - name: assets/textures-layer-3/castle_cube_left_orc_4.png
   offsetX: 32
   offsetY: 63
@@ -6157,8 +6137,8 @@ regions:
   packedHeight: 61
   packedWidth: 73
   textureIndex: 0
-  x: 1175
-  y: 2023
+  x: 957
+  y: 2021
 - name: assets/textures-layer-3/castle_cube_left_orc_5.png
   offsetX: 32
   offsetY: 63
@@ -6167,8 +6147,8 @@ regions:
   packedHeight: 61
   packedWidth: 73
   textureIndex: 0
-  x: 456
-  y: 2023
+  x: 1034
+  y: 2021
 - name: assets/textures-layer-3/castle_cube_right_orc_0.png
   offsetX: 23
   offsetY: 63
@@ -6177,8 +6157,8 @@ regions:
   packedHeight: 61
   packedWidth: 73
   textureIndex: 0
-  x: 2457
-  y: 2023
+  x: 1626
+  y: 2021
 - name: assets/textures-layer-3/castle_cube_right_orc_1.png
   offsetX: 23
   offsetY: 63
@@ -6187,8 +6167,8 @@ regions:
   packedHeight: 61
   packedWidth: 73
   textureIndex: 0
-  x: 2534
-  y: 2023
+  x: 1857
+  y: 2021
 - name: assets/textures-layer-3/castle_cube_right_orc_2.png
   offsetX: 23
   offsetY: 63
@@ -6197,8 +6177,8 @@ regions:
   packedHeight: 61
   packedWidth: 73
   textureIndex: 0
-  x: 1738
-  y: 2023
+  x: 1111
+  y: 2021
 - name: assets/textures-layer-3/castle_cube_right_orc_3.png
   offsetX: 23
   offsetY: 63
@@ -6207,8 +6187,8 @@ regions:
   packedHeight: 61
   packedWidth: 73
   textureIndex: 0
-  x: 1661
-  y: 2023
+  x: 1188
+  y: 2021
 - name: assets/textures-layer-3/castle_cube_right_orc_4.png
   offsetX: 23
   offsetY: 63
@@ -6217,8 +6197,8 @@ regions:
   packedHeight: 61
   packedWidth: 73
   textureIndex: 0
-  x: 1584
-  y: 2023
+  x: 1265
+  y: 2021
 - name: assets/textures-layer-3/castle_cube_right_orc_5.png
   offsetX: 23
   offsetY: 63
@@ -6227,18 +6207,8 @@ regions:
   packedHeight: 61
   packedWidth: 73
   textureIndex: 0
-  x: 1507
-  y: 2023
-- name: assets/textures-layer-3/prop_hut_4.png
-  offsetX: 4
-  offsetY: 43
-  originalHeight: 128
-  originalWidth: 128
-  packedHeight: 37
-  packedWidth: 120
-  textureIndex: 0
-  x: 2158
-  y: 2146
+  x: 1342
+  y: 2021
 - name: assets/textures-layer-3/hills_brown_4.png
   offsetX: 34
   offsetY: 64
@@ -6247,8 +6217,8 @@ regions:
   packedHeight: 29
   packedWidth: 153
   textureIndex: 0
-  x: 2614
-  y: 2147
+  x: 3528
+  y: 2142
 - name: assets/textures-layer-3/hills_green_1.png
   offsetX: 34
   offsetY: 64
@@ -6257,49 +6227,9 @@ regions:
   packedHeight: 29
   packedWidth: 153
   textureIndex: 0
-  x: 2457
-  y: 2147
+  x: 1320
+  y: 2142
 - name: assets/textures-layer-3/castle_building_narrow_short_orc_0.png
-  offsetX: 66
-  offsetY: 215
-  originalHeight: 445
-  originalWidth: 179
-  packedHeight: 96
-  packedWidth: 46
-  textureIndex: 0
-  x: 726
-  y: 1503
-- name: assets/textures-layer-3/castle_building_narrow_short_orc_1.png
-  offsetX: 66
-  offsetY: 215
-  originalHeight: 445
-  originalWidth: 179
-  packedHeight: 96
-  packedWidth: 46
-  textureIndex: 0
-  x: 3615
-  y: 1498
-- name: assets/textures-layer-3/castle_building_narrow_short_orc_2.png
-  offsetX: 66
-  offsetY: 215
-  originalHeight: 445
-  originalWidth: 179
-  packedHeight: 96
-  packedWidth: 46
-  textureIndex: 0
-  x: 2744
-  y: 1503
-- name: assets/textures-layer-3/castle_building_narrow_short_orc_3.png
-  offsetX: 66
-  offsetY: 215
-  originalHeight: 445
-  originalWidth: 179
-  packedHeight: 96
-  packedWidth: 46
-  textureIndex: 0
-  x: 1225
-  y: 1499
-- name: assets/textures-layer-3/castle_building_narrow_short_orc_4.png
   offsetX: 66
   offsetY: 215
   originalHeight: 445
@@ -6309,6 +6239,46 @@ regions:
   textureIndex: 0
   x: 4034
   y: 1501
+- name: assets/textures-layer-3/castle_building_narrow_short_orc_1.png
+  offsetX: 66
+  offsetY: 215
+  originalHeight: 445
+  originalWidth: 179
+  packedHeight: 96
+  packedWidth: 46
+  textureIndex: 0
+  x: 726
+  y: 1503
+- name: assets/textures-layer-3/castle_building_narrow_short_orc_2.png
+  offsetX: 66
+  offsetY: 215
+  originalHeight: 445
+  originalWidth: 179
+  packedHeight: 96
+  packedWidth: 46
+  textureIndex: 0
+  x: 1225
+  y: 1498
+- name: assets/textures-layer-3/castle_building_narrow_short_orc_3.png
+  offsetX: 66
+  offsetY: 215
+  originalHeight: 445
+  originalWidth: 179
+  packedHeight: 96
+  packedWidth: 46
+  textureIndex: 0
+  x: 3615
+  y: 1497
+- name: assets/textures-layer-3/castle_building_narrow_short_orc_4.png
+  offsetX: 66
+  offsetY: 215
+  originalHeight: 445
+  originalWidth: 179
+  packedHeight: 96
+  packedWidth: 46
+  textureIndex: 0
+  x: 2744
+  y: 1503
 - name: assets/textures-layer-3/castle_building_narrow_short_orc_5.png
   offsetX: 66
   offsetY: 215
@@ -6317,8 +6287,8 @@ regions:
   packedHeight: 96
   packedWidth: 46
   textureIndex: 0
-  x: 2794
-  y: 1503
+  x: 3615
+  y: 1397
 - name: assets/textures-layer-3/tree_regular_trunk_2.png
   offsetX: 110
   offsetY: 252
@@ -6327,7 +6297,7 @@ regions:
   packedHeight: 87
   packedWidth: 50
   textureIndex: 0
-  x: 1677
+  x: 842
   y: 1604
 - name: assets/textures-layer-3/boulder_grass_small_0.png
   offsetX: 121
@@ -6337,8 +6307,8 @@ regions:
   packedHeight: 51
   packedWidth: 84
   textureIndex: 0
-  x: 551
-  y: 2089
+  x: 1413
+  y: 2086
 - name: assets/textures-layer-3/tree_sparse_fruits_green.png
   offsetX: 0
   offsetY: 99
@@ -6347,8 +6317,8 @@ regions:
   packedHeight: 76
   packedWidth: 56
   textureIndex: 0
-  x: 3309
-  y: 1793
+  x: 3237
+  y: 1791
 - name: assets/textures-layer-3/tree_sparse_fruits_orange.png
   offsetX: 0
   offsetY: 99
@@ -6357,8 +6327,8 @@ regions:
   packedHeight: 76
   packedWidth: 56
   textureIndex: 0
-  x: 221
-  y: 1823
+  x: 3007
+  y: 1791
 - name: assets/textures-layer-3/tree_sparse_fruits_red.png
   offsetX: 0
   offsetY: 99
@@ -6367,18 +6337,18 @@ regions:
   packedHeight: 76
   packedWidth: 56
   textureIndex: 0
-  x: 1182
-  y: 1792
-- name: assets/textures-layer-3/rock_big_2.png
-  offsetX: 16
-  offsetY: 52
-  originalHeight: 128
+  x: 2809
+  y: 1790
+- name: assets/textures-layer-3/rock_big_5.png
+  offsetX: 14
+  offsetY: 64
+  originalHeight: 144
   originalWidth: 100
   packedHeight: 61
   packedWidth: 69
   textureIndex: 0
-  x: 2765
-  y: 2023
+  x: 1934
+  y: 2021
 - name: assets/textures-layer-3/prop_barrels_5.png
   offsetX: 30
   offsetY: 41
@@ -6387,8 +6357,18 @@ regions:
   packedHeight: 58
   packedWidth: 72
   textureIndex: 0
-  x: 698
-  y: 2025
+  x: 660
+  y: 2023
+- name: assets/textures-layer-3/prop_hut_5.png
+  offsetX: 31
+  offsetY: 32
+  originalHeight: 128
+  originalWidth: 128
+  packedHeight: 62
+  packedWidth: 67
+  textureIndex: 0
+  x: 334
+  y: 2021
 - name: assets/textures-layer-3/prop_boxes_1.png
   offsetX: 32
   offsetY: 34
@@ -6397,28 +6377,18 @@ regions:
   packedHeight: 63
   packedWidth: 65
   textureIndex: 0
-  x: 2297
-  y: 2022
-- name: assets/textures-layer-3/prop_hut_2.png
-  offsetX: 32
-  offsetY: 33
+  x: 1557
+  y: 2020
+- name: assets/textures-layer-3/prop_hut_1.png
+  offsetX: 39
+  offsetY: 28
   originalHeight: 128
   originalWidth: 128
-  packedHeight: 61
-  packedWidth: 65
+  packedHeight: 81
+  packedWidth: 50
   textureIndex: 0
-  x: 2907
-  y: 2023
-- name: assets/textures-layer-3/prop_hut_3.png
-  offsetX: 31
-  offsetY: 33
-  originalHeight: 128
-  originalWidth: 128
-  packedHeight: 61
-  packedWidth: 65
-  textureIndex: 0
-  x: 2838
-  y: 2023
+  x: 1357
+  y: 1790
 - name: assets/textures-layer-3/prop_barrels_4.png
   offsetX: 32
   offsetY: 39
@@ -6427,8 +6397,8 @@ regions:
   packedHeight: 60
   packedWidth: 65
   textureIndex: 0
-  x: 875
-  y: 2024
+  x: 2688
+  y: 2021
 - name: assets/textures-layer-3/tree_sparse_5.png
   offsetX: 7
   offsetY: 93
@@ -6437,18 +6407,28 @@ regions:
   packedHeight: 80
   packedWidth: 48
   textureIndex: 0
-  x: 3881
+  x: 2350
   y: 1790
-- name: assets/textures-layer-3/prop_hut_8.png
-  offsetX: 40
-  offsetY: 29
+- name: assets/textures-layer-3/rock_big_4.png
+  offsetX: 15
+  offsetY: 62
+  originalHeight: 144
+  originalWidth: 100
+  packedHeight: 56
+  packedWidth: 68
+  textureIndex: 0
+  x: 3779
+  y: 2023
+- name: assets/textures-layer-3/prop_hut_4.png
+  offsetX: 14
+  offsetY: 42
   originalHeight: 128
   originalWidth: 128
-  packedHeight: 79
-  packedWidth: 48
+  packedHeight: 38
+  packedWidth: 100
   textureIndex: 0
-  x: 909
-  y: 1791
+  x: 205
+  y: 2131
 - name: assets/textures-layer-3/boulder_plain_small_4.png
   offsetX: 119
   offsetY: 157
@@ -6457,8 +6437,8 @@ regions:
   packedHeight: 55
   packedWidth: 68
   textureIndex: 0
-  x: 1958
-  y: 2025
+  x: 3870
+  y: 2084
 - name: assets/textures-layer-3/tree_regular_trunk_4.png
   offsetX: 103
   offsetY: 251
@@ -6469,16 +6449,6 @@ regions:
   textureIndex: 0
   x: 1135
   y: 1603
-- name: assets/textures-layer-3/rock_big_5.png
-  offsetX: 17
-  offsetY: 55
-  originalHeight: 128
-  originalWidth: 100
-  packedHeight: 55
-  packedWidth: 67
-  textureIndex: 0
-  x: 3964
-  y: 2025
 - name: assets/textures-layer-3/castle_cube_up_elf_0.png
   offsetX: 84
   offsetY: 213
@@ -6487,8 +6457,8 @@ regions:
   packedHeight: 74
   packedWidth: 48
   textureIndex: 0
-  x: 3450
-  y: 1875
+  x: 678
+  y: 1871
 - name: assets/textures-layer-3/castle_cube_up_elf_1.png
   offsetX: 84
   offsetY: 213
@@ -6497,8 +6467,8 @@ regions:
   packedHeight: 74
   packedWidth: 48
   textureIndex: 0
-  x: 3398
-  y: 1875
+  x: 2739
+  y: 1872
 - name: assets/textures-layer-3/castle_cube_up_elf_2.png
   offsetX: 84
   offsetY: 213
@@ -6507,8 +6477,8 @@ regions:
   packedHeight: 74
   packedWidth: 48
   textureIndex: 0
-  x: 898
-  y: 1874
+  x: 2550
+  y: 1873
 - name: assets/textures-layer-3/castle_cube_up_elf_3.png
   offsetX: 84
   offsetY: 213
@@ -6517,7 +6487,7 @@ regions:
   packedHeight: 74
   packedWidth: 48
   textureIndex: 0
-  x: 3252
+  x: 2090
   y: 1874
 - name: assets/textures-layer-3/castle_cube_up_elf_4.png
   offsetX: 84
@@ -6527,8 +6497,8 @@ regions:
   packedHeight: 74
   packedWidth: 48
   textureIndex: 0
-  x: 2826
-  y: 1875
+  x: 2602
+  y: 1873
 - name: assets/textures-layer-3/castle_cube_up_elf_5.png
   offsetX: 84
   offsetY: 213
@@ -6537,8 +6507,8 @@ regions:
   packedHeight: 74
   packedWidth: 48
   textureIndex: 0
-  x: 2878
-  y: 1875
+  x: 2142
+  y: 1874
 - name: assets/textures-layer-3/prop_straw_4.png
   offsetX: 24
   offsetY: 48
@@ -6547,8 +6517,8 @@ regions:
   packedHeight: 45
   packedWidth: 78
   textureIndex: 0
-  x: 3927
-  y: 2142
+  x: 2458
+  y: 2086
 - name: assets/textures-layer-3/castle_cube_up_dwarf_0.png
   offsetX: 86
   offsetY: 214
@@ -6557,8 +6527,8 @@ regions:
   packedHeight: 76
   packedWidth: 46
   textureIndex: 0
-  x: 1382
-  y: 1872
+  x: 241
+  y: 1823
 - name: assets/textures-layer-3/castle_cube_up_dwarf_1.png
   offsetX: 86
   offsetY: 214
@@ -6567,8 +6537,8 @@ regions:
   packedHeight: 76
   packedWidth: 46
   textureIndex: 0
-  x: 1182
-  y: 1872
+  x: 3347
+  y: 1791
 - name: assets/textures-layer-3/castle_cube_up_dwarf_2.png
   offsetX: 86
   offsetY: 214
@@ -6577,8 +6547,8 @@ regions:
   packedHeight: 76
   packedWidth: 46
   textureIndex: 0
-  x: 1332
-  y: 1872
+  x: 141
+  y: 1823
 - name: assets/textures-layer-3/castle_cube_up_dwarf_3.png
   offsetX: 86
   offsetY: 214
@@ -6587,8 +6557,8 @@ regions:
   packedHeight: 76
   packedWidth: 46
   textureIndex: 0
-  x: 1924
-  y: 1872
+  x: 2809
+  y: 1870
 - name: assets/textures-layer-3/castle_cube_up_dwarf_4.png
   offsetX: 86
   offsetY: 214
@@ -6597,8 +6567,8 @@ regions:
   packedHeight: 76
   packedWidth: 46
   textureIndex: 0
-  x: 1232
-  y: 1872
+  x: 3297
+  y: 1791
 - name: assets/textures-layer-3/castle_cube_up_dwarf_5.png
   offsetX: 86
   offsetY: 214
@@ -6607,8 +6577,18 @@ regions:
   packedHeight: 76
   packedWidth: 46
   textureIndex: 0
-  x: 1282
-  y: 1872
+  x: 191
+  y: 1823
+- name: assets/textures-layer-3/rock_big_6.png
+  offsetX: 19
+  offsetY: 62
+  originalHeight: 144
+  originalWidth: 100
+  packedHeight: 53
+  packedWidth: 65
+  textureIndex: 0
+  x: 1186
+  y: 2086
 - name: assets/textures-layer-3/prop_flower_daisy_0.png
   offsetX: 35
   offsetY: 106
@@ -6617,8 +6597,8 @@ regions:
   packedHeight: 78
   packedWidth: 44
   textureIndex: 0
-  x: 1009
-  y: 1791
+  x: 2713
+  y: 1790
 - name: assets/textures-layer-3/prop_flower_daisy_1.png
   offsetX: 35
   offsetY: 106
@@ -6627,8 +6607,8 @@ regions:
   packedHeight: 78
   packedWidth: 44
   textureIndex: 0
-  x: 961
-  y: 1791
+  x: 2761
+  y: 1790
 - name: assets/textures-layer-3/prop_flower_daisy_5.png
   offsetX: 35
   offsetY: 106
@@ -6637,7 +6617,7 @@ regions:
   packedHeight: 78
   packedWidth: 44
   textureIndex: 0
-  x: 3933
+  x: 2665
   y: 1790
 - name: assets/textures-layer-3/castle_cube_up_human_0.png
   offsetX: 86
@@ -6647,7 +6627,7 @@ regions:
   packedHeight: 74
   packedWidth: 46
   textureIndex: 0
-  x: 3761
+  x: 1722
   y: 1875
 - name: assets/textures-layer-3/castle_cube_up_human_1.png
   offsetX: 86
@@ -6657,7 +6637,7 @@ regions:
   packedHeight: 74
   packedWidth: 46
   textureIndex: 0
-  x: 3711
+  x: 1357
   y: 1875
 - name: assets/textures-layer-3/castle_cube_up_human_2.png
   offsetX: 86
@@ -6667,8 +6647,8 @@ regions:
   packedHeight: 74
   packedWidth: 46
   textureIndex: 0
-  x: 2263
-  y: 1876
+  x: 1972
+  y: 1875
 - name: assets/textures-layer-3/castle_cube_up_human_3.png
   offsetX: 86
   offsetY: 213
@@ -6677,7 +6657,7 @@ regions:
   packedHeight: 74
   packedWidth: 46
   textureIndex: 0
-  x: 3811
+  x: 1872
   y: 1875
 - name: assets/textures-layer-3/castle_cube_up_human_4.png
   offsetX: 86
@@ -6687,8 +6667,8 @@ regions:
   packedHeight: 74
   packedWidth: 46
   textureIndex: 0
-  x: 1858
-  y: 1876
+  x: 1822
+  y: 1875
 - name: assets/textures-layer-3/castle_cube_up_human_5.png
   offsetX: 86
   offsetY: 213
@@ -6697,8 +6677,8 @@ regions:
   packedHeight: 74
   packedWidth: 46
   textureIndex: 0
-  x: 2063
-  y: 1876
+  x: 1772
+  y: 1875
 - name: assets/textures-layer-3/castle_cube_up_undead_0.png
   offsetX: 66
   offsetY: 213
@@ -6707,8 +6687,8 @@ regions:
   packedHeight: 74
   packedWidth: 46
   textureIndex: 0
-  x: 2113
-  y: 1876
+  x: 2244
+  y: 1874
 - name: assets/textures-layer-3/castle_cube_up_undead_1.png
   offsetX: 66
   offsetY: 213
@@ -6717,8 +6697,8 @@ regions:
   packedHeight: 74
   packedWidth: 46
   textureIndex: 0
-  x: 2163
-  y: 1876
+  x: 2194
+  y: 1874
 - name: assets/textures-layer-3/castle_cube_up_undead_2.png
   offsetX: 66
   offsetY: 213
@@ -6727,8 +6707,8 @@ regions:
   packedHeight: 74
   packedWidth: 46
   textureIndex: 0
-  x: 2213
-  y: 1876
+  x: 1922
+  y: 1875
 - name: assets/textures-layer-3/castle_cube_up_undead_3.png
   offsetX: 66
   offsetY: 213
@@ -6737,8 +6717,8 @@ regions:
   packedHeight: 74
   packedWidth: 46
   textureIndex: 0
-  x: 2313
-  y: 1876
+  x: 2294
+  y: 1874
 - name: assets/textures-layer-3/castle_cube_up_undead_4.png
   offsetX: 66
   offsetY: 213
@@ -6747,8 +6727,8 @@ regions:
   packedHeight: 74
   packedWidth: 46
   textureIndex: 0
-  x: 2413
-  y: 1876
+  x: 2344
+  y: 1874
 - name: assets/textures-layer-3/castle_cube_up_undead_5.png
   offsetX: 66
   offsetY: 213
@@ -6757,8 +6737,8 @@ regions:
   packedHeight: 74
   packedWidth: 46
   textureIndex: 0
-  x: 2363
-  y: 1876
+  x: 1672
+  y: 1875
 - name: assets/textures-layer-3/prop_flower_daisy_4.png
   offsetX: 35
   offsetY: 106
@@ -6767,8 +6747,8 @@ regions:
   packedHeight: 75
   packedWidth: 44
   textureIndex: 0
-  x: 3026
-  y: 1872
+  x: 2859
+  y: 1870
 - name: assets/textures-layer-3/prop_barrels_3.png
   offsetX: 33
   offsetY: 43
@@ -6777,18 +6757,18 @@ regions:
   packedHeight: 50
   packedWidth: 65
   textureIndex: 0
-  x: 2370
-  y: 2089
-- name: assets/textures-layer-3/rock_big_3.png
-  offsetX: 20
-  offsetY: 52
-  originalHeight: 128
+  x: 1858
+  y: 2086
+- name: assets/textures-layer-3/rock_big_1.png
+  offsetX: 17
+  offsetY: 62
+  originalHeight: 144
   originalWidth: 100
   packedHeight: 53
   packedWidth: 61
   textureIndex: 0
-  x: 1958
-  y: 2084
+  x: 1255
+  y: 2086
 - name: assets/textures-layer-3/prop_flower_daisy_3.png
   offsetX: 37
   offsetY: 106
@@ -6797,8 +6777,8 @@ regions:
   packedHeight: 73
   packedWidth: 44
   textureIndex: 0
-  x: 2539
-  y: 1876
+  x: 2022
+  y: 1875
 - name: assets/textures-layer-3/prop_flower_daisy_2.png
   offsetX: 35
   offsetY: 106
@@ -6807,8 +6787,8 @@ regions:
   packedHeight: 68
   packedWidth: 47
   textureIndex: 0
-  x: 3023
-  y: 1951
+  x: 3896
+  y: 1949
 - name: assets/textures-layer-3/prop_bone_0.png
   offsetX: 0
   offsetY: 52
@@ -6817,8 +6797,8 @@ regions:
   packedHeight: 60
   packedWidth: 53
   textureIndex: 0
-  x: 3529
-  y: 2024
+  x: 2757
+  y: 2021
 - name: assets/textures-layer-3/prop_flower_sunflower_0.png
   offsetX: 34
   offsetY: 107
@@ -6827,7 +6807,7 @@ regions:
   packedHeight: 72
   packedWidth: 44
   textureIndex: 0
-  x: 2930
+  x: 809
   y: 1876
 - name: assets/textures-layer-3/prop_flower_sunflower_1.png
   offsetX: 34
@@ -6837,7 +6817,7 @@ regions:
   packedHeight: 72
   packedWidth: 44
   textureIndex: 0
-  x: 2672
+  x: 508
   y: 1876
 - name: assets/textures-layer-3/prop_flower_sunflower_2.png
   offsetX: 33
@@ -6847,8 +6827,8 @@ regions:
   packedHeight: 63
   packedWidth: 50
   textureIndex: 0
-  x: 2366
-  y: 2022
+  x: 2327
+  y: 2020
 - name: assets/textures-layer-3/tree_globose_0.png
   offsetX: 113
   offsetY: 259
@@ -6857,8 +6837,8 @@ regions:
   packedHeight: 65
   packedWidth: 46
   textureIndex: 0
-  x: 3780
-  y: 1953
+  x: 2277
+  y: 1952
 - name: assets/textures-layer-3/tree_globose_5.png
   offsetX: 111
   offsetY: 261
@@ -6867,8 +6847,8 @@ regions:
   packedHeight: 63
   packedWidth: 47
   textureIndex: 0
-  x: 3231
-  y: 2022
+  x: 3947
+  y: 2020
 - name: assets/textures-layer-3/prop_scarecrow_4.png
   offsetX: 44
   offsetY: 47
@@ -6877,7 +6857,7 @@ regions:
   packedHeight: 72
   packedWidth: 41
   textureIndex: 0
-  x: 2978
+  x: 857
   y: 1876
 - name: assets/textures-layer-3/prop_straw_0.png
   offsetX: 30
@@ -6887,8 +6867,18 @@ regions:
   packedHeight: 40
   packedWidth: 72
   textureIndex: 0
-  x: 3811
-  y: 2143
+  x: 3995
+  y: 2087
+- name: assets/textures-layer-3/prop_hut_0.png
+  offsetX: 40
+  offsetY: 40
+  originalHeight: 128
+  originalWidth: 128
+  packedHeight: 59
+  packedWidth: 48
+  textureIndex: 0
+  x: 491
+  y: 2022
 - name: assets/textures-layer-3/tree_regular_trunk_1.png
   offsetX: 112
   offsetY: 253
@@ -6897,7 +6887,7 @@ regions:
   packedHeight: 69
   packedWidth: 41
   textureIndex: 0
-  x: 4052
+  x: 1312
   y: 1876
 - name: assets/textures-layer-3/castle_cube_up_orc_0.png
   offsetX: 66
@@ -6907,8 +6897,8 @@ regions:
   packedHeight: 61
   packedWidth: 46
   textureIndex: 0
-  x: 3705
-  y: 2023
+  x: 2431
+  y: 2021
 - name: assets/textures-layer-3/castle_cube_up_orc_1.png
   offsetX: 66
   offsetY: 215
@@ -6917,8 +6907,8 @@ regions:
   packedHeight: 61
   packedWidth: 46
   textureIndex: 0
-  x: 3479
-  y: 2023
+  x: 2277
+  y: 2021
 - name: assets/textures-layer-3/castle_cube_up_orc_2.png
   offsetX: 66
   offsetY: 215
@@ -6927,8 +6917,8 @@ regions:
   packedHeight: 61
   packedWidth: 46
   textureIndex: 0
-  x: 3156
-  y: 2023
+  x: 1496
+  y: 2021
 - name: assets/textures-layer-3/castle_cube_up_orc_3.png
   offsetX: 66
   offsetY: 215
@@ -6937,8 +6927,8 @@ regions:
   packedHeight: 61
   packedWidth: 46
   textureIndex: 0
-  x: 3379
-  y: 2023
+  x: 2481
+  y: 2021
 - name: assets/textures-layer-3/castle_cube_up_orc_4.png
   offsetX: 66
   offsetY: 215
@@ -6947,8 +6937,8 @@ regions:
   packedHeight: 61
   packedWidth: 46
   textureIndex: 0
-  x: 2976
-  y: 2023
+  x: 2531
+  y: 2021
 - name: assets/textures-layer-3/castle_cube_up_orc_5.png
   offsetX: 66
   offsetY: 215
@@ -6957,8 +6947,8 @@ regions:
   packedHeight: 61
   packedWidth: 46
   textureIndex: 0
-  x: 3429
-  y: 2023
+  x: 2381
+  y: 2021
 - name: assets/textures-layer-3/prop_scarecrow_0.png
   offsetX: 46
   offsetY: 47
@@ -6967,8 +6957,8 @@ regions:
   packedHeight: 68
   packedWidth: 41
   textureIndex: 0
-  x: 875
-  y: 1952
+  x: 760
+  y: 1949
 - name: assets/textures-layer-3/prop_scarecrow_2.png
   offsetX: 45
   offsetY: 47
@@ -6977,8 +6967,8 @@ regions:
   packedHeight: 68
   packedWidth: 41
   textureIndex: 0
-  x: 4052
-  y: 1949
+  x: 760
+  y: 1877
 - name: assets/textures-layer-3/prop_flower_sunflower_3.png
   offsetX: 34
   offsetY: 107
@@ -6987,8 +6977,8 @@ regions:
   packedHeight: 64
   packedWidth: 43
   textureIndex: 0
-  x: 2394
-  y: 1954
+  x: 2327
+  y: 1952
 - name: assets/textures-layer-3/prop_scarecrow_1.png
   offsetX: 46
   offsetY: 47
@@ -6997,8 +6987,8 @@ regions:
   packedHeight: 67
   packedWidth: 41
   textureIndex: 0
-  x: 1374
-  y: 1952
+  x: 2859
+  y: 1949
 - name: assets/textures-layer-3/prop_scarecrow_3.png
   offsetX: 44
   offsetY: 47
@@ -7007,8 +6997,8 @@ regions:
   packedHeight: 67
   packedWidth: 41
   textureIndex: 0
-  x: 1798
-  y: 1952
+  x: 4039
+  y: 1949
 - name: assets/textures-layer-3/prop_straw_3.png
   offsetX: 38
   offsetY: 47
@@ -7017,8 +7007,8 @@ regions:
   packedHeight: 44
   packedWidth: 62
   textureIndex: 0
-  x: 4009
-  y: 2142
+  x: 2872
+  y: 2087
 - name: assets/textures-layer-3/prop_road_signs_0.png
   offsetX: 18
   offsetY: 53
@@ -7027,7 +7017,7 @@ regions:
   packedHeight: 71
   packedWidth: 37
   textureIndex: 0
-  x: 3970
+  x: 902
   y: 1876
 - name: assets/textures-layer-3/prop_road_signs_1.png
   offsetX: 14
@@ -7037,18 +7027,8 @@ regions:
   packedHeight: 71
   packedWidth: 37
   textureIndex: 0
-  x: 4011
+  x: 943
   y: 1876
-- name: assets/textures-layer-3/prop_hut_9.png
-  offsetX: 41
-  offsetY: 41
-  originalHeight: 128
-  originalWidth: 128
-  packedHeight: 57
-  packedWidth: 46
-  textureIndex: 0
-  x: 1068
-  y: 2025
 - name: assets/textures-layer-3/prop_scarecrow_5.png
   offsetX: 46
   offsetY: 47
@@ -7057,8 +7037,8 @@ regions:
   packedHeight: 63
   packedWidth: 41
   textureIndex: 0
-  x: 3780
-  y: 2022
+  x: 3998
+  y: 2020
 - name: assets/textures-layer-3/tree_cypress_trunk_4.png
   offsetX: 113
   offsetY: 248
@@ -7067,7 +7047,7 @@ regions:
   packedHeight: 66
   packedWidth: 39
   textureIndex: 0
-  x: 3231
+  x: 508
   y: 1952
 - name: assets/textures-layer-3/tree_cypress_trunk_5.png
   offsetX: 111
@@ -7077,7 +7057,7 @@ regions:
   packedHeight: 66
   packedWidth: 39
   textureIndex: 0
-  x: 1908
+  x: 2172
   y: 1952
 - name: assets/textures-layer-3/prop_flower_sunflower_4.png
   offsetX: 37
@@ -7087,8 +7067,8 @@ regions:
   packedHeight: 73
   packedWidth: 35
   textureIndex: 0
-  x: 1139
-  y: 1873
+  x: 469
+  y: 1876
 - name: assets/textures-layer-3/prop_flower_sunflower_5.png
   offsetX: 39
   offsetY: 107
@@ -7097,8 +7077,8 @@ regions:
   packedHeight: 73
   packedWidth: 35
   textureIndex: 0
-  x: 3502
-  y: 1875
+  x: 91
+  y: 1876
 - name: assets/textures-layer-3/tree_cypress_trunk_0.png
   offsetX: 118
   offsetY: 255
@@ -7107,8 +7087,8 @@ regions:
   packedHeight: 81
   packedWidth: 30
   textureIndex: 0
-  x: 3847
-  y: 1790
+  x: 3524
+  y: 1701
 - name: assets/textures-layer-3/tree_cypress_trunk_1.png
   offsetX: 115
   offsetY: 251
@@ -7117,8 +7097,18 @@ regions:
   packedHeight: 81
   packedWidth: 30
   textureIndex: 0
-  x: 268
-  y: 1735
+  x: 3524
+  y: 1786
+- name: assets/textures-layer-3/prop_hut_3.png
+  offsetX: 33
+  offsetY: 42
+  originalHeight: 128
+  originalWidth: 128
+  packedHeight: 37
+  packedWidth: 64
+  textureIndex: 0
+  x: 2458
+  y: 2135
 - name: assets/textures-layer-3/tree_cypress_trunk_2.png
   offsetX: 107
   offsetY: 251
@@ -7127,8 +7117,8 @@ regions:
   packedHeight: 57
   packedWidth: 41
   textureIndex: 0
-  x: 1118
-  y: 2025
+  x: 834
+  y: 2022
 - name: assets/textures-layer-3/tree_cypress_trunk_3.png
   offsetX: 112
   offsetY: 250
@@ -7137,8 +7127,8 @@ regions:
   packedHeight: 57
   packedWidth: 41
   textureIndex: 0
-  x: 1406
-  y: 2025
+  x: 3359
+  y: 2023
 - name: assets/textures-layer-3/prop_boxes_0.png
   offsetX: 42
   offsetY: 40
@@ -7147,8 +7137,8 @@ regions:
   packedHeight: 51
   packedWidth: 45
   textureIndex: 0
-  x: 2321
-  y: 2089
+  x: 1501
+  y: 2086
 - name: assets/textures-layer-3/prop_lodge_0.png
   offsetX: 32
   offsetY: 45
@@ -7157,8 +7147,8 @@ regions:
   packedHeight: 37
   packedWidth: 62
   textureIndex: 0
-  x: 1869
-  y: 2144
+  x: 309
+  y: 2136
 - name: assets/textures-layer-3/prop_lodge_3.png
   offsetX: 34
   offsetY: 45
@@ -7167,18 +7157,8 @@ regions:
   packedHeight: 37
   packedWidth: 62
   textureIndex: 0
-  x: 2282
-  y: 2146
-- name: assets/textures-layer-3/prop_hut_5.png
-  offsetX: 34
-  offsetY: 43
-  originalHeight: 128
-  originalWidth: 128
-  packedHeight: 35
-  packedWidth: 62
-  textureIndex: 0
-  x: 3670
-  y: 2146
+  x: 2872
+  y: 2135
 - name: assets/textures-layer-3/prop_straw_2.png
   offsetX: 38
   offsetY: 47
@@ -7187,8 +7167,8 @@ regions:
   packedHeight: 44
   packedWidth: 49
   textureIndex: 0
-  x: 2370
-  y: 2143
+  x: 3942
+  y: 2087
 - name: assets/textures-layer-3/prop_flower_rose_4.png
   offsetX: 42
   offsetY: 106
@@ -7197,8 +7177,8 @@ regions:
   packedHeight: 63
   packedWidth: 33
   textureIndex: 0
-  x: 3825
-  y: 2022
+  x: 2
+  y: 2021
 - name: assets/textures-layer-3/prop_flower_tulip_4.png
   offsetX: 42
   offsetY: 106
@@ -7207,8 +7187,8 @@ regions:
   packedHeight: 63
   packedWidth: 33
   textureIndex: 0
-  x: 2420
-  y: 2022
+  x: 4043
+  y: 2020
 - name: assets/textures-layer-3/prop_lodge_1.png
   offsetX: 34
   offsetY: 46
@@ -7217,8 +7197,8 @@ regions:
   packedHeight: 34
   packedWidth: 60
   textureIndex: 0
-  x: 1343
-  y: 2147
+  x: 1614
+  y: 2140
 - name: assets/textures-layer-3/prop_lodge_4.png
   offsetX: 34
   offsetY: 46
@@ -7227,8 +7207,8 @@ regions:
   packedHeight: 34
   packedWidth: 60
   textureIndex: 0
-  x: 1279
-  y: 2147
+  x: 1550
+  y: 2136
 - name: assets/textures-layer-3/prop_flower_tulip_3.png
   offsetX: 46
   offsetY: 106
@@ -7237,8 +7217,8 @@ regions:
   packedHeight: 64
   packedWidth: 31
   textureIndex: 0
-  x: 192
-  y: 1977
+  x: 1351
+  y: 1953
 - name: assets/textures-layer-3/prop_flower_scorpion_0.png
   offsetX: 40
   offsetY: 106
@@ -7247,8 +7227,8 @@ regions:
   packedHeight: 59
   packedWidth: 33
   textureIndex: 0
-  x: 3586
-  y: 2024
+  x: 2814
+  y: 2021
 - name: assets/textures-layer-3/prop_flower_scorpion_1.png
   offsetX: 40
   offsetY: 106
@@ -7257,8 +7237,8 @@ regions:
   packedHeight: 59
   packedWidth: 33
   textureIndex: 0
-  x: 3623
-  y: 2024
+  x: 760
+  y: 2021
 - name: assets/textures-layer-3/prop_flower_scorpion_2.png
   offsetX: 40
   offsetY: 106
@@ -7267,8 +7247,8 @@ regions:
   packedHeight: 59
   packedWidth: 33
   textureIndex: 0
-  x: 2
-  y: 2025
+  x: 797
+  y: 2022
 - name: assets/textures-layer-3/prop_flower_scorpion_5.png
   offsetX: 40
   offsetY: 106
@@ -7277,8 +7257,8 @@ regions:
   packedHeight: 59
   packedWidth: 33
   textureIndex: 0
-  x: 3660
-  y: 2024
+  x: 3896
+  y: 2021
 - name: assets/textures-layer-3/prop_road_signs_2.png
   offsetX: 16
   offsetY: 53
@@ -7287,7 +7267,7 @@ regions:
   packedHeight: 52
   packedWidth: 37
   textureIndex: 0
-  x: 3964
+  x: 3360
   y: 2084
 - name: assets/textures-layer-3/prop_road_signs_3.png
   offsetX: 17
@@ -7297,8 +7277,8 @@ regions:
   packedHeight: 52
   packedWidth: 37
   textureIndex: 0
-  x: 510
-  y: 2089
+  x: 784
+  y: 2085
 - name: assets/textures-layer-3/prop_flower_rose_3.png
   offsetX: 46
   offsetY: 106
@@ -7307,8 +7287,8 @@ regions:
   packedHeight: 64
   packedWidth: 30
   textureIndex: 0
-  x: 4045
-  y: 2021
+  x: 232
+  y: 1977
 - name: assets/textures-layer-3/prop_flower_rose_0.png
   offsetX: 41
   offsetY: 106
@@ -7317,8 +7297,8 @@ regions:
   packedHeight: 66
   packedWidth: 29
   textureIndex: 0
-  x: 2538
-  y: 1953
+  x: 2619
+  y: 1951
 - name: assets/textures-layer-3/prop_flower_tulip_0.png
   offsetX: 41
   offsetY: 106
@@ -7327,7 +7307,7 @@ regions:
   packedHeight: 66
   packedWidth: 29
   textureIndex: 0
-  x: 3936
+  x: 2215
   y: 1952
 - name: assets/textures-layer-3/prop_pumpkin_0.png
   offsetX: 0
@@ -7337,8 +7317,8 @@ regions:
   packedHeight: 49
   packedWidth: 39
   textureIndex: 0
-  x: 4005
-  y: 2089
+  x: 2255
+  y: 2086
 - name: assets/textures-layer-3/prop_pumpkin_1.png
   offsetX: 0
   offsetY: 39
@@ -7347,8 +7327,8 @@ regions:
   packedHeight: 49
   packedWidth: 39
   textureIndex: 0
-  x: 3202
-  y: 2089
+  x: 2381
+  y: 2086
 - name: assets/textures-layer-3/prop_pumpkin_2.png
   offsetX: 0
   offsetY: 39
@@ -7357,8 +7337,8 @@ regions:
   packedHeight: 49
   packedWidth: 39
   textureIndex: 0
-  x: 4048
-  y: 2089
+  x: 1927
+  y: 2086
 - name: assets/textures-layer-3/prop_flower_rose_2.png
   offsetX: 40
   offsetY: 106
@@ -7367,8 +7347,8 @@ regions:
   packedHeight: 63
   packedWidth: 30
   textureIndex: 0
-  x: 227
-  y: 2023
+  x: 266
+  y: 2021
 - name: assets/textures-layer-3/prop_flower_rose_5.png
   offsetX: 45
   offsetY: 106
@@ -7377,8 +7357,8 @@ regions:
   packedHeight: 63
   packedWidth: 30
   textureIndex: 0
-  x: 3930
-  y: 2022
+  x: 300
+  y: 2021
 - name: assets/textures-layer-3/prop_flower_tulip_2.png
   offsetX: 40
   offsetY: 106
@@ -7387,8 +7367,8 @@ regions:
   packedHeight: 63
   packedWidth: 30
   textureIndex: 0
-  x: 3862
-  y: 2022
+  x: 39
+  y: 2021
 - name: assets/textures-layer-3/prop_flower_tulip_5.png
   offsetX: 45
   offsetY: 106
@@ -7397,8 +7377,8 @@ regions:
   packedHeight: 63
   packedWidth: 30
   textureIndex: 0
-  x: 3896
-  y: 2022
+  x: 73
+  y: 2021
 - name: assets/textures-layer-3/prop_flower_scorpion_4.png
   offsetX: 37
   offsetY: 106
@@ -7407,18 +7387,18 @@ regions:
   packedHeight: 55
   packedWidth: 34
   textureIndex: 0
-  x: 164
-  y: 2045
-- name: assets/textures-layer-3/rock_small_2.png
-  offsetX: 26
-  offsetY: 55
-  originalHeight: 128
+  x: 834
+  y: 2083
+- name: assets/textures-layer-3/rock_meduim_4.png
+  offsetX: 25
+  offsetY: 62
+  originalHeight: 144
   originalWidth: 100
   packedHeight: 38
   packedWidth: 49
   textureIndex: 0
-  x: 1746
-  y: 2144
+  x: 3995
+  y: 2131
 - name: assets/textures-layer-3/prop_straw_1.png
   offsetX: 42
   offsetY: 48
@@ -7427,8 +7407,8 @@ regions:
   packedHeight: 39
   packedWidth: 47
   textureIndex: 0
-  x: 551
-  y: 2144
+  x: 231
+  y: 2088
 - name: assets/textures-layer-3/debug_rect.png
   offsetX: 0
   offsetY: 0
@@ -7437,8 +7417,8 @@ regions:
   packedHeight: 30
   packedWidth: 60
   textureIndex: 0
-  x: 1666
-  y: 2147
+  x: 1759
+  y: 2140
 - name: assets/textures-layer-3/prop_barrels_0.png
   offsetX: 45
   offsetY: 47
@@ -7447,8 +7427,8 @@ regions:
   packedHeight: 45
   packedWidth: 40
   textureIndex: 0
-  x: 205
-  y: 2090
+  x: 334
+  y: 2087
 - name: assets/textures-layer-3/prop_flower_scorpion_3.png
   offsetX: 38
   offsetY: 106
@@ -7457,8 +7437,8 @@ regions:
   packedHeight: 56
   packedWidth: 32
   textureIndex: 0
-  x: 1451
-  y: 2025
+  x: 3851
+  y: 2023
 - name: assets/textures-layer-3/prop_barrels_1.png
   offsetX: 45
   offsetY: 47
@@ -7467,8 +7447,8 @@ regions:
   packedHeight: 45
   packedWidth: 39
   textureIndex: 0
-  x: 205
-  y: 2139
+  x: 2829
+  y: 2087
 - name: assets/textures-layer-3/prop_barrels_2.png
   offsetX: 45
   offsetY: 47
@@ -7477,8 +7457,8 @@ regions:
   packedHeight: 45
   packedWidth: 39
   textureIndex: 0
-  x: 3202
-  y: 2142
+  x: 1550
+  y: 2087
 - name: assets/textures-layer-3/prop_pile_3.png
   offsetX: 38
   offsetY: 50
@@ -7487,8 +7467,8 @@ regions:
   packedHeight: 27
   packedWidth: 62
   textureIndex: 0
-  x: 2814
-  y: 2147
+  x: 1823
+  y: 2140
 - name: assets/textures-layer-3/prop_flower_rose_1.png
   offsetX: 40
   offsetY: 106
@@ -7497,7 +7477,7 @@ regions:
   packedHeight: 66
   packedWidth: 25
   textureIndex: 0
-  x: 920
+  x: 2248
   y: 1952
 - name: assets/textures-layer-3/prop_flower_tulip_1.png
   offsetX: 40
@@ -7507,8 +7487,8 @@ regions:
   packedHeight: 66
   packedWidth: 25
   textureIndex: 0
-  x: 3274
-  y: 1952
+  x: 362
+  y: 1951
 - name: assets/textures-layer-3/tree_regular_trunk_3.png
   offsetX: 122
   offsetY: 251
@@ -7517,38 +7497,18 @@ regions:
   packedHeight: 67
   packedWidth: 23
   textureIndex: 0
-  x: 2720
-  y: 1876
-- name: assets/textures-layer-3/rock_small_3.png
-  offsetX: 30
-  offsetY: 56
-  originalHeight: 128
+  x: 648
+  y: 1950
+- name: assets/textures-layer-3/rock_meduim_0.png
+  offsetX: 29
+  offsetY: 63
+  originalHeight: 144
   originalWidth: 100
   packedHeight: 35
-  packedWidth: 41
+  packedWidth: 43
   textureIndex: 0
-  x: 3736
-  y: 2146
-- name: assets/textures-layer-3/stone_big_4.png
-  offsetX: 11
-  offsetY: 20
-  originalHeight: 62
-  originalWidth: 62
-  packedHeight: 32
-  packedWidth: 42
-  textureIndex: 0
-  x: 1453
-  y: 2147
-- name: assets/textures-layer-3/stone_big_5.png
-  offsetX: 10
-  offsetY: 20
-  originalHeight: 62
-  originalWidth: 62
-  packedHeight: 32
-  packedWidth: 42
-  textureIndex: 0
-  x: 1407
-  y: 2147
+  x: 3942
+  y: 2135
 - name: assets/textures-layer-3/prop_pile_2.png
   offsetX: 38
   offsetY: 50
@@ -7557,8 +7517,8 @@ regions:
   packedHeight: 27
   packedWidth: 49
   textureIndex: 0
-  x: 2880
-  y: 2147
+  x: 1477
+  y: 2141
 - name: assets/textures-layer-3/prop_road_signs_4.png
   offsetX: 20
   offsetY: 53
@@ -7567,8 +7527,8 @@ regions:
   packedHeight: 41
   packedWidth: 32
   textureIndex: 0
-  x: 3245
-  y: 2134
+  x: 2540
+  y: 2086
 - name: assets/textures-layer-3/prop_road_signs_5.png
   offsetX: 17
   offsetY: 53
@@ -7577,8 +7537,18 @@ regions:
   packedHeight: 41
   packedWidth: 32
   textureIndex: 0
-  x: 3245
-  y: 2089
+  x: 1970
+  y: 2086
+- name: assets/textures-layer-3/rock_meduim_5.png
+  offsetX: 29
+  offsetY: 64
+  originalHeight: 144
+  originalWidth: 100
+  packedHeight: 32
+  packedWidth: 40
+  textureIndex: 0
+  x: 1678
+  y: 2140
 - name: assets/textures-layer-3/prop_wild_egg_brown_2.png
   offsetX: 1
   offsetY: 35
@@ -7587,8 +7557,8 @@ regions:
   packedHeight: 39
   packedWidth: 32
   textureIndex: 0
-  x: 3887
-  y: 2143
+  x: 2938
+  y: 2087
 - name: assets/textures-layer-3/prop_wild_egg_brown_5.png
   offsetX: 3
   offsetY: 35
@@ -7597,18 +7567,8 @@ regions:
   packedHeight: 39
   packedWidth: 32
   textureIndex: 0
-  x: 602
-  y: 2144
-- name: assets/textures-layer-3/rock_small_1.png
-  offsetX: 31
-  offsetY: 55
-  originalHeight: 128
-  originalWidth: 100
-  packedHeight: 32
-  packedWidth: 39
-  textureIndex: 0
-  x: 1499
-  y: 2147
+  x: 282
+  y: 2088
 - name: assets/textures-layer-3/prop_sack_5.png
   offsetX: 15
   offsetY: 50
@@ -7617,8 +7577,8 @@ regions:
   packedHeight: 32
   packedWidth: 37
   textureIndex: 0
-  x: 1542
-  y: 2147
+  x: 2829
+  y: 2136
 - name: assets/textures-layer-3/prop_wild_egg_brown_1.png
   offsetX: 1
   offsetY: 34
@@ -7627,8 +7587,8 @@ regions:
   packedHeight: 38
   packedWidth: 31
   textureIndex: 0
-  x: 1834
-  y: 2144
+  x: 1970
+  y: 2131
 - name: assets/textures-layer-3/prop_wild_egg_brown_4.png
   offsetX: 4
   offsetY: 34
@@ -7637,8 +7597,8 @@ regions:
   packedHeight: 38
   packedWidth: 31
   textureIndex: 0
-  x: 1799
-  y: 2144
+  x: 2938
+  y: 2130
 - name: assets/textures-layer-3/prop_wild_egg_brown_0.png
   offsetX: 2
   offsetY: 34
@@ -7647,8 +7607,8 @@ regions:
   packedHeight: 37
   packedWidth: 30
   textureIndex: 0
-  x: 510
-  y: 2145
+  x: 2540
+  y: 2131
 - name: assets/textures-layer-3/prop_wild_egg_brown_3.png
   offsetX: 4
   offsetY: 34
@@ -7657,18 +7617,8 @@ regions:
   packedHeight: 37
   packedWidth: 30
   textureIndex: 0
-  x: 2423
-  y: 2143
-- name: assets/textures-layer-3/stone_big_0.png
-  offsetX: 12
-  offsetY: 23
-  originalHeight: 62
-  originalWidth: 62
-  packedHeight: 28
-  packedWidth: 39
-  textureIndex: 0
-  x: 2771
-  y: 2147
+  x: 4048
+  y: 2131
 - name: assets/textures-layer-3/prop_lodge_2.png
   offsetX: 39
   offsetY: 52
@@ -7677,8 +7627,8 @@ regions:
   packedHeight: 22
   packedWidth: 49
   textureIndex: 0
-  x: 3497
-  y: 2147
+  x: 860
+  y: 2143
 - name: assets/textures-layer-3/prop_lodge_5.png
   offsetX: 39
   offsetY: 52
@@ -7687,8 +7637,8 @@ regions:
   packedHeight: 22
   packedWidth: 49
   textureIndex: 0
-  x: 3444
-  y: 2147
+  x: 3785
+  y: 2142
 - name: assets/textures-layer-3/prop_sack_3.png
   offsetX: 15
   offsetY: 50
@@ -7697,8 +7647,8 @@ regions:
   packedHeight: 32
   packedWidth: 33
   textureIndex: 0
-  x: 1620
-  y: 2147
+  x: 1927
+  y: 2139
 - name: assets/textures-layer-3/prop_sack_4.png
   offsetX: 15
   offsetY: 50
@@ -7707,8 +7657,8 @@ regions:
   packedHeight: 32
   packedWidth: 33
   textureIndex: 0
-  x: 1583
-  y: 2147
+  x: 1722
+  y: 2140
 - name: assets/textures-layer-3/prop_pile_1.png
   offsetX: 43
   offsetY: 50
@@ -7717,58 +7667,18 @@ regions:
   packedHeight: 22
   packedWidth: 44
   textureIndex: 0
-  x: 3550
-  y: 2147
-- name: assets/textures-layer-3/stone_big_1.png
-  offsetX: 14
-  offsetY: 22
-  originalHeight: 62
-  originalWidth: 62
-  packedHeight: 26
-  packedWidth: 36
-  textureIndex: 0
-  x: 3062
-  y: 2147
-- name: assets/textures-layer-3/stone_big_2.png
-  offsetX: 14
-  offsetY: 22
-  originalHeight: 62
-  originalWidth: 62
-  packedHeight: 26
-  packedWidth: 36
-  textureIndex: 0
-  x: 3022
-  y: 2147
-- name: assets/textures-layer-3/stone_big_3.png
-  offsetX: 13
-  offsetY: 24
-  originalHeight: 62
-  originalWidth: 62
-  packedHeight: 24
-  packedWidth: 39
-  textureIndex: 0
-  x: 3281
-  y: 2147
-- name: assets/textures-layer-3/rock_small_4.png
+  x: 913
+  y: 2143
+- name: assets/textures-layer-3/rock_meduim_1.png
   offsetX: 33
-  offsetY: 58
-  originalHeight: 128
+  offsetY: 62
+  originalHeight: 144
   originalWidth: 100
   packedHeight: 26
   packedWidth: 35
   textureIndex: 0
-  x: 3102
-  y: 2147
-- name: assets/textures-layer-3/rock_small_5.png
-  offsetX: 34
-  offsetY: 57
-  originalHeight: 128
-  originalWidth: 100
-  packedHeight: 27
-  packedWidth: 32
-  textureIndex: 0
-  x: 2933
-  y: 2147
+  x: 784
+  y: 2141
 - name: assets/textures-layer-3/prop_sack_2.png
   offsetX: 20
   offsetY: 50
@@ -7777,8 +7687,8 @@ regions:
   packedHeight: 27
   packedWidth: 28
   textureIndex: 0
-  x: 2969
-  y: 2147
+  x: 1889
+  y: 2140
 - name: assets/textures-layer-3/prop_bridge.png
   offsetX: 39
   offsetY: 57
@@ -7787,8 +7697,8 @@ regions:
   packedHeight: 15
   packedWidth: 47
   textureIndex: 0
-  x: 458
-  y: 2148
+  x: 1027
+  y: 2143
 - name: assets/textures-layer-3/prop_fence_bar.png
   offsetX: 60
   offsetY: 57
@@ -7797,18 +7707,28 @@ regions:
   packedHeight: 15
   packedWidth: 47
   textureIndex: 0
-  x: 407
-  y: 2148
-- name: assets/textures-layer-3/rock_small_0.png
+  x: 1078
+  y: 2143
+- name: assets/textures-layer-3/rock_meduim_2.png
   offsetX: 36
-  offsetY: 55
-  originalHeight: 128
+  offsetY: 62
+  originalHeight: 144
   originalWidth: 100
   packedHeight: 22
   packedWidth: 29
   textureIndex: 0
-  x: 3598
-  y: 2147
+  x: 994
+  y: 2143
+- name: assets/textures-layer-3/rock_meduim_3.png
+  offsetX: 36
+  offsetY: 63
+  originalHeight: 144
+  originalWidth: 100
+  packedHeight: 22
+  packedWidth: 29
+  textureIndex: 0
+  x: 961
+  y: 2143
 - name: assets/textures-layer-3/prop_sack_1.png
   offsetX: 20
   offsetY: 50
@@ -7817,8 +7737,8 @@ regions:
   packedHeight: 26
   packedWidth: 22
   textureIndex: 0
-  x: 3141
-  y: 2147
+  x: 834
+  y: 2142
 - name: assets/textures-layer-3/prop_chopped_trunk.png
   offsetX: 14
   offsetY: 17
@@ -7827,8 +7747,8 @@ regions:
   packedHeight: 25
   packedWidth: 19
   textureIndex: 0
-  x: 3167
-  y: 2147
+  x: 3381
+  y: 2140
 - name: assets/textures-layer-3/prop_tombstone_0.png
   offsetX: 0
   offsetY: 23
@@ -7837,8 +7757,8 @@ regions:
   packedHeight: 27
   packedWidth: 17
   textureIndex: 0
-  x: 3001
-  y: 2147
+  x: 3360
+  y: 2140
 - name: assets/textures-layer-3/tree_confiner_trunk_0.png
   offsetX: 133
   offsetY: 251
@@ -7847,8 +7767,8 @@ regions:
   packedHeight: 36
   packedWidth: 12
   textureIndex: 0
-  x: 3654
-  y: 2146
+  x: 4082
+  y: 2060
 - name: assets/textures-layer-3/tree_confiner_trunk_1.png
   offsetX: 133
   offsetY: 251
@@ -7857,8 +7777,8 @@ regions:
   packedHeight: 36
   packedWidth: 12
   textureIndex: 0
-  x: 4075
-  y: 2142
+  x: 1593
+  y: 2087
 - name: assets/textures-layer-3/tree_confiner_trunk_2.png
   offsetX: 133
   offsetY: 251
@@ -7867,8 +7787,8 @@ regions:
   packedHeight: 36
   packedWidth: 12
   textureIndex: 0
-  x: 2348
-  y: 2144
+  x: 378
+  y: 2087
 - name: assets/textures-layer-3/tree_confiner_trunk_3.png
   offsetX: 133
   offsetY: 251
@@ -7877,8 +7797,8 @@ regions:
   packedHeight: 36
   packedWidth: 12
   textureIndex: 0
-  x: 1935
-  y: 2144
+  x: 4082
+  y: 2020
 - name: assets/textures-layer-3/tree_confiner_trunk_4.png
   offsetX: 133
   offsetY: 251
@@ -7887,8 +7807,8 @@ regions:
   packedHeight: 36
   packedWidth: 12
   textureIndex: 0
-  x: 639
-  y: 2089
+  x: 1609
+  y: 2087
 - name: assets/textures-layer-3/tree_confiner_trunk_5.png
   offsetX: 133
   offsetY: 251
@@ -7897,8 +7817,8 @@ regions:
   packedHeight: 36
   packedWidth: 12
   textureIndex: 0
-  x: 639
-  y: 2129
+  x: 4082
+  y: 2100
 - name: assets/textures-layer-3/prop_sack_0.png
   offsetX: 24
   offsetY: 50
@@ -7907,8 +7827,8 @@ regions:
   packedHeight: 21
   packedWidth: 18
   textureIndex: 0
-  x: 385
-  y: 2148
+  x: 3838
+  y: 2142
 - name: assets/textures-layer-3/tree_globose_trunk_0.png
   offsetX: 131
   offsetY: 250
@@ -7917,8 +7837,8 @@ regions:
   packedHeight: 23
   packedWidth: 16
   textureIndex: 0
-  x: 3324
-  y: 2147
+  x: 3705
+  y: 2142
 - name: assets/textures-layer-3/tree_globose_trunk_1.png
   offsetX: 131
   offsetY: 250
@@ -7927,8 +7847,8 @@ regions:
   packedHeight: 23
   packedWidth: 16
   textureIndex: 0
-  x: 3424
-  y: 2147
+  x: 3725
+  y: 2142
 - name: assets/textures-layer-3/tree_globose_trunk_2.png
   offsetX: 131
   offsetY: 250
@@ -7937,8 +7857,8 @@ regions:
   packedHeight: 23
   packedWidth: 16
   textureIndex: 0
-  x: 3364
-  y: 2147
+  x: 3745
+  y: 2142
 - name: assets/textures-layer-3/tree_globose_trunk_3.png
   offsetX: 131
   offsetY: 250
@@ -7947,8 +7867,8 @@ regions:
   packedHeight: 23
   packedWidth: 16
   textureIndex: 0
-  x: 3384
-  y: 2147
+  x: 1530
+  y: 2141
 - name: assets/textures-layer-3/tree_globose_trunk_4.png
   offsetX: 131
   offsetY: 250
@@ -7957,8 +7877,8 @@ regions:
   packedHeight: 23
   packedWidth: 16
   textureIndex: 0
-  x: 3404
-  y: 2147
+  x: 3765
+  y: 2142
 - name: assets/textures-layer-3/tree_globose_trunk_5.png
   offsetX: 131
   offsetY: 250
@@ -7967,8 +7887,8 @@ regions:
   packedHeight: 23
   packedWidth: 16
   textureIndex: 0
-  x: 3344
-  y: 2147
+  x: 3685
+  y: 2142
 - name: assets/textures-layer-3/prop_fence_post.png
   offsetX: 56
   offsetY: 53
@@ -7977,68 +7897,68 @@ regions:
   packedHeight: 22
   packedWidth: 15
   textureIndex: 0
-  x: 3631
-  y: 2147
-- name: assets/textures-layer-3/stone_small_0.png
-  offsetX: 22
-  offsetY: 26
-  originalHeight: 62
-  originalWidth: 62
+  x: 375
+  y: 2136
+- name: assets/textures-layer-3/rock_small_5.png
+  offsetX: 41
+  offsetY: 67
+  originalHeight: 144
+  originalWidth: 100
   packedHeight: 13
   packedWidth: 20
   textureIndex: 0
-  x: 655
-  y: 2148
-- name: assets/textures-layer-3/stone_small_2.png
-  offsetX: 22
-  offsetY: 26
-  originalHeight: 62
-  originalWidth: 62
+  x: 1129
+  y: 2143
+- name: assets/textures-layer-3/rock_small_3.png
+  offsetX: 41
+  offsetY: 67
+  originalHeight: 144
+  originalWidth: 100
   packedHeight: 13
   packedWidth: 19
   textureIndex: 0
-  x: 679
-  y: 2148
-- name: assets/textures-layer-3/stone_small_4.png
-  offsetX: 22
-  offsetY: 25
-  originalHeight: 62
-  originalWidth: 62
+  x: 1153
+  y: 2143
+- name: assets/textures-layer-3/rock_small_0.png
+  offsetX: 42
+  offsetY: 67
+  originalHeight: 144
+  originalWidth: 100
   packedHeight: 13
   packedWidth: 18
   textureIndex: 0
-  x: 724
-  y: 2148
-- name: assets/textures-layer-3/stone_small_5.png
-  offsetX: 23
-  offsetY: 26
-  originalHeight: 62
-  originalWidth: 62
+  x: 1198
+  y: 2143
+- name: assets/textures-layer-3/rock_small_1.png
+  offsetX: 41
+  offsetY: 66
+  originalHeight: 144
+  originalWidth: 100
   packedHeight: 13
   packedWidth: 18
   textureIndex: 0
-  x: 702
-  y: 2148
-- name: assets/textures-layer-3/stone_small_3.png
-  offsetX: 23
-  offsetY: 25
-  originalHeight: 62
-  originalWidth: 62
+  x: 1176
+  y: 2143
+- name: assets/textures-layer-3/rock_small_2.png
+  offsetX: 42
+  offsetY: 66
+  originalHeight: 144
+  originalWidth: 100
   packedHeight: 13
   packedWidth: 17
   textureIndex: 0
-  x: 746
-  y: 2148
-- name: assets/textures-layer-3/stone_small_1.png
-  offsetX: 22
-  offsetY: 26
-  originalHeight: 62
-  originalWidth: 62
+  x: 1220
+  y: 2143
+- name: assets/textures-layer-3/rock_small_4.png
+  offsetX: 41
+  offsetY: 67
+  originalHeight: 144
+  originalWidth: 100
   packedHeight: 12
   packedWidth: 18
   textureIndex: 0
-  x: 767
-  y: 2148
+  x: 1241
+  y: 2143
 - name: assets/textures-layer-3/prop_fence_high_3.png
   offsetX: 13
   offsetY: 38
@@ -8047,8 +7967,8 @@ regions:
   packedHeight: 35
   packedWidth: 5
   textureIndex: 0
-  x: 249
-  y: 2090
+  x: 825
+  y: 2085
 - name: assets/textures-layer-3/prop_fence_high_4.png
   offsetX: 13
   offsetY: 38
@@ -8057,8 +7977,8 @@ regions:
   packedHeight: 34
   packedWidth: 5
   textureIndex: 0
-  x: 3781
-  y: 2146
+  x: 2974
+  y: 2087
 - name: assets/textures-layer-3/prop_fence_high_5.png
   offsetX: 13
   offsetY: 38
@@ -8067,8 +7987,8 @@ regions:
   packedHeight: 34
   packedWidth: 5
   textureIndex: 0
-  x: 249
-  y: 2129
+  x: 394
+  y: 2087
 - name: assets/textures-layer-3/prop_fence_high_0.png
   offsetX: 13
   offsetY: 38
@@ -8077,8 +7997,8 @@ regions:
   packedHeight: 33
   packedWidth: 5
   textureIndex: 0
-  x: 3790
-  y: 2146
+  x: 825
+  y: 2124
 - name: assets/textures-layer-3/prop_fence_high_1.png
   offsetX: 13
   offsetY: 38
@@ -8087,8 +8007,8 @@ regions:
   packedHeight: 31
   packedWidth: 5
   textureIndex: 0
-  x: 1657
-  y: 2147
+  x: 394
+  y: 2125
 - name: assets/textures-layer-3/prop_fence_high_2.png
   offsetX: 13
   offsetY: 38
@@ -8097,8 +8017,8 @@ regions:
   packedHeight: 31
   packedWidth: 5
   textureIndex: 0
-  x: 3799
-  y: 2146
+  x: 2974
+  y: 2125
 textures:
 - file: layer_3_0.png
   height: 4096
