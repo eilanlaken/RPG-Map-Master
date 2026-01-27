@@ -96,7 +96,7 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
         tools[1] = new ToolBrushFields(this);
         tools[2] = new ToolBrushTrees(this);
         tools[3] = new ToolBrushProps(this);
-        tools[4] = new ToolBrushArchitecture(this);
+        //tools[4] = new ToolBrushArchitecture(this); // TODO: redo architecture brush
         tools[5] = new ToolBrushRocks(this);
         tools[6] = new ToolBrushDecorations(this);
 
