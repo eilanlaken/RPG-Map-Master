@@ -79,7 +79,8 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
         // layer 2
 
         // layer 3
-        Assets.loadTexturePack("assets/texture-packs/layer_3.yml");
+        //Assets.loadTexturePack("assets/texture-packs/layer_3.yml");
+        Assets.loadTexturePack("assets/texture-packs/layer_3.yml", Texture.FilterMag.NEAREST, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, 4);
 
         // layer 5
 

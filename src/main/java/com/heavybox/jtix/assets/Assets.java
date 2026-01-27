@@ -113,7 +113,7 @@ public final class Assets {
         options.put("anisotropy", anisotropy);
         options.put("magFilter", magFilter);
         options.put("minFilter", minFilter);
-        load(Texture.class, filepath, options,false);
+        load(TexturePack.class, filepath, options,false);
     }
 
     public synchronized static void loadTheme(final String filepath) {
