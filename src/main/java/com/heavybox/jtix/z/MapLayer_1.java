@@ -14,7 +14,7 @@ public class MapLayer_1 implements MapLayer {
     public final Camera camera;
 
     private final Texture[] bases = new Texture[5];
-    private final Texture lines;
+    //private final Texture lines;
 
     private boolean changed = false;
 
@@ -24,12 +24,19 @@ public class MapLayer_1 implements MapLayer {
     public MapLayer_1(int width, int height) {
         layer1 = new FrameBuffer(width, height);
         camera = new Camera(Camera.Mode.ORTHOGRAPHIC, width, height, 1, 0, 100, 75);
-        bases[0] = Assets.get("assets/textures-layer-1/terrain-wheat-field-base_0.png");
-        bases[1] = Assets.get("assets/textures-layer-1/terrain-wheat-field-base_1.png");
-        bases[2] = Assets.get("assets/textures-layer-1/terrain-wheat-field-base_2.png");
-        bases[3] = Assets.get("assets/textures-layer-1/terrain-wheat-field-base_3.png");
-        bases[4] = Assets.get("assets/textures-layer-1/terrain-wheat-field-base_4.png");
-        lines = Assets.get("assets/textures-layer-1/terrain-wheat-field-lines.png");
+//        bases[0] = Assets.get("assets/textures-layer-1/terrain-wheat-field-base_0.png");
+//        bases[1] = Assets.get("assets/textures-layer-1/terrain-wheat-field-base_1.png");
+//        bases[2] = Assets.get("assets/textures-layer-1/terrain-wheat-field-base_2.png");
+//        bases[3] = Assets.get("assets/textures-layer-1/terrain-wheat-field-base_3.png");
+//        bases[4] = Assets.get("assets/textures-layer-1/terrain-wheat-field-base_4.png");
+//        lines = Assets.get("assets/textures-layer-1/terrain-wheat-field-lines.png");
+
+
+        bases[0] = Assets.get("assets/textures-layer-1/wheat_field_0.png");
+        bases[1] = Assets.get("assets/textures-layer-1/wheat_field_1.png");
+        bases[2] = Assets.get("assets/textures-layer-1/wheat_field_2.png");
+        bases[3] = Assets.get("assets/textures-layer-1/wheat_field_3.png");
+        bases[4] = Assets.get("assets/textures-layer-1/wheat_field_4.png");
     }
 
     @Override
@@ -60,11 +67,12 @@ public class MapLayer_1 implements MapLayer {
             renderer2D.setColor(0.396f, 0.263f, 0.129f, 0.3f);
             renderer2D.drawCurveFilled(null, 5.0f, 20, borderPolygon, 0,0,0,1,1);
             renderer2D.setColor(Color.WHITE);
-            renderer2D.drawPolygonFilled(cmd.polygon, bases[cmd.baseType], 0, 0, 0, 1,1);
-            renderer2D.drawPolygonFilled(cmd.polygon, lines, uv -> uv.rotateDeg(cmd.linesAngle),0,0,0,1,1);
-            //renderer2D.setColor(0.396f, 0.665f, 0.129f, 0.7f);
-            //renderer2D.drawPolygonFilled(cmd.polygon, harvestPart, uv -> uv.rotateDeg(cmd.linesAngle),0,0,0,1,1);
-            //renderer2D.setColor(Color.WHITE);
+
+            // old, ugly wheat fields
+            //renderer2D.drawPolygonFilled(cmd.polygon, bases[cmd.baseType], 0, 0, 0, 1,1);
+            //renderer2D.drawPolygonFilled(cmd.polygon, lines, uv -> uv.rotateDeg(cmd.linesAngle),0,0,0,1,1);
+            // new, better wheat fields
+            renderer2D.drawPolygonFilled(cmd.polygon, bases[cmd.baseType], uv -> uv.rotateDeg(cmd.linesAngle),0,0,0,1,1);
         }
         renderer2D.end();
         commandCreateWheatFields.addAll(newWheatFields);

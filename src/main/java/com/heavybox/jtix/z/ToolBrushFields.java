@@ -18,8 +18,6 @@ public class ToolBrushFields extends Tool {
     public State state = State.FREE;
 
     private Texture[] bases = new Texture[5];
-    private Texture lines;
-    private Texture harvest;
     private Color harvestTint = Color.GREEN; // for now
 
     private Array<Vector2> points = new Array<>(true, 10);
@@ -31,12 +29,17 @@ public class ToolBrushFields extends Tool {
 
     public ToolBrushFields(RPGMapMakerScene scene) {
         super(scene);
-        bases[0] = Assets.get("assets/textures-layer-1/terrain-wheat-field-base_0.png");
-        bases[1] = Assets.get("assets/textures-layer-1/terrain-wheat-field-base_1.png");
-        bases[2] = Assets.get("assets/textures-layer-1/terrain-wheat-field-base_2.png");
-        bases[3] = Assets.get("assets/textures-layer-1/terrain-wheat-field-base_3.png");
-        bases[4] = Assets.get("assets/textures-layer-1/terrain-wheat-field-base_4.png");
-        lines = Assets.get("assets/textures-layer-1/terrain-wheat-field-lines.png");
+//        bases[0] = Assets.get("assets/textures-layer-1/terrain-wheat-field-base_0.png");
+//        bases[1] = Assets.get("assets/textures-layer-1/terrain-wheat-field-base_1.png");
+//        bases[2] = Assets.get("assets/textures-layer-1/terrain-wheat-field-base_2.png");
+//        bases[3] = Assets.get("assets/textures-layer-1/terrain-wheat-field-base_3.png");
+//        bases[4] = Assets.get("assets/textures-layer-1/terrain-wheat-field-base_4.png");
+//        lines = Assets.get("assets/textures-layer-1/terrain-wheat-field-lines.png");
+        bases[0] = Assets.get("assets/textures-layer-1/wheat_field_0.png");
+        bases[1] = Assets.get("assets/textures-layer-1/wheat_field_1.png");
+        bases[2] = Assets.get("assets/textures-layer-1/wheat_field_2.png");
+        bases[3] = Assets.get("assets/textures-layer-1/wheat_field_3.png");
+        bases[4] = Assets.get("assets/textures-layer-1/wheat_field_4.png");
     }
 
     @Override
@@ -144,8 +147,10 @@ public class ToolBrushFields extends Tool {
             renderer2D.drawLineThin(points.last().x, points.last().y, x, y);
             renderer2D.setColor(Color.WHITE);
         } else if (state == State.SET_ANGLE) {
-            renderer2D.drawPolygonFilled(polygon, bases[baseType], 0, 0, 0, 1,1);
-            renderer2D.drawPolygonFilled(polygon, lines, uv -> uv.rotateDeg(linesAngle),0,0,0,1,1);
+            // old
+            //renderer2D.drawPolygonFilled(polygon, bases[baseType], 0, 0, 0, 1,1);
+            //renderer2D.drawPolygonFilled(polygon, lines, uv -> uv.rotateDeg(linesAngle),0,0,0,1,1);
+            renderer2D.drawPolygonFilled(polygon, bases[baseType], uv -> uv.rotateDeg(linesAngle),0,0,0,1,1);
         }
     }
 

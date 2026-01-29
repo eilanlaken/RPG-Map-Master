@@ -54,12 +54,12 @@ public class MapLayer_0 implements MapLayer {
         terrainMask = new FrameBuffer(width, height); // <- draw terrain here
         camera = new Camera(Camera.Mode.ORTHOGRAPHIC, width, height, 1, 0, 100, 75);
 
-        terrainGrass = Assets.get("assets/textures-layer-0/terrain-grass_1920x1080.jpg");
-        terrainGrounds[0] = Assets.get("assets/textures-layer-0/terrain-grass_1920x1080.jpg");
+        terrainGrass = Assets.get("assets/textures-layer-0/terrain-grass-oil_1920x1080.jpg");
+        terrainGrounds[0] = Assets.get("assets/textures-layer-0/terrain-grass-oil_1920x1080.jpg");
         terrainGrounds[1] = Assets.get("assets/textures-layer-0/terrain-slate_1920x1080.jpg");
 
-        terrainWater = Assets.get("assets/textures-layer-0/terrain-water_1920x1080.jpg");
-        terrainLiquids[0] = Assets.get("assets/textures-layer-0/terrain-water_1920x1080.jpg");
+        terrainWater = Assets.get("assets/textures-layer-0/terrain-water-oil_1920x1080.jpg");
+        terrainLiquids[0] = Assets.get("assets/textures-layer-0/terrain-water-oil_1920x1080.jpg");
         terrainLiquids[1] = Assets.get("assets/textures-layer-0/terrain-lava_1920x1080.jpg");
         terrainLiquids[2] = Assets.get("assets/textures-layer-0/terrain-acid_1920x1080.jpg");
 
