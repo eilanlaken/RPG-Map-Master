@@ -40,14 +40,24 @@ regions:
   x: 2
   y: 2
 - name: assets/textures-layer-2/bridge_part.png
-  offsetX: 38
-  offsetY: 55
-  originalHeight: 128
-  originalWidth: 128
+  offsetX: 0
+  offsetY: 0
+  originalHeight: 19
+  originalWidth: 50
   packedHeight: 19
   packedWidth: 50
   textureIndex: 0
   x: 58
+  y: 59
+- name: assets/textures-layer-2/stairs_part.png
+  offsetX: 0
+  offsetY: 0
+  originalHeight: 14
+  originalWidth: 47
+  packedHeight: 14
+  packedWidth: 47
+  textureIndex: 0
+  x: 112
   y: 59
 - name: assets/textures-layer-2/grass_0.png
   offsetX: 19
@@ -57,7 +67,7 @@ regions:
   packedHeight: 13
   packedWidth: 21
   textureIndex: 0
-  x: 112
+  x: 163
   y: 59
 - name: assets/textures-layer-2/grass_4.png
   offsetX: 21
@@ -67,7 +77,7 @@ regions:
   packedHeight: 11
   packedWidth: 21
   textureIndex: 0
-  x: 137
+  x: 188
   y: 59
 - name: assets/textures-layer-2/grass_2.png
   offsetX: 23
@@ -87,7 +97,7 @@ regions:
   packedHeight: 9
   packedWidth: 20
   textureIndex: 0
-  x: 162
+  x: 213
   y: 59
 - name: assets/textures-layer-2/grass_3.png
   offsetX: 22
@@ -97,8 +107,8 @@ regions:
   packedHeight: 7
   packedWidth: 20
   textureIndex: 0
-  x: 186
-  y: 59
+  x: 2
+  y: 62
 textures:
 - file: layer_2_0.png
   height: 128
