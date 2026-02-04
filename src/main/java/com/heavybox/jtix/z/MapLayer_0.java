@@ -54,18 +54,19 @@ public class MapLayer_0 implements MapLayer {
         terrainMask = new FrameBuffer(width, height); // <- draw terrain here
         camera = new Camera(Camera.Mode.ORTHOGRAPHIC, width, height, 1, 0, 100, 75);
 
-        terrainGrass = Assets.get("assets/textures-layer-0/terrain-grass-oil-2_1920x1080.jpg");
-        terrainGrounds[0] = Assets.get("assets/textures-layer-0/terrain-grass-oil-2_1920x1080.jpg");
-        terrainGrounds[1] = Assets.get("assets/textures-layer-0/terrain-slate_1920x1080.jpg");
+        terrainGrass = Assets.get("assets/textures-layer-0/terrain_land_grass_0.jpg");
+        terrainGrounds[0] = Assets.get("assets/textures-layer-0/terrain_land_grass_0.jpg");
+        terrainGrounds[1] = Assets.get("assets/textures-layer-0/terrain_land_sand_0.jpg");
 
-        terrainWater = Assets.get("assets/textures-layer-0/terrain-water-oil-2_1920x1080.jpg");
-        terrainLiquids[0] = Assets.get("assets/textures-layer-0/terrain-water-oil-2_1920x1080.jpg");
-        terrainLiquids[1] = Assets.get("assets/textures-layer-0/terrain-lava_1920x1080.jpg");
-        terrainLiquids[2] = Assets.get("assets/textures-layer-0/terrain-acid_1920x1080.jpg");
+        terrainWater = Assets.get("assets/textures-layer-0/terrain_liquid_water_0.jpg");
+        terrainLiquids[0] = Assets.get("assets/textures-layer-0/terrain_liquid_water_0.jpg");
+        terrainLiquids[1] = Assets.get("assets/textures-layer-0/terrain_liquid_water_1.jpg");
+        terrainLiquids[2] = Assets.get("assets/textures-layer-0/terrain_liquid_water_2.jpg");
 
-        terrainStones = Assets.get("assets/textures-layer-0/terrain-stones_1920x1080.jpg");
-        terrainRoad = Assets.get("assets/textures-layer-0/terrain-road-oil-2_1920x1080.jpg");
-        terrainSteepness = Assets.get("assets/textures-layer-0/terrain-rock_1920x1080.jpg");
+        terrainStones = Assets.get("assets/textures-layer-0/terrain_land_stone_0.jpg");
+        terrainRoad = Assets.get("assets/textures-layer-0/terrain_land_road_0.jpg");
+        terrainSteepness = Assets.get("assets/textures-layer-0/terrain_material_rock.jpg");
+
         brushSub = new Texture("assets/tools/terrain-brush-erase.png");
         brushAdd = new Texture("assets/tools/terrain-brush-draw.png");
 
