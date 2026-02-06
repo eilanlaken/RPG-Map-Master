@@ -1587,7 +1587,7 @@ regions:
   packedHeight: 79
   packedWidth: 159
   textureIndex: 0
-  x: 3820
+  x: 3821
   y: 1330
 - name: assets/textures-layer-3/tree_cypress_4.png
   offsetX: 107
@@ -1677,7 +1677,7 @@ regions:
   packedHeight: 81
   packedWidth: 147
   textureIndex: 0
-  x: 3372
+  x: 3598
   y: 1247
 - name: assets/textures-layer-3/architecture_elf_house_horizontal_tall_2.png
   offsetX: 36
@@ -1707,8 +1707,8 @@ regions:
   packedHeight: 81
   packedWidth: 147
   textureIndex: 0
-  x: 3597
-  y: 1247
+  x: 455
+  y: 1249
 - name: assets/textures-layer-3/architecture_elf_house_horizontal_tall_5.png
   offsetX: 36
   offsetY: 212
@@ -1717,8 +1717,8 @@ regions:
   packedHeight: 81
   packedWidth: 147
   textureIndex: 0
-  x: 455
-  y: 1249
+  x: 3372
+  y: 1247
 - name: assets/textures-layer-3/architecture_dwarf_bridge_4.png
   offsetX: 38
   offsetY: 209
@@ -2377,7 +2377,7 @@ regions:
   packedHeight: 51
   packedWidth: 199
   textureIndex: 0
-  x: 2981
+  x: 1612
   y: 1544
 - name: assets/textures-layer-3/hills_green_1.png
   offsetX: 5
@@ -2387,7 +2387,7 @@ regions:
   packedHeight: 51
   packedWidth: 199
   textureIndex: 0
-  x: 1600
+  x: 1409
   y: 1544
 - name: assets/textures-layer-3/prop_windmill_4.png
   offsetX: 4
@@ -2637,7 +2637,7 @@ regions:
   packedHeight: 78
   packedWidth: 121
   textureIndex: 0
-  x: 2398
+  x: 2273
   y: 1331
 - name: assets/textures-layer-3/architecture_dwarf_house_horizontal_tall_3.png
   offsetX: 50
@@ -2657,7 +2657,7 @@ regions:
   packedHeight: 78
   packedWidth: 121
   textureIndex: 0
-  x: 2273
+  x: 2398
   y: 1331
 - name: assets/textures-layer-3/tree_bush_3.png
   offsetX: 61
@@ -2707,8 +2707,8 @@ regions:
   packedHeight: 55
   packedWidth: 167
   textureIndex: 0
-  x: 2
-  y: 1543
+  x: 2316
+  y: 1542
 - name: assets/textures-layer-3/hills_green_0.png
   offsetX: 27
   offsetY: 59
@@ -2717,7 +2717,7 @@ regions:
   packedHeight: 55
   packedWidth: 167
   textureIndex: 0
-  x: 2197
+  x: 2145
   y: 1542
 - name: assets/textures-layer-3/architecture_orc_tower_short_2.png
   offsetX: 6
@@ -2817,7 +2817,7 @@ regions:
   packedHeight: 57
   packedWidth: 147
   textureIndex: 0
-  x: 2608
+  x: 2
   y: 1482
 - name: assets/textures-layer-3/architecture_elf_house_horizontal_short_1.png
   offsetX: 36
@@ -2827,8 +2827,8 @@ regions:
   packedHeight: 57
   packedWidth: 147
   textureIndex: 0
-  x: 2
-  y: 1482
+  x: 2243
+  y: 1481
 - name: assets/textures-layer-3/architecture_elf_house_horizontal_short_2.png
   offsetX: 36
   offsetY: 212
@@ -2847,7 +2847,7 @@ regions:
   packedHeight: 57
   packedWidth: 147
   textureIndex: 0
-  x: 1886
+  x: 1889
   y: 1482
 - name: assets/textures-layer-3/architecture_elf_house_horizontal_short_4.png
   offsetX: 36
@@ -2857,7 +2857,7 @@ regions:
   packedHeight: 57
   packedWidth: 147
   textureIndex: 0
-  x: 2759
+  x: 2646
   y: 1482
 - name: assets/textures-layer-3/architecture_elf_house_horizontal_short_5.png
   offsetX: 36
@@ -2867,8 +2867,8 @@ regions:
   packedHeight: 57
   packedWidth: 147
   textureIndex: 0
-  x: 2243
-  y: 1481
+  x: 2797
+  y: 1482
 - name: assets/textures-layer-3/architecture_dwarf_tower_short_0.png
   offsetX: 80
   offsetY: 208
@@ -2957,7 +2957,7 @@ regions:
   packedHeight: 63
   packedWidth: 129
   textureIndex: 0
-  x: 2451
+  x: 2950
   y: 1413
 - name: assets/textures-layer-3/hills_brown_4.png
   offsetX: 30
@@ -2967,7 +2967,7 @@ regions:
   packedHeight: 53
   packedWidth: 153
   textureIndex: 0
-  x: 1053
+  x: 772
   y: 1544
 - name: assets/textures-layer-3/hills_green_4.png
   offsetX: 30
@@ -2977,8 +2977,8 @@ regions:
   packedHeight: 53
   packedWidth: 153
   textureIndex: 0
-  x: 896
-  y: 1544
+  x: 3412
+  y: 1543
 - name: assets/textures-layer-3/architecture_dwarf_castle_tower_3.png
   offsetX: 75
   offsetY: 206
@@ -3007,7 +3007,7 @@ regions:
   packedHeight: 55
   packedWidth: 144
   textureIndex: 0
-  x: 173
+  x: 2
   y: 1543
 - name: assets/textures-layer-3/prop_windmill_0.png
   offsetX: 4
@@ -3027,7 +3027,7 @@ regions:
   packedHeight: 52
   packedWidth: 144
   textureIndex: 0
-  x: 1382
+  x: 929
   y: 1544
 - name: assets/textures-layer-3/prop_windmill_2.png
   offsetX: 4
@@ -3067,7 +3067,7 @@ regions:
   packedHeight: 60
   packedWidth: 120
   textureIndex: 0
-  x: 3121
+  x: 3000
   y: 1480
 - name: assets/textures-layer-3/hills_green_5.png
   offsetX: 49
@@ -3077,7 +3077,7 @@ regions:
   packedHeight: 60
   packedWidth: 120
   textureIndex: 0
-  x: 3245
+  x: 3124
   y: 1480
 - name: assets/textures-layer-3/architecture_human_decoration_2.png
   offsetX: 67
@@ -3177,8 +3177,8 @@ regions:
   packedHeight: 57
   packedWidth: 121
   textureIndex: 0
-  x: 3962
-  y: 1483
+  x: 2394
+  y: 1481
 - name: assets/textures-layer-3/architecture_elf_castle_tower_7.png
   offsetX: 81
   offsetY: 212
@@ -3197,7 +3197,7 @@ regions:
   packedHeight: 57
   packedWidth: 120
   textureIndex: 0
-  x: 772
+  x: 648
   y: 1484
 - name: assets/textures-layer-3/architecture_human_house_horizontal_short_5.png
   offsetX: 30
@@ -3207,8 +3207,8 @@ regions:
   packedHeight: 57
   packedWidth: 120
   textureIndex: 0
-  x: 648
-  y: 1484
+  x: 3956
+  y: 1483
 - name: assets/textures-layer-3/architecture_elf_house_vertical_tall_0.png
   offsetX: 84
   offsetY: 211
@@ -3277,7 +3277,7 @@ regions:
   packedHeight: 56
   packedWidth: 121
   textureIndex: 0
-  x: 1382
+  x: 1022
   y: 1484
 - name: assets/textures-layer-3/architecture_dwarf_house_horizontal_short_4.png
   offsetX: 50
@@ -3287,7 +3287,7 @@ regions:
   packedHeight: 56
   packedWidth: 121
   textureIndex: 0
-  x: 1021
+  x: 897
   y: 1484
 - name: assets/textures-layer-3/architecture_dwarf_house_horizontal_short_5.png
   offsetX: 50
@@ -3297,7 +3297,7 @@ regions:
   packedHeight: 56
   packedWidth: 121
   textureIndex: 0
-  x: 896
+  x: 772
   y: 1484
 - name: assets/textures-layer-3/prop_pile_0.png
   offsetX: 18
@@ -3317,8 +3317,8 @@ regions:
   packedHeight: 56
   packedWidth: 120
   textureIndex: 0
-  x: 349
-  y: 1485
+  x: 1409
+  y: 1484
 - name: assets/textures-layer-3/architecture_human_house_horizontal_short_4.png
   offsetX: 30
   offsetY: 211
@@ -3327,7 +3327,7 @@ regions:
   packedHeight: 56
   packedWidth: 120
   textureIndex: 0
-  x: 473
+  x: 349
   y: 1485
 - name: assets/textures-layer-3/architecture_elf_castle_block_2.png
   offsetX: 66
@@ -3347,7 +3347,7 @@ regions:
   packedHeight: 55
   packedWidth: 121
   textureIndex: 0
-  x: 2608
+  x: 1889
   y: 1543
 - name: assets/textures-layer-3/architecture_dwarf_house_horizontal_short_3.png
   offsetX: 50
@@ -3357,7 +3357,7 @@ regions:
   packedHeight: 55
   packedWidth: 121
   textureIndex: 0
-  x: 1886
+  x: 150
   y: 1543
 - name: assets/textures-layer-3/tree_sparse_2.png
   offsetX: 2
@@ -3377,7 +3377,7 @@ regions:
   packedHeight: 55
   packedWidth: 120
   textureIndex: 0
-  x: 2733
+  x: 2596
   y: 1543
 - name: assets/textures-layer-3/architecture_human_house_horizontal_short_1.png
   offsetX: 30
@@ -3387,7 +3387,7 @@ regions:
   packedHeight: 55
   packedWidth: 120
   textureIndex: 0
-  x: 2857
+  x: 2720
   y: 1543
 - name: assets/textures-layer-3/architecture_dwarf_house_vertical_tall_0.png
   offsetX: 86
@@ -3487,8 +3487,8 @@ regions:
   packedHeight: 61
   packedWidth: 105
   textureIndex: 0
-  x: 3808
-  y: 1413
+  x: 1608
+  y: 1414
 - name: assets/textures-layer-3/architecture_elf_hut_diagonal_0.png
   offsetX: 68
   offsetY: 202
@@ -3497,8 +3497,8 @@ regions:
   packedHeight: 76
   packedWidth: 84
   textureIndex: 0
-  x: 3983
-  y: 1329
+  x: 606
+  y: 1331
 - name: assets/textures-layer-3/architecture_elf_hut_diagonal_1.png
   offsetX: 68
   offsetY: 202
@@ -3537,8 +3537,8 @@ regions:
   packedHeight: 76
   packedWidth: 84
   textureIndex: 0
-  x: 606
-  y: 1331
+  x: 3984
+  y: 1329
 - name: assets/textures-layer-3/architecture_elf_hut_diagonal_5.png
   offsetX: 68
   offsetY: 202
@@ -3657,8 +3657,8 @@ regions:
   packedHeight: 55
   packedWidth: 114
   textureIndex: 0
-  x: 3476
-  y: 1543
+  x: 525
+  y: 1485
 - name: assets/textures-layer-3/architecture_human_tower_short_4.png
   offsetX: 12
   offsetY: 213
@@ -3727,7 +3727,7 @@ regions:
   packedHeight: 60
   packedWidth: 103
   textureIndex: 0
-  x: 3369
+  x: 3248
   y: 1480
 - name: assets/textures-layer-3/architecture_5.png
   offsetX: 93
@@ -3867,7 +3867,7 @@ regions:
   packedHeight: 50
   packedWidth: 112
   textureIndex: 0
-  x: 3184
+  x: 3000
   y: 1544
 - name: assets/textures-layer-3/boulder_grass_small_3.png
   offsetX: 109
@@ -3877,7 +3877,7 @@ regions:
   packedHeight: 50
   packedWidth: 112
   textureIndex: 0
-  x: 3300
+  x: 3116
   y: 1544
 - name: assets/textures-layer-3/prop_boxes_3.png
   offsetX: 30
@@ -3957,7 +3957,7 @@ regions:
   packedHeight: 81
   packedWidth: 68
   textureIndex: 0
-  x: 3748
+  x: 3749
   y: 1247
 - name: assets/textures-layer-3/architecture_dwarf_hut_diagonal_0.png
   offsetX: 76
@@ -3967,7 +3967,7 @@ regions:
   packedHeight: 70
   packedWidth: 78
   textureIndex: 0
-  x: 437
+  x: 355
   y: 1411
 - name: assets/textures-layer-3/architecture_dwarf_hut_diagonal_1.png
   offsetX: 76
@@ -3997,7 +3997,7 @@ regions:
   packedHeight: 70
   packedWidth: 78
   textureIndex: 0
-  x: 355
+  x: 437
   y: 1411
 - name: assets/textures-layer-3/architecture_dwarf_hut_diagonal_4.png
   offsetX: 76
@@ -4017,7 +4017,7 @@ regions:
   packedHeight: 70
   packedWidth: 78
   textureIndex: 0
-  x: 3983
+  x: 3984
   y: 1409
 - name: assets/textures-layer-3/tree_sparse_5.png
   offsetX: 0
@@ -4057,8 +4057,8 @@ regions:
   packedHeight: 39
   packedWidth: 133
   textureIndex: 0
-  x: 366
-  y: 1594
+  x: 622
+  y: 1592
 - name: assets/textures-layer-3/architecture_elf_castle_tower_1.png
   offsetX: 84
   offsetY: 211
@@ -4077,7 +4077,7 @@ regions:
   packedHeight: 54
   packedWidth: 96
   textureIndex: 0
-  x: 3594
+  x: 2844
   y: 1543
 - name: assets/textures-layer-3/tree_regular_fruits_green.png
   offsetX: 90
@@ -4109,6 +4109,16 @@ regions:
   textureIndex: 0
   x: 2648
   y: 1333
+- name: assets/textures-layer-3/tree_globose_2.png
+  offsetX: 104
+  offsetY: 254
+  originalHeight: 512
+  originalWidth: 256
+  packedHeight: 82
+  packedWidth: 63
+  textureIndex: 0
+  x: 3531
+  y: 1243
 - name: assets/textures-layer-3/architecture_dwarf_house_vertical_short_1.png
   offsetX: 86
   offsetY: 213
@@ -4239,17 +4249,7 @@ regions:
   textureIndex: 0
   x: 2722
   y: 1333
-- name: assets/textures-layer-3/tree_globose_3.png
-  offsetX: 104
-  offsetY: 254
-  originalHeight: 512
-  originalWidth: 256
-  packedHeight: 82
-  packedWidth: 62
-  textureIndex: 0
-  x: 3531
-  y: 1243
-- name: assets/textures-layer-3/tree_globose_4.png
+- name: assets/textures-layer-3/tree_globose_1.png
   offsetX: 113
   offsetY: 254
   originalHeight: 512
@@ -4267,11 +4267,11 @@ regions:
   packedHeight: 61
   packedWidth: 82
   textureIndex: 0
-  x: 1608
-  y: 1414
-- name: assets/textures-layer-3/tree_globose_1.png
-  offsetX: 106
-  offsetY: 255
+  x: 3879
+  y: 1413
+- name: assets/textures-layer-3/tree_globose_3.png
+  offsetX: 112
+  offsetY: 254
   originalHeight: 512
   originalWidth: 256
   packedHeight: 82
@@ -4279,9 +4279,9 @@ regions:
   textureIndex: 0
   x: 2036
   y: 1247
-- name: assets/textures-layer-3/tree_globose_2.png
-  offsetX: 112
-  offsetY: 254
+- name: assets/textures-layer-3/tree_globose_4.png
+  offsetX: 106
+  offsetY: 255
   originalHeight: 512
   originalWidth: 256
   packedHeight: 82
@@ -4427,7 +4427,7 @@ regions:
   packedHeight: 30
   packedWidth: 153
   textureIndex: 0
-  x: 2981
+  x: 1554
   y: 1599
 - name: assets/textures-layer-3/hills_green_2.png
   offsetX: 34
@@ -4437,7 +4437,7 @@ regions:
   packedHeight: 30
   packedWidth: 153
   textureIndex: 0
-  x: 1630
+  x: 1397
   y: 1599
 - name: assets/textures-layer-3/architecture_dwarf_castle_block_2.png
   offsetX: 56
@@ -4447,8 +4447,8 @@ regions:
   packedHeight: 42
   packedWidth: 107
   textureIndex: 0
-  x: 2420
-  y: 1545
+  x: 387
+  y: 1592
 - name: assets/textures-layer-3/architecture_orc_hut_diagonal_0.png
   offsetX: 32
   offsetY: 63
@@ -4457,7 +4457,7 @@ regions:
   packedHeight: 61
   packedWidth: 73
   textureIndex: 0
-  x: 1608
+  x: 1685
   y: 1479
 - name: assets/textures-layer-3/architecture_orc_hut_diagonal_1.png
   offsetX: 32
@@ -4467,7 +4467,7 @@ regions:
   packedHeight: 61
   packedWidth: 73
   textureIndex: 0
-  x: 1694
+  x: 1717
   y: 1414
 - name: assets/textures-layer-3/architecture_orc_hut_diagonal_2.png
   offsetX: 32
@@ -4477,7 +4477,7 @@ regions:
   packedHeight: 61
   packedWidth: 73
   textureIndex: 0
-  x: 1771
+  x: 1794
   y: 1414
 - name: assets/textures-layer-3/architecture_orc_hut_diagonal_3.png
   offsetX: 32
@@ -4487,7 +4487,7 @@ regions:
   packedHeight: 61
   packedWidth: 73
   textureIndex: 0
-  x: 3808
+  x: 3879
   y: 1478
 - name: assets/textures-layer-3/architecture_orc_hut_diagonal_4.png
   offsetX: 32
@@ -4497,8 +4497,8 @@ regions:
   packedHeight: 61
   packedWidth: 73
   textureIndex: 0
-  x: 3885
-  y: 1478
+  x: 1608
+  y: 1479
 - name: assets/textures-layer-3/architecture_orc_hut_diagonal_5.png
   offsetX: 32
   offsetY: 63
@@ -4507,7 +4507,7 @@ regions:
   packedHeight: 61
   packedWidth: 73
   textureIndex: 0
-  x: 1685
+  x: 1762
   y: 1479
 - name: assets/textures-layer-3/architecture_orc_house_vertical_short_0.png
   offsetX: 66
@@ -4577,7 +4577,7 @@ regions:
   packedHeight: 65
   packedWidth: 67
   textureIndex: 0
-  x: 1173
+  x: 1200
   y: 1412
 - name: assets/textures-layer-3/architecture_dwarf_castle_block_1.png
   offsetX: 75
@@ -4587,8 +4587,8 @@ regions:
   packedHeight: 64
   packedWidth: 68
   textureIndex: 0
-  x: 1332
-  y: 1412
+  x: 2451
+  y: 1413
 - name: assets/textures-layer-3/tree_regular_trunk_2.png
   offsetX: 110
   offsetY: 252
@@ -4607,7 +4607,7 @@ regions:
   packedHeight: 51
   packedWidth: 84
   textureIndex: 0
-  x: 1210
+  x: 1077
   y: 1544
 - name: assets/textures-layer-3/tree_sparse_fruits_green.png
   offsetX: 0
@@ -4647,8 +4647,8 @@ regions:
   packedHeight: 59
   packedWidth: 72
   textureIndex: 0
-  x: 1173
-  y: 1481
+  x: 3412
+  y: 1480
 - name: assets/textures-layer-3/prop_hut_yellow_1.png
   offsetX: 32
   offsetY: 33
@@ -4657,7 +4657,7 @@ regions:
   packedHeight: 63
   packedWidth: 67
   textureIndex: 0
-  x: 2950
+  x: 2523
   y: 1413
 - name: assets/textures-layer-3/rock_big_5.png
   offsetX: 14
@@ -4667,8 +4667,8 @@ regions:
   packedHeight: 61
   packedWidth: 69
   textureIndex: 0
-  x: 1762
-  y: 1479
+  x: 2523
+  y: 1480
 - name: assets/textures-layer-3/architecture_4.png
   offsetX: 93
   offsetY: 210
@@ -4687,7 +4687,7 @@ regions:
   packedHeight: 62
   packedWidth: 67
   textureIndex: 0
-  x: 3021
+  x: 3808
   y: 1413
 - name: assets/textures-layer-3/tree_sparse_0.png
   offsetX: 6
@@ -4737,7 +4737,7 @@ regions:
   packedHeight: 56
   packedWidth: 68
   textureIndex: 0
-  x: 3476
+  x: 3488
   y: 1483
 - name: assets/textures-layer-3/tree_regular_trunk_4.png
   offsetX: 103
@@ -4877,8 +4877,8 @@ regions:
   packedHeight: 45
   packedWidth: 77
   textureIndex: 0
-  x: 366
-  y: 1545
+  x: 3322
+  y: 1544
 - name: assets/textures-layer-3/rock_big_6.png
   offsetX: 19
   offsetY: 62
@@ -4887,7 +4887,7 @@ regions:
   packedHeight: 53
   packedWidth: 65
   textureIndex: 0
-  x: 3806
+  x: 3569
   y: 1543
 - name: assets/textures-layer-3/architecture_dwarf_castle_block_6.png
   offsetX: 79
@@ -4897,7 +4897,7 @@ regions:
   packedHeight: 57
   packedWidth: 60
   textureIndex: 0
-  x: 3715
+  x: 1277
   y: 1481
 - name: assets/textures-layer-3/architecture_human_hut_vertical_0.png
   offsetX: 86
@@ -4987,8 +4987,8 @@ regions:
   packedHeight: 45
   packedWidth: 74
   textureIndex: 0
-  x: 447
-  y: 1545
+  x: 3950
+  y: 1544
 - name: assets/textures-layer-3/rock_big_1.png
   offsetX: 17
   offsetY: 62
@@ -4997,7 +4997,7 @@ regions:
   packedHeight: 53
   packedWidth: 61
   textureIndex: 0
-  x: 3875
+  x: 3638
   y: 1543
 - name: assets/textures-layer-3/architecture_elf_castle_block_4.png
   offsetX: 79
@@ -5007,7 +5007,7 @@ regions:
   packedHeight: 54
   packedWidth: 59
   textureIndex: 0
-  x: 2011
+  x: 275
   y: 1543
 - name: assets/textures-layer-3/prop_scarecrow_1.png
   offsetX: 11
@@ -5027,7 +5027,7 @@ regions:
   packedHeight: 60
   packedWidth: 53
   textureIndex: 0
-  x: 2551
+  x: 3355
   y: 1480
 - name: assets/textures-layer-3/architecture_2.png
   offsetX: 98
@@ -5039,6 +5039,16 @@ regions:
   textureIndex: 0
   x: 3989
   y: 1043
+- name: assets/textures-layer-3/tree_globose_0.png
+  offsetX: 111
+  offsetY: 261
+  originalHeight: 512
+  originalWidth: 256
+  packedHeight: 63
+  packedWidth: 48
+  textureIndex: 0
+  x: 2095
+  y: 1412
 - name: assets/textures-layer-3/prop_scarecrow_3.png
   offsetX: 12
   offsetY: 46
@@ -5067,9 +5077,9 @@ regions:
   packedHeight: 41
   packedWidth: 73
   textureIndex: 0
-  x: 2420
-  y: 1591
-- name: assets/textures-layer-3/tree_globose_0.png
+  x: 1329
+  y: 1545
+- name: assets/textures-layer-3/tree_globose_5.png
   offsetX: 113
   offsetY: 259
   originalHeight: 512
@@ -5077,18 +5087,8 @@ regions:
   packedHeight: 65
   packedWidth: 46
   textureIndex: 0
-  x: 1244
+  x: 1271
   y: 1412
-- name: assets/textures-layer-3/tree_globose_5.png
-  offsetX: 111
-  offsetY: 261
-  originalHeight: 512
-  originalWidth: 256
-  packedHeight: 63
-  packedWidth: 47
-  textureIndex: 0
-  x: 2584
-  y: 1413
 - name: assets/textures-layer-3/prop_scarecrow_2.png
   offsetX: 11
   offsetY: 46
@@ -5117,8 +5117,8 @@ regions:
   packedHeight: 61
   packedWidth: 47
   textureIndex: 0
-  x: 1835
-  y: 1479
+  x: 2596
+  y: 1413
 - name: assets/textures-layer-3/plant_flower_daisy_1.png
   offsetX: 34
   offsetY: 105
@@ -5127,7 +5127,7 @@ regions:
   packedHeight: 59
   packedWidth: 48
   textureIndex: 0
-  x: 1249
+  x: 1225
   y: 1481
 - name: assets/textures-layer-3/plant_flower_sunflower_1.png
   offsetX: 35
@@ -5137,8 +5137,8 @@ regions:
   packedHeight: 59
   packedWidth: 48
   textureIndex: 0
-  x: 3663
-  y: 1480
+  x: 1173
+  y: 1481
 - name: assets/textures-layer-3/prop_hut_green_5.png
   offsetX: 40
   offsetY: 40
@@ -5147,7 +5147,7 @@ regions:
   packedHeight: 59
   packedWidth: 48
   textureIndex: 0
-  x: 2950
+  x: 3663
   y: 1480
 - name: assets/textures-layer-3/tree_regular_trunk_1.png
   offsetX: 112
@@ -5167,7 +5167,7 @@ regions:
   packedHeight: 61
   packedWidth: 46
   textureIndex: 0
-  x: 3071
+  x: 1839
   y: 1479
 - name: assets/textures-layer-3/architecture_orc_hut_vertical_1.png
   offsetX: 66
@@ -5177,8 +5177,8 @@ regions:
   packedHeight: 61
   packedWidth: 46
   textureIndex: 0
-  x: 3021
-  y: 1479
+  x: 2596
+  y: 1478
 - name: assets/textures-layer-3/architecture_orc_hut_vertical_2.png
   offsetX: 66
   offsetY: 215
@@ -5187,7 +5187,7 @@ regions:
   packedHeight: 61
   packedWidth: 46
   textureIndex: 0
-  x: 2501
+  x: 2950
   y: 1480
 - name: assets/textures-layer-3/architecture_orc_hut_vertical_3.png
   offsetX: 66
@@ -5197,7 +5197,7 @@ regions:
   packedHeight: 61
   packedWidth: 46
   textureIndex: 0
-  x: 2451
+  x: 1359
   y: 1480
 - name: assets/textures-layer-3/architecture_orc_hut_vertical_4.png
   offsetX: 66
@@ -5207,8 +5207,8 @@ regions:
   packedHeight: 61
   packedWidth: 46
   textureIndex: 0
-  x: 2095
-  y: 1480
+  x: 3808
+  y: 1479
 - name: assets/textures-layer-3/architecture_orc_hut_vertical_5.png
   offsetX: 66
   offsetY: 215
@@ -5217,8 +5217,8 @@ regions:
   packedHeight: 61
   packedWidth: 46
   textureIndex: 0
-  x: 1332
-  y: 1480
+  x: 2095
+  y: 1479
 - name: assets/textures-layer-3/architecture_dwarf_castle_block_3.png
   offsetX: 75
   offsetY: 212
@@ -5227,8 +5227,8 @@ regions:
   packedHeight: 41
   packedWidth: 68
   textureIndex: 0
-  x: 745
-  y: 1592
+  x: 2487
+  y: 1545
 - name: assets/textures-layer-3/prop_scarecrow_0.png
   offsetX: 13
   offsetY: 46
@@ -5237,7 +5237,7 @@ regions:
   packedHeight: 64
   packedWidth: 43
   textureIndex: 0
-  x: 2095
+  x: 1359
   y: 1412
 - name: assets/textures-layer-3/plant_flower_daisy_5.png
   offsetX: 33
@@ -5247,7 +5247,7 @@ regions:
   packedHeight: 57
   packedWidth: 48
   textureIndex: 0
-  x: 2394
+  x: 3715
   y: 1481
 - name: assets/textures-layer-3/prop_hut_yellow_2.png
   offsetX: 29
@@ -5257,8 +5257,8 @@ regions:
   packedHeight: 38
   packedWidth: 72
   textureIndex: 0
-  x: 503
-  y: 1594
+  x: 3322
+  y: 1593
 - name: assets/textures-layer-3/plant_flower_daisy_3.png
   offsetX: 32
   offsetY: 105
@@ -5267,7 +5267,7 @@ regions:
   packedHeight: 56
   packedWidth: 48
   textureIndex: 0
-  x: 1507
+  x: 1533
   y: 1484
 - name: assets/textures-layer-3/plant_flower_sunflower_0.png
   offsetX: 29
@@ -5277,8 +5277,8 @@ regions:
   packedHeight: 56
   packedWidth: 48
   textureIndex: 0
-  x: 2145
-  y: 1542
+  x: 473
+  y: 1485
 - name: assets/textures-layer-3/architecture_human_decoration_0.png
   offsetX: 105
   offsetY: 234
@@ -5287,7 +5287,7 @@ regions:
   packedHeight: 51
   packedWidth: 52
   textureIndex: 0
-  x: 1803
+  x: 566
   y: 1544
 - name: assets/textures-layer-3/plant_flower_daisy_4.png
   offsetX: 36
@@ -5297,7 +5297,7 @@ regions:
   packedHeight: 55
   packedWidth: 48
   textureIndex: 0
-  x: 2368
+  x: 1277
   y: 1542
 - name: assets/textures-layer-3/prop_road_signs_0.png
   offsetX: 18
@@ -5347,7 +5347,7 @@ regions:
   packedHeight: 43
   packedWidth: 59
   textureIndex: 0
-  x: 808
+  x: 450
   y: 1545
 - name: assets/textures-layer-3/architecture_elf_castle_block_8.png
   offsetX: 79
@@ -5357,7 +5357,7 @@ regions:
   packedHeight: 43
   packedWidth: 59
   textureIndex: 0
-  x: 745
+  x: 387
   y: 1545
 - name: assets/textures-layer-3/prop_boxes_5.png
   offsetX: 41
@@ -5367,8 +5367,8 @@ regions:
   packedHeight: 53
   packedWidth: 47
   textureIndex: 0
-  x: 597
-  y: 1485
+  x: 3858
+  y: 1543
 - name: assets/textures-layer-3/plant_flower_daisy_2.png
   offsetX: 30
   offsetY: 105
@@ -5377,7 +5377,7 @@ regions:
   packedHeight: 48
   packedWidth: 51
   textureIndex: 0
-  x: 3416
+  x: 1206
   y: 1544
 - name: assets/textures-layer-3/tree_cypress_trunk_0.png
   offsetX: 118
@@ -5407,7 +5407,7 @@ regions:
   packedHeight: 47
   packedWidth: 51
   textureIndex: 0
-  x: 3940
+  x: 1815
   y: 1544
 - name: assets/textures-layer-3/plant_flower_sunflower_2.png
   offsetX: 26
@@ -5417,8 +5417,8 @@ regions:
   packedHeight: 44
   packedWidth: 54
   textureIndex: 0
-  x: 638
-  y: 1545
+  x: 4028
+  y: 1544
 - name: assets/textures-layer-3/tree_cypress_trunk_2.png
   offsetX: 107
   offsetY: 251
@@ -5427,7 +5427,7 @@ regions:
   packedHeight: 57
   packedWidth: 41
   textureIndex: 0
-  x: 2037
+  x: 2040
   y: 1482
 - name: assets/textures-layer-3/tree_cypress_trunk_3.png
   offsetX: 112
@@ -5447,8 +5447,8 @@ regions:
   packedHeight: 37
   packedWidth: 60
   textureIndex: 0
-  x: 3982
-  y: 1595
+  x: 4028
+  y: 1592
 - name: assets/textures-layer-3/architecture_orc_decoration_1.png
   offsetX: 68
   offsetY: 215
@@ -5457,7 +5457,7 @@ regions:
   packedHeight: 65
   packedWidth: 34
   textureIndex: 0
-  x: 1294
+  x: 1321
   y: 1412
 - name: assets/textures-layer-3/prop_lodge_1.png
   offsetX: 15
@@ -5467,8 +5467,8 @@ regions:
   packedHeight: 36
   packedWidth: 60
   textureIndex: 0
-  x: 1530
-  y: 1598
+  x: 3950
+  y: 1593
 - name: assets/textures-layer-3/architecture_human_castle_block_0.png
   offsetX: 87
   offsetY: 236
@@ -5477,8 +5477,8 @@ regions:
   packedHeight: 45
   packedWidth: 46
   textureIndex: 0
-  x: 525
-  y: 1545
+  x: 3806
+  y: 1544
 - name: assets/textures-layer-3/architecture_elf_decoration_0.png
   offsetX: 80
   offsetY: 210
@@ -5497,8 +5497,8 @@ regions:
   packedHeight: 54
   packedWidth: 37
   textureIndex: 0
-  x: 1559
-  y: 1484
+  x: 2014
+  y: 1543
 - name: assets/textures-layer-3/plant_flower_sunflower_3.png
   offsetX: 39
   offsetY: 105
@@ -5507,7 +5507,7 @@ regions:
   packedHeight: 44
   packedWidth: 45
   textureIndex: 0
-  x: 696
+  x: 338
   y: 1545
 - name: assets/textures-layer-3/prop_barrel_2.png
   offsetX: 44
@@ -5517,7 +5517,7 @@ regions:
   packedHeight: 47
   packedWidth: 42
   textureIndex: 0
-  x: 3995
+  x: 2055
   y: 1544
 - name: assets/textures-layer-3/prop_barrel_0.png
   offsetX: 44
@@ -5527,7 +5527,7 @@ regions:
   packedHeight: 47
   packedWidth: 41
   textureIndex: 0
-  x: 4041
+  x: 3232
   y: 1544
 - name: assets/textures-layer-3/prop_barrel_1.png
   offsetX: 44
@@ -5537,8 +5537,8 @@ regions:
   packedHeight: 47
   packedWidth: 41
   textureIndex: 0
-  x: 321
-  y: 1545
+  x: 3277
+  y: 1544
 - name: assets/textures-layer-3/prop_road_signs_2.png
   offsetX: 16
   offsetY: 53
@@ -5547,8 +5547,8 @@ regions:
   packedHeight: 52
   packedWidth: 37
   textureIndex: 0
-  x: 1559
-  y: 1542
+  x: 525
+  y: 1544
 - name: assets/textures-layer-3/prop_road_signs_3.png
   offsetX: 17
   offsetY: 53
@@ -5557,8 +5557,8 @@ regions:
   packedHeight: 52
   packedWidth: 37
   textureIndex: 0
-  x: 597
-  y: 1542
+  x: 3909
+  y: 1543
 - name: assets/textures-layer-3/prop_straw_1.png
   offsetX: 24
   offsetY: 16
@@ -5567,8 +5567,8 @@ regions:
   packedHeight: 40
   packedWidth: 48
   textureIndex: 0
-  x: 1298
-  y: 1592
+  x: 1329
+  y: 1590
 - name: assets/textures-layer-3/plant_flower_sunflower_4.png
   offsetX: 31
   offsetY: 105
@@ -5577,7 +5577,7 @@ regions:
   packedHeight: 51
   packedWidth: 37
   textureIndex: 0
-  x: 2551
+  x: 1165
   y: 1544
 - name: assets/textures-layer-3/rock_meduim_4.png
   offsetX: 25
@@ -5587,8 +5587,8 @@ regions:
   packedHeight: 38
   packedWidth: 49
   textureIndex: 0
-  x: 678
-  y: 1593
+  x: 2944
+  y: 1590
 - name: assets/textures-layer-3/debug_rect.png
   offsetX: 0
   offsetY: 0
@@ -5597,7 +5597,7 @@ regions:
   packedHeight: 30
   packedWidth: 60
   textureIndex: 0
-  x: 1787
+  x: 1077
   y: 1599
 - name: assets/textures-layer-3/plant_flower_scorpion_2.png
   offsetX: 39
@@ -5607,7 +5607,7 @@ regions:
   packedHeight: 43
   packedWidth: 37
   textureIndex: 0
-  x: 1339
+  x: 622
   y: 1545
 - name: assets/textures-layer-3/plant_flower_scorpion_5.png
   offsetX: 38
@@ -5617,8 +5617,8 @@ regions:
   packedHeight: 43
   packedWidth: 37
   textureIndex: 0
-  x: 1298
-  y: 1545
+  x: 2101
+  y: 1544
 - name: assets/textures-layer-3/plant_flower_scorpion_0.png
   offsetX: 38
   offsetY: 105
@@ -5627,7 +5627,7 @@ regions:
   packedHeight: 42
   packedWidth: 37
   textureIndex: 0
-  x: 2074
+  x: 663
   y: 1545
 - name: assets/textures-layer-3/plant_flower_scorpion_1.png
   offsetX: 38
@@ -5637,8 +5637,8 @@ regions:
   packedHeight: 42
   packedWidth: 37
   textureIndex: 0
-  x: 2074
-  y: 1591
+  x: 704
+  y: 1545
 - name: assets/textures-layer-3/tree_regular_trunk_3.png
   offsetX: 122
   offsetY: 251
@@ -5647,8 +5647,8 @@ regions:
   packedHeight: 67
   packedWidth: 23
   textureIndex: 0
-  x: 4071
-  y: 1329
+  x: 1173
+  y: 1408
 - name: assets/textures-layer-3/rock_meduim_0.png
   offsetX: 29
   offsetY: 63
@@ -5657,8 +5657,8 @@ regions:
   packedHeight: 35
   packedWidth: 43
   textureIndex: 0
-  x: 3184
-  y: 1598
+  x: 3232
+  y: 1595
 - name: assets/textures-layer-3/plant_flower_scorpion_4.png
   offsetX: 36
   offsetY: 105
@@ -5667,8 +5667,8 @@ regions:
   packedHeight: 38
   packedWidth: 38
   textureIndex: 0
-  x: 3940
-  y: 1595
+  x: 2101
+  y: 1591
 - name: assets/textures-layer-3/plant_flower_rose_2.png
   offsetX: 33
   offsetY: 105
@@ -5677,8 +5677,8 @@ regions:
   packedHeight: 40
   packedWidth: 36
   textureIndex: 0
-  x: 853
-  y: 1592
+  x: 2487
+  y: 1590
 - name: assets/textures-layer-3/plant_flower_scorpion_3.png
   offsetX: 35
   offsetY: 105
@@ -5687,8 +5687,8 @@ regions:
   packedHeight: 39
   packedWidth: 36
   textureIndex: 0
-  x: 638
-  y: 1593
+  x: 2527
+  y: 1590
 - name: assets/textures-layer-3/plant_flower_rose_4.png
   offsetX: 37
   offsetY: 105
@@ -5697,8 +5697,8 @@ regions:
   packedHeight: 36
   packedWidth: 37
   textureIndex: 0
-  x: 3416
-  y: 1596
+  x: 1815
+  y: 1595
 - name: assets/textures-layer-3/prop_road_signs_4.png
   offsetX: 20
   offsetY: 53
@@ -5707,8 +5707,8 @@ regions:
   packedHeight: 41
   packedWidth: 32
   textureIndex: 0
-  x: 2497
-  y: 1591
+  x: 2559
+  y: 1545
 - name: assets/textures-layer-3/prop_road_signs_5.png
   offsetX: 17
   offsetY: 53
@@ -5717,8 +5717,8 @@ regions:
   packedHeight: 41
   packedWidth: 32
   textureIndex: 0
-  x: 817
-  y: 1592
+  x: 2944
+  y: 1545
 - name: assets/textures-layer-3/plant_flower_tulip_4.png
   offsetX: 38
   offsetY: 105
@@ -5727,8 +5727,8 @@ regions:
   packedHeight: 35
   packedWidth: 37
   textureIndex: 0
-  x: 3231
-  y: 1598
+  x: 3279
+  y: 1595
 - name: assets/textures-layer-3/plant_flower_tulip_5.png
   offsetX: 45
   offsetY: 105
@@ -5737,8 +5737,8 @@ regions:
   packedHeight: 37
   packedWidth: 35
   textureIndex: 0
-  x: 4046
-  y: 1595
+  x: 338
+  y: 1593
 - name: assets/textures-layer-3/rock_meduim_5.png
   offsetX: 29
   offsetY: 64
@@ -5747,7 +5747,7 @@ regions:
   packedHeight: 32
   packedWidth: 40
   textureIndex: 0
-  x: 3339
+  x: 3032
   y: 1598
 - name: assets/textures-layer-3/architecture_orc_decoration_0.png
   offsetX: 78
@@ -5757,8 +5757,8 @@ regions:
   packedHeight: 60
   packedWidth: 20
   textureIndex: 0
-  x: 4071
-  y: 1400
+  x: 4072
+  y: 1329
 - name: assets/textures-layer-3/plant_flower_rose_0.png
   offsetX: 39
   offsetY: 104
@@ -5767,8 +5767,8 @@ regions:
   packedHeight: 36
   packedWidth: 33
   textureIndex: 0
-  x: 579
-  y: 1598
+  x: 2055
+  y: 1595
 - name: assets/textures-layer-3/prop_lodge_0.png
   offsetX: 19
   offsetY: 20
@@ -5777,7 +5777,7 @@ regions:
   packedHeight: 22
   packedWidth: 52
   textureIndex: 0
-  x: 3826
+  x: 949
   y: 1600
 - name: assets/textures-layer-3/prop_egg_brown.png
   offsetX: 2
@@ -5787,8 +5787,8 @@ regions:
   packedHeight: 37
   packedWidth: 30
   textureIndex: 0
-  x: 321
-  y: 1596
+  x: 3806
+  y: 1593
 - name: assets/textures-layer-3/prop_pile_1.png
   offsetX: 42
   offsetY: 49
@@ -5797,8 +5797,8 @@ regions:
   packedHeight: 24
   packedWidth: 46
   textureIndex: 0
-  x: 1382
-  y: 1600
+  x: 1711
+  y: 1599
 - name: assets/textures-layer-3/plant_flower_rose_5.png
   offsetX: 44
   offsetY: 105
@@ -5807,8 +5807,8 @@ regions:
   packedHeight: 31
   packedWidth: 34
   textureIndex: 0
-  x: 1248
-  y: 1599
+  x: 3114
+  y: 1598
 - name: assets/textures-layer-3/plant_flower_tulip_3.png
   offsetX: 41
   offsetY: 105
@@ -5817,8 +5817,8 @@ regions:
   packedHeight: 31
   packedWidth: 34
   textureIndex: 0
-  x: 1210
-  y: 1599
+  x: 3076
+  y: 1598
 - name: assets/textures-layer-3/plant_flower_tulip_0.png
   offsetX: 39
   offsetY: 105
@@ -5827,7 +5827,7 @@ regions:
   packedHeight: 33
   packedWidth: 31
   textureIndex: 0
-  x: 3304
+  x: 2997
   y: 1598
 - name: assets/textures-layer-3/plant_flower_tulip_2.png
   offsetX: 36
@@ -5837,8 +5837,8 @@ regions:
   packedHeight: 30
   packedWidth: 34
   textureIndex: 0
-  x: 2533
-  y: 1599
+  x: 3188
+  y: 1598
 - name: assets/textures-layer-3/plant_flower_rose_1.png
   offsetX: 43
   offsetY: 105
@@ -5847,8 +5847,8 @@ regions:
   packedHeight: 36
   packedWidth: 28
   textureIndex: 0
-  x: 1350
-  y: 1592
+  x: 1856
+  y: 1595
 - name: assets/textures-layer-3/plant_flower_rose_3.png
   offsetX: 41
   offsetY: 105
@@ -5857,8 +5857,8 @@ regions:
   packedHeight: 31
   packedWidth: 32
   textureIndex: 0
-  x: 1594
-  y: 1599
+  x: 3152
+  y: 1598
 - name: assets/textures-layer-3/plant_flower_tulip_1.png
   offsetX: 41
   offsetY: 104
@@ -5867,8 +5867,8 @@ regions:
   packedHeight: 35
   packedWidth: 28
   textureIndex: 0
-  x: 3272
-  y: 1598
+  x: 1206
+  y: 1596
 - name: assets/textures-layer-3/prop_fence_bar.png
   offsetX: 43
   offsetY: 38
@@ -5877,8 +5877,8 @@ regions:
   packedHeight: 19
   packedWidth: 50
   textureIndex: 0
-  x: 926
-  y: 1601
+  x: 3412
+  y: 1600
 - name: assets/textures-layer-3/rock_meduim_1.png
   offsetX: 33
   offsetY: 62
@@ -5887,7 +5887,7 @@ regions:
   packedHeight: 26
   packedWidth: 35
   textureIndex: 0
-  x: 3138
+  x: 566
   y: 1599
 - name: assets/textures-layer-3/rock_meduim_2.png
   offsetX: 36
@@ -5897,7 +5897,7 @@ regions:
   packedHeight: 22
   packedWidth: 29
   textureIndex: 0
-  x: 3882
+  x: 1005
   y: 1600
 - name: assets/textures-layer-3/rock_meduim_3.png
   offsetX: 36
@@ -5907,8 +5907,8 @@ regions:
   packedHeight: 22
   packedWidth: 29
   textureIndex: 0
-  x: 893
-  y: 1601
+  x: 1038
+  y: 1600
 - name: assets/textures-layer-3/architecture_3.png
   offsetX: 93
   offsetY: 210
@@ -5917,8 +5917,8 @@ regions:
   packedHeight: 15
   packedWidth: 42
   textureIndex: 0
-  x: 980
-  y: 1601
+  x: 3466
+  y: 1600
 - name: assets/textures-layer-3/prop_chopped_trunk.png
   offsetX: 13
   offsetY: 21
@@ -5927,8 +5927,8 @@ regions:
   packedHeight: 26
   packedWidth: 20
   textureIndex: 0
-  x: 2115
-  y: 1585
+  x: 1141
+  y: 1599
 - name: assets/textures-layer-3/prop_sack.png
   offsetX: 0
   offsetY: 0
@@ -5937,8 +5937,8 @@ regions:
   packedHeight: 23
   packedWidth: 20
   textureIndex: 0
-  x: 3383
-  y: 1598
+  x: 1165
+  y: 1599
 - name: assets/textures-layer-3/prop_tombstone.png
   offsetX: 0
   offsetY: 23
@@ -5947,8 +5947,8 @@ regions:
   packedHeight: 27
   packedWidth: 17
   textureIndex: 0
-  x: 1859
-  y: 1584
+  x: 1238
+  y: 1596
 - name: assets/textures-layer-3/tree_confiner_trunk_0.png
   offsetX: 133
   offsetY: 251
@@ -5957,8 +5957,8 @@ regions:
   packedHeight: 36
   packedWidth: 12
   textureIndex: 0
-  x: 3694
-  y: 1583
+  x: 3840
+  y: 1593
 - name: assets/textures-layer-3/tree_confiner_trunk_1.png
   offsetX: 133
   offsetY: 251
@@ -5967,8 +5967,8 @@ regions:
   packedHeight: 36
   packedWidth: 12
   textureIndex: 0
-  x: 2592
-  y: 1544
+  x: 1381
+  y: 1590
 - name: assets/textures-layer-3/tree_confiner_trunk_2.png
   offsetX: 133
   offsetY: 251
@@ -5977,8 +5977,8 @@ regions:
   packedHeight: 36
   packedWidth: 12
   textureIndex: 0
-  x: 1859
-  y: 1544
+  x: 1261
+  y: 1584
 - name: assets/textures-layer-3/tree_confiner_trunk_3.png
   offsetX: 133
   offsetY: 251
@@ -5987,8 +5987,8 @@ regions:
   packedHeight: 36
   packedWidth: 12
   textureIndex: 0
-  x: 2533
-  y: 1545
+  x: 498
+  y: 1592
 - name: assets/textures-layer-3/tree_confiner_trunk_4.png
   offsetX: 133
   offsetY: 251
@@ -5997,8 +5997,8 @@ regions:
   packedHeight: 36
   packedWidth: 12
   textureIndex: 0
-  x: 2115
-  y: 1545
+  x: 2567
+  y: 1590
 - name: assets/textures-layer-3/tree_confiner_trunk_5.png
   offsetX: 133
   offsetY: 251
@@ -6007,8 +6007,8 @@ regions:
   packedHeight: 36
   packedWidth: 12
   textureIndex: 0
-  x: 3694
-  y: 1543
+  x: 1261
+  y: 1544
 - name: assets/textures-layer-3/prop_fence_post.png
   offsetX: 23
   offsetY: 20
@@ -6017,7 +6017,7 @@ regions:
   packedHeight: 23
   packedWidth: 16
   textureIndex: 0
-  x: 1472
+  x: 514
   y: 1600
 - name: assets/textures-layer-3/tree_globose_trunk_0.png
   offsetX: 131
@@ -6027,8 +6027,8 @@ regions:
   packedHeight: 23
   packedWidth: 16
   textureIndex: 0
-  x: 616
-  y: 1598
+  x: 1761
+  y: 1599
 - name: assets/textures-layer-3/tree_globose_trunk_1.png
   offsetX: 131
   offsetY: 250
@@ -6037,7 +6037,7 @@ regions:
   packedHeight: 23
   packedWidth: 16
   textureIndex: 0
-  x: 2571
+  x: 1781
   y: 1599
 - name: assets/textures-layer-3/tree_globose_trunk_2.png
   offsetX: 131
@@ -6047,8 +6047,8 @@ regions:
   packedHeight: 23
   packedWidth: 16
   textureIndex: 0
-  x: 1432
-  y: 1600
+  x: 3909
+  y: 1599
 - name: assets/textures-layer-3/tree_globose_trunk_3.png
   offsetX: 131
   offsetY: 250
@@ -6057,8 +6057,8 @@ regions:
   packedHeight: 23
   packedWidth: 16
   textureIndex: 0
-  x: 1452
-  y: 1600
+  x: 3929
+  y: 1599
 - name: assets/textures-layer-3/tree_globose_trunk_4.png
   offsetX: 131
   offsetY: 250
@@ -6067,7 +6067,7 @@ regions:
   packedHeight: 23
   packedWidth: 16
   textureIndex: 0
-  x: 3806
+  x: 929
   y: 1600
 - name: assets/textures-layer-3/tree_globose_trunk_5.png
   offsetX: 131
@@ -6077,7 +6077,7 @@ regions:
   packedHeight: 23
   packedWidth: 16
   textureIndex: 0
-  x: 1492
+  x: 534
   y: 1600
 - name: assets/textures-layer-3/rock_small_5.png
   offsetX: 41
@@ -6087,7 +6087,7 @@ regions:
   packedHeight: 13
   packedWidth: 20
   textureIndex: 0
-  x: 3915
+  x: 3512
   y: 1600
 - name: assets/textures-layer-3/rock_small_3.png
   offsetX: 41
@@ -6097,8 +6097,8 @@ regions:
   packedHeight: 13
   packedWidth: 19
   textureIndex: 0
-  x: 1026
-  y: 1601
+  x: 3536
+  y: 1600
 - name: assets/textures-layer-3/rock_small_0.png
   offsetX: 42
   offsetY: 67
@@ -6107,8 +6107,8 @@ regions:
   packedHeight: 13
   packedWidth: 18
   textureIndex: 0
-  x: 1049
-  y: 1601
+  x: 3559
+  y: 1600
 - name: assets/textures-layer-3/rock_small_1.png
   offsetX: 41
   offsetY: 66
@@ -6117,8 +6117,8 @@ regions:
   packedHeight: 13
   packedWidth: 18
   textureIndex: 0
-  x: 1071
-  y: 1601
+  x: 3581
+  y: 1600
 - name: assets/textures-layer-3/rock_small_2.png
   offsetX: 42
   offsetY: 66
@@ -6127,8 +6127,8 @@ regions:
   packedHeight: 13
   packedWidth: 17
   textureIndex: 0
-  x: 1093
-  y: 1601
+  x: 3603
+  y: 1600
 - name: assets/textures-layer-3/rock_small_4.png
   offsetX: 41
   offsetY: 67
@@ -6137,8 +6137,8 @@ regions:
   packedHeight: 12
   packedWidth: 18
   textureIndex: 0
-  x: 1114
-  y: 1601
+  x: 3624
+  y: 1600
 - name: assets/textures-layer-3/prop_fence_high_3.png
   offsetX: 13
   offsetY: 38
@@ -6147,8 +6147,8 @@ regions:
   packedHeight: 35
   packedWidth: 5
   textureIndex: 0
-  x: 4087
-  y: 1464
+  x: 3703
+  y: 1543
 - name: assets/textures-layer-3/prop_fence_high_4.png
   offsetX: 13
   offsetY: 38
@@ -6157,8 +6157,8 @@ regions:
   packedHeight: 34
   packedWidth: 5
   textureIndex: 0
-  x: 4087
-  y: 1541
+  x: 514
+  y: 1545
 - name: assets/textures-layer-3/prop_fence_high_5.png
   offsetX: 13
   offsetY: 38
@@ -6167,8 +6167,8 @@ regions:
   packedHeight: 34
   packedWidth: 5
   textureIndex: 0
-  x: 4087
-  y: 1503
+  x: 3403
+  y: 1544
 - name: assets/textures-layer-3/prop_fence_high_0.png
   offsetX: 13
   offsetY: 38
@@ -6177,8 +6177,8 @@ regions:
   packedHeight: 33
   packedWidth: 5
   textureIndex: 0
-  x: 1875
-  y: 1544
+  x: 759
+  y: 1545
 - name: assets/textures-layer-3/prop_fence_high_1.png
   offsetX: 13
   offsetY: 38
@@ -6187,8 +6187,8 @@ regions:
   packedHeight: 31
   packedWidth: 5
   textureIndex: 0
-  x: 4086
-  y: 1579
+  x: 3403
+  y: 1582
 - name: assets/textures-layer-3/prop_fence_high_2.png
   offsetX: 13
   offsetY: 38
@@ -6197,8 +6197,8 @@ regions:
   packedHeight: 31
   packedWidth: 5
   textureIndex: 0
-  x: 2131
-  y: 1545
+  x: 759
+  y: 1582
 textures:
 - file: layer_3_0.png
   height: 2048
