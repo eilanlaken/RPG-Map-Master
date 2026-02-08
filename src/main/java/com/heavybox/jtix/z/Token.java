@@ -4,7 +4,7 @@ import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.graphics.TextureRegion;
 
-public class MapToken {
+public class Token {
 
     // TODO
     public Class<? extends Tool> sourceTool;
@@ -16,7 +16,7 @@ public class MapToken {
     public final float width, height;
     public TextureRegion[] regions;
 
-    public MapToken(int layer, float x, float y, float deg, float sclX, float sclY, TextureRegion... regions) {
+    public Token(int layer, float x, float y, float deg, float sclX, float sclY, TextureRegion... regions) {
         this.layer = layer;
         this.x = x;
         this.y = y;

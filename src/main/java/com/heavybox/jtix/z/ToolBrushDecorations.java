@@ -99,7 +99,7 @@ public class ToolBrushDecorations extends Tool {
             TextureRegion region = new TextureRegion(decorations[currentDecorationIndex]);
             CommandTokenCreate cmd = new CommandTokenCreate(layer == Layer.MIDDLE ? 3 : 5,
                     x, y, deg, flipped? -sclX : sclX, sclY, true, region);
-            cmd.type = MapToken.Type.DECORATION;
+            cmd.type = Token.Type.DECORATION;
             cmd.anchor = true;
             map.addCommand(cmd);
             return;

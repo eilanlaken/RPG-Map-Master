@@ -7,7 +7,7 @@ import org.lwjgl.opengl.GL11;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public class MapLayer_0 implements MapLayer {
+public class MapLayerLevel_0 implements MapLayerLevel {
 
     // TODO: get from map.
     public int width, height;
@@ -46,7 +46,7 @@ public class MapLayer_0 implements MapLayer {
 
     private boolean changed = true;
 
-    public MapLayer_0(int width, int height) {
+    public MapLayerLevel_0(int width, int height) {
         this.width = width;
         this.height = height;
 

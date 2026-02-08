@@ -10,18 +10,18 @@ import java.util.Comparator;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
 
-public class MapLayer_3 implements MapLayer {
+public class MapLayerLevel_3 implements MapLayerLevel {
 
     // DEBUGGING
     private boolean changed = false;
 
     // Tokens layer
     private FrameBuffer layer3;
-    public Array<MapToken> allTokens = new Array<>(false, 10); // TODO: maybe refactor to be member of Map
+    public Array<Token> allTokens = new Array<>(false, 10); // TODO: maybe refactor to be member of Map
     private final TexturePack tokensAtlas;
     public final Camera camera;
 
-    public MapLayer_3(int width, int height) {
+    public MapLayerLevel_3(int width, int height) {
         layer3 = new FrameBuffer(width, height);
         camera = new Camera(Camera.Mode.ORTHOGRAPHIC, width, height, 1, 0, 100, 75);
         this.tokensAtlas = Assets.get("assets/texture-packs/layer_3.yml");
@@ -33,11 +33,11 @@ public class MapLayer_3 implements MapLayer {
 
         if (command instanceof CommandTokenCreate) {
             CommandTokenCreate cmd = (CommandTokenCreate) command;
-            MapToken mapToken = new MapToken(cmd.layer, cmd.x, cmd.y, cmd.deg, cmd.sclX, cmd.sclY, cmd.regions);
-            mapToken.type = cmd.type;
-            mapToken.tint = cmd.tint.equals(Color.WHITE) ? Color.WHITE : cmd.tint.clone();
-            mapToken.sourceTool = cmd.sourceTool;
-            allTokens.add(mapToken);
+            Token token = new Token(cmd.layer, cmd.x, cmd.y, cmd.deg, cmd.sclX, cmd.sclY, cmd.regions);
+            token.type = cmd.type;
+            token.tint = cmd.tint.equals(Color.WHITE) ? Color.WHITE : cmd.tint.clone();
+            token.sourceTool = cmd.sourceTool;
+            allTokens.add(token);
             return;
         }
 
@@ -58,8 +58,8 @@ public class MapLayer_3 implements MapLayer {
         renderer2D.begin(camera);
         renderer2D.setBlending(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         allTokens.sort(Comparator.comparingInt(o -> -(int) o.y));
-        for (MapToken mapToken : allTokens) {
-            mapToken.render(renderer2D);
+        for (Token token : allTokens) {
+            token.render(renderer2D);
         }
         renderer2D.end();
     }

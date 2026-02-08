@@ -63,7 +63,7 @@ public class ToolBrushProps extends Tool {
                     x, y, deg, sclX * mode.rescale, sclY * mode.rescale, true,
                     region
             );
-            createProp.type = MapToken.Type.PROP;
+            createProp.type = Token.Type.PROP;
             createProp.anchor = true;
             map.addCommand(createProp);
             int end = mode == Mode.HUT ? 10 : 6;
@@ -120,8 +120,6 @@ public class ToolBrushProps extends Tool {
                     if (v.y > topRightCorner.y) topRightCorner.y = v.y;
                 }
 
-                float width = topRightCorner.x - bottomLeftCorner.x;
-                float height = topRightCorner.y - bottomLeftCorner.y;
                 float stepSizePixels = getSpacing();
                 Array<Vector2> gridPoints = new Array<>();
                 for (float rect_x = bottomLeftCorner.x; rect_x < topRightCorner.x; rect_x += stepSizePixels) {
@@ -138,7 +136,7 @@ public class ToolBrushProps extends Tool {
                             position.x, position.y, deg, sclX * mode.rescale, sclY * mode.rescale, false,
                             getRegion()
                     );
-                    createProp.type = MapToken.Type.PROP;
+                    createProp.type = Token.Type.PROP;
                     createProp.anchor = i++ == gridPoints.size - 1;
                     map.addCommand(createProp);
                 }

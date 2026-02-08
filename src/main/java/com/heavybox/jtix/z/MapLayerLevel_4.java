@@ -6,17 +6,17 @@ import org.lwjgl.opengl.GL11;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public class MapLayer_5 implements MapLayer {
+public class MapLayerLevel_4 implements MapLayerLevel {
 
     // DEBUGGING
     private boolean changed = false;
 
     // Tokens layer
     private FrameBuffer layer5;
-    public Array<MapToken> allTokens = new Array<>(false, 10); // TODO: maybe refactor to be member of Map
+    public Array<Token> allTokens = new Array<>(false, 10); // TODO: maybe refactor to be member of Map
     public final Camera camera;
 
-    public MapLayer_5(int width, int height) {
+    public MapLayerLevel_4(int width, int height) {
         layer5 = new FrameBuffer(width, height);
         camera = new Camera(Camera.Mode.ORTHOGRAPHIC, width, height, 1, 0, 100, 75);
     }
@@ -27,9 +27,9 @@ public class MapLayer_5 implements MapLayer {
 
         if (command instanceof CommandTokenCreate) {
             CommandTokenCreate cmd = (CommandTokenCreate) command;
-            MapToken mapToken = new MapToken(cmd.layer, cmd.x, cmd.y, cmd.deg, cmd.sclX, cmd.sclY, cmd.regions);
-            mapToken.type = cmd.type;
-            allTokens.add(mapToken);
+            Token token = new Token(cmd.layer, cmd.x, cmd.y, cmd.deg, cmd.sclX, cmd.sclY, cmd.regions);
+            token.type = cmd.type;
+            allTokens.add(token);
             return;
         }
 
@@ -50,8 +50,8 @@ public class MapLayer_5 implements MapLayer {
         renderer2D.begin(camera);
         renderer2D.setBlending(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         //allTokens.sort(Comparator.comparingInt(o -> -(int) o.y));
-        for (MapToken mapToken : allTokens) {
-            mapToken.render(renderer2D);
+        for (Token token : allTokens) {
+            token.render(renderer2D);
         }
         renderer2D.end();
     }

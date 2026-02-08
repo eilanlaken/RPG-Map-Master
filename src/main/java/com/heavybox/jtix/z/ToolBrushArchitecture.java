@@ -183,7 +183,7 @@ public class ToolBrushArchitecture extends Tool {
 
                 TextureRegion blockRegion = layer3.getRegion("assets/textures-layer-3/" + block.type.name().toLowerCase() + "_" + race.name().toLowerCase() + "_" + MathUtils.randomUniformInt(0,6) + ".png");
                 CommandTokenCreate cmd = new CommandTokenCreate(3, x, y, 0, sclX, sclY, false, blockRegion);
-                cmd.type = MapToken.Type.BLOCK;
+                cmd.type = Token.Type.BLOCK;
                 map.addCommand(cmd);
             }
         }
@@ -216,7 +216,7 @@ public class ToolBrushArchitecture extends Tool {
                 for (Block block : blocks) {
                     TextureRegion blockRegion = layer3.getRegion("assets/textures-layer-3/" + block.type.name().toLowerCase() + "_" + race.name().toLowerCase() + "_" + MathUtils.randomUniformInt(0,6) + ".png");
                     CommandTokenCreate cmd = new CommandTokenCreate(3, x + block.x, y + block.y, 0, sclX, sclY, false, blockRegion);
-                    cmd.type = MapToken.Type.BLOCK;
+                    cmd.type = Token.Type.BLOCK;
                     map.addCommand(cmd);
                 }
                 comboIndex = MathUtils.randomUniformInt(0, COMBINATIONS.size); // TODO: maybe remove.

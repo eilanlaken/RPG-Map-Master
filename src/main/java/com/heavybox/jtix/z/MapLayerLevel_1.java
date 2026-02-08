@@ -8,7 +8,7 @@ import org.lwjgl.opengl.GL11;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
 
-public class MapLayer_1 implements MapLayer {
+public class MapLayerLevel_1 implements MapLayerLevel {
 
     private FrameBuffer layer1;
     public final Camera camera;
@@ -21,15 +21,9 @@ public class MapLayer_1 implements MapLayer {
     public Array<CommandCreateWheatField> commandCreateWheatFields = new Array<>(true, 5);
     public Array<CommandCreateWheatField> newWheatFields = new Array<>(true, 5);
 
-    public MapLayer_1(int width, int height) {
+    public MapLayerLevel_1(int width, int height) {
         layer1 = new FrameBuffer(width, height);
         camera = new Camera(Camera.Mode.ORTHOGRAPHIC, width, height, 1, 0, 100, 75);
-//        bases[0] = Assets.get("assets/textures-layer-1/terrain-wheat-field-base_0.png");
-//        bases[1] = Assets.get("assets/textures-layer-1/terrain-wheat-field-base_1.png");
-//        bases[2] = Assets.get("assets/textures-layer-1/terrain-wheat-field-base_2.png");
-//        bases[3] = Assets.get("assets/textures-layer-1/terrain-wheat-field-base_3.png");
-//        bases[4] = Assets.get("assets/textures-layer-1/terrain-wheat-field-base_4.png");
-//        lines = Assets.get("assets/textures-layer-1/terrain-wheat-field-lines.png");
 
 
         bases[0] = Assets.get("assets/textures-layer-1/wheat_field_0.png");

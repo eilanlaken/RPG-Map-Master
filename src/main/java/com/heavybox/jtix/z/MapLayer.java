@@ -1,16 +1,20 @@
 package com.heavybox.jtix.z;
 
-import com.heavybox.jtix.graphics.Renderer2D;
-import com.heavybox.jtix.graphics.Texture;
+import com.heavybox.jtix.collections.Array;
+import com.heavybox.jtix.graphics.Camera;
+import com.heavybox.jtix.graphics.FrameBuffer;
 
-public interface MapLayer {
+public class MapLayer {
 
-    void executeCommand(Command command);
-    void redraw(Renderer2D renderer2D);
-    void applyChanges(Renderer2D renderer2D);
-    Texture getTexture();
+    public int width;
+    public int height;
 
-    // maybe only temporary functionality for simple undo implementation
-    @Deprecated void clear();
+    public MapLayerLevel_0 layer0; // Terrain layer (wheat fields)
+    public MapLayerLevel_1 layer1; // Ground layer (wheat fields)
+    public MapLayerLevel_3 layer3; // Token layer
+    public MapLayerLevel_4 layer5; // Token layer
+
+    public FrameBuffer layerFrameBuffer;
+    public Camera camera;
 
 }

@@ -1294,6 +1294,28 @@ public final class MathUtils {
         return inside;
     }
 
+    // TODO: test
+    public static boolean polygonContainsPoint(Array<Vector2> points, float px, float py) {
+        if (points == null || points.size < 3) throw new MathException("Polygon requires at least 3 vertices. Got: " + (points == null ? 0 : points.size));
+
+        int numVertices = points.size;
+        boolean inside = false;
+
+        for (int i = 0, j = numVertices - 1; i < numVertices; j = i++) {
+            Vector2 vi = points.get(i);
+            Vector2 vj = points.get(j);
+
+            float xi = vi.x, yi = vi.y;
+            float xj = vj.x, yj = vj.y;
+
+            boolean intersect = ((yi > py) != (yj > py)) && (px < (xj - xi) * (py - yi) / (yj - yi) + xi);
+
+            if (intersect) inside = !inside;
+        }
+
+        return inside;
+    }
+
     // TODO: write tests.
     // NOTE: the winding order of the polygon does not matter here.
     public static boolean polygonContainsPoint(ArrayFloat polygon, float px, float py) {

@@ -15,14 +15,6 @@ public final class Tools {
     public static Array<Tool> tools = new Array<>(true, 10);
     public static int activeToolIndex = 0;
 
-    public static ToolBrushTerrain toolBrushTerrain;
-    public static ToolBrushFields toolBrushFields;
-    public static ToolBrushTrees toolBrushTrees;
-    public static ToolBrushProps toolBrushProps;
-    public static ToolBrushArchitecture toolBrushArchitecture;
-    public static ToolBrushRocks toolBrushRocks;
-    public static ToolBrushDecorations toolBrushDecorations;
-
     public static ToolDebug toolDebug;
 
     private static RPGMapMakerScene scene;

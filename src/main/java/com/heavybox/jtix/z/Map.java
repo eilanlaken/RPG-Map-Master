@@ -15,10 +15,10 @@ public class Map {
     public int width; // 1920
     public int height; // 1080
 
-    public MapLayer_0 layer0; // Terrain layer (wheat fields)
-    public MapLayer_1 layer1; // Ground layer (wheat fields)
-    public MapLayer_3 layer3; // Token layer
-    public MapLayer_5 layer5; // Token layer
+    public MapLayerLevel_0 layer0; // Terrain layer (wheat fields)
+    public MapLayerLevel_1 layer1; // Ground layer (wheat fields)
+    public MapLayerLevel_3 layer3; // Token layer
+    public MapLayerLevel_4 layer5; // Token layer
 
     // Decorations layer
 
@@ -39,10 +39,10 @@ public class Map {
         this.width = width;
         this.height = height;
         camera = new Camera(Camera.Mode.ORTHOGRAPHIC, width, height, 1, 0, 100, 75);
-        layer0 = new MapLayer_0(width, height);
-        layer1 = new MapLayer_1(width, height);
-        layer3 = new MapLayer_3(width, height);
-        layer5 = new MapLayer_5(width, height);
+        layer0 = new MapLayerLevel_0(width, height);
+        layer1 = new MapLayerLevel_1(width, height);
+        layer3 = new MapLayerLevel_3(width, height);
+        layer5 = new MapLayerLevel_4(width, height);
         mapFinal = new FrameBuffer(width, height);
     }
 
@@ -61,24 +61,24 @@ public class Map {
         commandsQueue.clear();
     }
 
-    public void getAllTokens(MapToken.Type ofType, Array<MapToken> out) {
+    public void getAllTokens(Token.Type ofType, Array<Token> out) {
         out.clear();
-        for (MapToken mapToken : layer3.allTokens) {
-            if (mapToken.type == ofType) out.add(mapToken);
+        for (Token token : layer3.allTokens) {
+            if (token.type == ofType) out.add(token);
         }
     }
 
-    public void getAllTokens(final Class<? extends Tool> sourceTool, Array<MapToken> out) {
+    public void getAllTokens(final Class<? extends Tool> sourceTool, Array<Token> out) {
         out.clear();
-        for (MapToken mapToken : layer3.allTokens) {
-            if (mapToken.sourceTool == sourceTool) out.add(mapToken);
+        for (Token token : layer3.allTokens) {
+            if (token.sourceTool == sourceTool) out.add(token);
         }
     }
 
-    public void getAllTokens(final TextureRegion withRegion, Array<MapToken> out) {
+    public void getAllTokens(final TextureRegion withRegion, Array<Token> out) {
         out.clear();
-        for (MapToken mapToken : layer3.allTokens) {
-            if (mapToken.regions[0] == withRegion) out.add(mapToken);
+        for (Token token : layer3.allTokens) {
+            if (token.regions[0] == withRegion) out.add(token);
         }
     }
 

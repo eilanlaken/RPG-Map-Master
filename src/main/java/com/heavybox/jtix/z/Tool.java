@@ -1,6 +1,7 @@
 package com.heavybox.jtix.z;
 
 import com.heavybox.jtix.RPGMapMakerScene;
+import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.collections.Collections;
 import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.math.Vector2;
@@ -13,9 +14,11 @@ public abstract class Tool {
     public BrushMode brushMode = BrushMode.POINT;
     public boolean free = true;
     public int batchCount = 10;
-    public float spreadRadius = 50; // in pixels
+    // TODO: measure spread relative to tokens' width height.
+    public float spreadRadius = 50; // in pixels. convert to sprite width / 2
     public Vector2 lineStart = new Vector2();
-    public Vector2 lineEnd = new Vector2();
+    public boolean tokensAngleMatchLine = true;
+    public Array<Vector2> polygonPoints = new Array<>(true, 10);
 
     public float x    = 0;
     public float y    = 0;
@@ -38,6 +41,7 @@ public abstract class Tool {
     }
 
     protected void onSwitchMode() {}
+    protected void onParametersChange() {}
 
     public abstract void update(float delta);
     public abstract void renderToolOverlay(Renderer2D renderer2D, float x, float y);

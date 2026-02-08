@@ -1,4 +1,4 @@
 package com.heavybox.jtix.z;
 
-public class MapBorder {
+public class ToolEraser {
 }

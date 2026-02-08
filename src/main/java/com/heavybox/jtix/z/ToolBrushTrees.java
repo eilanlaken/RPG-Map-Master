@@ -31,7 +31,7 @@ public class ToolBrushTrees extends Tool {
     public Set<String> treeColors = new HashSet<>();
 
     private final Array<Vector2> positions = new Array<>(false, 10);
-    private final Array<MapToken> trees = new Array<>();
+    private final Array<Token> trees = new Array<>();
 
     public ToolBrushTrees(RPGMapMakerScene scene) {
         super(scene);
@@ -162,7 +162,7 @@ public class ToolBrushTrees extends Tool {
                             x, y, deg, sclX, sclY, true,
                             base, trunk, fruits
                     );
-                    createPlant.type = MapToken.Type.TREE;
+                    createPlant.type = Token.Type.TREE;
                     createPlant.anchor = i++ == positions.size - 1;
                     map.addCommand(createPlant);
                 }
@@ -186,7 +186,7 @@ public class ToolBrushTrees extends Tool {
                             x, y, deg, sclX, sclY, true,
                             base, trunk, fruits
                     );
-                    createPlant.type = MapToken.Type.TREE;
+                    createPlant.type = Token.Type.TREE;
                     createPlant.anchor = i++ == positions.size - 1;
                     map.addCommand(createPlant);
                 }
@@ -208,7 +208,7 @@ public class ToolBrushTrees extends Tool {
                             x, y, deg, 2 * sclX, 2 * sclY, true,
                             base, fruits
                     );
-                    createPlant.type = MapToken.Type.TREE;
+                    createPlant.type = Token.Type.TREE;
                     createPlant.anchor = i++ == positions.size - 1;
                     map.addCommand(createPlant);
                 }
@@ -229,7 +229,7 @@ public class ToolBrushTrees extends Tool {
                             3,
                             x, y, deg, sclX, sclY, true, base, fruits
                     );
-                    createPlant.type = MapToken.Type.TREE;
+                    createPlant.type = Token.Type.TREE;
                     createPlant.anchor = i++ == positions.size - 1;
                     map.addCommand(createPlant);
                     return;
@@ -260,10 +260,10 @@ public class ToolBrushTrees extends Tool {
         }
 
         positions.clear();
-        map.getAllTokens(MapToken.Type.TREE, trees);
+        map.getAllTokens(Token.Type.TREE, trees);
         for (Vector2 position : filtered) { // second filter against all trees tokens previously added
             boolean add = true;
-            for (MapToken tree : trees) {
+            for (Token tree : trees) {
                 Vector2 p = new Vector2(tree.x, tree.y);
                 add &= position.dst(p) >= spacing;
             }
