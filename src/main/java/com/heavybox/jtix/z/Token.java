@@ -16,7 +16,7 @@ public class Token {
     public final float width, height;
     public TextureRegion[] regions;
 
-    public Enum tokenType;
+    public Enum<?> tokenType;
 
     public Token(int layer, float x, float y, float deg, float sclX, float sclY, TextureRegion... regions) {
         this.layer = layer;
@@ -41,6 +41,7 @@ public class Token {
     public void render(Renderer2D renderer2D) {
         renderer2D.setColor(tint);
         for (TextureRegion region : regions) {
+            if (region == null) continue;
             renderer2D.drawTextureRegion(region, x, y, deg, sclX, sclY);
         }
         renderer2D.setColor(Color.WHITE);

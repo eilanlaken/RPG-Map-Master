@@ -327,7 +327,7 @@ public class ToolTokensTrees extends Tool {
             for (float rect_y = bottomLeftCorner.y; rect_y < topRightCorner.y; rect_y += stepSizePixels_y) {
                 boolean contained = MathUtils.polygonContainsPoint(polyPoints, rect_x, rect_y);
                 if (contained) {
-                    Token token = new Token(3, rect_x + MathUtils.randomUniformFloat(-5,5), rect_y  + MathUtils.randomUniformFloat(-5,5), 0, 1,1, atlas.getRegion("assets/textures-layer-3/debug_rect.png"));
+                    Token token = new Token(3, rect_x + MathUtils.randomUniformFloat(-5,5), rect_y  + MathUtils.randomUniformFloat(-5,5), 0, 1,1, getRegions());
                     //token.tint = Color.randomOpaque();
                     tokensPreview.add(token);
                 }
@@ -340,9 +340,24 @@ public class ToolTokensTrees extends Tool {
     @Override
     protected TextureRegion[] getRegions() {
         String prefix = "assets/textures-layer-3/" + currentType.name().toLowerCase();
-        TextureRegion leaves = atlas.getRegion(prefix + "_" + MathUtils.randomUniformInt(0, 6) + ".png"); // currently, hard coded value "6"
-        TextureRegion fruits = atlas.getRegion(prefix + "_fruits_red" + ".png"); // currently,hard coded "red"
-        TextureRegion trunk = atlas.getRegion(prefix + "_trunk_" + MathUtils.randomUniformInt(0, 6) + ".png"); // currently, hard coded value "6";
+        TextureRegion leaves = null;
+        try {
+           leaves = atlas.getRegion(prefix + "_" + MathUtils.randomUniformInt(0, 6) + ".png"); // currently, hard coded value "6"
+        } catch (Exception ignored) {}
+
+        TextureRegion fruits = null;
+        try {
+            fruits = atlas.getRegion(prefix + "_fruits_red" + ".png"); // currently,hard coded "red"
+        } catch (Exception ignored) {
+
+        }
+
+        TextureRegion trunk = null;
+        try {
+            trunk = atlas.getRegion(prefix + "_trunk_" + MathUtils.randomUniformInt(0, 6) + ".png"); // currently, hard coded value "6";
+        } catch (Exception ignored) {
+
+        }
 
         TextureRegion[] regions = new TextureRegion[3];
         regions[0] = addLeaves ? leaves : null;
