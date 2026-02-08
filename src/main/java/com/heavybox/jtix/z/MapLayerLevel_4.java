@@ -29,6 +29,7 @@ public class MapLayerLevel_4 implements MapLayerLevel {
             CommandTokenCreate cmd = (CommandTokenCreate) command;
             Token token = new Token(cmd.layer, cmd.x, cmd.y, cmd.deg, cmd.sclX, cmd.sclY, cmd.regions);
             token.type = cmd.type;
+            token.tokenType = cmd.tokenType;
             allTokens.add(token);
             return;
         }

@@ -82,6 +82,13 @@ public class Map {
         }
     }
 
+    public void getAllTokens(Enum<?> type, Array<Token> out) {
+        out.clear();
+        for (Token token : layer3.allTokens) {
+            if (token.tokenType == type) out.add(token);
+        }
+    }
+
     private void executeCommand(Command command) {
         if (command.layer == 0) layer0.executeCommand(command);
         if (command.layer == 1) layer1.executeCommand(command);

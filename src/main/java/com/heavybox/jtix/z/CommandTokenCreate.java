@@ -11,7 +11,8 @@ public class CommandTokenCreate extends Command {
     public Class<? extends Tool> sourceTool;
 
     public Color tint = Color.WHITE;
-    public Token.Type type = Token.Type.UNSPECIFIED;
+    @Deprecated public Token.Type type = Token.Type.UNSPECIFIED;
+    public Enum<?> tokenType;
     public TextureRegion[] regions;
 
     public CommandTokenCreate(int layer, float x, float y, float deg, float sclX, float sclY, boolean anchor, TextureRegion... regions) {

@@ -17,14 +17,19 @@ import java.util.Comparator;
 
 // This will be a basic brush.
 // Other brushes will extend it
-public class ToolDebug extends Tool {
+public class ToolTokensTrees extends Tool {
 
     private final TexturePack atlas;
     private final TextureRegion region;
     private final Array<Token> tokensPreview = new Array<>();
     private final Array<Token> alreadyCreatedTokens = new Array<>();
 
-    public ToolDebug(RPGMapMakerScene scene) {
+    public boolean addTrunk = true;
+    public boolean addLeaves = true;
+    public boolean addFruit = false;
+    public Type currentType = Type.TREE_CIRCULAR;
+
+    public ToolTokensTrees(RPGMapMakerScene scene) {
         super(scene);
         atlas = Assets.get("assets/texture-packs/layer_3.yml");
         region = atlas.getRegion("assets/textures-layer-3/debug_rect.png");
@@ -103,7 +108,8 @@ public class ToolDebug extends Tool {
     }
 
     private void spawnTokens(boolean useBrushOffset) {
-        map.getAllTokens(region, alreadyCreatedTokens);
+        map.getAllTokens(currentType, alreadyCreatedTokens);
+        System.out.println(alreadyCreatedTokens.size);
 
         float offsetX = useBrushOffset ? x : 0;
         float offsetY = useBrushOffset ? y : 0;
@@ -121,8 +127,9 @@ public class ToolDebug extends Tool {
             CommandTokenCreate createToken = new CommandTokenCreate(
                     3,
                     token.x + offsetX, token.y + offsetY, token.deg, sclX, sclY, true,
-                    atlas.getRegion("assets/textures-layer-3/debug_rect.png")
+                    token.regions
             );
+            createToken.tokenType = currentType;
             createToken.sourceTool = this.getClass();
             createToken.tint = token.tint;
             map.addCommand(createToken);
@@ -210,8 +217,8 @@ public class ToolDebug extends Tool {
             float offsetX = MathUtils.cosRad(angle) * radius;
             float offsetY = MathUtils.sinRad(angle) * radius;
 
-            Token token = new Token(3, offsetX, offsetY, 0, 1,1, atlas.getRegion("assets/textures-layer-3/debug_rect.png"));
-            token.tint = Color.randomOpaque();
+            Token token = new Token(3, offsetX, offsetY, 0, 1,1, getRegions());
+            //token.tint = Color.randomOpaque();
             tokensPreview.add(token);
         }
 
@@ -239,8 +246,8 @@ public class ToolDebug extends Tool {
             float angle  = angleOffset + i * half_slice + MathUtils.randomUniformFloat(0,1);
             float offsetX = MathUtils.cosRad(angle) * radius;
             float offsetY = MathUtils.sinRad(angle) * radius;
-            Token token = new Token(3, lineStart.x + offsetX, lineStart.y + offsetY, degTilt, 1,1, atlas.getRegion("assets/textures-layer-3/debug_rect.png"));
-            token.tint = Color.randomOpaque();
+            Token token = new Token(3, lineStart.x + offsetX, lineStart.y + offsetY, degTilt, 1,1, getRegions());
+            //token.tint = Color.randomOpaque();
             tokensPreview.add(token);
         }
 
@@ -254,8 +261,8 @@ public class ToolDebug extends Tool {
             float prepScale = MathUtils.randomUniformFloat(-spreadRadius, spreadRadius);
             offset.set(norm.x * normScale, norm.y * normScale);
             offset.add(prep.x * prepScale, prep.y * prepScale);
-            Token token = new Token(3, lineStart.x + offset.x, lineStart.y + offset.y, degTilt, 1,1, atlas.getRegion("assets/textures-layer-3/debug_rect.png"));
-            token.tint = Color.randomOpaque();
+            Token token = new Token(3, lineStart.x + offset.x, lineStart.y + offset.y, degTilt, 1,1, getRegions());
+            //token.tint = Color.randomOpaque();
             tokensPreview.add(token);
         }
 
@@ -265,8 +272,8 @@ public class ToolDebug extends Tool {
             float angle  = angleOffset + i * half_slice + MathUtils.randomUniformFloat(0,1) + MathUtils.PI;
             float offsetX = MathUtils.cosRad(angle) * radius;
             float offsetY = MathUtils.sinRad(angle) * radius;
-            Token token = new Token(3, x + offsetX, y + offsetY, degTilt, 1,1, atlas.getRegion("assets/textures-layer-3/debug_rect.png"));
-            token.tint = Color.randomOpaque();
+            Token token = new Token(3, x + offsetX, y + offsetY, degTilt, 1,1, getRegions());
+            //token.tint = Color.randomOpaque();
             tokensPreview.add(token);
         }
 
@@ -321,7 +328,7 @@ public class ToolDebug extends Tool {
                 boolean contained = MathUtils.polygonContainsPoint(polyPoints, rect_x, rect_y);
                 if (contained) {
                     Token token = new Token(3, rect_x + MathUtils.randomUniformFloat(-5,5), rect_y  + MathUtils.randomUniformFloat(-5,5), 0, 1,1, atlas.getRegion("assets/textures-layer-3/debug_rect.png"));
-                    token.tint = Color.randomOpaque();
+                    //token.tint = Color.randomOpaque();
                     tokensPreview.add(token);
                 }
             }
@@ -331,11 +338,24 @@ public class ToolDebug extends Tool {
     }
 
     @Override
+    protected TextureRegion[] getRegions() {
+        String prefix = "assets/textures-layer-3/" + currentType.name().toLowerCase();
+        TextureRegion leaves = atlas.getRegion(prefix + "_" + MathUtils.randomUniformInt(0, 6) + ".png"); // currently, hard coded value "6"
+        TextureRegion fruits = atlas.getRegion(prefix + "_fruits_red" + ".png"); // currently,hard coded "red"
+        TextureRegion trunk = atlas.getRegion(prefix + "_trunk_" + MathUtils.randomUniformInt(0, 6) + ".png"); // currently, hard coded value "6";
+
+        TextureRegion[] regions = new TextureRegion[3];
+        regions[0] = addLeaves ? leaves : null;
+        regions[1] = addFruit ? fruits : null;
+        regions[2] = addTrunk ? trunk : null;
+        return regions;
+    }
+
+    @Override
     public void activate() {
         System.out.println("active - " + getName());
         tokensPreview.clear();
         polygonPoints.clear();
-
         if (brushMode == BrushMode.POINT) {
             refillCircleWithTokens();
         }
@@ -349,7 +369,20 @@ public class ToolDebug extends Tool {
 
     @Override
     public String getName() {
-        return "Debug Tool";
+        return "Trees Tool";
+    }
+
+    public enum Type {
+
+        TREE_BUSH,
+        TREE_CIRCULAR,
+        TREE_CONIFER,
+        TREE_CYPRESS,
+        TREE_GLOBOSE,
+        TREE_HIGH,
+        TREE_REGULAR,
+        TREE_SPARSE,
+
     }
 
 }

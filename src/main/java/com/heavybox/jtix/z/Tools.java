@@ -16,15 +16,18 @@ public final class Tools {
     public static int activeToolIndex = 0;
 
     public static ToolDebug toolDebug;
+    public static ToolTokensTrees toolTokensTrees;
 
     private static RPGMapMakerScene scene;
 
     public static void initTools(final RPGMapMakerScene scene) {
         Tools.scene = scene;
         toolDebug = new ToolDebug(scene);
+        toolTokensTrees = new ToolTokensTrees(scene);
 
         tools.add(toolDebug);
-        selectTool(0);
+        tools.add(toolTokensTrees);
+        selectTool(1);
     }
 
     public static void selectTool(int index) {

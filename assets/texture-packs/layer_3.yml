@@ -389,7 +389,7 @@ regions:
   textureIndex: 0
   x: 55
   y: 984
-- name: assets/textures-layer-3/tree_confiner_0.png
+- name: assets/textures-layer-3/tree_conifer_0.png
   offsetX: 92
   offsetY: 251
   originalHeight: 512
@@ -399,7 +399,7 @@ regions:
   textureIndex: 0
   x: 1799
   y: 218
-- name: assets/textures-layer-3/tree_confiner_3.png
+- name: assets/textures-layer-3/tree_conifer_3.png
   offsetX: 86
   offsetY: 251
   originalHeight: 512
@@ -759,7 +759,7 @@ regions:
   textureIndex: 0
   x: 3385
   y: 1051
-- name: assets/textures-layer-3/tree_confiner_4.png
+- name: assets/textures-layer-3/tree_conifer_4.png
   offsetX: 86
   offsetY: 249
   originalHeight: 512
@@ -939,7 +939,7 @@ regions:
   textureIndex: 0
   x: 3744
   y: 556
-- name: assets/textures-layer-3/tree_confiner_1.png
+- name: assets/textures-layer-3/tree_conifer_1.png
   offsetX: 92
   offsetY: 251
   originalHeight: 512
@@ -1919,7 +1919,7 @@ regions:
   textureIndex: 0
   x: 2859
   y: 1252
-- name: assets/textures-layer-3/tree_confiner_5.png
+- name: assets/textures-layer-3/tree_conifer_5.png
   offsetX: 89
   offsetY: 266
   originalHeight: 512
@@ -1969,7 +1969,7 @@ regions:
   textureIndex: 0
   x: 3412
   y: 2
-- name: assets/textures-layer-3/tree_confiner_2.png
+- name: assets/textures-layer-3/tree_conifer_2.png
   offsetX: 96
   offsetY: 266
   originalHeight: 512
@@ -6169,7 +6169,7 @@ regions:
   textureIndex: 0
   x: 3089
   y: 1620
-- name: assets/textures-layer-3/tree_confiner_trunk_0.png
+- name: assets/textures-layer-3/tree_conifer_trunk_0.png
   offsetX: 133
   offsetY: 251
   originalHeight: 512
@@ -6179,7 +6179,7 @@ regions:
   textureIndex: 0
   x: 3377
   y: 1619
-- name: assets/textures-layer-3/tree_confiner_trunk_1.png
+- name: assets/textures-layer-3/tree_conifer_trunk_1.png
   offsetX: 133
   offsetY: 251
   originalHeight: 512
@@ -6189,7 +6189,7 @@ regions:
   textureIndex: 0
   x: 1552
   y: 1619
-- name: assets/textures-layer-3/tree_confiner_trunk_2.png
+- name: assets/textures-layer-3/tree_conifer_trunk_2.png
   offsetX: 133
   offsetY: 251
   originalHeight: 512
@@ -6199,7 +6199,7 @@ regions:
   textureIndex: 0
   x: 2070
   y: 1619
-- name: assets/textures-layer-3/tree_confiner_trunk_3.png
+- name: assets/textures-layer-3/tree_conifer_trunk_3.png
   offsetX: 133
   offsetY: 251
   originalHeight: 512
@@ -6209,7 +6209,7 @@ regions:
   textureIndex: 0
   x: 2643
   y: 1619
-- name: assets/textures-layer-3/tree_confiner_trunk_4.png
+- name: assets/textures-layer-3/tree_conifer_trunk_4.png
   offsetX: 133
   offsetY: 251
   originalHeight: 512
@@ -6219,7 +6219,7 @@ regions:
   textureIndex: 0
   x: 900
   y: 1619
-- name: assets/textures-layer-3/tree_confiner_trunk_5.png
+- name: assets/textures-layer-3/tree_conifer_trunk_5.png
   offsetX: 133
   offsetY: 251
   originalHeight: 512
