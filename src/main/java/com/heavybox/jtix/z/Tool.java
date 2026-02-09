@@ -16,7 +16,7 @@ public abstract class Tool {
     public boolean free = true;
     public int batchCount = 10;
     // TODO: measure spread relative to tokens' width height.
-    public float spreadRadius = 100; // in pixels. convert to sprite width / 2
+    public float spreadRadius = 200; // in pixels. convert to sprite width / 2
     public Vector2 lineStart = new Vector2();
     public boolean tokensAngleMatchLine = true;
     public Array<Vector2> polygonPoints = new Array<>(true, 10);
@@ -46,6 +46,10 @@ public abstract class Tool {
 
     // TODO
     protected TextureRegion[] getRegions() {return null;}
+    // TODO
+    protected float getSpacingX() {return 50;}
+    // TODO
+    protected float getSpacingY() {return 50;}
 
     public abstract void update(float delta);
     public abstract void renderToolOverlay(Renderer2D renderer2D, float x, float y);

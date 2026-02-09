@@ -3,6 +3,7 @@ package com.heavybox.jtix.z;
 import com.heavybox.jtix.RPGMapMakerScene;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.collections.Array;
+import com.heavybox.jtix.collections.Collections;
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.graphics.TexturePack;
@@ -15,9 +16,8 @@ import com.heavybox.jtix.math.Vector2;
 
 import java.util.Comparator;
 
-// This will be a basic brush.
-// Other brushes will extend it
-public class ToolTokensTrees extends Tool {
+// TODO: determine spacing based on brush
+public class ToolTokensPlants extends Tool {
 
     private final TexturePack atlas;
     private final TextureRegion region;
@@ -29,10 +29,13 @@ public class ToolTokensTrees extends Tool {
     public boolean addFruit = false;
     public Type currentType = Type.TREE_CIRCULAR;
 
-    public ToolTokensTrees(RPGMapMakerScene scene) {
+    public ToolTokensPlants(RPGMapMakerScene scene) {
         super(scene);
         atlas = Assets.get("assets/texture-packs/layer_3.yml");
         region = atlas.getRegion("assets/textures-layer-3/debug_rect.png");
+
+        sclX = 0.5f;
+        sclY = 0.5f;
     }
 
     @Override
@@ -49,6 +52,13 @@ public class ToolTokensTrees extends Tool {
         boolean mouseMoved = Input.mouse.moved();
         boolean leftPressedAndMoved = Input.mouse.isButtonPressed(Mouse.Button.LEFT) && mouseMoved;
         boolean leftClicked = Input.mouse.isButtonClicked(Mouse.Button.LEFT);
+        boolean rightClicked = Input.mouse.isButtonClicked(Mouse.Button.RIGHT);
+
+        // brush settings - TODO
+        if (rightClicked) {
+            currentType = Collections.enumNext(currentType);
+            refillCircleWithTokens();
+        }
 
         if (brushMode == BrushMode.POINT) {
             if (leftClicked || leftPressedAndMoved) {
@@ -109,7 +119,6 @@ public class ToolTokensTrees extends Tool {
 
     private void spawnTokens(boolean useBrushOffset) {
         map.getAllTokens(currentType, alreadyCreatedTokens);
-        System.out.println(alreadyCreatedTokens.size);
 
         float offsetX = useBrushOffset ? x : 0;
         float offsetY = useBrushOffset ? y : 0;
@@ -126,7 +135,7 @@ public class ToolTokensTrees extends Tool {
 
             CommandTokenCreate createToken = new CommandTokenCreate(
                     3,
-                    token.x + offsetX, token.y + offsetY, token.deg, sclX, sclY, true,
+                    token.x + offsetX, token.y + offsetY, token.deg, token.sclX, token.sclY, true,
                     token.regions
             );
             createToken.tokenType = currentType;
@@ -217,7 +226,7 @@ public class ToolTokensTrees extends Tool {
             float offsetX = MathUtils.cosRad(angle) * radius;
             float offsetY = MathUtils.sinRad(angle) * radius;
 
-            Token token = new Token(3, offsetX, offsetY, 0, 1,1, getRegions());
+            Token token = new Token(3, offsetX, offsetY, 0, sclX,sclY, getRegions());
             //token.tint = Color.randomOpaque();
             tokensPreview.add(token);
         }
@@ -246,7 +255,7 @@ public class ToolTokensTrees extends Tool {
             float angle  = angleOffset + i * half_slice + MathUtils.randomUniformFloat(0,1);
             float offsetX = MathUtils.cosRad(angle) * radius;
             float offsetY = MathUtils.sinRad(angle) * radius;
-            Token token = new Token(3, lineStart.x + offsetX, lineStart.y + offsetY, degTilt, 1,1, getRegions());
+            Token token = new Token(3, lineStart.x + offsetX, lineStart.y + offsetY, degTilt, sclX,sclY, getRegions());
             //token.tint = Color.randomOpaque();
             tokensPreview.add(token);
         }
@@ -261,7 +270,7 @@ public class ToolTokensTrees extends Tool {
             float prepScale = MathUtils.randomUniformFloat(-spreadRadius, spreadRadius);
             offset.set(norm.x * normScale, norm.y * normScale);
             offset.add(prep.x * prepScale, prep.y * prepScale);
-            Token token = new Token(3, lineStart.x + offset.x, lineStart.y + offset.y, degTilt, 1,1, getRegions());
+            Token token = new Token(3, lineStart.x + offset.x, lineStart.y + offset.y, degTilt, sclX,sclY, getRegions());
             //token.tint = Color.randomOpaque();
             tokensPreview.add(token);
         }
@@ -272,7 +281,7 @@ public class ToolTokensTrees extends Tool {
             float angle  = angleOffset + i * half_slice + MathUtils.randomUniformFloat(0,1) + MathUtils.PI;
             float offsetX = MathUtils.cosRad(angle) * radius;
             float offsetY = MathUtils.sinRad(angle) * radius;
-            Token token = new Token(3, x + offsetX, y + offsetY, degTilt, 1,1, getRegions());
+            Token token = new Token(3, x + offsetX, y + offsetY, degTilt, sclX,sclY, getRegions());
             //token.tint = Color.randomOpaque();
             tokensPreview.add(token);
         }
@@ -327,7 +336,7 @@ public class ToolTokensTrees extends Tool {
             for (float rect_y = bottomLeftCorner.y; rect_y < topRightCorner.y; rect_y += stepSizePixels_y) {
                 boolean contained = MathUtils.polygonContainsPoint(polyPoints, rect_x, rect_y);
                 if (contained) {
-                    Token token = new Token(3, rect_x + MathUtils.randomUniformFloat(-5,5), rect_y  + MathUtils.randomUniformFloat(-5,5), 0, 1,1, getRegions());
+                    Token token = new Token(3, rect_x + MathUtils.randomUniformFloat(-5,5), rect_y  + MathUtils.randomUniformFloat(-5,5), 0, sclX,sclY, getRegions());
                     //token.tint = Color.randomOpaque();
                     tokensPreview.add(token);
                 }
@@ -340,6 +349,11 @@ public class ToolTokensTrees extends Tool {
     @Override
     protected TextureRegion[] getRegions() {
         String prefix = "assets/textures-layer-3/" + currentType.name().toLowerCase();
+
+        if (currentType.name().startsWith("PLANT_FLOWER")) {
+            return new TextureRegion[] {atlas.getRegion(prefix + "_" + MathUtils.randomUniformInt(0, 6) + ".png")};
+        }
+
         TextureRegion leaves = null;
         try {
            leaves = atlas.getRegion(prefix + "_" + MathUtils.randomUniformInt(0, 6) + ".png"); // currently, hard coded value "6"
@@ -396,7 +410,12 @@ public class ToolTokensTrees extends Tool {
         TREE_GLOBOSE,
         TREE_HIGH,
         TREE_REGULAR,
-        TREE_SPARSE,
+
+        PLANT_FLOWER_DAISY,
+        PLANT_FLOWER_ROSE,
+        PLANT_FLOWER_SCORPION,
+        PLANT_FLOWER_SUNFLOWER,
+        PLANT_FLOWER_TULIP,
 
     }
 
