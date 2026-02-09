@@ -58,7 +58,7 @@ public class MapLayerLevel_3 implements MapLayerLevel {
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
         renderer2D.begin(camera);
         // TODO
-        renderer2D.setBlending(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+        renderer2D.blendingSet(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         //renderer2D.setBlending(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA); // TODO: test);
         //renderer2D.setBlending(GL11.GL_ONE, GL11.GL_ONE_MINUS_SRC_ALPHA); // wrong for sure
         allTokens.sort(Comparator.comparingInt(o -> -(int) o.y));

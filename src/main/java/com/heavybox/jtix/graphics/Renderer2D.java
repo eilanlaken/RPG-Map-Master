@@ -178,7 +178,7 @@ public class Renderer2D implements MemoryResourceHolder {
         currentCamera.update(); // TODO: probably remove. Redundant update()s
 
         setShader(defaultShader);
-        setBlending(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA); // TODO: test
+        blendingSet(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA); // TODO: test
         setShaderAttributes(null);
         setTexture(defaultTexture);
         setMode(GL11.GL_TRIANGLES);
@@ -229,16 +229,27 @@ public class Renderer2D implements MemoryResourceHolder {
         this.currentMode = mode;
     }
 
-    public void setBlending(int sFactor, int dFactor) {
+    public void blendingSet(int sFactor, int dFactor) {
         flush();
         GL11.glEnable(GL11.GL_BLEND); //TODO
         GL11.glBlendFunc(sFactor, dFactor);
     }
 
-    public void setBlending(int sFactorRGB, int dFactorRGB, int sFactorAlpha, int dFactorAlpha) {
+    public void blendingSet(int sFactorRGB, int dFactorRGB, int sFactorAlpha, int dFactorAlpha) {
         flush();
         GL11.glEnable(GL11.GL_BLEND); //TODO
         GL14.glBlendFuncSeparate(sFactorRGB, dFactorRGB, sFactorAlpha, dFactorAlpha);
+    }
+
+    public void blendingEnable() {
+        flush();
+        GL11.glEnable(GL11.GL_BLEND); //TODO
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA); // TODO: test
+    }
+
+    public void blendingDisable() {
+        flush();
+        GL11.glDisable(GL11.GL_BLEND); //TODO
     }
 
     public void setColor(final Color color) {

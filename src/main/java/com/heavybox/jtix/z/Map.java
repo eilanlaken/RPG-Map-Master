@@ -9,6 +9,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.nio.ByteBuffer;
 
+import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
+
 public class Map {
 
     // TODO: customize width and height
@@ -145,6 +148,8 @@ public class Map {
         GL11.glClearColor(1.0f,1.0f,1.0f,1);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_STENCIL_BUFFER_BIT); // should probably clear the stencil
         renderer2D.begin(camera);
+        renderer2D.blendingSet(GL_ONE, GL_ONE_MINUS_SRC_ALPHA); // TODO <- this fixes the dark artifacts.
+
         // render layer-0
         renderer2D.drawTexture(layer0.getTexture(), 0, 0, 0, 1,1);
         renderer2D.drawTexture(layer1.getTexture(), 0, 0, 0, 1,1);

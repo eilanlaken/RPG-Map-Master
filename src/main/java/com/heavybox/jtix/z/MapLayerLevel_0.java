@@ -131,7 +131,7 @@ public class MapLayerLevel_0 implements MapLayerLevel {
         FrameBufferBinder.bind(terrainBlendMap);
         terrainBlendMap.setRenderTargets("attachment_0");
         renderer2D.begin(camera);
-        renderer2D.setBlending(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+        renderer2D.blendingSet(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         for (CommandTerrain cmd : commandsQueueTerrainBlendMapStone) {
             Texture texture = cmd.mode == ToolBrushTerrain.Mode.ADD ? brushAdd : brushSub;
             renderer2D.drawTexture(texture, cmd.x, cmd.y, 0, cmd.sclX, cmd.sclY);
@@ -140,7 +140,7 @@ public class MapLayerLevel_0 implements MapLayerLevel {
 
         terrainBlendMap.setRenderTargets("attachment_1");
         renderer2D.begin(camera);
-        renderer2D.setBlending(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+        renderer2D.blendingSet(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         for (CommandTerrain cmd : commandsQueueTerrainBlendMapRoad) {
             Texture texture = cmd.mode == ToolBrushTerrain.Mode.ADD ? brushAdd : brushSub;
             renderer2D.drawTexture(texture, cmd.x, cmd.y, 0, cmd.sclX, cmd.sclY);
@@ -151,7 +151,7 @@ public class MapLayerLevel_0 implements MapLayerLevel {
         // update terrain mask
         FrameBufferBinder.bind(terrainMask);
         renderer2D.begin(camera);
-        renderer2D.setBlending(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+        renderer2D.blendingSet(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         for (CommandTerrain cmd : commandsQueueTerrainMask) {
             Texture texture = cmd.mode == ToolBrushTerrain.Mode.ADD ? brushAdd : brushSub;
             renderer2D.drawTexture(texture, cmd.x, cmd.y, 0, cmd.sclX, cmd.sclY);
@@ -162,7 +162,7 @@ public class MapLayerLevel_0 implements MapLayerLevel {
         GL11.glClearColor(0,0,0,1);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
         renderer2D.begin(camera);
-        renderer2D.setBlending(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+        renderer2D.blendingSet(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         //renderer2D.drawTexture(terrainLiquids[terrainLiquidsIndex], 0, 0, 0, 1, -1);
         renderer2D.drawRectangleFilled(terrainLiquids[terrainLiquidsIndex], width, height,0, 0, 0, 1, -1);
         renderer2D.setShader(terrainShader);

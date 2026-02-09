@@ -49,7 +49,7 @@ public class MapLayerLevel_4 implements MapLayerLevel {
         GL11.glClearColor(0,0,0,0);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
         renderer2D.begin(camera);
-        renderer2D.setBlending(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+        renderer2D.blendingSet(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         //allTokens.sort(Comparator.comparingInt(o -> -(int) o.y));
         for (Token token : allTokens) {
             token.render(renderer2D);

@@ -52,7 +52,7 @@ public class MapLayerLevel_1 implements MapLayerLevel {
         if (!changed) return;
         FrameBufferBinder.bind(layer1);
         renderer2D.begin(camera);
-        renderer2D.setBlending(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+        renderer2D.blendingSet(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         for (CommandCreateWheatField cmd : newWheatFields) {
             float[] borderPolygon = new float[cmd.polygon.length + 2];
             System.arraycopy(cmd.polygon, 0, borderPolygon, 0, cmd.polygon.length);
