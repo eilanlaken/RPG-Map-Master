@@ -15,19 +15,16 @@ public final class Tools {
     public static Array<Tool> tools = new Array<>(true, 10);
     public static int activeToolIndex = 0;
 
-    public static ToolDebug toolDebug;
     public static ToolTokensPlants toolTokensPlants;
 
     private static RPGMapMakerScene scene;
 
     public static void initTools(final RPGMapMakerScene scene) {
         Tools.scene = scene;
-        toolDebug = new ToolDebug(scene);
         toolTokensPlants = new ToolTokensPlants(scene);
 
-        tools.add(toolDebug);
         tools.add(toolTokensPlants);
-        selectTool(1);
+        selectTool(0);
     }
 
     public static void selectTool(int index) {

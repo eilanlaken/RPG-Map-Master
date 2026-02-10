@@ -131,7 +131,7 @@ public class ToolTokensPlants extends Tool {
                 minDistance = Math.min(distanceSquared, minDistance);
             }
             minDistance = (float) Math.sqrt(minDistance);
-            if (minDistance < Tool.MINIMUM_TOKEN_SPACING * region.originalWidth) continue;
+            if (minDistance < getSpacingX()) continue;
 
             CommandTokenCreate createToken = new CommandTokenCreate(
                     3,
@@ -147,13 +147,14 @@ public class ToolTokensPlants extends Tool {
 
     @Override
     public void renderToolOverlay(Renderer2D renderer2D, float x, float y) {
+        float radius = spreadRadius * sclX;
         // render tool overlay when brush mode is set to points
         if (brushMode == BrushMode.POINT && free) {
             for (Token token : tokensPreview) {
                 token.renderPreview(renderer2D, x, y);
             }
             renderer2D.setColor(Color.RED);
-            renderer2D.drawCircleThin(Math.max(spreadRadius, 5), 10, x, y, 0,1,1);
+            renderer2D.drawCircleThin(Math.max(radius, 5), 10, x, y, 0,1,1);
         }
         if (brushMode == BrushMode.POINT && !free) {
 
@@ -162,7 +163,7 @@ public class ToolTokensPlants extends Tool {
         // render tool overlay when brush mode is set to lines
         if (brushMode == BrushMode.LINE && free) {
             renderer2D.setColor(Color.RED);
-            renderer2D.drawCircleThin(Math.max(spreadRadius, 5), 10, x, y, 0,1,1);
+            renderer2D.drawCircleThin(Math.max(radius, 5), 10, x, y, 0,1,1);
         }
         if (brushMode == BrushMode.LINE && !free) {
             for (Token token : tokensPreview) {
@@ -173,9 +174,9 @@ public class ToolTokensPlants extends Tool {
             float dy = y - lineStart.y;
             float angle = MathUtils.radiansToDegrees * MathUtils.atan2(dy, dx);
             renderer2D.setColor(1,0,0,0.2f);
-            renderer2D.drawCircleFilled(Math.max(spreadRadius, 5), 10, 180, lineStart.x, lineStart.y, angle + 90,1,1);
-            renderer2D.drawLineFilled(lineStart.x, lineStart.y, x, y, 2 * Math.max(spreadRadius, 5));
-            renderer2D.drawCircleFilled(Math.max(spreadRadius, 5), 10, 180, x, y, angle - 90,1,1);
+            renderer2D.drawCircleFilled(Math.max(radius, 5), 10, 180, lineStart.x, lineStart.y, angle + 90,1,1);
+            renderer2D.drawLineFilled(lineStart.x, lineStart.y, x, y, 2 * Math.max(radius, 5));
+            renderer2D.drawCircleFilled(Math.max(radius, 5), 10, 180, x, y, angle - 90,1,1);
         }
 
         // render tool overlay when brush mode is set to polygons
@@ -214,13 +215,15 @@ public class ToolTokensPlants extends Tool {
     // TODO - filter against self. If a token is too close to one already in the circle, don't add it.
     private void refillCircleWithTokens() {
         tokensPreview.clear();
+        float r = spreadRadius * sclX;
+        int batchCount = getBatchCount(MathUtils.PI * r * r);
         float slice = 2.0f * MathUtils.PI / batchCount;
 
         float dx = x - lineStart.x;
         float dy = y - lineStart.y;
         float angleOffset = MathUtils.radiansToDegrees * MathUtils.atan2(dy, dx);
         for (int i = 0; i < batchCount; i++) {
-            float radius = MathUtils.randomUniformFloat(0,1) * spreadRadius; // distance from center
+            float radius = MathUtils.randomUniformFloat(0,1) * spreadRadius * sclX; // distance from center
             float angle  = i * slice + MathUtils.randomUniformFloat(0,1) * slice + angleOffset;
 
             float offsetX = MathUtils.cosRad(angle) * radius;
@@ -238,20 +241,23 @@ public class ToolTokensPlants extends Tool {
         tokensPreview.clear();
 
         // first, let's estimate the size of the batch.
-        float rectArea = 2 * spreadRadius * Vector2.dst(lineStart.x, lineStart.y, x, y);
+        float rectArea = 2 * spreadRadius * sclX * Vector2.dst(lineStart.x, lineStart.y, x, y);
         float factor = rectArea / (MathUtils.PI * spreadRadius * spreadRadius);
-        int rectBatchCount = (int) (factor * batchCount);
+        //int rectBatchCount = (int) (factor * batchCount);
+        int rectBatchCount = getBatchCount(rectArea);
+        float r = spreadRadius * sclX;
+        int halfCircleBatchCount = getBatchCount(MathUtils.PI * r * r) / 2;
 
         float dx = x - lineStart.x;
         float dy = y - lineStart.y;
         float angleOffset = MathUtils.atan2(dy, dx) + MathUtils.PI_HALF;
-        float half_slice = MathUtils.PI / batchCount;
+        float half_slice = MathUtils.PI / halfCircleBatchCount;
 
         float degTilt =  tokensAngleMatchLine ? MathUtils.atan2(dy, dx) * MathUtils.radiansToDegrees - 90 : 0;
 
         // first half circle (at lineStar)
-        for (int i = 0; i < batchCount; i++) {
-            float radius = MathUtils.randomUniformFloat(0,1) * spreadRadius; // distance from center
+        for (int i = 0; i < halfCircleBatchCount; i++) {
+            float radius = MathUtils.randomUniformFloat(0,1) * spreadRadius * sclX; // distance from center
             float angle  = angleOffset + i * half_slice + MathUtils.randomUniformFloat(0,1);
             float offsetX = MathUtils.cosRad(angle) * radius;
             float offsetY = MathUtils.sinRad(angle) * radius;
@@ -267,7 +273,7 @@ public class ToolTokensPlants extends Tool {
         Vector2 offset = new Vector2();
         for (int i = 0; i < rectBatchCount; i++) {
             float normScale = MathUtils.randomUniformFloat(0, width);
-            float prepScale = MathUtils.randomUniformFloat(-spreadRadius, spreadRadius);
+            float prepScale = MathUtils.randomUniformFloat(-spreadRadius, spreadRadius) * sclX;
             offset.set(norm.x * normScale, norm.y * normScale);
             offset.add(prep.x * prepScale, prep.y * prepScale);
             Token token = new Token(3, lineStart.x + offset.x, lineStart.y + offset.y, degTilt, sclX,sclY, getRegions());
@@ -276,8 +282,8 @@ public class ToolTokensPlants extends Tool {
         }
 
         // second half circle (at lineEnd)
-        for (int i = 0; i < batchCount; i++) {
-            float radius = MathUtils.randomUniformFloat(0,1) * spreadRadius; // distance from center
+        for (int i = 0; i < halfCircleBatchCount; i++) {
+            float radius = MathUtils.randomUniformFloat(0,1) * spreadRadius * sclX; // distance from center
             float angle  = angleOffset + i * half_slice + MathUtils.randomUniformFloat(0,1) + MathUtils.PI;
             float offsetX = MathUtils.cosRad(angle) * radius;
             float offsetY = MathUtils.sinRad(angle) * radius;
@@ -321,22 +327,51 @@ public class ToolTokensPlants extends Tool {
         }
 
         // calculate bounding box
-        Vector2 bottomLeftCorner = new Vector2(Float.MAX_VALUE, Float.MAX_VALUE);
-        Vector2 topRightCorner = new Vector2(Float.MIN_VALUE, Float.MIN_VALUE);
-        for (Vector2 v : polyPoints) {
-            if (v.x < bottomLeftCorner.x) bottomLeftCorner.x = v.x;
-            if (v.y < bottomLeftCorner.y) bottomLeftCorner.y = v.y;
-            if (v.x > topRightCorner.x) topRightCorner.x = v.x;
-            if (v.y > topRightCorner.y) topRightCorner.y = v.y;
-        }
+//        Vector2 bottomLeftCorner = new Vector2(Float.MAX_VALUE, Float.MAX_VALUE);
+//        Vector2 bottomRightCorner = new Vector2(Float.MIN_VALUE, Float.MAX_VALUE);
+//        Vector2 topRightCorner = new Vector2(Float.MIN_VALUE, Float.MIN_VALUE);
+//        Vector2 topLeftCorner = new Vector2(Float.MAX_VALUE, Float.MIN_VALUE);
+//        for (Vector2 v : polyPoints) {
+//            if (v.x < bottomLeftCorner.x) bottomLeftCorner.x = v.x;
+//            if (v.y < bottomLeftCorner.y) bottomLeftCorner.y = v.y;
+//            if (v.x > topRightCorner.x) topRightCorner.x = v.x;
+//            if (v.y > topRightCorner.y) topRightCorner.y = v.y;
+//        }
 
-        float stepSizePixels_x = spreadRadius; // token width * 0.5
-        float stepSizePixels_y = 25; // token height * 0.5
-        for (float rect_x = bottomLeftCorner.x; rect_x < topRightCorner.x; rect_x += stepSizePixels_x) {
-            for (float rect_y = bottomLeftCorner.y; rect_y < topRightCorner.y; rect_y += stepSizePixels_y) {
+        float minX = Float.POSITIVE_INFINITY;
+        float minY = Float.POSITIVE_INFINITY;
+        float maxX = Float.NEGATIVE_INFINITY;
+        float maxY = Float.NEGATIVE_INFINITY;
+        for (Vector2 v : polyPoints) {
+            if (v.x < minX) minX = v.x;
+            if (v.y < minY) minY = v.y;
+            if (v.x > maxX) maxX = v.x;
+            if (v.y > maxY) maxY = v.y;
+        }
+        Vector2 bottomLeftCorner  = new Vector2(minX, minY);
+        Vector2 bottomRightCorner = new Vector2(maxX, minY);
+        Vector2 topRightCorner    = new Vector2(maxX, maxY);
+        Vector2 topLeftCorner     = new Vector2(minX, maxY);
+
+        float bounding_box_area = Math.abs(topRightCorner.x - topLeftCorner.x) * Math.abs(topRightCorner.y - bottomRightCorner.y);
+        int batchCount = getBatchCount(bounding_box_area);
+        float w = Math.abs(topRightCorner.x - topLeftCorner.x);
+        float h = Math.abs(topRightCorner.y - bottomRightCorner.y);
+        float aspect = w / h;
+        int cols = Math.max(1, (int)Math.round(Math.sqrt(batchCount * aspect)));
+        int rows = Math.max(1, (int) Math.ceil((float) batchCount / cols));
+        float stepX = w / cols;
+        float stepY = h / rows;
+
+        for (float rect_x = bottomLeftCorner.x; rect_x < topRightCorner.x; rect_x += stepX) {
+            for (float rect_y = bottomLeftCorner.y; rect_y < topRightCorner.y; rect_y += stepY) {
                 boolean contained = MathUtils.polygonContainsPoint(polyPoints, rect_x, rect_y);
                 if (contained) {
-                    Token token = new Token(3, rect_x + MathUtils.randomUniformFloat(-5,5), rect_y  + MathUtils.randomUniformFloat(-5,5), 0, sclX,sclY, getRegions());
+                    float spacing = getSpacingX();
+                    float randomOffset_x = MathUtils.randomUniformFloat(-spacing, spacing);
+                    float randomOffset_y = MathUtils.randomUniformFloat(-spacing, spacing);;
+                    System.out.println(randomOffset_x);
+                    Token token = new Token(3, rect_x + randomOffset_x, rect_y  + randomOffset_y, 0, sclX,sclY, getRegions());
                     //token.tint = Color.randomOpaque();
                     tokensPreview.add(token);
                 }

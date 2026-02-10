@@ -14,11 +14,12 @@ public abstract class Tool {
     // TODO
     public BrushMode brushMode = BrushMode.POINT;
     public boolean free = true;
-    public int batchCount = 10;
-    // TODO: measure spread relative to tokens' width height.
+    public float density = 0.05f; // units per 100 pixels
     public float spreadRadius = 200; // in pixels. convert to sprite width / 2
+    public float minimum_spacing = 0.5f;
+
     public Vector2 lineStart = new Vector2();
-    public boolean tokensAngleMatchLine = true;
+    public boolean tokensAngleMatchLine = false;
     public Array<Vector2> polygonPoints = new Array<>(true, 10);
 
     public float x    = 0;
@@ -45,17 +46,38 @@ public abstract class Tool {
     protected void onParametersChange() {}
 
     // TODO
-    protected TextureRegion[] getRegions() {return null;}
-    // TODO
-    protected float getSpacingX() {return 50;}
-    // TODO
-    protected float getSpacingY() {return 50;}
+    protected TextureRegion[] getRegions() { return null; }
+
+    protected float getSpacingX() {
+        TextureRegion[] regions = getRegions();
+        float pixelSpacing = 0;
+        for (TextureRegion region : regions) {
+            if (region == null) continue;
+            pixelSpacing = Math.max(region.packedWidth, pixelSpacing);
+        }
+        return pixelSpacing * minimum_spacing * Math.abs(sclX);
+    }
+
+    protected float getSpacingY() {
+        TextureRegion[] regions = getRegions();
+        float pixelSpacing = 0;
+        for (TextureRegion region : regions) {
+            if (region == null) continue;
+            pixelSpacing = Math.max(region.packedWidth, pixelSpacing);
+        }
+        return pixelSpacing * minimum_spacing * Math.abs(sclY);
+    }
+
+    protected int getBatchCount(float area) {
+        if (area <= 0f || density <= 0f) return 0;
+        float densityPerPixel = density / 100f;
+        return (int) Math.ceil(area * densityPerPixel);
+    }
 
     public abstract void update(float delta);
     public abstract void renderToolOverlay(Renderer2D renderer2D, float x, float y);
     public abstract void activate();
     public abstract void deactivate();
-
     public abstract String getName();
 
     // TODO
