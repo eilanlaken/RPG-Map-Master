@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.nio.ByteBuffer;
+import java.util.Set;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
@@ -64,24 +65,24 @@ public class Map {
         commandsQueue.clear();
     }
 
-    public void getAllTokens(Token.Type ofType, Array<Token> out) {
+    @Deprecated public void getAllTokens(Token.Type ofType, Array<Token> out) {
         out.clear();
         for (Token token : layer3.allTokens) {
             if (token.type == ofType) out.add(token);
         }
     }
 
-    public void getAllTokens(final Class<? extends Tool> sourceTool, Array<Token> out) {
-        out.clear();
+    public void getAllTokensInCircle(Enum<?> type, float centerX, float centerY, float radius, Set<Token> out) {
+        float r2 = radius * radius;
         for (Token token : layer3.allTokens) {
-            if (token.sourceTool == sourceTool) out.add(token);
-        }
-    }
+            if (token.tokenType != type) continue;
 
-    public void getAllTokens(final TextureRegion withRegion, Array<Token> out) {
-        out.clear();
-        for (Token token : layer3.allTokens) {
-            if (token.regions[0] == withRegion) out.add(token);
+            float dx = token.x - centerX;
+            float dy = token.y - centerY;
+
+            if (dx * dx + dy * dy <= r2) {
+                out.add(token);
+            }
         }
     }
 

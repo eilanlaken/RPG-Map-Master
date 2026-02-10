@@ -9,12 +9,10 @@ import com.heavybox.jtix.math.Vector2;
 
 public abstract class Tool {
 
-    public static final float MINIMUM_TOKEN_SPACING = 0.5f;
-
-    // TODO
-    public BrushMode brushMode = BrushMode.POINT;
+    public Mode mode = Mode.ADD;
+    public Shape shape = Shape.CIRCLE;
     public boolean free = true;
-    public float density = 0.05f; // units per 100 pixels
+    public float density = 0.15f; // units per 100 pixels
     public float spreadRadius = 200; // in pixels. convert to sprite width / 2
     public float minimum_spacing = 0.5f;
 
@@ -36,14 +34,22 @@ public abstract class Tool {
         this.map = scene.getMap();
     }
 
-    public void switchToNextBrushMode() {
-        free = true;
-        brushMode = Collections.enumNext(brushMode);
-        onSwitchMode();
+    public void setShape(Shape shape) {
+        this.shape = shape;
+        onSetShape();
     }
 
-    protected void onSwitchMode() {}
-    protected void onParametersChange() {}
+    public void switchToNextBrushShape() {
+        shape = Collections.enumNext(shape);
+        onSetShape();
+    }
+
+    protected void onSetShape() {
+        this.free = true;
+    }
+
+    protected void onSetParameter() {}
+    protected void onSetMode() {}
 
     // TODO
     protected TextureRegion[] getRegions() { return null; }
@@ -71,7 +77,23 @@ public abstract class Tool {
     protected int getBatchCount(float area) {
         if (area <= 0f || density <= 0f) return 0;
         float densityPerPixel = density / 100f;
-        return (int) Math.ceil(area * densityPerPixel);
+        return Math.max(1, (int) Math.ceil(area * densityPerPixel));
+    }
+
+    public void setDensity(float density) {
+        this.density += density;
+        onSetParameter();
+    }
+
+    public void setSpreadRadius(float spreadRadius) {
+        this.spreadRadius = spreadRadius;
+        onSetParameter();
+    }
+
+    public void setScale(float sclX, float sclY) {
+        this.sclX = sclX;
+        this.sclY = sclY;
+        onSetParameter();
     }
 
     public abstract void update(float delta);
@@ -81,10 +103,16 @@ public abstract class Tool {
     public abstract String getName();
 
     // TODO
-    public enum BrushMode {
-        POINT,
+    public enum Shape {
+        CIRCLE,
         LINE,
         POLYGON, // TODO: BUG HERE WHEN CLOSING A POLYGON EXACTLY
+        ;
+    }
+
+    public enum Mode {
+        ADD,
+        SUB,
         ;
     }
 

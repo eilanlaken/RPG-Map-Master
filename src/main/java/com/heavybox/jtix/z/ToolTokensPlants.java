@@ -4,10 +4,7 @@ import com.heavybox.jtix.RPGMapMakerScene;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.collections.Collections;
-import com.heavybox.jtix.graphics.Color;
-import com.heavybox.jtix.graphics.Renderer2D;
-import com.heavybox.jtix.graphics.TexturePack;
-import com.heavybox.jtix.graphics.TextureRegion;
+import com.heavybox.jtix.graphics.*;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
@@ -15,14 +12,16 @@ import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Vector2;
 
 import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Set;
 
 // TODO: determine spacing based on brush
 public class ToolTokensPlants extends Tool {
 
     private final TexturePack atlas;
-    private final TextureRegion region;
     private final Array<Token> tokensPreview = new Array<>();
     private final Array<Token> alreadyCreatedTokens = new Array<>();
+    private final Set<Token> tokensToDelete = new HashSet<>();
 
     public boolean addTrunk = true;
     public boolean addLeaves = true;
@@ -32,16 +31,35 @@ public class ToolTokensPlants extends Tool {
     public ToolTokensPlants(RPGMapMakerScene scene) {
         super(scene);
         atlas = Assets.get("assets/texture-packs/layer_3.yml");
-        region = atlas.getRegion("assets/textures-layer-3/debug_rect.png");
 
         sclX = 0.5f;
         sclY = 0.5f;
+
+        sclX = 1f / 6;
+        sclY = 1f / 6;
     }
 
     @Override
-    protected void onSwitchMode() {
+    protected void onSetShape() {
         tokensPreview.clear();
         alreadyCreatedTokens.clear();
+        onSetParameter();
+    }
+
+    // TODO
+    @Override
+    protected void onSetMode() {
+        if (mode == Mode.SUB) {
+            setShape(Shape.CIRCLE);
+        }
+    }
+
+    @Override
+    protected void onSetParameter() {
+        tokensPreview.clear();
+        if (shape == Shape.CIRCLE) refillCircleWithTokens();
+        if (shape == Shape.LINE) refillLineWithTokens();
+        if (shape == Shape.POLYGON) refillPolygonWithTokens();
     }
 
     @Override
@@ -53,68 +71,118 @@ public class ToolTokensPlants extends Tool {
         boolean leftPressedAndMoved = Input.mouse.isButtonPressed(Mouse.Button.LEFT) && mouseMoved;
         boolean leftClicked = Input.mouse.isButtonClicked(Mouse.Button.LEFT);
         boolean rightClicked = Input.mouse.isButtonClicked(Mouse.Button.RIGHT);
+        boolean sKeyPressed = Input.keyboard.isKeyPressed(Keyboard.Key.S);
+        boolean spaceKeyPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.SPACE);
+        float dy = Input.mouse.getYDelta();
 
         // brush settings - TODO
+
+        if (leftShiftJustPressed) {
+            switchToNextBrushShape();
+        }
+
+        if (spaceKeyPressed) {
+            mode = Collections.enumNext(mode);
+            onSetMode();
+        }
+
         if (rightClicked) {
             currentType = Collections.enumNext(currentType);
-            refillCircleWithTokens();
+            onSetParameter();
+            return;
         }
 
-        if (brushMode == BrushMode.POINT) {
+        if (Input.keyboard.isKeyJustPressed(Keyboard.Key.EQUAL)) {
+            setScale(sclX * 2, sclY * 2);
+            return;
+        } else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.MINUS)) {
+            setScale(sclX * 0.5f, sclY * 0.5f);
+            return;
+        } else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.BACKSPACE)) {
+            setScale(sclX * -1.0f, sclY);
+            return;
+        }
+
+        if (sKeyPressed && dy != 0) {
+            float deltaSpreadRadius = -dy / 1000 * Graphics.getWindowHeight();
+            setSpreadRadius(spreadRadius + deltaSpreadRadius);
+            return;
+        }
+
+        // brush actions
+        if (mode == Mode.SUB) {
+
+            tokensToDelete.clear();
             if (leftClicked || leftPressedAndMoved) {
-                spawnTokens(true);
-                refillCircleWithTokens();
+                map.getAllTokensInCircle(currentType, x, y, spreadRadius * sclX, tokensToDelete);
+                deleteTokens();
             }
+
             return;
         }
 
-        if (brushMode == BrushMode.LINE && free) {
-            if (leftClicked) {
-                lineStart.x = x;
-                lineStart.y = y;
-                refillLineWithTokens();
-                free = false;
-            }
-            return;
-        }
-        if (brushMode == BrushMode.LINE && !free) {
-            if (mouseMoved) refillLineWithTokens();
-            else if (leftClicked) {
-                spawnTokens(false);
-                tokensPreview.clear();
-                free = true;
-            }
-            return;
-        }
-
-        if (brushMode == BrushMode.POLYGON && free) {
-            if (leftClicked) {
-                polygonPoints.add(new Vector2(x, y));
-                free = false;
-            }
-            return;
-        }
-        if (brushMode == BrushMode.POLYGON && !free) {
-            if (mouseMoved && polygonPoints.size >= 2) refillPolygonWithTokens();
-            else if (leftClicked) {
-                refillPolygonWithTokens();
-
-                Vector2 p = new Vector2(x, y); // need to test intersections etc.
-                polygonPoints.add(p);
-                if (polygonPoints.size < 4) {
+        if (mode == Mode.ADD) {
+            if (shape == Shape.CIRCLE) {
+                if (leftClicked || leftPressedAndMoved) {
+                    spawnTokens(true);
+                    refillCircleWithTokens();
                     return;
                 }
+                return;
+            }
 
-                if (Vector2.dst(p, polygonPoints.first()) <= 20) {
+            if (shape == Shape.LINE && free) {
+                if (leftClicked) {
+                    lineStart.x = x;
+                    lineStart.y = y;
+                    refillLineWithTokens();
+                    free = false;
+                }
+                return;
+            }
+            if (shape == Shape.LINE && !free) {
+                if (mouseMoved) refillLineWithTokens();
+                else if (leftClicked) {
                     spawnTokens(false);
                     tokensPreview.clear();
-                    polygonPoints.clear();
                     free = true;
                 }
-
+                return;
             }
-            return;
+
+            if (shape == Shape.POLYGON && free) {
+                if (leftClicked) {
+                    polygonPoints.add(new Vector2(x, y));
+                    free = false;
+                }
+                return;
+            }
+            if (shape == Shape.POLYGON && !free) {
+                if (mouseMoved && polygonPoints.size >= 2) refillPolygonWithTokens();
+                else if (leftClicked) {
+                    refillPolygonWithTokens();
+                    Vector2 p = new Vector2(x, y); // need to test intersections etc.
+                    polygonPoints.add(p);
+                    if (polygonPoints.size < 4) {
+                        return;
+                    }
+                    if (Vector2.dst(p, polygonPoints.first()) <= 20) {
+                        spawnTokens(false);
+                        tokensPreview.clear();
+                        polygonPoints.clear();
+                        free = true;
+                    }
+                }
+            }
         }
+    }
+
+    private void deleteTokens() {
+        for (Token token : tokensToDelete) {
+            CommandTokenDelete cmd = new CommandTokenDelete(token.tokenType, token.layer, token.x, token.y, false);
+            map.addCommand(cmd);
+        }
+        tokensToDelete.clear();
     }
 
     private void spawnTokens(boolean useBrushOffset) {
@@ -147,27 +215,35 @@ public class ToolTokensPlants extends Tool {
 
     @Override
     public void renderToolOverlay(Renderer2D renderer2D, float x, float y) {
-        float radius = spreadRadius * sclX;
+        float radius = Math.abs(spreadRadius * sclX);
+
+        Color color = mode == Mode.ADD ? Color.GREEN : Color.RED;
+        boolean renderPreviewTokens = mode == Mode.ADD;
+
         // render tool overlay when brush mode is set to points
-        if (brushMode == BrushMode.POINT && free) {
-            for (Token token : tokensPreview) {
-                token.renderPreview(renderer2D, x, y);
+        if (shape == Shape.CIRCLE && free) {
+            if (renderPreviewTokens) {
+                for (Token token : tokensPreview) {
+                    token.renderPreview(renderer2D, x, y);
+                }
             }
-            renderer2D.setColor(Color.RED);
+            renderer2D.setColor(color);
             renderer2D.drawCircleThin(Math.max(radius, 5), 10, x, y, 0,1,1);
         }
-        if (brushMode == BrushMode.POINT && !free) {
+        if (shape == Shape.CIRCLE && !free) {
 
         }
 
         // render tool overlay when brush mode is set to lines
-        if (brushMode == BrushMode.LINE && free) {
-            renderer2D.setColor(Color.RED);
+        if (shape == Shape.LINE && free) {
+            renderer2D.setColor(color);
             renderer2D.drawCircleThin(Math.max(radius, 5), 10, x, y, 0,1,1);
         }
-        if (brushMode == BrushMode.LINE && !free) {
-            for (Token token : tokensPreview) {
-                token.render(renderer2D);
+        if (shape == Shape.LINE && !free) {
+            if (renderPreviewTokens) {
+                for (Token token : tokensPreview) {
+                    token.render(renderer2D);
+                }
             }
 
             float dx = x - lineStart.x;
@@ -180,21 +256,23 @@ public class ToolTokensPlants extends Tool {
         }
 
         // render tool overlay when brush mode is set to polygons
-        if (brushMode == BrushMode.POLYGON && free) {
-            renderer2D.setColor(Color.RED);
+        if (shape == Shape.POLYGON && free) {
+            renderer2D.setColor(color);
             renderer2D.drawCircleFilled(10,5, x, y, 0, 1,1);
             renderer2D.setColor(Color.WHITE);
         }
-        if (brushMode == BrushMode.POLYGON && !free) {
+        if (shape == Shape.POLYGON && !free) {
             if (polygonPoints.isEmpty()) return;
 
-            for (Token token : tokensPreview) {
-                token.render(renderer2D);
+            if (renderPreviewTokens) {
+                for (Token token : tokensPreview) {
+                    token.render(renderer2D);
+                }
             }
 
             renderer2D.setColor(Color.BLACK);
             renderer2D.drawCircleBorder(15, 5, 10, polygonPoints.first().x, polygonPoints.first().y, 0,1,1);
-            renderer2D.setColor(Color.RED);
+            renderer2D.setColor(color);
             for (int i = 0; i < polygonPoints.size; i++) {
                 Vector2 p = polygonPoints.get(i);
                 renderer2D.drawCircleFilled(5, 5, p.x, p.y, 0, 1, 1);
@@ -206,7 +284,6 @@ public class ToolTokensPlants extends Tool {
             }
             renderer2D.drawLineThin(polygonPoints.last().x, polygonPoints.last().y, x, y);
             renderer2D.drawLineThin(x, y, polygonPoints.first().x, polygonPoints.first().y);
-            renderer2D.setColor(Color.WHITE);
         }
 
         renderer2D.setColor(Color.WHITE); // just to be sure, reset color back to white.
@@ -288,7 +365,6 @@ public class ToolTokensPlants extends Tool {
             float offsetX = MathUtils.cosRad(angle) * radius;
             float offsetY = MathUtils.sinRad(angle) * radius;
             Token token = new Token(3, x + offsetX, y + offsetY, degTilt, sclX,sclY, getRegions());
-            //token.tint = Color.randomOpaque();
             tokensPreview.add(token);
         }
 
@@ -325,18 +401,6 @@ public class ToolTokensPlants extends Tool {
             }
             polyPoints.add(intersection);
         }
-
-        // calculate bounding box
-//        Vector2 bottomLeftCorner = new Vector2(Float.MAX_VALUE, Float.MAX_VALUE);
-//        Vector2 bottomRightCorner = new Vector2(Float.MIN_VALUE, Float.MAX_VALUE);
-//        Vector2 topRightCorner = new Vector2(Float.MIN_VALUE, Float.MIN_VALUE);
-//        Vector2 topLeftCorner = new Vector2(Float.MAX_VALUE, Float.MIN_VALUE);
-//        for (Vector2 v : polyPoints) {
-//            if (v.x < bottomLeftCorner.x) bottomLeftCorner.x = v.x;
-//            if (v.y < bottomLeftCorner.y) bottomLeftCorner.y = v.y;
-//            if (v.x > topRightCorner.x) topRightCorner.x = v.x;
-//            if (v.y > topRightCorner.y) topRightCorner.y = v.y;
-//        }
 
         float minX = Float.POSITIVE_INFINITY;
         float minY = Float.POSITIVE_INFINITY;
@@ -420,7 +484,7 @@ public class ToolTokensPlants extends Tool {
         System.out.println("active - " + getName());
         tokensPreview.clear();
         polygonPoints.clear();
-        if (brushMode == BrushMode.POINT) {
+        if (shape == Shape.CIRCLE) {
             refillCircleWithTokens();
         }
     }

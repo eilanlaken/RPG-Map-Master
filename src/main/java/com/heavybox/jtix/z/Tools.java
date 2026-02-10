@@ -44,7 +44,7 @@ public final class Tools {
         activeTool.y = screen.y;
         activeTool.update(Graphics.getDeltaTime());
 
-        if (leftShiftJustPressed) activeTool.switchToNextBrushMode();
+        if (leftShiftJustPressed) activeTool.switchToNextBrushShape();
     }
 
     public static void render(Renderer2D renderer2D, float x, float y) {

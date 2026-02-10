@@ -3,6 +3,7 @@ package com.heavybox.jtix.z;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.graphics.*;
+import com.heavybox.jtix.math.MathUtils;
 import org.lwjgl.opengl.GL11;
 
 import java.util.Comparator;
@@ -16,21 +17,20 @@ public class MapLayerLevel_3 implements MapLayerLevel {
     private boolean changed = false;
 
     // Tokens layer
-    private FrameBuffer layer3;
-    public Array<Token> allTokens = new Array<>(false, 10); // TODO: maybe refactor to be member of Map
-    private final TexturePack tokensAtlas;
+    private final FrameBuffer layer3;
+    public final Array<Token> allTokens = new Array<>(false, 10); // TODO: maybe refactor to be member of Map
     public final Camera camera;
 
     public MapLayerLevel_3(int width, int height) {
         layer3 = new FrameBuffer(width, height);
         camera = new Camera(Camera.Mode.ORTHOGRAPHIC, width, height, 1, 0, 100, 75);
-        this.tokensAtlas = Assets.get("assets/texture-packs/layer_3.yml");
     }
 
     @Override
     public void executeCommand(Command command) {
         changed = true;
 
+        // create token
         if (command instanceof CommandTokenCreate) {
             CommandTokenCreate cmd = (CommandTokenCreate) command;
             Token token = new Token(cmd.layer, cmd.x, cmd.y, cmd.deg, cmd.sclX, cmd.sclY, cmd.regions);
@@ -43,6 +43,18 @@ public class MapLayerLevel_3 implements MapLayerLevel {
         }
 
         // remove token
+        if (command instanceof CommandTokenDelete) {
+            CommandTokenDelete cmd = (CommandTokenDelete) command;
+            // find token based on position and type
+            for (int i = 0; i < allTokens.size; i++) {
+                Token token = allTokens.get(i);
+                if (cmd.type != token.tokenType) continue;
+                if (!MathUtils.floatsEqual(cmd.x, token.x)) continue;
+                if (!MathUtils.floatsEqual(cmd.y, token.y)) continue;
+                allTokens.removeIndex(i);
+            }
+        }
+
 
         // change token (move, scale, rotate...)
 
