@@ -13,7 +13,7 @@ import com.heavybox.jtix.math.Vector2;
 
 import java.util.Arrays;
 
-public class ToolBrushFields extends Tool {
+public class z_ToolBrushFields extends Tool {
 
     public State state = State.FREE;
 
@@ -27,7 +27,7 @@ public class ToolBrushFields extends Tool {
     private boolean addLines = true;
     private int harvestType = 0; // 0 = none, 1 = part, 2 = full
 
-    public ToolBrushFields(RPGMapMakerScene scene) {
+    public z_ToolBrushFields(RPGMapMakerScene scene) {
         super(scene);
 //        bases[0] = Assets.get("assets/textures-layer-1/terrain-wheat-field-base_0.png");
 //        bases[1] = Assets.get("assets/textures-layer-1/terrain-wheat-field-base_1.png");

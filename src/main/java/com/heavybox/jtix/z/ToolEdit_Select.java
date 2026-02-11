@@ -1,4 +1,4 @@
 package com.heavybox.jtix.z;
 
-public class ToolText {
+public class ToolEdit_Select {
 }

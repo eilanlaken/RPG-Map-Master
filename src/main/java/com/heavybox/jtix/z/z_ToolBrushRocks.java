@@ -9,14 +9,14 @@ import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.MathUtils;
 
 // mountains, hills, rocks, trees?
-public class ToolBrushRocks extends Tool {
+public class z_ToolBrushRocks extends Tool {
 
     public Mode currentMode = Mode.values()[0];
     public int currentIndex = 0;
     public TexturePack layer3;
     public TextureRegion region;
 
-    public ToolBrushRocks(RPGMapMakerScene scene) {
+    public z_ToolBrushRocks(RPGMapMakerScene scene) {
         super(scene);
         layer3 = Assets.get("assets/texture-packs/layer_3.yml");
         region = layer3.getRegion("assets/textures-layer-3/boulder_plain_big_0.png");

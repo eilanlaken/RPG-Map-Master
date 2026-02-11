@@ -9,7 +9,7 @@ import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
 
-public class ToolBrushTerrain extends Tool {
+public class z_ToolBrushTerrain extends Tool {
 
     public Mode mode = Mode.SUB;
     public Target target = Target.TERRAIN;
@@ -20,7 +20,7 @@ public class ToolBrushTerrain extends Tool {
     public float scale = 0.5f;
     public float size = 200;
 
-    public ToolBrushTerrain(RPGMapMakerScene scene) {
+    public z_ToolBrushTerrain(RPGMapMakerScene scene) {
         super(scene);
         brushAdd = new Texture("assets/tools/terrain-brush-draw.png");
         brushSub = new Texture("assets/tools/terrain-brush-erase.png");

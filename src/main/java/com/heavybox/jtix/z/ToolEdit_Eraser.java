@@ -1,4 +1,4 @@
 package com.heavybox.jtix.z;
 
-public class ToolEraser {
+public class ToolEdit_Eraser {
 }

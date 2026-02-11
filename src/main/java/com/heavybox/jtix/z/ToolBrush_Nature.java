@@ -16,7 +16,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 // TODO: determine spacing based on brush
-public class ToolTokensPlants extends Tool {
+public class ToolBrush_Nature extends Tool {
 
     private final TexturePack atlas;
     private final Array<Token> tokensPreview = new Array<>();
@@ -28,7 +28,7 @@ public class ToolTokensPlants extends Tool {
     public boolean addFruit = false;
     public Type currentType = Type.TREE_CIRCULAR;
 
-    public ToolTokensPlants(RPGMapMakerScene scene) {
+    public ToolBrush_Nature(RPGMapMakerScene scene) {
         super(scene);
         atlas = Assets.get("assets/texture-packs/layer_3.yml");
 
@@ -78,7 +78,7 @@ public class ToolTokensPlants extends Tool {
         // brush settings - TODO
 
         if (leftShiftJustPressed) {
-            switchToNextBrushShape();
+            setShape(Collections.enumNext(shape));
         }
 
         if (spaceKeyPressed) {

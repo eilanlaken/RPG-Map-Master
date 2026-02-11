@@ -10,7 +10,6 @@ import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.Vector3;
 import com.heavybox.jtix.tools.ToolsTexturePacker;
 import com.heavybox.jtix.widgets_4.Widget;
-import com.heavybox.jtix.widgets_4.Widgets;
 import com.heavybox.jtix.z.*;
 import org.lwjgl.opengl.GL11;
 
@@ -99,13 +98,13 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
         map = new Map(2048, 2048);
         //map = new Map(1920, 1080);
 
-        tools[0] = new ToolBrushTerrain(this);
-        tools[1] = new ToolBrushFields(this);
-        tools[2] = new ToolBrushTrees(this);
-        tools[3] = new ToolBrushProps(this);
+        tools[0] = new z_ToolBrushTerrain(this);
+        tools[1] = new z_ToolBrushFields(this);
+        tools[2] = new z_ToolBrushTrees(this);
+        tools[3] = new z_ToolBrushProps(this);
         //tools[4] = new ToolBrushArchitecture(this); // TODO: redo architecture brush
-        tools[5] = new ToolBrushRocks(this);
-        tools[6] = new ToolBrushDecorations(this);
+        tools[5] = new z_ToolBrushRocks(this);
+        tools[6] = new z_ToolBrushDecorations(this);
 
         // user - interface
         WidgetNodeActionsBar actionsBar = new WidgetNodeActionsBar();

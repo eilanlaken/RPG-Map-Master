@@ -15,7 +15,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class ToolBrushTrees extends Tool {
+public class z_ToolBrushTrees extends Tool {
 
     public static final int TREE_DENSITY = 68; // The minimal distance between trees
     public final TexturePack layer3;
@@ -33,7 +33,7 @@ public class ToolBrushTrees extends Tool {
     private final Array<Vector2> positions = new Array<>(false, 10);
     private final Array<Token> trees = new Array<>();
 
-    public ToolBrushTrees(RPGMapMakerScene scene) {
+    public z_ToolBrushTrees(RPGMapMakerScene scene) {
         super(scene);
         sclX = 0.25f;
         sclY = 0.25f;

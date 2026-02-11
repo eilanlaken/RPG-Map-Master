@@ -10,7 +10,7 @@ import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.MathUtils;
 
 // THIS IS JUST FOR THE DEMO
-public class ToolBrushDecorations extends Tool {
+public class z_ToolBrushDecorations extends Tool {
 
     private Layer layer = Layer.FOREGROUND;
     Array<String> decorationsPaths = new Array<>();
@@ -20,7 +20,7 @@ public class ToolBrushDecorations extends Tool {
 
     private boolean flipped = false;
 
-    public ToolBrushDecorations(RPGMapMakerScene scene) {
+    public z_ToolBrushDecorations(RPGMapMakerScene scene) {
         super(scene);
 
         // TODO: put this back in

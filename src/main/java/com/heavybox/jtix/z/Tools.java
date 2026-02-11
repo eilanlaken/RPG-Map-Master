@@ -15,15 +15,15 @@ public final class Tools {
     public static Array<Tool> tools = new Array<>(true, 10);
     public static int activeToolIndex = 0;
 
-    public static ToolTokensPlants toolTokensPlants;
+    public static ToolBrush_Nature toolBrushNature;
 
     private static RPGMapMakerScene scene;
 
     public static void initTools(final RPGMapMakerScene scene) {
         Tools.scene = scene;
-        toolTokensPlants = new ToolTokensPlants(scene);
+        toolBrushNature = new ToolBrush_Nature(scene);
 
-        tools.add(toolTokensPlants);
+        tools.add(toolBrushNature);
         selectTool(0);
     }
 
@@ -34,8 +34,6 @@ public final class Tools {
     }
 
     public static void update() {
-        boolean leftShiftJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.LEFT_SHIFT);
-
         Vector3 screen = new Vector3(Input.mouse.getX(), Input.mouse.getY(), 0);
         scene.getCamera().unProject(screen);
 
@@ -44,7 +42,6 @@ public final class Tools {
         activeTool.y = screen.y;
         activeTool.update(Graphics.getDeltaTime());
 
-        if (leftShiftJustPressed) activeTool.switchToNextBrushShape();
     }
 
     public static void render(Renderer2D renderer2D, float x, float y) {

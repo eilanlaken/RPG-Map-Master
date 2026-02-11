@@ -1,4 +1,4 @@
 package com.heavybox.jtix.z;
 
-public class ToolTransform {
+public class ToolStamp_Text {
 }

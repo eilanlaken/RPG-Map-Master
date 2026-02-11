@@ -15,7 +15,7 @@ import com.heavybox.jtix.math.Vector2;
 // TODO: overhaul the props tool
 // TODO: asset discovery based on name prefix
 // TODO: brush modes: point, line, curve, polygon
-public class ToolBrushProps extends Tool {
+public class z_ToolBrushProps extends Tool {
 
     public final TexturePack layer3;
 
@@ -27,7 +27,7 @@ public class ToolBrushProps extends Tool {
 
     private Mode mode = Mode.values()[0];
 
-    public ToolBrushProps(RPGMapMakerScene scene) {
+    public z_ToolBrushProps(RPGMapMakerScene scene) {
         super(scene);
         sclX = 0.25f;
         sclY = 0.25f;
