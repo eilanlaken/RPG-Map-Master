@@ -44,6 +44,11 @@ public abstract class Tool {
         onSetShape();
     }
 
+    protected void setMode(Mode mode) {
+        this.mode = mode;
+        onSetMode();
+    }
+
     protected void onSetShape() {
         this.free = true;
     }

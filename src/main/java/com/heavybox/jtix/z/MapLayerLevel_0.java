@@ -38,8 +38,6 @@ public class MapLayerLevel_0 implements MapLayerLevel {
 
     private Shader terrainShader;
 
-    private Array<CommandTerrainChangeEnvironment> commandTerrainChangeEnvironments = new Array<>(true, 10);
-    private Array<CommandTerrain> commandsTerrainHistory = new Array<>(true, 100);
     private Array<CommandTerrain> commandsQueueTerrainMask = new Array<>(true, 100);
     private Array<CommandTerrain> commandsQueueTerrainBlendMapStone = new Array<>(true, 100);
     private Array<CommandTerrain> commandsQueueTerrainBlendMapRoad = new Array<>(true, 100);
@@ -67,8 +65,8 @@ public class MapLayerLevel_0 implements MapLayerLevel {
         terrainRoad = Assets.get("assets/textures-layer-0/terrain_land_road_0.jpg");
         terrainSteepness = Assets.get("assets/textures-layer-0/terrain_material_rock.jpg");
 
-        brushSub = new Texture("assets/tools/terrain-brush-erase.png");
-        brushAdd = new Texture("assets/tools/terrain-brush-draw.png");
+        brushSub = Assets.get("assets/tools/terrain-brush-erase.png");
+        brushAdd = Assets.get("assets/tools/terrain-brush-draw.png");
 
         String terrainVertexShaderSrc = Assets.getFileContent("assets/shaders/terrain-mask.vert");
         String terrainFragmentShaderSrc = Assets.getFileContent("assets/shaders/terrain-mask.frag");
@@ -100,22 +98,9 @@ public class MapLayerLevel_0 implements MapLayerLevel {
             if (cmd.target == z_ToolBrushTerrain.Target.TERRAIN) commandsQueueTerrainMask.add(cmd);
             if (cmd.target == z_ToolBrushTerrain.Target.FOREGROUND_STONE) commandsQueueTerrainBlendMapStone.add(cmd);
             if (cmd.target == z_ToolBrushTerrain.Target.FOREGROUND_ROAD) commandsQueueTerrainBlendMapRoad.add(cmd);
-            commandsTerrainHistory.add(cmd);
             return;
         }
 
-        if (command instanceof CommandTerrainChangeEnvironment) {
-            CommandTerrainChangeEnvironment cmd = (CommandTerrainChangeEnvironment) command;
-            if (cmd.type == CommandTerrainChangeEnvironment.Type.SELECT_NEXT_GROUND) {
-                terrainGroundsIndex++;
-                terrainGroundsIndex %= terrainGrounds.length;
-            } else if (cmd.type == CommandTerrainChangeEnvironment.Type.SELECT_NEXT_LIQUID) {
-                terrainLiquidsIndex++;
-                terrainLiquidsIndex %= terrainLiquids.length;
-            }
-            commandTerrainChangeEnvironments.add(cmd);
-            return;
-        }
     }
 
     @Override
@@ -163,7 +148,6 @@ public class MapLayerLevel_0 implements MapLayerLevel {
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
         renderer2D.begin(camera);
         renderer2D.blendingSet(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-        //renderer2D.drawTexture(terrainLiquids[terrainLiquidsIndex], 0, 0, 0, 1, -1);
         renderer2D.drawRectangleFilled(terrainLiquids[terrainLiquidsIndex], width, height,0, 0, 0, 1, -1);
         renderer2D.setShader(terrainShader);
         renderer2D.setShaderAttribute("u_texture_map_0", terrainBlendMap.getColorAttachment("attachment_0"));
@@ -211,8 +195,6 @@ public class MapLayerLevel_0 implements MapLayerLevel {
 
     @Override
     public Texture getTexture() {
-        //return terrainBlendMap.getColorAttachment("attachment_0");
-        //return terrainBlendMap.getColorAttachment0();
         return layer0.getDefaultColorAttachment(); // for now.
     }
 }

@@ -15,14 +15,13 @@ import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
 
 public class Map {
 
-    // TODO: customize width and height
     public int width; // 1920
     public int height; // 1080
 
-    public MapLayerLevel_0 layer0; // Terrain layer (wheat fields)
+    public MapLayerLevel_0_new layer0; // Terrain layer (wheat fields)
     public MapLayerLevel_1 layer1; // Ground layer (wheat fields)
     public MapLayerLevel_3 layer3; // Token layer
-    public MapLayerLevel_4 layer5; // Token layer
+    public MapLayerLevel_4 layer4; // Token layer
 
     // Decorations layer
 
@@ -43,10 +42,10 @@ public class Map {
         this.width = width;
         this.height = height;
         camera = new Camera(Camera.Mode.ORTHOGRAPHIC, width, height, 1, 0, 100, 75);
-        layer0 = new MapLayerLevel_0(width, height);
+        layer0 = new MapLayerLevel_0_new(width, height);
         layer1 = new MapLayerLevel_1(width, height);
         layer3 = new MapLayerLevel_3(width, height);
-        layer5 = new MapLayerLevel_4(width, height);
+        layer4 = new MapLayerLevel_4(width, height);
         mapFinal = new FrameBuffer(width, height);
     }
 
@@ -97,42 +96,13 @@ public class Map {
         if (command.layer == 0) layer0.executeCommand(command);
         if (command.layer == 1) layer1.executeCommand(command);
         if (command.layer == 3) layer3.executeCommand(command);
-        if (command.layer == 5) layer5.executeCommand(command);
+        if (command.layer == 5) layer4.executeCommand(command);
     }
 
+    // TODO
     public void undo() {
         if (commandsHistory.isEmpty()) return;
-        if (commandsHistory.size == 1) {
-            //layer0.clear();
-            layer1.clear();
-            //layer2.clear();
-            layer3.clear();
-            //layer4.clear();
-            layer5.clear();
-            commandsHistory.clear();
-            return;
-        }
 
-        //layer0.clear();
-        layer1.clear();
-        //layer2.clear();
-        layer3.clear();
-        //layer4.clear();
-        layer5.clear();
-        int lastIndex = commandsHistory.size - 1;
-        for (int i = commandsHistory.size - 2; i >= 0; i--) {
-            Command cmd = commandsHistory.get(i);
-            if (cmd.anchor) {
-                lastIndex = i;
-                break;
-            }
-        }
-        commandsHistory.truncate(lastIndex);
-        for (Command command : commandsHistory) {
-            if (command instanceof CommandTerrain) continue;
-            if (command instanceof CommandTerrainChangeEnvironment) continue;
-            executeCommand(command);
-        }
     }
 
     public void redo() {
@@ -142,8 +112,8 @@ public class Map {
     public void render(Renderer2D renderer2D) {
         layer0.applyChanges(renderer2D);
         layer1.applyChanges(renderer2D);
-        layer3.applyChanges(renderer2D); // TODO: use applyChanges
-        layer5.applyChanges(renderer2D); // TODO: use applyChanges
+        layer3.applyChanges(renderer2D);
+        layer4.applyChanges(renderer2D);
 
         FrameBufferBinder.bind(mapFinal);
         GL11.glClearColor(1.0f,1.0f,1.0f,1);
@@ -158,7 +128,7 @@ public class Map {
         // render layer-2
         // render layer-3
         renderer2D.drawTexture(layer3.getTexture(), 0, 0, 0, 1,1);
-        renderer2D.drawTexture(layer5.getTexture(), 0, 0, 0, 1,1);
+        renderer2D.drawTexture(layer4.getTexture(), 0, 0, 0, 1,1);
 
         // render layer-4
         renderer2D.end();
@@ -174,7 +144,7 @@ public class Map {
         if (layer == 0) texture = layer0.getTexture();
         else if (layer == 1) texture = layer1.getTexture();
         else if (layer == 3) texture = layer3.getTexture();
-        else if (layer == 5) texture = layer5.getTexture();
+        else if (layer == 5) texture = layer4.getTexture();
         else texture = layer3.getTexture();
 
         ByteBuffer buffer = texture.getPixmapBytes();

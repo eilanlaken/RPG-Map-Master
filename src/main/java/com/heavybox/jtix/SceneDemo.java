@@ -57,30 +57,26 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
         }
 
         // load async
-        // layer 0
+        // layer 0 - terrain textures
         Assets.loadTexture("assets/textures-layer-0/terrain_land_grass_0.jpg", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
         Assets.loadTexture("assets/textures-layer-0/terrain_land_grass_1.jpg", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
         Assets.loadTexture("assets/textures-layer-0/terrain_land_road_0.jpg", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
         Assets.loadTexture("assets/textures-layer-0/terrain_land_sand_0.jpg", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
         Assets.loadTexture("assets/textures-layer-0/terrain_land_stone_0.jpg", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
+        Assets.loadTexture("assets/textures-layer-0/terrain_land_stone_1.jpg", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
         Assets.loadTexture("assets/textures-layer-0/terrain_liquid_water_0.jpg", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
         Assets.loadTexture("assets/textures-layer-0/terrain_liquid_water_1.jpg", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
         Assets.loadTexture("assets/textures-layer-0/terrain_liquid_water_2.jpg", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
         Assets.loadTexture("assets/textures-layer-0/terrain_material_rock.jpg", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
+        // layer 0 - terrain brushes
+        Assets.loadTexture("assets/tools/terrain-brush-draw.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.CLAMP_TO_EDGE, Texture.Wrap.CLAMP_TO_EDGE, 1);
+        Assets.loadTexture("assets/tools/terrain-brush-erase.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.CLAMP_TO_EDGE, Texture.Wrap.CLAMP_TO_EDGE, 1);
 
-        // layer 1
-//        Assets.loadTexture("assets/textures-layer-1/terrain-wheat-field-base_0.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
-//        Assets.loadTexture("assets/textures-layer-1/terrain-wheat-field-base_1.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
-//        Assets.loadTexture("assets/textures-layer-1/terrain-wheat-field-base_2.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
-//        Assets.loadTexture("assets/textures-layer-1/terrain-wheat-field-base_3.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
-//        Assets.loadTexture("assets/textures-layer-1/terrain-wheat-field-base_4.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
-//        Assets.loadTexture("assets/textures-layer-1/terrain-wheat-field-lines.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
         Assets.loadTexture("assets/textures-layer-1/wheat_field_0.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
         Assets.loadTexture("assets/textures-layer-1/wheat_field_1.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
         Assets.loadTexture("assets/textures-layer-1/wheat_field_2.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
         Assets.loadTexture("assets/textures-layer-1/wheat_field_3.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
         Assets.loadTexture("assets/textures-layer-1/wheat_field_4.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
-
 
         // layer 2
 
@@ -88,15 +84,12 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
         //Assets.loadTexturePack("assets/texture-packs/layer_3.yml");
         Assets.loadTexturePack("assets/texture-packs/layer_3.yml", Texture.FilterMag.NEAREST, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, 4);
 
-        // layer 5
-
         // user-interface
         Assets.loadTexturePack("assets/texture-packs/user-interface.yml");
 
         Assets.finishLoading();
 
         map = new Map(2048, 2048);
-        //map = new Map(1920, 1080);
 
         tools[0] = new z_ToolBrushTerrain(this);
         tools[1] = new z_ToolBrushFields(this);
@@ -160,44 +153,6 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
             map.undo();
             return;
         }
-
-//        // handle keyboard input
-//        if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KEY_1) && activeTool != 0) {
-//            tools[activeTool].deactivate();
-//            activeTool = 0; // terrain tool
-//            tools[activeTool].activate();
-//        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KEY_2) && activeTool != 1) {
-//            tools[activeTool].deactivate();
-//            activeTool = 1; // tree tool
-//            tools[activeTool].activate();
-//        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KEY_3) && activeTool != 2) {
-//            tools[activeTool].deactivate();
-//            activeTool = 2; //
-//            tools[activeTool].activate();
-//        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KEY_4) && activeTool != 3) {
-//            tools[activeTool].deactivate();
-//            activeTool = 3; //
-//            tools[activeTool].activate();
-//        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KEY_5) && activeTool != 4) {
-//            tools[activeTool].deactivate();
-//            activeTool = 4; //
-//            tools[activeTool].activate();
-//        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KEY_6) && activeTool != 5) {
-//            tools[activeTool].deactivate();
-//            activeTool = 5; //
-//            tools[activeTool].activate();
-//        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KEY_7) && activeTool != 6) {
-//            tools[activeTool].deactivate();
-//            activeTool = 6; //
-//            tools[activeTool].activate();
-//        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KEY_8) && activeTool != 7) {
-//            tools[activeTool].deactivate();
-//            activeTool = 7; //
-//            tools[activeTool].activate();
-//        }
-//        tools[activeTool].x = screen.x;
-//        tools[activeTool].y = screen.y;
-//        tools[activeTool].update(Graphics.getDeltaTime());
 
         // export placeholder
         if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KP_0)) {

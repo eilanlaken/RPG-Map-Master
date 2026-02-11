@@ -503,6 +503,7 @@ public class Renderer2D implements MemoryResourceHolder {
 
     public void drawTexture(@NotNull Texture texture, float cornerRadius, int refinement, float x, float y, float degrees, float scaleX, float scaleY) {
         if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
+        if (refinement > 500) throw new GraphicsException("Refinement value too big (> 500): " + refinement);
         refinement = Math.max(2, refinement);
         if (!ensureCapacity(refinement * 4, 3 * (refinement * 4 - 2))) flush();
 
