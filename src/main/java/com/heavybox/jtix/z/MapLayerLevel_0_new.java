@@ -13,6 +13,7 @@ public class MapLayerLevel_0_new implements MapLayerLevel {
 
     private final FrameBuffer layer0; // <- final composite layer image
     private final FrameBuffer ground;
+    private final FrameBuffer wheatFields;
     private final FrameBuffer liquid;
     private final FrameBuffer blendMap;
 
@@ -24,6 +25,7 @@ public class MapLayerLevel_0_new implements MapLayerLevel {
     private float uvScaleFactorLiquid = 1; // TODO
     private final Texture[] terrainGrounds = new Texture[6];
     private final Texture[] terrainLiquids = new Texture[3];
+    private final Texture[] bases = new Texture[5];
 
     private final Texture terrainSteepness;
 
@@ -36,9 +38,10 @@ public class MapLayerLevel_0_new implements MapLayerLevel {
 
     private boolean changed = true;
 
-    private final Array<CommandTerrain_new> commandsBlendMap = new Array<>(true, 100);
-    private final Array<CommandTerrain_new> commandsGround = new Array<>(true, 100);
-    private final Array<CommandTerrain_new> commandsLiquid = new Array<>(true, 100);
+    private final Array<CommandTerrainTerraform_new> commandsBlendMap = new Array<>(true, 100);
+    private final Array<CommandTerrainTerraform_new> commandsGround = new Array<>(true, 100);
+    private final Array<CommandTerrainTerraform_new> commandsLiquid = new Array<>(true, 100);
+    private final Array<CommandTerrainWheatFieldCreate> commandsWheatFields = new Array<>(true, 100);
 
     public MapLayerLevel_0_new(int width, int height) {
         this.width = width;
@@ -61,6 +64,11 @@ public class MapLayerLevel_0_new implements MapLayerLevel {
                 .setHeight(height)
                 .addColorAttachment("attachment_0")
                 .end(); // <- draw ground textures (grass, roads, stones, ...) here
+        wheatFields = FrameBufferBuilder.begin()
+                .setWidth(width)
+                .setHeight(height)
+                .addColorAttachment("attachment_0")
+                .end(); // <- wheat fields go here
         liquid = FrameBufferBuilder.begin()
                 .setWidth(width)
                 .setHeight(height)
@@ -75,6 +83,12 @@ public class MapLayerLevel_0_new implements MapLayerLevel {
         terrainGrounds[3] = Assets.get("assets/textures-layer-0/terrain_land_stone_0.jpg");
         terrainGrounds[4] = Assets.get("assets/textures-layer-0/terrain_land_stone_1.jpg");
         terrainGrounds[5] = Assets.get("assets/textures-layer-0/terrain_land_road_0.jpg");
+
+        bases[0] = Assets.get("assets/textures-layer-0/wheat_field_0.png");
+        bases[1] = Assets.get("assets/textures-layer-0/wheat_field_1.png");
+        bases[2] = Assets.get("assets/textures-layer-0/wheat_field_2.png");
+        bases[3] = Assets.get("assets/textures-layer-0/wheat_field_3.png");
+        bases[4] = Assets.get("assets/textures-layer-0/wheat_field_4.png");
 
         terrainLiquids[0] = Assets.get("assets/textures-layer-0/terrain_liquid_water_0.jpg");
         terrainLiquids[1] = Assets.get("assets/textures-layer-0/terrain_liquid_water_1.jpg");
@@ -109,10 +123,16 @@ public class MapLayerLevel_0_new implements MapLayerLevel {
     public void executeCommand(Command command) {
         changed = true;
 
-        if (command instanceof CommandTerrain_new) {
-            CommandTerrain_new cmd = (CommandTerrain_new) command;
+        if (command instanceof CommandTerrainTerraform_new) {
+            CommandTerrainTerraform_new cmd = (CommandTerrainTerraform_new) command;
             if (cmd.target == ToolBrush_Terrain.Target.GROUND) commandsGround.add(cmd);
             if (cmd.target == ToolBrush_Terrain.Target.BLEND_MAP) commandsBlendMap.add(cmd);
+            return;
+        }
+
+        if (command instanceof CommandTerrainWheatFieldCreate) {
+            CommandTerrainWheatFieldCreate cmd = (CommandTerrainWheatFieldCreate) command;
+            commandsWheatFields.add(cmd);
             return;
         }
 
@@ -133,7 +153,7 @@ public class MapLayerLevel_0_new implements MapLayerLevel {
         renderer2D.begin(camera);
         renderer2D.blendingSet(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         renderer2D.setShader(groundShader);
-        for (CommandTerrain_new cmd : commandsGround) {
+        for (CommandTerrainTerraform_new cmd : commandsGround) {
             int groundIndex = cmd.groundIndex % terrainGrounds.length;
             Texture groundSrcImg = terrainGrounds[groundIndex];
             renderer2D.setShaderAttribute("u_texture_reveal", groundSrcImg);
@@ -148,7 +168,7 @@ public class MapLayerLevel_0_new implements MapLayerLevel {
         renderer2D.begin(camera);
         renderer2D.blendingSet(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         renderer2D.setShader(liquidShader);
-        for (CommandTerrain_new cmd : commandsLiquid) {
+        for (CommandTerrainTerraform_new cmd : commandsLiquid) {
             int liquidIndex = cmd.liquidIndex % terrainLiquids.length;
             Texture liquidSrcImg = terrainLiquids[liquidIndex];
             renderer2D.setShaderAttribute("u_texture_reveal", liquidSrcImg);
@@ -158,11 +178,23 @@ public class MapLayerLevel_0_new implements MapLayerLevel {
         }
         renderer2D.end();
 
+        FrameBufferBinder.bind(wheatFields);
+        renderer2D.begin(camera);
+        renderer2D.blendingSet(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+        for (CommandTerrainWheatFieldCreate cmd : commandsWheatFields) {
+            System.out.println("hi");
+            renderer2D.setColor(0.396f, 0.263f, 0.129f, 0.4f);
+            renderer2D.drawCurveFilled(null, 11.0f, 20, cmd.polygon, 0, 0, 0, 1, 1);
+            renderer2D.setColor(Color.WHITE);
+            renderer2D.drawPolygonFilled(cmd.polygon, bases[cmd.baseType], uv -> uv.rotateDeg(cmd.linesAngle), 0, 0, 0, 1, 1);
+        }
+        renderer2D.end();
+
         // render blend map
         FrameBufferBinder.bind(blendMap);
         renderer2D.begin(camera);
         renderer2D.blendingSet(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-        for (CommandTerrain_new cmd : commandsBlendMap) {
+        for (CommandTerrainTerraform_new cmd : commandsBlendMap) {
             Texture brush = cmd.mode == Tool.Mode.ADD ? brushAdd : brushSub;
             renderer2D.drawTexture(brush,cmd.x,cmd.y,0,cmd.sclX,cmd.sclY);
         }
@@ -181,24 +213,28 @@ public class MapLayerLevel_0_new implements MapLayerLevel {
         renderer2D.setShaderAttribute("u_height_liquidBase", uvScaleFactorLiquid * terrainLiquids[liquidBaseTextureIndex].height);
         renderer2D.setShaderAttribute("u_texture_ground_base", terrainGrounds[groundBaseTextureIndex]);
         renderer2D.setShaderAttribute("u_texture_ground", ground.getDefaultColorAttachment());
+        renderer2D.setShaderAttribute("u_texture_wheatFields", wheatFields.getDefaultColorAttachment());
         renderer2D.setShaderAttribute("u_texture_liquid_base", terrainLiquids[liquidBaseTextureIndex]);
         renderer2D.setShaderAttribute("u_texture_liquid", liquid.getDefaultColorAttachment());
         renderer2D.setShaderAttribute("u_texture_steepness", terrainSteepness);
         renderer2D.setShaderAttribute("u_blendmap_width", blendMap.width);
         renderer2D.setShaderAttribute("u_blendmap_height", blendMap.height);
         renderer2D.drawTexture(blendMap.getDefaultColorAttachment(), 0,0,0,1,-1);
+        renderer2D.setShader(null);
+        //renderer2D.drawTexture(wheatFields.getDefaultColorAttachment(), 0,0,0,1,-1);
         renderer2D.end();
 
 //        FrameBufferBinder.bind(layer0);
 //        GL11.glClearColor(0,0,0,1);
 //        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
 //        renderer2D.begin(camera);
-//        renderer2D.drawTexture(blendMap.getDefaultColorAttachment(), 0,0,0,1,-1);
+//        renderer2D.drawTexture(wheatFields.getDefaultColorAttachment(), 0,0,0,1,-1);
 //        renderer2D.end();
 
         commandsBlendMap.clear();
         commandsGround.clear();
         commandsLiquid.clear();
+        commandsWheatFields.clear();
         changed = false;
     }
 

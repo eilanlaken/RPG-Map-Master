@@ -26,11 +26,11 @@ public class MapLayerLevel_1 implements MapLayerLevel {
         camera = new Camera(Camera.Mode.ORTHOGRAPHIC, width, height, 1, 0, 100, 75);
 
 
-        bases[0] = Assets.get("assets/textures-layer-1/wheat_field_0.png");
-        bases[1] = Assets.get("assets/textures-layer-1/wheat_field_1.png");
-        bases[2] = Assets.get("assets/textures-layer-1/wheat_field_2.png");
-        bases[3] = Assets.get("assets/textures-layer-1/wheat_field_3.png");
-        bases[4] = Assets.get("assets/textures-layer-1/wheat_field_4.png");
+        bases[0] = Assets.get("assets/textures-layer-0/wheat_field_0.png");
+        bases[1] = Assets.get("assets/textures-layer-0/wheat_field_1.png");
+        bases[2] = Assets.get("assets/textures-layer-0/wheat_field_2.png");
+        bases[3] = Assets.get("assets/textures-layer-0/wheat_field_3.png");
+        bases[4] = Assets.get("assets/textures-layer-0/wheat_field_4.png");
     }
 
     @Override

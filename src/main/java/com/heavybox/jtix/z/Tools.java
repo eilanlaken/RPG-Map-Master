@@ -17,6 +17,7 @@ public final class Tools {
 
     public static ToolBrush_Terrain toolBrushTerrain;
     public static ToolBrush_Nature toolBrushNature;
+    public static ToolStamp_WheatFields toolStampWheatFields;
 
     private static RPGMapMakerScene scene;
 
@@ -25,9 +26,11 @@ public final class Tools {
 
         toolBrushNature = new ToolBrush_Nature(scene);
         toolBrushTerrain = new ToolBrush_Terrain(scene);
+        toolStampWheatFields = new ToolStamp_WheatFields(scene);
 
         tools.add(toolBrushTerrain);
         tools.add(toolBrushNature);
+        tools.add(toolStampWheatFields);
 
         selectTool(0);
     }
@@ -51,6 +54,8 @@ public final class Tools {
             selectTool(0);
         } else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KEY_2)) {
             selectTool(1);
+        } else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KEY_3)) {
+            selectTool(2);
         }
     }
 

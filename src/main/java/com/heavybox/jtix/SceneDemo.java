@@ -71,12 +71,12 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
         // layer 0 - terrain brushes
         Assets.loadTexture("assets/tools/terrain-brush-draw.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.CLAMP_TO_EDGE, Texture.Wrap.CLAMP_TO_EDGE, 1);
         Assets.loadTexture("assets/tools/terrain-brush-erase.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.CLAMP_TO_EDGE, Texture.Wrap.CLAMP_TO_EDGE, 1);
-
-        Assets.loadTexture("assets/textures-layer-1/wheat_field_0.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
-        Assets.loadTexture("assets/textures-layer-1/wheat_field_1.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
-        Assets.loadTexture("assets/textures-layer-1/wheat_field_2.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
-        Assets.loadTexture("assets/textures-layer-1/wheat_field_3.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
-        Assets.loadTexture("assets/textures-layer-1/wheat_field_4.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
+        // layer 0 - wheat fields
+        Assets.loadTexture("assets/textures-layer-0/wheat_field_0.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
+        Assets.loadTexture("assets/textures-layer-0/wheat_field_1.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
+        Assets.loadTexture("assets/textures-layer-0/wheat_field_2.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
+        Assets.loadTexture("assets/textures-layer-0/wheat_field_3.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
+        Assets.loadTexture("assets/textures-layer-0/wheat_field_4.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
 
         // layer 2
 
@@ -92,7 +92,7 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
         map = new Map(2048, 2048);
 
         tools[0] = new z_ToolBrushTerrain(this);
-        tools[1] = new z_ToolBrushFields(this);
+        //tools[1] = new z_ToolBrushFields(this);
         tools[2] = new z_ToolBrushTrees(this);
         tools[3] = new z_ToolBrushProps(this);
         //tools[4] = new ToolBrushArchitecture(this); // TODO: redo architecture brush

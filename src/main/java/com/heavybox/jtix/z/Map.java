@@ -54,13 +54,10 @@ public class Map {
     }
 
     public void update(float delta) {
-        // execute command queue
         for (Command command : commandsQueue) {
             executeCommand(command);
         }
-        // add all commands in the command queue to history
         commandsHistory.addAll(commandsQueue);
-        // clear command queue
         commandsQueue.clear();
     }
 

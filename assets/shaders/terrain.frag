@@ -11,6 +11,8 @@ uniform sampler2D u_texture_ground;
 uniform sampler2D u_texture_liquid_base;
 uniform sampler2D u_texture_liquid;
 
+uniform sampler2D u_texture_wheatFields;
+
 uniform sampler2D u_texture; // blend map
 uniform float u_blendmap_width;
 uniform float u_blendmap_height;
@@ -31,7 +33,9 @@ void main() {
     // ground
     vec4 groundBase = texture(u_texture_ground_base, revealUV_ground);
     vec4 ground     = texture(u_texture_ground, uv);
-    vec3 groundColor = mix(groundBase.rgb, ground.rgb, ground.a);
+    vec3 groundColorBase = mix(groundBase.rgb, ground.rgb, ground.a);
+    vec4 wheat = texture(u_texture_wheatFields, uv);
+    vec3 groundColor = mix(groundColorBase, wheat.rgb, wheat.a);
 
     // liquid
     vec4 liquidBase = texture(u_texture_liquid_base, revealUV_liquid);
@@ -47,7 +51,7 @@ void main() {
     float dx = cR - cL;
     float dy = cU - cD;
     float steepnessFactor = clamp(length(vec2(dx, dy)), 0.0, 1.0);
-    vec3 steepnessColor = texture(u_texture_steepness, uv).rgb;
+    vec3 steepnessColor = texture(u_texture_steepness, revealUV_ground).rgb;
 
 
     float biasedSteepness = pow(steepnessFactor, 0.5);

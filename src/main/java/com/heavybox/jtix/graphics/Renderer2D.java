@@ -2612,7 +2612,7 @@ public class Renderer2D implements MemoryResourceHolder {
         vertexIndex += values.length;
     }
 
-    // TODO: test
+    // TODO: remove
     public void drawCurveFilled(@Nullable Texture texture, float stroke, int smoothness, final float[] points, float x, float y, float deg, float scaleX, float scaleY) {
         if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
         setMode(GL11.GL_TRIANGLES);
@@ -2643,7 +2643,6 @@ public class Renderer2D implements MemoryResourceHolder {
 
         vertexIndex += vertices.size;
     }
-
 
     // The filled curve tesselation algorithm works.
     // It does not handle edge cases of high thickness / segment length ratio, but I that is a degenerate case.

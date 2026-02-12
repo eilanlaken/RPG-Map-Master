@@ -47,7 +47,7 @@ public class ToolBrush_Terrain extends Tool {
         }
 
         if (leftButtonJustPressed || (leftButtonPressed && mouseMoved)) {
-            CommandTerrain_new cmd = new CommandTerrain_new(x, y, sclX, sclY, false); // TODO: anchor
+            CommandTerrainTerraform_new cmd = new CommandTerrainTerraform_new(x, y, sclX, sclY, false); // TODO: anchor
             cmd.target = target;
             cmd.mode = mode;
             cmd.groundIndex = groundIndex;
