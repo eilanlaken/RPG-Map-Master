@@ -15,19 +15,26 @@ uniform sampler2D u_texture; // blend map
 uniform float u_blendmap_width;
 uniform float u_blendmap_height;
 uniform sampler2D u_texture_steepness;
-// TODO: add steepness texture
+
+uniform float u_width_groundBase;
+uniform float u_height_groundBase;
+uniform float u_width_liquidBase;
+uniform float u_height_liquidBase;
 
 // outputs
 layout (location = 0) out vec4 out_color;
 
 void main() {
+    vec2 revealUV_ground = gl_FragCoord.xy / vec2(u_width_groundBase, u_height_groundBase);
+    vec2 revealUV_liquid = gl_FragCoord.xy / vec2(u_width_liquidBase, u_height_liquidBase);
+
     // ground
-    vec4 groundBase = texture(u_texture_ground_base, uv);
+    vec4 groundBase = texture(u_texture_ground_base, revealUV_ground);
     vec4 ground     = texture(u_texture_ground, uv);
     vec3 groundColor = mix(groundBase.rgb, ground.rgb, ground.a);
 
     // liquid
-    vec4 liquidBase = texture(u_texture_liquid_base, uv);
+    vec4 liquidBase = texture(u_texture_liquid_base, revealUV_liquid);
     vec4 liquid     = texture(u_texture_liquid, uv);
     vec3 liquidColor = mix(liquidBase.rgb, liquid.rgb, liquid.a);
 

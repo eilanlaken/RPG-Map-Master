@@ -22,7 +22,7 @@ public class MapLayerLevel_0_new implements MapLayerLevel {
     private int liquidBaseTextureIndex = 2;
     private float uvScaleFactorGround = 1; // TODO
     private float uvScaleFactorLiquid = 1; // TODO
-    private final Texture[] terrainGrounds = new Texture[5];
+    private final Texture[] terrainGrounds = new Texture[6];
     private final Texture[] terrainLiquids = new Texture[3];
 
     private final Texture terrainSteepness;
@@ -70,10 +70,11 @@ public class MapLayerLevel_0_new implements MapLayerLevel {
         camera = new Camera(Camera.Mode.ORTHOGRAPHIC, width, height, 1, 0, 100, 75);
 
         terrainGrounds[0] = Assets.get("assets/textures-layer-0/terrain_land_grass_0.jpg");
-        terrainGrounds[1] = Assets.get("assets/textures-layer-0/terrain_land_sand_0.jpg");
-        terrainGrounds[2] = Assets.get("assets/textures-layer-0/terrain_land_stone_0.jpg");
-        terrainGrounds[3] = Assets.get("assets/textures-layer-0/terrain_land_stone_1.jpg");
-        terrainGrounds[4] = Assets.get("assets/textures-layer-0/terrain_land_road_0.jpg");
+        terrainGrounds[1] = Assets.get("assets/textures-layer-0/terrain_land_grass_1.jpg");
+        terrainGrounds[2] = Assets.get("assets/textures-layer-0/terrain_land_sand_0.jpg");
+        terrainGrounds[3] = Assets.get("assets/textures-layer-0/terrain_land_stone_0.jpg");
+        terrainGrounds[4] = Assets.get("assets/textures-layer-0/terrain_land_stone_1.jpg");
+        terrainGrounds[5] = Assets.get("assets/textures-layer-0/terrain_land_road_0.jpg");
 
         terrainLiquids[0] = Assets.get("assets/textures-layer-0/terrain_liquid_water_0.jpg");
         terrainLiquids[1] = Assets.get("assets/textures-layer-0/terrain_liquid_water_1.jpg");
@@ -174,6 +175,10 @@ public class MapLayerLevel_0_new implements MapLayerLevel {
         renderer2D.begin(camera);
         renderer2D.blendingSet(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         renderer2D.setShader(terrainShader);
+        renderer2D.setShaderAttribute("u_width_groundBase", uvScaleFactorGround * terrainGrounds[groundBaseTextureIndex].width);
+        renderer2D.setShaderAttribute("u_height_groundBase", uvScaleFactorGround * terrainGrounds[groundBaseTextureIndex].height);
+        renderer2D.setShaderAttribute("u_width_liquidBase", uvScaleFactorLiquid * terrainLiquids[liquidBaseTextureIndex].width);
+        renderer2D.setShaderAttribute("u_height_liquidBase", uvScaleFactorLiquid * terrainLiquids[liquidBaseTextureIndex].height);
         renderer2D.setShaderAttribute("u_texture_ground_base", terrainGrounds[groundBaseTextureIndex]);
         renderer2D.setShaderAttribute("u_texture_ground", ground.getDefaultColorAttachment());
         renderer2D.setShaderAttribute("u_texture_liquid_base", terrainLiquids[liquidBaseTextureIndex]);
