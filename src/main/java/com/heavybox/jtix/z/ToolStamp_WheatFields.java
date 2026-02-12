@@ -100,7 +100,7 @@ public class ToolStamp_WheatFields extends Tool {
                 renderer2D.setColor(0.396f, 0.263f, 0.129f, 0.6f);
                 renderer2D.drawCurveFilled(null, 16.0f, 20, polygon, 0, 0, 0, 1, 1);
                 renderer2D.setColor(Color.WHITE);
-                renderer2D.drawPolygonFilled(polygon, bases[baseType], uv -> uv.rotateDeg(linesAngle), 0, 0, 0, 1, 1);
+                renderer2D.drawPolygonFilled(polygon, bases[baseType], uv -> uv.rotateDeg(linesAngle).scl(2), 0, 0, 0, 1, 1);
             }
         }
     }
