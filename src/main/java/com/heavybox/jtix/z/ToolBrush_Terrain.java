@@ -23,8 +23,8 @@ public class ToolBrush_Terrain extends Tool {
         super(scene);
         brushAdd = Assets.get("assets/tools/terrain-brush-draw.png");
         brushSub = Assets.get("assets/tools/terrain-brush-erase.png");
-        sclX = 0.1f;
-        sclY = 0.1f;
+        sclX = 0.5f;
+        sclY = 0.5f;
     }
 
     @Override

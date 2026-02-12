@@ -19,7 +19,7 @@ public class MapLayerLevel_0_new implements MapLayerLevel {
     public final Camera camera;
 
     private int groundBaseTextureIndex = 0;
-    private int liquidBaseTextureIndex = 1;
+    private int liquidBaseTextureIndex = 2;
     private float uvScaleFactorGround = 1; // TODO
     private float uvScaleFactorLiquid = 1; // TODO
     private final Texture[] terrainGrounds = new Texture[5];
