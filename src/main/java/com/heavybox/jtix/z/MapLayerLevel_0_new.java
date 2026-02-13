@@ -183,7 +183,7 @@ public class MapLayerLevel_0_new implements MapLayerLevel {
         renderer2D.blendingSet(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         for (CommandTerrainWheatFieldCreate cmd : commandsWheatFields) {
             System.out.println("hi");
-            renderer2D.setColor(0.396f, 0.263f, 0.129f, 0.4f);
+            renderer2D.setColor(0.3569f, 0.3098f, 0.2275f, 0.4f);
             renderer2D.drawCurveFilled(null, 11.0f, 20, cmd.polygon, 0, 0, 0, 1, 1);
             renderer2D.setColor(Color.WHITE);
             renderer2D.drawPolygonFilled(cmd.polygon, bases[cmd.baseType], uv -> uv.rotateDeg(cmd.linesAngle).scl(2), 0, 0, 0, 1, 1);

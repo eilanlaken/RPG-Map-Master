@@ -97,7 +97,7 @@ public class ToolStamp_WheatFields extends Tool {
             if (polygonPoints.size >= 3) {
                 // draw wheat field
                 float[] polygon = Utils.polygonConvertToFlat(polygonPoints);
-                renderer2D.setColor(0.396f, 0.263f, 0.129f, 0.6f);
+                renderer2D.setColor(0.3569f, 0.3098f, 0.2275f, 0.4f);
                 renderer2D.drawCurveFilled(null, 16.0f, 20, polygon, 0, 0, 0, 1, 1);
                 renderer2D.setColor(Color.WHITE);
                 renderer2D.drawPolygonFilled(polygon, bases[baseType], uv -> uv.rotateDeg(linesAngle).scl(2), 0, 0, 0, 1, 1);

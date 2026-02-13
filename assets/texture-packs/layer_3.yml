@@ -49,7 +49,7 @@ regions:
   textureIndex: 0
   x: 3143
   y: 400
-- name: assets/textures-layer-3/architecture_dwarf_decoration_0.png
+- name: assets/textures-layer-3/architecture_dwarf_side_view_decoration_0.png
   offsetX: 4
   offsetY: 274
   originalHeight: 587
@@ -199,7 +199,7 @@ regions:
   textureIndex: 0
   x: 695
   y: 2
-- name: assets/textures-layer-3/architecture_orc_tower_tall_0.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_tower_tall_0.png
   offsetX: 11
   offsetY: 216
   originalHeight: 445
@@ -209,7 +209,7 @@ regions:
   textureIndex: 0
   x: 2935
   y: 2
-- name: assets/textures-layer-3/architecture_orc_tower_tall_1.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_tower_tall_1.png
   offsetX: 11
   offsetY: 216
   originalHeight: 445
@@ -219,7 +219,7 @@ regions:
   textureIndex: 0
   x: 2815
   y: 2
-- name: assets/textures-layer-3/architecture_orc_tower_tall_2.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_tower_tall_2.png
   offsetX: 11
   offsetY: 216
   originalHeight: 445
@@ -229,7 +229,7 @@ regions:
   textureIndex: 0
   x: 3814
   y: 2
-- name: assets/textures-layer-3/architecture_orc_tower_tall_3.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_tower_tall_3.png
   offsetX: 11
   offsetY: 216
   originalHeight: 445
@@ -239,7 +239,7 @@ regions:
   textureIndex: 0
   x: 3934
   y: 2
-- name: assets/textures-layer-3/architecture_human_castle_tower_1.png
+- name: assets/textures-layer-3/architecture_human_side_view_tower_1.png
   offsetX: 64
   offsetY: 232
   originalHeight: 480
@@ -249,7 +249,7 @@ regions:
   textureIndex: 0
   x: 299
   y: 2
-- name: assets/textures-layer-3/architecture_orc_castle_tower_1.png
+- name: assets/textures-layer-3/architecture_orc_side_view_tower_1.png
   offsetX: 30
   offsetY: 213
   originalHeight: 445
@@ -279,7 +279,7 @@ regions:
   textureIndex: 0
   x: 395
   y: 2
-- name: assets/textures-layer-3/architecture_human_castle_tower_6.png
+- name: assets/textures-layer-3/architecture_human_side_view_tower_6.png
   offsetX: 69
   offsetY: 230
   originalHeight: 480
@@ -309,7 +309,7 @@ regions:
   textureIndex: 0
   x: 901
   y: 2
-- name: assets/textures-layer-3/architecture_dwarf_castle_tower_1.png
+- name: assets/textures-layer-3/architecture_dwarf_side_view_tower_1.png
   offsetX: 59
   offsetY: 205
   originalHeight: 445
@@ -329,7 +329,7 @@ regions:
   textureIndex: 0
   x: 3278
   y: 2
-- name: assets/textures-layer-3/architecture_orc_castle_tower_2.png
+- name: assets/textures-layer-3/architecture_orc_side_view_tower_2.png
   offsetX: 36
   offsetY: 212
   originalHeight: 445
@@ -339,7 +339,7 @@ regions:
   textureIndex: 0
   x: 3542
   y: 205
-- name: assets/textures-layer-3/architecture_orc_castle_tower_0.png
+- name: assets/textures-layer-3/architecture_orc_side_view_tower_0.png
   offsetX: 36
   offsetY: 213
   originalHeight: 445
@@ -349,7 +349,7 @@ regions:
   textureIndex: 0
   x: 3438
   y: 2
-- name: assets/textures-layer-3/architecture_human_castle_tower_2.png
+- name: assets/textures-layer-3/architecture_human_side_view_tower_2.png
   offsetX: 69
   offsetY: 231
   originalHeight: 480
@@ -359,7 +359,7 @@ regions:
   textureIndex: 0
   x: 1155
   y: 2
-- name: assets/textures-layer-3/architecture_dwarf_castle_tower_2.png
+- name: assets/textures-layer-3/architecture_dwarf_side_view_tower_2.png
   offsetX: 65
   offsetY: 205
   originalHeight: 445
@@ -369,7 +369,7 @@ regions:
   textureIndex: 0
   x: 2577
   y: 2
-- name: assets/textures-layer-3/architecture_human_castle_tower_0.png
+- name: assets/textures-layer-3/architecture_human_side_view_tower_0.png
   offsetX: 66
   offsetY: 232
   originalHeight: 480
@@ -419,7 +419,7 @@ regions:
   textureIndex: 0
   x: 1581
   y: 1146
-- name: assets/textures-layer-3/architecture_human_tower_tall_2.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_tower_tall_2.png
   offsetX: 0
   offsetY: 216
   originalHeight: 445
@@ -429,7 +429,7 @@ regions:
   textureIndex: 0
   x: 1248
   y: 2
-- name: assets/textures-layer-3/architecture_human_tower_tall_4.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_tower_tall_4.png
   offsetX: 0
   offsetY: 216
   originalHeight: 445
@@ -439,7 +439,7 @@ regions:
   textureIndex: 0
   x: 1332
   y: 2
-- name: assets/textures-layer-3/architecture_human_tower_tall_5.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_tower_tall_5.png
   offsetX: 0
   offsetY: 216
   originalHeight: 445
@@ -469,7 +469,7 @@ regions:
   textureIndex: 0
   x: 1369
   y: 555
-- name: assets/textures-layer-3/architecture_dwarf_castle_tower_5.png
+- name: assets/textures-layer-3/architecture_dwarf_side_view_tower_5.png
   offsetX: 72
   offsetY: 205
   originalHeight: 445
@@ -489,7 +489,7 @@ regions:
   textureIndex: 0
   x: 490
   y: 423
-- name: assets/textures-layer-3/architecture_human_bridge_5.png
+- name: assets/textures-layer-3/architecture_human_side_view_bridge_5.png
   offsetX: 39
   offsetY: 210
   originalHeight: 445
@@ -499,7 +499,7 @@ regions:
   textureIndex: 0
   x: 118
   y: 819
-- name: assets/textures-layer-3/architecture_human_bridge_3.png
+- name: assets/textures-layer-3/architecture_human_side_view_bridge_3.png
   offsetX: 39
   offsetY: 210
   originalHeight: 445
@@ -509,7 +509,7 @@ regions:
   textureIndex: 0
   x: 270
   y: 819
-- name: assets/textures-layer-3/architecture_dwarf_tower_tall_4.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_tower_tall_4.png
   offsetX: 78
   offsetY: 208
   originalHeight: 445
@@ -519,7 +519,7 @@ regions:
   textureIndex: 0
   x: 1077
   y: 2
-- name: assets/textures-layer-3/architecture_dwarf_tower_tall_5.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_tower_tall_5.png
   offsetX: 78
   offsetY: 208
   originalHeight: 445
@@ -549,7 +549,7 @@ regions:
   textureIndex: 0
   x: 1504
   y: 1241
-- name: assets/textures-layer-3/architecture_orc_bridge_3.png
+- name: assets/textures-layer-3/architecture_orc_side_view_bridge_3.png
   offsetX: 39
   offsetY: 210
   originalHeight: 445
@@ -559,7 +559,7 @@ regions:
   textureIndex: 0
   x: 969
   y: 936
-- name: assets/textures-layer-3/architecture_orc_bridge_4.png
+- name: assets/textures-layer-3/architecture_orc_side_view_bridge_4.png
   offsetX: 39
   offsetY: 210
   originalHeight: 445
@@ -569,7 +569,7 @@ regions:
   textureIndex: 0
   x: 274
   y: 936
-- name: assets/textures-layer-3/architecture_orc_bridge_5.png
+- name: assets/textures-layer-3/architecture_orc_side_view_bridge_5.png
   offsetX: 39
   offsetY: 210
   originalHeight: 445
@@ -589,7 +589,7 @@ regions:
   textureIndex: 0
   x: 3550
   y: 936
-- name: assets/textures-layer-3/architecture_elf_decoration_1.png
+- name: assets/textures-layer-3/architecture_elf_side_view_decoration_1.png
   offsetX: 77
   offsetY: 205
   originalHeight: 445
@@ -599,7 +599,7 @@ regions:
   textureIndex: 0
   x: 2
   y: 296
-- name: assets/textures-layer-3/architecture_orc_wall_front_0.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_wall_front_0.png
   offsetX: 1
   offsetY: 166
   originalHeight: 445
@@ -609,7 +609,7 @@ regions:
   textureIndex: 0
   x: 2
   y: 469
-- name: assets/textures-layer-3/architecture_orc_wall_front_1.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_wall_front_1.png
   offsetX: 1
   offsetY: 166
   originalHeight: 445
@@ -619,7 +619,7 @@ regions:
   textureIndex: 0
   x: 618
   y: 423
-- name: assets/textures-layer-3/architecture_orc_wall_front_2.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_wall_front_2.png
   offsetX: 1
   offsetY: 166
   originalHeight: 445
@@ -629,7 +629,7 @@ regions:
   textureIndex: 0
   x: 1696
   y: 550
-- name: assets/textures-layer-3/architecture_orc_wall_front_3.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_wall_front_3.png
   offsetX: 1
   offsetY: 166
   originalHeight: 445
@@ -639,7 +639,7 @@ regions:
   textureIndex: 0
   x: 1930
   y: 550
-- name: assets/textures-layer-3/architecture_orc_wall_front_4.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_wall_front_4.png
   offsetX: 1
   offsetY: 166
   originalHeight: 445
@@ -649,7 +649,7 @@ regions:
   textureIndex: 0
   x: 1813
   y: 550
-- name: assets/textures-layer-3/architecture_orc_wall_front_5.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_wall_front_5.png
   offsetX: 1
   offsetY: 166
   originalHeight: 445
@@ -659,7 +659,7 @@ regions:
   textureIndex: 0
   x: 257
   y: 425
-- name: assets/textures-layer-3/architecture_human_bridge_0.png
+- name: assets/textures-layer-3/architecture_human_side_view_bridge_0.png
   offsetX: 39
   offsetY: 210
   originalHeight: 445
@@ -669,7 +669,7 @@ regions:
   textureIndex: 0
   x: 2045
   y: 938
-- name: assets/textures-layer-3/architecture_elf_wall_front_0.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_wall_front_0.png
   offsetX: 0
   offsetY: 174
   originalHeight: 445
@@ -679,7 +679,7 @@ regions:
   textureIndex: 0
   x: 490
   y: 564
-- name: assets/textures-layer-3/architecture_elf_wall_front_1.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_wall_front_1.png
   offsetX: 0
   offsetY: 174
   originalHeight: 445
@@ -689,7 +689,7 @@ regions:
   textureIndex: 0
   x: 3119
   y: 571
-- name: assets/textures-layer-3/architecture_elf_wall_front_2.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_wall_front_2.png
   offsetX: 0
   offsetY: 174
   originalHeight: 445
@@ -699,7 +699,7 @@ regions:
   textureIndex: 0
   x: 315
   y: 565
-- name: assets/textures-layer-3/architecture_elf_wall_front_3.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_wall_front_3.png
   offsetX: 0
   offsetY: 174
   originalHeight: 445
@@ -709,7 +709,7 @@ regions:
   textureIndex: 0
   x: 2843
   y: 559
-- name: assets/textures-layer-3/architecture_elf_wall_front_4.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_wall_front_4.png
   offsetX: 0
   offsetY: 174
   originalHeight: 445
@@ -719,7 +719,7 @@ regions:
   textureIndex: 0
   x: 193
   y: 564
-- name: assets/textures-layer-3/architecture_elf_wall_front_5.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_wall_front_5.png
   offsetX: 0
   offsetY: 174
   originalHeight: 445
@@ -729,7 +729,7 @@ regions:
   textureIndex: 0
   x: 612
   y: 564
-- name: assets/textures-layer-3/architecture_elf_bridge_0.png
+- name: assets/textures-layer-3/architecture_elf_side_view_bridge_0.png
   offsetX: 38
   offsetY: 210
   originalHeight: 445
@@ -739,7 +739,7 @@ regions:
   textureIndex: 0
   x: 3334
   y: 939
-- name: assets/textures-layer-3/architecture_elf_bridge_1.png
+- name: assets/textures-layer-3/architecture_elf_side_view_bridge_1.png
   offsetX: 38
   offsetY: 210
   originalHeight: 445
@@ -749,7 +749,7 @@ regions:
   textureIndex: 0
   x: 3178
   y: 939
-- name: assets/textures-layer-3/architecture_elf_bridge_2.png
+- name: assets/textures-layer-3/architecture_elf_side_view_bridge_2.png
   offsetX: 38
   offsetY: 210
   originalHeight: 445
@@ -779,7 +779,7 @@ regions:
   textureIndex: 0
   x: 786
   y: 413
-- name: assets/textures-layer-3/architecture_elf_bridge_3.png
+- name: assets/textures-layer-3/architecture_elf_side_view_bridge_3.png
   offsetX: 38
   offsetY: 210
   originalHeight: 445
@@ -789,7 +789,7 @@ regions:
   textureIndex: 0
   x: 2457
   y: 1044
-- name: assets/textures-layer-3/architecture_elf_bridge_4.png
+- name: assets/textures-layer-3/architecture_elf_side_view_bridge_4.png
   offsetX: 38
   offsetY: 210
   originalHeight: 445
@@ -799,7 +799,7 @@ regions:
   textureIndex: 0
   x: 755
   y: 1043
-- name: assets/textures-layer-3/architecture_elf_bridge_5.png
+- name: assets/textures-layer-3/architecture_elf_side_view_bridge_5.png
   offsetX: 38
   offsetY: 210
   originalHeight: 445
@@ -809,7 +809,7 @@ regions:
   textureIndex: 0
   x: 3523
   y: 1044
-- name: assets/textures-layer-3/architecture_human_castle_tower_5.png
+- name: assets/textures-layer-3/architecture_human_side_view_tower_5.png
   offsetX: 69
   offsetY: 231
   originalHeight: 480
@@ -819,7 +819,7 @@ regions:
   textureIndex: 0
   x: 299
   y: 251
-- name: assets/textures-layer-3/architecture_elf_house_diagonal_tall_0.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_house_diagonal_tall_0.png
   offsetX: 50
   offsetY: 192
   originalHeight: 445
@@ -829,7 +829,7 @@ regions:
   textureIndex: 0
   x: 1492
   y: 691
-- name: assets/textures-layer-3/architecture_elf_house_diagonal_tall_1.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_house_diagonal_tall_1.png
   offsetX: 50
   offsetY: 192
   originalHeight: 445
@@ -839,7 +839,7 @@ regions:
   textureIndex: 0
   x: 1369
   y: 691
-- name: assets/textures-layer-3/architecture_elf_house_diagonal_tall_2.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_house_diagonal_tall_2.png
   offsetX: 50
   offsetY: 192
   originalHeight: 445
@@ -849,7 +849,7 @@ regions:
   textureIndex: 0
   x: 3855
   y: 690
-- name: assets/textures-layer-3/architecture_elf_house_diagonal_tall_3.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_house_diagonal_tall_3.png
   offsetX: 50
   offsetY: 192
   originalHeight: 445
@@ -859,7 +859,7 @@ regions:
   textureIndex: 0
   x: 1094
   y: 690
-- name: assets/textures-layer-3/architecture_elf_house_diagonal_tall_4.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_house_diagonal_tall_4.png
   offsetX: 50
   offsetY: 192
   originalHeight: 445
@@ -869,7 +869,7 @@ regions:
   textureIndex: 0
   x: 971
   y: 690
-- name: assets/textures-layer-3/architecture_elf_house_diagonal_tall_5.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_house_diagonal_tall_5.png
   offsetX: 50
   offsetY: 192
   originalHeight: 445
@@ -879,7 +879,7 @@ regions:
   textureIndex: 0
   x: 848
   y: 690
-- name: assets/textures-layer-3/architecture_human_wall_front_0.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_wall_front_0.png
   offsetX: 2
   offsetY: 166
   originalHeight: 445
@@ -889,7 +889,7 @@ regions:
   textureIndex: 0
   x: 2160
   y: 552
-- name: assets/textures-layer-3/architecture_human_wall_front_1.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_wall_front_1.png
   offsetX: 2
   offsetY: 166
   originalHeight: 445
@@ -899,7 +899,7 @@ regions:
   textureIndex: 0
   x: 2047
   y: 550
-- name: assets/textures-layer-3/architecture_human_wall_front_2.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_wall_front_2.png
   offsetX: 2
   offsetY: 166
   originalHeight: 445
@@ -909,7 +909,7 @@ regions:
   textureIndex: 0
   x: 2273
   y: 552
-- name: assets/textures-layer-3/architecture_human_wall_front_3.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_wall_front_3.png
   offsetX: 2
   offsetY: 166
   originalHeight: 445
@@ -919,7 +919,7 @@ regions:
   textureIndex: 0
   x: 2386
   y: 552
-- name: assets/textures-layer-3/architecture_human_wall_front_4.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_wall_front_4.png
   offsetX: 2
   offsetY: 166
   originalHeight: 445
@@ -929,7 +929,7 @@ regions:
   textureIndex: 0
   x: 2499
   y: 552
-- name: assets/textures-layer-3/architecture_human_wall_front_5.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_wall_front_5.png
   offsetX: 2
   offsetY: 166
   originalHeight: 445
@@ -949,7 +949,7 @@ regions:
   textureIndex: 0
   x: 1117
   y: 405
-- name: assets/textures-layer-3/architecture_orc_castle_tower_5.png
+- name: assets/textures-layer-3/architecture_orc_side_view_tower_5.png
   offsetX: 33
   offsetY: 209
   originalHeight: 445
@@ -959,7 +959,7 @@ regions:
   textureIndex: 0
   x: 1502
   y: 555
-- name: assets/textures-layer-3/architecture_orc_bridge_0.png
+- name: assets/textures-layer-3/architecture_orc_side_view_bridge_0.png
   offsetX: 39
   offsetY: 210
   originalHeight: 445
@@ -969,7 +969,7 @@ regions:
   textureIndex: 0
   x: 3068
   y: 1042
-- name: assets/textures-layer-3/architecture_orc_bridge_1.png
+- name: assets/textures-layer-3/architecture_orc_side_view_bridge_1.png
   offsetX: 39
   offsetY: 210
   originalHeight: 445
@@ -979,7 +979,7 @@ regions:
   textureIndex: 0
   x: 3220
   y: 1042
-- name: assets/textures-layer-3/architecture_orc_bridge_2.png
+- name: assets/textures-layer-3/architecture_orc_side_view_bridge_2.png
   offsetX: 39
   offsetY: 210
   originalHeight: 445
@@ -989,7 +989,7 @@ regions:
   textureIndex: 0
   x: 2305
   y: 1041
-- name: assets/textures-layer-3/architecture_dwarf_castle_tower_0.png
+- name: assets/textures-layer-3/architecture_dwarf_side_view_tower_0.png
   offsetX: 74
   offsetY: 208
   originalHeight: 445
@@ -999,7 +999,7 @@ regions:
   textureIndex: 0
   x: 3055
   y: 2
-- name: assets/textures-layer-3/architecture_human_bridge_2.png
+- name: assets/textures-layer-3/architecture_human_side_view_bridge_2.png
   offsetX: 39
   offsetY: 210
   originalHeight: 445
@@ -1009,7 +1009,7 @@ regions:
   textureIndex: 0
   x: 3372
   y: 1042
-- name: assets/textures-layer-3/architecture_orc_castle_block_0.png
+- name: assets/textures-layer-3/architecture_orc_side_view_block_0.png
   offsetX: 0
   offsetY: 215
   originalHeight: 445
@@ -1059,7 +1059,7 @@ regions:
   textureIndex: 0
   x: 735
   y: 555
-- name: assets/textures-layer-3/architecture_orc_tower_tall_4.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_tower_tall_4.png
   offsetX: 6
   offsetY: 216
   originalHeight: 445
@@ -1069,7 +1069,7 @@ regions:
   textureIndex: 0
   x: 3204
   y: 2
-- name: assets/textures-layer-3/architecture_orc_tower_tall_5.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_tower_tall_5.png
   offsetX: 6
   offsetY: 216
   originalHeight: 445
@@ -1079,7 +1079,7 @@ regions:
   textureIndex: 0
   x: 3130
   y: 2
-- name: assets/textures-layer-3/architecture_dwarf_tower_tall_2.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_tower_tall_2.png
   offsetX: 79
   offsetY: 208
   originalHeight: 445
@@ -1089,7 +1089,7 @@ regions:
   textureIndex: 0
   x: 3438
   y: 206
-- name: assets/textures-layer-3/architecture_dwarf_tower_tall_3.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_tower_tall_3.png
   offsetX: 79
   offsetY: 208
   originalHeight: 445
@@ -1099,7 +1099,7 @@ regions:
   textureIndex: 0
   x: 3278
   y: 207
-- name: assets/textures-layer-3/architecture_human_house_diagonal_tall_0.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_house_diagonal_tall_0.png
   offsetX: 34
   offsetY: 192
   originalHeight: 445
@@ -1109,7 +1109,7 @@ regions:
   textureIndex: 0
   x: 1846
   y: 689
-- name: assets/textures-layer-3/architecture_human_house_diagonal_tall_1.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_house_diagonal_tall_1.png
   offsetX: 34
   offsetY: 192
   originalHeight: 445
@@ -1119,7 +1119,7 @@ regions:
   textureIndex: 0
   x: 2
   y: 608
-- name: assets/textures-layer-3/architecture_human_house_diagonal_tall_2.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_house_diagonal_tall_2.png
   offsetX: 34
   offsetY: 192
   originalHeight: 445
@@ -1129,7 +1129,7 @@ regions:
   textureIndex: 0
   x: 1618
   y: 689
-- name: assets/textures-layer-3/architecture_human_house_diagonal_tall_3.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_house_diagonal_tall_3.png
   offsetX: 34
   offsetY: 192
   originalHeight: 445
@@ -1139,7 +1139,7 @@ regions:
   textureIndex: 0
   x: 1732
   y: 689
-- name: assets/textures-layer-3/architecture_human_house_diagonal_tall_4.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_house_diagonal_tall_4.png
   offsetX: 34
   offsetY: 192
   originalHeight: 445
@@ -1149,7 +1149,7 @@ regions:
   textureIndex: 0
   x: 1960
   y: 689
-- name: assets/textures-layer-3/architecture_human_house_diagonal_tall_5.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_house_diagonal_tall_5.png
   offsetX: 34
   offsetY: 192
   originalHeight: 445
@@ -1159,7 +1159,7 @@ regions:
   textureIndex: 0
   x: 3570
   y: 689
-- name: assets/textures-layer-3/architecture_dwarf_bridge_5.png
+- name: assets/textures-layer-3/architecture_dwarf_side_view_bridge_5.png
   offsetX: 38
   offsetY: 209
   originalHeight: 445
@@ -1169,7 +1169,7 @@ regions:
   textureIndex: 0
   x: 2417
   y: 1146
-- name: assets/textures-layer-3/architecture_dwarf_wall_back_0.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_wall_back_0.png
   offsetX: 0
   offsetY: 181
   originalHeight: 445
@@ -1179,7 +1179,7 @@ regions:
   textureIndex: 0
   x: 1738
   y: 818
-- name: assets/textures-layer-3/architecture_dwarf_wall_back_1.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_wall_back_1.png
   offsetX: 0
   offsetY: 181
   originalHeight: 445
@@ -1189,7 +1189,7 @@ regions:
   textureIndex: 0
   x: 3550
   y: 818
-- name: assets/textures-layer-3/architecture_dwarf_wall_back_2.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_wall_back_2.png
   offsetX: 0
   offsetY: 181
   originalHeight: 445
@@ -1199,7 +1199,7 @@ regions:
   textureIndex: 0
   x: 1615
   y: 818
-- name: assets/textures-layer-3/architecture_dwarf_wall_back_3.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_wall_back_3.png
   offsetX: 0
   offsetY: 181
   originalHeight: 445
@@ -1209,7 +1209,7 @@ regions:
   textureIndex: 0
   x: 1092
   y: 818
-- name: assets/textures-layer-3/architecture_dwarf_wall_back_4.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_wall_back_4.png
   offsetX: 0
   offsetY: 181
   originalHeight: 445
@@ -1219,7 +1219,7 @@ regions:
   textureIndex: 0
   x: 1861
   y: 818
-- name: assets/textures-layer-3/architecture_dwarf_wall_back_5.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_wall_back_5.png
   offsetX: 0
   offsetY: 181
   originalHeight: 445
@@ -1229,7 +1229,7 @@ regions:
   textureIndex: 0
   x: 969
   y: 818
-- name: assets/textures-layer-3/architecture_elf_castle_tower_0.png
+- name: assets/textures-layer-3/architecture_elf_side_view_tower_0.png
   offsetX: 68
   offsetY: 211
   originalHeight: 445
@@ -1259,7 +1259,7 @@ regions:
   textureIndex: 0
   x: 2838
   y: 1405
-- name: assets/textures-layer-3/architecture_dwarf_tower_tall_0.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_tower_tall_0.png
   offsetX: 80
   offsetY: 208
   originalHeight: 445
@@ -1269,7 +1269,7 @@ regions:
   textureIndex: 0
   x: 3658
   y: 204
-- name: assets/textures-layer-3/architecture_dwarf_tower_tall_1.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_tower_tall_1.png
   offsetX: 80
   offsetY: 208
   originalHeight: 445
@@ -1279,7 +1279,7 @@ regions:
   textureIndex: 0
   x: 3732
   y: 204
-- name: assets/textures-layer-3/architecture_dwarf_bridge_3.png
+- name: assets/textures-layer-3/architecture_dwarf_side_view_bridge_3.png
   offsetX: 38
   offsetY: 209
   originalHeight: 445
@@ -1289,7 +1289,7 @@ regions:
   textureIndex: 0
   x: 2
   y: 1147
-- name: assets/textures-layer-3/architecture_dwarf_bridge_0.png
+- name: assets/textures-layer-3/architecture_dwarf_side_view_bridge_0.png
   offsetX: 38
   offsetY: 209
   originalHeight: 445
@@ -1299,7 +1299,7 @@ regions:
   textureIndex: 0
   x: 3511
   y: 1146
-- name: assets/textures-layer-3/architecture_orc_house_diagonal_tall_0.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_house_diagonal_tall_0.png
   offsetX: 34
   offsetY: 192
   originalHeight: 445
@@ -1309,7 +1309,7 @@ regions:
   textureIndex: 0
   x: 3357
   y: 702
-- name: assets/textures-layer-3/architecture_orc_house_diagonal_tall_1.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_house_diagonal_tall_1.png
   offsetX: 34
   offsetY: 192
   originalHeight: 445
@@ -1319,7 +1319,7 @@ regions:
   textureIndex: 0
   x: 304
   y: 697
-- name: assets/textures-layer-3/architecture_orc_house_diagonal_tall_2.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_house_diagonal_tall_2.png
   offsetX: 34
   offsetY: 192
   originalHeight: 445
@@ -1329,7 +1329,7 @@ regions:
   textureIndex: 0
   x: 2
   y: 737
-- name: assets/textures-layer-3/architecture_orc_house_diagonal_tall_3.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_house_diagonal_tall_3.png
   offsetX: 34
   offsetY: 192
   originalHeight: 445
@@ -1339,7 +1339,7 @@ regions:
   textureIndex: 0
   x: 3241
   y: 702
-- name: assets/textures-layer-3/architecture_orc_house_diagonal_tall_4.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_house_diagonal_tall_4.png
   offsetX: 34
   offsetY: 192
   originalHeight: 445
@@ -1349,7 +1349,7 @@ regions:
   textureIndex: 0
   x: 2540
   y: 814
-- name: assets/textures-layer-3/architecture_orc_house_diagonal_tall_5.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_house_diagonal_tall_5.png
   offsetX: 34
   offsetY: 192
   originalHeight: 445
@@ -1359,7 +1359,7 @@ regions:
   textureIndex: 0
   x: 3097
   y: 703
-- name: assets/textures-layer-3/architecture_elf_castle_tower_3.png
+- name: assets/textures-layer-3/architecture_elf_side_view_tower_3.png
   offsetX: 72
   offsetY: 211
   originalHeight: 445
@@ -1369,7 +1369,7 @@ regions:
   textureIndex: 0
   x: 885
   y: 236
-- name: assets/textures-layer-3/architecture_orc_wall_back_0.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_wall_back_0.png
   offsetX: 5
   offsetY: 181
   originalHeight: 445
@@ -1379,7 +1379,7 @@ regions:
   textureIndex: 0
   x: 3734
   y: 814
-- name: assets/textures-layer-3/architecture_orc_wall_back_1.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_wall_back_1.png
   offsetX: 5
   offsetY: 181
   originalHeight: 445
@@ -1389,7 +1389,7 @@ regions:
   textureIndex: 0
   x: 642
   y: 815
-- name: assets/textures-layer-3/architecture_orc_wall_back_2.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_wall_back_2.png
   offsetX: 5
   offsetY: 181
   originalHeight: 445
@@ -1399,7 +1399,7 @@ regions:
   textureIndex: 0
   x: 1217
   y: 815
-- name: assets/textures-layer-3/architecture_orc_wall_back_3.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_wall_back_3.png
   offsetX: 5
   offsetY: 181
   originalHeight: 445
@@ -1409,7 +1409,7 @@ regions:
   textureIndex: 0
   x: 2886
   y: 815
-- name: assets/textures-layer-3/architecture_orc_wall_back_4.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_wall_back_4.png
   offsetX: 5
   offsetY: 181
   originalHeight: 445
@@ -1419,7 +1419,7 @@ regions:
   textureIndex: 0
   x: 2656
   y: 815
-- name: assets/textures-layer-3/architecture_orc_wall_back_5.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_wall_back_5.png
   offsetX: 5
   offsetY: 181
   originalHeight: 445
@@ -1429,7 +1429,7 @@ regions:
   textureIndex: 0
   x: 2771
   y: 815
-- name: assets/textures-layer-3/architecture_human_bridge_4.png
+- name: assets/textures-layer-3/architecture_human_side_view_bridge_4.png
   offsetX: 39
   offsetY: 210
   originalHeight: 445
@@ -1439,7 +1439,7 @@ regions:
   textureIndex: 0
   x: 2030
   y: 1146
-- name: assets/textures-layer-3/architecture_dwarf_castle_block_0.png
+- name: assets/textures-layer-3/architecture_dwarf_side_view_block_0.png
   offsetX: 42
   offsetY: 212
   originalHeight: 445
@@ -1449,7 +1449,7 @@ regions:
   textureIndex: 0
   x: 2045
   y: 1045
-- name: assets/textures-layer-3/architecture_human_wall_back_0.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_wall_back_0.png
   offsetX: 6
   offsetY: 181
   originalHeight: 445
@@ -1459,7 +1459,7 @@ regions:
   textureIndex: 0
   x: 2074
   y: 816
-- name: assets/textures-layer-3/architecture_human_wall_back_1.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_wall_back_1.png
   offsetX: 6
   offsetY: 181
   originalHeight: 445
@@ -1469,7 +1469,7 @@ regions:
   textureIndex: 0
   x: 2187
   y: 816
-- name: assets/textures-layer-3/architecture_human_wall_back_2.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_wall_back_2.png
   offsetX: 6
   offsetY: 181
   originalHeight: 445
@@ -1479,7 +1479,7 @@ regions:
   textureIndex: 0
   x: 3978
   y: 816
-- name: assets/textures-layer-3/architecture_human_wall_back_3.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_wall_back_3.png
   offsetX: 6
   offsetY: 181
   originalHeight: 445
@@ -1489,7 +1489,7 @@ regions:
   textureIndex: 0
   x: 757
   y: 818
-- name: assets/textures-layer-3/architecture_human_wall_back_4.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_wall_back_4.png
   offsetX: 6
   offsetY: 181
   originalHeight: 445
@@ -1499,7 +1499,7 @@ regions:
   textureIndex: 0
   x: 2413
   y: 816
-- name: assets/textures-layer-3/architecture_human_wall_back_5.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_wall_back_5.png
   offsetX: 6
   offsetY: 181
   originalHeight: 445
@@ -1509,7 +1509,7 @@ regions:
   textureIndex: 0
   x: 2300
   y: 816
-- name: assets/textures-layer-3/architecture_dwarf_wall_front_5.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_wall_front_5.png
   offsetX: 8
   offsetY: 172
   originalHeight: 445
@@ -1519,7 +1519,7 @@ regions:
   textureIndex: 0
   x: 2429
   y: 691
-- name: assets/textures-layer-3/architecture_dwarf_wall_front_0.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_wall_front_0.png
   offsetX: 8
   offsetY: 173
   originalHeight: 445
@@ -1529,7 +1529,7 @@ regions:
   textureIndex: 0
   x: 734
   y: 692
-- name: assets/textures-layer-3/architecture_dwarf_wall_front_1.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_wall_front_1.png
   offsetX: 8
   offsetY: 173
   originalHeight: 445
@@ -1539,7 +1539,7 @@ regions:
   textureIndex: 0
   x: 193
   y: 696
-- name: assets/textures-layer-3/architecture_dwarf_wall_front_2.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_wall_front_2.png
   offsetX: 8
   offsetY: 173
   originalHeight: 445
@@ -1549,7 +1549,7 @@ regions:
   textureIndex: 0
   x: 3734
   y: 691
-- name: assets/textures-layer-3/architecture_dwarf_wall_front_3.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_wall_front_3.png
   offsetX: 8
   offsetY: 173
   originalHeight: 445
@@ -1559,7 +1559,7 @@ regions:
   textureIndex: 0
   x: 2693
   y: 692
-- name: assets/textures-layer-3/architecture_dwarf_wall_front_4.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_wall_front_4.png
   offsetX: 8
   offsetY: 173
   originalHeight: 445
@@ -1569,7 +1569,7 @@ regions:
   textureIndex: 0
   x: 1217
   y: 692
-- name: assets/textures-layer-3/architecture_dwarf_bridge_2.png
+- name: assets/textures-layer-3/architecture_dwarf_side_view_bridge_2.png
   offsetX: 37
   offsetY: 209
   originalHeight: 445
@@ -1579,7 +1579,7 @@ regions:
   textureIndex: 0
   x: 330
   y: 1324
-- name: assets/textures-layer-3/architecture_human_bridge_1.png
+- name: assets/textures-layer-3/architecture_human_side_view_bridge_1.png
   offsetX: 39
   offsetY: 210
   originalHeight: 445
@@ -1589,7 +1589,7 @@ regions:
   textureIndex: 0
   x: 179
   y: 1238
-- name: assets/textures-layer-3/architecture_human_castle_tower_3.png
+- name: assets/textures-layer-3/architecture_human_side_view_tower_3.png
   offsetX: 68
   offsetY: 231
   originalHeight: 480
@@ -1599,7 +1599,7 @@ regions:
   textureIndex: 0
   x: 1604
   y: 407
-- name: assets/textures-layer-3/architecture_dwarf_bridge_1.png
+- name: assets/textures-layer-3/architecture_dwarf_side_view_bridge_1.png
   offsetX: 38
   offsetY: 209
   originalHeight: 445
@@ -1609,7 +1609,7 @@ regions:
   textureIndex: 0
   x: 1703
   y: 1241
-- name: assets/textures-layer-3/architecture_elf_castle_tower_4.png
+- name: assets/textures-layer-3/architecture_elf_side_view_tower_4.png
   offsetX: 75
   offsetY: 211
   originalHeight: 445
@@ -1619,7 +1619,7 @@ regions:
   textureIndex: 0
   x: 207
   y: 252
-- name: assets/textures-layer-3/architecture_orc_castle_tower_4.png
+- name: assets/textures-layer-3/architecture_orc_side_view_tower_4.png
   offsetX: 35
   offsetY: 212
   originalHeight: 445
@@ -1629,7 +1629,7 @@ regions:
   textureIndex: 0
   x: 437
   y: 696
-- name: assets/textures-layer-3/architecture_elf_house_horizontal_tall_0.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_house_horizontal_tall_0.png
   offsetX: 36
   offsetY: 212
   originalHeight: 445
@@ -1639,7 +1639,7 @@ regions:
   textureIndex: 0
   x: 2121
   y: 1241
-- name: assets/textures-layer-3/architecture_elf_house_horizontal_tall_1.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_house_horizontal_tall_1.png
   offsetX: 36
   offsetY: 212
   originalHeight: 445
@@ -1649,7 +1649,7 @@ regions:
   textureIndex: 0
   x: 744
   y: 1242
-- name: assets/textures-layer-3/architecture_elf_house_horizontal_tall_2.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_house_horizontal_tall_2.png
   offsetX: 36
   offsetY: 212
   originalHeight: 445
@@ -1659,7 +1659,7 @@ regions:
   textureIndex: 0
   x: 2605
   y: 1242
-- name: assets/textures-layer-3/architecture_elf_house_horizontal_tall_3.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_house_horizontal_tall_3.png
   offsetX: 36
   offsetY: 212
   originalHeight: 445
@@ -1669,7 +1669,7 @@ regions:
   textureIndex: 0
   x: 2756
   y: 1242
-- name: assets/textures-layer-3/architecture_elf_house_horizontal_tall_4.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_house_horizontal_tall_4.png
   offsetX: 36
   offsetY: 212
   originalHeight: 445
@@ -1679,7 +1679,7 @@ regions:
   textureIndex: 0
   x: 2907
   y: 1242
-- name: assets/textures-layer-3/architecture_elf_house_horizontal_tall_5.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_house_horizontal_tall_5.png
   offsetX: 36
   offsetY: 212
   originalHeight: 445
@@ -1689,7 +1689,7 @@ regions:
   textureIndex: 0
   x: 895
   y: 1242
-- name: assets/textures-layer-3/architecture_dwarf_bridge_4.png
+- name: assets/textures-layer-3/architecture_dwarf_side_view_bridge_4.png
   offsetX: 38
   offsetY: 209
   originalHeight: 445
@@ -1699,7 +1699,7 @@ regions:
   textureIndex: 0
   x: 2121
   y: 1326
-- name: assets/textures-layer-3/architecture_elf_wall_back_0.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_wall_back_0.png
   offsetX: 7
   offsetY: 182
   originalHeight: 445
@@ -1709,7 +1709,7 @@ regions:
   textureIndex: 0
   x: 3849
   y: 935
-- name: assets/textures-layer-3/architecture_elf_wall_back_1.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_wall_back_1.png
   offsetX: 7
   offsetY: 182
   originalHeight: 445
@@ -1719,7 +1719,7 @@ regions:
   textureIndex: 0
   x: 1382
   y: 934
-- name: assets/textures-layer-3/architecture_elf_wall_back_2.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_wall_back_2.png
   offsetX: 7
   offsetY: 182
   originalHeight: 445
@@ -1729,7 +1729,7 @@ regions:
   textureIndex: 0
   x: 52
   y: 936
-- name: assets/textures-layer-3/architecture_elf_wall_back_3.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_wall_back_3.png
   offsetX: 7
   offsetY: 182
   originalHeight: 445
@@ -1739,7 +1739,7 @@ regions:
   textureIndex: 0
   x: 163
   y: 936
-- name: assets/textures-layer-3/architecture_elf_wall_back_4.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_wall_back_4.png
   offsetX: 7
   offsetY: 182
   originalHeight: 445
@@ -1749,7 +1749,7 @@ regions:
   textureIndex: 0
   x: 527
   y: 935
-- name: assets/textures-layer-3/architecture_elf_wall_back_5.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_wall_back_5.png
   offsetX: 7
   offsetY: 182
   originalHeight: 445
@@ -1759,7 +1759,7 @@ regions:
   textureIndex: 0
   x: 1493
   y: 934
-- name: assets/textures-layer-3/architecture_dwarf_house_diagonal_tall_0.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_house_diagonal_tall_0.png
   offsetX: 52
   offsetY: 189
   originalHeight: 445
@@ -1769,7 +1769,7 @@ regions:
   textureIndex: 0
   x: 1859
   y: 936
-- name: assets/textures-layer-3/architecture_dwarf_house_diagonal_tall_1.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_house_diagonal_tall_1.png
   offsetX: 52
   offsetY: 189
   originalHeight: 445
@@ -1779,7 +1779,7 @@ regions:
   textureIndex: 0
   x: 2643
   y: 937
-- name: assets/textures-layer-3/architecture_dwarf_house_diagonal_tall_2.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_house_diagonal_tall_2.png
   offsetX: 52
   offsetY: 189
   originalHeight: 445
@@ -1789,7 +1789,7 @@ regions:
   textureIndex: 0
   x: 1121
   y: 937
-- name: assets/textures-layer-3/architecture_dwarf_house_diagonal_tall_3.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_house_diagonal_tall_3.png
   offsetX: 52
   offsetY: 189
   originalHeight: 445
@@ -1799,7 +1799,7 @@ regions:
   textureIndex: 0
   x: 638
   y: 937
-- name: assets/textures-layer-3/architecture_dwarf_house_diagonal_tall_4.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_house_diagonal_tall_4.png
   offsetX: 52
   offsetY: 189
   originalHeight: 445
@@ -1809,7 +1809,7 @@ regions:
   textureIndex: 0
   x: 2526
   y: 936
-- name: assets/textures-layer-3/architecture_dwarf_house_diagonal_tall_5.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_house_diagonal_tall_5.png
   offsetX: 52
   offsetY: 189
   originalHeight: 445
@@ -1819,7 +1819,7 @@ regions:
   textureIndex: 0
   x: 3702
   y: 936
-- name: assets/textures-layer-3/architecture_human_house_horizontal_tall_2.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_house_horizontal_tall_2.png
   offsetX: 23
   offsetY: 212
   originalHeight: 445
@@ -1829,7 +1829,7 @@ regions:
   textureIndex: 0
   x: 572
   y: 1147
-- name: assets/textures-layer-3/architecture_human_house_horizontal_tall_4.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_house_horizontal_tall_4.png
   offsetX: 23
   offsetY: 216
   originalHeight: 445
@@ -1839,7 +1839,7 @@ regions:
   textureIndex: 0
   x: 160
   y: 1147
-- name: assets/textures-layer-3/architecture_dwarf_castle_tower_8.png
+- name: assets/textures-layer-3/architecture_dwarf_side_view_tower_8.png
   offsetX: 70
   offsetY: 205
   originalHeight: 445
@@ -1849,7 +1849,7 @@ regions:
   textureIndex: 0
   x: 966
   y: 406
-- name: assets/textures-layer-3/architecture_orc_castle_block_1.png
+- name: assets/textures-layer-3/architecture_orc_side_view_block_1.png
   offsetX: 28
   offsetY: 215
   originalHeight: 445
@@ -1859,7 +1859,7 @@ regions:
   textureIndex: 0
   x: 2613
   y: 1045
-- name: assets/textures-layer-3/architecture_human_house_horizontal_tall_0.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_house_horizontal_tall_0.png
   offsetX: 22
   offsetY: 214
   originalHeight: 445
@@ -1869,7 +1869,7 @@ regions:
   textureIndex: 0
   x: 3511
   y: 1238
-- name: assets/textures-layer-3/architecture_human_house_horizontal_tall_1.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_house_horizontal_tall_1.png
   offsetX: 23
   offsetY: 215
   originalHeight: 445
@@ -1879,7 +1879,7 @@ regions:
   textureIndex: 0
   x: 500
   y: 1238
-- name: assets/textures-layer-3/architecture_human_house_horizontal_tall_3.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_house_horizontal_tall_3.png
   offsetX: 22
   offsetY: 214
   originalHeight: 445
@@ -1899,7 +1899,7 @@ regions:
   textureIndex: 0
   x: 543
   y: 696
-- name: assets/textures-layer-3/architecture_human_house_horizontal_tall_5.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_house_horizontal_tall_5.png
   offsetX: 31
   offsetY: 215
   originalHeight: 445
@@ -1909,7 +1909,7 @@ regions:
   textureIndex: 0
   x: 1144
   y: 1147
-- name: assets/textures-layer-3/architecture_elf_castle_tower_9.png
+- name: assets/textures-layer-3/architecture_elf_side_view_tower_9.png
   offsetX: 74
   offsetY: 180
   originalHeight: 445
@@ -1929,7 +1929,7 @@ regions:
   textureIndex: 0
   x: 870
   y: 818
-- name: assets/textures-layer-3/architecture_dwarf_tower_short_4.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_tower_short_4.png
   offsetX: 78
   offsetY: 208
   originalHeight: 445
@@ -1939,7 +1939,7 @@ regions:
   textureIndex: 0
   x: 3015
   y: 403
-- name: assets/textures-layer-3/architecture_dwarf_tower_short_5.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_tower_short_5.png
   offsetX: 78
   offsetY: 208
   originalHeight: 445
@@ -1949,7 +1949,7 @@ regions:
   textureIndex: 0
   x: 3664
   y: 400
-- name: assets/textures-layer-3/architecture_human_tower_short_0.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_tower_short_0.png
   offsetX: 5
   offsetY: 216
   originalHeight: 445
@@ -1959,7 +1959,7 @@ regions:
   textureIndex: 0
   x: 1367
   y: 404
-- name: assets/textures-layer-3/architecture_human_tower_short_1.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_tower_short_1.png
   offsetX: 5
   offsetY: 216
   originalHeight: 445
@@ -1969,7 +1969,7 @@ regions:
   textureIndex: 0
   x: 1525
   y: 404
-- name: assets/textures-layer-3/architecture_human_tower_short_2.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_tower_short_2.png
   offsetX: 5
   offsetY: 216
   originalHeight: 445
@@ -1979,7 +1979,7 @@ regions:
   textureIndex: 0
   x: 1446
   y: 404
-- name: assets/textures-layer-3/architecture_dwarf_castle_tower_6.png
+- name: assets/textures-layer-3/architecture_dwarf_side_view_tower_6.png
   offsetX: 79
   offsetY: 206
   originalHeight: 445
@@ -1989,7 +1989,7 @@ regions:
   textureIndex: 0
   x: 999
   y: 227
-- name: assets/textures-layer-3/architecture_dwarf_castle_tower_7.png
+- name: assets/textures-layer-3/architecture_dwarf_side_view_tower_7.png
   offsetX: 79
   offsetY: 206
   originalHeight: 445
@@ -1999,7 +1999,7 @@ regions:
   textureIndex: 0
   x: 1568
   y: 224
-- name: assets/textures-layer-3/architecture_human_house_diagonal_short_0.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_house_diagonal_short_0.png
   offsetX: 34
   offsetY: 193
   originalHeight: 445
@@ -2009,7 +2009,7 @@ regions:
   textureIndex: 0
   x: 638
   y: 1045
-- name: assets/textures-layer-3/architecture_human_house_diagonal_short_1.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_house_diagonal_short_1.png
   offsetX: 34
   offsetY: 193
   originalHeight: 445
@@ -2019,7 +2019,7 @@ regions:
   textureIndex: 0
   x: 1121
   y: 1045
-- name: assets/textures-layer-3/architecture_human_house_diagonal_short_2.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_house_diagonal_short_2.png
   offsetX: 34
   offsetY: 193
   originalHeight: 445
@@ -2029,7 +2029,7 @@ regions:
   textureIndex: 0
   x: 3679
   y: 1044
-- name: assets/textures-layer-3/architecture_human_house_diagonal_short_3.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_house_diagonal_short_3.png
   offsetX: 34
   offsetY: 193
   originalHeight: 445
@@ -2039,7 +2039,7 @@ regions:
   textureIndex: 0
   x: 1235
   y: 1045
-- name: assets/textures-layer-3/architecture_human_house_diagonal_short_4.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_house_diagonal_short_4.png
   offsetX: 34
   offsetY: 193
   originalHeight: 445
@@ -2049,7 +2049,7 @@ regions:
   textureIndex: 0
   x: 3960
   y: 1041
-- name: assets/textures-layer-3/architecture_human_house_diagonal_short_5.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_house_diagonal_short_5.png
   offsetX: 34
   offsetY: 193
   originalHeight: 445
@@ -2059,7 +2059,7 @@ regions:
   textureIndex: 0
   x: 1859
   y: 1044
-- name: assets/textures-layer-3/architecture_elf_house_diagonal_short_0.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_house_diagonal_short_0.png
   offsetX: 51
   offsetY: 192
   originalHeight: 445
@@ -2069,7 +2069,7 @@ regions:
   textureIndex: 0
   x: 2736
   y: 1045
-- name: assets/textures-layer-3/architecture_human_tower_tall_0.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_tower_tall_0.png
   offsetX: 15
   offsetY: 216
   originalHeight: 445
@@ -2079,7 +2079,7 @@ regions:
   textureIndex: 0
   x: 1500
   y: 2
-- name: assets/textures-layer-3/architecture_orc_castle_tower_3.png
+- name: assets/textures-layer-3/architecture_orc_side_view_tower_3.png
   offsetX: 51
   offsetY: 212
   originalHeight: 445
@@ -2089,7 +2089,7 @@ regions:
   textureIndex: 0
   x: 3241
   y: 571
-- name: assets/textures-layer-3/architecture_elf_house_diagonal_short_1.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_house_diagonal_short_1.png
   offsetX: 51
   offsetY: 193
   originalHeight: 445
@@ -2099,7 +2099,7 @@ regions:
   textureIndex: 0
   x: 1349
   y: 1048
-- name: assets/textures-layer-3/architecture_elf_house_diagonal_short_2.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_house_diagonal_short_2.png
   offsetX: 51
   offsetY: 193
   originalHeight: 445
@@ -2109,7 +2109,7 @@ regions:
   textureIndex: 0
   x: 1604
   y: 1047
-- name: assets/textures-layer-3/architecture_elf_house_diagonal_short_3.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_house_diagonal_short_3.png
   offsetX: 51
   offsetY: 193
   originalHeight: 445
@@ -2119,7 +2119,7 @@ regions:
   textureIndex: 0
   x: 969
   y: 1047
-- name: assets/textures-layer-3/architecture_elf_house_diagonal_short_4.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_house_diagonal_short_4.png
   offsetX: 51
   offsetY: 193
   originalHeight: 445
@@ -2129,7 +2129,7 @@ regions:
   textureIndex: 0
   x: 3843
   y: 1049
-- name: assets/textures-layer-3/architecture_elf_house_diagonal_short_5.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_house_diagonal_short_5.png
   offsetX: 51
   offsetY: 193
   originalHeight: 445
@@ -2139,7 +2139,7 @@ regions:
   textureIndex: 0
   x: 1465
   y: 1048
-- name: assets/textures-layer-3/architecture_elf_castle_block_1.png
+- name: assets/textures-layer-3/architecture_elf_side_view_block_1.png
   offsetX: 57
   offsetY: 212
   originalHeight: 445
@@ -2159,7 +2159,7 @@ regions:
   textureIndex: 0
   x: 2196
   y: 938
-- name: assets/textures-layer-3/architecture_dwarf_house_diagonal_short_0.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_house_diagonal_short_0.png
   offsetX: 52
   offsetY: 189
   originalHeight: 445
@@ -2169,7 +2169,7 @@ regions:
   textureIndex: 0
   x: 2613
   y: 1145
-- name: assets/textures-layer-3/architecture_dwarf_house_diagonal_short_1.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_house_diagonal_short_1.png
   offsetX: 52
   offsetY: 189
   originalHeight: 445
@@ -2179,7 +2179,7 @@ regions:
   textureIndex: 0
   x: 752
   y: 1145
-- name: assets/textures-layer-3/architecture_dwarf_house_diagonal_short_2.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_house_diagonal_short_2.png
   offsetX: 52
   offsetY: 189
   originalHeight: 445
@@ -2189,7 +2189,7 @@ regions:
   textureIndex: 0
   x: 2300
   y: 1144
-- name: assets/textures-layer-3/architecture_dwarf_house_diagonal_short_3.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_house_diagonal_short_3.png
   offsetX: 52
   offsetY: 189
   originalHeight: 445
@@ -2199,7 +2199,7 @@ regions:
   textureIndex: 0
   x: 3959
   y: 1143
-- name: assets/textures-layer-3/architecture_dwarf_house_diagonal_short_4.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_house_diagonal_short_4.png
   offsetX: 52
   offsetY: 189
   originalHeight: 445
@@ -2209,7 +2209,7 @@ regions:
   textureIndex: 0
   x: 2183
   y: 1144
-- name: assets/textures-layer-3/architecture_dwarf_house_diagonal_short_5.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_house_diagonal_short_5.png
   offsetX: 52
   offsetY: 189
   originalHeight: 445
@@ -2229,7 +2229,7 @@ regions:
   textureIndex: 0
   x: 1756
   y: 936
-- name: assets/textures-layer-3/architecture_elf_castle_block_0.png
+- name: assets/textures-layer-3/architecture_elf_side_view_block_0.png
   offsetX: 55
   offsetY: 213
   originalHeight: 445
@@ -2239,7 +2239,7 @@ regions:
   textureIndex: 0
   x: 2852
   y: 1045
-- name: assets/textures-layer-3/architecture_orc_house_diagonal_short_0.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_house_diagonal_short_0.png
   offsetX: 34
   offsetY: 193
   originalHeight: 445
@@ -2249,7 +2249,7 @@ regions:
   textureIndex: 0
   x: 3195
   y: 1145
-- name: assets/textures-layer-3/architecture_orc_house_diagonal_short_1.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_house_diagonal_short_1.png
   offsetX: 34
   offsetY: 193
   originalHeight: 445
@@ -2259,7 +2259,7 @@ regions:
   textureIndex: 0
   x: 2847
   y: 1145
-- name: assets/textures-layer-3/architecture_orc_house_diagonal_short_2.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_house_diagonal_short_2.png
   offsetX: 34
   offsetY: 193
   originalHeight: 445
@@ -2269,7 +2269,7 @@ regions:
   textureIndex: 0
   x: 384
   y: 1146
-- name: assets/textures-layer-3/architecture_orc_house_diagonal_short_3.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_house_diagonal_short_3.png
   offsetX: 34
   offsetY: 193
   originalHeight: 445
@@ -2279,7 +2279,7 @@ regions:
   textureIndex: 0
   x: 3079
   y: 1145
-- name: assets/textures-layer-3/architecture_orc_house_diagonal_short_4.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_house_diagonal_short_4.png
   offsetX: 34
   offsetY: 193
   originalHeight: 445
@@ -2289,7 +2289,7 @@ regions:
   textureIndex: 0
   x: 2963
   y: 1145
-- name: assets/textures-layer-3/architecture_orc_house_diagonal_short_5.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_house_diagonal_short_5.png
   offsetX: 34
   offsetY: 193
   originalHeight: 445
@@ -2299,7 +2299,7 @@ regions:
   textureIndex: 0
   x: 3311
   y: 1145
-- name: assets/textures-layer-3/architecture_orc_castle_block_2.png
+- name: assets/textures-layer-3/architecture_orc_side_view_block_2.png
   offsetX: 35
   offsetY: 214
   originalHeight: 445
@@ -2359,7 +2359,7 @@ regions:
   textureIndex: 0
   x: 2860
   y: 937
-- name: assets/textures-layer-3/architecture_orc_house_horizontal_tall_0.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_house_horizontal_tall_0.png
   offsetX: 32
   offsetY: 212
   originalHeight: 445
@@ -2369,7 +2369,7 @@ regions:
   textureIndex: 0
   x: 1144
   y: 1237
-- name: assets/textures-layer-3/architecture_orc_house_horizontal_tall_1.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_house_horizontal_tall_1.png
   offsetX: 32
   offsetY: 212
   originalHeight: 445
@@ -2379,7 +2379,7 @@ regions:
   textureIndex: 0
   x: 1264
   y: 1237
-- name: assets/textures-layer-3/architecture_orc_house_horizontal_tall_2.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_house_horizontal_tall_2.png
   offsetX: 32
   offsetY: 212
   originalHeight: 445
@@ -2389,7 +2389,7 @@ regions:
   textureIndex: 0
   x: 1279
   y: 1147
-- name: assets/textures-layer-3/architecture_orc_house_horizontal_tall_3.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_house_horizontal_tall_3.png
   offsetX: 32
   offsetY: 212
   originalHeight: 445
@@ -2399,7 +2399,7 @@ regions:
   textureIndex: 0
   x: 1399
   y: 1147
-- name: assets/textures-layer-3/architecture_orc_house_horizontal_tall_4.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_house_horizontal_tall_4.png
   offsetX: 32
   offsetY: 212
   originalHeight: 445
@@ -2409,7 +2409,7 @@ regions:
   textureIndex: 0
   x: 3826
   y: 1148
-- name: assets/textures-layer-3/architecture_orc_house_horizontal_tall_5.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_house_horizontal_tall_5.png
   offsetX: 32
   offsetY: 212
   originalHeight: 445
@@ -2419,7 +2419,7 @@ regions:
   textureIndex: 0
   x: 1384
   y: 1237
-- name: assets/textures-layer-3/architecture_dwarf_decoration_6.png
+- name: assets/textures-layer-3/architecture_dwarf_side_view_decoration_6.png
   offsetX: 70
   offsetY: 206
   originalHeight: 445
@@ -2429,7 +2429,7 @@ regions:
   textureIndex: 0
   x: 2074
   y: 689
-- name: assets/textures-layer-3/architecture_orc_tower_short_0.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_tower_short_0.png
   offsetX: 6
   offsetY: 216
   originalHeight: 445
@@ -2439,7 +2439,7 @@ regions:
   textureIndex: 0
   x: 1696
   y: 407
-- name: assets/textures-layer-3/architecture_orc_tower_short_1.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_tower_short_1.png
   offsetX: 6
   offsetY: 216
   originalHeight: 445
@@ -2449,7 +2449,7 @@ regions:
   textureIndex: 0
   x: 1770
   y: 407
-- name: assets/textures-layer-3/architecture_elf_castle_tower_5.png
+- name: assets/textures-layer-3/architecture_elf_side_view_tower_5.png
   offsetX: 80
   offsetY: 211
   originalHeight: 445
@@ -2469,7 +2469,7 @@ regions:
   textureIndex: 0
   x: 869
   y: 1146
-- name: assets/textures-layer-3/architecture_human_castle_tower_4.png
+- name: assets/textures-layer-3/architecture_human_side_view_tower_4.png
   offsetX: 68
   offsetY: 231
   originalHeight: 480
@@ -2489,7 +2489,7 @@ regions:
   textureIndex: 0
   x: 426
   y: 936
-- name: assets/textures-layer-3/architecture_elf_tower_long_0.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_tower_tall_0.png
   offsetX: 84
   offsetY: 214
   originalHeight: 445
@@ -2499,7 +2499,7 @@ regions:
   textureIndex: 0
   x: 3762
   y: 2
-- name: assets/textures-layer-3/architecture_elf_tower_long_1.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_tower_tall_1.png
   offsetX: 84
   offsetY: 214
   originalHeight: 445
@@ -2509,7 +2509,7 @@ regions:
   textureIndex: 0
   x: 3710
   y: 2
-- name: assets/textures-layer-3/architecture_elf_tower_long_2.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_tower_tall_2.png
   offsetX: 84
   offsetY: 214
   originalHeight: 445
@@ -2519,7 +2519,7 @@ regions:
   textureIndex: 0
   x: 3658
   y: 2
-- name: assets/textures-layer-3/architecture_orc_castle_block_4.png
+- name: assets/textures-layer-3/architecture_orc_side_view_block_4.png
   offsetX: 34
   offsetY: 216
   originalHeight: 445
@@ -2529,7 +2529,7 @@ regions:
   textureIndex: 0
   x: 3807
   y: 1238
-- name: assets/textures-layer-3/architecture_elf_castle_tower_8.png
+- name: assets/textures-layer-3/architecture_elf_side_view_tower_8.png
   offsetX: 73
   offsetY: 175
   originalHeight: 445
@@ -2539,7 +2539,7 @@ regions:
   textureIndex: 0
   x: 97
   y: 296
-- name: assets/textures-layer-3/architecture_elf_tower_long_3.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_tower_tall_3.png
   offsetX: 84
   offsetY: 214
   originalHeight: 445
@@ -2549,7 +2549,7 @@ regions:
   textureIndex: 0
   x: 3866
   y: 203
-- name: assets/textures-layer-3/architecture_elf_tower_long_4.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_tower_tall_4.png
   offsetX: 84
   offsetY: 214
   originalHeight: 445
@@ -2559,7 +2559,7 @@ regions:
   textureIndex: 0
   x: 3918
   y: 203
-- name: assets/textures-layer-3/architecture_elf_tower_long_5.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_tower_tall_5.png
   offsetX: 84
   offsetY: 214
   originalHeight: 445
@@ -2579,37 +2579,7 @@ regions:
   textureIndex: 0
   x: 3387
   y: 2
-- name: assets/textures-layer-3/architecture_dwarf_house_horizontal_tall_0.png
-  offsetX: 50
-  offsetY: 212
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 78
-  packedWidth: 121
-  textureIndex: 0
-  x: 1703
-  y: 1326
-- name: assets/textures-layer-3/architecture_dwarf_house_horizontal_tall_1.png
-  offsetX: 50
-  offsetY: 212
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 78
-  packedWidth: 121
-  textureIndex: 0
-  x: 2
-  y: 1326
-- name: assets/textures-layer-3/architecture_dwarf_house_horizontal_tall_2.png
-  offsetX: 50
-  offsetY: 212
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 78
-  packedWidth: 121
-  textureIndex: 0
-  x: 618
-  y: 1326
-- name: assets/textures-layer-3/architecture_dwarf_house_horizontal_tall_3.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_house_horizontal_tall_0.png
   offsetX: 50
   offsetY: 212
   originalHeight: 445
@@ -2619,7 +2589,7 @@ regions:
   textureIndex: 0
   x: 127
   y: 1326
-- name: assets/textures-layer-3/architecture_dwarf_house_horizontal_tall_5.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_house_horizontal_tall_1.png
   offsetX: 50
   offsetY: 212
   originalHeight: 445
@@ -2629,7 +2599,37 @@ regions:
   textureIndex: 0
   x: 493
   y: 1326
-- name: assets/textures-layer-3/architecture_human_tower_short_3.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_house_horizontal_tall_2.png
+  offsetX: 50
+  offsetY: 212
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 78
+  packedWidth: 121
+  textureIndex: 0
+  x: 2
+  y: 1326
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_house_horizontal_tall_3.png
+  offsetX: 50
+  offsetY: 212
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 78
+  packedWidth: 121
+  textureIndex: 0
+  x: 618
+  y: 1326
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_house_horizontal_tall_5.png
+  offsetX: 50
+  offsetY: 212
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 78
+  packedWidth: 121
+  textureIndex: 0
+  x: 1703
+  y: 1326
+- name: assets/textures-layer-3/architecture_human_isometric_view_tower_short_3.png
   offsetX: 2
   offsetY: 216
   originalHeight: 445
@@ -2639,7 +2639,7 @@ regions:
   textureIndex: 0
   x: 2843
   y: 691
-- name: assets/textures-layer-3/architecture_human_tower_short_5.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_tower_short_5.png
   offsetX: 2
   offsetY: 216
   originalHeight: 445
@@ -2649,7 +2649,7 @@ regions:
   textureIndex: 0
   x: 3015
   y: 691
-- name: assets/textures-layer-3/architecture_dwarf_house_horizontal_tall_4.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_house_horizontal_tall_4.png
   offsetX: 50
   offsetY: 213
   originalHeight: 445
@@ -2689,7 +2689,7 @@ regions:
   textureIndex: 0
   x: 1985
   y: 1542
-- name: assets/textures-layer-3/architecture_orc_tower_short_2.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_tower_short_2.png
   offsetX: 6
   offsetY: 216
   originalHeight: 445
@@ -2699,7 +2699,7 @@ regions:
   textureIndex: 0
   x: 119
   y: 458
-- name: assets/textures-layer-3/architecture_orc_tower_short_3.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_tower_short_3.png
   offsetX: 6
   offsetY: 216
   originalHeight: 445
@@ -2709,7 +2709,7 @@ regions:
   textureIndex: 0
   x: 1618
   y: 551
-- name: assets/textures-layer-3/architecture_dwarf_castle_tower_4.png
+- name: assets/textures-layer-3/architecture_dwarf_side_view_tower_4.png
   offsetX: 71
   offsetY: 205
   originalHeight: 445
@@ -2729,7 +2729,7 @@ regions:
   textureIndex: 0
   x: 978
   y: 1146
-- name: assets/textures-layer-3/architecture_orc_tower_short_4.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_tower_short_4.png
   offsetX: 6
   offsetY: 216
   originalHeight: 445
@@ -2739,7 +2739,7 @@ regions:
   textureIndex: 0
   x: 119
   y: 593
-- name: assets/textures-layer-3/architecture_orc_tower_short_5.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_tower_short_5.png
   offsetX: 6
   offsetY: 216
   originalHeight: 445
@@ -2759,7 +2759,7 @@ regions:
   textureIndex: 0
   x: 1780
   y: 1146
-- name: assets/textures-layer-3/architecture_dwarf_tower_short_2.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_tower_short_2.png
   offsetX: 79
   offsetY: 208
   originalHeight: 445
@@ -2769,7 +2769,7 @@ regions:
   textureIndex: 0
   x: 3001
   y: 815
-- name: assets/textures-layer-3/architecture_dwarf_tower_short_3.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_tower_short_3.png
   offsetX: 79
   offsetY: 208
   originalHeight: 445
@@ -2809,7 +2809,7 @@ regions:
   textureIndex: 0
   x: 1065
   y: 227
-- name: assets/textures-layer-3/architecture_elf_house_horizontal_short_0.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_house_horizontal_short_0.png
   offsetX: 36
   offsetY: 212
   originalHeight: 445
@@ -2819,7 +2819,7 @@ regions:
   textureIndex: 0
   x: 985
   y: 1541
-- name: assets/textures-layer-3/architecture_elf_house_horizontal_short_1.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_house_horizontal_short_1.png
   offsetX: 36
   offsetY: 212
   originalHeight: 445
@@ -2829,7 +2829,7 @@ regions:
   textureIndex: 0
   x: 1127
   y: 1480
-- name: assets/textures-layer-3/architecture_elf_house_horizontal_short_2.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_house_horizontal_short_2.png
   offsetX: 36
   offsetY: 212
   originalHeight: 445
@@ -2839,7 +2839,7 @@ regions:
   textureIndex: 0
   x: 3702
   y: 1541
-- name: assets/textures-layer-3/architecture_elf_house_horizontal_short_3.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_house_horizontal_short_3.png
   offsetX: 36
   offsetY: 212
   originalHeight: 445
@@ -2849,7 +2849,7 @@ regions:
   textureIndex: 0
   x: 1136
   y: 1541
-- name: assets/textures-layer-3/architecture_elf_house_horizontal_short_4.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_house_horizontal_short_4.png
   offsetX: 36
   offsetY: 212
   originalHeight: 445
@@ -2859,7 +2859,7 @@ regions:
   textureIndex: 0
   x: 3551
   y: 1541
-- name: assets/textures-layer-3/architecture_elf_house_horizontal_short_5.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_house_horizontal_short_5.png
   offsetX: 36
   offsetY: 212
   originalHeight: 445
@@ -2869,7 +2869,7 @@ regions:
   textureIndex: 0
   x: 421
   y: 1541
-- name: assets/textures-layer-3/architecture_dwarf_tower_short_0.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_tower_short_0.png
   offsetX: 80
   offsetY: 208
   originalHeight: 445
@@ -2879,7 +2879,7 @@ regions:
   textureIndex: 0
   x: 2283
   y: 691
-- name: assets/textures-layer-3/architecture_dwarf_tower_short_1.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_tower_short_1.png
   offsetX: 80
   offsetY: 208
   originalHeight: 445
@@ -2889,7 +2889,7 @@ regions:
   textureIndex: 0
   x: 2356
   y: 691
-- name: assets/textures-layer-3/architecture_orc_castle_block_3.png
+- name: assets/textures-layer-3/architecture_orc_side_view_block_3.png
   offsetX: 47
   offsetY: 213
   originalHeight: 445
@@ -2899,7 +2899,7 @@ regions:
   textureIndex: 0
   x: 2196
   y: 1043
-- name: assets/textures-layer-3/architecture_dwarf_castle_block_5.png
+- name: assets/textures-layer-3/architecture_dwarf_side_view_block_5.png
   offsetX: 54
   offsetY: 210
   originalHeight: 445
@@ -2919,7 +2919,7 @@ regions:
   textureIndex: 0
   x: 2018
   y: 1239
-- name: assets/textures-layer-3/architecture_human_tower_tall_1.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_tower_tall_1.png
   offsetX: 18
   offsetY: 217
   originalHeight: 445
@@ -2969,7 +2969,7 @@ regions:
   textureIndex: 0
   x: 3331
   y: 1600
-- name: assets/textures-layer-3/architecture_dwarf_castle_tower_3.png
+- name: assets/textures-layer-3/architecture_dwarf_side_view_tower_3.png
   offsetX: 75
   offsetY: 206
   originalHeight: 445
@@ -2999,7 +2999,7 @@ regions:
   textureIndex: 0
   x: 3143
   y: 211
-- name: assets/textures-layer-3/architecture_elf_castle_block_7.png
+- name: assets/textures-layer-3/architecture_elf_side_view_block_7.png
   offsetX: 37
   offsetY: 212
   originalHeight: 445
@@ -3019,7 +3019,7 @@ regions:
   textureIndex: 0
   x: 3355
   y: 207
-- name: assets/textures-layer-3/architecture_orc_flat_large_5.png
+- name: assets/textures-layer-3/architecture_orc_top_view_large_5.png
   offsetX: 47
   offsetY: 209
   originalHeight: 480
@@ -3039,7 +3039,7 @@ regions:
   textureIndex: 0
   x: 3373
   y: 1325
-- name: assets/textures-layer-3/architecture_orc_flat_large_0.png
+- name: assets/textures-layer-3/architecture_orc_top_view_large_0.png
   offsetX: 50
   offsetY: 209
   originalHeight: 480
@@ -3049,7 +3049,7 @@ regions:
   textureIndex: 0
   x: 2088
   y: 1475
-- name: assets/textures-layer-3/architecture_orc_flat_large_1.png
+- name: assets/textures-layer-3/architecture_orc_top_view_large_1.png
   offsetX: 50
   offsetY: 209
   originalHeight: 480
@@ -3059,7 +3059,7 @@ regions:
   textureIndex: 0
   x: 651
   y: 1475
-- name: assets/textures-layer-3/architecture_orc_flat_large_2.png
+- name: assets/textures-layer-3/architecture_orc_top_view_large_2.png
   offsetX: 50
   offsetY: 209
   originalHeight: 480
@@ -3069,7 +3069,7 @@ regions:
   textureIndex: 0
   x: 1793
   y: 1408
-- name: assets/textures-layer-3/architecture_orc_flat_large_3.png
+- name: assets/textures-layer-3/architecture_orc_top_view_large_3.png
   offsetX: 50
   offsetY: 209
   originalHeight: 480
@@ -3079,7 +3079,7 @@ regions:
   textureIndex: 0
   x: 1667
   y: 1475
-- name: assets/textures-layer-3/architecture_orc_flat_large_4.png
+- name: assets/textures-layer-3/architecture_orc_top_view_large_4.png
   offsetX: 50
   offsetY: 209
   originalHeight: 480
@@ -3089,7 +3089,7 @@ regions:
   textureIndex: 0
   x: 1790
   y: 1475
-- name: assets/textures-layer-3/architecture_elf_castle_block_6.png
+- name: assets/textures-layer-3/architecture_elf_side_view_block_6.png
   offsetX: 37
   offsetY: 213
   originalHeight: 445
@@ -3119,7 +3119,7 @@ regions:
   textureIndex: 0
   x: 2511
   y: 1239
-- name: assets/textures-layer-3/architecture_human_tower_tall_3.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_tower_tall_3.png
   offsetX: 21
   offsetY: 218
   originalHeight: 445
@@ -3129,7 +3129,7 @@ regions:
   textureIndex: 0
   x: 4054
   y: 2
-- name: assets/textures-layer-3/architecture_elf_castle_block_9.png
+- name: assets/textures-layer-3/architecture_elf_side_view_block_9.png
   offsetX: 69
   offsetY: 212
   originalHeight: 445
@@ -3139,7 +3139,7 @@ regions:
   textureIndex: 0
   x: 3427
   y: 1145
-- name: assets/textures-layer-3/architecture_dwarf_decoration_5.png
+- name: assets/textures-layer-3/architecture_dwarf_side_view_decoration_5.png
   offsetX: 77
   offsetY: 210
   originalHeight: 445
@@ -3169,7 +3169,7 @@ regions:
   textureIndex: 0
   x: 774
   y: 1479
-- name: assets/textures-layer-3/architecture_human_decoration_2.png
+- name: assets/textures-layer-3/architecture_human_side_view_decoration_2.png
   offsetX: 67
   offsetY: 201
   originalHeight: 480
@@ -3179,7 +3179,7 @@ regions:
   textureIndex: 0
   x: 1076
   y: 1327
-- name: assets/textures-layer-3/architecture_orc_house_horizontal_short_0.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_house_horizontal_short_0.png
   offsetX: 34
   offsetY: 212
   originalHeight: 445
@@ -3189,7 +3189,7 @@ regions:
   textureIndex: 0
   x: 328
   y: 1407
-- name: assets/textures-layer-3/architecture_orc_house_horizontal_short_1.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_house_horizontal_short_1.png
   offsetX: 34
   offsetY: 212
   originalHeight: 445
@@ -3199,7 +3199,7 @@ regions:
   textureIndex: 0
   x: 2203
   y: 1407
-- name: assets/textures-layer-3/architecture_orc_house_horizontal_short_2.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_house_horizontal_short_2.png
   offsetX: 34
   offsetY: 212
   originalHeight: 445
@@ -3209,7 +3209,7 @@ regions:
   textureIndex: 0
   x: 2
   y: 1408
-- name: assets/textures-layer-3/architecture_orc_house_horizontal_short_3.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_house_horizontal_short_3.png
   offsetX: 34
   offsetY: 212
   originalHeight: 445
@@ -3219,7 +3219,7 @@ regions:
   textureIndex: 0
   x: 443
   y: 1408
-- name: assets/textures-layer-3/architecture_orc_house_horizontal_short_4.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_house_horizontal_short_4.png
   offsetX: 34
   offsetY: 212
   originalHeight: 445
@@ -3229,7 +3229,7 @@ regions:
   textureIndex: 0
   x: 2088
   y: 1407
-- name: assets/textures-layer-3/architecture_orc_house_horizontal_short_5.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_house_horizontal_short_5.png
   offsetX: 34
   offsetY: 212
   originalHeight: 445
@@ -3239,7 +3239,7 @@ regions:
   textureIndex: 0
   x: 117
   y: 1408
-- name: assets/textures-layer-3/architecture_dwarf_castle_block_8.png
+- name: assets/textures-layer-3/architecture_dwarf_side_view_block_8.png
   offsetX: 70
   offsetY: 210
   originalHeight: 445
@@ -3249,7 +3249,7 @@ regions:
   textureIndex: 0
   x: 299
   y: 1147
-- name: assets/textures-layer-3/architecture_dwarf_house_horizontal_short_0.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_house_horizontal_short_0.png
   offsetX: 50
   offsetY: 210
   originalHeight: 445
@@ -3259,7 +3259,7 @@ regions:
   textureIndex: 0
   x: 1287
   y: 1480
-- name: assets/textures-layer-3/architecture_elf_castle_tower_7.png
+- name: assets/textures-layer-3/architecture_elf_side_view_tower_7.png
   offsetX: 81
   offsetY: 212
   originalHeight: 445
@@ -3269,7 +3269,7 @@ regions:
   textureIndex: 0
   x: 1451
   y: 819
-- name: assets/textures-layer-3/architecture_human_house_horizontal_short_2.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_house_horizontal_short_2.png
   offsetX: 30
   offsetY: 210
   originalHeight: 445
@@ -3279,7 +3279,7 @@ regions:
   textureIndex: 0
   x: 1287
   y: 1541
-- name: assets/textures-layer-3/architecture_human_house_horizontal_short_5.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_house_horizontal_short_5.png
   offsetX: 30
   offsetY: 210
   originalHeight: 445
@@ -3289,7 +3289,7 @@ regions:
   textureIndex: 0
   x: 2447
   y: 1541
-- name: assets/textures-layer-3/architecture_elf_house_vertical_tall_0.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_house_vertical_tall_0.png
   offsetX: 84
   offsetY: 211
   originalHeight: 445
@@ -3299,7 +3299,7 @@ regions:
   textureIndex: 0
   x: 1844
   y: 407
-- name: assets/textures-layer-3/architecture_elf_house_vertical_tall_1.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_house_vertical_tall_1.png
   offsetX: 84
   offsetY: 211
   originalHeight: 445
@@ -3309,7 +3309,7 @@ regions:
   textureIndex: 0
   x: 1897
   y: 407
-- name: assets/textures-layer-3/architecture_elf_house_vertical_tall_2.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_house_vertical_tall_2.png
   offsetX: 84
   offsetY: 211
   originalHeight: 445
@@ -3319,7 +3319,7 @@ regions:
   textureIndex: 0
   x: 2056
   y: 407
-- name: assets/textures-layer-3/architecture_elf_house_vertical_tall_3.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_house_vertical_tall_3.png
   offsetX: 84
   offsetY: 211
   originalHeight: 445
@@ -3329,7 +3329,7 @@ regions:
   textureIndex: 0
   x: 1950
   y: 407
-- name: assets/textures-layer-3/architecture_elf_house_vertical_tall_4.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_house_vertical_tall_4.png
   offsetX: 84
   offsetY: 211
   originalHeight: 445
@@ -3339,7 +3339,7 @@ regions:
   textureIndex: 0
   x: 2003
   y: 407
-- name: assets/textures-layer-3/architecture_elf_house_vertical_tall_5.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_house_vertical_tall_5.png
   offsetX: 84
   offsetY: 211
   originalHeight: 445
@@ -3349,7 +3349,7 @@ regions:
   textureIndex: 0
   x: 2652
   y: 406
-- name: assets/textures-layer-3/architecture_dwarf_house_horizontal_short_1.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_house_horizontal_short_1.png
   offsetX: 50
   offsetY: 211
   originalHeight: 445
@@ -3359,7 +3359,7 @@ regions:
   textureIndex: 0
   x: 73
   y: 1542
-- name: assets/textures-layer-3/architecture_dwarf_house_horizontal_short_4.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_house_horizontal_short_4.png
   offsetX: 50
   offsetY: 211
   originalHeight: 445
@@ -3369,7 +3369,7 @@ regions:
   textureIndex: 0
   x: 572
   y: 1542
-- name: assets/textures-layer-3/architecture_dwarf_house_horizontal_short_5.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_house_horizontal_short_5.png
   offsetX: 50
   offsetY: 211
   originalHeight: 445
@@ -3389,7 +3389,7 @@ regions:
   textureIndex: 0
   x: 2272
   y: 1241
-- name: assets/textures-layer-3/architecture_human_house_horizontal_short_3.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_house_horizontal_short_3.png
   offsetX: 30
   offsetY: 211
   originalHeight: 445
@@ -3399,7 +3399,7 @@ regions:
   textureIndex: 0
   x: 1652
   y: 1542
-- name: assets/textures-layer-3/architecture_human_house_horizontal_short_4.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_house_horizontal_short_4.png
   offsetX: 30
   offsetY: 211
   originalHeight: 445
@@ -3409,7 +3409,7 @@ regions:
   textureIndex: 0
   x: 1528
   y: 1542
-- name: assets/textures-layer-3/architecture_elf_castle_block_2.png
+- name: assets/textures-layer-3/architecture_elf_side_view_block_2.png
   offsetX: 66
   offsetY: 213
   originalHeight: 445
@@ -3419,7 +3419,7 @@ regions:
   textureIndex: 0
   x: 1828
   y: 1326
-- name: assets/textures-layer-3/architecture_dwarf_house_horizontal_short_2.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_house_horizontal_short_2.png
   offsetX: 50
   offsetY: 212
   originalHeight: 445
@@ -3429,7 +3429,7 @@ regions:
   textureIndex: 0
   x: 1776
   y: 1542
-- name: assets/textures-layer-3/architecture_dwarf_house_horizontal_short_3.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_house_horizontal_short_3.png
   offsetX: 50
   offsetY: 212
   originalHeight: 445
@@ -3439,7 +3439,7 @@ regions:
   textureIndex: 0
   x: 2719
   y: 1542
-- name: assets/textures-layer-3/architecture_human_house_horizontal_short_0.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_house_horizontal_short_0.png
   offsetX: 30
   offsetY: 212
   originalHeight: 445
@@ -3449,7 +3449,7 @@ regions:
   textureIndex: 0
   x: 2968
   y: 1542
-- name: assets/textures-layer-3/architecture_human_house_horizontal_short_1.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_house_horizontal_short_1.png
   offsetX: 30
   offsetY: 212
   originalHeight: 445
@@ -3459,7 +3459,7 @@ regions:
   textureIndex: 0
   x: 2844
   y: 1542
-- name: assets/textures-layer-3/architecture_dwarf_house_vertical_tall_0.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_house_vertical_tall_0.png
   offsetX: 86
   offsetY: 213
   originalHeight: 445
@@ -3469,7 +3469,7 @@ regions:
   textureIndex: 0
   x: 2552
   y: 406
-- name: assets/textures-layer-3/architecture_dwarf_house_vertical_tall_1.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_house_vertical_tall_1.png
   offsetX: 86
   offsetY: 213
   originalHeight: 445
@@ -3479,7 +3479,7 @@ regions:
   textureIndex: 0
   x: 2502
   y: 406
-- name: assets/textures-layer-3/architecture_dwarf_house_vertical_tall_2.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_house_vertical_tall_2.png
   offsetX: 86
   offsetY: 213
   originalHeight: 445
@@ -3489,7 +3489,7 @@ regions:
   textureIndex: 0
   x: 2452
   y: 406
-- name: assets/textures-layer-3/architecture_dwarf_house_vertical_tall_3.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_house_vertical_tall_3.png
   offsetX: 86
   offsetY: 213
   originalHeight: 445
@@ -3499,7 +3499,7 @@ regions:
   textureIndex: 0
   x: 1051
   y: 406
-- name: assets/textures-layer-3/architecture_dwarf_house_vertical_tall_4.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_house_vertical_tall_4.png
   offsetX: 86
   offsetY: 213
   originalHeight: 445
@@ -3509,7 +3509,7 @@ regions:
   textureIndex: 0
   x: 3093
   y: 403
-- name: assets/textures-layer-3/architecture_dwarf_house_vertical_tall_5.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_house_vertical_tall_5.png
   offsetX: 86
   offsetY: 213
   originalHeight: 445
@@ -3519,7 +3519,7 @@ regions:
   textureIndex: 0
   x: 2602
   y: 406
-- name: assets/textures-layer-3/architecture_human_decoration_1.png
+- name: assets/textures-layer-3/architecture_human_side_view_decoration_1.png
   offsetX: 67
   offsetY: 198
   originalHeight: 480
@@ -3547,8 +3547,8 @@ regions:
   packedHeight: 81
   packedWidth: 80
   textureIndex: 0
-  x: 3427
-  y: 1240
+  x: 1046
+  y: 1242
 - name: assets/textures-layer-3/tree_circular_5.png
   offsetX: 101
   offsetY: 255
@@ -3557,8 +3557,8 @@ regions:
   packedHeight: 81
   packedWidth: 80
   textureIndex: 0
-  x: 1046
-  y: 1242
+  x: 3427
+  y: 1240
 - name: assets/textures-layer-3/rock_big_0.png
   offsetX: 9
   offsetY: 63
@@ -3579,17 +3579,7 @@ regions:
   textureIndex: 0
   x: 421
   y: 1476
-- name: assets/textures-layer-3/architecture_elf_hut_diagonal_0.png
-  offsetX: 68
-  offsetY: 202
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 76
-  packedWidth: 84
-  textureIndex: 0
-  x: 3473
-  y: 1326
-- name: assets/textures-layer-3/architecture_elf_hut_diagonal_1.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_hut_diagonal_0.png
   offsetX: 68
   offsetY: 202
   originalHeight: 445
@@ -3599,17 +3589,7 @@ regions:
   textureIndex: 0
   x: 1918
   y: 1326
-- name: assets/textures-layer-3/architecture_elf_hut_diagonal_2.png
-  offsetX: 68
-  offsetY: 202
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 76
-  packedWidth: 84
-  textureIndex: 0
-  x: 3561
-  y: 1326
-- name: assets/textures-layer-3/architecture_elf_hut_diagonal_3.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_hut_diagonal_1.png
   offsetX: 68
   offsetY: 202
   originalHeight: 445
@@ -3619,17 +3599,7 @@ regions:
   textureIndex: 0
   x: 2492
   y: 1326
-- name: assets/textures-layer-3/architecture_elf_hut_diagonal_4.png
-  offsetX: 68
-  offsetY: 202
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 76
-  packedWidth: 84
-  textureIndex: 0
-  x: 2404
-  y: 1326
-- name: assets/textures-layer-3/architecture_elf_hut_diagonal_5.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_hut_diagonal_2.png
   offsetX: 68
   offsetY: 202
   originalHeight: 445
@@ -3638,6 +3608,36 @@ regions:
   packedWidth: 84
   textureIndex: 0
   x: 3209
+  y: 1326
+- name: assets/textures-layer-3/architecture_elf_isometric_view_hut_diagonal_3.png
+  offsetX: 68
+  offsetY: 202
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 76
+  packedWidth: 84
+  textureIndex: 0
+  x: 3473
+  y: 1326
+- name: assets/textures-layer-3/architecture_elf_isometric_view_hut_diagonal_4.png
+  offsetX: 68
+  offsetY: 202
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 76
+  packedWidth: 84
+  textureIndex: 0
+  x: 3561
+  y: 1326
+- name: assets/textures-layer-3/architecture_elf_isometric_view_hut_diagonal_5.png
+  offsetX: 68
+  offsetY: 202
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 76
+  packedWidth: 84
+  textureIndex: 0
+  x: 2404
   y: 1326
 - name: assets/textures-layer-3/prop_boxes_2.png
   offsetX: 26
@@ -3649,7 +3649,7 @@ regions:
   textureIndex: 0
   x: 3729
   y: 1237
-- name: assets/textures-layer-3/architecture_human_house_vertical_tall_0.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_house_vertical_tall_0.png
   offsetX: 66
   offsetY: 213
   originalHeight: 445
@@ -3659,7 +3659,7 @@ regions:
   textureIndex: 0
   x: 390
   y: 423
-- name: assets/textures-layer-3/architecture_human_house_vertical_tall_1.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_house_vertical_tall_1.png
   offsetX: 66
   offsetY: 213
   originalHeight: 445
@@ -3669,7 +3669,7 @@ regions:
   textureIndex: 0
   x: 207
   y: 418
-- name: assets/textures-layer-3/architecture_human_house_vertical_tall_2.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_house_vertical_tall_2.png
   offsetX: 66
   offsetY: 213
   originalHeight: 445
@@ -3679,7 +3679,7 @@ regions:
   textureIndex: 0
   x: 2159
   y: 407
-- name: assets/textures-layer-3/architecture_human_house_vertical_tall_3.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_house_vertical_tall_3.png
   offsetX: 66
   offsetY: 213
   originalHeight: 445
@@ -3689,7 +3689,7 @@ regions:
   textureIndex: 0
   x: 898
   y: 411
-- name: assets/textures-layer-3/architecture_human_house_vertical_tall_4.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_house_vertical_tall_4.png
   offsetX: 66
   offsetY: 213
   originalHeight: 445
@@ -3699,7 +3699,7 @@ regions:
   textureIndex: 0
   x: 440
   y: 423
-- name: assets/textures-layer-3/architecture_human_house_vertical_tall_5.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_house_vertical_tall_5.png
   offsetX: 66
   offsetY: 213
   originalHeight: 445
@@ -3709,7 +3709,7 @@ regions:
   textureIndex: 0
   x: 2109
   y: 407
-- name: assets/textures-layer-3/architecture_elf_tower_short_0.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_tower_short_0.png
   offsetX: 84
   offsetY: 214
   originalHeight: 445
@@ -3719,7 +3719,7 @@ regions:
   textureIndex: 0
   x: 2652
   y: 549
-- name: assets/textures-layer-3/architecture_elf_tower_short_1.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_tower_short_1.png
   offsetX: 84
   offsetY: 214
   originalHeight: 445
@@ -3729,7 +3729,7 @@ regions:
   textureIndex: 0
   x: 3518
   y: 555
-- name: assets/textures-layer-3/architecture_elf_tower_short_2.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_tower_short_2.png
   offsetX: 84
   offsetY: 214
   originalHeight: 445
@@ -3739,17 +3739,7 @@ regions:
   textureIndex: 0
   x: 3664
   y: 554
-- name: assets/textures-layer-3/architecture_human_castle_block_5.png
-  offsetX: 54
-  offsetY: 236
-  originalHeight: 480
-  originalWidth: 220
-  packedHeight: 55
-  packedWidth: 114
-  textureIndex: 0
-  x: 2327
-  y: 1542
-- name: assets/textures-layer-3/architecture_human_tower_short_4.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_tower_short_4.png
   offsetX: 12
   offsetY: 213
   originalHeight: 445
@@ -3759,7 +3749,17 @@ regions:
   textureIndex: 0
   x: 1984
   y: 935
-- name: assets/textures-layer-3/architecture_elf_tower_short_3.png
+- name: assets/textures-layer-3/architecture_human_side_view_block_5.png
+  offsetX: 54
+  offsetY: 236
+  originalHeight: 480
+  originalWidth: 220
+  packedHeight: 55
+  packedWidth: 114
+  textureIndex: 0
+  x: 2327
+  y: 1542
+- name: assets/textures-layer-3/architecture_elf_isometric_view_tower_short_3.png
   offsetX: 84
   offsetY: 214
   originalHeight: 445
@@ -3769,7 +3769,7 @@ regions:
   textureIndex: 0
   x: 3570
   y: 555
-- name: assets/textures-layer-3/architecture_elf_tower_short_4.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_tower_short_4.png
   offsetX: 84
   offsetY: 214
   originalHeight: 445
@@ -3779,7 +3779,7 @@ regions:
   textureIndex: 0
   x: 3067
   y: 557
-- name: assets/textures-layer-3/architecture_elf_tower_short_5.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_tower_short_5.png
   offsetX: 84
   offsetY: 214
   originalHeight: 445
@@ -3819,7 +3819,7 @@ regions:
   textureIndex: 0
   x: 3115
   y: 1327
-- name: assets/textures-layer-3/architecture_human_castle_block_2.png
+- name: assets/textures-layer-3/architecture_human_side_view_block_2.png
   offsetX: 67
   offsetY: 233
   originalHeight: 480
@@ -3847,8 +3847,8 @@ regions:
   packedHeight: 81
   packedWidth: 75
   textureIndex: 0
-  x: 3650
-  y: 1238
+  x: 3058
+  y: 1242
 - name: assets/textures-layer-3/tree_circular_3.png
   offsetX: 104
   offsetY: 255
@@ -3857,9 +3857,9 @@ regions:
   packedHeight: 81
   packedWidth: 75
   textureIndex: 0
-  x: 3058
-  y: 1242
-- name: assets/textures-layer-3/architecture_human_flat_large_0.png
+  x: 3650
+  y: 1238
+- name: assets/textures-layer-3/architecture_human_top_view_large_0.png
   offsetX: 49
   offsetY: 215
   originalHeight: 480
@@ -3869,7 +3869,7 @@ regions:
   textureIndex: 0
   x: 2821
   y: 1601
-- name: assets/textures-layer-3/architecture_human_flat_large_1.png
+- name: assets/textures-layer-3/architecture_human_top_view_large_1.png
   offsetX: 49
   offsetY: 215
   originalHeight: 480
@@ -3879,7 +3879,7 @@ regions:
   textureIndex: 0
   x: 2696
   y: 1601
-- name: assets/textures-layer-3/architecture_human_flat_large_2.png
+- name: assets/textures-layer-3/architecture_human_top_view_large_2.png
   offsetX: 49
   offsetY: 215
   originalHeight: 480
@@ -3889,7 +3889,7 @@ regions:
   textureIndex: 0
   x: 2182
   y: 1601
-- name: assets/textures-layer-3/architecture_human_flat_large_3.png
+- name: assets/textures-layer-3/architecture_human_top_view_large_3.png
   offsetX: 49
   offsetY: 215
   originalHeight: 480
@@ -3899,7 +3899,7 @@ regions:
   textureIndex: 0
   x: 2571
   y: 1601
-- name: assets/textures-layer-3/architecture_human_flat_large_4.png
+- name: assets/textures-layer-3/architecture_human_top_view_large_4.png
   offsetX: 49
   offsetY: 215
   originalHeight: 480
@@ -3909,7 +3909,7 @@ regions:
   textureIndex: 0
   x: 2946
   y: 1601
-- name: assets/textures-layer-3/architecture_human_flat_large_5.png
+- name: assets/textures-layer-3/architecture_human_top_view_large_5.png
   offsetX: 49
   offsetY: 215
   originalHeight: 480
@@ -3969,7 +3969,7 @@ regions:
   textureIndex: 0
   x: 3473
   y: 1406
-- name: assets/textures-layer-3/architecture_elf_flat_large_0.png
+- name: assets/textures-layer-3/architecture_elf_top_view_large_0.png
   offsetX: 51
   offsetY: 199
   originalHeight: 445
@@ -3979,7 +3979,7 @@ regions:
   textureIndex: 0
   x: 1213
   y: 1602
-- name: assets/textures-layer-3/architecture_elf_flat_large_1.png
+- name: assets/textures-layer-3/architecture_elf_top_view_large_1.png
   offsetX: 51
   offsetY: 199
   originalHeight: 445
@@ -3989,7 +3989,7 @@ regions:
   textureIndex: 0
   x: 1508
   y: 1602
-- name: assets/textures-layer-3/architecture_elf_flat_large_2.png
+- name: assets/textures-layer-3/architecture_elf_top_view_large_2.png
   offsetX: 51
   offsetY: 199
   originalHeight: 445
@@ -3999,7 +3999,7 @@ regions:
   textureIndex: 0
   x: 1630
   y: 1602
-- name: assets/textures-layer-3/architecture_elf_flat_large_3.png
+- name: assets/textures-layer-3/architecture_elf_top_view_large_3.png
   offsetX: 51
   offsetY: 199
   originalHeight: 445
@@ -4009,7 +4009,7 @@ regions:
   textureIndex: 0
   x: 2432
   y: 1602
-- name: assets/textures-layer-3/architecture_elf_flat_large_4.png
+- name: assets/textures-layer-3/architecture_elf_top_view_large_4.png
   offsetX: 51
   offsetY: 199
   originalHeight: 445
@@ -4019,7 +4019,7 @@ regions:
   textureIndex: 0
   x: 3541
   y: 1602
-- name: assets/textures-layer-3/architecture_elf_flat_large_5.png
+- name: assets/textures-layer-3/architecture_elf_top_view_large_5.png
   offsetX: 51
   offsetY: 199
   originalHeight: 445
@@ -4029,7 +4029,7 @@ regions:
   textureIndex: 0
   x: 1091
   y: 1602
-- name: assets/textures-layer-3/architecture_orc_flat_medium_1.png
+- name: assets/textures-layer-3/architecture_orc_top_view_medium_1.png
   offsetX: 65
   offsetY: 208
   originalHeight: 480
@@ -4039,7 +4039,7 @@ regions:
   textureIndex: 0
   x: 3358
   y: 1408
-- name: assets/textures-layer-3/architecture_dwarf_castle_block_7.png
+- name: assets/textures-layer-3/architecture_dwarf_side_view_block_7.png
   offsetX: 66
   offsetY: 209
   originalHeight: 445
@@ -4049,7 +4049,7 @@ regions:
   textureIndex: 0
   x: 558
   y: 1408
-- name: assets/textures-layer-3/architecture_orc_house_vertical_tall_0.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_house_vertical_tall_0.png
   offsetX: 66
   offsetY: 215
   originalHeight: 445
@@ -4059,7 +4059,7 @@ regions:
   textureIndex: 0
   x: 2965
   y: 559
-- name: assets/textures-layer-3/architecture_orc_house_vertical_tall_1.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_house_vertical_tall_1.png
   offsetX: 66
   offsetY: 215
   originalHeight: 445
@@ -4069,7 +4069,7 @@ regions:
   textureIndex: 0
   x: 3684
   y: 689
-- name: assets/textures-layer-3/architecture_orc_house_vertical_tall_2.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_house_vertical_tall_2.png
   offsetX: 66
   offsetY: 215
   originalHeight: 445
@@ -4079,7 +4079,7 @@ regions:
   textureIndex: 0
   x: 3978
   y: 690
-- name: assets/textures-layer-3/architecture_orc_house_vertical_tall_3.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_house_vertical_tall_3.png
   offsetX: 66
   offsetY: 215
   originalHeight: 445
@@ -4089,7 +4089,7 @@ regions:
   textureIndex: 0
   x: 437
   y: 565
-- name: assets/textures-layer-3/architecture_orc_house_vertical_tall_4.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_house_vertical_tall_4.png
   offsetX: 66
   offsetY: 215
   originalHeight: 445
@@ -4099,7 +4099,7 @@ regions:
   textureIndex: 0
   x: 2965
   y: 685
-- name: assets/textures-layer-3/architecture_orc_house_vertical_tall_5.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_house_vertical_tall_5.png
   offsetX: 66
   offsetY: 215
   originalHeight: 445
@@ -4109,7 +4109,7 @@ regions:
   textureIndex: 0
   x: 3479
   y: 690
-- name: assets/textures-layer-3/architecture_orc_flat_medium_0.png
+- name: assets/textures-layer-3/architecture_orc_top_view_medium_0.png
   offsetX: 67
   offsetY: 208
   originalHeight: 480
@@ -4119,7 +4119,7 @@ regions:
   textureIndex: 0
   x: 2211
   y: 1475
-- name: assets/textures-layer-3/architecture_orc_flat_medium_2.png
+- name: assets/textures-layer-3/architecture_orc_top_view_medium_2.png
   offsetX: 67
   offsetY: 208
   originalHeight: 480
@@ -4129,7 +4129,7 @@ regions:
   textureIndex: 0
   x: 2304
   y: 1475
-- name: assets/textures-layer-3/architecture_orc_flat_medium_3.png
+- name: assets/textures-layer-3/architecture_orc_top_view_medium_3.png
   offsetX: 67
   offsetY: 208
   originalHeight: 480
@@ -4139,7 +4139,7 @@ regions:
   textureIndex: 0
   x: 3865
   y: 1475
-- name: assets/textures-layer-3/architecture_orc_flat_medium_4.png
+- name: assets/textures-layer-3/architecture_orc_top_view_medium_4.png
   offsetX: 67
   offsetY: 208
   originalHeight: 480
@@ -4149,7 +4149,7 @@ regions:
   textureIndex: 0
   x: 3358
   y: 1475
-- name: assets/textures-layer-3/architecture_orc_flat_medium_5.png
+- name: assets/textures-layer-3/architecture_orc_top_view_medium_5.png
   offsetX: 67
   offsetY: 208
   originalHeight: 480
@@ -4189,7 +4189,7 @@ regions:
   textureIndex: 0
   x: 998
   y: 1327
-- name: assets/textures-layer-3/architecture_elf_house_vertical_short_0.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_house_vertical_short_0.png
   offsetX: 84
   offsetY: 213
   originalHeight: 445
@@ -4199,7 +4199,7 @@ regions:
   textureIndex: 0
   x: 474
   y: 819
-- name: assets/textures-layer-3/architecture_elf_house_vertical_short_1.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_house_vertical_short_1.png
   offsetX: 84
   offsetY: 213
   originalHeight: 445
@@ -4209,7 +4209,7 @@ regions:
   textureIndex: 0
   x: 3673
   y: 818
-- name: assets/textures-layer-3/architecture_elf_house_vertical_short_2.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_house_vertical_short_2.png
   offsetX: 84
   offsetY: 213
   originalHeight: 445
@@ -4219,7 +4219,7 @@ regions:
   textureIndex: 0
   x: 3902
   y: 818
-- name: assets/textures-layer-3/architecture_elf_house_vertical_short_3.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_house_vertical_short_3.png
   offsetX: 84
   offsetY: 213
   originalHeight: 445
@@ -4229,7 +4229,7 @@ regions:
   textureIndex: 0
   x: 421
   y: 819
-- name: assets/textures-layer-3/architecture_elf_house_vertical_short_4.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_house_vertical_short_4.png
   offsetX: 84
   offsetY: 213
   originalHeight: 445
@@ -4239,7 +4239,7 @@ regions:
   textureIndex: 0
   x: 3849
   y: 818
-- name: assets/textures-layer-3/architecture_elf_house_vertical_short_5.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_house_vertical_short_5.png
   offsetX: 84
   offsetY: 213
   originalHeight: 445
@@ -4249,7 +4249,7 @@ regions:
   textureIndex: 0
   x: 1984
   y: 818
-- name: assets/textures-layer-3/architecture_elf_castle_tower_2.png
+- name: assets/textures-layer-3/architecture_elf_side_view_tower_2.png
   offsetX: 77
   offsetY: 211
   originalHeight: 445
@@ -4259,7 +4259,7 @@ regions:
   textureIndex: 0
   x: 3137
   y: 1242
-- name: assets/textures-layer-3/architecture_dwarf_hut_diagonal_0.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_hut_diagonal_0.png
   offsetX: 76
   offsetY: 189
   originalHeight: 445
@@ -4269,7 +4269,7 @@ regions:
   textureIndex: 0
   x: 2580
   y: 1405
-- name: assets/textures-layer-3/architecture_dwarf_hut_diagonal_1.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_hut_diagonal_1.png
   offsetX: 76
   offsetY: 189
   originalHeight: 445
@@ -4279,7 +4279,7 @@ regions:
   textureIndex: 0
   x: 1421
   y: 1405
-- name: assets/textures-layer-3/architecture_dwarf_hut_diagonal_2.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_hut_diagonal_2.png
   offsetX: 76
   offsetY: 189
   originalHeight: 445
@@ -4289,7 +4289,7 @@ regions:
   textureIndex: 0
   x: 2662
   y: 1405
-- name: assets/textures-layer-3/architecture_dwarf_hut_diagonal_3.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_hut_diagonal_3.png
   offsetX: 76
   offsetY: 189
   originalHeight: 445
@@ -4299,7 +4299,7 @@ regions:
   textureIndex: 0
   x: 2006
   y: 1405
-- name: assets/textures-layer-3/architecture_dwarf_hut_diagonal_4.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_hut_diagonal_4.png
   offsetX: 76
   offsetY: 189
   originalHeight: 445
@@ -4309,7 +4309,7 @@ regions:
   textureIndex: 0
   x: 1503
   y: 1405
-- name: assets/textures-layer-3/architecture_dwarf_hut_diagonal_5.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_hut_diagonal_5.png
   offsetX: 76
   offsetY: 189
   originalHeight: 445
@@ -4329,7 +4329,7 @@ regions:
   textureIndex: 0
   x: 3960
   y: 938
-- name: assets/textures-layer-3/architecture_dwarf_flat_large_0.png
+- name: assets/textures-layer-3/architecture_dwarf_top_view_large_0.png
   offsetX: 50
   offsetY: 201
   originalHeight: 445
@@ -4339,7 +4339,7 @@ regions:
   textureIndex: 0
   x: 3174
   y: 1655
-- name: assets/textures-layer-3/architecture_dwarf_flat_large_1.png
+- name: assets/textures-layer-3/architecture_dwarf_top_view_large_1.png
   offsetX: 50
   offsetY: 201
   originalHeight: 445
@@ -4349,7 +4349,7 @@ regions:
   textureIndex: 0
   x: 3052
   y: 1655
-- name: assets/textures-layer-3/architecture_dwarf_flat_large_2.png
+- name: assets/textures-layer-3/architecture_dwarf_top_view_large_2.png
   offsetX: 50
   offsetY: 201
   originalHeight: 445
@@ -4359,7 +4359,7 @@ regions:
   textureIndex: 0
   x: 2930
   y: 1655
-- name: assets/textures-layer-3/architecture_dwarf_flat_large_3.png
+- name: assets/textures-layer-3/architecture_dwarf_top_view_large_3.png
   offsetX: 50
   offsetY: 201
   originalHeight: 445
@@ -4369,7 +4369,7 @@ regions:
   textureIndex: 0
   x: 2808
   y: 1655
-- name: assets/textures-layer-3/architecture_dwarf_flat_large_4.png
+- name: assets/textures-layer-3/architecture_dwarf_top_view_large_4.png
   offsetX: 50
   offsetY: 201
   originalHeight: 445
@@ -4379,7 +4379,7 @@ regions:
   textureIndex: 0
   x: 2564
   y: 1655
-- name: assets/textures-layer-3/architecture_dwarf_flat_large_5.png
+- name: assets/textures-layer-3/architecture_dwarf_top_view_large_5.png
   offsetX: 50
   offsetY: 201
   originalHeight: 445
@@ -4409,7 +4409,7 @@ regions:
   textureIndex: 0
   x: 911
   y: 940
-- name: assets/textures-layer-3/architecture_human_decoration_3.png
+- name: assets/textures-layer-3/architecture_human_side_view_decoration_3.png
   offsetX: 73
   offsetY: 235
   originalHeight: 480
@@ -4419,7 +4419,7 @@ regions:
   textureIndex: 0
   x: 3115
   y: 1404
-- name: assets/textures-layer-3/architecture_dwarf_decoration_4.png
+- name: assets/textures-layer-3/architecture_dwarf_side_view_decoration_4.png
   offsetX: 86
   offsetY: 205
   originalHeight: 445
@@ -4429,7 +4429,7 @@ regions:
   textureIndex: 0
   x: 1080
   y: 1147
-- name: assets/textures-layer-3/architecture_elf_castle_tower_6.png
+- name: assets/textures-layer-3/architecture_elf_side_view_tower_6.png
   offsetX: 82
   offsetY: 211
   originalHeight: 445
@@ -4439,7 +4439,7 @@ regions:
   textureIndex: 0
   x: 3666
   y: 1146
-- name: assets/textures-layer-3/architecture_dwarf_castle_block_4.png
+- name: assets/textures-layer-3/architecture_dwarf_side_view_block_4.png
   offsetX: 43
   offsetY: 213
   originalHeight: 445
@@ -4449,7 +4449,7 @@ regions:
   textureIndex: 0
   x: 749
   y: 1657
-- name: assets/textures-layer-3/architecture_elf_castle_tower_1.png
+- name: assets/textures-layer-3/architecture_elf_side_view_tower_1.png
   offsetX: 84
   offsetY: 211
   originalHeight: 445
@@ -4459,7 +4459,7 @@ regions:
   textureIndex: 0
   x: 1957
   y: 1147
-- name: assets/textures-layer-3/architecture_elf_castle_block_3.png
+- name: assets/textures-layer-3/architecture_elf_side_view_block_3.png
   offsetX: 61
   offsetY: 213
   originalHeight: 445
@@ -4509,7 +4509,7 @@ regions:
   textureIndex: 0
   x: 1342
   y: 1327
-- name: assets/textures-layer-3/architecture_dwarf_house_vertical_short_1.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_house_vertical_short_1.png
   offsetX: 86
   offsetY: 213
   originalHeight: 445
@@ -4519,7 +4519,7 @@ regions:
   textureIndex: 0
   x: 527
   y: 819
-- name: assets/textures-layer-3/architecture_dwarf_house_vertical_short_4.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_house_vertical_short_4.png
   offsetX: 86
   offsetY: 213
   originalHeight: 445
@@ -4529,7 +4529,7 @@ regions:
   textureIndex: 0
   x: 577
   y: 819
-- name: assets/textures-layer-3/architecture_human_house_vertical_short_5.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_house_vertical_short_5.png
   offsetX: 66
   offsetY: 212
   originalHeight: 445
@@ -4539,7 +4539,7 @@ regions:
   textureIndex: 0
   x: 1332
   y: 819
-- name: assets/textures-layer-3/architecture_dwarf_house_vertical_short_0.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_house_vertical_short_0.png
   offsetX: 86
   offsetY: 214
   originalHeight: 445
@@ -4549,7 +4549,7 @@ regions:
   textureIndex: 0
   x: 3213
   y: 824
-- name: assets/textures-layer-3/architecture_dwarf_house_vertical_short_2.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_house_vertical_short_2.png
   offsetX: 86
   offsetY: 214
   originalHeight: 445
@@ -4559,7 +4559,7 @@ regions:
   textureIndex: 0
   x: 3363
   y: 824
-- name: assets/textures-layer-3/architecture_dwarf_house_vertical_short_3.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_house_vertical_short_3.png
   offsetX: 86
   offsetY: 214
   originalHeight: 445
@@ -4569,7 +4569,7 @@ regions:
   textureIndex: 0
   x: 3128
   y: 825
-- name: assets/textures-layer-3/architecture_dwarf_house_vertical_short_5.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_house_vertical_short_5.png
   offsetX: 86
   offsetY: 214
   originalHeight: 445
@@ -4579,7 +4579,7 @@ regions:
   textureIndex: 0
   x: 2
   y: 859
-- name: assets/textures-layer-3/architecture_human_house_vertical_short_0.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_house_vertical_short_0.png
   offsetX: 66
   offsetY: 213
   originalHeight: 445
@@ -4589,7 +4589,7 @@ regions:
   textureIndex: 0
   x: 3413
   y: 824
-- name: assets/textures-layer-3/architecture_human_house_vertical_short_1.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_house_vertical_short_1.png
   offsetX: 66
   offsetY: 213
   originalHeight: 445
@@ -4599,7 +4599,7 @@ regions:
   textureIndex: 0
   x: 3263
   y: 824
-- name: assets/textures-layer-3/architecture_human_house_vertical_short_2.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_house_vertical_short_2.png
   offsetX: 66
   offsetY: 213
   originalHeight: 445
@@ -4609,7 +4609,7 @@ regions:
   textureIndex: 0
   x: 3078
   y: 825
-- name: assets/textures-layer-3/architecture_human_house_vertical_short_3.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_house_vertical_short_3.png
   offsetX: 66
   offsetY: 213
   originalHeight: 445
@@ -4619,7 +4619,7 @@ regions:
   textureIndex: 0
   x: 3313
   y: 824
-- name: assets/textures-layer-3/architecture_human_house_vertical_short_4.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_house_vertical_short_4.png
   offsetX: 66
   offsetY: 213
   originalHeight: 445
@@ -4629,7 +4629,7 @@ regions:
   textureIndex: 0
   x: 1517
   y: 819
-- name: assets/textures-layer-3/architecture_orc_castle_block_5.png
+- name: assets/textures-layer-3/architecture_orc_side_view_block_5.png
   offsetX: 56
   offsetY: 214
   originalHeight: 445
@@ -4679,7 +4679,7 @@ regions:
   textureIndex: 0
   x: 252
   y: 1406
-- name: assets/textures-layer-3/architecture_human_castle_block_3.png
+- name: assets/textures-layer-3/architecture_human_side_view_block_3.png
   offsetX: 67
   offsetY: 233
   originalHeight: 480
@@ -4689,7 +4689,7 @@ regions:
   textureIndex: 0
   x: 3241
   y: 1541
-- name: assets/textures-layer-3/architecture_human_castle_block_4.png
+- name: assets/textures-layer-3/architecture_human_side_view_block_4.png
   offsetX: 67
   offsetY: 236
   originalHeight: 480
@@ -4699,7 +4699,7 @@ regions:
   textureIndex: 0
   x: 3092
   y: 1542
-- name: assets/textures-layer-3/architecture_dwarf_decoration_1.png
+- name: assets/textures-layer-3/architecture_dwarf_side_view_decoration_1.png
   offsetX: 68
   offsetY: 208
   originalHeight: 445
@@ -4709,7 +4709,7 @@ regions:
   textureIndex: 0
   x: 1332
   y: 935
-- name: assets/textures-layer-3/architecture_human_hut_diagonal_0.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_hut_diagonal_0.png
   offsetX: 33
   offsetY: 63
   originalHeight: 189
@@ -4719,7 +4719,7 @@ regions:
   textureIndex: 0
   x: 992
   y: 1406
-- name: assets/textures-layer-3/architecture_human_hut_diagonal_1.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_hut_diagonal_1.png
   offsetX: 33
   offsetY: 63
   originalHeight: 189
@@ -4729,7 +4729,7 @@ regions:
   textureIndex: 0
   x: 1918
   y: 1406
-- name: assets/textures-layer-3/architecture_human_hut_diagonal_2.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_hut_diagonal_2.png
   offsetX: 33
   offsetY: 63
   originalHeight: 189
@@ -4739,7 +4739,7 @@ regions:
   textureIndex: 0
   x: 2496
   y: 1406
-- name: assets/textures-layer-3/architecture_human_hut_diagonal_3.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_hut_diagonal_3.png
   offsetX: 33
   offsetY: 63
   originalHeight: 189
@@ -4749,7 +4749,7 @@ regions:
   textureIndex: 0
   x: 3790
   y: 1406
-- name: assets/textures-layer-3/architecture_human_hut_diagonal_4.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_hut_diagonal_4.png
   offsetX: 33
   offsetY: 63
   originalHeight: 189
@@ -4759,7 +4759,7 @@ regions:
   textureIndex: 0
   x: 3565
   y: 1406
-- name: assets/textures-layer-3/architecture_human_hut_diagonal_5.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_hut_diagonal_5.png
   offsetX: 33
   offsetY: 63
   originalHeight: 189
@@ -4789,7 +4789,7 @@ regions:
   textureIndex: 0
   x: 440
   y: 1703
-- name: assets/textures-layer-3/architecture_dwarf_castle_block_2.png
+- name: assets/textures-layer-3/architecture_dwarf_side_view_block_2.png
   offsetX: 56
   offsetY: 212
   originalHeight: 445
@@ -4799,7 +4799,7 @@ regions:
   textureIndex: 0
   x: 1739
   y: 1656
-- name: assets/textures-layer-3/architecture_orc_hut_diagonal_0.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_hut_diagonal_0.png
   offsetX: 32
   offsetY: 63
   originalHeight: 189
@@ -4809,7 +4809,7 @@ regions:
   textureIndex: 0
   x: 1913
   y: 1476
-- name: assets/textures-layer-3/architecture_orc_hut_diagonal_1.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_hut_diagonal_1.png
   offsetX: 32
   offsetY: 63
   originalHeight: 189
@@ -4819,7 +4819,7 @@ regions:
   textureIndex: 0
   x: 2496
   y: 1476
-- name: assets/textures-layer-3/architecture_orc_hut_diagonal_2.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_hut_diagonal_2.png
   offsetX: 32
   offsetY: 63
   originalHeight: 189
@@ -4829,7 +4829,7 @@ regions:
   textureIndex: 0
   x: 3565
   y: 1476
-- name: assets/textures-layer-3/architecture_orc_hut_diagonal_3.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_hut_diagonal_3.png
   offsetX: 32
   offsetY: 63
   originalHeight: 189
@@ -4839,7 +4839,7 @@ regions:
   textureIndex: 0
   x: 992
   y: 1476
-- name: assets/textures-layer-3/architecture_orc_hut_diagonal_4.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_hut_diagonal_4.png
   offsetX: 32
   offsetY: 63
   originalHeight: 189
@@ -4849,7 +4849,7 @@ regions:
   textureIndex: 0
   x: 530
   y: 1476
-- name: assets/textures-layer-3/architecture_orc_hut_diagonal_5.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_hut_diagonal_5.png
   offsetX: 32
   offsetY: 63
   originalHeight: 189
@@ -4859,7 +4859,7 @@ regions:
   textureIndex: 0
   x: 230
   y: 1477
-- name: assets/textures-layer-3/architecture_orc_house_vertical_short_0.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_house_vertical_short_0.png
   offsetX: 66
   offsetY: 215
   originalHeight: 445
@@ -4869,7 +4869,7 @@ regions:
   textureIndex: 0
   x: 2965
   y: 1043
-- name: assets/textures-layer-3/architecture_orc_house_vertical_short_1.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_house_vertical_short_1.png
   offsetX: 66
   offsetY: 215
   originalHeight: 445
@@ -4879,7 +4879,7 @@ regions:
   textureIndex: 0
   x: 426
   y: 1046
-- name: assets/textures-layer-3/architecture_orc_house_vertical_short_2.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_house_vertical_short_2.png
   offsetX: 66
   offsetY: 215
   originalHeight: 445
@@ -4889,7 +4889,7 @@ regions:
   textureIndex: 0
   x: 3793
   y: 1044
-- name: assets/textures-layer-3/architecture_orc_house_vertical_short_3.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_house_vertical_short_3.png
   offsetX: 66
   offsetY: 215
   originalHeight: 445
@@ -4899,7 +4899,7 @@ regions:
   textureIndex: 0
   x: 3015
   y: 1043
-- name: assets/textures-layer-3/architecture_orc_house_vertical_short_4.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_house_vertical_short_4.png
   offsetX: 66
   offsetY: 215
   originalHeight: 445
@@ -4909,7 +4909,7 @@ regions:
   textureIndex: 0
   x: 1756
   y: 1046
-- name: assets/textures-layer-3/architecture_orc_house_vertical_short_5.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_house_vertical_short_5.png
   offsetX: 66
   offsetY: 215
   originalHeight: 445
@@ -4929,7 +4929,7 @@ regions:
   textureIndex: 0
   x: 3865
   y: 1406
-- name: assets/textures-layer-3/architecture_dwarf_castle_block_1.png
+- name: assets/textures-layer-3/architecture_dwarf_side_view_block_1.png
   offsetX: 75
   offsetY: 211
   originalHeight: 445
@@ -4989,7 +4989,7 @@ regions:
   textureIndex: 0
   x: 1238
   y: 937
-- name: assets/textures-layer-3/architecture_human_flat_medium_0.png
+- name: assets/textures-layer-3/architecture_human_top_view_medium_0.png
   offsetX: 68
   offsetY: 215
   originalHeight: 480
@@ -4999,7 +4999,7 @@ regions:
   textureIndex: 0
   x: 3071
   y: 1601
-- name: assets/textures-layer-3/architecture_human_flat_medium_1.png
+- name: assets/textures-layer-3/architecture_human_top_view_medium_1.png
   offsetX: 68
   offsetY: 215
   originalHeight: 480
@@ -5009,7 +5009,7 @@ regions:
   textureIndex: 0
   x: 3224
   y: 1601
-- name: assets/textures-layer-3/architecture_human_flat_medium_2.png
+- name: assets/textures-layer-3/architecture_human_top_view_medium_2.png
   offsetX: 68
   offsetY: 215
   originalHeight: 480
@@ -5019,7 +5019,7 @@ regions:
   textureIndex: 0
   x: 234
   y: 1602
-- name: assets/textures-layer-3/architecture_human_flat_medium_3.png
+- name: assets/textures-layer-3/architecture_human_top_view_medium_3.png
   offsetX: 68
   offsetY: 215
   originalHeight: 480
@@ -5029,7 +5029,7 @@ regions:
   textureIndex: 0
   x: 897
   y: 1601
-- name: assets/textures-layer-3/architecture_human_flat_medium_4.png
+- name: assets/textures-layer-3/architecture_human_top_view_medium_4.png
   offsetX: 68
   offsetY: 215
   originalHeight: 480
@@ -5039,7 +5039,7 @@ regions:
   textureIndex: 0
   x: 416
   y: 1602
-- name: assets/textures-layer-3/architecture_human_flat_medium_5.png
+- name: assets/textures-layer-3/architecture_human_top_view_medium_5.png
   offsetX: 68
   offsetY: 215
   originalHeight: 480
@@ -5079,7 +5079,7 @@ regions:
   textureIndex: 0
   x: 4028
   y: 1240
-- name: assets/textures-layer-3/architecture_elf_flat_medium_0.png
+- name: assets/textures-layer-3/architecture_elf_top_view_medium_0.png
   offsetX: 69
   offsetY: 199
   originalHeight: 445
@@ -5089,7 +5089,7 @@ regions:
   textureIndex: 0
   x: 3663
   y: 1602
-- name: assets/textures-layer-3/architecture_elf_flat_medium_1.png
+- name: assets/textures-layer-3/architecture_elf_top_view_medium_1.png
   offsetX: 69
   offsetY: 199
   originalHeight: 445
@@ -5099,7 +5099,7 @@ regions:
   textureIndex: 0
   x: 1177
   y: 1655
-- name: assets/textures-layer-3/architecture_elf_flat_medium_2.png
+- name: assets/textures-layer-3/architecture_elf_top_view_medium_2.png
   offsetX: 69
   offsetY: 199
   originalHeight: 445
@@ -5109,7 +5109,7 @@ regions:
   textureIndex: 0
   x: 1091
   y: 1655
-- name: assets/textures-layer-3/architecture_elf_flat_medium_3.png
+- name: assets/textures-layer-3/architecture_elf_top_view_medium_3.png
   offsetX: 69
   offsetY: 199
   originalHeight: 445
@@ -5119,7 +5119,7 @@ regions:
   textureIndex: 0
   x: 897
   y: 1655
-- name: assets/textures-layer-3/architecture_elf_flat_medium_4.png
+- name: assets/textures-layer-3/architecture_elf_top_view_medium_4.png
   offsetX: 69
   offsetY: 199
   originalHeight: 445
@@ -5129,7 +5129,7 @@ regions:
   textureIndex: 0
   x: 3749
   y: 1602
-- name: assets/textures-layer-3/architecture_elf_flat_medium_5.png
+- name: assets/textures-layer-3/architecture_elf_top_view_medium_5.png
   offsetX: 69
   offsetY: 199
   originalHeight: 445
@@ -5179,7 +5179,7 @@ regions:
   textureIndex: 0
   x: 1913
   y: 1541
-- name: assets/textures-layer-3/architecture_dwarf_flat_medium_0.png
+- name: assets/textures-layer-3/architecture_dwarf_top_view_medium_0.png
   offsetX: 69
   offsetY: 201
   originalHeight: 445
@@ -5189,7 +5189,7 @@ regions:
   textureIndex: 0
   x: 3711
   y: 1655
-- name: assets/textures-layer-3/architecture_dwarf_flat_medium_1.png
+- name: assets/textures-layer-3/architecture_dwarf_top_view_medium_1.png
   offsetX: 69
   offsetY: 201
   originalHeight: 445
@@ -5199,7 +5199,7 @@ regions:
   textureIndex: 0
   x: 4010
   y: 1655
-- name: assets/textures-layer-3/architecture_dwarf_flat_medium_2.png
+- name: assets/textures-layer-3/architecture_dwarf_top_view_medium_2.png
   offsetX: 69
   offsetY: 201
   originalHeight: 445
@@ -5209,7 +5209,7 @@ regions:
   textureIndex: 0
   x: 3625
   y: 1655
-- name: assets/textures-layer-3/architecture_dwarf_flat_medium_3.png
+- name: assets/textures-layer-3/architecture_dwarf_top_view_medium_3.png
   offsetX: 69
   offsetY: 201
   originalHeight: 445
@@ -5219,7 +5219,7 @@ regions:
   textureIndex: 0
   x: 3539
   y: 1655
-- name: assets/textures-layer-3/architecture_dwarf_flat_medium_4.png
+- name: assets/textures-layer-3/architecture_dwarf_top_view_medium_4.png
   offsetX: 69
   offsetY: 201
   originalHeight: 445
@@ -5229,7 +5229,7 @@ regions:
   textureIndex: 0
   x: 88
   y: 1656
-- name: assets/textures-layer-3/architecture_dwarf_flat_medium_5.png
+- name: assets/textures-layer-3/architecture_dwarf_top_view_medium_5.png
   offsetX: 69
   offsetY: 201
   originalHeight: 445
@@ -5269,7 +5269,7 @@ regions:
   textureIndex: 0
   x: 2359
   y: 1241
-- name: assets/textures-layer-3/architecture_elf_hut_vertical_0.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_hut_vertical_0.png
   offsetX: 85
   offsetY: 214
   originalHeight: 445
@@ -5279,7 +5279,7 @@ regions:
   textureIndex: 0
   x: 2006
   y: 1327
-- name: assets/textures-layer-3/architecture_elf_hut_vertical_1.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_hut_vertical_1.png
   offsetX: 85
   offsetY: 214
   originalHeight: 445
@@ -5289,7 +5289,7 @@ regions:
   textureIndex: 0
   x: 2059
   y: 1327
-- name: assets/textures-layer-3/architecture_elf_hut_vertical_2.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_hut_vertical_2.png
   offsetX: 85
   offsetY: 214
   originalHeight: 445
@@ -5299,7 +5299,7 @@ regions:
   textureIndex: 0
   x: 2580
   y: 1327
-- name: assets/textures-layer-3/architecture_elf_hut_vertical_3.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_hut_vertical_3.png
   offsetX: 85
   offsetY: 214
   originalHeight: 445
@@ -5309,7 +5309,7 @@ regions:
   textureIndex: 0
   x: 1623
   y: 1327
-- name: assets/textures-layer-3/architecture_elf_hut_vertical_4.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_hut_vertical_4.png
   offsetX: 85
   offsetY: 214
   originalHeight: 445
@@ -5319,7 +5319,7 @@ regions:
   textureIndex: 0
   x: 2633
   y: 1327
-- name: assets/textures-layer-3/architecture_elf_hut_vertical_5.png
+- name: assets/textures-layer-3/architecture_elf_isometric_view_hut_vertical_5.png
   offsetX: 85
   offsetY: 214
   originalHeight: 445
@@ -5339,57 +5339,7 @@ regions:
   textureIndex: 0
   x: 3650
   y: 1323
-- name: assets/textures-layer-3/architecture_dwarf_hut_vertical_0.png
-  offsetX: 86
-  offsetY: 214
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 76
-  packedWidth: 46
-  textureIndex: 0
-  x: 3807
-  y: 1326
-- name: assets/textures-layer-3/architecture_dwarf_hut_vertical_1.png
-  offsetX: 86
-  offsetY: 214
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 76
-  packedWidth: 46
-  textureIndex: 0
-  x: 3297
-  y: 1326
-- name: assets/textures-layer-3/architecture_dwarf_hut_vertical_2.png
-  offsetX: 86
-  offsetY: 214
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 76
-  packedWidth: 46
-  textureIndex: 0
-  x: 743
-  y: 1327
-- name: assets/textures-layer-3/architecture_dwarf_hut_vertical_3.png
-  offsetX: 86
-  offsetY: 214
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 76
-  packedWidth: 46
-  textureIndex: 0
-  x: 3957
-  y: 1326
-- name: assets/textures-layer-3/architecture_dwarf_hut_vertical_4.png
-  offsetX: 86
-  offsetY: 214
-  originalHeight: 445
-  originalWidth: 220
-  packedHeight: 76
-  packedWidth: 46
-  textureIndex: 0
-  x: 3857
-  y: 1326
-- name: assets/textures-layer-3/architecture_dwarf_hut_vertical_5.png
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_hut_vertical_0.png
   offsetX: 86
   offsetY: 214
   originalHeight: 445
@@ -5399,6 +5349,56 @@ regions:
   textureIndex: 0
   x: 3907
   y: 1326
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_hut_vertical_1.png
+  offsetX: 86
+  offsetY: 214
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 76
+  packedWidth: 46
+  textureIndex: 0
+  x: 3957
+  y: 1326
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_hut_vertical_2.png
+  offsetX: 86
+  offsetY: 214
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 76
+  packedWidth: 46
+  textureIndex: 0
+  x: 3807
+  y: 1326
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_hut_vertical_3.png
+  offsetX: 86
+  offsetY: 214
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 76
+  packedWidth: 46
+  textureIndex: 0
+  x: 3297
+  y: 1326
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_hut_vertical_4.png
+  offsetX: 86
+  offsetY: 214
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 76
+  packedWidth: 46
+  textureIndex: 0
+  x: 3857
+  y: 1326
+- name: assets/textures-layer-3/architecture_dwarf_isometric_view_hut_vertical_5.png
+  offsetX: 86
+  offsetY: 214
+  originalHeight: 445
+  originalWidth: 220
+  packedHeight: 76
+  packedWidth: 46
+  textureIndex: 0
+  x: 743
+  y: 1327
 - name: assets/textures-layer-3/tree_circular_trunk_1.png
   offsetX: 116
   offsetY: 249
@@ -5469,7 +5469,7 @@ regions:
   textureIndex: 0
   x: 330
   y: 1238
-- name: assets/textures-layer-3/architecture_dwarf_castle_block_6.png
+- name: assets/textures-layer-3/architecture_dwarf_side_view_block_6.png
   offsetX: 79
   offsetY: 210
   originalHeight: 445
@@ -5479,7 +5479,7 @@ regions:
   textureIndex: 0
   x: 3087
   y: 1481
-- name: assets/textures-layer-3/architecture_human_hut_vertical_0.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_hut_vertical_0.png
   offsetX: 86
   offsetY: 213
   originalHeight: 445
@@ -5489,7 +5489,7 @@ regions:
   textureIndex: 0
   x: 2789
   y: 1327
-- name: assets/textures-layer-3/architecture_human_hut_vertical_1.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_hut_vertical_1.png
   offsetX: 86
   offsetY: 213
   originalHeight: 445
@@ -5499,7 +5499,7 @@ regions:
   textureIndex: 0
   x: 2839
   y: 1327
-- name: assets/textures-layer-3/architecture_human_hut_vertical_2.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_hut_vertical_2.png
   offsetX: 86
   offsetY: 213
   originalHeight: 445
@@ -5509,7 +5509,7 @@ regions:
   textureIndex: 0
   x: 2889
   y: 1327
-- name: assets/textures-layer-3/architecture_human_hut_vertical_3.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_hut_vertical_3.png
   offsetX: 86
   offsetY: 213
   originalHeight: 445
@@ -5519,7 +5519,7 @@ regions:
   textureIndex: 0
   x: 2739
   y: 1327
-- name: assets/textures-layer-3/architecture_human_hut_vertical_4.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_hut_vertical_4.png
   offsetX: 86
   offsetY: 213
   originalHeight: 445
@@ -5529,7 +5529,7 @@ regions:
   textureIndex: 0
   x: 2989
   y: 1327
-- name: assets/textures-layer-3/architecture_human_hut_vertical_5.png
+- name: assets/textures-layer-3/architecture_human_isometric_view_hut_vertical_5.png
   offsetX: 86
   offsetY: 213
   originalHeight: 445
@@ -5589,7 +5589,7 @@ regions:
   textureIndex: 0
   x: 1604
   y: 1479
-- name: assets/textures-layer-3/architecture_human_castle_block_1.png
+- name: assets/textures-layer-3/architecture_human_side_view_block_1.png
   offsetX: 73
   offsetY: 236
   originalHeight: 480
@@ -5609,7 +5609,7 @@ regions:
   textureIndex: 0
   x: 1411
   y: 1543
-- name: assets/textures-layer-3/architecture_elf_castle_block_4.png
+- name: assets/textures-layer-3/architecture_elf_side_view_block_4.png
   offsetX: 79
   offsetY: 213
   originalHeight: 445
@@ -5739,7 +5739,7 @@ regions:
   textureIndex: 0
   x: 2686
   y: 1479
-- name: assets/textures-layer-3/architecture_orc_flat_small_5.png
+- name: assets/textures-layer-3/architecture_orc_top_view_small_5.png
   offsetX: 84
   offsetY: 213
   originalHeight: 480
@@ -5749,7 +5749,7 @@ regions:
   textureIndex: 0
   x: 3183
   y: 1542
-- name: assets/textures-layer-3/architecture_orc_hut_vertical_0.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_hut_vertical_0.png
   offsetX: 66
   offsetY: 215
   originalHeight: 445
@@ -5759,7 +5759,7 @@ regions:
   textureIndex: 0
   x: 2397
   y: 1477
-- name: assets/textures-layer-3/architecture_orc_hut_vertical_1.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_hut_vertical_1.png
   offsetX: 66
   offsetY: 215
   originalHeight: 445
@@ -5769,7 +5769,7 @@ regions:
   textureIndex: 0
   x: 3501
   y: 1477
-- name: assets/textures-layer-3/architecture_orc_hut_vertical_2.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_hut_vertical_2.png
   offsetX: 66
   offsetY: 215
   originalHeight: 445
@@ -5779,7 +5779,7 @@ regions:
   textureIndex: 0
   x: 3451
   y: 1477
-- name: assets/textures-layer-3/architecture_orc_hut_vertical_3.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_hut_vertical_3.png
   offsetX: 66
   offsetY: 215
   originalHeight: 445
@@ -5789,7 +5789,7 @@ regions:
   textureIndex: 0
   x: 3191
   y: 1477
-- name: assets/textures-layer-3/architecture_orc_hut_vertical_4.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_hut_vertical_4.png
   offsetX: 66
   offsetY: 215
   originalHeight: 445
@@ -5799,7 +5799,7 @@ regions:
   textureIndex: 0
   x: 3958
   y: 1477
-- name: assets/textures-layer-3/architecture_orc_hut_vertical_5.png
+- name: assets/textures-layer-3/architecture_orc_isometric_view_hut_vertical_5.png
   offsetX: 66
   offsetY: 215
   originalHeight: 445
@@ -5809,7 +5809,7 @@ regions:
   textureIndex: 0
   x: 3037
   y: 1477
-- name: assets/textures-layer-3/architecture_dwarf_castle_block_3.png
+- name: assets/textures-layer-3/architecture_dwarf_side_view_block_3.png
   offsetX: 75
   offsetY: 212
   originalHeight: 445
@@ -5819,7 +5819,7 @@ regions:
   textureIndex: 0
   x: 1927
   y: 1656
-- name: assets/textures-layer-3/architecture_orc_flat_small_4.png
+- name: assets/textures-layer-3/architecture_orc_top_view_small_4.png
   offsetX: 86
   offsetY: 213
   originalHeight: 480
@@ -5859,7 +5859,7 @@ regions:
   textureIndex: 0
   x: 3296
   y: 1657
-- name: assets/textures-layer-3/architecture_orc_flat_small_0.png
+- name: assets/textures-layer-3/architecture_orc_top_view_small_0.png
   offsetX: 86
   offsetY: 213
   originalHeight: 480
@@ -5869,7 +5869,7 @@ regions:
   textureIndex: 0
   x: 3853
   y: 1542
-- name: assets/textures-layer-3/architecture_orc_flat_small_1.png
+- name: assets/textures-layer-3/architecture_orc_top_view_small_1.png
   offsetX: 86
   offsetY: 213
   originalHeight: 480
@@ -5879,7 +5879,7 @@ regions:
   textureIndex: 0
   x: 749
   y: 1543
-- name: assets/textures-layer-3/architecture_orc_flat_small_2.png
+- name: assets/textures-layer-3/architecture_orc_top_view_small_2.png
   offsetX: 86
   offsetY: 213
   originalHeight: 480
@@ -5889,7 +5889,7 @@ regions:
   textureIndex: 0
   x: 2
   y: 1543
-- name: assets/textures-layer-3/architecture_orc_flat_small_3.png
+- name: assets/textures-layer-3/architecture_orc_top_view_small_3.png
   offsetX: 86
   offsetY: 213
   originalHeight: 480
@@ -5919,7 +5919,7 @@ regions:
   textureIndex: 0
   x: 697
   y: 1542
-- name: assets/textures-layer-3/architecture_human_decoration_0.png
+- name: assets/textures-layer-3/architecture_human_side_view_decoration_0.png
   offsetX: 105
   offsetY: 234
   originalHeight: 480
@@ -5929,7 +5929,7 @@ regions:
   textureIndex: 0
   x: 1452
   y: 1600
-- name: assets/textures-layer-3/architecture_elf_flat_small_0.png
+- name: assets/textures-layer-3/architecture_elf_top_view_small_0.png
   offsetX: 84
   offsetY: 199
   originalHeight: 445
@@ -5939,7 +5939,7 @@ regions:
   textureIndex: 0
   x: 1349
   y: 1655
-- name: assets/textures-layer-3/architecture_elf_flat_small_1.png
+- name: assets/textures-layer-3/architecture_elf_top_view_small_1.png
   offsetX: 84
   offsetY: 199
   originalHeight: 445
@@ -5949,7 +5949,7 @@ regions:
   textureIndex: 0
   x: 1452
   y: 1655
-- name: assets/textures-layer-3/architecture_elf_flat_small_2.png
+- name: assets/textures-layer-3/architecture_elf_top_view_small_2.png
   offsetX: 84
   offsetY: 199
   originalHeight: 445
@@ -5959,7 +5959,7 @@ regions:
   textureIndex: 0
   x: 1510
   y: 1655
-- name: assets/textures-layer-3/architecture_elf_flat_small_3.png
+- name: assets/textures-layer-3/architecture_elf_top_view_small_3.png
   offsetX: 84
   offsetY: 199
   originalHeight: 445
@@ -5969,7 +5969,7 @@ regions:
   textureIndex: 0
   x: 1568
   y: 1655
-- name: assets/textures-layer-3/architecture_elf_flat_small_4.png
+- name: assets/textures-layer-3/architecture_elf_top_view_small_4.png
   offsetX: 84
   offsetY: 199
   originalHeight: 445
@@ -5979,7 +5979,7 @@ regions:
   textureIndex: 0
   x: 1626
   y: 1655
-- name: assets/textures-layer-3/architecture_elf_flat_small_5.png
+- name: assets/textures-layer-3/architecture_elf_top_view_small_5.png
   offsetX: 84
   offsetY: 199
   originalHeight: 445
@@ -6019,7 +6019,7 @@ regions:
   textureIndex: 0
   x: 1339
   y: 1405
-- name: assets/textures-layer-3/architecture_elf_castle_block_5.png
+- name: assets/textures-layer-3/architecture_elf_side_view_block_5.png
   offsetX: 79
   offsetY: 213
   originalHeight: 445
@@ -6029,7 +6029,7 @@ regions:
   textureIndex: 0
   x: 440
   y: 1656
-- name: assets/textures-layer-3/architecture_elf_castle_block_8.png
+- name: assets/textures-layer-3/architecture_elf_side_view_block_8.png
   offsetX: 79
   offsetY: 213
   originalHeight: 445
@@ -6059,7 +6059,7 @@ regions:
   textureIndex: 0
   x: 1476
   y: 1543
-- name: assets/textures-layer-3/architecture_human_flat_small_0.png
+- name: assets/textures-layer-3/architecture_human_top_view_small_0.png
   offsetX: 89
   offsetY: 215
   originalHeight: 480
@@ -6069,7 +6069,7 @@ regions:
   textureIndex: 0
   x: 645
   y: 1602
-- name: assets/textures-layer-3/architecture_human_flat_small_1.png
+- name: assets/textures-layer-3/architecture_human_top_view_small_1.png
   offsetX: 89
   offsetY: 215
   originalHeight: 480
@@ -6079,7 +6079,7 @@ regions:
   textureIndex: 0
   x: 985
   y: 1602
-- name: assets/textures-layer-3/architecture_human_flat_small_2.png
+- name: assets/textures-layer-3/architecture_human_top_view_small_2.png
   offsetX: 89
   offsetY: 215
   originalHeight: 480
@@ -6089,7 +6089,7 @@ regions:
   textureIndex: 0
   x: 592
   y: 1602
-- name: assets/textures-layer-3/architecture_human_flat_small_3.png
+- name: assets/textures-layer-3/architecture_human_top_view_small_3.png
   offsetX: 89
   offsetY: 215
   originalHeight: 480
@@ -6099,7 +6099,7 @@ regions:
   textureIndex: 0
   x: 322
   y: 1602
-- name: assets/textures-layer-3/architecture_human_flat_small_4.png
+- name: assets/textures-layer-3/architecture_human_top_view_small_4.png
   offsetX: 89
   offsetY: 215
   originalHeight: 480
@@ -6109,7 +6109,7 @@ regions:
   textureIndex: 0
   x: 3488
   y: 1600
-- name: assets/textures-layer-3/architecture_human_flat_small_5.png
+- name: assets/textures-layer-3/architecture_human_top_view_small_5.png
   offsetX: 89
   offsetY: 215
   originalHeight: 480
@@ -6149,7 +6149,7 @@ regions:
   textureIndex: 0
   x: 333
   y: 1656
-- name: assets/textures-layer-3/architecture_dwarf_flat_small_0.png
+- name: assets/textures-layer-3/architecture_dwarf_top_view_small_0.png
   offsetX: 90
   offsetY: 200
   originalHeight: 445
@@ -6159,7 +6159,7 @@ regions:
   textureIndex: 0
   x: 2233
   y: 1655
-- name: assets/textures-layer-3/architecture_dwarf_flat_small_1.png
+- name: assets/textures-layer-3/architecture_dwarf_top_view_small_1.png
   offsetX: 90
   offsetY: 200
   originalHeight: 445
@@ -6169,7 +6169,7 @@ regions:
   textureIndex: 0
   x: 2284
   y: 1655
-- name: assets/textures-layer-3/architecture_dwarf_flat_small_2.png
+- name: assets/textures-layer-3/architecture_dwarf_top_view_small_2.png
   offsetX: 90
   offsetY: 200
   originalHeight: 445
@@ -6179,7 +6179,7 @@ regions:
   textureIndex: 0
   x: 698
   y: 1602
-- name: assets/textures-layer-3/architecture_dwarf_flat_small_3.png
+- name: assets/textures-layer-3/architecture_dwarf_top_view_small_3.png
   offsetX: 90
   offsetY: 200
   originalHeight: 445
@@ -6189,7 +6189,7 @@ regions:
   textureIndex: 0
   x: 698
   y: 1654
-- name: assets/textures-layer-3/architecture_dwarf_flat_small_4.png
+- name: assets/textures-layer-3/architecture_dwarf_top_view_small_4.png
   offsetX: 90
   offsetY: 200
   originalHeight: 445
@@ -6199,7 +6199,7 @@ regions:
   textureIndex: 0
   x: 3488
   y: 1654
-- name: assets/textures-layer-3/architecture_dwarf_flat_small_5.png
+- name: assets/textures-layer-3/architecture_dwarf_top_view_small_5.png
   offsetX: 90
   offsetY: 200
   originalHeight: 445
@@ -6219,7 +6219,7 @@ regions:
   textureIndex: 0
   x: 3847
   y: 1657
-- name: assets/textures-layer-3/architecture_orc_decoration_1.png
+- name: assets/textures-layer-3/architecture_orc_side_view_decoration_1.png
   offsetX: 68
   offsetY: 215
   originalHeight: 445
@@ -6239,7 +6239,7 @@ regions:
   textureIndex: 0
   x: 3945
   y: 1657
-- name: assets/textures-layer-3/architecture_human_castle_block_0.png
+- name: assets/textures-layer-3/architecture_human_side_view_block_0.png
   offsetX: 87
   offsetY: 236
   originalHeight: 480
@@ -6249,7 +6249,7 @@ regions:
   textureIndex: 0
   x: 3797
   y: 1655
-- name: assets/textures-layer-3/architecture_dwarf_decoration_3.png
+- name: assets/textures-layer-3/architecture_dwarf_side_view_decoration_3.png
   offsetX: 94
   offsetY: 207
   originalHeight: 445
@@ -6259,7 +6259,7 @@ regions:
   textureIndex: 0
   x: 607
   y: 1476
-- name: assets/textures-layer-3/architecture_elf_decoration_0.png
+- name: assets/textures-layer-3/architecture_elf_side_view_decoration_0.png
   offsetX: 80
   offsetY: 210
   originalHeight: 445
@@ -6389,7 +6389,7 @@ regions:
   textureIndex: 0
   x: 2007
   y: 1700
-- name: assets/textures-layer-3/architecture_dwarf_decoration_2.png
+- name: assets/textures-layer-3/architecture_dwarf_side_view_decoration_2.png
   offsetX: 94
   offsetY: 207
   originalHeight: 445
@@ -6539,7 +6539,7 @@ regions:
   textureIndex: 0
   x: 3337
   y: 1699
-- name: assets/textures-layer-3/architecture_orc_decoration_0.png
+- name: assets/textures-layer-3/architecture_orc_side_view_decoration_0.png
   offsetX: 78
   offsetY: 214
   originalHeight: 445
