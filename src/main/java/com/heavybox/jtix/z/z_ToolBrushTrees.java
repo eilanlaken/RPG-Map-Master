@@ -162,7 +162,6 @@ public class z_ToolBrushTrees extends Tool {
                             x, y, deg, sclX, sclY, true,
                             base, trunk, fruits
                     );
-                    createPlant.type = Token.Type.TREE;
                     createPlant.anchor = i++ == positions.size - 1;
                     map.addCommand(createPlant);
                 }
@@ -186,7 +185,6 @@ public class z_ToolBrushTrees extends Tool {
                             x, y, deg, sclX, sclY, true,
                             base, trunk, fruits
                     );
-                    createPlant.type = Token.Type.TREE;
                     createPlant.anchor = i++ == positions.size - 1;
                     map.addCommand(createPlant);
                 }
@@ -208,7 +206,6 @@ public class z_ToolBrushTrees extends Tool {
                             x, y, deg, 2 * sclX, 2 * sclY, true,
                             base, fruits
                     );
-                    createPlant.type = Token.Type.TREE;
                     createPlant.anchor = i++ == positions.size - 1;
                     map.addCommand(createPlant);
                 }
@@ -229,7 +226,6 @@ public class z_ToolBrushTrees extends Tool {
                             3,
                             x, y, deg, sclX, sclY, true, base, fruits
                     );
-                    createPlant.type = Token.Type.TREE;
                     createPlant.anchor = i++ == positions.size - 1;
                     map.addCommand(createPlant);
                     return;

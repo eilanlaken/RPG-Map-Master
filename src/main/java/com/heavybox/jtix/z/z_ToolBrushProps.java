@@ -63,7 +63,6 @@ public class z_ToolBrushProps extends Tool {
                     x, y, deg, sclX * mode.rescale, sclY * mode.rescale, true,
                     region
             );
-            createProp.type = Token.Type.PROP;
             createProp.anchor = true;
             map.addCommand(createProp);
             int end = mode == Mode.HUT ? 10 : 6;
@@ -136,7 +135,6 @@ public class z_ToolBrushProps extends Tool {
                             position.x, position.y, deg, sclX * mode.rescale, sclY * mode.rescale, false,
                             getRegion()
                     );
-                    createProp.type = Token.Type.PROP;
                     createProp.anchor = i++ == gridPoints.size - 1;
                     map.addCommand(createProp);
                 }
