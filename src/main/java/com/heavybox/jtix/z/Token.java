@@ -9,56 +9,99 @@ public class Token {
     public Enum<?> tokenType;
     public Color tint = Color.WHITE;
     public final int layer;
-    public float x, y, deg, sclX, sclY;
+    public final float minY;
+    public TokenTransform[] transforms;
     public final float width, height;
     public TextureRegion[] regions;
 
     public Token(int layer, float x, float y, float deg, float sclX, float sclY, TextureRegion... regions) {
         this.layer = layer;
-        this.x = x;
-        this.y = y;
-        this.deg = deg;
-        this.sclX = sclX;
-        this.sclY = sclY;
+        this.transforms = new TokenTransform[regions.length];
+        for (int i = 0; i < transforms.length; i++) {
+            this.transforms[i] = new TokenTransform();
+            this.transforms[i].x = x;
+            this.transforms[i].y = y;
+            this.transforms[i].deg = deg;
+            this.transforms[i].sclX = sclX;
+            this.transforms[i].sclY = sclY;
+        }
+
         this.regions = regions;
 
-        float maxWidth = 0;
-        float maxHeight = 0;
-        for (TextureRegion region : regions) {
+        float minY = Float.POSITIVE_INFINITY;
+        float maxY = Float.NEGATIVE_INFINITY;
+        float minX = Float.POSITIVE_INFINITY;
+        float maxX = Float.NEGATIVE_INFINITY;
+        float minimumY = Float.POSITIVE_INFINITY;
+        for (int i = 0; i < transforms.length; i++) {
+            TextureRegion region = regions[i];
             if (region == null) continue;
-            maxWidth = Math.max(maxWidth, region.packedWidth);
-            maxHeight = Math.max(maxHeight, region.packedHeight);
+            maxX = Math.max(maxX, transforms[i].x + 0.5f * region.packedWidth * Math.abs(transforms[i].sclX));
+            minX = Math.min(minX, transforms[i].x - 0.5f * region.packedWidth * Math.abs(transforms[i].sclX));
+            maxY = Math.max(maxY, transforms[i].y + 0.5f * region.packedHeight * Math.abs(transforms[i].sclY));
+            minY = Math.min(minY, transforms[i].y - 0.5f * region.packedHeight * Math.abs(transforms[i].sclY));
+            minimumY = Math.min(minimumY, transforms[i].y);
         }
-        width = maxWidth;
-        height = maxHeight;
+        this.minY = minimumY;
+        width = maxX - minX;
+        height = maxY - minY;
+    }
+
+    public Token(int layer, TokenTransform[] transforms, TextureRegion[] regions) {
+        this.layer = layer;
+        this.transforms = transforms;
+        this.regions = regions;
+
+        float minY = Float.POSITIVE_INFINITY;
+        float maxY = Float.NEGATIVE_INFINITY;
+        float minX = Float.POSITIVE_INFINITY;
+        float maxX = Float.NEGATIVE_INFINITY;
+        float minimumY = Float.POSITIVE_INFINITY;
+        for (int i = 0; i < transforms.length; i++) {
+            TextureRegion region = regions[i];
+            if (region == null) continue;
+            maxX = Math.max(maxX, transforms[i].x + 0.5f * region.packedWidth * Math.abs(transforms[i].sclX));
+            minX = Math.min(minX, transforms[i].x - 0.5f * region.packedWidth * Math.abs(transforms[i].sclX));
+            maxY = Math.max(maxY, transforms[i].y + 0.5f * region.packedHeight * Math.abs(transforms[i].sclY));
+            minY = Math.min(minY, transforms[i].y - 0.5f * region.packedHeight * Math.abs(transforms[i].sclY));
+            minimumY = Math.min(minimumY, transforms[i].y);
+        }
+        this.minY = minimumY;
+        width = maxX - minX;
+        height = maxY - minY;
     }
 
     public void render(Renderer2D renderer2D) {
         renderer2D.setColor(tint);
-        for (TextureRegion region : regions) {
+        for (int i = 0; i < regions.length; i++) {
+            TextureRegion region = regions[i];
             if (region == null) continue;
-            renderer2D.drawTextureRegion(region, x, y, deg, sclX, sclY);
+            renderer2D.drawTextureRegion(region, transforms[i].x, transforms[i].y, transforms[i].deg, transforms[i].sclX, transforms[i].sclY);
         }
         renderer2D.setColor(Color.WHITE);
     }
 
     public void renderPreview(Renderer2D renderer2D, float toolX, float toolY) {
         renderer2D.setColor(tint);
-        for (TextureRegion region : regions) {
+        for (int i = 0; i < regions.length; i++) {
+            TextureRegion region = regions[i];
             if (region == null) continue;
-            renderer2D.drawTextureRegion(region, x + toolX, y + toolY, deg, sclX, sclY);
+            renderer2D.drawTextureRegion(region,
+                    transforms[i].x + toolX, transforms[i].y + toolY,
+                    transforms[i].deg,
+                    transforms[i].sclX, transforms[i].sclY);
         }
         renderer2D.setColor(Color.WHITE);
     }
 
-    public enum Type {
-        UNSPECIFIED,
-        TREE,
-        ROCK,
-        PROP,
-        BLOCK,
-        DECORATION,
-        ;
+    // TODO - for now
+    public float getX() {
+        return transforms[0].x;
+    }
+
+    // TODO - for now
+    public float getY() {
+        return transforms[0].y;
     }
 
 }

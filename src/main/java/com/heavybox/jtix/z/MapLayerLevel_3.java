@@ -1,6 +1,5 @@
 package com.heavybox.jtix.z;
 
-import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.graphics.*;
 import com.heavybox.jtix.math.MathUtils;
@@ -47,8 +46,8 @@ public class MapLayerLevel_3 implements MapLayerLevel {
             for (int i = 0; i < allTokens.size; i++) {
                 Token token = allTokens.get(i);
                 if (cmd.type != token.tokenType) continue;
-                if (!MathUtils.floatsEqual(cmd.x, token.x)) continue;
-                if (!MathUtils.floatsEqual(cmd.y, token.y)) continue;
+                if (!MathUtils.floatsEqual(cmd.x, token.getX())) continue;
+                if (!MathUtils.floatsEqual(cmd.y, token.getY())) continue;
                 allTokens.removeIndex(i);
             }
         }
@@ -71,7 +70,7 @@ public class MapLayerLevel_3 implements MapLayerLevel {
         renderer2D.blendingSet(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         //renderer2D.setBlending(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA); // TODO: test);
         //renderer2D.setBlending(GL11.GL_ONE, GL11.GL_ONE_MINUS_SRC_ALPHA); // wrong for sure
-        allTokens.sort(Comparator.comparingInt(o -> -(int) o.y));
+        allTokens.sort(Comparator.comparingInt(o -> -(int) o.minY));
         for (Token token : allTokens) {
             token.render(renderer2D);
         }

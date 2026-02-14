@@ -179,7 +179,7 @@ public class ToolBrush_Nature extends Tool {
 
     private void deleteTokens() {
         for (Token token : tokensToDelete) {
-            CommandTokenDelete cmd = new CommandTokenDelete(token.tokenType, token.layer, token.x, token.y, false);
+            CommandTokenDelete cmd = new CommandTokenDelete(token.tokenType, token.layer, token.transforms[0].x, token.transforms[0].y, false);
             map.addCommand(cmd);
         }
         tokensToDelete.clear();
@@ -192,10 +192,10 @@ public class ToolBrush_Nature extends Tool {
         float offsetY = useBrushOffset ? y : 0;
 
         for (Token token : tokensPreview) {
-            Vector2 position = new Vector2(token.x + x, token.y + y);
+            Vector2 position = new Vector2(token.transforms[0].x + x, token.transforms[0].y + y);
             float minDistance = Float.POSITIVE_INFINITY;
             for (Token mapToken : alreadyCreatedTokens) {
-                float distanceSquared = Vector2.dst2(position.x, position.y, mapToken.x, mapToken.y);
+                float distanceSquared = Vector2.dst2(position.x, position.y, mapToken.transforms[0].x, mapToken.transforms[0].y);
                 minDistance = Math.min(distanceSquared, minDistance);
             }
             minDistance = (float) Math.sqrt(minDistance);
@@ -203,7 +203,9 @@ public class ToolBrush_Nature extends Tool {
 
             CommandTokenCreate createToken = new CommandTokenCreate(
                     3,
-                    token.x + offsetX, token.y + offsetY, token.deg, token.sclX, token.sclY, true,
+                    token.transforms[0].x + offsetX, token.transforms[0].y + offsetY,
+                    token.transforms[0].deg,
+                    token.transforms[0].sclX, token.transforms[0].sclY, true,
                     token.regions
             );
             createToken.tokenType = currentType;
@@ -311,7 +313,7 @@ public class ToolBrush_Nature extends Tool {
             tokensPreview.add(token);
         }
 
-        tokensPreview.sort(Comparator.comparingInt(o -> -(int) o.y));
+        tokensPreview.sort(Comparator.comparingInt(o -> -(int) o.minY));
     }
 
     private void refillLineWithTokens() {
@@ -368,7 +370,7 @@ public class ToolBrush_Nature extends Tool {
             tokensPreview.add(token);
         }
 
-        tokensPreview.sort(Comparator.comparingInt(o -> -(int) o.y));
+        tokensPreview.sort(Comparator.comparingInt(o -> -(int) o.minY));
     }
 
     private void refillPolygonWithTokens() {
@@ -442,7 +444,7 @@ public class ToolBrush_Nature extends Tool {
             }
         }
 
-        tokensPreview.sort(Comparator.comparingInt(o -> -(int) o.y));
+        tokensPreview.sort(Comparator.comparingInt(o -> -(int) o.minY));
     }
 
     @Override

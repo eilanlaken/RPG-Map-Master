@@ -66,8 +66,8 @@ public class Map {
         for (Token token : layer3.allTokens) {
             if (token.tokenType != type) continue;
 
-            float dx = token.x - centerX;
-            float dy = token.y - centerY;
+            float dx = token.getX() - centerX;
+            float dy = token.getY() - centerY;
 
             if (dx * dx + dy * dy <= r2) {
                 out.add(token);

@@ -31,7 +31,7 @@ public class z_ToolBrushTrees extends Tool {
     public Set<String> treeColors = new HashSet<>();
 
     private final Array<Vector2> positions = new Array<>(false, 10);
-    private final Array<Token> trees = new Array<>();
+    private final Array<z_Token> trees = new Array<>();
 
     public z_ToolBrushTrees(RPGMapMakerScene scene) {
         super(scene);
@@ -258,7 +258,7 @@ public class z_ToolBrushTrees extends Tool {
         positions.clear();
         for (Vector2 position : filtered) { // second filter against all trees tokens previously added
             boolean add = true;
-            for (Token tree : trees) {
+            for (z_Token tree : trees) {
                 Vector2 p = new Vector2(tree.x, tree.y);
                 add &= position.dst(p) >= spacing;
             }

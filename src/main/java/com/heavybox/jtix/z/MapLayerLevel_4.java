@@ -13,7 +13,7 @@ public class MapLayerLevel_4 implements MapLayerLevel {
 
     // Tokens layer
     private FrameBuffer layer5;
-    public Array<Token> allTokens = new Array<>(false, 10); // TODO: maybe refactor to be member of Map
+    public Array<z_Token> allTokens = new Array<>(false, 10); // TODO: maybe refactor to be member of Map
     public final Camera camera;
 
     public MapLayerLevel_4(int width, int height) {
@@ -27,7 +27,7 @@ public class MapLayerLevel_4 implements MapLayerLevel {
 
         if (command instanceof CommandTokenCreate) {
             CommandTokenCreate cmd = (CommandTokenCreate) command;
-            Token token = new Token(cmd.layer, cmd.x, cmd.y, cmd.deg, cmd.sclX, cmd.sclY, cmd.regions);
+            z_Token token = new z_Token(cmd.layer, cmd.x, cmd.y, cmd.deg, cmd.sclX, cmd.sclY, cmd.regions);
             token.tokenType = cmd.tokenType;
             allTokens.add(token);
             return;
@@ -50,7 +50,7 @@ public class MapLayerLevel_4 implements MapLayerLevel {
         renderer2D.begin(camera);
         renderer2D.blendingSet(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         //allTokens.sort(Comparator.comparingInt(o -> -(int) o.y));
-        for (Token token : allTokens) {
+        for (z_Token token : allTokens) {
             token.render(renderer2D);
         }
         renderer2D.end();
