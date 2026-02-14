@@ -42,7 +42,7 @@ public class ToolStamp_Architecture extends Tool {
         float verticalScroll = Input.mouse.getVerticalScroll();
         boolean leftButtonClicked = Input.mouse.isButtonClicked(Mouse.Button.LEFT);
         boolean rightButtonClicked = Input.mouse.isButtonClicked(Mouse.Button.RIGHT);
-        boolean enterJustPressed = Input.keyboard.isKeyJustReleased(Keyboard.Key.ENTER); // print bundle
+        boolean enterClicked = Input.keyboard.isKeyJustReleased(Keyboard.Key.ENTER); // print bundle
         boolean zJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.Z);
         boolean aPressed = Input.keyboard.isKeyPressed(Keyboard.Key.A);
         boolean tabJustPressed = Input.keyboard.isKeyJustReleased(Keyboard.Key.TAB);
@@ -70,6 +70,9 @@ public class ToolStamp_Architecture extends Tool {
                 block.flipped = sclX < 0;
                 block.region = getToolOverlayCurrentRegion();
                 toolOverlayDevBlocks.add(block);
+            }
+            if (enterClicked) {
+
             }
         }
     }

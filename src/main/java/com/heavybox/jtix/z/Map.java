@@ -18,7 +18,7 @@ public class Map {
     public int width; // 1920
     public int height; // 1080
 
-    public MapLayerLevel_0_new layer0; // Terrain layer (wheat fields)
+    public MapLayerLevel_0 layer0; // Terrain layer (wheat fields)
     public MapLayerLevel_1 layer1; // Ground layer (wheat fields)
     public MapLayerLevel_3 layer3; // Token layer
     public MapLayerLevel_4 layer4; // Token layer
@@ -42,7 +42,7 @@ public class Map {
         this.width = width;
         this.height = height;
         camera = new Camera(Camera.Mode.ORTHOGRAPHIC, width, height, 1, 0, 100, 75);
-        layer0 = new MapLayerLevel_0_new(width, height);
+        layer0 = new MapLayerLevel_0(width, height);
         layer1 = new MapLayerLevel_1(width, height);
         layer3 = new MapLayerLevel_3(width, height);
         layer4 = new MapLayerLevel_4(width, height);
