@@ -35,7 +35,7 @@ public final class Tools {
         tools.add(toolStampWheatFields);
         tools.add(toolStampArchitecture);
 
-        selectTool(0);
+        selectTool(3);
     }
 
     public static void selectTool(int index) {

@@ -61,13 +61,6 @@ public class Map {
         commandsQueue.clear();
     }
 
-    @Deprecated public void getAllTokens(Token.Type ofType, Array<Token> out) {
-        out.clear();
-        for (Token token : layer3.allTokens) {
-            if (token.type == ofType) out.add(token);
-        }
-    }
-
     public void getAllTokensInCircle(Enum<?> type, float centerX, float centerY, float radius, Set<Token> out) {
         float r2 = radius * radius;
         for (Token token : layer3.allTokens) {

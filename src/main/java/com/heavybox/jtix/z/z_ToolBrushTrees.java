@@ -260,7 +260,6 @@ public class z_ToolBrushTrees extends Tool {
         }
 
         positions.clear();
-        map.getAllTokens(Token.Type.TREE, trees);
         for (Vector2 position : filtered) { // second filter against all trees tokens previously added
             boolean add = true;
             for (Token tree : trees) {

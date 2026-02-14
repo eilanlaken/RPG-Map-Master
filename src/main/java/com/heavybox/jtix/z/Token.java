@@ -6,17 +6,12 @@ import com.heavybox.jtix.graphics.TextureRegion;
 
 public class Token {
 
-    // TODO
-    public Class<? extends Tool> sourceTool;
-
+    public Enum<?> tokenType;
     public Color tint = Color.WHITE;
-    @Deprecated public Type type = Type.UNSPECIFIED; // maybe deprecate.
     public final int layer;
     public float x, y, deg, sclX, sclY;
     public final float width, height;
     public TextureRegion[] regions;
-
-    public Enum<?> tokenType;
 
     public Token(int layer, float x, float y, float deg, float sclX, float sclY, TextureRegion... regions) {
         this.layer = layer;
