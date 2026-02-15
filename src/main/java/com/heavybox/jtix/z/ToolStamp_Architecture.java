@@ -11,21 +11,89 @@ import com.heavybox.jtix.graphics.TextureRegion;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
+import com.heavybox.jtix.math.Vector2;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.File;
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Set;
 
 public class ToolStamp_Architecture extends Tool {
 
+    private static final Array<Bundle> BUNDLES_TOP_VIEW       = new Array<>(true, 10);
+    private static final Array<Bundle> BUNDLES_SIDE_VIEW      = new Array<>(true, 10);
+    private static final Array<Bundle> BUNDLES_ISOMETRIC_VIEW = new Array<>(true, 10);
+
+    /* bundles initialization block */
+    static {
+        try {
+            File file = new File("assets/data/architecture.xml");
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.parse(file);
+            doc.getDocumentElement().normalize();
+
+            NodeList bundlesList = doc.getElementsByTagName("bundle");
+
+            List<Element> bundles_top_view = new ArrayList<>();
+            List<Element> bundles_side_view = new ArrayList<>();
+            List<Element> bundles_isometric_view = new ArrayList<>();
+            for (int i = 0; i < bundlesList.getLength(); i++) {
+                Element e = (Element) bundlesList.item(i);
+                if ("TOP".equals(e.getAttribute("prefix"))) {
+                    bundles_top_view.add(e);
+                }
+                if ("SIDE".equals(e.getAttribute("prefix"))) {
+                    bundles_side_view.add(e);
+                }
+                if ("ISOMETRIC".equals(e.getAttribute("prefix"))) {
+                    bundles_isometric_view.add(e);
+                }
+            }
+
+            for (Element bundleElement : bundles_top_view) {
+                NodeList blocks = bundleElement.getElementsByTagName("block");
+                Bundle bundle = new Bundle();
+                bundle.blocks = new Block[blocks.getLength()];
+                for (int i = 0; i < blocks.getLength(); i++) {
+                    Element blockElement = (Element) blocks.item(i);
+                    float x = Float.parseFloat(blockElement.getAttribute("x"));
+                    float y = Float.parseFloat(blockElement.getAttribute("y"));
+                    boolean flipped = Boolean.parseBoolean(blockElement.getAttribute("flipped"));
+                    Type type = Type.valueOf(blockElement.getAttribute("type"));
+                    bundle.blocks[i] = new Block();
+                    bundle.blocks[i].x = x;
+                    bundle.blocks[i].y = y;
+                    bundle.blocks[i].flipped = flipped;
+                    bundle.blocks[i].type = type;
+                }
+
+                BUNDLES_TOP_VIEW.add(bundle);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public Type type = Type.TOP_VIEW_LARGE;
     public Style style = Style.HUMAN;
-    public boolean singles = true;
-    public boolean development = true;
+    public boolean singles = false;
+    public boolean development = false;
 
     // tool overlay - development
     private final Array<Block> toolOverlayDevBlocks = new Array<>(false, 5);
     private final TexturePack atlas;
     private TextureRegion toolOverlayDevCurrentRegion;
+
+    // tool overlay - non-development
+    private int bundleTopViewIndex = 0;
 
     public ToolStamp_Architecture(final RPGMapMakerScene scene) {
         super(scene);
@@ -49,15 +117,16 @@ public class ToolStamp_Architecture extends Tool {
         float mouseDy = Input.mouse.getYDelta();
 
         // tool settings
+        if (aPressed) {
+            deg += mouseDy;
+        }
+        if (zJustPressed) {
+            sclX *= -1;
+        }
 
         // actions
         if (development) {
-            if (aPressed) {
-                deg += mouseDy;
-            }
-            if (zJustPressed) {
-                sclX *= -1;
-            }
+
             if (rightButtonClicked) {
                 dev_nextRegion();
             }
@@ -67,12 +136,27 @@ public class ToolStamp_Architecture extends Tool {
                 block.x = x;
                 block.y = y;
                 block.deg = deg;
-                block.flipped = sclX < 0;
+                block.sclX = this.sclX;
+                block.sclY = this.sclY;
                 block.region = getToolOverlayCurrentRegion();
                 toolOverlayDevBlocks.add(block);
             }
-            if (enterClicked) {
-
+            if (enterClicked && !toolOverlayDevBlocks.isEmpty()) {
+                Array<Block> blocks = new Array<>();
+                blocks.addAll(this.toolOverlayDevBlocks);
+                blocks.sort(Comparator.comparingInt(o -> -(int) o.y));
+                // calculate center of mass
+                Vector2 cm = new Vector2();
+                for (Block block : blocks) {
+                    cm.add(block.x, block.y);
+                }
+                cm.scl(1f / blocks.size);
+                final String prefix = blocks.first().type.name().split("_")[0];
+                System.out.println("<bundle prefix=\"" + prefix + "\">");
+                for (Block block : blocks) {
+                    System.out.println("\t" + "<block type=\"" + block.type.name() + "\" flipped=\"" + (block.sclX < 0) + "\" x=\"" + (block.x - cm.x) + "\" y=\"" + (block.y - cm.y) + "\"/>");
+                }
+                System.out.println("</bundle>");
             }
         }
     }
@@ -85,9 +169,18 @@ public class ToolStamp_Architecture extends Tool {
             renderer2D.drawTextureRegion(toolOverlayDevCurrentRegion, x, y, deg, this.sclX, this.sclY);
             toolOverlayDevBlocks.sort(Comparator.comparingInt(o -> -(int) o.y));
             for (Block block : toolOverlayDevBlocks) {
-                renderer2D.drawTextureRegion(block.region, block.x, block.y, block.deg, this.sclX, this.sclY);
+                renderer2D.drawTextureRegion(block.region, block.x, block.y, block.deg, block.sclX, block.sclY);
             }
             return;
+        }
+
+        if (!singles) { // && bundles top view
+            Block[] blocks = BUNDLES_TOP_VIEW.get(bundleTopViewIndex).blocks;
+            for (Block block : blocks) {
+                Vector2 toBlock = new Vector2(block.x, block.y);
+                toBlock.rotateDeg(deg);
+                renderer2D.drawTextureRegion(getToolOverlayBlockRegion(block), x + toBlock.x, y + toBlock.y, deg, block.flipped ? -sclX : sclX, sclY);
+            }
         }
     }
 
@@ -98,6 +191,11 @@ public class ToolStamp_Architecture extends Tool {
 
     private TextureRegion getToolOverlayCurrentRegion() {
         final String regionName = "assets/textures-layer-3/architecture_" + style.name().toLowerCase() + "_" + type.name().toLowerCase() + "_0.png";
+        return atlas.getRegion(regionName);
+    }
+
+    private TextureRegion getToolOverlayBlockRegion(Block block) {
+        final String regionName = "assets/textures-layer-3/architecture_" + style.name().toLowerCase() + "_" + block.type.name().toLowerCase() + "_0.png";
         return atlas.getRegion(regionName);
     }
 
@@ -116,10 +214,18 @@ public class ToolStamp_Architecture extends Tool {
         return "Architecture Tool";
     }
 
+    public static class Bundle {
+
+        public Block[] blocks;
+
+    }
+
     public static class Block {
 
         public Type type;
         public float x, y;
+        public float sclX;
+        public float sclY;
         public float deg;
         public boolean flipped;
         public TextureRegion region;
