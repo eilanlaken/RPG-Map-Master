@@ -209,7 +209,6 @@ public class ToolBrush_Nature extends Tool {
                     token.regions
             );
             createToken.tokenType = currentType;
-            createToken.sourceTool = this.getClass();
             createToken.tint = token.tint;
             map.addCommand(createToken);
         }

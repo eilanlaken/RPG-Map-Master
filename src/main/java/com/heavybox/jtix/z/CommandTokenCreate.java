@@ -8,8 +8,6 @@ import java.util.Objects;
 
 public class CommandTokenCreate extends Command {
 
-    public Class<? extends Tool> sourceTool;
-
     public Color tint = Color.WHITE;
     public Enum<?> tokenType;
     public TextureRegion[] regions;

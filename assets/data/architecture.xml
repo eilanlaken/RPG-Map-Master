@@ -1,7 +1,16 @@
 <bundles>
     <bundle prefix="TOP">
-        <block type="TOP_VIEW_LARGE" flipped="false" x="-2.000021" y="33.33332"/>
-        <block type="TOP_VIEW_LARGE" flipped="false" x="16.000008" y="-0.66667557"/>
-        <block type="TOP_VIEW_LARGE" flipped="true" x="-13.99999" y="-32.666645"/>
+        <block type="TOP_VIEW_LARGE" flipped="false" x="-8.999977" y="65.00001" deg="0.0"/>
+        <block type="TOP_VIEW_SMALL" flipped="false" x="22.99999" y="6.999981" deg="175.82771"/>
+        <block type="TOP_VIEW_LARGE" flipped="false" x="-38.999973" y="-23.000017" deg="91.63122"/>
+        <block type="TOP_VIEW_SMALL" flipped="false" x="24.99996" y="-48.99996" deg="187.83333"/>
     </bundle>
+
+    <bundle prefix="TOP">
+        <block type="TOP_VIEW_LARGE" flipped="false" x="-1.0000038" y="46.5" deg="0.0"/>
+        <block type="TOP_VIEW_LARGE" flipped="false" x="-39.00003" y="2.4999847" deg="91.44211"/>
+        <block type="TOP_VIEW_MEDIUM" flipped="false" x="37.000023" y="-13.499992" deg="91.44211"/>
+        <block type="TOP_VIEW_SMALL" flipped="false" x="3.0000095" y="-35.5" deg="91.44211"/>
+    </bundle>
+
 </bundles>

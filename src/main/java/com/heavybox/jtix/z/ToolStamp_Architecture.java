@@ -4,13 +4,11 @@ import com.heavybox.jtix.RPGMapMakerScene;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.collections.Collections;
-import com.heavybox.jtix.graphics.Color;
-import com.heavybox.jtix.graphics.Renderer2D;
-import com.heavybox.jtix.graphics.TexturePack;
-import com.heavybox.jtix.graphics.TextureRegion;
+import com.heavybox.jtix.graphics.*;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
+import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Vector2;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -65,11 +63,13 @@ public class ToolStamp_Architecture extends Tool {
                     Element blockElement = (Element) blocks.item(i);
                     float x = Float.parseFloat(blockElement.getAttribute("x"));
                     float y = Float.parseFloat(blockElement.getAttribute("y"));
+                    float deg = Float.parseFloat(blockElement.getAttribute("deg"));
                     boolean flipped = Boolean.parseBoolean(blockElement.getAttribute("flipped"));
                     Type type = Type.valueOf(blockElement.getAttribute("type"));
                     bundle.blocks[i] = new Block();
                     bundle.blocks[i].x = x;
                     bundle.blocks[i].y = y;
+                    bundle.blocks[i].deg = deg;
                     bundle.blocks[i].flipped = flipped;
                     bundle.blocks[i].type = type;
                 }
@@ -93,14 +93,14 @@ public class ToolStamp_Architecture extends Tool {
     private TextureRegion toolOverlayDevCurrentRegion;
 
     // tool overlay - non-development
-    private int bundleTopViewIndex = 0;
+    private int bundleTopViewIndex = MathUtils.randomUniformInt(0, BUNDLES_TOP_VIEW.size);
 
     public ToolStamp_Architecture(final RPGMapMakerScene scene) {
         super(scene);
         atlas = Assets.get("assets/texture-packs/layer_3.yml");
 
-        sclX = 0.5f;
-        sclY = 0.5f;
+        sclX = 1f;
+        sclY = 1f;
 
         toolOverlayDevCurrentRegion = getToolOverlayCurrentRegion();
     }
@@ -113,15 +113,46 @@ public class ToolStamp_Architecture extends Tool {
         boolean enterClicked = Input.keyboard.isKeyJustReleased(Keyboard.Key.ENTER); // print bundle
         boolean zJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.Z);
         boolean aPressed = Input.keyboard.isKeyPressed(Keyboard.Key.A);
+        boolean qPressed = Input.keyboard.isKeyPressed(Keyboard.Key.Q);
+        boolean sPressed = Input.keyboard.isKeyPressed(Keyboard.Key.S);
+        boolean dPressed = Input.keyboard.isKeyPressed(Keyboard.Key.D);
+        boolean wPressed = Input.keyboard.isKeyPressed(Keyboard.Key.W);
         boolean tabJustPressed = Input.keyboard.isKeyJustReleased(Keyboard.Key.TAB);
         float mouseDy = Input.mouse.getYDelta();
 
         // tool settings
+        if (qPressed) {
+            deg += 180 * Graphics.getDeltaTime();
+        }
+        if (wPressed) {
+            deg -= 180 * Graphics.getDeltaTime();
+        }
+        if (sPressed) {
+            sclX *= 1.00f + 0.8f * Graphics.getDeltaTime();
+            sclY *= 1.00f + 0.8f * Graphics.getDeltaTime();
+        }
         if (aPressed) {
-            deg += mouseDy;
+            sclX *= 1.00f - 0.8f * Graphics.getDeltaTime();
+            sclY *= 1.00f - 0.8f * Graphics.getDeltaTime();
         }
         if (zJustPressed) {
             sclX *= -1;
+        }
+
+        if (!development) {
+            if (leftButtonClicked) {
+
+                for (Block block : BUNDLES_TOP_VIEW.get(bundleTopViewIndex).blocks) {
+                    Vector2 offset = new Vector2(block.x, block.y);
+                    offset.rotateDeg(deg);
+                    offset.scl(sclX, sclY);
+                    CommandTokenCreate cmd = new CommandTokenCreate(3, x + offset.x, y + offset.y, block.deg + deg, block.flipped ? -sclX : sclX, sclY, false, getToolOverlayBlockRegion(block));
+                    cmd.tokenType = type;
+                    map.addCommand(cmd);
+                    bundleTopViewIndex = MathUtils.randomUniformInt(0, BUNDLES_TOP_VIEW.size);
+                }
+            }
+
         }
 
         // actions
@@ -154,7 +185,7 @@ public class ToolStamp_Architecture extends Tool {
                 final String prefix = blocks.first().type.name().split("_")[0];
                 System.out.println("<bundle prefix=\"" + prefix + "\">");
                 for (Block block : blocks) {
-                    System.out.println("\t" + "<block type=\"" + block.type.name() + "\" flipped=\"" + (block.sclX < 0) + "\" x=\"" + (block.x - cm.x) + "\" y=\"" + (block.y - cm.y) + "\"/>");
+                    System.out.println("\t" + "<block type=\"" + block.type.name() + "\" flipped=\"" + (block.sclX < 0) + "\" x=\"" + (block.x - cm.x) + "\" y=\"" + (block.y - cm.y) + "\" deg=\"" + block.deg + "\"/>");
                 }
                 System.out.println("</bundle>");
             }
@@ -178,8 +209,9 @@ public class ToolStamp_Architecture extends Tool {
             Block[] blocks = BUNDLES_TOP_VIEW.get(bundleTopViewIndex).blocks;
             for (Block block : blocks) {
                 Vector2 toBlock = new Vector2(block.x, block.y);
+                toBlock.scl(Math.abs(sclX), Math.abs(sclY));
                 toBlock.rotateDeg(deg);
-                renderer2D.drawTextureRegion(getToolOverlayBlockRegion(block), x + toBlock.x, y + toBlock.y, deg, block.flipped ? -sclX : sclX, sclY);
+                renderer2D.drawTextureRegion(getToolOverlayBlockRegion(block), x + toBlock.x, y + toBlock.y, block.deg + deg, block.flipped ? -sclX : sclX, sclY);
             }
         }
     }
