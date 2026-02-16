@@ -18,8 +18,8 @@ public class Map {
     public int width; // 1920
     public int height; // 1080
 
-    public MapLayerLevel_0 layer0; // Terrain layer (wheat fields)
-    public MapLayerLevel_1 layer1; // Ground layer (wheat fields)
+    public MapLayerLevel_0 layer0; // Terrain and farmlands layer
+    public MapLayerLevel_1 layer1; // Ground layer
     public MapLayerLevel_3 layer3; // Token layer
     public MapLayerLevel_4 layer4; // Token layer
 

@@ -13,7 +13,7 @@ public class MapLayerLevel_0 implements MapLayerLevel {
 
     private final FrameBuffer layer0; // <- final composite layer image
     private final FrameBuffer ground;
-    private final FrameBuffer wheatFields;
+    private final FrameBuffer farmlands;
     private final FrameBuffer liquid;
     private final FrameBuffer blendMap;
 
@@ -41,7 +41,7 @@ public class MapLayerLevel_0 implements MapLayerLevel {
     private final Array<CommandTerrainTerraform_new> commandsBlendMap = new Array<>(true, 100);
     private final Array<CommandTerrainTerraform_new> commandsGround = new Array<>(true, 100);
     private final Array<CommandTerrainTerraform_new> commandsLiquid = new Array<>(true, 100);
-    private final Array<CommandTerrainWheatFieldCreate> commandsWheatFields = new Array<>(true, 100);
+    private final Array<CommandTerrainFarmlandCreate> commandsFarmlandsCreate = new Array<>(true, 100);
 
     public MapLayerLevel_0(int width, int height) {
         this.width = width;
@@ -64,11 +64,11 @@ public class MapLayerLevel_0 implements MapLayerLevel {
                 .setHeight(height)
                 .addColorAttachment("attachment_0")
                 .end(); // <- draw ground textures (grass, roads, stones, ...) here
-        wheatFields = FrameBufferBuilder.begin()
+        farmlands = FrameBufferBuilder.begin()
                 .setWidth(width)
                 .setHeight(height)
                 .addColorAttachment("attachment_0")
-                .end(); // <- wheat fields go here
+                .end(); // <- farmlands go here
         liquid = FrameBufferBuilder.begin()
                 .setWidth(width)
                 .setHeight(height)
@@ -84,11 +84,11 @@ public class MapLayerLevel_0 implements MapLayerLevel {
         terrainGrounds[4] = Assets.get("assets/textures-layer-0/terrain_land_stone_1.jpg");
         terrainGrounds[5] = Assets.get("assets/textures-layer-0/terrain_land_road_0.jpg");
 
-        bases[0] = Assets.get("assets/textures-layer-0/wheat_field_0.png");
-        bases[1] = Assets.get("assets/textures-layer-0/wheat_field_1.png");
-        bases[2] = Assets.get("assets/textures-layer-0/wheat_field_2.png");
-        bases[3] = Assets.get("assets/textures-layer-0/wheat_field_3.png");
-        bases[4] = Assets.get("assets/textures-layer-0/wheat_field_4.png");
+        bases[0] = Assets.get("assets/textures-layer-0/farmland_0.png");
+        bases[1] = Assets.get("assets/textures-layer-0/farmland_1.png");
+        bases[2] = Assets.get("assets/textures-layer-0/farmland_2.png");
+        bases[3] = Assets.get("assets/textures-layer-0/farmland_3.png");
+        bases[4] = Assets.get("assets/textures-layer-0/farmland_4.png");
 
         terrainLiquids[0] = Assets.get("assets/textures-layer-0/terrain_liquid_water_0.jpg");
         terrainLiquids[1] = Assets.get("assets/textures-layer-0/terrain_liquid_water_1.jpg");
@@ -130,9 +130,9 @@ public class MapLayerLevel_0 implements MapLayerLevel {
             return;
         }
 
-        if (command instanceof CommandTerrainWheatFieldCreate) {
-            CommandTerrainWheatFieldCreate cmd = (CommandTerrainWheatFieldCreate) command;
-            commandsWheatFields.add(cmd);
+        if (command instanceof CommandTerrainFarmlandCreate) {
+            CommandTerrainFarmlandCreate cmd = (CommandTerrainFarmlandCreate) command;
+            commandsFarmlandsCreate.add(cmd);
             return;
         }
 
@@ -178,13 +178,13 @@ public class MapLayerLevel_0 implements MapLayerLevel {
         }
         renderer2D.end();
 
-        FrameBufferBinder.bind(wheatFields);
+        FrameBufferBinder.bind(farmlands);
         renderer2D.begin(camera);
         renderer2D.blendingSet(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-        for (CommandTerrainWheatFieldCreate cmd : commandsWheatFields) {
-            System.out.println("hi");
+        for (CommandTerrainFarmlandCreate cmd : commandsFarmlandsCreate) {
             renderer2D.setColor(0.3569f, 0.3098f, 0.2275f, 0.4f);
-            renderer2D.drawCurveFilled(null, 11.0f, 20, cmd.polygon, 0, 0, 0, 1, 1);
+            // TODO: remove this and move to an outline shader for the farmlands.
+            renderer2D.drawCurveFilled(null, 8.0f, 12, cmd.polygon, 0, 0, 0, 1, 1);
             renderer2D.setColor(Color.WHITE);
             renderer2D.drawPolygonFilled(cmd.polygon, bases[cmd.baseType], uv -> uv.rotateDeg(cmd.linesAngle).scl(2), 0, 0, 0, 1, 1);
         }
@@ -213,7 +213,7 @@ public class MapLayerLevel_0 implements MapLayerLevel {
         renderer2D.setShaderAttribute("u_height_liquidBase", uvScaleFactorLiquid * terrainLiquids[liquidBaseTextureIndex].height);
         renderer2D.setShaderAttribute("u_texture_ground_base", terrainGrounds[groundBaseTextureIndex]);
         renderer2D.setShaderAttribute("u_texture_ground", ground.getDefaultColorAttachment());
-        renderer2D.setShaderAttribute("u_texture_wheatFields", wheatFields.getDefaultColorAttachment());
+        renderer2D.setShaderAttribute("u_texture_farmlands", farmlands.getDefaultColorAttachment());
         renderer2D.setShaderAttribute("u_texture_liquid_base", terrainLiquids[liquidBaseTextureIndex]);
         renderer2D.setShaderAttribute("u_texture_liquid", liquid.getDefaultColorAttachment());
         renderer2D.setShaderAttribute("u_texture_steepness", terrainSteepness);
@@ -221,20 +221,19 @@ public class MapLayerLevel_0 implements MapLayerLevel {
         renderer2D.setShaderAttribute("u_blendmap_height", blendMap.height);
         renderer2D.drawTexture(blendMap.getDefaultColorAttachment(), 0,0,0,1,-1);
         renderer2D.setShader(null);
-        //renderer2D.drawTexture(wheatFields.getDefaultColorAttachment(), 0,0,0,1,-1);
         renderer2D.end();
 
 //        FrameBufferBinder.bind(layer0);
 //        GL11.glClearColor(0,0,0,1);
 //        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
 //        renderer2D.begin(camera);
-//        renderer2D.drawTexture(wheatFields.getDefaultColorAttachment(), 0,0,0,1,-1);
+//        renderer2D.drawTexture(farmlands.getDefaultColorAttachment(), 0,0,0,1,-1);
 //        renderer2D.end();
 
         commandsBlendMap.clear();
         commandsGround.clear();
         commandsLiquid.clear();
-        commandsWheatFields.clear();
+        commandsFarmlandsCreate.clear();
         changed = false;
     }
 

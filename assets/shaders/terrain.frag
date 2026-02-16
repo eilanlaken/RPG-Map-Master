@@ -11,7 +11,7 @@ uniform sampler2D u_texture_ground;
 uniform sampler2D u_texture_liquid_base;
 uniform sampler2D u_texture_liquid;
 
-uniform sampler2D u_texture_wheatFields;
+uniform sampler2D u_texture_farmlands;
 
 uniform sampler2D u_texture; // blend map
 uniform float u_blendmap_width;
@@ -34,8 +34,8 @@ void main() {
     vec4 groundBase = texture(u_texture_ground_base, revealUV_ground);
     vec4 ground     = texture(u_texture_ground, uv);
     vec3 groundColorBase = mix(groundBase.rgb, ground.rgb, ground.a);
-    vec4 wheat = texture(u_texture_wheatFields, uv);
-    vec3 groundColor = mix(groundColorBase, wheat.rgb, wheat.a);
+    vec4 farmlands = texture(u_texture_farmlands, uv);
+    vec3 groundColor = mix(groundColorBase, farmlands.rgb, farmlands.a);
 
     // liquid
     vec4 liquidBase = texture(u_texture_liquid_base, revealUV_liquid);

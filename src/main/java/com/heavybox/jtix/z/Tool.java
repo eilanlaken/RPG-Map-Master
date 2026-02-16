@@ -9,29 +9,39 @@ import com.heavybox.jtix.math.Vector2;
 
 public abstract class Tool {
 
+    // references
+    protected final Map map;
+    protected final RPGMapMakerScene scene;
+
+    // modes
     public Mode mode = Mode.ADD;
     public Shape shape = Shape.CIRCLE;
+    public boolean useProps = false;
+    public final Array<Token> props = new Array<>(false, 8);
     public boolean free = true;
     public float density = 0.15f; // units per 100 pixels
     public float spreadRadius = 200; // in pixels. convert to sprite width / 2
     public float minimum_spacing = 0.5f;
-
     public Vector2 lineStart = new Vector2();
     public boolean tokensAngleMatchLine = false;
     public Array<Vector2> polygonPoints = new Array<>(true, 10);
 
+    // brush transform
     public float x    = 0;
     public float y    = 0;
     public float deg  = 0;
     public float sclX = 1;
     public float sclY = 1;
 
-    protected Map map;
-    protected RPGMapMakerScene scene;
-
     public Tool(RPGMapMakerScene scene) {
         this.scene = scene;
         this.map = scene.getMap();
+        gatherBrushProps();
+    }
+
+    // TODO
+    protected void gatherBrushProps(final String ...prefixes) {
+
     }
 
     public void setShape(Shape shape) {

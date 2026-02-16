@@ -17,7 +17,7 @@ public final class Tools {
 
     public static ToolBrush_Terrain toolBrushTerrain;
     public static ToolBrush_Nature toolBrushNature;
-    public static ToolStamp_WheatFields toolStampWheatFields;
+    public static ToolStamp_Farmlands toolStampFarmlands;
     public static ToolStamp_Architecture toolStampArchitecture;
 
     private static RPGMapMakerScene scene;
@@ -27,12 +27,12 @@ public final class Tools {
 
         toolBrushNature = new ToolBrush_Nature(scene);
         toolBrushTerrain = new ToolBrush_Terrain(scene);
-        toolStampWheatFields = new ToolStamp_WheatFields(scene);
+        toolStampFarmlands = new ToolStamp_Farmlands(scene);
         toolStampArchitecture = new ToolStamp_Architecture(scene);
 
         tools.add(toolBrushTerrain);
         tools.add(toolBrushNature);
-        tools.add(toolStampWheatFields);
+        tools.add(toolStampFarmlands);
         tools.add(toolStampArchitecture);
 
         selectTool(3);

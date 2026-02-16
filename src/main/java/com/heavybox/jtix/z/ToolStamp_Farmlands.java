@@ -10,19 +10,19 @@ import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Vector2;
 
-public class ToolStamp_WheatFields extends Tool {
+public class ToolStamp_Farmlands extends Tool {
 
     private Texture[] bases = new Texture[5];
     private int baseType = MathUtils.randomUniformInt(0, bases.length);
     private float linesAngle = MathUtils.randomUniformFloat(0, 360);
 
-    public ToolStamp_WheatFields(RPGMapMakerScene scene) {
+    public ToolStamp_Farmlands(RPGMapMakerScene scene) {
         super(scene);
-        bases[0] = Assets.get("assets/textures-layer-0/wheat_field_0.png");
-        bases[1] = Assets.get("assets/textures-layer-0/wheat_field_1.png");
-        bases[2] = Assets.get("assets/textures-layer-0/wheat_field_2.png");
-        bases[3] = Assets.get("assets/textures-layer-0/wheat_field_3.png");
-        bases[4] = Assets.get("assets/textures-layer-0/wheat_field_4.png");
+        bases[0] = Assets.get("assets/textures-layer-0/farmland_0.png");
+        bases[1] = Assets.get("assets/textures-layer-0/farmland_1.png");
+        bases[2] = Assets.get("assets/textures-layer-0/farmland_2.png");
+        bases[3] = Assets.get("assets/textures-layer-0/farmland_3.png");
+        bases[4] = Assets.get("assets/textures-layer-0/farmland_4.png");
         free = true;
         mode = Mode.ADD;
         shape = Shape.POLYGON;
@@ -52,7 +52,7 @@ public class ToolStamp_WheatFields extends Tool {
                     return;
                 }
                 if (Vector2.dst(p, polygonPoints.first()) <= 20) {
-                    createWheatField();
+                    createFarmland();
                     polygonPoints.clear();
                     free = true;
                 }
@@ -60,8 +60,8 @@ public class ToolStamp_WheatFields extends Tool {
         }
     }
 
-    private void createWheatField() {
-        CommandTerrainWheatFieldCreate cmd = new CommandTerrainWheatFieldCreate();
+    private void createFarmland() {
+        CommandTerrainFarmlandCreate cmd = new CommandTerrainFarmlandCreate();
         cmd.polygon = Utils.polygonConvertToFlat(polygonPoints);
         cmd.baseType = baseType;
         cmd.linesAngle = linesAngle;
@@ -95,7 +95,7 @@ public class ToolStamp_WheatFields extends Tool {
             renderer2D.drawLineThin(x, y, polygonPoints.first().x, polygonPoints.first().y);
 
             if (polygonPoints.size >= 3) {
-                // draw wheat field
+                // draw farmland
                 float[] polygon = Utils.polygonConvertToFlat(polygonPoints);
                 renderer2D.setColor(0.3569f, 0.3098f, 0.2275f, 0.4f);
                 renderer2D.drawCurveFilled(null, 16.0f, 20, polygon, 0, 0, 0, 1, 1);
@@ -117,6 +117,6 @@ public class ToolStamp_WheatFields extends Tool {
 
     @Override
     public String getName() {
-        return "Wheat Fields Stamp";
+        return "Farmlands Stamp";
     }
 }

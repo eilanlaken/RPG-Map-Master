@@ -18,28 +18,22 @@ public class MapLayerLevel_1 implements MapLayerLevel {
 
     private boolean changed = false;
 
-    public Array<CommandCreateWheatField> commandCreateWheatFields = new Array<>(true, 5);
-    public Array<CommandCreateWheatField> newWheatFields = new Array<>(true, 5);
-
     public MapLayerLevel_1(int width, int height) {
         layer1 = new FrameBuffer(width, height);
         camera = new Camera(Camera.Mode.ORTHOGRAPHIC, width, height, 1, 0, 100, 75);
 
 
-        bases[0] = Assets.get("assets/textures-layer-0/wheat_field_0.png");
-        bases[1] = Assets.get("assets/textures-layer-0/wheat_field_1.png");
-        bases[2] = Assets.get("assets/textures-layer-0/wheat_field_2.png");
-        bases[3] = Assets.get("assets/textures-layer-0/wheat_field_3.png");
-        bases[4] = Assets.get("assets/textures-layer-0/wheat_field_4.png");
+        bases[0] = Assets.get("assets/textures-layer-0/farmland_0.png");
+        bases[1] = Assets.get("assets/textures-layer-0/farmland_1.png");
+        bases[2] = Assets.get("assets/textures-layer-0/farmland_2.png");
+        bases[3] = Assets.get("assets/textures-layer-0/farmland_3.png");
+        bases[4] = Assets.get("assets/textures-layer-0/farmland_4.png");
     }
 
     @Override
     public void executeCommand(Command command) {
         changed = true;
-        if (command instanceof CommandCreateWheatField) {
-            CommandCreateWheatField cmd = (CommandCreateWheatField) command;
-            newWheatFields.add(cmd);
-        }
+
     }
 
     @Override
@@ -53,24 +47,8 @@ public class MapLayerLevel_1 implements MapLayerLevel {
         FrameBufferBinder.bind(layer1);
         renderer2D.begin(camera);
         renderer2D.blendingSet(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-        for (CommandCreateWheatField cmd : newWheatFields) {
-            float[] borderPolygon = new float[cmd.polygon.length + 2];
-            System.arraycopy(cmd.polygon, 0, borderPolygon, 0, cmd.polygon.length);
-            borderPolygon[borderPolygon.length - 2] = cmd.polygon[0];
-            borderPolygon[borderPolygon.length - 1] = cmd.polygon[1];
-            renderer2D.setColor(0.396f, 0.263f, 0.129f, 0.3f);
-            renderer2D.drawCurveFilled(null, 5.0f, 20, borderPolygon, 0,0,0,1,1);
-            renderer2D.setColor(Color.WHITE);
 
-            // old, ugly wheat fields
-            //renderer2D.drawPolygonFilled(cmd.polygon, bases[cmd.baseType], 0, 0, 0, 1,1);
-            //renderer2D.drawPolygonFilled(cmd.polygon, lines, uv -> uv.rotateDeg(cmd.linesAngle),0,0,0,1,1);
-            // new, better wheat fields
-            renderer2D.drawPolygonFilled(cmd.polygon, bases[cmd.baseType], uv -> uv.rotateDeg(cmd.linesAngle),0,0,0,1,1);
-        }
         renderer2D.end();
-        commandCreateWheatFields.addAll(newWheatFields);
-        newWheatFields.clear();
         changed = false;
     }
 
