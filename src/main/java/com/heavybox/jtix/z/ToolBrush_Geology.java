@@ -209,15 +209,15 @@ public class ToolBrush_Geology extends Tool {
 
         for (Token token : tokensPreview) {
             Vector2 position = new Vector2(token.transforms[0].x + x, token.transforms[0].y + y);
-            float minDistanceX = Float.POSITIVE_INFINITY;
-            float minDistanceY = Float.POSITIVE_INFINITY;
+            float minDistance = Float.POSITIVE_INFINITY;
             for (Token mapToken : alreadyCreatedTokens) {
                 float distanceSquared = Vector2.dst2(position.x, position.y, mapToken.transforms[0].x, mapToken.transforms[0].y);
-                minDistanceX = Math.min(minDistanceX, Math.abs(position.x - mapToken.transforms[0].x));
-                minDistanceY = Math.min(minDistanceY, Math.abs(position.y - mapToken.transforms[0].y));
+                minDistance = Math.min(minDistance, distanceSquared);
             }
-            //minDistance = (float) Math.sqrt(minDistance);
-            if (minDistanceX < getSpacingX() * 0.25f && minDistanceY < getSpacingY() * 0.25f) continue;
+            minDistance = (float) Math.sqrt(minDistance);
+            if (minDistance < getSpacingX()) continue;
+
+            //if (minDistanceX < getSpacingX() * 0.25f && minDistanceY < getSpacingY() * 0.25f) continue;
 
             CommandTokenCreate createToken = new CommandTokenCreate(
                     3,
