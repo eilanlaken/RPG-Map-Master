@@ -35,7 +35,7 @@ public final class Tools {
         tools.add(toolStampFarmlands);
         tools.add(toolStampArchitecture);
 
-        selectTool(3);
+        selectTool(2);
     }
 
     public static void selectTool(int index) {

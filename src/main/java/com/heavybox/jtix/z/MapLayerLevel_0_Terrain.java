@@ -7,7 +7,7 @@ import org.lwjgl.opengl.GL11;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public class MapLayerLevel_0 implements MapLayerLevel {
+public class MapLayerLevel_0_Terrain implements MapLayerLevel {
 
     public int width, height;
 
@@ -43,11 +43,9 @@ public class MapLayerLevel_0 implements MapLayerLevel {
     private final Array<CommandTerrainTerraform_new> commandsLiquid = new Array<>(true, 100);
     private final Array<CommandTerrainFarmlandCreate> commandsFarmlandsCreate = new Array<>(true, 100);
 
-    public MapLayerLevel_0(int width, int height) {
+    public MapLayerLevel_0_Terrain(int width, int height) {
         this.width = width;
         this.height = height;
-
-        //layer0 = new FrameBuffer(width, height);
 
         layer0 = FrameBufferBuilder.begin()
                 .setWidth(width)
@@ -243,18 +241,14 @@ public class MapLayerLevel_0 implements MapLayerLevel {
         GL11.glClearColor(1,1,1,1);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
 
-//        FrameBufferBinder.bind(ground);
-//        terrainBlendMap.setRenderTargets("attachment_0");
-//        GL11.glClearColor(0,0,0,1f);
-//        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
-//
-//        terrainBlendMap.setRenderTargets("attachment_1");
-//        GL11.glClearColor(0,0,0,1f);
-//        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
-
         FrameBufferBinder.bind(layer0);
         GL11.glClearColor(0,0,0,0);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
+    }
+
+    @Override
+    public int getOrderIndex() {
+        return 0;
     }
 
     @Override

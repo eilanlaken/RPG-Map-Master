@@ -10,7 +10,7 @@ import java.util.Comparator;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
 
-public class MapLayerLevel_3 implements MapLayerLevel {
+public class MapLayerLevel_1_Tokens implements MapLayerLevel {
 
     // DEBUGGING
     private boolean changed = false;
@@ -20,7 +20,7 @@ public class MapLayerLevel_3 implements MapLayerLevel {
     public final Array<Token> allTokens = new Array<>(false, 10); // TODO: maybe refactor to be member of Map
     public final Camera camera;
 
-    public MapLayerLevel_3(int width, int height) {
+    public MapLayerLevel_1_Tokens(int width, int height) {
         layer3 = new FrameBuffer(width, height);
         camera = new Camera(Camera.Mode.ORTHOGRAPHIC, width, height, 1, 0, 100, 75);
     }
@@ -92,6 +92,11 @@ public class MapLayerLevel_3 implements MapLayerLevel {
         FrameBufferBinder.bind(layer3);
         GL11.glClearColor(0,0,0,0);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
+    }
+
+    @Override
+    public int getOrderIndex() {
+        return 1;
     }
 
     @Override

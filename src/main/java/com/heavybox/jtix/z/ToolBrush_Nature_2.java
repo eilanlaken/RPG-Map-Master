@@ -15,7 +15,7 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ToolBrush_Nature extends Tool {
+public class ToolBrush_Nature_2 extends Tool {
 
     private final TexturePack atlas;
     private final Array<Token> tokensPreview = new Array<>();
@@ -25,9 +25,10 @@ public class ToolBrush_Nature extends Tool {
     public boolean addTrunk = true;
     public boolean addLeaves = true;
     public boolean addFruit = false;
-    public Type currentType = Type.TREE_CIRCULAR;
 
-    public ToolBrush_Nature(RPGMapMakerScene scene) {
+    public Category currentCategory = Category.TREE_CIRCULAR;
+
+    public ToolBrush_Nature_2(RPGMapMakerScene scene) {
         super(scene);
         atlas = Assets.get("assets/texture-packs/layer_3.yml");
 
@@ -84,7 +85,7 @@ public class ToolBrush_Nature extends Tool {
         }
 
         if (rightClicked) {
-            currentType = Collections.enumNext(currentType);
+            currentCategory = Collections.enumNext(currentCategory);
             onSetParameter();
             return;
         }
@@ -111,7 +112,7 @@ public class ToolBrush_Nature extends Tool {
 
             tokensToDelete.clear();
             if (leftClicked || leftPressedAndMoved) {
-                map.getAllTokensInCircle(currentType, x, y, spreadRadius * sclX, tokensToDelete);
+                map.getAllTokensInCircle(currentCategory, x, y, spreadRadius * sclX, tokensToDelete);
                 deleteTokens();
             }
 
@@ -192,7 +193,7 @@ public class ToolBrush_Nature extends Tool {
     }
 
     private void spawnTokens(boolean useBrushOffset) {
-        map.getAllTokens(currentType, alreadyCreatedTokens);
+        map.getAllTokens(currentCategory, alreadyCreatedTokens);
 
         float offsetX = useBrushOffset ? x : 0;
         float offsetY = useBrushOffset ? y : 0;
@@ -214,7 +215,7 @@ public class ToolBrush_Nature extends Tool {
                     token.transforms[0].sclX, token.transforms[0].sclY, true,
                     token.regions
             );
-            createToken.tokenType = currentType;
+            createToken.tokenType = currentCategory;
             createToken.tint = token.tint;
             map.addCommand(createToken);
         }
@@ -473,9 +474,9 @@ public class ToolBrush_Nature extends Tool {
 
     @Override
     protected TextureRegion[] getRegions() {
-        String prefix = "assets/textures-layer-3/" + currentType.name().toLowerCase();
+        String prefix = "assets/textures-layer-3/" + currentCategory.name().toLowerCase();
 
-        if (currentType.name().startsWith("PLANT_FLOWER")) {
+        if (currentCategory.name().startsWith("PLANT_FLOWER")) {
             return new TextureRegion[] {atlas.getRegion(prefix + "_" + MathUtils.randomUniformInt(0, 6) + ".png")};
         }
 
@@ -529,7 +530,7 @@ public class ToolBrush_Nature extends Tool {
         return "Trees Tool";
     }
 
-    public enum Type {
+    public enum Category {
 
         TREE_BUSH,
         TREE_CIRCULAR,

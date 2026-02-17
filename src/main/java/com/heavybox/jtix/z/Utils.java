@@ -15,12 +15,9 @@ public class Utils {
         return polygonFlat;
     }
 
-    public static void polygonConvertToFlat(Array<Vector2> polygon, ArrayFloat out) {
-        out.clear();
-        for (Vector2 point : polygon) {
-            out.add(point.x);
-            out.add(point.y);
-        }
+    public static Enum<?> enumNext(Enum<?> value) {
+        var values = value.getDeclaringClass().getEnumConstants();
+        return values[(value.ordinal() + 1) % values.length];
     }
 
 }

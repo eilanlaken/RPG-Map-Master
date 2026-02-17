@@ -1,9 +1,11 @@
 package com.heavybox.jtix.z;
 
 import com.heavybox.jtix.RPGMapMakerScene;
+import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.collections.Collections;
 import com.heavybox.jtix.graphics.Renderer2D;
+import com.heavybox.jtix.graphics.TexturePack;
 import com.heavybox.jtix.graphics.TextureRegion;
 import com.heavybox.jtix.math.Vector2;
 
@@ -15,9 +17,8 @@ public abstract class Tool {
 
     // modes
     public Mode mode = Mode.ADD;
-    public Shape shape = Shape.CIRCLE;
-    public boolean useProps = false;
-    public final Array<Token> props = new Array<>(false, 8);
+    public Shape shape = Shape.POINT;
+    public final Array<TextureRegion> props = new Array<>(true, 8);
     public boolean free = true;
     public float density = 0.15f; // units per 100 pixels
     public float spreadRadius = 200; // in pixels. convert to sprite width / 2
@@ -36,12 +37,29 @@ public abstract class Tool {
     public Tool(RPGMapMakerScene scene) {
         this.scene = scene;
         this.map = scene.getMap();
-        gatherBrushProps();
     }
 
-    // TODO
-    protected void gatherBrushProps(final String ...prefixes) {
+    protected void gatherBrushProps() {
+        final String[] prefixes = getPrefixes();
+        if (prefixes == null || prefixes.length == 0) return;
+        final TexturePack atlas = Assets.get("assets/texture-packs/layer_3.yml");
+        final Array<String> propNames = new Array<>();
+        for (String regionName : atlas.namedRegions.keySet()) {
+            for (String prefix : prefixes) {
+                if (regionName.startsWith("assets/textures-layer-3/" + prefix + "_prop_")) {
+                    propNames.add(regionName);
+                    break;
+                }
+            }
+        }
+        Collections.sort(propNames);
+        for (String propName : propNames) {
+            props.add(atlas.getRegion(propName));
+        }
+    }
 
+    protected String[] getPrefixes() {
+        return null;
     }
 
     public void setShape(Shape shape) {
@@ -119,6 +137,7 @@ public abstract class Tool {
 
     // TODO
     public enum Shape {
+        POINT,
         CIRCLE,
         LINE,
         POLYGON, // TODO: BUG HERE WHEN CLOSING A POLYGON EXACTLY

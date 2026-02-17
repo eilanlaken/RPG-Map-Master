@@ -6,6 +6,7 @@ import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.graphics.Texture;
 import com.heavybox.jtix.input.Input;
+import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Vector2;
@@ -29,14 +30,21 @@ public class ToolStamp_Farmlands extends Tool {
     }
 
     @Override
+    protected String[] getPrefixes() {
+        return new String[] {"farmland"};
+    }
+
+    @Override
     public void update(float delta) {
         boolean mouseMoved = Input.mouse.moved();
+        boolean pJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.P);
         boolean leftClicked = Input.mouse.isButtonClicked(Mouse.Button.LEFT);
         int verticalScroll = (int) Input.mouse.getVerticalScroll();
 
         baseType += verticalScroll;
         baseType %= bases.length;
         if (baseType < 0) baseType = bases.length - 1;
+
 
         if (free) {
             if (leftClicked) {

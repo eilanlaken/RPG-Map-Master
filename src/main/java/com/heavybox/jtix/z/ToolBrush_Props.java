@@ -15,7 +15,7 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ToolBrush_Nature extends Tool {
+public class ToolBrush_Props extends Tool {
 
     private final TexturePack atlas;
     private final Array<Token> tokensPreview = new Array<>();
@@ -27,7 +27,7 @@ public class ToolBrush_Nature extends Tool {
     public boolean addFruit = false;
     public Type currentType = Type.TREE_CIRCULAR;
 
-    public ToolBrush_Nature(RPGMapMakerScene scene) {
+    public ToolBrush_Props(RPGMapMakerScene scene) {
         super(scene);
         atlas = Assets.get("assets/texture-packs/layer_3.yml");
 

@@ -18,10 +18,8 @@ public class Map {
     public int width; // 1920
     public int height; // 1080
 
-    public MapLayerLevel_0 layer0; // Terrain and farmlands layer
-    public MapLayerLevel_1 layer1; // Ground layer
-    public MapLayerLevel_3 layer3; // Token layer
-    public MapLayerLevel_4 layer4; // Token layer
+    public MapLayerLevel_0_Terrain layer0; // Terrain and farmlands layer
+    public MapLayerLevel_1_Tokens layer3; // Token layer
 
     // Decorations layer
 
@@ -42,10 +40,8 @@ public class Map {
         this.width = width;
         this.height = height;
         camera = new Camera(Camera.Mode.ORTHOGRAPHIC, width, height, 1, 0, 100, 75);
-        layer0 = new MapLayerLevel_0(width, height);
-        layer1 = new MapLayerLevel_1(width, height);
-        layer3 = new MapLayerLevel_3(width, height);
-        layer4 = new MapLayerLevel_4(width, height);
+        layer0 = new MapLayerLevel_0_Terrain(width, height);
+        layer3 = new MapLayerLevel_1_Tokens(width, height);
         mapFinal = new FrameBuffer(width, height);
     }
 
@@ -84,9 +80,7 @@ public class Map {
 
     private void executeCommand(Command command) {
         if (command.layer == 0) layer0.executeCommand(command);
-        if (command.layer == 1) layer1.executeCommand(command);
         if (command.layer == 3) layer3.executeCommand(command);
-        if (command.layer == 5) layer4.executeCommand(command);
     }
 
     // TODO
@@ -101,9 +95,7 @@ public class Map {
 
     public void render(Renderer2D renderer2D) {
         layer0.applyChanges(renderer2D);
-        layer1.applyChanges(renderer2D);
         layer3.applyChanges(renderer2D);
-        layer4.applyChanges(renderer2D);
 
         FrameBufferBinder.bind(mapFinal);
         GL11.glClearColor(1.0f,1.0f,1.0f,1);
@@ -113,12 +105,8 @@ public class Map {
 
         // render layer-0
         renderer2D.drawTexture(layer0.getTexture(), 0, 0, 0, 1,1);
-        renderer2D.drawTexture(layer1.getTexture(), 0, 0, 0, 1,1);
-        // render layer-1
-        // render layer-2
         // render layer-3
         renderer2D.drawTexture(layer3.getTexture(), 0, 0, 0, 1,1);
-        renderer2D.drawTexture(layer4.getTexture(), 0, 0, 0, 1,1);
 
         // render layer-4
         renderer2D.end();
@@ -132,9 +120,7 @@ public class Map {
     public void exportLayerAsImage(int layer) {
         Texture texture;
         if (layer == 0) texture = layer0.getTexture();
-        else if (layer == 1) texture = layer1.getTexture();
         else if (layer == 3) texture = layer3.getTexture();
-        else if (layer == 5) texture = layer4.getTexture();
         else texture = layer3.getTexture();
 
         ByteBuffer buffer = texture.getPixmapBytes();
