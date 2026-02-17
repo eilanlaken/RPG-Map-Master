@@ -1,4 +1,109 @@
 <bundles>
+
+    <!-- =========== ISOMETRIC VIEW: ============ -->
+
+    <bundle prefix="ISOMETRIC">
+        <block type="ISOMETRIC_VIEW_HOUSE_HORIZONTAL_SHORT" flipped="false" x="17.500038" y="24.499968" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_TOWER_TALL" flipped="true" x="-18.500023" y="18.500004" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_VERTICAL_TALL" flipped="true" x="19.500008" y="-15.49999" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HUT_VERTICAL" flipped="true" x="-18.500023" y="-27.499979" deg="0.0"/>
+    </bundle>
+
+    <bundle prefix="ISOMETRIC">
+        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT" flipped="false" x="14.000014" y="9.9999695" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT" flipped="false" x="-14.000014" y="-9.999954" deg="0.0"/>
+    </bundle>
+
+    <bundle prefix="ISOMETRIC">
+        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT" flipped="true" x="-15.0" y="8.999985" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT" flipped="true" x="15.0" y="-8.9999695" deg="0.0"/>
+    </bundle>
+
+    <bundle prefix="ISOMETRIC">
+        <block type="ISOMETRIC_VIEW_HOUSE_HORIZONTAL_TALL" flipped="false" x="-25.333351" y="19.333328" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_HORIZONTAL_SHORT" flipped="false" x="-25.333351" y="-8.666702" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_VERTICAL_SHORT" flipped="false" x="50.666702" y="-10.666672" deg="0.0"/>
+    </bundle>
+
+    <bundle prefix="ISOMETRIC">
+        <block type="ISOMETRIC_VIEW_HUT_DIAGONAL" flipped="true" x="-7.9999695" y="50.800003" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HUT_DIAGONAL" flipped="true" x="47.99993" y="22.799973" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT" flipped="false" x="-16.0" y="-11.199966" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_TALL" flipped="false" x="-47.999966" y="-21.200043" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT" flipped="true" x="23.999992" y="-41.19996" deg="0.0"/>
+    </bundle>
+
+    <bundle prefix="ISOMETRIC">
+        <block type="ISOMETRIC_VIEW_HUT_DIAGONAL" flipped="false" x="-42.999985" y="27.499977" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HUT_DIAGONAL" flipped="true" x="43.00007" y="27.499977" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HUT_VERTICAL" flipped="false" x="-21.00002" y="-26.499992" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HUT_VERTICAL" flipped="false" x="20.999947" y="-28.499962" deg="0.0"/>
+    </bundle>
+
+    <bundle prefix="ISOMETRIC">
+        <block type="ISOMETRIC_VIEW_HUT_VERTICAL" flipped="false" x="-0.6666565" y="0.6666584" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_VERTICAL_TALL" flipped="false" x="-38.666683" y="0.6666584" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_VERTICAL_SHORT" flipped="false" x="39.333336" y="-1.3333111" deg="0.0"/>
+    </bundle>
+
+    <bundle prefix="ISOMETRIC">
+        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT" flipped="false" x="-0.6666565" y="26.666672" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT" flipped="false" x="-40.666653" y="-7.333378" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HUT_DIAGONAL" flipped="true" x="41.33331" y="-19.333307" deg="0.0"/>
+    </bundle>
+
+    <bundle prefix="ISOMETRIC">
+        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT" flipped="false" x="33.999985" y="18.000015" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_TALL" flipped="false" x="5.340576E-5" y="-4.5776367E-5" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT" flipped="false" x="-34.00004" y="-18.0" deg="0.0"/>
+    </bundle>
+
+    <bundle prefix="ISOMETRIC">
+        <block type="ISOMETRIC_VIEW_HUT_DIAGONAL" flipped="false" x="35.33335" y="27.999992" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HUT_VERTICAL" flipped="false" x="-34.66664" y="5.9999847" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT" flipped="false" x="-0.6667099" y="-33.999977" deg="0.0"/>
+    </bundle>
+
+    <bundle prefix="ISOMETRIC">
+        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT" flipped="true" x="-16.999968" y="27.499977" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_TALL" flipped="true" x="15.0" y="9.500023" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT" flipped="true" x="44.999996" y="-10.500015" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HUT_DIAGONAL" flipped="false" x="-43.000027" y="-26.5" deg="0.0"/>
+    </bundle>
+
+    <bundle prefix="ISOMETRIC">
+        <block type="ISOMETRIC_VIEW_HUT_DIAGONAL" flipped="true" x="32.333332" y="32.666656" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HUT_DIAGONAL" flipped="false" x="-33.66672" y="32.666656" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_TOWER_TALL" flipped="false" x="0.3333664" y="0.666687" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HUT_DIAGONAL" flipped="false" x="42.333332" y="-9.333389" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HUT_DIAGONAL" flipped="true" x="-41.666676" y="-11.333359" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HUT_VERTICAL" flipped="false" x="0.3333664" y="-45.333298" deg="0.0"/>
+    </bundle>
+
+    <bundle prefix="ISOMETRIC">
+        <block type="ISOMETRIC_VIEW_HUT_DIAGONAL" flipped="true" x="-42.666756" y="65.66666" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HUT_DIAGONAL" flipped="false" x="53.333298" y="13.6666565" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_VERTICAL_SHORT" flipped="false" x="-10.666641" y="-2.3333273" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_VERTICAL_SHORT" flipped="false" x="31.333328" y="-2.3333273" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_VERTICAL_SHORT" flipped="false" x="-50.666634" y="-36.33332" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_HORIZONTAL_SHORT" flipped="false" x="19.333359" y="-38.333347" deg="0.0"/>
+    </bundle>
+
+    <bundle prefix="ISOMETRIC">
+        <block type="ISOMETRIC_VIEW_HOUSE_VERTICAL_TALL" flipped="true" x="-39.999992" y="1.9999695" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_VERTICAL_TALL" flipped="false" x="0.0" y="0.0" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_VERTICAL_TALL" flipped="false" x="39.999996" y="-1.9999695" deg="0.0"/>
+    </bundle>
+
+    <bundle prefix="ISOMETRIC">
+        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_TALL" flipped="false" x="-11.499973" y="26.999985" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT" flipped="false" x="-33.49994" y="9.0000305" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_VERTICAL_TALL" flipped="true" x="42.49996" y="-15.000061" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_TOWER_TALL" flipped="false" x="2.4999619" y="-20.99997" deg="0.0"/>
+    </bundle>
+
+    <!-- =========== TOP VIEW: ============ -->
+
     <bundle prefix="TOP">
         <block type="TOP_VIEW_LARGE" flipped="false" x="-8.999977" y="65.00001" deg="0.0"/>
         <block type="TOP_VIEW_SMALL" flipped="false" x="22.99999" y="6.999981" deg="175.82771"/>
@@ -11,6 +116,92 @@
         <block type="TOP_VIEW_LARGE" flipped="false" x="-39.00003" y="2.4999847" deg="91.44211"/>
         <block type="TOP_VIEW_MEDIUM" flipped="false" x="37.000023" y="-13.499992" deg="91.44211"/>
         <block type="TOP_VIEW_SMALL" flipped="false" x="3.0000095" y="-35.5" deg="91.44211"/>
+    </bundle>
+
+    <bundle prefix="TOP">
+        <block type="TOP_VIEW_LARGE" flipped="false" x="-2.0000153" y="38.666664" deg="0.0"/>
+        <block type="TOP_VIEW_LARGE" flipped="false" x="-33.999985" y="-9.333343" deg="-90.02152"/>
+        <block type="TOP_VIEW_MEDIUM" flipped="false" x="36.000015" y="-29.333323" deg="-90.02152"/>
+    </bundle>
+
+    <bundle prefix="TOP">
+        <block type="TOP_VIEW_SMALL" flipped="false" x="-35.33332" y="16.666672" deg="0.0"/>
+        <block type="TOP_VIEW_LARGE" flipped="false" x="48.666687" y="8.666679" deg="-88.73344"/>
+        <block type="TOP_VIEW_MEDIUM" flipped="false" x="-13.333351" y="-25.333368" deg="0.0"/>
+    </bundle>
+
+    <bundle prefix="TOP">
+        <block type="TOP_VIEW_LARGE" flipped="false" x="19.999977" y="36.00002" deg="0.0"/>
+        <block type="TOP_VIEW_LARGE" flipped="false" x="-56.0" y="0.0" deg="89.99652"/>
+        <block type="TOP_VIEW_MEDIUM" flipped="false" x="36.000034" y="-36.000023" deg="0.03520906"/>
+    </bundle>
+
+    <bundle prefix="TOP">
+        <block type="TOP_VIEW_SMALL" flipped="false" x="-24.499968" y="22.499977" deg="0.0"/>
+        <block type="TOP_VIEW_SMALL" flipped="true" x="39.499966" y="22.499977" deg="0.0"/>
+        <block type="TOP_VIEW_MEDIUM" flipped="false" x="-34.499966" y="-9.499992" deg="89.99943"/>
+        <block type="TOP_VIEW_MEDIUM" flipped="true" x="19.499968" y="-35.499935" deg="0.0"/>
+    </bundle>
+
+    <bundle prefix="TOP">
+        <block type="TOP_VIEW_SMALL" flipped="false" x="33.999977" y="40.499977" deg="-89.98632"/>
+        <block type="TOP_VIEW_LARGE" flipped="false" x="3.8146973E-5" y="4.499954" deg="-89.98632"/>
+        <block type="TOP_VIEW_SMALL" flipped="false" x="-34.00005" y="0.50001526" deg="-89.98632"/>
+        <block type="TOP_VIEW_LARGE" flipped="false" x="3.8146973E-5" y="-45.499966" deg="0.0"/>
+    </bundle>
+
+    <bundle prefix="TOP">
+        <block type="TOP_VIEW_MEDIUM" flipped="false" x="26.000008" y="41.99997" deg="-1.404917"/>
+        <block type="TOP_VIEW_LARGE" flipped="false" x="-32.000015" y="8.0000305" deg="88.474884"/>
+        <block type="TOP_VIEW_LARGE" flipped="false" x="6.0000095" y="-49.999996" deg="0.0"/>
+    </bundle>
+
+    <bundle prefix="TOP">
+        <block type="TOP_VIEW_LARGE" flipped="false" x="4.666672" y="36.66664" deg="0.0"/>
+        <block type="TOP_VIEW_SMALL" flipped="false" x="-35.333324" y="-17.333332" deg="0.0"/>
+        <block type="TOP_VIEW_SMALL" flipped="false" x="30.666655" y="-19.333302" deg="0.0"/>
+    </bundle>
+
+    <bundle prefix="TOP">
+        <block type="TOP_VIEW_MEDIUM" flipped="false" x="28.000029" y="1.9999695" deg="93.026024"/>
+        <block type="TOP_VIEW_MEDIUM" flipped="false" x="-28.000029" y="-1.9999695" deg="93.026024"/>
+    </bundle>
+
+    <bundle prefix="TOP">
+        <block type="TOP_VIEW_LARGE" flipped="false" x="0.0" y="26.999985" deg="0.0"/>
+        <block type="TOP_VIEW_LARGE" flipped="false" x="0.0" y="-26.999985" deg="0.0"/>
+    </bundle>
+
+    <bundle prefix="TOP">
+        <block type="TOP_VIEW_SMALL" flipped="false" x="-37.33333" y="24.66667" deg="0.0"/>
+        <block type="TOP_VIEW_MEDIUM" flipped="false" x="34.666626" y="6.6666603" deg="89.90999"/>
+        <block type="TOP_VIEW_LARGE" flipped="false" x="2.6666718" y="-31.333328" deg="0.0"/>
+    </bundle>
+
+    <bundle prefix="TOP">
+        <block type="TOP_VIEW_MEDIUM" flipped="false" x="-25.99997" y="28.666656" deg="0.0"/>
+        <block type="TOP_VIEW_MEDIUM" flipped="false" x="49.99994" y="0.666687" deg="-89.83645"/>
+        <block type="TOP_VIEW_MEDIUM" flipped="false" x="-24.0" y="-29.333313" deg="0.0"/>
+    </bundle>
+
+    <bundle prefix="TOP">
+        <block type="TOP_VIEW_MEDIUM" flipped="false" x="24.999992" y="31.500008" deg="0.0"/>
+        <block type="TOP_VIEW_SMALL" flipped="false" x="-35.0" y="25.499985" deg="90.06589"/>
+        <block type="TOP_VIEW_MEDIUM" flipped="false" x="44.999992" y="-26.49997" deg="90.06589"/>
+        <block type="TOP_VIEW_MEDIUM" flipped="false" x="-35.0" y="-30.500015" deg="90.06589"/>
+    </bundle>
+
+    <bundle prefix="TOP">
+        <block type="TOP_VIEW_MEDIUM" flipped="false" x="-3.3332825" y="39.999996" deg="0.0"/>
+        <block type="TOP_VIEW_MEDIUM" flipped="false" x="-41.33331" y="-19.999998" deg="88.482994"/>
+        <block type="TOP_VIEW_MEDIUM" flipped="false" x="44.666588" y="-19.999998" deg="88.482994"/>
+    </bundle>
+
+    <bundle prefix="TOP">
+        <block type="TOP_VIEW_MEDIUM" flipped="false" x="0.99998474" y="49.000015" deg="0.0"/>
+        <block type="TOP_VIEW_MEDIUM" flipped="false" x="-42.999947" y="1.0" deg="-91.44061"/>
+        <block type="TOP_VIEW_MEDIUM" flipped="true" x="42.999954" y="1.0" deg="-91.44061"/>
+        <block type="TOP_VIEW_LARGE" flipped="true" x="-0.99998474" y="-51.0" deg="-181.41197"/>
     </bundle>
 
 </bundles>

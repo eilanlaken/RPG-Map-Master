@@ -38,7 +38,7 @@ public final class Tools {
         tools.add(toolStampArchitecture);
         tools.add(toolBrushGeology);
 
-        selectTool(4);
+        selectTool(3);
     }
 
     public static void selectTool(int index) {

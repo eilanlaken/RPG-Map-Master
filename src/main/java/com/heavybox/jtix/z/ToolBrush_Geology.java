@@ -121,7 +121,7 @@ public class ToolBrush_Geology extends Tool {
         if (mode == Mode.ADD) {
             if (shape == Shape.POINT) {
                 if (leftClicked) {
-                    spawnTokens(true);
+                    spawnTokens(true, false);
                     refillPointWithTokens();
                     return;
                 }
@@ -130,7 +130,7 @@ public class ToolBrush_Geology extends Tool {
 
             if (shape == Shape.CIRCLE) {
                 if (leftClicked || leftPressedAndMoved) {
-                    spawnTokens(true);
+                    spawnTokens(true, true);
                     refillCircleWithTokens();
                     return;
                 }
@@ -149,7 +149,7 @@ public class ToolBrush_Geology extends Tool {
             if (shape == Shape.LINE && !free) {
                 if (mouseMoved) refillLineWithTokens();
                 else if (leftClicked) {
-                    spawnTokens(false);
+                    spawnTokens(false, true);
                     tokensPreview.clear();
                     free = true;
                 }
@@ -173,7 +173,7 @@ public class ToolBrush_Geology extends Tool {
                         return;
                     }
                     if (Vector2.dst(p, polygonPoints.first()) <= 20) {
-                        spawnTokens(false);
+                        spawnTokens(false, true);
                         tokensPreview.clear();
                         polygonPoints.clear();
                         free = true;
@@ -191,17 +191,7 @@ public class ToolBrush_Geology extends Tool {
         tokensToDelete.clear();
     }
 
-    protected float getSpacingY() {
-        TextureRegion[] regions = getRegions();
-        float pixelSpacing = 0;
-        for (TextureRegion region : regions) {
-            if (region == null) continue;
-            pixelSpacing = Math.max(region.packedHeight, pixelSpacing);
-        }
-        return pixelSpacing * minimum_spacing * 0.25f * Math.abs(sclY);
-    }
-
-    private void spawnTokens(boolean useBrushOffset) {
+    private void spawnTokens(boolean useBrushOffset, boolean maintainMinSpacing) {
         map.getAllTokens(currentType, alreadyCreatedTokens);
 
         float offsetX = useBrushOffset ? x : 0;
@@ -210,14 +200,18 @@ public class ToolBrush_Geology extends Tool {
         for (Token token : tokensPreview) {
             Vector2 position = new Vector2(token.transforms[0].x + x, token.transforms[0].y + y);
             float minDistance = Float.POSITIVE_INFINITY;
+            float minDistanceX = Float.POSITIVE_INFINITY;
+            float minDistanceY = Float.POSITIVE_INFINITY;
             for (Token mapToken : alreadyCreatedTokens) {
                 float distanceSquared = Vector2.dst2(position.x, position.y, mapToken.transforms[0].x, mapToken.transforms[0].y);
+                float distanceX = Math.abs(position.x - mapToken.transforms[0].x);
+                float distanceY = Math.abs(position.y - mapToken.transforms[0].y);
                 minDistance = Math.min(minDistance, distanceSquared);
+                minDistanceX = Math.min(minDistanceX, distanceX);
+                minDistanceY = Math.min(minDistanceY, distanceY);
             }
             minDistance = (float) Math.sqrt(minDistance);
-            if (minDistance < getSpacingX()) continue;
-
-            //if (minDistanceX < getSpacingX() * 0.25f && minDistanceY < getSpacingY() * 0.25f) continue;
+            if (minDistance < getMinSpacing() && maintainMinSpacing) continue;
 
             CommandTokenCreate createToken = new CommandTokenCreate(
                     3,
@@ -470,7 +464,7 @@ public class ToolBrush_Geology extends Tool {
             for (float rect_y = bottomLeftCorner.y; rect_y < topRightCorner.y; rect_y += stepY) {
                 boolean contained = MathUtils.polygonContainsPoint(polyPoints, rect_x, rect_y);
                 if (contained) {
-                    float spacing = getSpacingX();
+                    float spacing = getMinSpacing();
                     float randomOffset_x = MathUtils.randomUniformFloat(-spacing, spacing);
                     float randomOffset_y = MathUtils.randomUniformFloat(-spacing, spacing);;
                     System.out.println(randomOffset_x);

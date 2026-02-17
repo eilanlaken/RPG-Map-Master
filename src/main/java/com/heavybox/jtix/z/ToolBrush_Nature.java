@@ -122,7 +122,7 @@ public class ToolBrush_Nature extends Tool {
         if (mode == Mode.ADD) {
             if (shape == Shape.POINT) {
                 if (leftClicked) {
-                    spawnTokens(true);
+                    spawnTokens(true, false);
                     refillPointWithTokens();
                     return;
                 }
@@ -131,7 +131,7 @@ public class ToolBrush_Nature extends Tool {
 
             if (shape == Shape.CIRCLE) {
                 if (leftClicked || leftPressedAndMoved) {
-                    spawnTokens(true);
+                    spawnTokens(true, true);
                     refillCircleWithTokens();
                     return;
                 }
@@ -150,7 +150,7 @@ public class ToolBrush_Nature extends Tool {
             if (shape == Shape.LINE && !free) {
                 if (mouseMoved) refillLineWithTokens();
                 else if (leftClicked) {
-                    spawnTokens(false);
+                    spawnTokens(false, true);
                     tokensPreview.clear();
                     free = true;
                 }
@@ -174,7 +174,7 @@ public class ToolBrush_Nature extends Tool {
                         return;
                     }
                     if (Vector2.dst(p, polygonPoints.first()) <= 20) {
-                        spawnTokens(false);
+                        spawnTokens(false, true);
                         tokensPreview.clear();
                         polygonPoints.clear();
                         free = true;
@@ -192,7 +192,7 @@ public class ToolBrush_Nature extends Tool {
         tokensToDelete.clear();
     }
 
-    private void spawnTokens(boolean useBrushOffset) {
+    private void spawnTokens(boolean useBrushOffset, boolean maintainMinSpacing) {
         map.getAllTokens(currentCategory, alreadyCreatedTokens);
 
         float offsetX = useBrushOffset ? x : 0;
@@ -206,7 +206,7 @@ public class ToolBrush_Nature extends Tool {
                 minDistance = Math.min(distanceSquared, minDistance);
             }
             minDistance = (float) Math.sqrt(minDistance);
-            if (minDistance < getSpacingX()) continue;
+            if (minDistance < getMinSpacing() && maintainMinSpacing) continue;
 
             CommandTokenCreate createToken = new CommandTokenCreate(
                     3,
@@ -459,7 +459,7 @@ public class ToolBrush_Nature extends Tool {
             for (float rect_y = bottomLeftCorner.y; rect_y < topRightCorner.y; rect_y += stepY) {
                 boolean contained = MathUtils.polygonContainsPoint(polyPoints, rect_x, rect_y);
                 if (contained) {
-                    float spacing = getSpacingX();
+                    float spacing = getMinSpacing();
                     float randomOffset_x = MathUtils.randomUniformFloat(-spacing, spacing);
                     float randomOffset_y = MathUtils.randomUniformFloat(-spacing, spacing);;
                     System.out.println(randomOffset_x);

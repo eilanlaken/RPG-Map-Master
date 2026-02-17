@@ -87,7 +87,7 @@ public abstract class Tool {
     // TODO
     protected TextureRegion[] getRegions() { return null; }
 
-    protected float getSpacingX() {
+    protected float getMinSpacing() {
         TextureRegion[] regions = getRegions();
         float pixelSpacing = 0;
         for (TextureRegion region : regions) {
@@ -95,16 +95,6 @@ public abstract class Tool {
             pixelSpacing = Math.max(region.packedWidth, pixelSpacing);
         }
         return pixelSpacing * minimum_spacing * Math.abs(sclX);
-    }
-
-    protected float getSpacingY() {
-        TextureRegion[] regions = getRegions();
-        float pixelSpacing = 0;
-        for (TextureRegion region : regions) {
-            if (region == null) continue;
-            pixelSpacing = Math.max(region.packedWidth, pixelSpacing);
-        }
-        return pixelSpacing * minimum_spacing * Math.abs(sclY);
     }
 
     protected int getBatchCount(float area) {

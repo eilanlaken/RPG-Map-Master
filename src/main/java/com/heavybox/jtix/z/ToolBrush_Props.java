@@ -205,7 +205,7 @@ public class ToolBrush_Props extends Tool {
                 minDistance = Math.min(distanceSquared, minDistance);
             }
             minDistance = (float) Math.sqrt(minDistance);
-            if (minDistance < getSpacingX()) continue;
+            if (minDistance < getMinSpacing()) continue;
 
             CommandTokenCreate createToken = new CommandTokenCreate(
                     3,
@@ -458,7 +458,7 @@ public class ToolBrush_Props extends Tool {
             for (float rect_y = bottomLeftCorner.y; rect_y < topRightCorner.y; rect_y += stepY) {
                 boolean contained = MathUtils.polygonContainsPoint(polyPoints, rect_x, rect_y);
                 if (contained) {
-                    float spacing = getSpacingX();
+                    float spacing = getMinSpacing();
                     float randomOffset_x = MathUtils.randomUniformFloat(-spacing, spacing);
                     float randomOffset_y = MathUtils.randomUniformFloat(-spacing, spacing);;
                     System.out.println(randomOffset_x);

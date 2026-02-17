@@ -20,7 +20,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Set;
 
 public class ToolStamp_Architecture extends Tool {
 
@@ -77,12 +76,34 @@ public class ToolStamp_Architecture extends Tool {
                 BUNDLES_TOP_VIEW.add(bundle);
             }
 
+            for (Element bundleElement : bundles_isometric_view) {
+                NodeList blocks = bundleElement.getElementsByTagName("block");
+                Bundle bundle = new Bundle();
+                bundle.blocks = new Block[blocks.getLength()];
+                for (int i = 0; i < blocks.getLength(); i++) {
+                    Element blockElement = (Element) blocks.item(i);
+                    float x = Float.parseFloat(blockElement.getAttribute("x"));
+                    float y = Float.parseFloat(blockElement.getAttribute("y"));
+                    float deg = Float.parseFloat(blockElement.getAttribute("deg"));
+                    boolean flipped = Boolean.parseBoolean(blockElement.getAttribute("flipped"));
+                    Type type = Type.valueOf(blockElement.getAttribute("type"));
+                    bundle.blocks[i] = new Block();
+                    bundle.blocks[i].x = x;
+                    bundle.blocks[i].y = y;
+                    bundle.blocks[i].deg = deg;
+                    bundle.blocks[i].flipped = flipped;
+                    bundle.blocks[i].type = type;
+                }
+
+                BUNDLES_ISOMETRIC_VIEW.add(bundle);
+            }
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public Type type = Type.TOP_VIEW_LARGE;
+    public Type type = Type.ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT;
     public Style style = Style.HUMAN;
     public boolean singles = false;
     public boolean development = false;
@@ -94,13 +115,17 @@ public class ToolStamp_Architecture extends Tool {
 
     // tool overlay - non-development
     private int bundleTopViewIndex = MathUtils.randomUniformInt(0, BUNDLES_TOP_VIEW.size);
+    private int bundleIsometricViewIndex = MathUtils.randomUniformInt(0, BUNDLES_ISOMETRIC_VIEW.size);
+    private int bundleSideViewIndex = MathUtils.randomUniformInt(0, Math.max(1, BUNDLES_SIDE_VIEW.size));
 
     public ToolStamp_Architecture(final RPGMapMakerScene scene) {
         super(scene);
         atlas = Assets.get("assets/texture-packs/layer_3.yml");
 
-        sclX = 1f;
-        sclY = 1f;
+//        sclX = 1f / 5;
+//        sclY = 1f / 5;
+
+
 
         toolOverlayDevCurrentRegion = getToolOverlayCurrentRegion();
     }
@@ -112,6 +137,7 @@ public class ToolStamp_Architecture extends Tool {
         boolean rightButtonClicked = Input.mouse.isButtonClicked(Mouse.Button.RIGHT);
         boolean enterClicked = Input.keyboard.isKeyJustReleased(Keyboard.Key.ENTER); // print bundle
         boolean zJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.Z);
+        boolean xJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.X);
         boolean aPressed = Input.keyboard.isKeyPressed(Keyboard.Key.A);
         boolean qPressed = Input.keyboard.isKeyPressed(Keyboard.Key.Q);
         boolean sPressed = Input.keyboard.isKeyPressed(Keyboard.Key.S);
@@ -135,21 +161,22 @@ public class ToolStamp_Architecture extends Tool {
             sclX *= 1.00f - 0.8f * Graphics.getDeltaTime();
             sclY *= 1.00f - 0.8f * Graphics.getDeltaTime();
         }
-        if (zJustPressed) {
+        if (rightButtonClicked) {
             sclX *= -1;
         }
 
         if (!development) {
             if (leftButtonClicked) {
-
-                for (Block block : BUNDLES_TOP_VIEW.get(bundleTopViewIndex).blocks) {
+                Block[] blocks = getCurrentBundleBlocks();
+                for (Block block : blocks) {
                     Vector2 offset = new Vector2(block.x, block.y);
                     offset.rotateDeg(deg);
                     offset.scl(sclX, sclY);
-                    CommandTokenCreate cmd = new CommandTokenCreate(3, x + offset.x, y + offset.y, block.deg + deg, block.flipped ? -sclX : sclX, sclY, false, getToolOverlayBlockRegion(block));
+                    CommandTokenCreate cmd = new CommandTokenCreate(3, x + offset.x, y + offset.y, block.deg + deg, block.flipped ? -sclX : sclX, sclY, false, getBlockRegion(block));
                     cmd.tokenType = type;
                     map.addCommand(cmd);
-                    bundleTopViewIndex = MathUtils.randomUniformInt(0, BUNDLES_TOP_VIEW.size);
+                    //bundleTopViewIndex = MathUtils.randomUniformInt(0, BUNDLES_TOP_VIEW.size);
+                    randomizeIndex();
                 }
             }
 
@@ -158,8 +185,10 @@ public class ToolStamp_Architecture extends Tool {
         // actions
         if (development) {
 
-            if (rightButtonClicked) {
+            if (zJustPressed) {
                 dev_nextRegion();
+            } else if (xJustPressed) {
+                dev_prevRegion();
             }
             if (leftButtonClicked) {
                 Block block = new Block();
@@ -206,7 +235,7 @@ public class ToolStamp_Architecture extends Tool {
         }
 
         if (!singles) { // && bundles top view
-            Block[] blocks = BUNDLES_TOP_VIEW.get(bundleTopViewIndex).blocks;
+            Block[] blocks = getCurrentBundleBlocks();
             for (Block block : blocks) {
                 Vector2 toBlock = new Vector2(block.x, block.y);
                 toBlock.scl(Math.abs(sclX), Math.abs(sclY));
@@ -216,13 +245,37 @@ public class ToolStamp_Architecture extends Tool {
         }
     }
 
+    private void randomizeIndex() {
+        bundleTopViewIndex = MathUtils.randomUniformInt(0, Math.max(1, BUNDLES_TOP_VIEW.size));
+        bundleIsometricViewIndex = MathUtils.randomUniformInt(0, Math.max(1, BUNDLES_ISOMETRIC_VIEW.size));
+        bundleSideViewIndex = MathUtils.randomUniformInt(0, Math.max(1, BUNDLES_SIDE_VIEW.size));
+    }
+
+    private Block[] getCurrentBundleBlocks() {
+        if (type.name().startsWith("SIDE")) return BUNDLES_SIDE_VIEW.get(bundleSideViewIndex).blocks;
+        if (type.name().startsWith("ISO")) return BUNDLES_ISOMETRIC_VIEW.get(bundleIsometricViewIndex).blocks;
+        if (type.name().startsWith("TOP")) return BUNDLES_TOP_VIEW.get(bundleTopViewIndex).blocks;
+
+        return BUNDLES_TOP_VIEW.get(bundleTopViewIndex).blocks;
+    }
+
     private void dev_nextRegion() {
         type = type.getNextOfTheSamePrefix();
         toolOverlayDevCurrentRegion = getToolOverlayCurrentRegion();
     }
 
+    private void dev_prevRegion() {
+        type = type.getPrevOfTheSamePrefix();
+        toolOverlayDevCurrentRegion = getToolOverlayCurrentRegion();
+    }
+
     private TextureRegion getToolOverlayCurrentRegion() {
         final String regionName = "assets/textures-layer-3/architecture_" + style.name().toLowerCase() + "_" + type.name().toLowerCase() + "_0.png";
+        return atlas.getRegion(regionName);
+    }
+
+    private TextureRegion getBlockRegion(Block block) {
+        final String regionName = "assets/textures-layer-3/architecture_" + style.name().toLowerCase() + "_" + block.type.name().toLowerCase() + "_" + MathUtils.randomUniformInt(0,6) + ".png";
         return atlas.getRegion(regionName);
     }
 
@@ -280,12 +333,12 @@ public class ToolStamp_Architecture extends Tool {
         ISOMETRIC_VIEW_HOUSE_HORIZONTAL_TALL,
         ISOMETRIC_VIEW_HOUSE_VERTICAL_SHORT,
         ISOMETRIC_VIEW_HOUSE_VERTICAL_TALL,
-        ISOMETRIC_VIEW_HOUSE_HUT_DIAGONAL,
-        ISOMETRIC_VIEW_HOUSE_HUT_VERTICAL,
-        ISOMETRIC_VIEW_HOUSE_TOWER_SHORT,
-        ISOMETRIC_VIEW_HOUSE_TOWER_TALL,
-        ISOMETRIC_VIEW_HOUSE_WALL_BACK,
-        ISOMETRIC_VIEW_HOUSE_WALL_FRONT,
+        ISOMETRIC_VIEW_HUT_DIAGONAL,
+        ISOMETRIC_VIEW_HUT_VERTICAL,
+        ISOMETRIC_VIEW_TOWER_SHORT,
+        ISOMETRIC_VIEW_TOWER_TALL,
+        ISOMETRIC_VIEW_WALL_BACK,
+        ISOMETRIC_VIEW_WALL_FRONT,
         ;
 
         public Type getNextOfTheSamePrefix() {
@@ -294,6 +347,14 @@ public class ToolStamp_Architecture extends Tool {
             while (!next.name().startsWith(prefix))
                 next = Collections.enumNext(next);
             return next;
+        }
+
+        public Type getPrevOfTheSamePrefix() {
+            final String prefix = this.name().split("_")[0];
+            Type prev = Collections.enumPrev(this);
+            while (!prev.name().startsWith(prefix))
+                prev = Collections.enumPrev(prev);
+            return prev;
         }
     }
 
