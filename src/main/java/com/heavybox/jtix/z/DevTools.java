@@ -10,9 +10,90 @@ public class DevTools {
 
     public static void run() {
         try {
-            renameFiles_add_isometric();
+            renameFiles_add_change_prefix_farmland_props();
         } catch (Exception e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    public static void renameFiles_add_change_prefix_farmland_props() throws IOException {
+        Path dir = Paths.get("C:\\Users\\eilan\\OneDrive\\Desktop\\Heavy Box Games\\projects\\RPG Map Master\\art\\backup\\farmland props");
+        try (Stream<Path> paths = Files.list(dir)) {
+            paths
+                    .filter(Files::isRegularFile)
+                    .forEach(path -> {
+                        String name = path.getFileName().toString();
+                        if (true) {
+                            String newName = name.replace("farmland_prop", "prop_farmland");
+                            Path target = path.resolveSibling(newName);
+                            try {
+                                Files.move(path, target);
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                    });
+        }
+    }
+
+    public static void renameFiles_add_prefix_geology() throws IOException {
+        Path dir = Paths.get("C:\\Users\\eilan\\OneDrive\\Desktop\\Heavy Box Games\\projects\\RPG Map Master\\art\\backup\\geology");
+        try (Stream<Path> paths = Files.list(dir)) {
+            paths
+                    .filter(Files::isRegularFile)
+                    .forEach(path -> {
+                        String name = path.getFileName().toString();
+                        String prefix = name.split("_")[0];
+                        if (true) {
+                            String newName = name.replace(prefix, "geology_" + prefix + "_");
+                            Path target = path.resolveSibling(newName);
+                            try {
+                                Files.move(path, target);
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                    });
+        }
+    }
+
+    public static void renameFiles_add_prefix_nature_to_trees() throws IOException {
+        Path dir = Paths.get("C:\\Users\\eilan\\OneDrive\\Desktop\\Heavy Box Games\\projects\\RPG Map Master\\art\\backup\\trees");
+        try (Stream<Path> paths = Files.list(dir)) {
+            paths
+                    .filter(Files::isRegularFile)
+                    .forEach(path -> {
+                        String name = path.getFileName().toString();
+                        if (name.startsWith("tree_")) {
+                            String newName = name.replace("tree_", "nature_tree_");
+                            Path target = path.resolveSibling(newName);
+                            try {
+                                Files.move(path, target);
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                    });
+        }
+    }
+
+    public static void renameFiles_add_prefix_nature_to_flowers() throws IOException {
+        Path dir = Paths.get("C:\\Users\\eilan\\OneDrive\\Desktop\\Heavy Box Games\\projects\\RPG Map Master\\art\\backup\\trees");
+        try (Stream<Path> paths = Files.list(dir)) {
+            paths
+                    .filter(Files::isRegularFile)
+                    .forEach(path -> {
+                        String name = path.getFileName().toString();
+                        if (name.startsWith("plant_")) {
+                            String newName = name.replace("plant_", "nature_");
+                            Path target = path.resolveSibling(newName);
+                            try {
+                                Files.move(path, target);
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                    });
         }
     }
 

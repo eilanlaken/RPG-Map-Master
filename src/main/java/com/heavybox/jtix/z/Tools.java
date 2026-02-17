@@ -16,9 +16,10 @@ public final class Tools {
     public static int activeToolIndex = 0;
 
     public static ToolBrush_Terrain toolBrushTerrain;
+    public static ToolStamp_Farmlands toolStampFarmlands; // TODO: unify farmlands with terrain
     public static ToolBrush_Nature toolBrushNature;
-    public static ToolStamp_Farmlands toolStampFarmlands;
     public static ToolStamp_Architecture toolStampArchitecture;
+    public static ToolBrush_Geology toolBrushGeology;
 
     private static RPGMapMakerScene scene;
 
@@ -29,13 +30,15 @@ public final class Tools {
         toolBrushTerrain = new ToolBrush_Terrain(scene);
         toolStampFarmlands = new ToolStamp_Farmlands(scene);
         toolStampArchitecture = new ToolStamp_Architecture(scene);
+        toolBrushGeology = new ToolBrush_Geology(scene);
 
         tools.add(toolBrushTerrain);
         tools.add(toolBrushNature);
         tools.add(toolStampFarmlands);
         tools.add(toolStampArchitecture);
+        tools.add(toolBrushGeology);
 
-        selectTool(2);
+        selectTool(4);
     }
 
     public static void selectTool(int index) {
@@ -61,6 +64,8 @@ public final class Tools {
             selectTool(2);
         } else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KEY_4)) {
             selectTool(3);
+        } else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KEY_5)) {
+            selectTool(4);
         }
     }
 

@@ -22,17 +22,17 @@ public class ToolBrush_Geology extends Tool {
     private final Array<Token> alreadyCreatedTokens = new Array<>();
     private final Set<Token> tokensToDelete = new HashSet<>();
 
-    public boolean addTrunk = true;
-    public boolean addLeaves = true;
-    public boolean addFruit = false;
-    public Type currentType = Type.TREE_CIRCULAR;
+    public Type currentType = Type.values()[0];
 
     public ToolBrush_Geology(RPGMapMakerScene scene) {
         super(scene);
         atlas = Assets.get("assets/texture-packs/layer_3.yml");
 
-        sclX = 1f / 6;
-        sclY = 1f / 6;
+        sclX = 1f / 2;
+        sclY = 1f / 2;
+
+        shape = Shape.POINT;
+        density = 0.15f; // units per 100 pixels
     }
 
     @Override
@@ -191,6 +191,16 @@ public class ToolBrush_Geology extends Tool {
         tokensToDelete.clear();
     }
 
+    protected float getSpacingY() {
+        TextureRegion[] regions = getRegions();
+        float pixelSpacing = 0;
+        for (TextureRegion region : regions) {
+            if (region == null) continue;
+            pixelSpacing = Math.max(region.packedHeight, pixelSpacing);
+        }
+        return pixelSpacing * minimum_spacing * 0.25f * Math.abs(sclY);
+    }
+
     private void spawnTokens(boolean useBrushOffset) {
         map.getAllTokens(currentType, alreadyCreatedTokens);
 
@@ -199,13 +209,15 @@ public class ToolBrush_Geology extends Tool {
 
         for (Token token : tokensPreview) {
             Vector2 position = new Vector2(token.transforms[0].x + x, token.transforms[0].y + y);
-            float minDistance = Float.POSITIVE_INFINITY;
+            float minDistanceX = Float.POSITIVE_INFINITY;
+            float minDistanceY = Float.POSITIVE_INFINITY;
             for (Token mapToken : alreadyCreatedTokens) {
                 float distanceSquared = Vector2.dst2(position.x, position.y, mapToken.transforms[0].x, mapToken.transforms[0].y);
-                minDistance = Math.min(distanceSquared, minDistance);
+                minDistanceX = Math.min(minDistanceX, Math.abs(position.x - mapToken.transforms[0].x));
+                minDistanceY = Math.min(minDistanceY, Math.abs(position.y - mapToken.transforms[0].y));
             }
-            minDistance = (float) Math.sqrt(minDistance);
-            if (minDistance < getSpacingX()) continue;
+            //minDistance = (float) Math.sqrt(minDistance);
+            if (minDistanceX < getSpacingX() * 0.25f && minDistanceY < getSpacingY() * 0.25f) continue;
 
             CommandTokenCreate createToken = new CommandTokenCreate(
                     3,
@@ -473,35 +485,9 @@ public class ToolBrush_Geology extends Tool {
 
     @Override
     protected TextureRegion[] getRegions() {
-        String prefix = "assets/textures-layer-3/" + currentType.name().toLowerCase();
-
-        if (currentType.name().startsWith("PLANT_FLOWER")) {
-            return new TextureRegion[] {atlas.getRegion(prefix + "_" + MathUtils.randomUniformInt(0, 6) + ".png")};
-        }
-
-        TextureRegion leaves = null;
-        try {
-           leaves = atlas.getRegion(prefix + "_" + MathUtils.randomUniformInt(0, 6) + ".png"); // currently, hard coded value "6"
-        } catch (Exception ignored) {}
-
-        TextureRegion fruits = null;
-        try {
-            fruits = atlas.getRegion(prefix + "_fruits_red" + ".png"); // currently,hard coded "red"
-        } catch (Exception ignored) {
-
-        }
-
-        TextureRegion trunk = null;
-        try {
-            trunk = atlas.getRegion(prefix + "_trunk_" + MathUtils.randomUniformInt(0, 6) + ".png"); // currently, hard coded value "6";
-        } catch (Exception ignored) {
-
-        }
-
-        TextureRegion[] regions = new TextureRegion[3];
-        regions[0] = addLeaves ? leaves : null;
-        regions[1] = addFruit ? fruits : null;
-        regions[2] = addTrunk ? trunk : null;
+        String name = "assets/textures-layer-3/geology_" + currentType.name().toLowerCase() + "_" + MathUtils.randomUniformInt(0,6) + ".png";
+        TextureRegion[] regions = new TextureRegion[1];
+        regions[0] = atlas.getRegion(name);
         return regions;
     }
 
@@ -526,24 +512,20 @@ public class ToolBrush_Geology extends Tool {
 
     @Override
     public String getName() {
-        return "Trees Tool";
+        return "Geology Tool";
     }
 
     public enum Type {
 
-        TREE_BUSH,
-        TREE_CIRCULAR,
-        TREE_CONIFER,
-        TREE_CYPRESS,
-        TREE_GLOBOSE,
-        TREE_HIGH,
-        TREE_REGULAR,
+        BOULDER_PLAIN_BIG,
+        BOULDER_PLAIN_SMALL,
 
-        PLANT_FLOWER_DAISY,
-        PLANT_FLOWER_ROSE,
-        PLANT_FLOWER_SCORPION,
-        PLANT_FLOWER_SUNFLOWER,
-        PLANT_FLOWER_TULIP,
+        HILLS_BROWN,
+        HILLS_GREEN,
+
+        ROCK_BIG,
+        ROCK_MEDIUM,
+        ROCK_SMALL,
 
     }
 

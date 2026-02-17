@@ -25,7 +25,8 @@ public class ToolBrush_Nature extends Tool {
     public boolean addTrunk = true;
     public boolean addLeaves = true;
     public boolean addFruit = false;
-    public Type currentType = Type.TREE_CIRCULAR;
+
+    public Category currentCategory = Category.TREE_CIRCULAR;
 
     public ToolBrush_Nature(RPGMapMakerScene scene) {
         super(scene);
@@ -84,7 +85,7 @@ public class ToolBrush_Nature extends Tool {
         }
 
         if (rightClicked) {
-            currentType = Collections.enumNext(currentType);
+            currentCategory = Collections.enumNext(currentCategory);
             onSetParameter();
             return;
         }
@@ -111,7 +112,7 @@ public class ToolBrush_Nature extends Tool {
 
             tokensToDelete.clear();
             if (leftClicked || leftPressedAndMoved) {
-                map.getAllTokensInCircle(currentType, x, y, spreadRadius * sclX, tokensToDelete);
+                map.getAllTokensInCircle(currentCategory, x, y, spreadRadius * sclX, tokensToDelete);
                 deleteTokens();
             }
 
@@ -192,7 +193,7 @@ public class ToolBrush_Nature extends Tool {
     }
 
     private void spawnTokens(boolean useBrushOffset) {
-        map.getAllTokens(currentType, alreadyCreatedTokens);
+        map.getAllTokens(currentCategory, alreadyCreatedTokens);
 
         float offsetX = useBrushOffset ? x : 0;
         float offsetY = useBrushOffset ? y : 0;
@@ -214,7 +215,7 @@ public class ToolBrush_Nature extends Tool {
                     token.transforms[0].sclX, token.transforms[0].sclY, true,
                     token.regions
             );
-            createToken.tokenType = currentType;
+            createToken.tokenType = currentCategory;
             createToken.tint = token.tint;
             map.addCommand(createToken);
         }
@@ -473,9 +474,9 @@ public class ToolBrush_Nature extends Tool {
 
     @Override
     protected TextureRegion[] getRegions() {
-        String prefix = "assets/textures-layer-3/" + currentType.name().toLowerCase();
+        String prefix = "assets/textures-layer-3/nature_" + currentCategory.name().toLowerCase();
 
-        if (currentType.name().startsWith("PLANT_FLOWER")) {
+        if (currentCategory.name().startsWith("FLOWER")) {
             return new TextureRegion[] {atlas.getRegion(prefix + "_" + MathUtils.randomUniformInt(0, 6) + ".png")};
         }
 
@@ -529,7 +530,7 @@ public class ToolBrush_Nature extends Tool {
         return "Trees Tool";
     }
 
-    public enum Type {
+    public enum Category {
 
         TREE_BUSH,
         TREE_CIRCULAR,
@@ -539,11 +540,11 @@ public class ToolBrush_Nature extends Tool {
         TREE_HIGH,
         TREE_REGULAR,
 
-        PLANT_FLOWER_DAISY,
-        PLANT_FLOWER_ROSE,
-        PLANT_FLOWER_SCORPION,
-        PLANT_FLOWER_SUNFLOWER,
-        PLANT_FLOWER_TULIP,
+        FLOWER_DAISY,
+        FLOWER_ROSE,
+        FLOWER_SCORPION,
+        FLOWER_SUNFLOWER,
+        FLOWER_TULIP,
 
     }
 

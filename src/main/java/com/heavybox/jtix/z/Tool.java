@@ -17,7 +17,7 @@ public abstract class Tool {
 
     // modes
     public Mode mode = Mode.ADD;
-    public Shape shape = Shape.POINT;
+    public Shape shape = Shape.CIRCLE;
     public final Array<TextureRegion> props = new Array<>(true, 8);
     public boolean free = true;
     public float density = 0.15f; // units per 100 pixels
