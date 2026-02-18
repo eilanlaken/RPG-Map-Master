@@ -1,5 +1,8 @@
 package com.heavybox.jtix.math;
 
+import com.heavybox.jtix.collections.ArrayFloat;
+import com.heavybox.jtix.collections.ArrayInt;
+
 // TODO: test everything here.
 public class Shape2DPolygon implements Shape2D {
 
@@ -10,11 +13,17 @@ public class Shape2DPolygon implements Shape2D {
     private final float perimeter;
     private final Vector2 centroid;
 
+    // TODO: test with both normal and degenerate vertices
     public Shape2DPolygon(float ...points) {
         if (points.length < 6) throw new MathException("A Polygon must contain at least 3 points. Therefore, the input array points: [x0,y0, x1,y1, ...] must contain at least 6 values");
         if (points.length % 2 != 0) throw new MathException("points is a flat array of values representing a polygon. A point has a float x and float y values. Therefore points must contain an even number of points.");
-        this.points = points;
-        this.indices = MathUtils.polygonTriangulate(points);
+
+        ArrayFloat outVertices = new ArrayFloat(true, points.length);
+        ArrayInt outIndices = new ArrayInt(true, 3 * (2 * points.length - 2));
+        MathUtils.polygonTriangulate(points, outVertices, outIndices);
+
+        this.points = outVertices.pack();
+        this.indices = outIndices.pack();
 
         float sumArea = 0;
         float sumPerimeter = 0;
