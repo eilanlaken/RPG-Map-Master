@@ -39,7 +39,7 @@ regions:
   textureIndex: 0
   x: 395
   y: 247
-- name: assets/textures-layer-3/architecture_dwarf_side_view_decoration_0.png
+- name: assets/textures-layer-3/prop_architecture_statue_giant.png
   offsetX: 4
   offsetY: 274
   originalHeight: 587
@@ -509,7 +509,7 @@ regions:
   textureIndex: 0
   x: 431
   y: 807
-- name: assets/textures-layer-3/architecture_elf_side_view_decoration_1.png
+- name: assets/textures-layer-3/prop_architecture_branching_trunk.png
   offsetX: 77
   offsetY: 205
   originalHeight: 445
@@ -1567,8 +1567,8 @@ regions:
   packedHeight: 81
   packedWidth: 147
   textureIndex: 0
-  x: 3907
-  y: 1213
+  x: 960
+  y: 1214
 - name: assets/textures-layer-3/architecture_elf_isometric_view_house_horizontal_tall_1.png
   offsetX: 36
   offsetY: 212
@@ -1577,7 +1577,7 @@ regions:
   packedHeight: 81
   packedWidth: 147
   textureIndex: 0
-  x: 809
+  x: 1432
   y: 1214
 - name: assets/textures-layer-3/architecture_elf_isometric_view_house_horizontal_tall_2.png
   offsetX: 36
@@ -1587,8 +1587,8 @@ regions:
   packedHeight: 81
   packedWidth: 147
   textureIndex: 0
-  x: 1281
-  y: 1214
+  x: 3907
+  y: 1213
 - name: assets/textures-layer-3/architecture_elf_isometric_view_house_horizontal_tall_3.png
   offsetX: 36
   offsetY: 212
@@ -1597,7 +1597,7 @@ regions:
   packedHeight: 81
   packedWidth: 147
   textureIndex: 0
-  x: 1432
+  x: 809
   y: 1214
 - name: assets/textures-layer-3/architecture_elf_isometric_view_house_horizontal_tall_4.png
   offsetX: 36
@@ -1617,7 +1617,7 @@ regions:
   packedHeight: 81
   packedWidth: 147
   textureIndex: 0
-  x: 960
+  x: 1281
   y: 1214
 - name: assets/textures-layer-3/architecture_dwarf_side_view_bridge_4.png
   offsetX: 38
@@ -1817,7 +1817,7 @@ regions:
   packedHeight: 84
   packedWidth: 135
   textureIndex: 0
-  x: 3600
+  x: 3803
   y: 1124
 - name: assets/textures-layer-3/architecture_human_isometric_view_house_horizontal_tall_1.png
   offsetX: 23
@@ -1827,8 +1827,8 @@ regions:
   packedHeight: 84
   packedWidth: 135
   textureIndex: 0
-  x: 2117
-  y: 1125
+  x: 3600
+  y: 1124
 - name: assets/textures-layer-3/architecture_human_isometric_view_house_horizontal_tall_3.png
   offsetX: 22
   offsetY: 214
@@ -1837,8 +1837,8 @@ regions:
   packedHeight: 84
   packedWidth: 135
   textureIndex: 0
-  x: 3803
-  y: 1124
+  x: 2117
+  y: 1125
 - name: assets/textures-layer-3/geology_boulder_plain_small_2.png
   offsetX: 84
   offsetY: 152
@@ -2367,7 +2367,7 @@ regions:
   packedHeight: 86
   packedWidth: 116
   textureIndex: 0
-  x: 1540
+  x: 1780
   y: 1124
 - name: assets/textures-layer-3/architecture_orc_isometric_view_house_horizontal_tall_1.png
   offsetX: 32
@@ -2377,7 +2377,7 @@ regions:
   packedHeight: 86
   packedWidth: 116
   textureIndex: 0
-  x: 1780
+  x: 1660
   y: 1124
 - name: assets/textures-layer-3/architecture_orc_isometric_view_house_horizontal_tall_2.png
   offsetX: 32
@@ -2387,7 +2387,7 @@ regions:
   packedHeight: 86
   packedWidth: 116
   textureIndex: 0
-  x: 2679
+  x: 1540
   y: 1124
 - name: assets/textures-layer-3/architecture_orc_isometric_view_house_horizontal_tall_3.png
   offsetX: 32
@@ -2397,8 +2397,8 @@ regions:
   packedHeight: 86
   packedWidth: 116
   textureIndex: 0
-  x: 3972
-  y: 1123
+  x: 2679
+  y: 1124
 - name: assets/textures-layer-3/architecture_orc_isometric_view_house_horizontal_tall_4.png
   offsetX: 32
   offsetY: 212
@@ -2417,9 +2417,9 @@ regions:
   packedHeight: 86
   packedWidth: 116
   textureIndex: 0
-  x: 1660
-  y: 1124
-- name: assets/textures-layer-3/architecture_dwarf_side_view_decoration_6.png
+  x: 3972
+  y: 1123
+- name: assets/textures-layer-3/prop_architecture_stone_pillar_wide.png
   offsetX: 70
   offsetY: 206
   originalHeight: 445
@@ -3077,7 +3077,7 @@ regions:
   packedHeight: 83
   packedWidth: 90
   textureIndex: 0
-  x: 3460
+  x: 3272
   y: 1212
 - name: assets/textures-layer-3/farmland_prop_windmill_3.png
   offsetX: 4
@@ -3087,7 +3087,7 @@ regions:
   packedHeight: 83
   packedWidth: 90
   textureIndex: 0
-  x: 2864
+  x: 3366
   y: 1212
 - name: assets/textures-layer-3/prop_architecture_windmill_2.png
   offsetX: 4
@@ -3097,7 +3097,7 @@ regions:
   packedHeight: 83
   packedWidth: 90
   textureIndex: 0
-  x: 3366
+  x: 3460
   y: 1212
 - name: assets/textures-layer-3/prop_architecture_windmill_3.png
   offsetX: 4
@@ -3107,7 +3107,7 @@ regions:
   packedHeight: 83
   packedWidth: 90
   textureIndex: 0
-  x: 3272
+  x: 2864
   y: 1212
 - name: assets/textures-layer-3/architecture_human_isometric_view_tower_tall_3.png
   offsetX: 21
@@ -3129,7 +3129,7 @@ regions:
   textureIndex: 0
   x: 2
   y: 1048
-- name: assets/textures-layer-3/architecture_dwarf_side_view_decoration_5.png
+- name: assets/textures-layer-3/prop_architecture_dwarf_statue.png
   offsetX: 77
   offsetY: 210
   originalHeight: 445
@@ -3159,16 +3159,6 @@ regions:
   textureIndex: 0
   x: 3615
   y: 1446
-- name: assets/textures-layer-3/architecture_human_side_view_decoration_2.png
-  offsetX: 67
-  offsetY: 201
-  originalHeight: 480
-  originalWidth: 220
-  packedHeight: 74
-  packedWidth: 96
-  textureIndex: 0
-  x: 3554
-  y: 1298
 - name: assets/textures-layer-3/architecture_orc_isometric_view_house_horizontal_short_0.png
   offsetX: 34
   offsetY: 212
@@ -3187,7 +3177,7 @@ regions:
   packedHeight: 64
   packedWidth: 111
   textureIndex: 0
-  x: 1892
+  x: 617
   y: 1377
 - name: assets/textures-layer-3/architecture_orc_isometric_view_house_horizontal_short_2.png
   offsetX: 34
@@ -3197,7 +3187,7 @@ regions:
   packedHeight: 64
   packedWidth: 111
   textureIndex: 0
-  x: 617
+  x: 1892
   y: 1377
 - name: assets/textures-layer-3/architecture_orc_isometric_view_house_horizontal_short_3.png
   offsetX: 34
@@ -3229,6 +3219,16 @@ regions:
   textureIndex: 0
   x: 962
   y: 1377
+- name: assets/textures-layer-3/prop_architecture_windmill_blade_red.png
+  offsetX: 67
+  offsetY: 201
+  originalHeight: 480
+  originalWidth: 220
+  packedHeight: 74
+  packedWidth: 96
+  textureIndex: 0
+  x: 3554
+  y: 1298
 - name: assets/textures-layer-3/architecture_dwarf_side_view_block_8.png
   offsetX: 70
   offsetY: 210
@@ -3519,7 +3519,17 @@ regions:
   textureIndex: 0
   x: 1216
   y: 402
-- name: assets/textures-layer-3/architecture_human_side_view_decoration_1.png
+- name: assets/textures-layer-3/farmland_prop_boxes_5.png
+  offsetX: 30
+  offsetY: 24
+  originalHeight: 128
+  originalWidth: 128
+  packedHeight: 88
+  packedWidth: 74
+  textureIndex: 0
+  x: 2357
+  y: 1122
+- name: assets/textures-layer-3/prop_architecture_windmill_blade_grey.png
   offsetX: 67
   offsetY: 198
   originalHeight: 480
@@ -3529,16 +3539,6 @@ regions:
   textureIndex: 0
   x: 2765
   y: 1298
-- name: assets/textures-layer-3/farmland_prop_boxes_5.png
-  offsetX: 30
-  offsetY: 24
-  originalHeight: 128
-  originalWidth: 128
-  packedHeight: 88
-  packedWidth: 74
-  textureIndex: 0
-  x: 1900
-  y: 1122
 - name: assets/textures-layer-3/prop_farmland_boxes_5.png
   offsetX: 30
   offsetY: 24
@@ -3547,7 +3547,7 @@ regions:
   packedHeight: 88
   packedWidth: 74
   textureIndex: 0
-  x: 2357
+  x: 1900
   y: 1122
 - name: assets/textures-layer-3/nature_tree_circular_2.png
   offsetX: 101
@@ -4399,7 +4399,7 @@ regions:
   textureIndex: 0
   x: 1943
   y: 920
-- name: assets/textures-layer-3/architecture_human_side_view_decoration_3.png
+- name: assets/textures-layer-3/prop_architecture_water_wheel.png
   offsetX: 73
   offsetY: 235
   originalHeight: 480
@@ -4409,7 +4409,7 @@ regions:
   textureIndex: 0
   x: 1577
   y: 1299
-- name: assets/textures-layer-3/architecture_dwarf_side_view_decoration_4.png
+- name: assets/textures-layer-3/prop_architecture_giant_bird_house.png
   offsetX: 86
   offsetY: 205
   originalHeight: 445
@@ -4679,7 +4679,7 @@ regions:
   textureIndex: 0
   x: 2724
   y: 1509
-- name: assets/textures-layer-3/architecture_dwarf_side_view_decoration_1.png
+- name: assets/textures-layer-3/prop_architecture_half_arc.png
   offsetX: 68
   offsetY: 208
   originalHeight: 445
@@ -4707,7 +4707,7 @@ regions:
   packedHeight: 66
   packedWidth: 71
   textureIndex: 0
-  x: 3915
+  x: 3840
   y: 1376
 - name: assets/textures-layer-3/architecture_human_isometric_view_hut_diagonal_2.png
   offsetX: 33
@@ -4747,7 +4747,7 @@ regions:
   packedHeight: 66
   packedWidth: 71
   textureIndex: 0
-  x: 3840
+  x: 3915
   y: 1376
 - name: assets/textures-layer-3/geology_hills_brown_2.png
   offsetX: 34
@@ -4907,7 +4907,7 @@ regions:
   packedHeight: 65
   packedWidth: 67
   textureIndex: 0
-  x: 49
+  x: 546
   y: 1377
 - name: assets/textures-layer-3/prop_farmland_boxes_1.png
   offsetX: 31
@@ -4917,7 +4917,7 @@ regions:
   packedHeight: 65
   packedWidth: 67
   textureIndex: 0
-  x: 546
+  x: 49
   y: 1377
 - name: assets/textures-layer-3/architecture_dwarf_side_view_block_1.png
   offsetX: 75
@@ -5929,7 +5929,7 @@ regions:
   textureIndex: 0
   x: 2913
   y: 1508
-- name: assets/textures-layer-3/architecture_human_side_view_decoration_0.png
+- name: assets/textures-layer-3/prop_architecture_flag_yellow.png
   offsetX: 105
   offsetY: 234
   originalHeight: 480
@@ -6229,7 +6229,7 @@ regions:
   textureIndex: 0
   x: 1222
   y: 1621
-- name: assets/textures-layer-3/architecture_orc_side_view_decoration_1.png
+- name: assets/textures-layer-3/prop_architecture_orc_banner.png
   offsetX: 68
   offsetY: 215
   originalHeight: 445
@@ -6259,7 +6259,7 @@ regions:
   textureIndex: 0
   x: 1036
   y: 1568
-- name: assets/textures-layer-3/architecture_dwarf_side_view_decoration_3.png
+- name: assets/textures-layer-3/prop_architecture_tower_decoration.png
   offsetX: 94
   offsetY: 207
   originalHeight: 445
@@ -6269,7 +6269,7 @@ regions:
   textureIndex: 0
   x: 2543
   y: 1442
-- name: assets/textures-layer-3/architecture_elf_side_view_decoration_0.png
+- name: assets/textures-layer-3/prop_architecture_elf_tree_branch.png
   offsetX: 80
   offsetY: 210
   originalHeight: 445
@@ -6389,7 +6389,7 @@ regions:
   textureIndex: 0
   x: 3458
   y: 1620
-- name: assets/textures-layer-3/architecture_dwarf_side_view_decoration_2.png
+- name: assets/textures-layer-3/prop_architecture_stone_beacon.png
   offsetX: 94
   offsetY: 207
   originalHeight: 445
@@ -6539,7 +6539,7 @@ regions:
   textureIndex: 0
   x: 1622
   y: 1621
-- name: assets/textures-layer-3/architecture_orc_side_view_decoration_0.png
+- name: assets/textures-layer-3/prop_architecture_torch.png
   offsetX: 78
   offsetY: 214
   originalHeight: 445
