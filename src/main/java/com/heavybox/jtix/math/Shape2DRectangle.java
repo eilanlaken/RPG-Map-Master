@@ -2,8 +2,8 @@ package com.heavybox.jtix.math;
 
 public class Shape2DRectangle implements Shape2D {
 
-    public final float w;
-    public final float h;
+    public final float  w;
+    public final float  h;
     private final float area;
     private final float perimeter;
 

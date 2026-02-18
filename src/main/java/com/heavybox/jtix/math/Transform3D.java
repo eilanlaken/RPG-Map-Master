@@ -1,16 +1,11 @@
 package com.heavybox.jtix.math;
 
+// TODO: test
 public class Transform3D {
 
-    public Vector3    position;
-    public Quaternion rotation;
-    public Vector3    scale;
-
-    public Transform3D() {
-        this.position = new Vector3(0,0,0);
-        this.rotation = new Quaternion();
-        this.scale    = new Vector3(1,1,1);
-    }
+    public Vector3    position = new Vector3(0,0,0);
+    public Quaternion rotation = new Quaternion();
+    public Vector3    scale    = new Vector3(1,1,1);
 
     /** Sets the quaternion to an identity Quaternion
      * @return this quaternion for chaining */
@@ -20,5 +15,7 @@ public class Transform3D {
         this.scale.set(1,1,1);
         return this;
     }
+
+    // TODO: toMatrix, fromMatrix etc.
 
 }

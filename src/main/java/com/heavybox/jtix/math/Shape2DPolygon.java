@@ -6,11 +6,10 @@ import com.heavybox.jtix.collections.ArrayInt;
 // TODO: test everything here.
 public class Shape2DPolygon implements Shape2D {
 
-    public final float[] points;
-    public final int[] indices;
-
-    private final float area;
-    private final float perimeter;
+    public final float[]  points;
+    public final int[]    indices;
+    private final float   area;
+    private final float   perimeter;
     private final Vector2 centroid;
 
     // TODO: test with both normal and degenerate vertices
