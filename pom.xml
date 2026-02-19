@@ -591,6 +591,14 @@
             <artifactId>jbullet</artifactId>
             <version>20101010-1</version>
         </dependency>
+        <!-- JTS topology suit: only used for RPG Map Maker, not core engine -->
+        <!-- Source: https://mvnrepository.com/artifact/org.locationtech.jts/jts-core -->
+        <dependency>
+            <groupId>org.locationtech.jts</groupId>
+            <artifactId>jts-core</artifactId>
+            <version>1.20.0</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

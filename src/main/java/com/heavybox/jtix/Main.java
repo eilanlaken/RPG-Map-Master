@@ -4,6 +4,7 @@ import com.heavybox.jtix.application.Application;
 import com.heavybox.jtix.application.ApplicationSettings;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.collections.Tuple2;
+import com.heavybox.jtix.z.DevTests;
 import com.heavybox.jtix.z.DevTools;
 
 import java.io.IOException;
@@ -16,7 +17,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-//        DevTools.run();
+//        DevTests.run();
 //        if (true) return;
 
         ApplicationSettings settings = new ApplicationSettings();

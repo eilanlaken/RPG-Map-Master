@@ -94,8 +94,8 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
 
         terrainSteepness = Assets.get("assets/textures-layer-0/terrain_material_rock.jpg");
 
-        brushSub = Assets.get("assets/tools/terrain-brush-erase.png");
-        brushAdd = Assets.get("assets/tools/terrain-brush-draw.png");
+        brushAdd = Assets.get("assets/brushes/brush_terrain_add_0.png");
+        brushSub = Assets.get("assets/brushes/brush_terrain_sub_0.png");
 
         // TODO: revise
         String terrainVertexShaderSrc = Assets.getFileContent("assets/shaders/terrain.vert");

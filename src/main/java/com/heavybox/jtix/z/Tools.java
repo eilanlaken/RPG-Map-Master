@@ -20,25 +20,31 @@ public final class Tools {
     public static ToolBrush_Nature toolBrushNature;
     public static ToolStamp_Architecture toolStampArchitecture;
     public static ToolBrush_Geology toolBrushGeology;
+    public static ToolBrush_Props toolBrushProps;
+    public static ToolStamp_Procedural toolStampProcedural;
 
     private static RPGMapMakerScene scene;
 
     public static void initTools(final RPGMapMakerScene scene) {
         Tools.scene = scene;
 
-        toolBrushNature = new ToolBrush_Nature(scene);
         toolBrushTerrain = new ToolBrush_Terrain(scene);
+        toolBrushNature = new ToolBrush_Nature(scene);
         toolStampFarmlands = new ToolStamp_Farmlands(scene);
         toolStampArchitecture = new ToolStamp_Architecture(scene);
         toolBrushGeology = new ToolBrush_Geology(scene);
+        toolBrushProps = new ToolBrush_Props(scene);
+        toolStampProcedural = new ToolStamp_Procedural(scene);
 
         tools.add(toolBrushTerrain);
         tools.add(toolBrushNature);
         tools.add(toolStampFarmlands);
         tools.add(toolStampArchitecture);
         tools.add(toolBrushGeology);
+        tools.add(toolBrushProps);
+        tools.add(toolStampProcedural);
 
-        selectTool(3);
+        selectTool(0);
     }
 
     public static void selectTool(int index) {

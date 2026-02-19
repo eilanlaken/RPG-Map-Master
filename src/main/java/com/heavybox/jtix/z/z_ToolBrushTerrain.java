@@ -22,8 +22,8 @@ public class z_ToolBrushTerrain extends Tool {
 
     public z_ToolBrushTerrain(RPGMapMakerScene scene) {
         super(scene);
-        brushAdd = new Texture("assets/tools/terrain-brush-draw.png");
-        brushSub = new Texture("assets/tools/terrain-brush-erase.png");
+        brushAdd = new Texture("assets/brushes/brush_terrain_add_0.png");
+        brushSub = new Texture("assets/brushes/brush_terrain_sub_0.png");
         sclX = sclY = scale;
     }
 

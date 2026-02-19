@@ -1,5 +1,7 @@
 package com.heavybox.jtix.widgets_4;
 
+@Deprecated
+//TODO: use Transform2D from math
 public final class Transform {
 
     public float x    = 0;

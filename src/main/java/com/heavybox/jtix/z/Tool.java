@@ -18,7 +18,6 @@ public abstract class Tool {
     // modes
     public Mode mode = Mode.ADD;
     public Shape shape = Shape.CIRCLE;
-    public final Array<TextureRegion> props = new Array<>(true, 8);
     public boolean free = true;
     public float density = 0.15f; // units per 100 pixels
     public float spreadRadius = 200; // in pixels. convert to sprite width / 2
@@ -37,25 +36,6 @@ public abstract class Tool {
     public Tool(RPGMapMakerScene scene) {
         this.scene = scene;
         this.map = scene.getMap();
-    }
-
-    protected void gatherBrushProps() {
-        final String[] prefixes = getPrefixes();
-        if (prefixes == null || prefixes.length == 0) return;
-        final TexturePack atlas = Assets.get("assets/texture-packs/layer_3.yml");
-        final Array<String> propNames = new Array<>();
-        for (String regionName : atlas.namedRegions.keySet()) {
-            for (String prefix : prefixes) {
-                if (regionName.startsWith("assets/textures-layer-3/" + prefix + "_prop_")) {
-                    propNames.add(regionName);
-                    break;
-                }
-            }
-        }
-        Collections.sort(propNames);
-        for (String propName : propNames) {
-            props.add(atlas.getRegion(propName));
-        }
     }
 
     protected String[] getPrefixes() {
