@@ -5,6 +5,7 @@ TODO: implement this:
 https://maps.probabletrain.com/#/
 https://maps.probabletrain.com/#/algorithmoverview
 https://www.youtube.com/watch?v=TznowSvHJrU
+https://www.youtube.com/watch?v=3G5d8ob_Lfo
 
 2 methods: tensor fields and voronoi diagrams / noise.
 
