@@ -25,8 +25,6 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
 
     // tools - refactor immediately after working version
     public Map map;
-    public Tool[] tools = new Tool[10];
-    public int activeTool = 0;
 
     // user-interface
     private final Widget widgetActionsBar = new Widget();
@@ -90,14 +88,6 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
         Assets.finishLoading();
 
         map = new Map(2048, 2048);
-
-        tools[0] = new z_ToolBrushTerrain(this);
-        //tools[1] = new z_ToolBrushFields(this);
-        tools[2] = new z_ToolBrushTrees(this);
-        tools[3] = new z_ToolBrushProps(this);
-        //tools[4] = new ToolBrushArchitecture(this); // TODO: redo architecture brush
-        //tools[5] = new z_ToolBrushRocks(this);
-        tools[6] = new z_ToolBrushDecorations(this);
 
         // user - interface
         WidgetNodeActionsBar actionsBar = new WidgetNodeActionsBar();

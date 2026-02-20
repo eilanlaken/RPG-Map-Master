@@ -13,16 +13,18 @@ public class ToolBrush_Terrain extends Tool {
 
     public Target target = Target.GROUND;
 
-    public Texture brushAdd;
-    public Texture brushSub;
+    public Texture[] brushAdd = new Texture[3];
+    public Texture[] brushSub = new Texture[3];
 
     public int groundIndex = 3;
     public int liquidIndex = 1;
 
+    public Texture currentBrush;
+
     public ToolBrush_Terrain(RPGMapMakerScene scene) {
         super(scene);
-        brushAdd = Assets.get("assets/brushes/brush_terrain_add_0.png");
-        brushSub = Assets.get("assets/brushes/brush_terrain_sub_0.png");
+        brushAdd[0] = Assets.get("assets/brushes/brush_terrain_add_0.png");
+        brushSub[0] = Assets.get("assets/brushes/brush_terrain_sub_0.png");
         sclX = 0.5f;
         sclY = 0.5f;
     }
