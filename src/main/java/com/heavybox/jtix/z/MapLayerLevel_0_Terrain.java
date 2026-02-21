@@ -29,18 +29,17 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
 
     private final Texture terrainSteepness;
 
-    public Texture brushAdd;
-    public Texture brushSub;
+    public Texture[] brushesAdd = new Texture[3];
+    public Texture[] brushesSub = new Texture[3];
 
-    private Shader groundShader;
-    private Shader liquidShader;
-    private Shader terrainShader;
+    private final Shader shader_brush;
+    private final Shader shader_terrain;
 
     private boolean changed = true;
 
-    private final Array<CommandTerrainTerraform_new> commandsBlendMap = new Array<>(true, 100);
-    private final Array<CommandTerrainTerraform_new> commandsGround = new Array<>(true, 100);
-    private final Array<CommandTerrainTerraform_new> commandsLiquid = new Array<>(true, 100);
+    private final Array<CommandTerrainAddSub> commandsBlendMap = new Array<>(true, 100);
+    private final Array<CommandTerrainAddSub> commandsGround = new Array<>(true, 100);
+    private final Array<CommandTerrainAddSub> commandsLiquid = new Array<>(true, 100);
     private final Array<CommandTerrainFarmlandCreate> commandsFarmlandsCreate = new Array<>(true, 100);
 
     public MapLayerLevel_0_Terrain(int width, int height) {
@@ -94,22 +93,20 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
 
         terrainSteepness = Assets.get("assets/textures-layer-0/terrain_material_rock.jpg");
 
-        brushAdd = Assets.get("assets/brushes/brush_terrain_add_0.png");
-        brushSub = Assets.get("assets/brushes/brush_terrain_sub_0.png");
+        brushesAdd[0] = Assets.get("assets/brushes/brush_terrain_add_0.png");
+        brushesSub[0] = Assets.get("assets/brushes/brush_terrain_sub_0.png");
+        brushesAdd[1] = Assets.get("assets/brushes/brush_terrain_add_1.png");
+        brushesSub[1] = Assets.get("assets/brushes/brush_terrain_sub_1.png");
+        //brushesAdd[2] = Assets.get("assets/brushes/brush_terrain_add_2.png");
+        //brushesSub[2] = Assets.get("assets/brushes/brush_terrain_sub_2.png");
 
-        // TODO: revise
         String terrainVertexShaderSrc = Assets.getFileContent("assets/shaders/terrain.vert");
         String terrainFragmentShaderSrc = Assets.getFileContent("assets/shaders/terrain.frag");
-        this.terrainShader = new Shader(terrainVertexShaderSrc, terrainFragmentShaderSrc);
+        this.shader_terrain = new Shader(terrainVertexShaderSrc, terrainFragmentShaderSrc);
 
-        String groundVertexShaderSrc = Assets.getFileContent("assets/shaders/terrain-ground.vert");
-        String groundFragmentShaderSrc = Assets.getFileContent("assets/shaders/terrain-ground.frag");
-        this.groundShader = new Shader(groundVertexShaderSrc, groundFragmentShaderSrc);
-
-        String liquidVertexShaderSrc = Assets.getFileContent("assets/shaders/terrain-liquid.vert");
-        String liquidFragmentShaderSrc = Assets.getFileContent("assets/shaders/terrain-liquid.frag");
-        this.liquidShader = new Shader(liquidVertexShaderSrc, liquidFragmentShaderSrc);
-
+        String groundVertexShaderSrc = Assets.getFileContent("assets/shaders/terrain-brush.vert");
+        String groundFragmentShaderSrc = Assets.getFileContent("assets/shaders/terrain-brush.frag");
+        this.shader_brush = new Shader(groundVertexShaderSrc, groundFragmentShaderSrc);
 
         FrameBufferBinder.bind(blendMap);
         GL11.glClearColor(1,1,1,1);
@@ -121,8 +118,8 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
     public void executeCommand(Command command) {
         changed = true;
 
-        if (command instanceof CommandTerrainTerraform_new) {
-            CommandTerrainTerraform_new cmd = (CommandTerrainTerraform_new) command;
+        if (command instanceof CommandTerrainAddSub) {
+            CommandTerrainAddSub cmd = (CommandTerrainAddSub) command;
             if (cmd.target == ToolBrush_Terrain.Target.GROUND) commandsGround.add(cmd);
             if (cmd.target == ToolBrush_Terrain.Target.BLEND_MAP) commandsBlendMap.add(cmd);
             return;
@@ -150,14 +147,14 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
         FrameBufferBinder.bind(ground);
         renderer2D.begin(camera);
         renderer2D.blendingSet(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-        renderer2D.setShader(groundShader);
-        for (CommandTerrainTerraform_new cmd : commandsGround) {
+        renderer2D.setShader(shader_brush);
+        for (CommandTerrainAddSub cmd : commandsGround) {
             int groundIndex = cmd.groundIndex % terrainGrounds.length;
             Texture groundSrcImg = terrainGrounds[groundIndex];
             renderer2D.setShaderAttribute("u_texture_reveal", groundSrcImg);
             renderer2D.setShaderAttribute("u_width", uvScaleFactorGround * groundSrcImg.width);
             renderer2D.setShaderAttribute("u_height", uvScaleFactorGround * groundSrcImg.height);
-            renderer2D.drawTexture(brushAdd,cmd.x,cmd.y,0,cmd.sclX,cmd.sclY);
+            renderer2D.drawTexture(brushesAdd[cmd.brushIndex],cmd.x,cmd.y,0,cmd.sclX,cmd.sclY);
         }
         renderer2D.end();
 
@@ -165,14 +162,14 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
         FrameBufferBinder.bind(liquid);
         renderer2D.begin(camera);
         renderer2D.blendingSet(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-        renderer2D.setShader(liquidShader);
-        for (CommandTerrainTerraform_new cmd : commandsLiquid) {
+        renderer2D.setShader(shader_brush);
+        for (CommandTerrainAddSub cmd : commandsLiquid) {
             int liquidIndex = cmd.liquidIndex % terrainLiquids.length;
             Texture liquidSrcImg = terrainLiquids[liquidIndex];
             renderer2D.setShaderAttribute("u_texture_reveal", liquidSrcImg);
             renderer2D.setShaderAttribute("u_width", uvScaleFactorLiquid * liquidSrcImg.width);
             renderer2D.setShaderAttribute("u_height", uvScaleFactorLiquid * liquidSrcImg.height);
-            renderer2D.drawTexture(brushAdd,cmd.x,cmd.y,0,cmd.sclX,cmd.sclY);
+            renderer2D.drawTexture(brushesAdd[cmd.brushIndex],cmd.x,cmd.y,0,cmd.sclX,cmd.sclY);
         }
         renderer2D.end();
 
@@ -192,8 +189,8 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
         FrameBufferBinder.bind(blendMap);
         renderer2D.begin(camera);
         renderer2D.blendingSet(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-        for (CommandTerrainTerraform_new cmd : commandsBlendMap) {
-            Texture brush = cmd.mode == Tool.Mode.ADD ? brushAdd : brushSub;
+        for (CommandTerrainAddSub cmd : commandsBlendMap) {
+            Texture brush = cmd.mode == Tool.Mode.ADD ? brushesAdd[cmd.brushIndex] : brushesSub[cmd.brushIndex];
             renderer2D.drawTexture(brush,cmd.x,cmd.y,0,cmd.sclX,cmd.sclY);
         }
         renderer2D.end();
@@ -204,7 +201,7 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
         renderer2D.begin(camera);
         renderer2D.blendingSet(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-        renderer2D.setShader(terrainShader);
+        renderer2D.setShader(shader_terrain);
         renderer2D.setShaderAttribute("u_width_groundBase", uvScaleFactorGround * terrainGrounds[groundBaseTextureIndex].width);
         renderer2D.setShaderAttribute("u_height_groundBase", uvScaleFactorGround * terrainGrounds[groundBaseTextureIndex].height);
         renderer2D.setShaderAttribute("u_width_liquidBase", uvScaleFactorLiquid * terrainLiquids[liquidBaseTextureIndex].width);
