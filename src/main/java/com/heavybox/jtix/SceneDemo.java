@@ -76,7 +76,6 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
         Assets.loadTexture("assets/textures-layer-0/farmland_3.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
         Assets.loadTexture("assets/textures-layer-0/farmland_4.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
         // layer 3
-        //Assets.loadTexturePack("assets/texture-packs/layer_3.yml");
         Assets.loadTexturePack("assets/texture-packs/layer_3.yml", Texture.FilterMag.NEAREST, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, 4);
 
         // user-interface
@@ -105,7 +104,6 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
     @Override
     public void start() {
         camera.update();
-        // TODO: replace with static Tools
         Tools.initTools(this);
     }
 

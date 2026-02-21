@@ -2,6 +2,17 @@ package com.heavybox.jtix.application;
 
 import com.heavybox.jtix.collections.Array;
 
+/*
+!!!
+ CRITICAL
+ FIXME
+ TODO: separate update()
+ into:
+ fixedUpdate(delta)
+ frameUpdate(delta)
+ handleInput()
+ render()
+ */
 public interface Scene {
 
     /* Scene life-cycle: setup() -> start() -> update()...[repeat] -> finish() */

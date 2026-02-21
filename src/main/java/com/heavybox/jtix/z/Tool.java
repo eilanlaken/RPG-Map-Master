@@ -23,6 +23,7 @@ public abstract class Tool {
     public float spreadRadius = 200; // in pixels. convert to sprite width / 2
     public float minimum_spacing = 0.5f;
     public Vector2 lineStart = new Vector2();
+    public Vector2 lineEnd = new Vector2();
     public boolean tokensAngleMatchLine = false;
     public Array<Vector2> polygonPoints = new Array<>(true, 10);
 
