@@ -222,6 +222,16 @@ public class ToolStamp_Architecture extends Tool {
     }
 
     @Override
+    public String getHelperText() {
+        return "";
+    }
+
+    @Override
+    public void renderToolText(Renderer2D renderer2D, float x, float y) {
+
+    }
+
+    @Override
     public void renderToolOverlay(Renderer2D renderer2D, float x, float y) {
 
         if (development) {

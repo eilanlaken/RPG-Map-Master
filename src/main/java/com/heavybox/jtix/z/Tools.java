@@ -75,8 +75,16 @@ public final class Tools {
         }
     }
 
-    public static void render(Renderer2D renderer2D, float x, float y) {
+    public static void renderToolOverlay(Renderer2D renderer2D, float x, float y) {
         tools.get(activeToolIndex).renderToolOverlay(renderer2D, x, y);
+    }
+
+    public static void renderToolText(Renderer2D renderer2D, float x, float y) {
+        tools.get(activeToolIndex).renderToolText(renderer2D, x, y);
+    }
+
+    public static Tool getActiveTool() {
+        return tools.get(activeToolIndex);
     }
 
 }

@@ -1,11 +1,9 @@
 package com.heavybox.jtix.z;
 
 import com.heavybox.jtix.RPGMapMakerScene;
-import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.collections.Collections;
 import com.heavybox.jtix.graphics.Renderer2D;
-import com.heavybox.jtix.graphics.TexturePack;
 import com.heavybox.jtix.graphics.TextureRegion;
 import com.heavybox.jtix.math.Vector2;
 
@@ -102,6 +100,8 @@ public abstract class Tool {
 
     public abstract void update(float delta);
     public abstract void renderToolOverlay(Renderer2D renderer2D, float x, float y);
+    public abstract void renderToolText(Renderer2D renderer2D, float x, float y);
+    public abstract String getHelperText();
     public abstract void activate();
     public abstract void deactivate();
     public abstract String getName();

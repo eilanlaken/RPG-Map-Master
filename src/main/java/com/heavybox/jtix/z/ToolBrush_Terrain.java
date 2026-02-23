@@ -3,6 +3,7 @@ package com.heavybox.jtix.z;
 import com.heavybox.jtix.RPGMapMakerScene;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.collections.Collections;
+import com.heavybox.jtix.graphics.Graphics;
 import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.graphics.Shader;
 import com.heavybox.jtix.graphics.Texture;
@@ -17,8 +18,8 @@ public class ToolBrush_Terrain extends Tool {
 
     public Target target = Target.GROUND;
 
-    public Texture[] brushesAdd = new Texture[3];
-    public Texture[] brushesSub = new Texture[3];
+    public Texture[] brushesAdd = new Texture[2];
+    public Texture[] brushesSub = new Texture[2];
 
     private final Shader brushShader;
 
@@ -35,6 +36,8 @@ public class ToolBrush_Terrain extends Tool {
     private final Vector2 lineStart = new Vector2();
     private final Vector2 lineEnd = new Vector2();
     private LineModeState lineModeState = LineModeState.FREE;
+    private float lineMouseX;
+    private float lineMouseY;
 
     // ground textures
     private final Texture[] terrainGrounds = new Texture[6];
@@ -48,8 +51,8 @@ public class ToolBrush_Terrain extends Tool {
         brushesAdd[1] = Assets.get("assets/brushes/brush_terrain_add_1.png");
         brushesSub[1] = Assets.get("assets/brushes/brush_terrain_sub_1.png");
 
-        //brushAdd[2] = Assets.get("assets/brushes/brush_terrain_add_2.png");
-        //brushSub[2] = Assets.get("assets/brushes/brush_terrain_sub_2.png");
+//        brushesAdd[2] = Assets.get("assets/brushes/brush_terrain_add_2.png");
+//        brushesSub[2] = Assets.get("assets/brushes/brush_terrain_sub_2.png");
 
         terrainGrounds[0] = Assets.get("assets/textures-layer-0/terrain_land_grass_0.jpg");
         terrainGrounds[1] = Assets.get("assets/textures-layer-0/terrain_land_grass_1.jpg");
@@ -74,14 +77,57 @@ public class ToolBrush_Terrain extends Tool {
 
     @Override
     public void update(float delta) {
+        boolean shiftLeftJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.LEFT_SHIFT);
         boolean leftButtonPressed = Input.mouse.isButtonPressed(Mouse.Button.LEFT);
         boolean leftButtonJustPressed = Input.mouse.isButtonJustPressed(Mouse.Button.LEFT);
+        boolean leftButtonJustClicked = Input.mouse.isButtonClicked(Mouse.Button.LEFT);
         boolean rightButtonJustPressed = Input.mouse.isButtonJustPressed(Mouse.Button.RIGHT);
         boolean mouseMoved = Input.mouse.moved();
         boolean scrollUp = Input.mouse.getVerticalScroll() > 0;
         boolean scrollDown = Input.mouse.getVerticalScroll() < 0;
+        boolean backspaceJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.BACKSPACE);
+        boolean plus = Input.keyboard.isKeyJustPressed(Keyboard.Key.EQUAL);
+        boolean minus = Input.keyboard.isKeyJustPressed(Keyboard.Key.MINUS);
         boolean spaceJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.SPACE);
         boolean zButtonJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.Z);
+        boolean aPressed = Input.keyboard.isKeyPressed(Keyboard.Key.A);
+        boolean sPressed = Input.keyboard.isKeyPressed(Keyboard.Key.S);
+
+        if (plus) {
+            if (target == Target.GROUND) groundIndex = (groundIndex + 1) % terrainGrounds.length;
+            else if (target == Target.LIQUID) liquidIndex = (liquidIndex + 1) % terrainLiquids.length;
+            return;
+        } else if (minus) {
+            if (target == Target.GROUND) {
+                groundIndex--;
+                if (groundIndex == -1) groundIndex = terrainGrounds.length - 1;
+            }
+            else if (target == Target.LIQUID) {
+                liquidIndex--;
+                if (liquidIndex == -1) liquidIndex = terrainLiquids.length - 1;
+            }
+            return;
+        }
+
+        if (backspaceJustPressed) {
+            brushIndex = (brushIndex + 1) % brushesAdd.length;
+            onSetParameter();
+            return;
+        }
+
+        if (shiftLeftJustPressed) {
+            setShape(Collections.enumNext(shape));
+            return;
+        }
+
+        if (sPressed) {
+            sclX *= 1.00f + 0.8f * Graphics.getDeltaTime();
+            sclY *= 1.00f + 0.8f * Graphics.getDeltaTime();
+        }
+        if (aPressed) {
+            sclX *= 1.00f - 0.8f * Graphics.getDeltaTime();
+            sclY *= 1.00f - 0.8f * Graphics.getDeltaTime();
+        }
 
         // TODO brush settings
         if (zButtonJustPressed) {
@@ -127,7 +173,7 @@ public class ToolBrush_Terrain extends Tool {
 
         if (shape == Shape.LINE) {
             if (lineModeState == LineModeState.FREE) {
-                if (leftButtonJustPressed) {
+                if (leftButtonJustClicked) {
                     lineStart.set(x, y);
                     lineModeState = LineModeState.CREATING_LINE;
                 }
@@ -138,23 +184,42 @@ public class ToolBrush_Terrain extends Tool {
                     lineModeState = LineModeState.FREE;
                     return;
                 }
-                if (leftButtonJustPressed) {
+                if (leftButtonJustClicked) {
                     lineEnd.set(x, y);
                     lineModeState = LineModeState.DRAWING_ALONG_CREATED_LINE;
                 }
             }
             if (lineModeState == LineModeState.DRAWING_ALONG_CREATED_LINE) {
+                // snap mouse back to line
+                // TODO: this does not work for upright lines.
+                // better would be to parametrize the curve.
+                lineMouseX = MathUtils.clampFloat(x, lineStart.x, lineEnd.x);
+                float slope = (lineEnd.y - lineStart.y) / (lineEnd.x - lineStart.x);
+                float n = lineEnd.y - slope * lineEnd.x;
+                lineMouseY = slope * lineMouseX + n;
+
                 if (rightButtonJustPressed) { // cancel
                     lineModeState = LineModeState.FREE;
                     return;
-                } else {
-                    // snap mouse back to line
-
                 }
+
+                if (leftButtonJustPressed || (leftButtonPressed && mouseMoved)) {
+                    CommandTerrainAddSub cmd = new CommandTerrainAddSub(lineMouseX, lineMouseY, sclX, sclY, false); // TODO: anchor
+                    cmd.target = target;
+                    cmd.mode = mode;
+                    cmd.groundIndex = groundIndex;
+                    cmd.liquidIndex = liquidIndex;
+                    cmd.brushIndex = brushIndex;
+                    map.addCommand(cmd);
+                    if (randomDegree) deg = MathUtils.randomUniformFloat(0, 360);
+                    else deg = 0;
+                }
+
             }
             return;
         }
 
+        // TODO: later
         if (shape == Shape.POLYGON) {
 
             return;
@@ -179,10 +244,29 @@ public class ToolBrush_Terrain extends Tool {
     }
 
     @Override
+    public String getHelperText() {
+        return "Shape: " + shape.name() + "(LSHIFT) | " +
+                "Mode: " + mode.name() + " (SPACE) |" +
+                "Target: " + target.name() + " (Z) |" +
+                ((target == Target.GROUND) ? "Ground Index " + groundIndex + " (-+) |" : "") +
+                ((target == Target.LIQUID) ? "Liquid Index " + liquidIndex + " (-+) |" : "") +
+                "Scale: " + String.format("%.2f", sclX) + " (a & s) |";
+    }
+
+    @Override
+    public void renderToolText(Renderer2D renderer2D, float x, float y) {
+        renderer2D.drawStringLine("Currently Drawing on " + target.name(), 12, true, x + 50, y + 50, 0, 1,1);
+    }
+
+    @Override
     public void renderToolOverlay(@NotNull Renderer2D renderer2D, float x, float y) {
 
-        if (shape == Shape.POINT || shape == Shape.CIRCLE) {
-            drawBrushPrediction(renderer2D);
+        if (shape == Shape.POINT) {
+            drawBrushPrediction(renderer2D, x, y);
+        }
+
+        if (shape == Shape.CIRCLE) {
+            drawBrushPrediction(renderer2D, x, y);
         }
 
         if (shape == Shape.LINE) {
@@ -200,15 +284,19 @@ public class ToolBrush_Terrain extends Tool {
                 renderer2D.drawCircleFilled(20,10,lineStart.x,lineStart.y,0,1,1);
                 renderer2D.drawLineThin(lineStart.x, lineStart.y, lineEnd.x, lineEnd.y);
                 renderer2D.drawCircleFilled(20,10,lineEnd.x,lineEnd.y,0,1,1);
-                drawBrushPrediction(renderer2D);
+                drawBrushPrediction(renderer2D, lineMouseX, lineMouseY);
                 return;
             }
+        }
+
+        if (shape == Shape.POLYGON) {
+            // ignore for now.
         }
 
         renderer2D.setShader(null);
     }
 
-    private void drawBrushPrediction(Renderer2D renderer2D) {
+    private void drawBrushPrediction(Renderer2D renderer2D, float x, float y) {
         groundIndex = groundIndex % terrainGrounds.length;
         liquidIndex = liquidIndex % terrainGrounds.length;
         if (target == Target.GROUND) {
@@ -229,6 +317,11 @@ public class ToolBrush_Terrain extends Tool {
             renderer2D.drawTexture(currentBrush, x, y, deg, sclX, sclY);
         }
         renderer2D.setShader(null);
+    }
+
+    @Override
+    protected void onSetShape() {
+        lineModeState = LineModeState.FREE;
     }
 
     @Override

@@ -121,6 +121,7 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
         if (command instanceof CommandTerrainAddSub) {
             CommandTerrainAddSub cmd = (CommandTerrainAddSub) command;
             if (cmd.target == ToolBrush_Terrain.Target.GROUND) commandsGround.add(cmd);
+            if (cmd.target == ToolBrush_Terrain.Target.LIQUID) commandsLiquid.add(cmd);
             if (cmd.target == ToolBrush_Terrain.Target.BLEND_MAP) commandsBlendMap.add(cmd);
             return;
         }
@@ -173,6 +174,7 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
         }
         renderer2D.end();
 
+        // render farmlands
         FrameBufferBinder.bind(farmlands);
         renderer2D.begin(camera);
         renderer2D.blendingSet(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);

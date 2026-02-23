@@ -80,6 +80,16 @@ public class ToolStamp_Farmlands extends Tool {
     }
 
     @Override
+    public String getHelperText() {
+        return "";
+    }
+
+    @Override
+    public void renderToolText(Renderer2D renderer2D, float x, float y) {
+
+    }
+
+    @Override
     public void renderToolOverlay(Renderer2D renderer2D, float x, float y) {
         if (free) {
             renderer2D.drawCircleFilled(10,5, x, y, 0, 1,1);

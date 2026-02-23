@@ -124,6 +124,16 @@ public class ToolStamp_Procedural extends Tool {
     }
 
     @Override
+    public String getHelperText() {
+        return "";
+    }
+
+    @Override
+    public void renderToolText(Renderer2D renderer2D, float x, float y) {
+
+    }
+
+    @Override
     public void renderToolOverlay(Renderer2D renderer2D, float x, float y) {
         renderer2D.setColor(Color.RED);
         renderer2D.drawPolygonThin(shape2DPolygon.points, false, 0,0,0,1,1);

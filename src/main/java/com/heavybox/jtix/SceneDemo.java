@@ -27,11 +27,15 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
     public Map map;
 
     // user-interface
+    private final Widget widgetHelpBar = new Widget();
+
+    /*
     private final Widget widgetActionsBar = new Widget();
     private final Widget widgetStatisticsBar = new Widget();
     private final Widget widgetTools = new Widget();
     private WidgetNodeToolbar toolbar;
     private WidgetNodeToolSettings toolSettings;
+    */
 
     public SceneDemo() {
         renderer2D = new Renderer2D();
@@ -86,14 +90,17 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
         map = new Map(2048, 2048);
 
         // user - interface
+        /*
         WidgetNodeActionsBar actionsBar = new WidgetNodeActionsBar();
         WidgetNodeStatisticsBar statisticsBar = new WidgetNodeStatisticsBar(this);
         toolbar = new WidgetNodeToolbar(this);
         toolSettings = new WidgetNodeToolSettings();
-
         widgetStatisticsBar.addNode(statisticsBar);
         widgetActionsBar.addNodes(actionsBar);
         widgetTools.addNodes(toolSettings, toolbar);
+        */
+        WidgetNodeHelpBar helpBar = new WidgetNodeHelpBar();
+        widgetHelpBar.addNodes(helpBar);
     }
 
     @Override
@@ -167,17 +174,24 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
         Tools.update();
         // draw tools overlay
         renderer2D.begin(camera);
-        //if (activeTool != -1) tools[activeTool].renderToolOverlay(renderer2D, screen.x, screen.y);
-        Tools.render(renderer2D, screen.x, screen.y);
+        Tools.renderToolOverlay(renderer2D, screen.x, screen.y);
+        renderer2D.end();
+
+        renderer2D.begin();
+        Tools.renderToolText(renderer2D, Input.mouse.getX() - Graphics.getWindowWidth() * 0.5f, Graphics.getWindowHeight() * 0.5f - Input.mouse.getY());
         renderer2D.end();
 
         // update user interface
+        /*
         widgetActionsBar.update();
         widgetStatisticsBar.update();
         widgetTools.update();
+        */
 
+        widgetHelpBar.update();
         // render user interface
         renderer2D.begin();
+        widgetHelpBar.render(renderer2D);
 //        widgetActionsBar.render(renderer2D);
 //        widgetStatisticsBar.render(renderer2D);
 //        widgetTools.render(renderer2D);
