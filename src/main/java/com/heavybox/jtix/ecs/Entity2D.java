@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 
 public abstract class Entity2D extends Entity {
 
-    public final ComponentTransform2D transform;
+    public final ComponentTransform2D_old transform;
 
     protected Entity2D        parent   = null;
     protected Array<Entity2D> children = null;
@@ -19,7 +19,7 @@ public abstract class Entity2D extends Entity {
     }
 
     protected Entity2D(boolean isStatic, float x, float y, float deg, float sclX, float sclY) {
-        this.transform = new ComponentTransform2D(isStatic, x, y, deg, sclX, sclY);
+        this.transform = new ComponentTransform2D_old(isStatic, x, y, deg, sclX, sclY);
     }
 
     // TODO
@@ -38,7 +38,7 @@ public abstract class Entity2D extends Entity {
         newParent.children.add(this);
         this.transform.parent = newParent.transform;
         if (transform.world == null) {
-            transform.world = new ComponentTransform2D();
+            transform.world = new ComponentTransform2D_old();
         }
 
         if (keepTransform) { // TODO
@@ -80,7 +80,7 @@ public abstract class Entity2D extends Entity {
         child.parent = this;
     }
 
-    @Override protected          ComponentTransform2D createComponentTransform() { return transform; }
+    @Override protected ComponentTransform2D_old createComponentTransform() { return transform; }
     @Override protected abstract ComponentAudio       createComponentAudio();
     @Override protected abstract ComponentRender2D    createComponentRender();
     @Override protected abstract ComponentCamera2D    createComponentCamera();
@@ -88,7 +88,7 @@ public abstract class Entity2D extends Entity {
     @Override protected abstract ComponentLogics      createComponentLogics();
     @Override protected abstract ComponentRegion      createComponentRegion();
 
-    @Override public final ComponentTransform2D getComponentTransform() {
+    @Override public final ComponentTransform2D_old getComponentTransform() {
         return transform;
     }
 

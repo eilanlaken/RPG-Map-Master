@@ -101,7 +101,7 @@ public abstract class Tool {
     public abstract void update(float delta);
     public abstract void renderToolOverlay(Renderer2D renderer2D, float x, float y);
     public abstract void renderToolText(Renderer2D renderer2D, float x, float y);
-    public abstract String getHelperText();
+    public String getHelperText() {return getName();}
     public abstract void activate();
     public abstract void deactivate();
     public abstract String getName();

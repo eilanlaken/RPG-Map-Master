@@ -223,7 +223,8 @@ public class ToolStamp_Architecture extends Tool {
 
     @Override
     public String getHelperText() {
-        return "";
+        return super.getHelperText() +
+                "";
     }
 
     @Override

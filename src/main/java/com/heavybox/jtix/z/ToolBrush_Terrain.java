@@ -71,7 +71,8 @@ public class ToolBrush_Terrain extends Tool {
 
         sclX = 0.5f;
         sclY = 0.5f;
-        shape = Shape.LINE;
+        shape = Shape.CIRCLE;
+
         onSetParameter();
     }
 
@@ -245,7 +246,8 @@ public class ToolBrush_Terrain extends Tool {
 
     @Override
     public String getHelperText() {
-        return "Shape: " + shape.name() + "(LSHIFT) | " +
+        return  super.getHelperText() + " | " +
+                "Shape: " + shape.name() + "(LSHIFT) | " +
                 "Mode: " + mode.name() + " (SPACE) |" +
                 "Target: " + target.name() + " (Z) |" +
                 ((target == Target.GROUND) ? "Ground Index " + groundIndex + " (-+) |" : "") +
@@ -334,7 +336,7 @@ public class ToolBrush_Terrain extends Tool {
 
     @Override
     public String getName() {
-        return "Tool - Terrain";
+        return "Terrain Brush";
     }
 
     public enum Target {

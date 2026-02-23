@@ -1,40 +1,13 @@
 package com.heavybox.jtix.ecs;
 
 import com.heavybox.jtix.math.Matrix4x4;
+import com.heavybox.jtix.math.Transform3D;
 
-public final class ComponentTransform3D extends Matrix4x4 implements ComponentTransform {
+public class ComponentTransform3D implements ComponentTransform {
 
-    // TODO
-    ComponentTransform3D parent;
-    ComponentTransform3D world;
-
-    public final boolean isStatic;
-
-    public ComponentTransform3D() {
-        super();
-        this.isStatic = false;
-    }
-
-    public ComponentTransform3D(final ComponentTransform3D other) {
-        super(other);
-        this.isStatic = false;
-    }
-
-    public ComponentTransform3D(boolean isStatic, float x, float y, float z, float degX, float degY, float degZ, float sclX, float sclY, float sclZ) {
-        super();
-        setToTranslationEulerScaling(x, y, z, degX, degY, degZ, sclX, sclY, sclZ);
-        this.isStatic = false;
-    }
-
-    @Override
-    public boolean isStatic() {
-        return isStatic;
-    }
-
-    @Override
-    public ComponentTransform3D getWorld() {
-        return world == null ? this : world;
-    }
+    private Transform3D transform;
+    private boolean dirty = true; // after every matrix update, dirty is reset to false. After every transform change, dirty is set to true.
+    private Matrix4x4 world;
 
     @Override
     public float getPositionX() {
@@ -49,5 +22,15 @@ public final class ComponentTransform3D extends Matrix4x4 implements ComponentTr
     @Override
     public float getPositionZ() {
         return 0;
+    }
+
+    @Override
+    public ComponentTransform getWorld() {
+        return null;
+    }
+
+    @Override
+    public boolean isStatic() {
+        return false;
     }
 }

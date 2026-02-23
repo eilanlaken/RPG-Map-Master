@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 
 public abstract class Entity3D extends Entity {
 
-    public final ComponentTransform3D transform;
+    public final ComponentTransform3D_old transform;
 
     protected Entity3D() {
         this(false,0,0,0,0,0,0,1,1,1);
@@ -15,10 +15,10 @@ public abstract class Entity3D extends Entity {
     }
 
     protected Entity3D(boolean isStatic, float x, float y, float z, float degX, float degY, float degZ, float sclX, float sclY, float sclZ) {
-        this.transform = new ComponentTransform3D(isStatic, x, y, z, degX, degY, degZ, sclX, sclY, sclZ);
+        this.transform = new ComponentTransform3D_old(isStatic, x, y, z, degX, degY, degZ, sclX, sclY, sclZ);
     }
 
-    @Override protected          ComponentTransform3D createComponentTransform() { return transform; }
+    @Override protected ComponentTransform3D_old createComponentTransform() { return transform; }
     @Override protected abstract ComponentAudio       createComponentAudio();
     @Override protected abstract ComponentRender3D    createComponentRender();
     @Override protected abstract ComponentCamera3D    createComponentCamera();
@@ -26,7 +26,7 @@ public abstract class Entity3D extends Entity {
     @Override protected abstract ComponentLogics      createComponentLogics();
     @Override protected abstract ComponentRegion      createComponentRegion();
 
-    @Override public final ComponentTransform3D getComponentTransform() {
+    @Override public final ComponentTransform3D_old getComponentTransform() {
         return transform;
     }
 

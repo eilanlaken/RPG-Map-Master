@@ -277,7 +277,8 @@ public class ToolBrush_Props extends Tool {
 
     @Override
     public String getHelperText() {
-        return "";
+        return super.getHelperText() +
+                "";
     }
 
     @Override

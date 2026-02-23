@@ -81,7 +81,8 @@ public class ToolStamp_Farmlands extends Tool {
 
     @Override
     public String getHelperText() {
-        return "";
+        return super.getHelperText() +
+                "";
     }
 
     @Override

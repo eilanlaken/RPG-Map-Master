@@ -223,7 +223,8 @@ public class ToolBrush_Nature extends Tool {
 
     @Override
     public String getHelperText() {
-        return "";
+        return super.getHelperText() +
+                "";
     }
 
     @Override
@@ -537,7 +538,7 @@ public class ToolBrush_Nature extends Tool {
 
     @Override
     public String getName() {
-        return "Trees Tool";
+        return "Nature Brush";
     }
 
     public enum Category {
