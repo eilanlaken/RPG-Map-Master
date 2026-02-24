@@ -38,24 +38,32 @@ public class ToolStamp_Farmlands extends Tool {
 
     @Override
     public void update(float delta) {
+        // inputs
         boolean backspaceJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.BACKSPACE);
         boolean mouseMoved = Input.mouse.moved();
         boolean pJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.P);
         boolean leftClicked = Input.mouse.isButtonClicked(Mouse.Button.LEFT);
 
+        // brush settings
         if (backspaceJustPressed) {
             mode = Collections.enumNext(mode);
             polygonPoints.clear();
             free = true;
             shape = (mode == Mode.ADD) ? Shape.POLYGON : Shape.POINT;
             return;
-        }
-
-        if (pJustPressed) {
+        } else if (pJustPressed) {
             procedural = !procedural;
             return;
         }
 
+        if (mode == Mode.SUB) {
+            if (leftClicked) {
+                CommandTerrainFarmlandDelete cmd = new CommandTerrainFarmlandDelete(x, y);
+                map.addCommand(cmd);
+            }
+        }
+
+        // if mode == ADD
         if (free) {
             if (leftClicked) {
                 Vector2 p = new Vector2(x, y);

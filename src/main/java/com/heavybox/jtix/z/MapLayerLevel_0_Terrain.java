@@ -3,6 +3,7 @@ package com.heavybox.jtix.z;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.graphics.*;
+import com.heavybox.jtix.math.MathUtils;
 import org.lwjgl.opengl.GL11;
 
 import java.util.Arrays;
@@ -38,6 +39,7 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
     private final Shader shader_terrain;
 
     private boolean changed = true;
+    private boolean changedFarmlands = true;
 
     private final Array<CommandTerrainAddSub> commandsBlendMap = new Array<>(true, 100);
     private final Array<CommandTerrainAddSub> commandsGround = new Array<>(true, 100);
@@ -45,8 +47,6 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
 
     /* farmlands */
     private final Array<Farmland> farmlandsArray = new Array<>(true, 20);
-    private final Array<CommandTerrainFarmlandCreate> commandsFarmlandsCreate = new Array<>(true, 100);
-
 
     public MapLayerLevel_0_Terrain(int width, int height) {
         this.width = width;
@@ -133,15 +133,30 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
         }
 
         if (command instanceof CommandTerrainFarmlandCreate) {
+            changedFarmlands = true;
             CommandTerrainFarmlandCreate cmd = (CommandTerrainFarmlandCreate) command;
-            commandsFarmlandsCreate.add(cmd);
-
             Farmland farmland = new Farmland();
             farmland.baseType = cmd.baseType;
             farmland.linesAngle = cmd.linesAngle;
             farmland.polygon = Arrays.copyOf(cmd.polygon, cmd.polygon.length);
             farmlandsArray.add(farmland);
             return;
+        }
+
+        if (command instanceof CommandTerrainFarmlandDelete) {
+            CommandTerrainFarmlandDelete cmd = (CommandTerrainFarmlandDelete) command;
+            Farmland toDelete = null;
+            for (int i = farmlandsArray.size - 1; i >= 0; i--) {
+                Farmland farmland = farmlandsArray.get(i);
+                if (MathUtils.polygonContainsPoint(farmland.polygon, cmd.x, cmd.y)) {
+                    toDelete = farmland;
+                    break;
+                }
+            }
+            if (toDelete != null) {
+                farmlandsArray.removeValue(toDelete, true);
+                changedFarmlands = true;
+            }
         }
 
     }
@@ -187,19 +202,35 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
         renderer2D.end();
 
         // render farmlands
-        FrameBufferBinder.bind(farmlands);
-        renderer2D.begin(camera);
-        renderer2D.blendingSet(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-        for (CommandTerrainFarmlandCreate cmd : commandsFarmlandsCreate) {
-            // draw the farmland to the frame buffer
-            renderer2D.setColor(0.3569f, 0.3098f, 0.2275f, 0.4f); // TODO: remove this and move to an outline shader for the farmlands.
-            renderer2D.drawCurveFilled(null, 8.0f, 12, cmd.polygon, 0, 0, 0, 1, 1);
-            renderer2D.setColor(Color.WHITE);
-            renderer2D.drawPolygonFilled(cmd.polygon, bases[cmd.baseType], uv -> uv.rotateDeg(cmd.linesAngle).scl(2), 0, 0, 0, 1, 1);
-            // store the farmland in the farmlands array for future processing.
+//        FrameBufferBinder.bind(farmlands);
+//        renderer2D.begin(camera);
+//        renderer2D.blendingSet(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+//        for (CommandTerrainFarmlandCreate cmd : commandsFarmlandsCreate) {
+//            // draw the farmland to the frame buffer
+//            renderer2D.setColor(0.3569f, 0.3098f, 0.2275f, 0.4f); // TODO: remove this and move to an outline shader for the farmlands.
+//            renderer2D.drawCurveFilled(null, 8.0f, 12, cmd.polygon, 0, 0, 0, 1, 1);
+//            renderer2D.setColor(Color.WHITE);
+//            renderer2D.drawPolygonFilled(cmd.polygon, bases[cmd.baseType], uv -> uv.rotateDeg(cmd.linesAngle).scl(2), 0, 0, 0, 1, 1);
+//            // store the farmland in the farmlands array for future processing.
+//
+//        }
+//        renderer2D.end();
 
+        // re-render farmlands - only if changed
+        if (changedFarmlands) {
+            FrameBufferBinder.bind(farmlands);
+            renderer2D.begin(camera);
+            GL11.glClearColor(0, 0, 0, 0);
+            GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
+            for (Farmland farmland : farmlandsArray) {
+                // draw the farmland to the frame buffer
+                renderer2D.setColor(0.3569f, 0.3098f, 0.2275f, 0.45f); // TODO: remove this and move to an outline shader for the farmlands.
+                renderer2D.drawCurveFilled(null, 7.0f, 12, farmland.polygon, 0, 0, 0, 1, 1);
+                renderer2D.setColor(Color.WHITE);
+                renderer2D.drawPolygonFilled(farmland.polygon, bases[farmland.baseType], uv -> uv.rotateDeg(farmland.linesAngle).scl(2), 0, 0, 0, 1, 1);
+            }
+            renderer2D.end();
         }
-        renderer2D.end();
 
         // render blend map
         FrameBufferBinder.bind(blendMap);
@@ -244,8 +275,8 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
         commandsBlendMap.clear();
         commandsGround.clear();
         commandsLiquid.clear();
-        commandsFarmlandsCreate.clear();
         changed = false;
+        changedFarmlands = false;
     }
 
     @Override
