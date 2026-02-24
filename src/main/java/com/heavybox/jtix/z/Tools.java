@@ -44,7 +44,7 @@ public final class Tools {
         tools.add(toolBrushProps);
         tools.add(toolStampProcedural);
 
-        selectTool(0);
+        selectTool(2);
     }
 
     public static void selectTool(int index) {

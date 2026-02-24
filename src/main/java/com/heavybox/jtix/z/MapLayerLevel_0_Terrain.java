@@ -5,6 +5,8 @@ import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.graphics.*;
 import org.lwjgl.opengl.GL11;
 
+import java.util.Arrays;
+
 import static org.lwjgl.opengl.GL11.*;
 
 public class MapLayerLevel_0_Terrain implements MapLayerLevel {
@@ -40,7 +42,11 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
     private final Array<CommandTerrainAddSub> commandsBlendMap = new Array<>(true, 100);
     private final Array<CommandTerrainAddSub> commandsGround = new Array<>(true, 100);
     private final Array<CommandTerrainAddSub> commandsLiquid = new Array<>(true, 100);
+
+    /* farmlands */
+    private final Array<Farmland> farmlandsArray = new Array<>(true, 20);
     private final Array<CommandTerrainFarmlandCreate> commandsFarmlandsCreate = new Array<>(true, 100);
+
 
     public MapLayerLevel_0_Terrain(int width, int height) {
         this.width = width;
@@ -129,6 +135,12 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
         if (command instanceof CommandTerrainFarmlandCreate) {
             CommandTerrainFarmlandCreate cmd = (CommandTerrainFarmlandCreate) command;
             commandsFarmlandsCreate.add(cmd);
+
+            Farmland farmland = new Farmland();
+            farmland.baseType = cmd.baseType;
+            farmland.linesAngle = cmd.linesAngle;
+            farmland.polygon = Arrays.copyOf(cmd.polygon, cmd.polygon.length);
+            farmlandsArray.add(farmland);
             return;
         }
 
@@ -179,11 +191,13 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
         renderer2D.begin(camera);
         renderer2D.blendingSet(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         for (CommandTerrainFarmlandCreate cmd : commandsFarmlandsCreate) {
-            renderer2D.setColor(0.3569f, 0.3098f, 0.2275f, 0.4f);
-            // TODO: remove this and move to an outline shader for the farmlands.
+            // draw the farmland to the frame buffer
+            renderer2D.setColor(0.3569f, 0.3098f, 0.2275f, 0.4f); // TODO: remove this and move to an outline shader for the farmlands.
             renderer2D.drawCurveFilled(null, 8.0f, 12, cmd.polygon, 0, 0, 0, 1, 1);
             renderer2D.setColor(Color.WHITE);
             renderer2D.drawPolygonFilled(cmd.polygon, bases[cmd.baseType], uv -> uv.rotateDeg(cmd.linesAngle).scl(2), 0, 0, 0, 1, 1);
+            // store the farmland in the farmlands array for future processing.
+
         }
         renderer2D.end();
 

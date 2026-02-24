@@ -2,6 +2,7 @@ package com.heavybox.jtix.z;
 
 import com.heavybox.jtix.RPGMapMakerScene;
 import com.heavybox.jtix.assets.Assets;
+import com.heavybox.jtix.collections.Collections;
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.graphics.Texture;
@@ -13,9 +14,10 @@ import com.heavybox.jtix.math.Vector2;
 
 public class ToolStamp_Farmlands extends Tool {
 
-    private Texture[] bases = new Texture[5];
+    private final Texture[] bases = new Texture[5];
     private int baseType = MathUtils.randomUniformInt(0, bases.length);
     private float linesAngle = MathUtils.randomUniformFloat(0, 360);
+    private boolean procedural = false;
 
     public ToolStamp_Farmlands(RPGMapMakerScene scene) {
         super(scene);
@@ -36,15 +38,23 @@ public class ToolStamp_Farmlands extends Tool {
 
     @Override
     public void update(float delta) {
+        boolean backspaceJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.BACKSPACE);
         boolean mouseMoved = Input.mouse.moved();
         boolean pJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.P);
         boolean leftClicked = Input.mouse.isButtonClicked(Mouse.Button.LEFT);
-        int verticalScroll = (int) Input.mouse.getVerticalScroll();
 
-        baseType += verticalScroll;
-        baseType %= bases.length;
-        if (baseType < 0) baseType = bases.length - 1;
+        if (backspaceJustPressed) {
+            mode = Collections.enumNext(mode);
+            polygonPoints.clear();
+            free = true;
+            shape = (mode == Mode.ADD) ? Shape.POLYGON : Shape.POINT;
+            return;
+        }
 
+        if (pJustPressed) {
+            procedural = !procedural;
+            return;
+        }
 
         if (free) {
             if (leftClicked) {
@@ -92,6 +102,14 @@ public class ToolStamp_Farmlands extends Tool {
 
     @Override
     public void renderToolOverlay(Renderer2D renderer2D, float x, float y) {
+        if (mode == Mode.SUB) {
+            renderer2D.setColor(Color.RED);
+            renderer2D.drawCircleFilled(10,10, x, y, 0, 1,1);
+            renderer2D.setColor(Color.WHITE);
+            return;
+        }
+
+        // ADD wheat fields
         if (free) {
             renderer2D.drawCircleFilled(10,5, x, y, 0, 1,1);
             renderer2D.setColor(Color.WHITE);

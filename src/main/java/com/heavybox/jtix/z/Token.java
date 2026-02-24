@@ -3,6 +3,7 @@ package com.heavybox.jtix.z;
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.graphics.TextureRegion;
+import com.heavybox.jtix.math.Transform2D;
 
 public class Token {
 
@@ -10,15 +11,15 @@ public class Token {
     public Color tint = Color.WHITE;
     public final int layer;
     public final float minY;
-    public TokenTransform[] transforms;
+    public Transform2D[] transforms;
     public final float width, height;
     public TextureRegion[] regions;
 
     public Token(int layer, float x, float y, float deg, float sclX, float sclY, TextureRegion... regions) {
         this.layer = layer;
-        this.transforms = new TokenTransform[regions.length];
+        this.transforms = new Transform2D[regions.length];
         for (int i = 0; i < transforms.length; i++) {
-            this.transforms[i] = new TokenTransform();
+            this.transforms[i] = new Transform2D();
             this.transforms[i].x = x;
             this.transforms[i].y = y;
             this.transforms[i].deg = deg;
@@ -47,7 +48,7 @@ public class Token {
         height = maxY - minY;
     }
 
-    public Token(int layer, TokenTransform[] transforms, TextureRegion[] regions) {
+    public Token(int layer, Transform2D[] transforms, TextureRegion[] regions) {
         this.layer = layer;
         this.transforms = transforms;
         this.regions = regions;

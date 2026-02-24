@@ -13,6 +13,7 @@ import com.heavybox.jtix.math.Vector2;
 
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public class ToolBrush_Nature extends Tool {
@@ -22,11 +23,11 @@ public class ToolBrush_Nature extends Tool {
     private final Array<Token> alreadyCreatedTokens = new Array<>();
     private final Set<Token> tokensToDelete = new HashSet<>();
 
+    private String fruitColor = null;
     public boolean addTrunk = true;
     public boolean addLeaves = true;
-    public boolean addFruit = false;
 
-    public Category currentCategory = Category.TREE_CIRCULAR;
+    public Category currentCategory = Category.TREE_REGULAR;
 
     public ToolBrush_Nature(RPGMapMakerScene scene) {
         super(scene);
@@ -34,6 +35,8 @@ public class ToolBrush_Nature extends Tool {
 
         sclX = 1f / 6;
         sclY = 1f / 6;
+
+        shape = Shape.POINT;
     }
 
     @Override
@@ -70,22 +73,48 @@ public class ToolBrush_Nature extends Tool {
         boolean leftClicked = Input.mouse.isButtonClicked(Mouse.Button.LEFT);
         boolean rightClicked = Input.mouse.isButtonClicked(Mouse.Button.RIGHT);
         boolean sKeyPressed = Input.keyboard.isKeyPressed(Keyboard.Key.S);
-        boolean spaceKeyPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.SPACE);
+        boolean backspaceJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.BACKSPACE);
         float dy = Input.mouse.getYDelta();
+        boolean fJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.F);
+        boolean lJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.L);
+        boolean tJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.T);
+        boolean zJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.Z);
+        boolean xJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.X);
 
-        // brush settings - TODO
+        if (lJustPressed) {
+            addLeaves = !addLeaves;
+            onSetParameter();
+            return;
+        } else if (tJustPressed) {
+            addTrunk = !addTrunk;
+            onSetParameter();
+            return;
+        } else if (fJustPressed) {
+            if (fruitColor == null) fruitColor = "red";
+            else if (fruitColor.equals("red")) fruitColor = "green";
+            else if (fruitColor.equals("green")) fruitColor = "orange";
+            else if (fruitColor.equals("orange")) fruitColor = null;
+            onSetParameter();
+            return;
+        }
 
         if (leftShiftJustPressed) {
             setShape(Collections.enumNext(shape));
+            return;
         }
 
-        if (spaceKeyPressed) {
+        if (backspaceJustPressed) {
             mode = Collections.enumNext(mode);
             onSetMode();
+            return;
         }
 
-        if (rightClicked) {
+        if (zJustPressed) {
             currentCategory = Collections.enumNext(currentCategory);
+            onSetParameter();
+            return;
+        } else if (xJustPressed) {
+            currentCategory = Collections.enumPrev(currentCategory);
             onSetParameter();
             return;
         }
@@ -95,9 +124,6 @@ public class ToolBrush_Nature extends Tool {
             return;
         } else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.MINUS)) {
             setScale(sclX * 0.5f, sclY * 0.5f);
-            return;
-        } else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.BACKSPACE)) {
-            setScale(sclX * -1.0f, sclY);
             return;
         }
 
@@ -109,7 +135,6 @@ public class ToolBrush_Nature extends Tool {
 
         // brush actions
         if (mode == Mode.SUB) {
-
             tokensToDelete.clear();
             if (leftClicked || leftPressedAndMoved) {
                 map.getAllTokensInCircle(currentCategory, x, y, spreadRadius * sclX, tokensToDelete);
@@ -223,8 +248,14 @@ public class ToolBrush_Nature extends Tool {
 
     @Override
     public String getHelperText() {
-        return super.getHelperText() +
-                "";
+        return super.getHelperText() + " | " +
+                "Mode: " + mode.name() + " (BACKSPACE) | " +
+                "Shape: " + shape.name() + " (L_SHIFT) | " +
+                "Category: " + currentCategory + " (z,x) | " +
+                "Scale: " + sclX + " (-+) | " +
+                "Fruits: " + Objects.requireNonNullElse(fruitColor, "no fruits") + " (F) | " +
+                "Leafs: " + (addLeaves ? "on" : "off") + " (L) | " +
+                "Trunk: " + (addTrunk ? "on" : "off") + " (T) | ";
     }
 
     @Override
@@ -473,7 +504,6 @@ public class ToolBrush_Nature extends Tool {
                     float spacing = getMinSpacing();
                     float randomOffset_x = MathUtils.randomUniformFloat(-spacing, spacing);
                     float randomOffset_y = MathUtils.randomUniformFloat(-spacing, spacing);;
-                    System.out.println(randomOffset_x);
                     Token token = new Token(3, rect_x + randomOffset_x, rect_y  + randomOffset_y, 0, sclX,sclY, getRegions());
                     tokensPreview.add(token);
                 }
@@ -497,10 +527,11 @@ public class ToolBrush_Nature extends Tool {
         } catch (Exception ignored) {}
 
         TextureRegion fruits = null;
-        try {
-            fruits = atlas.getRegion(prefix + "_fruits_red" + ".png"); // currently,hard coded "red"
-        } catch (Exception ignored) {
-
+        if (fruitColor != null) {
+            try {
+                fruits = atlas.getRegion(prefix + "_fruits_" + fruitColor + ".png"); // currently,hard coded "red"
+            } catch (Exception ignored) {
+            }
         }
 
         TextureRegion trunk = null;
@@ -512,7 +543,7 @@ public class ToolBrush_Nature extends Tool {
 
         TextureRegion[] regions = new TextureRegion[3];
         regions[0] = addLeaves ? leaves : null;
-        regions[1] = addFruit ? fruits : null;
+        regions[1] = fruits;
         regions[2] = addTrunk ? trunk : null;
         return regions;
     }
