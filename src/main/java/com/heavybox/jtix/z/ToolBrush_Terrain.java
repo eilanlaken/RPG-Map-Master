@@ -110,7 +110,7 @@ public class ToolBrush_Terrain extends Tool {
             return;
         }
 
-        if (backspaceJustPressed) {
+        if (spaceJustPressed) {
             brushIndex = (brushIndex + 1) % brushesAdd.length;
             onSetParameter();
             return;
@@ -136,7 +136,7 @@ public class ToolBrush_Terrain extends Tool {
             return;
         }
 
-        if (spaceJustPressed) {
+        if (backspaceJustPressed) {
             setMode(Collections.enumNext(mode));
             onSetParameter();
             return;
@@ -248,7 +248,8 @@ public class ToolBrush_Terrain extends Tool {
     public String getHelperText() {
         return  super.getHelperText() + " | " +
                 "Shape: " + shape.name() + "(LSHIFT) | " +
-                "Mode: " + mode.name() + " (SPACE) |" +
+                "Mode: " + mode.name() + " (BACKSPACE) |" +
+                "Brush Texture: " + mode.name() + " (SPACE) |" +
                 "Target: " + target.name() + " (Z) |" +
                 ((target == Target.GROUND) ? "Ground Index " + groundIndex + " (-+) |" : "") +
                 ((target == Target.LIQUID) ? "Liquid Index " + liquidIndex + " (-+) |" : "") +
