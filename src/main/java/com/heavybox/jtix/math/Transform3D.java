@@ -9,6 +9,14 @@ public class Transform3D {
     public Quaternion rotation = new Quaternion();
     public Vector3    scale    = new Vector3(1,1,1);
 
+    public Transform3D() {}
+
+    public Transform3D(final Transform3D other) {
+        this.position = new Vector3(other.position);
+        this.rotation = new Quaternion(other.rotation);
+        this.scale = new Vector3(other.scale);
+    }
+
     /** Sets the quaternion to an identity Quaternion
      * @return this quaternion for chaining */
     public Transform3D idt() {
@@ -36,4 +44,8 @@ public class Transform3D {
         return mat;
     }
 
+    @Override
+    public String toString() {
+        return "position: " + position + "\n" + "rotation: " + rotation + "\n" + "scale: " + scale;
+    }
 }

@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 public class Transform3DTest {
 
     @Test
-    public void toMatrixTest() {
+    public void transformTest() {
         Vector3 p1 = new Vector3(1,0,0);
         Vector3 p2 = new Vector3(1,0,0);
         Transform3D t1 = new Transform3D();
@@ -18,8 +18,6 @@ public class Transform3DTest {
         m1.setToTranslationRotationScaling(t1.position, t1.rotation, t1.scale);
         p2.mul(m1);
         Assertions.assertEquals(p1, p2);
-
-
     }
 
 }
