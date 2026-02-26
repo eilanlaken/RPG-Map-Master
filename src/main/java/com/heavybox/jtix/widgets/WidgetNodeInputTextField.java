@@ -1,4 +1,4 @@
-package com.heavybox.jtix.widgets_4;
+package com.heavybox.jtix.widgets;
 
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Font;

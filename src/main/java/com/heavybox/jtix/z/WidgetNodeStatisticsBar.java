@@ -4,8 +4,8 @@ import com.heavybox.jtix.RPGMapMakerScene;
 import com.heavybox.jtix.graphics.Camera;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.math.Vector3;
-import com.heavybox.jtix.widgets_4.WidgetNodeContainerHorizontal;
-import com.heavybox.jtix.widgets_4.WidgetNodeText;
+import com.heavybox.jtix.widgets.WidgetNodeContainerHorizontal;
+import com.heavybox.jtix.widgets.WidgetNodeText;
 
 public class WidgetNodeStatisticsBar extends WidgetNodeContainerHorizontal {
 

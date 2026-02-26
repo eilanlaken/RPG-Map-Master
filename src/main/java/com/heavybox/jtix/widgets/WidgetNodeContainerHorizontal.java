@@ -1,4 +1,4 @@
-package com.heavybox.jtix.widgets_4;
+package com.heavybox.jtix.widgets;
 
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.graphics.Color;
@@ -7,10 +7,10 @@ import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.math.MathUtils;
 import org.jetbrains.annotations.NotNull;
 
-public class WidgetNodeContainerVertical extends WidgetNode implements WidgetNodeContainer {
+public class WidgetNodeContainerHorizontal extends WidgetNode implements WidgetNodeContainer {
 
-    /* state */ // TODO
-    private float scrollOffsetY    = 0;
+    /* state */
+    private float scrollOffsetX    = 0;
     private float backgroundWidth  = 0;
     private float backgroundHeight = 0;
 
@@ -34,7 +34,6 @@ public class WidgetNodeContainerVertical extends WidgetNode implements WidgetNod
     public int       boxPaddingBottom             = Widgets.themeContainerBoxPaddingBottom;
     public int       boxPaddingLeft               = Widgets.themeContainerBoxPaddingLeft;
     public int       boxPaddingRight              = Widgets.themeContainerBoxPaddingRight;
-    public int       boxChildSpacingVertical      = Widgets.themeContainerBoxChildSpacingVertical;
     public int       boxChildSpacing              = Widgets.themeContainerBoxChildSpacingHorizontal;
     public int       boxCornerRadiusTopLeft       = Widgets.themeContainerBoxCornerRadiusTopLeft;
     public int       boxCornerRadiusTopRight      = Widgets.themeContainerBoxCornerRadiusTopRight;
@@ -48,21 +47,20 @@ public class WidgetNodeContainerVertical extends WidgetNode implements WidgetNod
     public Color     boxBorderColor               = Widgets.themeContainerBoxBorderColor.clone();
 
     /* scrollbar */
-    //private WidgetInputScrollbar_old scrollbar = new WidgetInputScrollbar_old();
     private final WidgetNodeInputScrollbar scrollbar = new WidgetNodeInputScrollbar();
 
-    public WidgetNodeContainerVertical() {
+    public WidgetNodeContainerHorizontal() {
         addChild(scrollbar);
         scrollbar.anchor = Anchor.PARENT_TOP_RIGHT;
     }
 
     @Override
     protected boolean onResizeDefault(Event.EventResize e) {
-        scrollbar.length = backgroundHeight;
-        scrollbar.anchor = Anchor.PARENT_TOP_RIGHT;
-        scrollbar.anchorY = boxBorderSize;
-        scrollbar.anchorX = 0;
-        scrollbar.type = WidgetNodeInputScrollbar.Type.VERTICAL;
+        scrollbar.length = backgroundWidth;
+        scrollbar.anchor = Anchor.PARENT_BOTTOM_LEFT;
+        scrollbar.anchorX = boxBorderSize;
+        scrollbar.anchorY = 0;
+        scrollbar.type = WidgetNodeInputScrollbar.Type.HORIZONTAL;
         return true;
     }
 
@@ -86,26 +84,25 @@ public class WidgetNodeContainerVertical extends WidgetNode implements WidgetNod
     // in order to add logic, just override the fixedUpdateContainer() method instead.
     @Override
     protected final void fixedUpdate(float delta) {
-        float contentHeight = getContentHeight(childrenLayout);
-        float verticalOverflow = height - contentHeight - boxPaddingTop - boxPaddingBottom;
+        float contentWidth = getContentWidth(childrenLayout);
+        float horizontalOverflow = width - contentWidth - boxPaddingLeft - boxPaddingRight;
 
         scrollbar.active = layoutAddScrollbar;
-        if (verticalOverflow >= 0) scrollbar.active = false;
+        if (horizontalOverflow >= 0) scrollbar.active = false;
 
         if (!scrollbar.active) {
-            scrollOffsetY = 0; // reset scroll value if scrolling is disabled.
+            scrollOffsetX = 0; // reset scroll value if scrolling is disabled.
         } else {
-            scrollbar.length = backgroundHeight;
-            scrollbar.anchor = Anchor.PARENT_TOP_RIGHT;
-            scrollbar.anchorY = boxBorderSize;
-            scrollbar.anchorX = 0;
-            scrollbar.type = WidgetNodeInputScrollbar.Type.VERTICAL;
-            scrollOffsetY = -scrollbar.getValue() * verticalOverflow; // TODO
+            scrollbar.length = backgroundWidth;
+            scrollbar.anchor = Anchor.PARENT_BOTTOM_LEFT;
+            scrollbar.anchorX = boxBorderSize;
+            scrollbar.anchorY = 0;
+            scrollbar.type = WidgetNodeInputScrollbar.Type.HORIZONTAL;
+            scrollOffsetX = -scrollbar.getValue() * horizontalOverflow;
         }
 
         backgroundWidth = Math.max(0, getWidth() - boxBorderSize * 2);
         backgroundHeight = Math.max(0, getHeight() - boxBorderSize * 2);
-
         fixedUpdateContainer(delta);
     }
 
@@ -113,13 +110,13 @@ public class WidgetNodeContainerVertical extends WidgetNode implements WidgetNod
 
     @Override
     protected void setChildrenOffsets(@NotNull Array<WidgetNode> widgets) {
-        float sclY = 1; // global transform
-        float position_y = (getHeight() * 0.5f - boxBorderSize - boxPaddingTop) * sclY + scrollOffsetY;
+        float sclX = 1; // global transform
+        float position_x = -(getWidth() * 0.5f - boxBorderSize - boxPaddingLeft + scrollOffsetX) * sclX;
         for (WidgetNode child : widgets) {
-            float child_height = child.getHeight() * sclY;
-            child.offsetX = boxPaddingLeft - (boxPaddingLeft + boxPaddingRight) * 0.5f;
-            child.offsetY = position_y - child_height * 0.5f;
-            position_y -= child_height + boxChildSpacingVertical * sclY;
+            float child_width = child.getWidth() * sclX;
+            child.offsetX = position_x + child_width * 0.5f;
+            child.offsetY = boxPaddingBottom - (boxPaddingBottom + boxPaddingTop) * 0.5f;
+            position_x += child_width + boxChildSpacing * sclX;
         }
     }
 
@@ -234,21 +231,21 @@ public class WidgetNodeContainerVertical extends WidgetNode implements WidgetNod
 
     @Override
     public final float getContentWidth(Array<WidgetNode> widgets) {
-        float maxWidth = 0;
+        float width = 0;
         for (WidgetNode child : widgets) {
-            maxWidth = Math.max(child.getWidth(), maxWidth);
+            width += child.getWidth();
         }
-        return Math.abs(maxWidth);
+        width += Math.max(0f, boxChildSpacing * (widgets.size - 1));
+        return width;
     }
 
     @Override
-    public float getContentHeight(Array<WidgetNode> widgets) {
-        float height = 0;
+    public final float getContentHeight(Array<WidgetNode> widgets) {
+        float maxHeight = 0;
         for (WidgetNode child : widgets) {
-            height += child.getHeight();
+            maxHeight = Math.max(child.getHeight(), maxHeight);
         }
-        height += Math.max(0f, boxChildSpacingVertical * (widgets.size - 1));
-        return height;
+        return maxHeight;
     }
 
     @Override

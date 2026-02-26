@@ -7,7 +7,7 @@ import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.tools.ToolsThemeGenerator;
-import com.heavybox.jtix.widgets_4.*;
+import com.heavybox.jtix.widgets.*;
 import org.lwjgl.opengl.GL11;
 
 public class SceneWidgetsThemes implements Scene {

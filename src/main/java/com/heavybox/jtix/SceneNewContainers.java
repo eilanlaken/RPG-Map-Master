@@ -8,7 +8,7 @@ import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.InputLayer;
 import com.heavybox.jtix.input.Mouse;
-import com.heavybox.jtix.widgets_4.*;
+import com.heavybox.jtix.widgets.*;
 import org.lwjgl.opengl.GL11;
 
 public class SceneNewContainers implements Scene, InputLayer {

@@ -6,7 +6,7 @@ import com.heavybox.jtix.graphics.Font;
 import com.heavybox.jtix.graphics.FrameBufferBinder;
 import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.graphics.Texture;
-import com.heavybox.jtix.widgets_4.Widgets;
+import com.heavybox.jtix.widgets.Widgets;
 import org.lwjgl.opengl.GL11;
 
 public class SceneFontRendering implements Scene {

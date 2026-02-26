@@ -1,4 +1,4 @@
-package com.heavybox.jtix.widgets_4;
+package com.heavybox.jtix.widgets;
 
 // TODO
 public class WidgetNodeColorPicker {

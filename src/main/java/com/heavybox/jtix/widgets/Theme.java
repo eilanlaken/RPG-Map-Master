@@ -2,50 +2,33 @@ package com.heavybox.jtix.widgets;
 
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Font;
+import com.heavybox.jtix.graphics.TexturePack;
+import com.heavybox.jtix.graphics.TextureRegion;
+import com.heavybox.jtix.memory.MemoryResource;
 
-// represents a global UI theme of an application.
-// styles can be inline to override this global theme.
-public final class Theme {
+public final class Theme implements MemoryResource {
 
-    // TODO: make static
-    public static Font       textFont                     = null;
-    public static Color      textColor                    = Color.WHITE.clone();
-    public static int        textSize                     = 18;
-    public static float      textLineHeight               = 1.2f;
-    public static boolean    textAntialiasing             = true;
-    public static boolean    textWrapEnabled              = true;
+    public TexturePack texturePack;
+    public Font font;
 
-    // TODO: Add Themes for common supported primitives: image, text, text-field, checkbox, radio-button, ...
+    // do checkbox first.
+    public TextureRegion themeCheckboxImageUnchecked           = null;
+    public TextureRegion themeCheckboxImageChecked             = null;
+    public Color         themeCheckboxBorderColorUnchecked     = Color.valueOf("767676");
+    public Color         themeCheckboxBorderColorChecked       = Color.valueOf("0075FF");
+    public Color         themeCheckboxBackgroundColorCheckmark = Color.valueOf("0075FF");
+    public Color         themeCheckboxColorCheckmark           = Color.valueOf("FFFFFF");
 
+    public Theme() {}
 
-    // TODO: scrollbars
-    public static ScrollbarRenderer scrollbarRenderer = getDefaultScrollbarRenderer();
-
-    // equivalent to CSS text alignment.
-    // TODO: later.
-    public enum TextWrap {
-        NONE,
-        CENTER,
-        LEFT,
-        RIGHT,
-        JUSTIFY,
-        // START, // language sensitive ltr or rtl
-        // END
-    }
-
-    public static abstract class ScrollbarRenderer {
-
-        protected abstract void render(Node node, float barWidth, float barHeight, float scrollProgressPercentage, float visiblePortionPercentage, float x, float y, float deg, float sclX, float sclY);
+    public Theme(final String yaml) {
 
     }
 
-    private static ScrollbarRenderer getDefaultScrollbarRenderer() {
-        return new ScrollbarRenderer() {
-            @Override
-            protected void render(Node node, float barWidth, float barHeight, float progress, float viewPortion, float x, float y, float deg, float sclX, float sclY) {
-
-            }
-        };
+    @Override
+    public void delete() {
+        if (texturePack != null) texturePack.delete();
+        if (font != null) font.delete();
     }
 
 }

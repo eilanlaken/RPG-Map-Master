@@ -4,8 +4,8 @@ import com.heavybox.jtix.RPGMapMakerScene;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.TexturePack;
-import com.heavybox.jtix.widgets_4.WidgetNodeContainerVertical;
-import com.heavybox.jtix.widgets_4.WidgetNodeImage;
+import com.heavybox.jtix.widgets.WidgetNodeContainerVertical;
+import com.heavybox.jtix.widgets.WidgetNodeImage;
 
 public class WidgetNodeToolbar extends WidgetNodeContainerVertical {
 

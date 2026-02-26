@@ -1,85 +1,96 @@
 package com.heavybox.jtix.widgets;
 
-import com.heavybox.jtix.collections.ArrayInt;
+import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Font;
-import com.heavybox.jtix.graphics.Renderer2D;
+import com.heavybox.jtix.graphics.Graphics;
+import com.heavybox.jtix.graphics.TextureRegion;
+import com.heavybox.jtix.input.Input;
+import org.jetbrains.annotations.Nullable;
 
-// TODO: add: polygons, rectangles with rounded corners, circles with refinement
 public final class Widgets {
 
-    private static int count = 0;
+    /*** some global flags ***/
+    public static boolean debugMode = true; // TODO: use this when rendering: render regions if true.
 
-    public static boolean debugMode = true;
+    /*** global theme ***/
+    // text
+    public static Font    themeTextFont                              = null;
+    public static Color   themeTextColor                             = Color.WHITE.clone();
+    public static int     themeTextSize                              = 18;
+    public static float   themeTextLineHeight                        = 1.2f;
+    public static boolean themeTextAntialiasing                      = true;
+    public static boolean themeTextWrapEnabled                       = true;
+    // containers
+    public static boolean themeContainerBoxBackgroundVisible         = true;
+    public static Color   themeContainerBoxBackgroundColor           = Color.valueOf("#227BFF");
+    public static int     themeContainerBoxPaddingTop                = 40;
+    public static int     themeContainerBoxPaddingBottom             = 10;
+    public static int     themeContainerBoxPaddingLeft               = 10;
+    public static int     themeContainerBoxPaddingRight              = 10;
+    public static int     themeContainerBoxChildSpacingVertical      = 5;
+    public static int     themeContainerBoxChildSpacingHorizontal    = 5;
+    public static int     themeContainerGridBoxChildSpacingVertical = 5;
+    public static int     themeContainerGridBoxChildSpacingHorizontal = 5;
+    public static int     themeContainerBoxCornerRadiusTopLeft       = 0;
+    public static int     themeContainerBoxCornerRadiusTopRight      = 0;
+    public static int     themeContainerBoxCornerRadiusBottomRight   = 0;
+    public static int     themeContainerBoxCornerRadiusBottomLeft    = 0;
+    public static int     themeContainerBoxCornerSegmentsTopLeft     = 10;
+    public static int     themeContainerBoxCornerSegmentsTopRight    = 10;
+    public static int     themeContainerBoxCornerSegmentsBottomRight = 10;
+    public static int     themeContainerBoxCornerSegmentsBottomLeft  = 10;
+    public static int     themeContainerBoxBorderSize                = 4;
+    public static Color   themeContainerBoxBorderColor               = Color.RED.clone();
+    // scrollbars
+    public static boolean themeScrollbarDrawForwardButton            = true;
+    public static boolean themeScrollbarDrawBackwardButton           = true;
+    // images
+    // input - text fields
+    // input - checkbox
+    public static TextureRegion themeCheckboxImageUnchecked           = null;
+    public static TextureRegion themeCheckboxImageChecked             = null;
+    public static Color         themeCheckboxBorderColorUnchecked     = Color.valueOf("767676");
+    public static Color         themeCheckboxBorderColorChecked       = Color.valueOf("0075FF");
+    public static Color         themeCheckboxBackgroundColorCheckmark = Color.valueOf("0075FF");
+    public static Color         themeCheckboxColorCheckmark           = Color.valueOf("FFFFFF");
+    // input - radio button
 
-    private static final StringBuilder wordWrapStringBuilder    = new StringBuilder();
-    private static final ArrayInt      wordWrapStartIndices     = new ArrayInt();
-    private static final ArrayInt      wordWrapLinebreakIndices = new ArrayInt();
+    /*** input device state */
+    private static float pointerXPrev = 0;
+    private static float pointerYPrev = 0;
+    private static float pointerX     = 0;
+    private static float pointerY     = 0;
 
-    public static int getID() {
-        count++;
-        return count - 1;
+    private Widgets() {}
+
+    public static void update() {
+        float windowHalfWidth = Graphics.getWindowWidth() * 0.5f;
+        float windowHalfHeight = Graphics.getWindowHeight() * 0.5f;
+        Widgets.pointerXPrev = Widgets.pointerX;
+        Widgets.pointerYPrev = Widgets.pointerY;
+        Widgets.pointerX = Input.mouse.getX() - windowHalfWidth;
+        Widgets.pointerY = windowHalfHeight - Input.mouse.getY();
     }
 
-    /* == from Wikipedia ==
-    SpaceLeft := LineWidth
-    for each Word in Text
-        if (Width(Word) + SpaceWidth) > SpaceLeft
-            insert line break before Word in Text
-            SpaceLeft := LineWidth - Width(Word)
-        else
-            SpaceLeft := SpaceLeft - (Width(Word) + SpaceWidth)
-    */
-    // TODO: optimize - instead of using a StringBuilder, write the linebreak indices into an output array.
-    public static String[] wordWrap(final String line, float boundaryWidth, Font font, int fontSize, boolean fontAntialiasing) {
-        /* preparation: clear buffers, trim trailing and leading spaces from input string line, adjust boundary length, break into words */
-        String trimmed = line.trim();
-        String[] words = trimmed.split("\\s+");
-        boundaryWidth = Math.max(boundaryWidth - fontSize, fontSize);
-        wordWrapStringBuilder.setLength(0);
-        wordWrapStringBuilder.append(trimmed);
-        wordWrapStartIndices.clear();
-        wordWrapLinebreakIndices.clear();
+    public static float getPointerX() {
+        return pointerX;
+    }
+    public static float getPointerY() { return pointerY; }
+    public static float getPointerXPrev() { return pointerXPrev; }
+    public static float getPointerYPrev() { return pointerYPrev; }
 
-        /* get the starting index of each word */
-        boolean inWord = false;
-        for (int i = 0; i < trimmed.length(); i++) {
-            char c = trimmed.charAt(i);
-            if (!Character.isWhitespace(c)) {
-                if (!inWord) {
-                    wordWrapStartIndices.add(i);
-                    inWord = true;
-                }
-            } else {
-                inWord = false;
-            }
+    public static void setGlobalTheme(@Nullable Theme theme) {
+        if (theme == null) {
+            setGlobalThemeToDefault();
+            return;
         }
-
-        /* the greedy word wrap algorithm */
-        float spaceLeft = boundaryWidth;
-        final float space_width = Renderer2D.calculateStringLineWidth(" ", 0, 1, font, fontSize, fontAntialiasing);
-        for (int i = 0; i < words.length; i++) {
-            String word = words[i];
-            float width = Renderer2D.calculateStringLineWidth(word, 0, word.length(), font, fontSize, fontAntialiasing);
-            if (width + space_width > spaceLeft) { // overflow
-                wordWrapLinebreakIndices.add(wordWrapStartIndices.get(i));
-                spaceLeft = boundaryWidth - width;
-            } else {
-                spaceLeft = spaceLeft - (width + space_width);
-            }
-        }
-
-        /* Insert '\n' at each index, shifting as we go */
-        for (int i = 0; i < wordWrapLinebreakIndices.size; i++) {
-            int adjustedIndex = wordWrapLinebreakIndices.get(i) + i; // Account for previous insertions shifting the string
-            if (adjustedIndex <= wordWrapStringBuilder.length()) {
-                wordWrapStringBuilder.insert(adjustedIndex, '\n');
-            } else {
-                throw new IllegalArgumentException("Index out of bounds: " + wordWrapLinebreakIndices.get(i));
-            }
-        }
-
-        return wordWrapStringBuilder.toString().split("\n"); // TODO optimize memory and runtime to only fill an ArrayInt "newlines"
+        // let's do checkbox first
+        themeCheckboxImageChecked = theme.themeCheckboxImageChecked;
+        themeCheckboxImageUnchecked = theme.themeCheckboxImageUnchecked;
     }
 
+    public static void setGlobalThemeToDefault() {
+        // TODO
+    }
 
 }

@@ -1,8 +1,8 @@
 package com.heavybox.jtix.z;
 
 import com.heavybox.jtix.graphics.Color;
-import com.heavybox.jtix.widgets_4.WidgetNodeContainerStack;
-import com.heavybox.jtix.widgets_4.WidgetNodeText;
+import com.heavybox.jtix.widgets.WidgetNodeContainerStack;
+import com.heavybox.jtix.widgets.WidgetNodeText;
 
 public class WidgetNodeToolTip extends WidgetNodeContainerStack {
 

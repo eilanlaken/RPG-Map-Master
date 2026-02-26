@@ -1,4 +1,4 @@
-package com.heavybox.jtix.widgets_4;
+package com.heavybox.jtix.widgets;
 
 import com.heavybox.jtix.collections.ArrayFloat;
 import com.heavybox.jtix.graphics.Color;

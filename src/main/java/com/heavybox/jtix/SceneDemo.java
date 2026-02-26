@@ -9,7 +9,7 @@ import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.Vector3;
 import com.heavybox.jtix.tools.ToolsTexturePacker;
-import com.heavybox.jtix.widgets_4.Widget;
+import com.heavybox.jtix.widgets.Widget;
 import com.heavybox.jtix.z.*;
 import org.lwjgl.opengl.GL11;
 

@@ -5,7 +5,7 @@ import com.heavybox.jtix.async.Async;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.graphics.Graphics;
 import com.heavybox.jtix.input.Input;
-import com.heavybox.jtix.widgets_4.Widgets;
+import com.heavybox.jtix.widgets.Widgets;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.*;

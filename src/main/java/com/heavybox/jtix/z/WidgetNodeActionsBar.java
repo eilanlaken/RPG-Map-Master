@@ -3,10 +3,8 @@ package com.heavybox.jtix.z;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.TexturePack;
-import com.heavybox.jtix.widgets_4.WidgetNodeContainerHorizontal;
-import com.heavybox.jtix.widgets_4.WidgetNodeImage;
-import com.heavybox.jtix.widgets_4.WidgetNodeShapeRectangle;
-import com.heavybox.jtix.widgets_4.WidgetNodeText;
+import com.heavybox.jtix.widgets.WidgetNodeContainerHorizontal;
+import com.heavybox.jtix.widgets.WidgetNodeImage;
 
 public class WidgetNodeActionsBar extends WidgetNodeContainerHorizontal {
 

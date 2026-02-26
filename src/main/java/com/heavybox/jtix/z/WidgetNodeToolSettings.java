@@ -1,7 +1,7 @@
 package com.heavybox.jtix.z;
 
 import com.heavybox.jtix.graphics.Color;
-import com.heavybox.jtix.widgets_4.WidgetNodeContainerVertical;
+import com.heavybox.jtix.widgets.WidgetNodeContainerVertical;
 
 public class WidgetNodeToolSettings extends WidgetNodeContainerVertical {
 
