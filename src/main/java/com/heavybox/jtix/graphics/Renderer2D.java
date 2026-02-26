@@ -142,6 +142,7 @@ public class Renderer2D implements MemoryResourceHolder {
 
     public void begin(Camera camera) {
         if (drawing) throw new GraphicsException("Already in a drawing state; Must call " + Renderer2D.class.getSimpleName() + ".end() before calling begin().");
+        Graphics.activeRenderer2Ds++;
         GL11.glClear(GL11.GL_STENCIL_BUFFER_BIT); // TODO: WHY?
         GL11.glColorMask(true, true, true, true); // enable color buffer writes
         GL20.glDepthMask(false);
@@ -192,7 +193,7 @@ public class Renderer2D implements MemoryResourceHolder {
         if (shader == null) shader = defaultShader;
         if (currentShader == shader) return;
         flush();
-        ShaderBinder.bind(shader);
+        shader.bind();
         if (shader.uniformExists("u_camera_combined")) shader.bindUniform("u_camera_combined", currentCamera.combined);
         if (shader.uniformExists("u_texture")) shader.bindUniform("u_texture", currentTexture);
         currentShader = shader;
@@ -3223,6 +3224,7 @@ public class Renderer2D implements MemoryResourceHolder {
         currentCamera = null;
         currentShader = null;
         drawing = false;
+        Graphics.activeRenderer2Ds--;
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.heavybox.jtix.graphics;
 import com.heavybox.jtix.collections.MapObjectInt;
 import com.heavybox.jtix.math.*;
 import com.heavybox.jtix.memory.MemoryResource;
+import org.jetbrains.annotations.NotNull;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL32;
@@ -304,6 +305,13 @@ public class Shader implements MemoryResource {
 
     public boolean hasVertexAttribute(final VertexAttribute attribute) {
         return (vertexAttributesBitmask & attribute.bitmask) != 0;
+    }
+
+    public boolean bind() {
+        if (Graphics.boundShaderProgram == this.program) return false;
+        GL20.glUseProgram(this.program);
+        Graphics.boundShaderProgram = this.program;
+        return true;
     }
 
     // TODO: maybe change back to protected. This is very error prone because a uniform bind is a state change that must be observed by the Renderer2D.

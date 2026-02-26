@@ -68,10 +68,11 @@ public class Renderer3D {
         currentCamera = camera;
         drawing = true;
         currentShader = null;
+        Graphics.activeRenderer3Ds++;
     }
 
     @Deprecated public static void drawModel_tmp_5(ModelMesh mesh, ModelMaterial material, Matrix4x4 transform) {
-        ShaderBinder.bind(currentShader);
+        currentShader.bind();
         currentShader.bindUniform("u_transform", transform);
         currentShader.bindUniform("u_camera_combined", currentCamera.combined); // TODO: camera binding should not be here.
         currentShader.bindUniform("u_camera_position", currentCamera.position); // TODO: camera binding should not be here.
@@ -166,7 +167,7 @@ public class Renderer3D {
     }
 
     @Deprecated public static void drawModel_tmp_6(ModelMesh mesh, ModelMaterial material, Matrix4x4 transform) {
-        ShaderBinder.bind(currentShader);
+        currentShader.bind();
         currentShader.bindUniform("u_camera_combined", currentCamera.combined); // TODO: camera binding should not be here.
         currentShader.bindUniform("u_camera_position", currentCamera.position); // TODO: camera binding should not be here.
 
@@ -214,7 +215,7 @@ public class Renderer3D {
     }
 
     @Deprecated public static void drawModel_custom_shader(Shader shader, ModelMesh mesh, ModelMaterial material, Matrix4x4 transform) {
-        ShaderBinder.bind(shader);
+        shader.bind();
 
         shader.bindUniform("u_camera_combined", currentCamera.combined); // TODO: camera binding should not be here.
         shader.bindUniform("u_transform", transform);
@@ -277,7 +278,7 @@ public class Renderer3D {
     }
 
     @Deprecated public static void drawModel_custom_shader_2(Shader shader, ModelMesh mesh, ModelMaterial material, Matrix4x4 transform) {
-        ShaderBinder.bind(shader);
+        shader.bind();
         //GL11.glDisable(GL11.GL_CULL_FACE); // TODO: enable!
 
         // TODO: bind environment lights when binding the camera.
@@ -346,7 +347,7 @@ public class Renderer3D {
     }
 
     @Deprecated public static void drawModel_cloud_shader_2(Shader shader, ModelMesh mesh, ModelMaterial material, Matrix4x4 transform, int index) {
-        ShaderBinder.bind(shader);
+        shader.bind();
         GL11.glDisable(GL11.GL_CULL_FACE); // TODO: enable!
 
 
@@ -395,8 +396,7 @@ public class Renderer3D {
     }
 
     @Deprecated public static void drawModel_custom_unlit_shader(ModelMesh mesh, ModelMaterial material, Matrix4x4 transform) {
-        ShaderBinder.bind(defaultShaderUnlit);
-
+        defaultShaderUnlit.bind();
         defaultShaderUnlit.bindUniform("u_camera_combined", currentCamera.combined); // TODO: camera binding should not be here.
         defaultShaderUnlit.bindUniform("u_transform", transform);
 
@@ -535,12 +535,13 @@ public class Renderer3D {
         renderCommandsPool.freeAll(renderCommandsTransparent);
         renderCommandsOpaque.clear();
         renderCommandsTransparent.clear();
+        Graphics.activeRenderer3Ds--;
     }
 
     private static void setShader(@NotNull Shader shader) {
         if (currentShader == shader) return;
 
-        ShaderBinder.bind(shader);
+        shader.bind();
 
         // TODO: bind all camera uniforms
         if (shader.uniformExists("u_camera_combined")) {

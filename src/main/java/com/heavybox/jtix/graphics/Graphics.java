@@ -24,9 +24,7 @@ import java.util.Objects;
 import static org.lwjgl.glfw.GLFW.glfwCreateCursor;
 import static org.lwjgl.opengl.EXTTextureFilterAnisotropic.GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT;
 
-// TODO: move all texture binding here.
-// TODO: move all shader binding here.
-// TODO: move all FrameBuffer binding here.
+// TODO: move all texture binding here?
 public final class Graphics {
 
     /* graphics state and parameters */
@@ -71,6 +69,13 @@ public final class Graphics {
     /* FrameBuffer binding */
     private static       FrameBuffer boundFrameBuffer      = null;
     private static final IntBuffer   boundAttachmentScreen = BufferUtils.createIntBuffer(1).put(GL30.GL_COLOR_ATTACHMENT0).flip();
+
+    /* Shader program binding */
+    static int boundShaderProgram = -1;
+
+    /* renderers state */
+    static int activeRenderer2Ds = 0;
+    static int activeRenderer3Ds = 0;
 
     private Graphics() {}
 
@@ -473,7 +478,9 @@ public final class Graphics {
     }
 
     public static void setRenderTarget(@Nullable FrameBuffer frameBuffer) {
-        //if (Renderer2D_new.isDrawing()) throw new GraphicsException("Cannot switch frame buffers during a drawing sequence (between Renderer2D.begin() and Renderer2D.end(). Call Renderer2D.end() and only then bind a new frame buffer.");
+        if (activeRenderer2Ds > 0) throw new GraphicsException("Cannot switch frame buffers during a drawing sequence (between renderer2D.begin() and renderer2D.end(). Call renderer2D.end() and only then set a new rendering target.");
+        if (activeRenderer3Ds > 0) throw new GraphicsException("Cannot switch frame buffers during a drawing sequence (between renderer3D.begin() and renderer3D.end(). Call renderer3D.end() and only then set a new rendering target.");
+
         if (boundFrameBuffer == frameBuffer) {
             return; // prevent redundant frame buffer binds.
         }
