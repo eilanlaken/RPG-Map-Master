@@ -13,7 +13,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Shader implements MemoryResource {
+public final class Shader implements MemoryResource {
 
     private boolean deleted = false;
 
@@ -315,7 +315,7 @@ public class Shader implements MemoryResource {
     }
 
     // TODO: maybe change back to protected. This is very error prone because a uniform bind is a state change that must be observed by the Renderer2D.
-    public final void bindUniforms(final HashMap<String, Object> uniforms) {
+    final void bindUniforms(final HashMap<String, Object> uniforms) {
         if (uniforms == null) return;
         for (Map.Entry<String, Object> entry : uniforms.entrySet()) {
             final String name = entry.getKey();
@@ -344,7 +344,8 @@ public class Shader implements MemoryResource {
         return uniformsCache.get(location);
     }
 
-    public void bindUniform(final String name, final Object value) {
+    // TODO: return true / false if a uniform was bound
+    final void bindUniform(final String name, final Object value) {
         if (value == null) throw new GraphicsException("Trying to bind null value to a uniform variable.");
         final int location = uniformLocations.get(name, -1);
         if (location == -1) throw new GraphicsException("\n\nError: " + this.getClass().getSimpleName() +  " does not have a uniform named " + name + "." + "\nIf you have defined the uniform but have not used it, the GLSL compiler discarded it.\n");
