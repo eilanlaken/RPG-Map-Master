@@ -15,17 +15,17 @@ import java.util.Map;
 // https://github.com/libgdx/libgdx/blob/master/gdx/src/com/badlogic/gdx/graphics/glutils/GLFrameBuffer.java#L57
 public class FrameBuffer implements MemoryResource {
 
-    public final int width;
-    public final int height;
+    public final int  width;
+    public final int  height;
     private final int handle;
     private final int depthStencilRBO;
 
     private Map<String, ColorAttachment> colorAttachmentsMap = new HashMap<>();
-    private Array<Texture> colorAttachmentsArray = new Array<>(true, 4);
-    @Deprecated private Texture colorAttachment0;
-    @Deprecated private Texture colorAttachment1;
+    private Array<Texture2D> colorAttachmentsArray = new Array<>(true, 4);
+    @Deprecated private Texture2D colorAttachment0;
+    @Deprecated private Texture2D colorAttachment1;
 
-    private Texture depthAttachment;
+    private Texture2D depthAttachment;
 
     final IntBuffer boundAttachments;
     private IntBuffer activeAttachments;
@@ -45,7 +45,7 @@ public class FrameBuffer implements MemoryResource {
 
         for (int i = 0; i < colorAttachmentsNames.size; i++) {
             String name = colorAttachmentsNames.get(i);
-            Texture colorAttachment = new Texture(width, height, GL30.GL_RGBA16F, GL30.GL_RGBA);
+            Texture2D colorAttachment = new Texture2D(width, height, GL30.GL_RGBA16F, GL30.GL_RGBA);
             GL30.glFramebufferTexture2D(GL30.GL_FRAMEBUFFER, GL30.GL_COLOR_ATTACHMENT0 + i, GL11.GL_TEXTURE_2D, colorAttachment.getHandle(), 0);
             colorAttachmentsArray.add(colorAttachment);
             colorAttachmentsMap.put(name, new ColorAttachment(colorAttachment, i));
@@ -94,7 +94,7 @@ public class FrameBuffer implements MemoryResource {
         FrameBufferBinder.bind(this);
         //GL30.glBindFramebuffer(GL30.GL_FRAMEBUFFER, fbo);
 
-        colorAttachment0 = new Texture(width, height, GL30.GL_RGBA16F, GL30.GL_RGBA);
+        colorAttachment0 = new Texture2D(width, height, GL30.GL_RGBA16F, GL30.GL_RGBA);
         GL30.glFramebufferTexture2D(GL30.GL_FRAMEBUFFER, GL30.GL_COLOR_ATTACHMENT0, GL11.GL_TEXTURE_2D, colorAttachment0.getHandle(), 0);
         colorAttachment1 = null;
 
@@ -124,11 +124,11 @@ public class FrameBuffer implements MemoryResource {
         FrameBufferBinder.bind(this);
         //GL30.glBindFramebuffer(GL30.GL_FRAMEBUFFER, fbo);
 
-        colorAttachment0 = new Texture(width, height, GL30.GL_RGBA16F, GL30.GL_RGBA);
+        colorAttachment0 = new Texture2D(width, height, GL30.GL_RGBA16F, GL30.GL_RGBA);
         GL30.glFramebufferTexture2D(GL30.GL_FRAMEBUFFER, GL30.GL_COLOR_ATTACHMENT0, GL11.GL_TEXTURE_2D, colorAttachment0.getHandle(), 0);
         colorAttachment1 = null;
 
-        depthAttachment = new Texture(width, height, GL30.GL_DEPTH_COMPONENT32F, GL11.GL_DEPTH_COMPONENT);
+        depthAttachment = new Texture2D(width, height, GL30.GL_DEPTH_COMPONENT32F, GL11.GL_DEPTH_COMPONENT);
         GL30.glFramebufferTexture2D(GL30.GL_FRAMEBUFFER, GL30.GL_DEPTH_ATTACHMENT, GL11.GL_TEXTURE_2D, depthAttachment.getHandle(), 0);
 
 
@@ -161,10 +161,10 @@ public class FrameBuffer implements MemoryResource {
 
         FrameBufferBinder.bind(this);
 
-        colorAttachment0 = new Texture(width, height, GL30.GL_RGBA16F, GL30.GL_RGBA);
+        colorAttachment0 = new Texture2D(width, height, GL30.GL_RGBA16F, GL30.GL_RGBA);
         GL30.glFramebufferTexture2D(GL30.GL_FRAMEBUFFER, GL30.GL_COLOR_ATTACHMENT0, GL11.GL_TEXTURE_2D, colorAttachment0.getHandle(), 0);
 
-        colorAttachment1 = new Texture(width, height, GL30.GL_RGBA16F, GL30.GL_RGBA);
+        colorAttachment1 = new Texture2D(width, height, GL30.GL_RGBA16F, GL30.GL_RGBA);
         GL30.glFramebufferTexture2D(GL30.GL_FRAMEBUFFER, GL30.GL_COLOR_ATTACHMENT1, GL11.GL_TEXTURE_2D, colorAttachment1.getHandle(), 0);
 
 
@@ -186,20 +186,20 @@ public class FrameBuffer implements MemoryResource {
         return handle;
     }
 
-    public Texture getDefaultColorAttachment() {
+    public Texture2D getDefaultColorAttachment() {
         return colorAttachment0;
     }
 
     // TODO
-    public Texture getColorAttachment(final int index) {
+    public Texture2D getColorAttachment(final int index) {
         return colorAttachmentsArray.get(index);
     }
 
-    public Texture getColorAttachment(final String name) {
+    public Texture2D getColorAttachment(final String name) {
         return colorAttachmentsMap.get(name).texture;
     }
 
-    public Texture getDepthAttachment() {
+    public Texture2D getDepthAttachment() {
         return depthAttachment;
     }
 
@@ -214,10 +214,10 @@ public class FrameBuffer implements MemoryResource {
     // TODO: add format customization support.
     private static class ColorAttachment {
 
-        final Texture texture;
+        final Texture2D texture;
         final int     index;
 
-        ColorAttachment(final Texture texture, final int index) {
+        ColorAttachment(final Texture2D texture, final int index) {
             this.texture = texture;
             this.index = index;
         }

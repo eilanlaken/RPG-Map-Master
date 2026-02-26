@@ -100,7 +100,7 @@ public class MapLayerLevel_1_Tokens implements MapLayerLevel {
     }
 
     @Override
-    public Texture getTexture() {
+    public Texture2D getTexture() {
         return layer3.getDefaultColorAttachment();
     }
 

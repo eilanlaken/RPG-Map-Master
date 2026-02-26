@@ -6,7 +6,7 @@ import com.heavybox.jtix.collections.Collections;
 import com.heavybox.jtix.graphics.Graphics;
 import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.graphics.Shader;
-import com.heavybox.jtix.graphics.Texture;
+import com.heavybox.jtix.graphics.Texture2D;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
@@ -18,8 +18,8 @@ public class ToolBrush_Terrain extends Tool {
 
     public Target target = Target.GROUND;
 
-    public Texture[] brushesAdd = new Texture[2];
-    public Texture[] brushesSub = new Texture[2];
+    public Texture2D[] brushesAdd = new Texture2D[2];
+    public Texture2D[] brushesSub = new Texture2D[2];
 
     private final Shader brushShader;
 
@@ -29,7 +29,7 @@ public class ToolBrush_Terrain extends Tool {
     public int liquidIndex = 1;
     public boolean randomDegree = true;
 
-    private Texture currentBrush;
+    private Texture2D currentBrush;
     public int brushIndex = 1;
 
     // specific line state
@@ -40,8 +40,8 @@ public class ToolBrush_Terrain extends Tool {
     private float lineMouseY;
 
     // ground textures
-    private final Texture[] terrainGrounds = new Texture[6];
-    private final Texture[] terrainLiquids = new Texture[3];
+    private final Texture2D[] terrainGrounds = new Texture2D[6];
+    private final Texture2D[] terrainLiquids = new Texture2D[3];
 
     public ToolBrush_Terrain(RPGMapMakerScene scene) {
         super(scene);
@@ -230,7 +230,7 @@ public class ToolBrush_Terrain extends Tool {
     @Override
     protected void onSetParameter() {
         // calculate current texture
-        Texture[] brushes = mode == Mode.ADD ? brushesAdd : brushesSub;
+        Texture2D[] brushes = mode == Mode.ADD ? brushesAdd : brushesSub;
         currentBrush = brushes[brushIndex];
     }
 
@@ -304,14 +304,14 @@ public class ToolBrush_Terrain extends Tool {
         liquidIndex = liquidIndex % terrainGrounds.length;
         if (target == Target.GROUND) {
             renderer2D.setShader(brushShader);
-            Texture groundSrcImg = terrainGrounds[groundIndex];
+            Texture2D groundSrcImg = terrainGrounds[groundIndex];
             renderer2D.setShaderAttribute("u_texture_reveal", groundSrcImg);
             renderer2D.setShaderAttribute("u_width", groundSrcImg.width);
             renderer2D.setShaderAttribute("u_height", groundSrcImg.height);
             renderer2D.drawTexture(currentBrush, x, y, deg, sclX, sclY);
         } else if (target == Target.LIQUID) {
             renderer2D.setShader(brushShader);
-            Texture liquidSrcImg = terrainLiquids[liquidIndex];
+            Texture2D liquidSrcImg = terrainLiquids[liquidIndex];
             renderer2D.setShaderAttribute("u_texture_reveal", liquidSrcImg);
             renderer2D.setShaderAttribute("u_width", liquidSrcImg.width);
             renderer2D.setShaderAttribute("u_height", liquidSrcImg.height);

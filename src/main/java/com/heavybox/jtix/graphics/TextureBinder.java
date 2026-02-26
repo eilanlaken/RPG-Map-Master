@@ -7,14 +7,14 @@ import java.nio.IntBuffer;
 
 public class TextureBinder {
 
-    private static final int       RESERVED_OFFSET             = 0; // we will begin binding from slots OFFSET, OFFSET + 1,... leaving slots 0... OFFSET - 1 for texture loading and manipulation?
-    private static final int       MAXIMUM_BOUND_TEXTURE_UNITS = Graphics.getMaxBoundTextureUnits();
-    private static final int       AVAILABLE_TEXTURE_SLOTS     = MAXIMUM_BOUND_TEXTURE_UNITS - RESERVED_OFFSET;
-    private static final Texture[] boundTextures               = new Texture[MAXIMUM_BOUND_TEXTURE_UNITS];
-    private static       int       roundRobinCounter           = 0;
+    private static final int         RESERVED_OFFSET             = 0; // we will begin binding from slots OFFSET, OFFSET + 1,... leaving slots 0... OFFSET - 1 for texture loading and manipulation?
+    private static final int         MAXIMUM_BOUND_TEXTURE_UNITS = Graphics.getMaxBoundTextureUnits();
+    private static final int         AVAILABLE_TEXTURE_SLOTS     = MAXIMUM_BOUND_TEXTURE_UNITS - RESERVED_OFFSET;
+    private static final Texture2D[] boundTextures               = new Texture2D[MAXIMUM_BOUND_TEXTURE_UNITS];
+    private static       int         roundRobinCounter           = 0;
 
-    public static int bind(final Texture texture) {
-        if (texture.getHandle() == -1) throw new GraphicsException("Trying to bind " + Texture.class.getSimpleName() + " that was already freed.");
+    public static int bind(final Texture2D texture) {
+        if (texture.getHandle() == -1) throw new GraphicsException("Trying to bind " + Texture2D.class.getSimpleName() + " that was already freed.");
         if (texture.getSlot() >= 0) {
             GL13.glActiveTexture(GL20.GL_TEXTURE0 + texture.getSlot());
             return texture.getSlot();
@@ -36,7 +36,7 @@ public class TextureBinder {
         return slot;
     }
 
-    public static void unbind(Texture texture) {
+    public static void unbind(Texture2D texture) {
         if (texture.getHandle() == -1) return;
         int slot = texture.getSlot();
         if (slot < 0) return;

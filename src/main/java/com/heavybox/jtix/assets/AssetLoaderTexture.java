@@ -2,7 +2,7 @@ package com.heavybox.jtix.assets;
 
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.graphics.Graphics;
-import com.heavybox.jtix.graphics.Texture;
+import com.heavybox.jtix.graphics.Texture2D;
 import org.lwjgl.stb.STBImage;
 import org.lwjgl.system.MemoryStack;
 
@@ -10,7 +10,7 @@ import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import java.util.HashMap;
 
-public class AssetLoaderTexture implements AssetLoader<Texture> {
+public class AssetLoaderTexture implements AssetLoader<Texture2D> {
 
     private int        width;
     private int        height;
@@ -40,13 +40,13 @@ public class AssetLoaderTexture implements AssetLoader<Texture> {
     }
 
     @Override
-    public Texture afterLoad() {
+    public Texture2D afterLoad() {
         final int anisotropy = options == null || options.get("anisotropy") == null ? Graphics.getMaxAnisotropy() : (int) options.get("anisotropy");
-        final Texture.FilterMag magFilter = options == null || options.get("magFilter") == null ? null : (Texture.FilterMag) options.get("magFilter");
-        final Texture.FilterMin minFilter = options == null || options.get("minFilter") == null ? null : (Texture.FilterMin) options.get("minFilter");
-        final Texture.Wrap uWrap = options == null || options.get("uWrap") == null ? null : (Texture.Wrap) options.get("uWrap");
-        final Texture.Wrap vWrap = options == null || options.get("vWrap") == null ? null : (Texture.Wrap) options.get("vWrap");
-        Texture texture = new Texture(width, height, buffer, magFilter, minFilter, uWrap, vWrap, anisotropy); // TODO: query for format options and use the all args texture constructor.
+        final Texture2D.FilterMag magFilter = options == null || options.get("magFilter") == null ? null : (Texture2D.FilterMag) options.get("magFilter");
+        final Texture2D.FilterMin minFilter = options == null || options.get("minFilter") == null ? null : (Texture2D.FilterMin) options.get("minFilter");
+        final Texture2D.Wrap uWrap = options == null || options.get("uWrap") == null ? null : (Texture2D.Wrap) options.get("uWrap");
+        final Texture2D.Wrap vWrap = options == null || options.get("vWrap") == null ? null : (Texture2D.Wrap) options.get("vWrap");
+        Texture2D texture = new Texture2D(width, height, buffer, magFilter, minFilter, uWrap, vWrap, anisotropy); // TODO: query for format options and use the all args texture constructor.
         STBImage.stbi_image_free(buffer);
         return texture;
     }

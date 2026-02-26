@@ -34,9 +34,9 @@ public class Renderer3D {
     @Deprecated public static Vector3 lightDir = new Vector3(0,0,-1).nor(); // TODO: remove
 
     // defaults
-    private static final Texture whitePixelTexture  = Graphics.getTextureSingleWhitePixel();
-    private static final Texture blackPixelTexture  = Graphics.getTextureSingleBlackPixelOpaque();
-    private static final Texture normalMapTexture   = Graphics.getTextureSinglePixelNormalMap();
+    private static final Texture2D whitePixelTexture  = Graphics.getTextureSingleWhitePixel();
+    private static final Texture2D blackPixelTexture  = Graphics.getTextureSingleBlackPixelOpaque();
+    private static final Texture2D normalMapTexture   = Graphics.getTextureSinglePixelNormalMap();
     public static final Shader  defaultShaderPBR   = createDefaultPBRShader();
     public static final Shader defaultShaderWireframeLines = createWireframeLinesShader(); // TODO: change back to private
     public static final Shader   defaultShaderWireframePoints    = createWireframePointsShader(); // TODO: change back to private
@@ -91,7 +91,7 @@ public class Renderer3D {
 
         //System.out.println("=====  " + material.name + " =======");
 
-        Texture texture_diffuse = (Texture) material.materialAttributes.get("u_texture_diffuse");
+        Texture2D texture_diffuse = (Texture2D) material.materialAttributes.get("u_texture_diffuse");
         //if (texture_diffuse == null) System.out.println("X diffuse map");
         Color color_diffuse = (Color) material.materialAttributes.get("u_color_diffuse");
         //if (color_diffuse == null) System.out.println("X diffuse color");
@@ -105,11 +105,11 @@ public class Renderer3D {
 
         }
 
-        Texture texture_normalMap = (Texture) material.materialAttributes.get("u_texture_normalMap");
+        Texture2D texture_normalMap = (Texture2D) material.materialAttributes.get("u_texture_normalMap");
         //if (texture_normalMap == null) System.out.println("X normal map");
         currentShader.bindUniform("u_texture_normalMap", Objects.requireNonNullElse(texture_normalMap, normalMapTexture));
 
-        Texture texture_metallicMap = (Texture) material.materialAttributes.get("u_texture_metalness");
+        Texture2D texture_metallicMap = (Texture2D) material.materialAttributes.get("u_texture_metalness");
         //if (texture_metallicMap == null) System.out.println("X metalness map");
         Float metallic = (Float) material.materialAttributes.get("u_prop_metallic");
         if (metallic == null) System.out.println("X metalness value");
@@ -121,7 +121,7 @@ public class Renderer3D {
             currentShader.bindUniform("u_prop_metallic", metallic);
         }
 
-        Texture texture_roughnessMap = (Texture) material.materialAttributes.get("u_texture_roughness");
+        Texture2D texture_roughnessMap = (Texture2D) material.materialAttributes.get("u_texture_roughness");
         //if (texture_roughnessMap == null) System.out.println("X roughness map");
         Float roughness = (Float) material.materialAttributes.get("u_prop_roughness");
         //if (roughness == null) System.out.println("X roughness value");
@@ -133,7 +133,7 @@ public class Renderer3D {
             currentShader.bindUniform("u_prop_roughness", roughness);
         }
 
-        Texture texture_opacity = (Texture) material.materialAttributes.get("u_texture_opacity");
+        Texture2D texture_opacity = (Texture2D) material.materialAttributes.get("u_texture_opacity");
         float opacity = (Float) material.materialAttributes.get("u_prop_opacity");
         if (texture_opacity != null) {
             currentShader.bindUniform("u_texture_opacity", texture_opacity);
@@ -400,7 +400,7 @@ public class Renderer3D {
         defaultShaderUnlit.bindUniform("u_camera_combined", currentCamera.combined); // TODO: camera binding should not be here.
         defaultShaderUnlit.bindUniform("u_transform", transform);
 
-        Texture texture_diffuse = (Texture) material.materialAttributes.get("u_texture_diffuse");
+        Texture2D texture_diffuse = (Texture2D) material.materialAttributes.get("u_texture_diffuse");
         Color color_diffuse = (Color) material.materialAttributes.get("u_color_diffuse");
 
         if (texture_diffuse != null) {
@@ -413,7 +413,7 @@ public class Renderer3D {
 
         }
 
-        Texture texture_opacity = (Texture) material.materialAttributes.get("u_texture_opacity");
+        Texture2D texture_opacity = (Texture2D) material.materialAttributes.get("u_texture_opacity");
         Float opacity = (Float) material.materialAttributes.get("u_prop_opacity");
         if (texture_opacity != null) {
             defaultShaderUnlit.bindUniform("u_texture_opacity", texture_opacity);
@@ -695,7 +695,7 @@ public class Renderer3D {
     TODO: this is common to both Renderer2D and Renderer3D and should be refactored.
     creates a single-white-pixel texture.
      */
-    @Deprecated private static Texture createDefaultTexture() {
+    @Deprecated private static Texture2D createDefaultTexture() {
         ByteBuffer buffer = ByteBuffer.allocateDirect(4);
         buffer.put((byte) ((0xFFFFFFFF >> 16) & 0xFF)); // Red component
         buffer.put((byte) ((0xFFFFFFFF >> 8) & 0xFF));  // Green component
@@ -703,16 +703,16 @@ public class Renderer3D {
         buffer.put((byte) ((0xFFFFFFFF >> 24) & 0xFF)); // Alpha component
         buffer.flip();
 
-        return new Texture(1, 1, buffer,
-                Texture.FilterMag.NEAREST, Texture.FilterMin.NEAREST,
-                Texture.Wrap.CLAMP_TO_EDGE, Texture.Wrap.CLAMP_TO_EDGE,1);
+        return new Texture2D(1, 1, buffer,
+                Texture2D.FilterMag.NEAREST, Texture2D.FilterMin.NEAREST,
+                Texture2D.Wrap.CLAMP_TO_EDGE, Texture2D.Wrap.CLAMP_TO_EDGE,1);
     }
 
     /*
     TODO: this is common to both Renderer2D and Renderer3D and should be refactored.
     creates a single-white-pixel texture.
      */
-    @Deprecated private static Texture createNormalMapTexture() {
+    @Deprecated private static Texture2D createNormalMapTexture() {
         ByteBuffer buffer = ByteBuffer.allocateDirect(4);
         buffer.put((byte) 0x80); // Red component (128)
         buffer.put((byte) 0x80); // Green component (128)
@@ -720,9 +720,9 @@ public class Renderer3D {
         buffer.put((byte) 0xFF); // Alpha component (255)
         buffer.flip();
 
-        return new Texture(1, 1, buffer,
-                Texture.FilterMag.NEAREST, Texture.FilterMin.NEAREST,
-                Texture.Wrap.CLAMP_TO_EDGE, Texture.Wrap.CLAMP_TO_EDGE, 1);
+        return new Texture2D(1, 1, buffer,
+                Texture2D.FilterMag.NEAREST, Texture2D.FilterMin.NEAREST,
+                Texture2D.Wrap.CLAMP_TO_EDGE, Texture2D.Wrap.CLAMP_TO_EDGE, 1);
     }
 
     public static final class RenderCommand implements MemoryPool.Reset {

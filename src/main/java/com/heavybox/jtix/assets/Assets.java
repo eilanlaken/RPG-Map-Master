@@ -107,8 +107,8 @@ public final class Assets {
     }
 
     public synchronized static void loadTexturePack(final String filepath,
-                                       Texture.FilterMag magFilter, Texture.FilterMin minFilter,
-                                       int anisotropy) {
+                                                    Texture2D.FilterMag magFilter, Texture2D.FilterMin minFilter,
+                                                    int anisotropy) {
         final HashMap<String, Object> options = new HashMap<>();
         options.put("anisotropy", anisotropy);
         options.put("magFilter", magFilter);
@@ -121,20 +121,20 @@ public final class Assets {
     }
 
     public synchronized static void loadTexture(String filepath) {
-        load(Texture.class, filepath, null,false);
+        load(Texture2D.class, filepath, null,false);
     }
 
     public synchronized static void loadTexture(String filepath,
-                                   Texture.FilterMag magFilter, Texture.FilterMin minFilter,
-                                   Texture.Wrap uWrap, Texture.Wrap vWrap,
-                                   int anisotropy) {
+                                                Texture2D.FilterMag magFilter, Texture2D.FilterMin minFilter,
+                                                Texture2D.Wrap uWrap, Texture2D.Wrap vWrap,
+                                                int anisotropy) {
         final HashMap<String, Object> options = new HashMap<>();
         options.put("anisotropy", anisotropy);
         options.put("magFilter", magFilter);
         options.put("minFilter", minFilter);
         options.put("uWrap", uWrap);
         options.put("vWrap", vWrap);
-        load(Texture.class, filepath, options,false);
+        load(Texture2D.class, filepath, options,false);
     }
 
     public synchronized static void loadModel(String filepath) {
@@ -226,7 +226,7 @@ public final class Assets {
     }
 
     static synchronized AssetLoader<? extends MemoryResource> getNewLoader(Class<? extends MemoryResource> type) {
-        if (type == Texture.class)     return new AssetLoaderTexture();
+        if (type == Texture2D.class)     return new AssetLoaderTexture();
         if (type == Shader.class)      return new AssetLoaderShader();
         if (type == TexturePack.class) return new AssetLoaderTexturePack();
         if (type == Font.class)        return new AssetLoaderFont();
@@ -236,7 +236,7 @@ public final class Assets {
 
         throw new AssetsException("Type: " + type.getSimpleName() + " is not a loadable class type. " +
                 "Type must be one of the following: " +
-                Texture.class.getSimpleName() + ", " +
+                Texture2D.class.getSimpleName() + ", " +
                 TexturePack.class.getSimpleName() + ", " +
                 Font.class.getSimpleName() + ", " +
                 Model.class.getSimpleName() + "."); // TODO: add audio.

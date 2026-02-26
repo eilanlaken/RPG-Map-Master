@@ -5,18 +5,18 @@ import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.graphics.Font;
 import com.heavybox.jtix.graphics.FrameBufferBinder;
 import com.heavybox.jtix.graphics.Renderer2D;
-import com.heavybox.jtix.graphics.Texture;
+import com.heavybox.jtix.graphics.Texture2D;
 import com.heavybox.jtix.widgets_4.Widgets;
 import org.lwjgl.opengl.GL11;
 
 public class SceneFontRendering implements Scene {
 
     private final Renderer2D renderer2D = new Renderer2D();
-    private Texture texture;
+    private Texture2D texture;
 
     @Override
     public void setup() {
-        Assets.loadTexture("assets/textures-layer-3/boulder_grass_big_2.png",Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
+        Assets.loadTexture("assets/textures-layer-3/boulder_grass_big_2.png", Texture2D.FilterMag.LINEAR, Texture2D.FilterMin.LINEAR_MIPMAP_LINEAR, Texture2D.Wrap.MIRRORED_REPEAT, Texture2D.Wrap.MIRRORED_REPEAT, 1);
         Assets.finishLoading();
         texture = Assets.get("assets/textures-layer-3/boulder_grass_big_2.png");
     }

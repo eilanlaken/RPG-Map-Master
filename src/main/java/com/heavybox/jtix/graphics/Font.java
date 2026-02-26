@@ -70,9 +70,9 @@ public class Font implements MemoryResource {
     }
 
     // TODO: remove:
-    public Array<Texture> getPages() {
+    public Array<Texture2D> getPages() {
         var a = glyphsPages.values();
-        Array<Texture> pages = new Array<>();
+        Array<Texture2D> pages = new Array<>();
         for (GlyphPage glyphPage : a) {
             //pages.addAll(glyphPage.pages);
         }
@@ -87,15 +87,15 @@ public class Font implements MemoryResource {
         private int penY = PADDING;
         private int verticalSpan = 0; // The vertical span of the current written line
 
-        public  final Texture page;
+        public  final Texture2D page;
         private final int     pageSize;
 
         private GlyphPage(int pageSize) {
             this.pageSize = pageSize;
             ByteBuffer bufferEmpty = ByteBuffer.allocateDirect(pageSize * pageSize * 4);
-            this.page = new Texture(pageSize, pageSize, bufferEmpty,
-                    Texture.FilterMag.NEAREST, Texture.FilterMin.NEAREST,
-                    Texture.Wrap.CLAMP_TO_EDGE, Texture.Wrap.CLAMP_TO_EDGE,1,true);
+            this.page = new Texture2D(pageSize, pageSize, bufferEmpty,
+                    Texture2D.FilterMag.NEAREST, Texture2D.FilterMin.NEAREST,
+                    Texture2D.Wrap.CLAMP_TO_EDGE, Texture2D.Wrap.CLAMP_TO_EDGE,1,true);
         }
 
         // TODO: add SDF using
@@ -213,7 +213,7 @@ public class Font implements MemoryResource {
 
     static final class Glyph {
 
-        public Texture texture;
+        public Texture2D texture;
         public int     width;
         public int     height;
         public float   bearingX; // TODO: change to int

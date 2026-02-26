@@ -1,7 +1,7 @@
 package com.heavybox.jtix.assets;
 
 import com.heavybox.jtix.collections.Array;
-import com.heavybox.jtix.graphics.Texture;
+import com.heavybox.jtix.graphics.Texture2D;
 import com.heavybox.jtix.graphics.TexturePack;
 import org.yaml.snakeyaml.Yaml;
 
@@ -34,7 +34,7 @@ public class AssetLoaderTexturePack implements AssetLoader<TexturePack> {
             String fileName = (String) texture.get("file");
             Path directoryPath = Paths.get(path).getParent();
             String filePath = Paths.get(directoryPath.toString(), fileName).toString();
-            dependencies.add(new AssetDescriptor(Texture.class, filePath, options));
+            dependencies.add(new AssetDescriptor(Texture2D.class, filePath, options));
         }
 
         return dependencies;
@@ -43,10 +43,10 @@ public class AssetLoaderTexturePack implements AssetLoader<TexturePack> {
     @Override
     public TexturePack afterLoad() {
         /* get Textures */
-        Texture[] textures = new Texture[dependencies.size];
+        Texture2D[] textures = new Texture2D[dependencies.size];
         for (int i = 0; i < textures.length; i++) {
             String path = dependencies.get(i).path;
-            Texture texture = Assets.get(path);
+            Texture2D texture = Assets.get(path);
             textures[i] = texture;
         }
 

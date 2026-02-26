@@ -20,7 +20,7 @@ public class SceneWidgetsThemes implements Scene {
 
     WidgetNodeContainerGrid grid = new WidgetNodeContainerGrid();
 
-    Texture ninePatch;
+    Texture2D ninePatch;
 
     @Override
     public void setup() {

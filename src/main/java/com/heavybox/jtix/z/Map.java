@@ -113,12 +113,12 @@ public class Map {
         needsRedraw = false;
     }
 
-    public Texture getTexture() {
+    public Texture2D getTexture() {
         return mapFinal.getDefaultColorAttachment();
     }
 
     public void exportLayerAsImage(int layer) {
-        Texture texture;
+        Texture2D texture;
         if (layer == 0) texture = layer0.getTexture();
         else if (layer == 3) texture = layer3.getTexture();
         else texture = layer3.getTexture();

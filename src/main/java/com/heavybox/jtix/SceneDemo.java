@@ -58,29 +58,29 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
 
         // load async
         // brushes
-        Assets.loadTexture("assets/brushes/brush_terrain_add_0.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.CLAMP_TO_EDGE, Texture.Wrap.CLAMP_TO_EDGE, 1);
-        Assets.loadTexture("assets/brushes/brush_terrain_sub_0.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.CLAMP_TO_EDGE, Texture.Wrap.CLAMP_TO_EDGE, 1);
-        Assets.loadTexture("assets/brushes/brush_terrain_add_1.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.CLAMP_TO_EDGE, Texture.Wrap.CLAMP_TO_EDGE, 1);
-        Assets.loadTexture("assets/brushes/brush_terrain_sub_1.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.CLAMP_TO_EDGE, Texture.Wrap.CLAMP_TO_EDGE, 1);
+        Assets.loadTexture("assets/brushes/brush_terrain_add_0.png", Texture2D.FilterMag.LINEAR, Texture2D.FilterMin.LINEAR_MIPMAP_LINEAR, Texture2D.Wrap.CLAMP_TO_EDGE, Texture2D.Wrap.CLAMP_TO_EDGE, 1);
+        Assets.loadTexture("assets/brushes/brush_terrain_sub_0.png", Texture2D.FilterMag.LINEAR, Texture2D.FilterMin.LINEAR_MIPMAP_LINEAR, Texture2D.Wrap.CLAMP_TO_EDGE, Texture2D.Wrap.CLAMP_TO_EDGE, 1);
+        Assets.loadTexture("assets/brushes/brush_terrain_add_1.png", Texture2D.FilterMag.LINEAR, Texture2D.FilterMin.LINEAR_MIPMAP_LINEAR, Texture2D.Wrap.CLAMP_TO_EDGE, Texture2D.Wrap.CLAMP_TO_EDGE, 1);
+        Assets.loadTexture("assets/brushes/brush_terrain_sub_1.png", Texture2D.FilterMag.LINEAR, Texture2D.FilterMin.LINEAR_MIPMAP_LINEAR, Texture2D.Wrap.CLAMP_TO_EDGE, Texture2D.Wrap.CLAMP_TO_EDGE, 1);
         // layer 0 - terrain textures
-        Assets.loadTexture("assets/textures-layer-0/terrain_land_grass_0.jpg", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
-        Assets.loadTexture("assets/textures-layer-0/terrain_land_grass_1.jpg", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
-        Assets.loadTexture("assets/textures-layer-0/terrain_land_road_0.jpg", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
-        Assets.loadTexture("assets/textures-layer-0/terrain_land_sand_0.jpg", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
-        Assets.loadTexture("assets/textures-layer-0/terrain_land_stone_0.jpg", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
-        Assets.loadTexture("assets/textures-layer-0/terrain_land_stone_1.jpg", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
-        Assets.loadTexture("assets/textures-layer-0/terrain_liquid_water_0.jpg", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
-        Assets.loadTexture("assets/textures-layer-0/terrain_liquid_water_1.jpg", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
-        Assets.loadTexture("assets/textures-layer-0/terrain_liquid_water_2.jpg", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
-        Assets.loadTexture("assets/textures-layer-0/terrain_material_rock.jpg", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
+        Assets.loadTexture("assets/textures-layer-0/terrain_land_grass_0.jpg", Texture2D.FilterMag.LINEAR, Texture2D.FilterMin.LINEAR_MIPMAP_LINEAR, Texture2D.Wrap.MIRRORED_REPEAT, Texture2D.Wrap.MIRRORED_REPEAT, 1);
+        Assets.loadTexture("assets/textures-layer-0/terrain_land_grass_1.jpg", Texture2D.FilterMag.LINEAR, Texture2D.FilterMin.LINEAR_MIPMAP_LINEAR, Texture2D.Wrap.MIRRORED_REPEAT, Texture2D.Wrap.MIRRORED_REPEAT, 1);
+        Assets.loadTexture("assets/textures-layer-0/terrain_land_road_0.jpg", Texture2D.FilterMag.LINEAR, Texture2D.FilterMin.LINEAR_MIPMAP_LINEAR, Texture2D.Wrap.MIRRORED_REPEAT, Texture2D.Wrap.MIRRORED_REPEAT, 1);
+        Assets.loadTexture("assets/textures-layer-0/terrain_land_sand_0.jpg", Texture2D.FilterMag.LINEAR, Texture2D.FilterMin.LINEAR_MIPMAP_LINEAR, Texture2D.Wrap.MIRRORED_REPEAT, Texture2D.Wrap.MIRRORED_REPEAT, 1);
+        Assets.loadTexture("assets/textures-layer-0/terrain_land_stone_0.jpg", Texture2D.FilterMag.LINEAR, Texture2D.FilterMin.LINEAR_MIPMAP_LINEAR, Texture2D.Wrap.MIRRORED_REPEAT, Texture2D.Wrap.MIRRORED_REPEAT, 1);
+        Assets.loadTexture("assets/textures-layer-0/terrain_land_stone_1.jpg", Texture2D.FilterMag.LINEAR, Texture2D.FilterMin.LINEAR_MIPMAP_LINEAR, Texture2D.Wrap.MIRRORED_REPEAT, Texture2D.Wrap.MIRRORED_REPEAT, 1);
+        Assets.loadTexture("assets/textures-layer-0/terrain_liquid_water_0.jpg", Texture2D.FilterMag.LINEAR, Texture2D.FilterMin.LINEAR_MIPMAP_LINEAR, Texture2D.Wrap.MIRRORED_REPEAT, Texture2D.Wrap.MIRRORED_REPEAT, 1);
+        Assets.loadTexture("assets/textures-layer-0/terrain_liquid_water_1.jpg", Texture2D.FilterMag.LINEAR, Texture2D.FilterMin.LINEAR_MIPMAP_LINEAR, Texture2D.Wrap.MIRRORED_REPEAT, Texture2D.Wrap.MIRRORED_REPEAT, 1);
+        Assets.loadTexture("assets/textures-layer-0/terrain_liquid_water_2.jpg", Texture2D.FilterMag.LINEAR, Texture2D.FilterMin.LINEAR_MIPMAP_LINEAR, Texture2D.Wrap.MIRRORED_REPEAT, Texture2D.Wrap.MIRRORED_REPEAT, 1);
+        Assets.loadTexture("assets/textures-layer-0/terrain_material_rock.jpg", Texture2D.FilterMag.LINEAR, Texture2D.FilterMin.LINEAR_MIPMAP_LINEAR, Texture2D.Wrap.MIRRORED_REPEAT, Texture2D.Wrap.MIRRORED_REPEAT, 1);
         // layer 0 - farmlands
-        Assets.loadTexture("assets/textures-layer-0/farmland_0.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
-        Assets.loadTexture("assets/textures-layer-0/farmland_1.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
-        Assets.loadTexture("assets/textures-layer-0/farmland_2.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
-        Assets.loadTexture("assets/textures-layer-0/farmland_3.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
-        Assets.loadTexture("assets/textures-layer-0/farmland_4.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
+        Assets.loadTexture("assets/textures-layer-0/farmland_0.png", Texture2D.FilterMag.LINEAR, Texture2D.FilterMin.LINEAR_MIPMAP_LINEAR, Texture2D.Wrap.MIRRORED_REPEAT, Texture2D.Wrap.MIRRORED_REPEAT, 1);
+        Assets.loadTexture("assets/textures-layer-0/farmland_1.png", Texture2D.FilterMag.LINEAR, Texture2D.FilterMin.LINEAR_MIPMAP_LINEAR, Texture2D.Wrap.MIRRORED_REPEAT, Texture2D.Wrap.MIRRORED_REPEAT, 1);
+        Assets.loadTexture("assets/textures-layer-0/farmland_2.png", Texture2D.FilterMag.LINEAR, Texture2D.FilterMin.LINEAR_MIPMAP_LINEAR, Texture2D.Wrap.MIRRORED_REPEAT, Texture2D.Wrap.MIRRORED_REPEAT, 1);
+        Assets.loadTexture("assets/textures-layer-0/farmland_3.png", Texture2D.FilterMag.LINEAR, Texture2D.FilterMin.LINEAR_MIPMAP_LINEAR, Texture2D.Wrap.MIRRORED_REPEAT, Texture2D.Wrap.MIRRORED_REPEAT, 1);
+        Assets.loadTexture("assets/textures-layer-0/farmland_4.png", Texture2D.FilterMag.LINEAR, Texture2D.FilterMin.LINEAR_MIPMAP_LINEAR, Texture2D.Wrap.MIRRORED_REPEAT, Texture2D.Wrap.MIRRORED_REPEAT, 1);
         // layer 3
-        Assets.loadTexturePack("assets/texture-packs/layer_3.yml", Texture.FilterMag.NEAREST, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, 4);
+        Assets.loadTexturePack("assets/texture-packs/layer_3.yml", Texture2D.FilterMag.NEAREST, Texture2D.FilterMin.LINEAR_MIPMAP_LINEAR, 4);
 
         // user-interface
         Assets.loadTexturePack("assets/texture-packs/user-interface.yml");

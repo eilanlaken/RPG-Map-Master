@@ -9,9 +9,12 @@ import org.lwjgl.opengl.GL32;
 
 import java.nio.IntBuffer;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
+/*
+TODO: implement a
+public boolean bindUniforms(...)
+that returns true if any uniforms was re-bound.
+ */
 public class Shader implements MemoryResource {
 
     private boolean deleted = false;
@@ -344,7 +347,7 @@ public class Shader implements MemoryResource {
         switch (type) {
 
             case GL20.GL_SAMPLER_2D -> {
-                Texture texture = (Texture) value;
+                Texture2D texture = (Texture2D) value;
                 int slot = TextureBinder.bind(texture);
                 final Integer cache = (Integer) uniformsCache.get(location);
                 if (cache == null || !cache.equals(slot)) {

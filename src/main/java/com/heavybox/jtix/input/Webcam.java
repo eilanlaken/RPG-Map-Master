@@ -1,6 +1,6 @@
 package com.heavybox.jtix.input;
 
-import com.heavybox.jtix.graphics.Texture;
+import com.heavybox.jtix.graphics.Texture2D;
 import com.heavybox.jtix.graphics.TextureBinder;
 import com.heavybox.jtix.memory.MemoryResourceHolder;
 import nu.pattern.OpenCV;
@@ -16,7 +16,7 @@ public class Webcam implements MemoryResourceHolder {
     private boolean      init      = false;
     private VideoCapture capture   = null;
     private Mat          mat       = null;
-    private Texture      feed      = null;
+    private Texture2D feed      = null;
     private byte[]       rgbData   = null;
     private ByteBuffer   rgbBuffer = null;
 
@@ -28,7 +28,7 @@ public class Webcam implements MemoryResourceHolder {
         init = true;
     }
 
-    public Texture getFeed() {
+    public Texture2D getFeed() {
         if (!init) init();
         if (capture.read(mat)) {
             int width = mat.width();
@@ -36,9 +36,9 @@ public class Webcam implements MemoryResourceHolder {
             if (rgbData == null) {
                 rgbData = new byte[width * height * 3]; // Example RGB data
                 ByteBuffer buffer = ByteBuffer.allocateDirect(width * height * 3);
-                this.feed = new Texture(width, height, buffer,
-                        Texture.FilterMag.NEAREST, Texture.FilterMin.NEAREST,
-                        Texture.Wrap.CLAMP_TO_EDGE, Texture.Wrap.CLAMP_TO_EDGE,1,false);
+                this.feed = new Texture2D(width, height, buffer,
+                        Texture2D.FilterMag.NEAREST, Texture2D.FilterMin.NEAREST,
+                        Texture2D.Wrap.CLAMP_TO_EDGE, Texture2D.Wrap.CLAMP_TO_EDGE,1,false);
                 rgbBuffer = ByteBuffer.allocateDirect(width * height * 3);
             }
             mat.get(0,0, rgbData);

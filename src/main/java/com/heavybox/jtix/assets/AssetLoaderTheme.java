@@ -1,7 +1,6 @@
 package com.heavybox.jtix.assets;
 
 import com.heavybox.jtix.collections.Array;
-import com.heavybox.jtix.graphics.Texture;
 import com.heavybox.jtix.graphics.TexturePack;
 import com.heavybox.jtix.widgets_4.Theme;
 import org.yaml.snakeyaml.Yaml;

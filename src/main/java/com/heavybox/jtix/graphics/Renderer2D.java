@@ -36,10 +36,10 @@ public class Renderer2D implements MemoryResourceHolder {
     private static final float WHITE_TINT        = Color.WHITE.toFloatBits();
 
     /* defaults */ // TODO: maybe make them static?
-    private static final Shader  defaultShader  = createDefaultShaderProgram();
-    private static final Texture defaultTexture = createDefaultTexture();
-    private static final Camera  defaultCamera  = createDefaultCamera();
-    public static final Font    defaultFont    = createDefaultFont(); // change back to private
+    private static final Shader    defaultShader  = createDefaultShaderProgram();
+    private static final Texture2D defaultTexture = createDefaultTexture();
+    private static final Camera    defaultCamera  = createDefaultCamera();
+    public static final  Font      defaultFont    = createDefaultFont(); // change back to private
 
     /* memory pools */ // TODO: remove all these memory pools. Replace with static? arrays.
     private final MemoryPool<Vector2>    vectors2Pool   = new MemoryPool<>(Vector2.class, 10);
@@ -51,7 +51,7 @@ public class Renderer2D implements MemoryResourceHolder {
     /* state */
     private final Stack<Vector4> pixelBounds  = new Stack<>(); // the head of the stack stores the current rectangle bounds for rendering as a Vector4 (x = min_x, y = min_y, z = max_x, w = max_y)
     private Camera    currentCamera       = defaultCamera;
-    private Texture   currentTexture      = defaultTexture;
+    private Texture2D currentTexture      = defaultTexture;
     private Font      currentFont         = defaultFont; // TODO
     private Shader    currentShader       = null;
     private float     currentTint         = WHITE_TINT;
@@ -198,7 +198,7 @@ public class Renderer2D implements MemoryResourceHolder {
         currentShader = shader;
     }
 
-    private void setTexture(@Nullable Texture texture) {
+    private void setTexture(@Nullable Texture2D texture) {
         if (texture == null) texture = defaultTexture;
         if (currentTexture == texture) return;
         flush();
@@ -435,7 +435,7 @@ public class Renderer2D implements MemoryResourceHolder {
 
     /* Rendering 2D primitives - Textures */
 
-    public void drawTexture(@NotNull Texture texture, float x, float y, float degrees, float scaleX, float scaleY) {
+    public void drawTexture(@NotNull Texture2D texture, float x, float y, float degrees, float scaleX, float scaleY) {
         if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
         if (!ensureCapacity(4, 6)) flush();
 
@@ -501,7 +501,7 @@ public class Renderer2D implements MemoryResourceHolder {
     }
 
 
-    public void drawTexture(@NotNull Texture texture, float cornerRadius, int refinement, float x, float y, float degrees, float scaleX, float scaleY) {
+    public void drawTexture(@NotNull Texture2D texture, float cornerRadius, int refinement, float x, float y, float degrees, float scaleX, float scaleY) {
         if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
         if (refinement > 500) throw new GraphicsException("Refinement value too big (> 500): " + refinement);
         refinement = Math.max(2, refinement);
@@ -579,7 +579,7 @@ public class Renderer2D implements MemoryResourceHolder {
         vertexIndex += refinement * 4;
     }
 
-    public void drawTexture(@NotNull Texture texture, float u1, float v1, float u2, float v2, float x, float y, float deg, float scaleX, float scaleY) {
+    public void drawTexture(@NotNull Texture2D texture, float u1, float v1, float u2, float v2, float x, float y, float deg, float scaleX, float scaleY) {
         if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
         if (!ensureCapacity(4, 6)) flush();
 
@@ -647,7 +647,7 @@ public class Renderer2D implements MemoryResourceHolder {
     }
 
     // TODO
-    public void drawTextureNinePatch(@NotNull Texture texture,
+    public void drawTextureNinePatch(@NotNull Texture2D texture,
                                      int topLeftWidth,     int topLeftHeight,
                                      int topRightWidth,    int topRightHeight,
                                      int bottomRightWidth, int bottomRightHeight,
@@ -1261,7 +1261,7 @@ public class Renderer2D implements MemoryResourceHolder {
         drawRectangleFilled(null, width, height, x, y, degrees, scaleX, scaleY);
     }
 
-    @Deprecated public void drawRectangleFilled_old(@Nullable Texture texture, float width, float height, float x, float y, float degrees, float scaleX, float scaleY) {
+    @Deprecated public void drawRectangleFilled_old(@Nullable Texture2D texture, float width, float height, float x, float y, float degrees, float scaleX, float scaleY) {
         if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
         if (!ensureCapacity(4,6)) flush();
 
@@ -1325,7 +1325,7 @@ public class Renderer2D implements MemoryResourceHolder {
         vectors2Pool.free(arm3);
     }
 
-    public void drawRectangleFilled(@Nullable Texture texture, float width, float height, float x, float y, float degrees, float scaleX, float scaleY) {
+    public void drawRectangleFilled(@Nullable Texture2D texture, float width, float height, float x, float y, float degrees, float scaleX, float scaleY) {
         if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
         if (!ensureCapacity(4,6)) flush();
 
@@ -1406,7 +1406,7 @@ public class Renderer2D implements MemoryResourceHolder {
         drawRectangleFilled(null, width, height, cornerRadius, refinement, x, y, degrees, scaleX, scaleY);
     }
 
-    public void drawRectangleFilled(@Nullable Texture texture, float width, float height, float cornerRadius, int refinement, float x, float y, float degrees, float scaleX, float scaleY) {
+    public void drawRectangleFilled(@Nullable Texture2D texture, float width, float height, float cornerRadius, int refinement, float x, float y, float degrees, float scaleX, float scaleY) {
         if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
         if (cornerRadius == 0) {
             drawRectangleFilled(texture, width, height, x, y, degrees, scaleX, scaleY);
@@ -1505,7 +1505,7 @@ public class Renderer2D implements MemoryResourceHolder {
                 x, y, degrees, scaleX, scaleY);
     }
 
-    public void drawRectangleFilled(@Nullable Texture texture, float width, float height,
+    public void drawRectangleFilled(@Nullable Texture2D texture, float width, float height,
                                     float cornerRadiusTopLeft, int refinementTopLeft,
                                     float cornerRadiusTopRight, int refinementTopRight,
                                     float cornerRadiusBottomRight, int refinementBottomRight,
@@ -2251,7 +2251,7 @@ public class Renderer2D implements MemoryResourceHolder {
         arrayIntPool.free(triangles);
     }
 
-    public void drawPolygonFilled(float[] polygon, Texture texture, float x, float y, float deg, float scaleX, float scaleY) {
+    public void drawPolygonFilled(float[] polygon, Texture2D texture, float x, float y, float deg, float scaleX, float scaleY) {
         if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
         if (polygon.length < 6) throw new GraphicsException("A polygon requires a minimum of 3 vertices, so the polygon array must be of length > 6. Got: " + polygon.length);
         if (polygon.length % 2 != 0) throw new GraphicsException("Polygon must be represented as a flat array of vertices, each vertex must have x and y coordinates: [x0,y0,  x1,y1, ...]. Therefore, polygon array length must be even.");
@@ -2294,7 +2294,7 @@ public class Renderer2D implements MemoryResourceHolder {
         arrayIntPool.free(triangles);
     }
 
-    public void drawPolygonFilled(float[] polygon, Texture texture, Function<Vector2, Vector2> uvTransform, float x, float y, float deg, float scaleX, float scaleY) {
+    public void drawPolygonFilled(float[] polygon, Texture2D texture, Function<Vector2, Vector2> uvTransform, float x, float y, float deg, float scaleX, float scaleY) {
         if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
         if (polygon.length < 6) throw new GraphicsException("A polygon requires a minimum of 3 vertices, so the polygon array must be of length > 6. Got: " + polygon.length);
         if (polygon.length % 2 != 0) throw new GraphicsException("Polygon must be represented as a flat array of vertices, each vertex must have x and y coordinates: [x0,y0,  x1,y1, ...]. Therefore, polygon array length must be even.");
@@ -2341,7 +2341,7 @@ public class Renderer2D implements MemoryResourceHolder {
     }
 
     public void drawPolygonFilled(float[] polygon, float x, float y, float deg, float scaleX, float scaleY) {
-        drawPolygonFilled(polygon, (Texture) null, x, y, deg, scaleX, scaleY);
+        drawPolygonFilled(polygon, (Texture2D) null, x, y, deg, scaleX, scaleY);
     }
 
     // TODO: test
@@ -2613,7 +2613,7 @@ public class Renderer2D implements MemoryResourceHolder {
     }
 
     // TODO: remove
-    public void drawCurveFilled(@Nullable Texture texture, float stroke, int smoothness, final float[] points, float x, float y, float deg, float scaleX, float scaleY) {
+    public void drawCurveFilled(@Nullable Texture2D texture, float stroke, int smoothness, final float[] points, float x, float y, float deg, float scaleX, float scaleY) {
         if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
         setMode(GL11.GL_TRIANGLES);
         setTexture(texture);
@@ -2922,7 +2922,7 @@ public class Renderer2D implements MemoryResourceHolder {
 
     /* Rendering 2D primitives - triangles */
 
-    public void drawTriangleFilled(@NotNull Texture texture,
+    public void drawTriangleFilled(@NotNull Texture2D texture,
                                    float x1, float y1, float u1, float v1,
                                    float x2, float y2, float u2, float v2,
                                    float x3, float y3, float u3, float v3) {
@@ -2963,7 +2963,7 @@ public class Renderer2D implements MemoryResourceHolder {
         );
     }
 
-    public void drawTriangleFilled(@Nullable Texture texture,
+    public void drawTriangleFilled(@Nullable Texture2D texture,
                                    float x1, float y1, float c1, float u1, float v1,
                                    float x2, float y2, float c2, float u2, float v2,
                                    float x3, float y3, float c3, float u3, float v3) {
@@ -3298,7 +3298,7 @@ public class Renderer2D implements MemoryResourceHolder {
     /*
     creates a single-white-pixel texture.
      */
-    private static Texture createDefaultTexture() {
+    private static Texture2D createDefaultTexture() {
         ByteBuffer buffer = ByteBuffer.allocateDirect(4);
         buffer.put((byte) ((0xFFFFFFFF >> 16) & 0xFF)); // Red component
         buffer.put((byte) ((0xFFFFFFFF >> 8) & 0xFF));  // Green component
@@ -3306,9 +3306,9 @@ public class Renderer2D implements MemoryResourceHolder {
         buffer.put((byte) ((0xFFFFFFFF >> 24) & 0xFF)); // Alpha component
         buffer.flip();
 
-        return new Texture(1, 1, buffer,
-                Texture.FilterMag.NEAREST, Texture.FilterMin.NEAREST,
-                Texture.Wrap.CLAMP_TO_EDGE, Texture.Wrap.CLAMP_TO_EDGE,1);
+        return new Texture2D(1, 1, buffer,
+                Texture2D.FilterMag.NEAREST, Texture2D.FilterMin.NEAREST,
+                Texture2D.Wrap.CLAMP_TO_EDGE, Texture2D.Wrap.CLAMP_TO_EDGE,1);
     }
 
     private static Camera createDefaultCamera() {

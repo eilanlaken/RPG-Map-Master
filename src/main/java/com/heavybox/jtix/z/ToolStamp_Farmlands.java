@@ -5,7 +5,7 @@ import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.collections.Collections;
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Renderer2D;
-import com.heavybox.jtix.graphics.Texture;
+import com.heavybox.jtix.graphics.Texture2D;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
@@ -14,7 +14,7 @@ import com.heavybox.jtix.math.Vector2;
 
 public class ToolStamp_Farmlands extends Tool {
 
-    private final Texture[] bases = new Texture[5];
+    private final Texture2D[] bases = new Texture2D[5];
     private int baseType = MathUtils.randomUniformInt(0, bases.length);
     private float linesAngle = MathUtils.randomUniformFloat(0, 360);
     private boolean procedural = false;

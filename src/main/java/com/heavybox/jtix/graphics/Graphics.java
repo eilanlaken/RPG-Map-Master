@@ -59,10 +59,10 @@ public final class Graphics {
     private static long freeType = -1;
 
     /* useful textures */
-    private static Texture singleWhitePixel;
-    private static Texture singleTransparentPixel;
-    private static Texture singleBlackPixel;
-    private static Texture singleNormalMapPixel;
+    private static Texture2D singleWhitePixel;
+    private static Texture2D singleTransparentPixel;
+    private static Texture2D singleBlackPixel;
+    private static Texture2D singleNormalMapPixel;
 
     private Graphics() {}
 
@@ -258,7 +258,7 @@ public final class Graphics {
 
     /* Textures */
 
-    public static Texture getTextureSingleWhitePixel() {
+    public static Texture2D getTextureSingleWhitePixel() {
         if (singleWhitePixel != null) return singleWhitePixel;
 
         ByteBuffer buffer = ByteBuffer.allocateDirect(4);
@@ -268,13 +268,13 @@ public final class Graphics {
         buffer.put((byte) ((0xFFFFFFFF >> 24) & 0xFF)); // Alpha component
         buffer.flip();
 
-        singleWhitePixel = new Texture(1, 1, buffer,
-                Texture.FilterMag.NEAREST, Texture.FilterMin.NEAREST,
-                Texture.Wrap.CLAMP_TO_EDGE, Texture.Wrap.CLAMP_TO_EDGE,1);
+        singleWhitePixel = new Texture2D(1, 1, buffer,
+                Texture2D.FilterMag.NEAREST, Texture2D.FilterMin.NEAREST,
+                Texture2D.Wrap.CLAMP_TO_EDGE, Texture2D.Wrap.CLAMP_TO_EDGE,1);
         return singleWhitePixel;
     }
 
-    public static Texture getTextureSingleBlackPixelTransparent() {
+    public static Texture2D getTextureSingleBlackPixelTransparent() {
         if (singleTransparentPixel != null) return singleTransparentPixel;
 
         ByteBuffer buffer = ByteBuffer.allocateDirect(4);
@@ -284,13 +284,13 @@ public final class Graphics {
         buffer.put((byte) 0x00); // Alpha (fully transparent)
         buffer.flip();
 
-        singleTransparentPixel = new Texture(1, 1, buffer,
-                Texture.FilterMag.NEAREST, Texture.FilterMin.NEAREST,
-                Texture.Wrap.CLAMP_TO_EDGE, Texture.Wrap.CLAMP_TO_EDGE, 1);
+        singleTransparentPixel = new Texture2D(1, 1, buffer,
+                Texture2D.FilterMag.NEAREST, Texture2D.FilterMin.NEAREST,
+                Texture2D.Wrap.CLAMP_TO_EDGE, Texture2D.Wrap.CLAMP_TO_EDGE, 1);
         return singleTransparentPixel;
     }
 
-    public static Texture getTextureSingleBlackPixelOpaque() {
+    public static Texture2D getTextureSingleBlackPixelOpaque() {
         if (singleBlackPixel != null) return singleBlackPixel;
 
         ByteBuffer buffer = ByteBuffer.allocateDirect(4);
@@ -300,13 +300,13 @@ public final class Graphics {
         buffer.put((byte) ((0xFFFFFFFF >> 24) & 0xFF)); // Alpha component
         buffer.flip();
 
-        singleBlackPixel = new Texture(1, 1, buffer,
-                Texture.FilterMag.NEAREST, Texture.FilterMin.NEAREST,
-                Texture.Wrap.CLAMP_TO_EDGE, Texture.Wrap.CLAMP_TO_EDGE,1);
+        singleBlackPixel = new Texture2D(1, 1, buffer,
+                Texture2D.FilterMag.NEAREST, Texture2D.FilterMin.NEAREST,
+                Texture2D.Wrap.CLAMP_TO_EDGE, Texture2D.Wrap.CLAMP_TO_EDGE,1);
         return singleBlackPixel;
     }
 
-    public static Texture getTextureSinglePixelNormalMap() {
+    public static Texture2D getTextureSinglePixelNormalMap() {
         if (singleNormalMapPixel != null) return singleNormalMapPixel;
 
         ByteBuffer buffer = ByteBuffer.allocateDirect(4);
@@ -316,9 +316,9 @@ public final class Graphics {
         buffer.put((byte) 0xFF); // Alpha component (255)
         buffer.flip();
 
-        singleNormalMapPixel = new Texture(1, 1, buffer,
-                Texture.FilterMag.NEAREST, Texture.FilterMin.NEAREST,
-                Texture.Wrap.CLAMP_TO_EDGE, Texture.Wrap.CLAMP_TO_EDGE, 1);
+        singleNormalMapPixel = new Texture2D(1, 1, buffer,
+                Texture2D.FilterMag.NEAREST, Texture2D.FilterMin.NEAREST,
+                Texture2D.Wrap.CLAMP_TO_EDGE, Texture2D.Wrap.CLAMP_TO_EDGE, 1);
         return singleNormalMapPixel;
     }
 

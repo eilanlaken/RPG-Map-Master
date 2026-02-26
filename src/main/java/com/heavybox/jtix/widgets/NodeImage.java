@@ -9,7 +9,7 @@ public class NodeImage extends Node {
     public float resizeY = 1;
     public Color tint = Color.WHITE.clone();
 
-    public NodeImage(final Texture texture) {
+    public NodeImage(final Texture2D texture) {
         region = new TextureRegion(texture);
     }
 
@@ -38,7 +38,7 @@ public class NodeImage extends Node {
         return region.originalHeight * resizeY;
     }
 
-    public void setImage(Texture image) {
+    public void setImage(Texture2D image) {
         region = new TextureRegion(image);
     }
 

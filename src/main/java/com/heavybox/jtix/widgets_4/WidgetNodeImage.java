@@ -3,7 +3,7 @@ package com.heavybox.jtix.widgets_4;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Renderer2D;
-import com.heavybox.jtix.graphics.Texture;
+import com.heavybox.jtix.graphics.Texture2D;
 import com.heavybox.jtix.graphics.TextureRegion;
 
 public class WidgetNodeImage extends WidgetNodeContainerStack {
@@ -18,7 +18,7 @@ public class WidgetNodeImage extends WidgetNodeContainerStack {
 
     public WidgetNodeImage(final String src) {
         boolean loaded = Assets.isLoaded(src);
-        Texture texture = loaded ? Assets.get(src) : new Texture(src);
+        Texture2D texture = loaded ? Assets.get(src) : new Texture2D(src);
         img = new TextureRegion(texture);
         this.imageContent = new WidgetNodeImageContent(this);
         init();

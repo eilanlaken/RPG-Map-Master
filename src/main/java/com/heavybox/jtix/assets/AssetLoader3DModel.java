@@ -14,7 +14,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 // TODO: improve options (gen Normals, gen smooth normals)
 // TODO: store the transform of a node. May be very useful in some cases. For example, destructible objects.
@@ -101,9 +100,9 @@ public class AssetLoader3DModel implements AssetLoader<Model> {
                 Array<MaterialDataTexture> texturesData = materialData.texturesData;
                 for (MaterialDataTexture textureData : texturesData) {
                     HashMap<String, Object> materialTextureOptions = new HashMap<>();
-                    materialTextureOptions.put("uWrap", Texture.Wrap.REPEAT);
-                    materialTextureOptions.put("vWrap", Texture.Wrap.REPEAT);
-                    AssetDescriptor assetDescriptor = new AssetDescriptor(Texture.class, textureData.path, materialTextureOptions); // TODO options
+                    materialTextureOptions.put("uWrap", Texture2D.Wrap.REPEAT);
+                    materialTextureOptions.put("vWrap", Texture2D.Wrap.REPEAT);
+                    AssetDescriptor assetDescriptor = new AssetDescriptor(Texture2D.class, textureData.path, materialTextureOptions); // TODO options
                     dependencies.add(assetDescriptor);
                 }
             }
@@ -148,7 +147,7 @@ public class AssetLoader3DModel implements AssetLoader<Model> {
         material.name = materialData.name;
         // add all the textures
         for (MaterialDataTexture textureData : materialData.texturesData) {
-            Texture texture = Assets.get(textureData.path);
+            Texture2D texture = Assets.get(textureData.path);
             material.materialAttributes.put(textureData.uniform, texture);
         }
         // add all the colors
@@ -169,7 +168,7 @@ public class AssetLoader3DModel implements AssetLoader<Model> {
             float opacityValue = (Float) material.materialAttributes.get("u_prop_opacity");
             if (opacityValue < 1.0f) transparent = true;
         }
-        Texture opacityTexture = (Texture) material.materialAttributes.get("u_texture_opacity");
+        Texture2D opacityTexture = (Texture2D) material.materialAttributes.get("u_texture_opacity");
         if (opacityTexture != null) {
             transparent = true;
         }
@@ -179,7 +178,7 @@ public class AssetLoader3DModel implements AssetLoader<Model> {
         // TODO: So, 1 -> 0 and white -> black.
         // in order to make sure a PBR material has all required uniforms, we check for missing attributes and "fill" them with default values
         /* make sure diffuse texture is available */
-        Texture texture_diffuse = (Texture) material.materialAttributes.get("u_texture_diffuse");
+        Texture2D texture_diffuse = (Texture2D) material.materialAttributes.get("u_texture_diffuse");
         Color color_diffuse = (Color) material.materialAttributes.get("u_color_diffuse");
         if (texture_diffuse != null) {
             material.materialAttributes.put("u_color_diffuse", Color.WHITE.clone());
@@ -188,13 +187,13 @@ public class AssetLoader3DModel implements AssetLoader<Model> {
         }
 
         /* make sure normal map value (texture) is available */
-        Texture texture_normalMap = (Texture) material.materialAttributes.get("u_texture_normalMap");
+        Texture2D texture_normalMap = (Texture2D) material.materialAttributes.get("u_texture_normalMap");
         if (texture_normalMap == null) { // missing normal map, use default
             material.materialAttributes.put("u_texture_normalMap", Graphics.getTextureSinglePixelNormalMap());
         }
 
         /* make sure metallic map (texture) is available */
-        Texture texture_metallicMap = (Texture) material.materialAttributes.get("u_texture_metalness");
+        Texture2D texture_metallicMap = (Texture2D) material.materialAttributes.get("u_texture_metalness");
         Float metallic = (Float) material.materialAttributes.get("u_prop_metallic");
         if (texture_metallicMap != null) {
             material.materialAttributes.put("u_prop_metallic", 1);
@@ -203,7 +202,7 @@ public class AssetLoader3DModel implements AssetLoader<Model> {
         }
 
         /* make sure roughness value is available */
-        Texture texture_roughnessMap = (Texture) material.materialAttributes.get("u_texture_roughness");
+        Texture2D texture_roughnessMap = (Texture2D) material.materialAttributes.get("u_texture_roughness");
         Float roughness = (Float) material.materialAttributes.get("u_prop_roughness");
         if (texture_roughnessMap != null) {
             material.materialAttributes.put("u_prop_roughness", 1);
@@ -212,7 +211,7 @@ public class AssetLoader3DModel implements AssetLoader<Model> {
         }
 
         /* make sure opacity map is available */
-        Texture texture_opacity = (Texture) material.materialAttributes.get("u_texture_opacity");
+        Texture2D texture_opacity = (Texture2D) material.materialAttributes.get("u_texture_opacity");
         Float opacity = (Float) material.materialAttributes.get("u_prop_opacity");
         if (texture_opacity != null) {
             material.materialAttributes.put("u_prop_opacity", 1);

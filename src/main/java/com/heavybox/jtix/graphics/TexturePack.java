@@ -11,7 +11,7 @@ import java.util.*;
 // TODO: add string constructor.
 public final class TexturePack implements MemoryResource {
 
-    public final Texture[] textures; // TODO: delete.
+    public final Texture2D[] textures; // TODO: delete. This can be calculated from the namedRegions.
 
     public final HashMap<String, TextureRegion> namedRegions;
 
@@ -28,7 +28,7 @@ public final class TexturePack implements MemoryResource {
     }
 
     @SuppressWarnings("unchecked")
-    public TexturePack(Texture[] textures, String yamlString) {
+    public TexturePack(Texture2D[] textures, String yamlString) {
         this.textures = textures;
         this.namedRegions = new HashMap<>();
         try {
@@ -37,7 +37,7 @@ public final class TexturePack implements MemoryResource {
             List<Map<String, Object>> regions = (List<Map<String, Object>>) data.get("regions");
             for (Map<String, Object> regionData : regions) {
                 String name = (String) regionData.get("name");
-                Texture texture = textures[(int) regionData.get("textureIndex")];
+                Texture2D texture = textures[(int) regionData.get("textureIndex")];
                 int offsetX = (int) regionData.get("offsetX");
                 int offsetY = (int) regionData.get("offsetY");
                 int originalWidth = (int) regionData.get("originalWidth");
@@ -65,7 +65,7 @@ public final class TexturePack implements MemoryResource {
 
     @Override
     public void delete() {
-        for (Texture texture : textures) {
+        for (Texture2D texture : textures) {
             texture.delete();
         }
     }

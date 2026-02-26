@@ -14,7 +14,8 @@ import java.nio.ShortBuffer;
 
 // TODO: refactor into a base class and a specific class: Texture + Texture2D
 // TODO: unify texture constructors.
-public class Texture implements MemoryResource {
+// TODO: break into interface: Texture -> Texture2D
+public class Texture2D implements MemoryResource {
 
     private       int       handle;
     private       int       slot;
@@ -31,13 +32,13 @@ public class Texture implements MemoryResource {
 
     private @Nullable ByteBuffer pixmapBytes = null;
 
-    public Texture(int width, int height, int internalFormat, int format) {
+    public Texture2D(int width, int height, int internalFormat, int format) {
         this.handle = GL11.glGenTextures();
         this.slot = -1;
 
         int maxTextureSize = Graphics.getMaxTextureSize();
         if (width > maxTextureSize || height > maxTextureSize)
-            throw new GraphicsException("Trying to create " + Texture.class + " with resolution (" + width + "," + height + ") greater than allowed on your GPU: " + maxTextureSize);
+            throw new GraphicsException("Trying to create " + Texture2D.class + " with resolution (" + width + "," + height + ") greater than allowed on your GPU: " + maxTextureSize);
 
         this.width = width;
         this.height = height;
@@ -46,8 +47,8 @@ public class Texture implements MemoryResource {
 
         this.filterMag = FilterMag.LINEAR;
         this.filterMin = FilterMin.LINEAR;
-        this.sWrap = Texture.Wrap.CLAMP_TO_EDGE;
-        this.tWrap = Texture.Wrap.CLAMP_TO_EDGE;
+        this.sWrap = Texture2D.Wrap.CLAMP_TO_EDGE;
+        this.tWrap = Texture2D.Wrap.CLAMP_TO_EDGE;
         this.anisotropy = 1;
         this.biasLOD = 0;
 
@@ -58,13 +59,13 @@ public class Texture implements MemoryResource {
         GL11.glTexParameteri(GL20.GL_TEXTURE_2D, GL12.GL_TEXTURE_MAX_LEVEL, 0);
     }
 
-    public Texture(int width, int height, ByteBuffer bytes, FilterMag filterMag, FilterMin filterMin, Wrap sWrap, Wrap tWrap, int anisotropy, boolean useAlpha) {
+    public Texture2D(int width, int height, ByteBuffer bytes, FilterMag filterMag, FilterMin filterMin, Wrap sWrap, Wrap tWrap, int anisotropy, boolean useAlpha) {
         this.handle = GL11.glGenTextures();
         this.slot = -1;
 
         int maxTextureSize = Graphics.getMaxTextureSize();
         if (width > maxTextureSize || height > maxTextureSize)
-            throw new IllegalStateException("Trying to create " + Texture.class + " with resolution (" + width + "," + height + ") greater than allowed on your GPU: " + maxTextureSize);
+            throw new IllegalStateException("Trying to create " + Texture2D.class + " with resolution (" + width + "," + height + ") greater than allowed on your GPU: " + maxTextureSize);
 
         this.width = width;
         this.height = height;
@@ -73,8 +74,8 @@ public class Texture implements MemoryResource {
 
         this.filterMag = filterMag != null ? filterMag : FilterMag.NEAREST;
         this.filterMin = filterMin != null ? filterMin : FilterMin.NEAREST_MIPMAP_NEAREST;
-        this.sWrap = sWrap != null ? sWrap : Texture.Wrap.CLAMP_TO_EDGE;
-        this.tWrap = tWrap != null ? tWrap : Texture.Wrap.CLAMP_TO_EDGE;
+        this.sWrap = sWrap != null ? sWrap : Texture2D.Wrap.CLAMP_TO_EDGE;
+        this.tWrap = tWrap != null ? tWrap : Texture2D.Wrap.CLAMP_TO_EDGE;
         this.anisotropy = MathUtils.nextPowerOf2i(MathUtils.clampInt(anisotropy,1, Graphics.getMaxAnisotropy()));
         this.biasLOD = 0;
 
@@ -99,13 +100,13 @@ public class Texture implements MemoryResource {
         }
     }
 
-    public Texture(int width, int height, ByteBuffer bytes, FilterMag filterMag, FilterMin filterMin, Wrap sWrap, Wrap tWrap, int anisotropy) {
+    public Texture2D(int width, int height, ByteBuffer bytes, FilterMag filterMag, FilterMin filterMin, Wrap sWrap, Wrap tWrap, int anisotropy) {
         this.handle = GL11.glGenTextures();
         this.slot = -1;
 
         int maxTextureSize = Graphics.getMaxTextureSize();
         if (width > maxTextureSize || height > maxTextureSize)
-            throw new IllegalStateException("Trying to create " + Texture.class + " with resolution (" + width + "," + height + ") greater than allowed on your GPU: " + maxTextureSize);
+            throw new IllegalStateException("Trying to create " + Texture2D.class + " with resolution (" + width + "," + height + ") greater than allowed on your GPU: " + maxTextureSize);
 
         this.width = width;
         this.height = height;
@@ -114,8 +115,8 @@ public class Texture implements MemoryResource {
 
         this.filterMag = filterMag != null ? filterMag : FilterMag.NEAREST;
         this.filterMin = filterMin != null ? filterMin : FilterMin.NEAREST_MIPMAP_NEAREST;
-        this.sWrap = sWrap != null ? sWrap : Texture.Wrap.CLAMP_TO_EDGE;
-        this.tWrap = tWrap != null ? tWrap : Texture.Wrap.CLAMP_TO_EDGE;
+        this.sWrap = sWrap != null ? sWrap : Texture2D.Wrap.CLAMP_TO_EDGE;
+        this.tWrap = tWrap != null ? tWrap : Texture2D.Wrap.CLAMP_TO_EDGE;
         this.anisotropy = MathUtils.nextPowerOf2i(MathUtils.clampInt(anisotropy,1, Graphics.getMaxAnisotropy()));
         this.biasLOD = 0;
 
@@ -136,7 +137,7 @@ public class Texture implements MemoryResource {
         }
     }
 
-    public Texture(final String filepath) {
+    public Texture2D(final String filepath) {
         this.handle = GL11.glGenTextures();
         this.slot = -1;
 
@@ -159,8 +160,8 @@ public class Texture implements MemoryResource {
         // defaults
         this.filterMag = FilterMag.NEAREST;
         this.filterMin = FilterMin.NEAREST_MIPMAP_NEAREST;
-        this.sWrap = Texture.Wrap.CLAMP_TO_EDGE;
-        this.tWrap = Texture.Wrap.CLAMP_TO_EDGE;
+        this.sWrap = Texture2D.Wrap.CLAMP_TO_EDGE;
+        this.tWrap = Texture2D.Wrap.CLAMP_TO_EDGE;
         this.anisotropy = MathUtils.nextPowerOf2i(MathUtils.clampInt(anisotropy,1, Graphics.getMaxAnisotropy()));
         this.biasLOD = 0;
 
@@ -175,13 +176,13 @@ public class Texture implements MemoryResource {
 
     // TODO: test
     // TODO: use this all args constructor.
-    public Texture(int width, int height, ByteBuffer bytes, FilterMag filterMag, FilterMin filterMin, Wrap sWrap, Wrap tWrap, int anisotropy, int internalFormat, int externalFormat) {
+    public Texture2D(int width, int height, ByteBuffer bytes, FilterMag filterMag, FilterMin filterMin, Wrap sWrap, Wrap tWrap, int anisotropy, int internalFormat, int externalFormat) {
         this.handle = GL11.glGenTextures();
         this.slot = -1;
 
         int maxTextureSize = Graphics.getMaxTextureSize();
         if (width > maxTextureSize || height > maxTextureSize)
-            throw new IllegalStateException("Trying to create " + Texture.class + " with resolution (" + width + "," + height + ") greater than allowed on your GPU: " + maxTextureSize);
+            throw new IllegalStateException("Trying to create " + Texture2D.class + " with resolution (" + width + "," + height + ") greater than allowed on your GPU: " + maxTextureSize);
 
         this.width = width;
         this.height = height;
@@ -190,8 +191,8 @@ public class Texture implements MemoryResource {
 
         this.filterMag = filterMag != null ? filterMag : FilterMag.NEAREST;
         this.filterMin = filterMin != null ? filterMin : FilterMin.NEAREST_MIPMAP_NEAREST;
-        this.sWrap = sWrap != null ? sWrap : Texture.Wrap.CLAMP_TO_EDGE;
-        this.tWrap = tWrap != null ? tWrap : Texture.Wrap.CLAMP_TO_EDGE;
+        this.sWrap = sWrap != null ? sWrap : Texture2D.Wrap.CLAMP_TO_EDGE;
+        this.tWrap = tWrap != null ? tWrap : Texture2D.Wrap.CLAMP_TO_EDGE;
         this.anisotropy = MathUtils.nextPowerOf2i(MathUtils.clampInt(anisotropy,1, Graphics.getMaxAnisotropy()));
         this.biasLOD = 0;
 
@@ -214,7 +215,7 @@ public class Texture implements MemoryResource {
 
     // 16 bit images
     // TODO: placeholder for now.
-    public Texture(final String filepath, Precision precision, boolean generateMipMaps) {
+    public Texture2D(final String filepath, Precision precision, boolean generateMipMaps) {
         this.handle = GL11.glGenTextures();
         this.slot = -1;
 
@@ -237,8 +238,8 @@ public class Texture implements MemoryResource {
         // defaults
         this.filterMag = FilterMag.NEAREST;
         this.filterMin = FilterMin.NEAREST;
-        this.sWrap = Texture.Wrap.CLAMP_TO_EDGE;
-        this.tWrap = Texture.Wrap.CLAMP_TO_EDGE;
+        this.sWrap = Texture2D.Wrap.CLAMP_TO_EDGE;
+        this.tWrap = Texture2D.Wrap.CLAMP_TO_EDGE;
         this.biasLOD = 0;
 
         TextureBinder.bind(this);
@@ -272,7 +273,7 @@ public class Texture implements MemoryResource {
     }
 
     public Color getPixelColor(int x, int y) {
-        if (x < 0 || x >= width || y < 0 || y >= height) throw new IndexOutOfBoundsException("Trying to read out of bounds pixel: (" + x + ", " + y + ") of " + Texture.class.getSimpleName() + " with dimensions: " + "(" + width + ", " + height + ")");
+        if (x < 0 || x >= width || y < 0 || y >= height) throw new IndexOutOfBoundsException("Trying to read out of bounds pixel: (" + x + ", " + y + ") of " + Texture2D.class.getSimpleName() + " with dimensions: " + "(" + width + ", " + height + ")");
 
         if (pixmapBytes == null) {
             pixmapBytes = BufferUtils.createByteBuffer(width * height * 4);
@@ -312,6 +313,7 @@ public class Texture implements MemoryResource {
         return "Texture ID: " + handle + ", Slot: " + slot;
     }
 
+    // TODO: move to Texture.java
     public enum Precision {
 
         BITS_8,
@@ -320,6 +322,7 @@ public class Texture implements MemoryResource {
 
     }
 
+    // TODO: move to Texture.java
     public enum FilterMag {
 
         NEAREST (GL20.GL_NEAREST),
@@ -333,6 +336,7 @@ public class Texture implements MemoryResource {
         }
     }
 
+    // TODO: move to Texture.java
     public enum FilterMin {
 
         NEAREST                (GL20.GL_NEAREST),
@@ -351,6 +355,7 @@ public class Texture implements MemoryResource {
 
     }
 
+    // TODO: move to Texture.java
     public enum Wrap {
 
         MIRRORED_REPEAT(GL20.GL_MIRRORED_REPEAT),
@@ -367,6 +372,7 @@ public class Texture implements MemoryResource {
     }
 
     // TODO: use this as input?
+    // TODO: move to Texture.java
     public enum Format {
 
         RED(GL11.GL_RED),

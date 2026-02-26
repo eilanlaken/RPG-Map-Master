@@ -26,14 +26,14 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
     private int liquidBaseTextureIndex = 2;
     private float uvScaleFactorGround = 1; // TODO
     private float uvScaleFactorLiquid = 1; // TODO
-    private final Texture[] terrainGrounds = new Texture[6];
-    private final Texture[] terrainLiquids = new Texture[3];
-    private final Texture[] bases = new Texture[5];
+    private final Texture2D[] terrainGrounds = new Texture2D[6];
+    private final Texture2D[] terrainLiquids = new Texture2D[3];
+    private final Texture2D[] bases = new Texture2D[5];
 
-    private final Texture terrainSteepness;
+    private final Texture2D terrainSteepness;
 
-    public Texture[] brushesAdd = new Texture[3];
-    public Texture[] brushesSub = new Texture[3];
+    public Texture2D[] brushesAdd = new Texture2D[3];
+    public Texture2D[] brushesSub = new Texture2D[3];
 
     private final Shader shader_brush;
     private final Shader shader_terrain;
@@ -178,7 +178,7 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
         renderer2D.setShader(shader_brush);
         for (CommandTerrainAddSub cmd : commandsGround) {
             int groundIndex = cmd.groundIndex % terrainGrounds.length;
-            Texture groundSrcImg = terrainGrounds[groundIndex];
+            Texture2D groundSrcImg = terrainGrounds[groundIndex];
             renderer2D.setShaderAttribute("u_texture_reveal", groundSrcImg);
             renderer2D.setShaderAttribute("u_width", uvScaleFactorGround * groundSrcImg.width);
             renderer2D.setShaderAttribute("u_height", uvScaleFactorGround * groundSrcImg.height);
@@ -193,7 +193,7 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
         renderer2D.setShader(shader_brush);
         for (CommandTerrainAddSub cmd : commandsLiquid) {
             int liquidIndex = cmd.liquidIndex % terrainLiquids.length;
-            Texture liquidSrcImg = terrainLiquids[liquidIndex];
+            Texture2D liquidSrcImg = terrainLiquids[liquidIndex];
             renderer2D.setShaderAttribute("u_texture_reveal", liquidSrcImg);
             renderer2D.setShaderAttribute("u_width", uvScaleFactorLiquid * liquidSrcImg.width);
             renderer2D.setShaderAttribute("u_height", uvScaleFactorLiquid * liquidSrcImg.height);
@@ -237,7 +237,7 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
         renderer2D.begin(camera);
         renderer2D.blendingSet(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         for (CommandTerrainAddSub cmd : commandsBlendMap) {
-            Texture brush = cmd.mode == Tool.Mode.ADD ? brushesAdd[cmd.brushIndex] : brushesSub[cmd.brushIndex];
+            Texture2D brush = cmd.mode == Tool.Mode.ADD ? brushesAdd[cmd.brushIndex] : brushesSub[cmd.brushIndex];
             renderer2D.drawTexture(brush,cmd.x,cmd.y,0,cmd.sclX,cmd.sclY);
         }
         renderer2D.end();
@@ -296,7 +296,7 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
     }
 
     @Override
-    public Texture getTexture() {
+    public Texture2D getTexture() {
         return layer0.getDefaultColorAttachment(); // for now.
     }
 }
