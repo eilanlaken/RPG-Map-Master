@@ -9,7 +9,10 @@ public class Vector3 implements MemoryPool.Reset {
     public static final Vector3 Z_UNIT = new Vector3(0, 0, 1);
     public static final Vector3 Zero   = new Vector3(0, 0, 0);
 
-    private static final Matrix4x4 tmpMat = new Matrix4x4();
+    private static final Matrix4x4  tmpMat = new Matrix4x4();
+    private static final Quaternion tmp2   = new Quaternion(0,0,0,0);
+    private static final Quaternion tmp1   = new Quaternion(0, 0, 0, 0);
+
 
     public float x;
     public float y;
@@ -400,6 +403,18 @@ public class Vector3 implements MemoryPool.Reset {
         return this.set(x * l_mat[Matrix4x4.M00] + y * l_mat[Matrix4x4.M01] + z * l_mat[Matrix4x4.M02],
                 x * l_mat[Matrix4x4.M10] + y * l_mat[Matrix4x4.M11] + z * l_mat[Matrix4x4.M12],
                 x * l_mat[Matrix4x4.M20] + y * l_mat[Matrix4x4.M21] + z * l_mat[Matrix4x4.M22]);
+    }
+
+    // TODO: test
+    public Vector3 rot(final Quaternion quaternion) {
+        tmp2.set(quaternion);
+        tmp2.conjugate();
+        tmp2.mulLeft(tmp1.set(this.x, this.y, this.z, 0)).mulLeft(quaternion);
+
+        this.x = tmp2.x;
+        this.y = tmp2.y;
+        this.z = tmp2.z;
+        return this;
     }
 
     /** Multiplies this vector by the transpose of the first three columns of the matrix. Note: only works for translation and

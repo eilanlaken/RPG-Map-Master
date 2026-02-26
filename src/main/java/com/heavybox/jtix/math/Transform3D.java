@@ -1,5 +1,7 @@
 package com.heavybox.jtix.math;
 
+import org.jetbrains.annotations.NotNull;
+
 // TODO: test
 public class Transform3D {
 
@@ -16,9 +18,22 @@ public class Transform3D {
         return this;
     }
 
+    public Vector3 transform(Vector3 v) {
+        v.scl(scale);
+        v.rot(rotation);
+        v.add(position);
+        return v;
+    }
+
     // TODO: toMatrix, fromMatrix etc.
     // set to look at
     // translate global
     // translate local
+
+    // TODO: test
+    public Matrix4x4 toMatrix(@NotNull Matrix4x4 mat) {
+        mat.setToTranslationRotationScaling(position, rotation, scale);
+        return mat;
+    }
 
 }
