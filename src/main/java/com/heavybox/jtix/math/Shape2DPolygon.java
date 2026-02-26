@@ -3,7 +3,10 @@ package com.heavybox.jtix.math;
 import com.heavybox.jtix.collections.ArrayFloat;
 import com.heavybox.jtix.collections.ArrayInt;
 
+// TESTME
 // TODO: test everything here.
+// TODO: move to ArrayFloat and ArrayInt?
+// probably not.
 public class Shape2DPolygon implements Shape2D {
 
     public  final float[] points;  // TODO: switch to ArrayFloat + test

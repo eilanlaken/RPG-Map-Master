@@ -17,5 +17,8 @@ public class Transform3D {
     }
 
     // TODO: toMatrix, fromMatrix etc.
+    // set to look at
+    // translate global
+    // translate local
 
 }
