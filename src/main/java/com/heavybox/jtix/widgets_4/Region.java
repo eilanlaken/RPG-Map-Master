@@ -4,6 +4,7 @@ import com.heavybox.jtix.collections.ArrayFloat;
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.math.MathUtils;
+import com.heavybox.jtix.math.Transform2D;
 import com.heavybox.jtix.math.Vector2;
 
 @Deprecated
@@ -17,7 +18,7 @@ public final class Region {
         return MathUtils.polygonContainsPoint(pointsTransformed, x, y);
     }
 
-    void transform(Transform global) {
+    void transform(Transform2D global) {
         Vector2 point = new Vector2();
         for (int i = 0; i < points.size - 1; i += 2) {
             float point_x = points.get(i);

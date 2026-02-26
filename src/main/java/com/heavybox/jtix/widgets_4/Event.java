@@ -3,6 +3,7 @@ package com.heavybox.jtix.widgets_4;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.collections.ArrayChar;
 import com.heavybox.jtix.input.Keyboard;
+import com.heavybox.jtix.math.Transform2D;
 
 public abstract class Event {
 
@@ -12,7 +13,7 @@ public abstract class Event {
     public final float nodeSclX;
     public final float nodeSclY;
 
-    Event(final Transform global) {
+    Event(final Transform2D global) {
         this.nodeX = global.x;
         this.nodeY = global.y;
         this.nodeDeg = global.deg;
@@ -22,7 +23,7 @@ public abstract class Event {
 
     public static class EventMouseDown extends Event {
 
-        EventMouseDown(final Transform global) {
+        EventMouseDown(final Transform2D global) {
             super(global);
         }
 
@@ -36,7 +37,7 @@ public abstract class Event {
 
     public static class EventMouseUp extends Event {
 
-        EventMouseUp(final Transform global) {
+        EventMouseUp(final Transform2D global) {
             super(global);
         }
 
@@ -50,7 +51,7 @@ public abstract class Event {
 
     public static class EventMouseLeftClick extends Event {
 
-        EventMouseLeftClick(final Transform global) {
+        EventMouseLeftClick(final Transform2D global) {
             super(global);
         }
 
@@ -61,7 +62,7 @@ public abstract class Event {
 
     public static class EventMouseRightClick extends Event {
 
-        EventMouseRightClick(final Transform global) {
+        EventMouseRightClick(final Transform2D global) {
             super(global);
         }
 
@@ -72,7 +73,7 @@ public abstract class Event {
 
     public static class EventMouseMiddleClick extends Event {
 
-        EventMouseMiddleClick(final Transform global) {
+        EventMouseMiddleClick(final Transform2D global) {
             super(global);
         }
 
@@ -83,7 +84,7 @@ public abstract class Event {
 
     public static class EventMouseLeftClickOutside extends Event {
 
-        EventMouseLeftClickOutside(final Transform global) {
+        EventMouseLeftClickOutside(final Transform2D global) {
             super(global);
         }
 
@@ -94,7 +95,7 @@ public abstract class Event {
 
     public static class EventMouseRightClickOutside extends Event {
 
-        EventMouseRightClickOutside(final Transform global) {
+        EventMouseRightClickOutside(final Transform2D global) {
             super(global);
         }
 
@@ -105,7 +106,7 @@ public abstract class Event {
 
     public static class EventMouseMiddleClickOutside extends Event {
 
-        EventMouseMiddleClickOutside(final Transform global) {
+        EventMouseMiddleClickOutside(final Transform2D global) {
             super(global);
         }
 
@@ -116,7 +117,7 @@ public abstract class Event {
 
     public static class EventMouseEnter extends Event {
 
-        EventMouseEnter(final Transform global) {
+        EventMouseEnter(final Transform2D global) {
             super(global);
         }
 
@@ -129,7 +130,7 @@ public abstract class Event {
 
     public static class EventMouseLeave extends Event {
 
-        EventMouseLeave(final Transform global) {
+        EventMouseLeave(final Transform2D global) {
             super(global);
         }
 
@@ -142,7 +143,7 @@ public abstract class Event {
 
     public static class EventMouseScroll extends Event {
 
-        EventMouseScroll(final Transform global) {
+        EventMouseScroll(final Transform2D global) {
             super(global);
         }
 
@@ -154,7 +155,7 @@ public abstract class Event {
 
     public static class EventMouseDrag extends Event {
 
-        EventMouseDrag(final Transform global) {
+        EventMouseDrag(final Transform2D global) {
             super(global);
         }
 
@@ -169,7 +170,7 @@ public abstract class Event {
 
     public static class EventMouseDragStart extends Event {
 
-        EventMouseDragStart(final Transform global) {
+        EventMouseDragStart(final Transform2D global) {
             super(global);
         }
 
@@ -180,7 +181,7 @@ public abstract class Event {
 
     public static class EventMouseDragEnd extends Event {
 
-        EventMouseDragEnd(final Transform global) {
+        EventMouseDragEnd(final Transform2D global) {
             super(global);
         }
 
@@ -191,7 +192,7 @@ public abstract class Event {
 
     public static class EventResize extends Event {
 
-        EventResize(final Transform global) {
+        EventResize(final Transform2D global) {
             super(global);
         }
 
@@ -204,7 +205,7 @@ public abstract class Event {
 
     public static class EventChildAdded extends Event {
 
-        EventChildAdded(final Transform global) {
+        EventChildAdded(final Transform2D global) {
             super(global);
         }
 
@@ -214,7 +215,7 @@ public abstract class Event {
 
     public static class EventChildRemoved extends Event {
 
-        EventChildRemoved(final Transform global) {
+        EventChildRemoved(final Transform2D global) {
             super(global);
         }
 
@@ -225,7 +226,7 @@ public abstract class Event {
 
     public static class EventCodepointsTyped extends Event {
 
-        EventCodepointsTyped(final Transform global) {
+        EventCodepointsTyped(final Transform2D global) {
             super(global);
         }
 
@@ -235,7 +236,7 @@ public abstract class Event {
 
     public static class EventKeysJustPressed extends Event {
 
-        EventKeysJustPressed(final Transform global) {
+        EventKeysJustPressed(final Transform2D global) {
             super(global);
         }
 
@@ -245,7 +246,7 @@ public abstract class Event {
 
     public static class EventKeysPressed extends Event {
 
-        EventKeysPressed(final Transform global) {
+        EventKeysPressed(final Transform2D global) {
             super(global);
         }
 

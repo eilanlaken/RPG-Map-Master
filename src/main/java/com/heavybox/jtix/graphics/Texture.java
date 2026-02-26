@@ -14,6 +14,9 @@ import java.nio.ShortBuffer;
 
 // TODO: refactor into a base class and a specific class: Texture + Texture2D
 // TODO: unify texture constructors.
+// TODO: change to Texture2D
+// TODO: create a Texture interface with enums for filtering, wrapping, formats etc. ...But what about setSlot()?
+// Keep in mind that some methods must remain package private and be available to all Texture(s)
 public class Texture implements MemoryResource {
 
     private       int       handle;

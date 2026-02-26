@@ -5,13 +5,15 @@ import org.lwjgl.system.MemoryStack;
 
 import java.nio.IntBuffer;
 
-public class TextureBinder {
+public final class TextureBinder {
 
     private static final int       RESERVED_OFFSET             = 0; // we will begin binding from slots OFFSET, OFFSET + 1,... leaving slots 0... OFFSET - 1 for texture loading and manipulation?
     private static final int       MAXIMUM_BOUND_TEXTURE_UNITS = Graphics.getMaxBoundTextureUnits();
     private static final int       AVAILABLE_TEXTURE_SLOTS     = MAXIMUM_BOUND_TEXTURE_UNITS - RESERVED_OFFSET;
     private static final Texture[] boundTextures               = new Texture[MAXIMUM_BOUND_TEXTURE_UNITS];
     private static       int       roundRobinCounter           = 0;
+
+    private TextureBinder() {} // prevents any instance creation
 
     public static int bind(final Texture texture) {
         if (texture.getHandle() == -1) throw new GraphicsException("Trying to bind " + Texture.class.getSimpleName() + " that was already freed.");
@@ -44,14 +46,6 @@ public class TextureBinder {
         GL11.glBindTexture(GL20.GL_TEXTURE_2D, 0);
         boundTextures[slot] = null;
         texture.setSlot(-1);
-    }
-
-    // TODO: bind other texture types: texture 3d, cube maps.
-    public static int bind(final Texture3D texture) {
-        //GL11.glTexParameteri(GL20.GL_TEXTURE_2D, GL20.GL_TEXTURE_WRAP_S, texture.sWrap.glValue);
-        //GL11.glTexParameteri(GL20.GL_TEXTURE_2D, GL20.GL_TEXTURE_WRAP_T, texture.tWrap.glValue);
-        //GL11.glTexParameteri(GL20.GL_TEXTURE_2D, GL20.GL_TEXTURE_WRAP_R, texture.tWrap.glValue);
-        return -1;
     }
 
     public static int getCurrentActiveSlot() {

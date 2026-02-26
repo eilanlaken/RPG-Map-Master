@@ -6,9 +6,12 @@ import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.MathUtils;
+import com.heavybox.jtix.math.Transform2D;
 import com.heavybox.jtix.math.Vector2;
 import org.jetbrains.annotations.NotNull;
 
+// TODO: first handle input and input layer multiplexing + handlers.
+// TODO: THEN, rework WidgetNode and Widget.
 public abstract class WidgetNode {
 
     /*** Widget manager reference ***/
@@ -25,19 +28,19 @@ public abstract class WidgetNode {
     protected final Array<WidgetNode> childrenActive = new Array<>(true, 1);
 
     /*** metrics: transform and dimensions ***/
-    public          float     width           = 0; // TODO: use for caching and event handling
-    public          float     height          = 0; // TODO: use for caching and event handling
-    public          float     prevWidth       = 0; // TODO: use for caching and event handling
-    public          float     prevHeight      = 0; // TODO: use for caching and event handling
-    public    final Transform transform       = new Transform(); // used for absolute positioning from root and animations
-    private   final Transform transformScreen = new Transform(); // calculated every frame either by self or parent
-    protected       float     offsetX         = 0; // set by the parent or anchor.
-    protected       float     offsetY         = 0; // set by the parent or anchor.
-    public          Anchor    anchor          = null; // anchors one of the margins of the widget to the window
-    public          float     anchorX         = 0; // the anchor x distance to be maintained at all times
-    public          float     anchorY         = 0; // the anchor y distance to be maintained at all times
-    public          boolean   draggableX      = false;
-    public          boolean   draggableY      = false;
+    public        float       width           = 0; // TODO: use for caching and event handling
+    public        float       height          = 0; // TODO: use for caching and event handling
+    public        float       prevWidth       = 0; // TODO: use for caching and event handling
+    public        float       prevHeight      = 0; // TODO: use for caching and event handling
+    public  final Transform2D transform       = new Transform2D(); // used for absolute positioning from root and animations
+    private final Transform2D transformScreen = new Transform2D(); // calculated every frame either by self or parent
+    protected     float       offsetX         = 0; // set by the parent or anchor.
+    protected     float       offsetY         = 0; // set by the parent or anchor.
+    public        Anchor      anchor          = null; // anchors one of the margins of the widget to the window
+    public        float       anchorX         = 0; // the anchor x distance to be maintained at all times
+    public        float       anchorY         = 0; // the anchor y distance to be maintained at all times
+    public        boolean     draggableX      = false;
+    public        boolean     draggableY      = false;
 
     /*** input - state management ***/
     private final Region        region                                = new Region(); // TODO: change to private.
@@ -766,7 +769,6 @@ public abstract class WidgetNode {
         PARENT_CENTER_LEFT, PARENT_CENTER_CENTER,  PARENT_CENTER_RIGHT,
         PARENT_BOTTOM_LEFT,  PARENT_BOTTOM_CENTER, PARENT_BOTTOM_RIGHT,
 
-        // TODO
         CURSOR_TOP_LEFT,     CURSOR_TOP_CENTER,    CURSOR_TOP_RIGHT,
         CURSOR_CENTER_LEFT, CURSOR_CENTER_CENTER,  CURSOR_CENTER_RIGHT,
         CURSOR_BOTTOM_LEFT,  CURSOR_BOTTOM_CENTER, CURSOR_BOTTOM_RIGHT,
