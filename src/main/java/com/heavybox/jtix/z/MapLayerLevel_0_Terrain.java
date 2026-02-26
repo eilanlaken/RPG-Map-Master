@@ -114,7 +114,7 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
         String groundFragmentShaderSrc = Assets.getFileContent("assets/shaders/terrain-brush.frag");
         this.shader_brush = new Shader(groundVertexShaderSrc, groundFragmentShaderSrc);
 
-        FrameBufferBinder.bind(blendMap);
+        Graphics.setRenderTarget(blendMap);
         GL11.glClearColor(1,1,1,1);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
 
@@ -172,7 +172,7 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
         if (!changed) return;
 
         // render ground image
-        FrameBufferBinder.bind(ground);
+        Graphics.setRenderTarget(ground);
         renderer2D.begin(camera);
         renderer2D.blendingSet(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         renderer2D.setShader(shader_brush);
@@ -187,7 +187,7 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
         renderer2D.end();
 
         // render liquid image
-        FrameBufferBinder.bind(liquid);
+        Graphics.setRenderTarget(liquid);
         renderer2D.begin(camera);
         renderer2D.blendingSet(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         renderer2D.setShader(shader_brush);
@@ -202,7 +202,7 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
         renderer2D.end();
 
         // render farmlands
-//        FrameBufferBinder.bind(farmlands);
+//        Graphics.bind(farmlands);
 //        renderer2D.begin(camera);
 //        renderer2D.blendingSet(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 //        for (CommandTerrainFarmlandCreate cmd : commandsFarmlandsCreate) {
@@ -218,7 +218,7 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
 
         // re-render farmlands - only if changed
         if (changedFarmlands) {
-            FrameBufferBinder.bind(farmlands);
+            Graphics.setRenderTarget(farmlands);
             renderer2D.begin(camera);
             GL11.glClearColor(0, 0, 0, 0);
             GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
@@ -233,7 +233,7 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
         }
 
         // render blend map
-        FrameBufferBinder.bind(blendMap);
+        Graphics.setRenderTarget(blendMap);
         renderer2D.begin(camera);
         renderer2D.blendingSet(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         for (CommandTerrainAddSub cmd : commandsBlendMap) {
@@ -243,7 +243,7 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
         renderer2D.end();
 
         // render final image
-        FrameBufferBinder.bind(layer0);
+        Graphics.setRenderTarget(layer0);
         GL11.glClearColor(0,0,0,1);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
         renderer2D.begin(camera);
@@ -265,7 +265,7 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
         renderer2D.setShader(null);
         renderer2D.end();
 
-//        FrameBufferBinder.bind(layer0);
+//        Graphics.bind(layer0);
 //        GL11.glClearColor(0,0,0,1);
 //        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
 //        renderer2D.begin(camera);
@@ -281,11 +281,11 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
 
     @Override
     public void clear() {
-        FrameBufferBinder.bind(blendMap);
+        Graphics.setRenderTarget(blendMap);
         GL11.glClearColor(1,1,1,1);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
 
-        FrameBufferBinder.bind(layer0);
+        Graphics.setRenderTarget(layer0);
         GL11.glClearColor(0,0,0,0);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
     }

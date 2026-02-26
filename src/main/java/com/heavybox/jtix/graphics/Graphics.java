@@ -2,6 +2,7 @@ package com.heavybox.jtix.graphics;
 
 import com.heavybox.jtix.application.Application;
 import com.heavybox.jtix.application.ApplicationException;
+import org.jetbrains.annotations.Nullable;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.PointerBuffer;
 import org.lwjgl.glfw.GLFW;
@@ -23,6 +24,9 @@ import java.util.Objects;
 import static org.lwjgl.glfw.GLFW.glfwCreateCursor;
 import static org.lwjgl.opengl.EXTTextureFilterAnisotropic.GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT;
 
+// TODO: move all texture binding here.
+// TODO: move all shader binding here.
+// TODO: move all FrameBuffer binding here.
 public final class Graphics {
 
     /* graphics state and parameters */
@@ -63,6 +67,10 @@ public final class Graphics {
     private static Texture singleTransparentPixel;
     private static Texture singleBlackPixel;
     private static Texture singleNormalMapPixel;
+
+    /* FrameBuffer binding */
+    private static       FrameBuffer boundFrameBuffer      = null;
+    private static final IntBuffer   boundAttachmentScreen = BufferUtils.createIntBuffer(1).put(GL30.GL_COLOR_ATTACHMENT0).flip();
 
     private Graphics() {}
 
@@ -437,8 +445,10 @@ public final class Graphics {
         if (cursorResizeNWSE != -1) GLFW.glfwDestroyCursor(cursorResizeNWSE);
         if (cursorResizeAll != -1) GLFW.glfwDestroyCursor(cursorResizeAll);
 
-        //Renderer2D_new.delete();
-        // TODO: delete internal textures
+        if (singleWhitePixel != null) singleWhitePixel.delete();
+        if (singleTransparentPixel != null) singleTransparentPixel.delete();
+        if (singleBlackPixel != null) singleBlackPixel.delete();
+        if (singleNormalMapPixel != null) singleNormalMapPixel.delete();
 
         for (Map.Entry<String, Long> cursorEntry : customCursors.entrySet()) {
             long cursor = cursorEntry.getValue();
@@ -454,6 +464,36 @@ public final class Graphics {
         FreeType.FT_Init_FreeType(libPointerBuffer);
         freeType = libPointerBuffer.get(0);
         return freeType;
+    }
+
+    /* FrameBuffer bindings */
+
+    public static void setRenderTargetScreen() {
+        setRenderTarget(null);
+    }
+
+    public static void setRenderTarget(@Nullable FrameBuffer frameBuffer) {
+        //if (Renderer2D_new.isDrawing()) throw new GraphicsException("Cannot switch frame buffers during a drawing sequence (between Renderer2D.begin() and Renderer2D.end(). Call Renderer2D.end() and only then bind a new frame buffer.");
+        if (boundFrameBuffer == frameBuffer) {
+            return; // prevent redundant frame buffer binds.
+        }
+
+        if (frameBuffer == null) {
+            GL30.glBindFramebuffer(GL30.GL_FRAMEBUFFER, 0);
+            GL30.glDrawBuffers(boundAttachmentScreen);
+            boundFrameBuffer = null;
+            GL20.glViewport(0, 0, Graphics.getWindowWidth(), Graphics.getWindowHeight());
+            return;
+        }
+
+        GL30.glBindFramebuffer(GL30.GL_FRAMEBUFFER, frameBuffer.getHandle());
+        GL30.glDrawBuffers(frameBuffer.boundAttachments);
+        boundFrameBuffer = frameBuffer;
+        GL20.glViewport(0, 0, frameBuffer.width, frameBuffer.height);
+    }
+
+    public static boolean isRenderTarget(final FrameBuffer frameBuffer) {
+        return boundFrameBuffer == frameBuffer;
     }
 
 }

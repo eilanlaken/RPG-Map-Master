@@ -62,7 +62,7 @@ public class MapLayerLevel_1_Tokens implements MapLayerLevel {
     @Override
     public void redraw(Renderer2D renderer2D) {
         // sort tokens by y-value.
-        FrameBufferBinder.bind(layer3);
+        Graphics.setRenderTarget(layer3);
         GL11.glClearColor(0,0,0,0);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
         renderer2D.begin(camera);
@@ -89,7 +89,7 @@ public class MapLayerLevel_1_Tokens implements MapLayerLevel {
     public void clear() {
         allTokens.clear();
 
-        FrameBufferBinder.bind(layer3);
+        Graphics.setRenderTarget(layer3);
         GL11.glClearColor(0,0,0,0);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
     }

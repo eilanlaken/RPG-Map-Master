@@ -1,10 +1,17 @@
 package com.heavybox.jtix.graphics;
 
+import org.jetbrains.annotations.NotNull;
 import org.lwjgl.opengl.*;
 import org.lwjgl.system.MemoryStack;
 
 import java.nio.IntBuffer;
 
+/*
+TODO:
+should this stay?
+move to Texture.java? no.
+move to Graphics.java?
+ */
 public final class TextureBinder {
 
     private static final int       RESERVED_OFFSET             = 0; // we will begin binding from slots OFFSET, OFFSET + 1,... leaving slots 0... OFFSET - 1 for texture loading and manipulation?
@@ -15,7 +22,7 @@ public final class TextureBinder {
 
     private TextureBinder() {} // prevents any instance creation
 
-    public static int bind(final Texture texture) {
+    public static int bind(@NotNull final Texture texture) {
         if (texture.getHandle() == -1) throw new GraphicsException("Trying to bind " + Texture.class.getSimpleName() + " that was already freed.");
         if (texture.getSlot() >= 0) {
             GL13.glActiveTexture(GL20.GL_TEXTURE0 + texture.getSlot());
@@ -38,7 +45,7 @@ public final class TextureBinder {
         return slot;
     }
 
-    public static void unbind(Texture texture) {
+    public static void unbind(@NotNull Texture texture) {
         if (texture.getHandle() == -1) return;
         int slot = texture.getSlot();
         if (slot < 0) return;
