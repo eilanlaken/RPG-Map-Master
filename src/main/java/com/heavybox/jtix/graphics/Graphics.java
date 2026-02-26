@@ -77,6 +77,8 @@ public final class Graphics {
     static int activeRenderer2Ds = 0;
     static int activeRenderer3Ds = 0;
 
+    /* Texture Bindings */
+
     private Graphics() {}
 
     public static void update() {
@@ -473,17 +475,15 @@ public final class Graphics {
 
     /* FrameBuffer bindings */
 
-    public static void setRenderTargetScreen() {
-        setRenderTarget(null);
+    public static void bindFrameBufferScreen() {
+        bindFrameBuffer(null);
     }
 
-    public static void setRenderTarget(@Nullable FrameBuffer frameBuffer) {
+    public static void bindFrameBuffer(@Nullable FrameBuffer frameBuffer) {
         if (activeRenderer2Ds > 0) throw new GraphicsException("Cannot switch frame buffers during a drawing sequence (between renderer2D.begin() and renderer2D.end(). Call renderer2D.end() and only then set a new rendering target.");
         if (activeRenderer3Ds > 0) throw new GraphicsException("Cannot switch frame buffers during a drawing sequence (between renderer3D.begin() and renderer3D.end(). Call renderer3D.end() and only then set a new rendering target.");
 
-        if (boundFrameBuffer == frameBuffer) {
-            return; // prevent redundant frame buffer binds.
-        }
+        if (boundFrameBuffer == frameBuffer) return;
 
         if (frameBuffer == null) {
             GL30.glBindFramebuffer(GL30.GL_FRAMEBUFFER, 0);
@@ -499,7 +499,7 @@ public final class Graphics {
         GL20.glViewport(0, 0, frameBuffer.width, frameBuffer.height);
     }
 
-    public static boolean isRenderTarget(final FrameBuffer frameBuffer) {
+    public static boolean isFrameBufferBound(final FrameBuffer frameBuffer) {
         return boundFrameBuffer == frameBuffer;
     }
 

@@ -2,6 +2,7 @@ package com.heavybox.jtix.graphics;
 
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.memory.MemoryResource;
+import org.jetbrains.annotations.Nullable;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL30;
@@ -15,8 +16,8 @@ import java.util.Map;
 // https://github.com/libgdx/libgdx/blob/master/gdx/src/com/badlogic/gdx/graphics/glutils/GLFrameBuffer.java#L57
 public class FrameBuffer implements MemoryResource {
 
-    public final int width;
-    public final int height;
+    public  final int width;
+    public  final int height;
     private final int handle;
     private final int depthStencilRBO;
 
@@ -25,9 +26,8 @@ public class FrameBuffer implements MemoryResource {
     @Deprecated private Texture colorAttachment0;
     @Deprecated private Texture colorAttachment1;
 
-    private Texture depthAttachment;
-
-    final IntBuffer boundAttachments;
+    private Texture   depthAttachment;
+    final   IntBuffer boundAttachments;
     private IntBuffer activeAttachments;
 
     public FrameBuffer(int width, int height, Array<String> colorAttachmentsNames, int depthAttachment, int stencilAttachment) {
@@ -41,7 +41,7 @@ public class FrameBuffer implements MemoryResource {
             this.boundAttachments.put(GL30.GL_COLOR_ATTACHMENT0 + i);
         }
         this.boundAttachments.flip();
-        Graphics.setRenderTarget(this);
+        Graphics.bindFrameBuffer(this);
 
         for (int i = 0; i < colorAttachmentsNames.size; i++) {
             String name = colorAttachmentsNames.get(i);
@@ -66,11 +66,11 @@ public class FrameBuffer implements MemoryResource {
         if (GL30.glCheckFramebufferStatus(GL30.GL_FRAMEBUFFER) != GL30.GL_FRAMEBUFFER_COMPLETE) {
             throw new GraphicsException("Could not create FrameBuffer. Error: " + "TODO.");
         }
-        Graphics.setRenderTargetScreen();
+        Graphics.bindFrameBufferScreen();
     }
 
     public void setRenderTargets(final String ...targets) {
-        if (!Graphics.isRenderTarget(this)) throw new GraphicsException("FrameBuffer must be bound when calling setRenderTargets. Bind a FrameBuffer using FrameBufferBinder.bind(frameBuffer)");
+        if (!Graphics.isFrameBufferBound(this)) throw new GraphicsException("FrameBuffer must be bound when calling setRenderTargets. Bind a FrameBuffer using FrameBufferBinder.bind(frameBuffer)");
         activeAttachments.clear();
         for (String target : targets) {
             int index = colorAttachmentsMap.get(target).getGLAttachmentIndex();
@@ -91,7 +91,7 @@ public class FrameBuffer implements MemoryResource {
         this.boundAttachments.put(GL30.GL_COLOR_ATTACHMENT0);
         this.boundAttachments.flip();
 
-        Graphics.setRenderTarget(this);
+        Graphics.bindFrameBuffer(this);
         //GL30.glBindFramebuffer(GL30.GL_FRAMEBUFFER, fbo);
 
         colorAttachment0 = new Texture(width, height, GL30.GL_RGBA16F, GL30.GL_RGBA);
@@ -108,7 +108,7 @@ public class FrameBuffer implements MemoryResource {
             throw new GraphicsException("Could not create FrameBuffer. Error: " + "TODO.");
         }
 
-        Graphics.setRenderTargetScreen();
+        Graphics.bindFrameBufferScreen();
     }
 
     public FrameBuffer(int width, int height, boolean texturesDepth) {
@@ -121,7 +121,7 @@ public class FrameBuffer implements MemoryResource {
         this.boundAttachments.put(GL30.GL_COLOR_ATTACHMENT0);
         this.boundAttachments.flip();
 
-        Graphics.setRenderTarget(this);
+        Graphics.bindFrameBuffer(this);
         //GL30.glBindFramebuffer(GL30.GL_FRAMEBUFFER, fbo);
 
         colorAttachment0 = new Texture(width, height, GL30.GL_RGBA16F, GL30.GL_RGBA);
@@ -145,7 +145,7 @@ public class FrameBuffer implements MemoryResource {
             throw new GraphicsException("Could not create FrameBuffer. Error: " + "TODO.");
         }
 
-        Graphics.setRenderTargetScreen();
+        Graphics.bindFrameBufferScreen();
     }
 
     // TODO: standardize "all args" constructor.
@@ -159,7 +159,7 @@ public class FrameBuffer implements MemoryResource {
         this.boundAttachments.put(GL30.GL_COLOR_ATTACHMENT1);
         this.boundAttachments.flip();
 
-        Graphics.setRenderTarget(this);
+        Graphics.bindFrameBuffer(this);
 
         colorAttachment0 = new Texture(width, height, GL30.GL_RGBA16F, GL30.GL_RGBA);
         GL30.glFramebufferTexture2D(GL30.GL_FRAMEBUFFER, GL30.GL_COLOR_ATTACHMENT0, GL11.GL_TEXTURE_2D, colorAttachment0.getHandle(), 0);
@@ -179,7 +179,7 @@ public class FrameBuffer implements MemoryResource {
             throw new GraphicsException("Could not create FrameBuffer. Error: " + "TODO.");
         }
 
-        Graphics.setRenderTargetScreen();
+        Graphics.bindFrameBufferScreen();
     }
 
     public int getHandle() {
@@ -189,16 +189,12 @@ public class FrameBuffer implements MemoryResource {
     public Texture getDefaultColorAttachment() {
         return colorAttachment0;
     }
-
-    // TODO
     public Texture getColorAttachment(final int index) {
         return colorAttachmentsArray.get(index);
     }
-
     public Texture getColorAttachment(final String name) {
         return colorAttachmentsMap.get(name).texture;
     }
-
     public Texture getDepthAttachment() {
         return depthAttachment;
     }
@@ -209,6 +205,16 @@ public class FrameBuffer implements MemoryResource {
         if (colorAttachment0 != null) colorAttachment0.delete();
         if (colorAttachment1 != null) colorAttachment1.delete();
         GL30.glDeleteRenderbuffers(depthStencilRBO);
+    }
+
+    // TODO: test
+    public void bind() {
+        Graphics.bindFrameBuffer(this);
+    }
+
+    // TODO: test
+    public static void bind(@Nullable FrameBuffer frameBuffer) {
+        Graphics.bindFrameBuffer(frameBuffer);
     }
 
     // TODO: add format customization support.

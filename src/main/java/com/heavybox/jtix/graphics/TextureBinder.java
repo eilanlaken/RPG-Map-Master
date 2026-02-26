@@ -9,11 +9,14 @@ import java.nio.IntBuffer;
 /*
 TODO:
 should this stay?
-move to Texture.java? no.
+move to Texture.java?
 move to Graphics.java?
+probable resolution: move entire logic to Graphics.java and add bind() and unbind() methods to Texture.
+Another option is to simply leave as is.
  */
 public final class TextureBinder {
 
+    // TODO: move to Graphics
     private static final int       RESERVED_OFFSET             = 0; // we will begin binding from slots OFFSET, OFFSET + 1,... leaving slots 0... OFFSET - 1 for texture loading and manipulation?
     private static final int       MAXIMUM_BOUND_TEXTURE_UNITS = Graphics.getMaxBoundTextureUnits();
     private static final int       AVAILABLE_TEXTURE_SLOTS     = MAXIMUM_BOUND_TEXTURE_UNITS - RESERVED_OFFSET;

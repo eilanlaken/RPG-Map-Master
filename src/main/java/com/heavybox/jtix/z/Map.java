@@ -97,7 +97,7 @@ public class Map {
         layer0.applyChanges(renderer2D);
         layer3.applyChanges(renderer2D);
 
-        Graphics.setRenderTarget(mapFinal);
+        Graphics.bindFrameBuffer(mapFinal);
         GL11.glClearColor(1.0f,1.0f,1.0f,1);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_STENCIL_BUFFER_BIT); // should probably clear the stencil
         renderer2D.begin(camera);

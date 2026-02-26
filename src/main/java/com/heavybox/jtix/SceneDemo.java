@@ -163,7 +163,7 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
 
         map.update(delta);
         map.render(renderer2D);
-        Graphics.setRenderTarget(null);
+        Graphics.bindFrameBuffer(null);
         GL11.glClearColor(0.01f,0.01f,0.01f,1);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_STENCIL_BUFFER_BIT); // should probably clear the stencil
         renderer2D.begin(camera);
