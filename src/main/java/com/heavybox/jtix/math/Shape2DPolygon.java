@@ -2,6 +2,7 @@ package com.heavybox.jtix.math;
 
 import com.heavybox.jtix.collections.ArrayFloat;
 import com.heavybox.jtix.collections.ArrayInt;
+import org.jetbrains.annotations.NotNull;
 
 // TODO: test
 // represents a SIMPLE polygon: no intersecting edges, no inverse edges, closed, convex or concave, no holes, connected region
@@ -12,18 +13,16 @@ public class Shape2DPolygon implements Shape2D {
     private float      area;
     private float      perimeter;
     private Vector2    centroid;
-    private boolean    dirty = true;
+    private boolean    dirty;
 
     public Shape2DPolygon(float ...points) {
         if (points.length < 6) throw new MathException("A Polygon must contain at least 3 points. Therefore, the input array points: [x0,y0, x1,y1, ...] must contain at least 6 values");
         if (points.length % 2 != 0) throw new MathException("points is a flat array of values representing a polygon. A point has a float x and float y values. Therefore points must contain an even number of points.");
 
-        ArrayFloat outVertices = new ArrayFloat(true, points.length);
-        ArrayInt outIndices = new ArrayInt(true, 3 * (2 * points.length - 2));
-        MathUtils.polygonTriangulate(points, outVertices, outIndices);
-
-        this.points = outVertices;
-        this.indices = outIndices;
+        this.points = new ArrayFloat(true, points.length);
+        this.points.addAll(points);
+        MathUtils.polygonRemoveDegenerateVertices(this.points);
+        this.dirty = true;
     }
 
     @Override
@@ -51,7 +50,25 @@ public class Shape2DPolygon implements Shape2D {
         return MathUtils.polygonContainsPoint(this.points, lx, ly);
     }
 
-    // TODO: some of the metric calculations like area, centroid and perimeter can migrate to MathUtils.
+    public void getVertex(int i, @NotNull Vector2 out) {
+        if (i < 0 || i >= this.points.size / 2) throw new MathException("Index i: " + i + " out of bounds. Polygon " + this + " contains " + this.points.size / 2 + " vertices");
+
+        int index = i * 2;
+        out.set(this.points.get(index), this.points.get(index + 1));
+    }
+
+    public void getEdge(int i, @NotNull Vector2 tail, @NotNull Vector2 head) {
+        int vertexCount = this.points.size / 2;
+
+        if (i < 0 || i >= vertexCount) throw new MathException("Index i: " + i + " out of bounds. Polygon " + this + " contains " + vertexCount + " edges");
+
+        int tailBase = i * 2;
+        int headBase = ((i + 1) % vertexCount) * 2;
+
+        tail.set(points.get(tailBase), points.get(tailBase + 1));
+        head.set(points.get(headBase), points.get(headBase + 1));
+    }
+
     private void recalculateMetrics() {
         // triangulate polygon + remove degenerate vertices
         if (indices == null) indices = new ArrayInt(true, 3 * (2 * points.size - 2));
@@ -70,7 +87,7 @@ public class Shape2DPolygon implements Shape2D {
         dirty = false;
     }
 
-    public ArrayInt getIndices() {
+    public ArrayInt indices() {
         if (dirty) recalculateMetrics();
         return indices;
     }
