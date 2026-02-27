@@ -3,6 +3,7 @@ package com.heavybox.jtix;
 import com.heavybox.jtix.application.Scene;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.collections.Array;
+import com.heavybox.jtix.collections.ArrayFloat;
 import com.heavybox.jtix.graphics.*;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Keyboard;
@@ -179,6 +180,7 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
 
         renderer2D.begin();
         Tools.renderToolText(renderer2D, Input.mouse.getX() - Graphics.getWindowWidth() * 0.5f, Graphics.getWindowHeight() * 0.5f - Input.mouse.getY());
+
         renderer2D.end();
 
         // update user interface

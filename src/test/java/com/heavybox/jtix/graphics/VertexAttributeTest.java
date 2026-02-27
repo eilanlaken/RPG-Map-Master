@@ -27,7 +27,7 @@ class VertexAttributeTest {
         Assertions.assertTrue(VertexAttribute.isValidGlslAttributeName("a_textCoords1"));
         Assertions.assertTrue(VertexAttribute.isValidGlslAttributeName("a_normal"));
         Assertions.assertTrue(VertexAttribute.isValidGlslAttributeName("a_tangent"));
-        Assertions.assertTrue(VertexAttribute.isValidGlslAttributeName("a_biNormal"));
+        Assertions.assertTrue(VertexAttribute.isValidGlslAttributeName("a_biTangent"));
         Assertions.assertTrue(VertexAttribute.isValidGlslAttributeName("a_boneWeight0"));
         Assertions.assertTrue(VertexAttribute.isValidGlslAttributeName("a_boneWeight1"));
         Assertions.assertTrue(VertexAttribute.isValidGlslAttributeName("a_boneWeight2"));

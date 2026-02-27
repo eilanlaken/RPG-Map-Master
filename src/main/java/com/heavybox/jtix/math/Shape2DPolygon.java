@@ -3,19 +3,17 @@ package com.heavybox.jtix.math;
 import com.heavybox.jtix.collections.ArrayFloat;
 import com.heavybox.jtix.collections.ArrayInt;
 
-// TESTME
-// TODO: test everything here.
-// TODO: move to ArrayFloat and ArrayInt?
-// probably not.
+// TODO: test
+// represents a SIMPLE polygon: no intersecting edges, no inverse edges, closed, convex or concave, no holes, connected region
 public class Shape2DPolygon implements Shape2D {
 
-    public  final float[] points;  // TODO: switch to ArrayFloat + test
-    public  final int[]   indices; // TODO: switch to ArrayInt + test
-    private final float   area;
-    private final float   perimeter;
-    private final Vector2 centroid;
+    public  ArrayFloat points;
+    private ArrayInt   indices;
+    private float      area;
+    private float      perimeter;
+    private Vector2    centroid;
+    private boolean    dirty = true;
 
-    // TODO: test with both normal and degenerate vertices
     public Shape2DPolygon(float ...points) {
         if (points.length < 6) throw new MathException("A Polygon must contain at least 3 points. Therefore, the input array points: [x0,y0, x1,y1, ...] must contain at least 6 values");
         if (points.length % 2 != 0) throw new MathException("points is a flat array of values representing a polygon. A point has a float x and float y values. Therefore points must contain an even number of points.");
@@ -24,55 +22,8 @@ public class Shape2DPolygon implements Shape2D {
         ArrayInt outIndices = new ArrayInt(true, 3 * (2 * points.length - 2));
         MathUtils.polygonTriangulate(points, outVertices, outIndices);
 
-        this.points = outVertices.pack();
-        this.indices = outIndices.pack();
-
-        float sumArea = 0;
-        float sumPerimeter = 0;
-        int n = indices.length;
-
-        // calculate area
-        for (int i = 0; i < n; i++) {
-            int j = (i + 1) % n;
-            float xi = points[indices[i] * 2];
-            float yi = points[indices[i] * 2 + 1];
-            float xj = points[indices[j] * 2];
-            float yj = points[indices[j] * 2 + 1];
-            sumArea += xi * yj - xj * yi;
-        }
-        this.area = Math.abs(sumArea) * 0.5f;
-
-        // calculate perimeter
-        for (int i = 0; i < n; i++) {
-            int j = (i + 1) % n; // next vertex, wrap around
-            float xi = points[indices[i] * 2];
-            float yi = points[indices[i] * 2 + 1];
-            float xj = points[indices[j] * 2];
-            float yj = points[indices[j] * 2 + 1];
-            float dx = xj - xi;
-            float dy = yj - yi;
-            sumPerimeter += (float) Math.sqrt(dx * dx + dy * dy);
-        }
-        this.perimeter = sumPerimeter;
-
-        // calculate centroid
-        float cx = 0, cy = 0;
-        float triArea = 0;
-        for (int i = 0; i < n; i++) {
-            int j = (i + 1) % n;
-            float xi = points[indices[i] * 2];
-            float yi = points[indices[i] * 2 + 1];
-            float xj = points[indices[j] * 2];
-            float yj = points[indices[j] * 2 + 1];
-            float a = xi * yj - xj * yi; // partial area
-            triArea += a;
-            cx += (xi + xj) * a;
-            cy += (yi + yj) * a;
-        }
-        triArea *= 0.5f;
-        cx /= (6 * triArea);
-        cy /= (6 * triArea);
-        centroid = new Vector2(cx, cy);
+        this.points = outVertices;
+        this.indices = outIndices;
     }
 
     @Override
@@ -97,22 +48,183 @@ public class Shape2DPolygon implements Shape2D {
         ly /= t.sclY;
 
         // 4. test polygon in local space
-        return MathUtils.polygonContainsPoint(points, lx, ly);
+        return MathUtils.polygonContainsPoint(this.points, lx, ly);
+    }
+
+    // TODO: some of the metric calculations like area, centroid and perimeter can migrate to MathUtils.
+    private void recalculateMetrics() {
+        // triangulate polygon + remove degenerate vertices
+        if (indices == null) indices = new ArrayInt(true, 3 * (2 * points.size - 2));
+        MathUtils.polygonTriangulate(points, indices);
+
+        // calculate area
+        this.area = MathUtils.polygonArea(points);
+
+        // calculate perimeter
+        this.perimeter = MathUtils.polygonPerimeter(points);
+
+        // calculate centroid
+        if (centroid == null) centroid = new Vector2();
+        MathUtils.polygonCenterOfMass(points, centroid);
+
+        dirty = false;
+    }
+
+    public ArrayInt getIndices() {
+        if (dirty) recalculateMetrics();
+        return indices;
     }
 
     @Override
     public float area() {
+        if (dirty) recalculateMetrics();
         return area;
     }
 
     @Override
     public float perimeter() {
+        if (dirty) recalculateMetrics();
         return perimeter;
     }
 
     @Override
     public void centroid(Vector2 out) {
+        if (dirty) recalculateMetrics();
         out.set(centroid.x, centroid.y);
+    }
+
+    public void setPoints(float ...points) {
+        this.points.clear();
+        this.points.addAll(points);
+        dirty = true;
+    }
+
+    public void setToRectangle(float width, float height) {
+        points.clear();
+        float widthHalf = width * 0.5f;
+        float heightHalf = height * 0.5f;
+        points.add(-widthHalf, -heightHalf);
+        points.add( widthHalf, -heightHalf);
+        points.add( widthHalf,  heightHalf);
+        points.add(-widthHalf,  heightHalf);
+        dirty = true;
+    }
+
+    public void setToRectangle(float width, float height, float cornerRadius, int refinement) {
+        if (cornerRadius == 0) {
+            setToRectangle(width, height);
+            return;
+        }
+        points.clear();
+        refinement = Math.max(2, refinement);
+        float widthHalf  = width  * 0.5f;
+        float heightHalf = height * 0.5f;
+        float da = 90.0f / (refinement - 1);
+
+        Vector2 corner = new Vector2();
+        // add upper left corner vertices
+        for (int i = 0; i < refinement; i++) {
+            corner.set(-cornerRadius, 0);
+            corner.rotateDeg(-da * i); // rotate clockwise
+            corner.add(-widthHalf + cornerRadius, heightHalf - cornerRadius);
+            points.add(corner.x, corner.y);
+        }
+
+        // add upper right corner vertices
+        for (int i = 0; i < refinement; i++) {
+            corner.set(0, cornerRadius);
+            corner.rotateDeg(-da * i); // rotate clockwise
+            corner.add(widthHalf - cornerRadius, heightHalf - cornerRadius);
+            points.add(corner.x, corner.y);
+        }
+
+        // add lower right corner vertices
+        for (int i = 0; i < refinement; i++) {
+            corner.set(cornerRadius, 0);
+            corner.rotateDeg(-da * i); // rotate clockwise
+            corner.add(widthHalf - cornerRadius, -heightHalf + cornerRadius);
+            points.add(corner.x, corner.y);
+        }
+
+        // add lower left corner vertices
+        for (int i = 0; i < refinement; i++) {
+            corner.set(0, -cornerRadius);
+            corner.rotateDeg(-da * i); // rotate clockwise
+            corner.add(-widthHalf + cornerRadius, -heightHalf + cornerRadius);
+            points.add(corner.x, corner.y);
+        }
+
+        dirty = true;
+    }
+
+    public void setToRectangle(float width, float height,
+                               float cornerRadiusTopLeft, int refinementTopLeft,
+                               float cornerRadiusTopRight, int refinementTopRight,
+                               float cornerRadiusBottomRight, int refinementBottomRight,
+                               float cornerRadiusBottomLeft, int refinementBottomLeft) {
+        if (MathUtils.isZero(cornerRadiusTopLeft) && MathUtils.isZero(cornerRadiusTopRight)
+                && MathUtils.isZero(cornerRadiusBottomLeft) && MathUtils.isZero(cornerRadiusBottomRight)) {
+            setToRectangle(width, height);
+            return;
+        }
+        points.clear();
+        refinementTopLeft = Math.max(2, refinementTopLeft);
+        refinementTopRight = Math.max(2, refinementTopRight);
+        refinementBottomRight = Math.max(2, refinementBottomRight);
+        refinementBottomLeft = Math.max(2, refinementBottomLeft);
+        float widthHalf  = width  * 0.5f;
+        float heightHalf = height * 0.5f;
+        float daTL = 90.0f / (refinementTopLeft - 1);
+        float daTR = 90.0f / (refinementTopRight - 1);
+        float daBR = 90.0f / (refinementBottomRight - 1);
+        float daBL = 90.0f / (refinementBottomLeft - 1);
+
+        Vector2 corner = new Vector2();
+        // add upper left corner vertices
+        for (int i = 0; i < refinementTopLeft; i++) {
+            corner.set(-cornerRadiusTopLeft, 0);
+            corner.rotateDeg(-daTL * i); // rotate clockwise
+            corner.add(-widthHalf + cornerRadiusTopLeft,heightHalf - cornerRadiusTopLeft);
+            points.add(corner.x, corner.y);
+        }
+
+        // add upper right corner vertices
+        for (int i = 0; i < refinementTopRight; i++) {
+            corner.set(0, cornerRadiusTopRight);
+            corner.rotateDeg(-daTR * i); // rotate clockwise
+            corner.add(widthHalf - cornerRadiusTopRight, heightHalf - cornerRadiusTopRight);
+            points.add(corner.x, corner.y);
+        }
+
+        // add lower right corner vertices
+        for (int i = 0; i < refinementBottomRight; i++) {
+            corner.set(cornerRadiusBottomRight, 0);
+            corner.rotateDeg(-daBR * i); // rotate clockwise
+            corner.add(widthHalf - cornerRadiusBottomRight, -heightHalf + cornerRadiusBottomRight);
+            points.add(corner.x, corner.y);
+        }
+
+        // add lower left corner vertices
+        for (int i = 0; i < refinementBottomLeft; i++) {
+            corner.set(0, -cornerRadiusBottomLeft);
+            corner.rotateDeg(-daBL * i); // rotate clockwise
+            corner.add(-widthHalf + cornerRadiusBottomLeft, -heightHalf + cornerRadiusBottomLeft);
+            points.add(corner.x, corner.y);
+        }
+
+        dirty = true;
+    }
+
+    public void setToCircle(float r, int refinement) {
+        points.clear();
+        refinement = Math.max(refinement, 3);
+        float da = 360f / refinement;
+        for (int i = 0; i < refinement; i++) {
+            points.add(r * MathUtils.cosDeg(da * i));
+            points.add(r * MathUtils.sinDeg(da * i));
+        }
+
+        dirty = true;
     }
 
 }

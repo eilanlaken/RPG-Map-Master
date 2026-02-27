@@ -2050,10 +2050,11 @@ public class Renderer2D implements MemoryResourceHolder {
             vertexIndex += count;
         } else {
             ArrayFloat vertices  = arrayFloatPool.allocate();
+            vertices.addAll(polygon);
             ArrayInt   triangles = arrayIntPool.allocate();
             /* try to triangulate the polygon. We might have a polygon that is degenerate and the triangulation fails. In that case, it is okay to not render anything.*/
             try {
-                MathUtils.polygonTriangulate(polygon, vertices, triangles);
+                MathUtils.polygonTriangulate(vertices, triangles);
             } catch (Exception e) {
                 /* Probably the polygon has collapsed into a single point. */
                 return;
