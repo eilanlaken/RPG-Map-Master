@@ -307,29 +307,6 @@ public final class Shader implements MemoryResource {
         return (vertexAttributesBitmask & attribute.bitmask) != 0;
     }
 
-    public boolean bind() {
-        if (Graphics.boundShaderProgram == this.program) return false;
-        GL20.glUseProgram(this.program);
-        Graphics.boundShaderProgram = this.program;
-        return true;
-    }
-
-    // TODO: maybe change back to protected. This is very error prone because a uniform bind is a state change that must be observed by the Renderer2D.
-    boolean bindUniforms(final HashMap<String, Object> uniforms) {
-        if (uniforms == null) return false;
-        boolean bound = false;
-        for (Map.Entry<String, Object> entry : uniforms.entrySet()) {
-            final String name = entry.getKey();
-            final Object value = uniforms.get(name);
-            try {
-                bound |= bindUniform(name, value);
-            } catch (Exception e) {
-                throw new GraphicsException("Trying to bind " + null + " value to a shader uniform: \n" + "name:  <" + name + ">" + "\n" + "value: <" + value + ">");
-            }
-        }
-        return bound;
-    }
-
     public boolean uniformExists(final String name) {
         final int location = uniformLocations.get(name, -1);
         return location != -1;
@@ -346,7 +323,30 @@ public final class Shader implements MemoryResource {
         return uniformsCache.get(location);
     }
 
-    // TODO: return true / false if a uniform was bound
+    public boolean bind() {
+        if (Graphics.boundShaderProgram == this.program) return false;
+        GL20.glUseProgram(this.program);
+        Graphics.boundShaderProgram = this.program;
+        return true;
+    }
+
+    /* NOTE: before binding any uniform, the shader itself must be bound */
+    boolean bindUniforms(final HashMap<String, Object> uniforms) {
+        if (uniforms == null) return false;
+        boolean bound = false;
+        for (Map.Entry<String, Object> entry : uniforms.entrySet()) {
+            final String name = entry.getKey();
+            final Object value = uniforms.get(name);
+            try {
+                bound |= bindUniform(name, value);
+            } catch (Exception e) {
+                throw new GraphicsException("Trying to bind " + null + " value to a shader uniform: \n" + "name:  <" + name + ">" + "\n" + "value: <" + value + ">");
+            }
+        }
+        return bound;
+    }
+
+    /* NOTE: before binding any uniform, the shader itself must be bound */
     boolean bindUniform(final String name, final Object value) {
         if (value == null) throw new GraphicsException("Trying to bind null value to a uniform variable.");
         final int location = uniformLocations.get(name, -1);
