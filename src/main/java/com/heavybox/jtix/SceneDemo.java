@@ -180,7 +180,6 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
 
         renderer2D.begin();
         Tools.renderToolText(renderer2D, Input.mouse.getX() - Graphics.getWindowWidth() * 0.5f, Graphics.getWindowHeight() * 0.5f - Input.mouse.getY());
-
         renderer2D.end();
 
         // update user interface

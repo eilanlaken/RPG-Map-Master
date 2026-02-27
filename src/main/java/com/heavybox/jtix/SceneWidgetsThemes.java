@@ -53,7 +53,7 @@ public class SceneWidgetsThemes implements Scene {
         grid.layout = WidgetNodeContainerGrid.Layout.FILL_ROWS;
         grid.layoutRowCapacity = 4;
 
-        widget.addNode(options);
+        widget.addNodes(options);
     }
 
     @Override

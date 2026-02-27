@@ -17,28 +17,6 @@ public class Shape2DCircle implements Shape2D {
         return x * x + y * y <= r * r;
     }
 
-    // TODO: test
-    @Override
-    public boolean containsPoint(float x, float y, Transform2D t) {
-        // translate to local origin
-        float dx = x - t.x;
-        float dy = y - t.y;
-
-        // inverse rotation
-        float rad = (float) Math.toRadians(-t.deg);
-        float cos = (float) Math.cos(rad);
-        float sin = (float) Math.sin(rad);
-
-        float lx = dx * cos - dy * sin;
-        float ly = dx * sin + dy * cos;
-
-        // inverse scale
-        lx /= t.sclX;
-        ly /= t.sclY;
-
-        return lx * lx + ly * ly <= r * r;
-    }
-
     @Override
     public float area() {
         return area;
@@ -50,7 +28,7 @@ public class Shape2DCircle implements Shape2D {
     }
 
     @Override
-    public void centroid(Vector2 out) {
+    public void centerOfMass(Vector2 out) {
         out.set(0,0);
     }
 }

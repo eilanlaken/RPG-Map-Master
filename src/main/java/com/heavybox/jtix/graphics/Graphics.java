@@ -499,7 +499,7 @@ public final class Graphics {
         GL20.glViewport(0, 0, frameBuffer.width, frameBuffer.height);
     }
 
-    public static boolean isFrameBufferBound(final FrameBuffer frameBuffer) {
+    static boolean frameBufferIsBound(final FrameBuffer frameBuffer) {
         return boundFrameBuffer == frameBuffer;
     }
 

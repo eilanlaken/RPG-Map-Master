@@ -45,7 +45,7 @@ public class SceneNewContainers implements Scene, InputLayer {
         rectangle.anchor = WidgetNode.Anchor.PARENT_CENTER_RIGHT;
         rectangle.anchorX = 200;
 
-        widget_2.addNode(rectangle);
+        widget_2.addNodes(rectangle);
     }
 
     @Override

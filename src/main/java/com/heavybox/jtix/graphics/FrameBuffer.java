@@ -70,7 +70,7 @@ public class FrameBuffer implements MemoryResource {
     }
 
     public void setRenderTargets(final String ...targets) {
-        if (!Graphics.isFrameBufferBound(this)) throw new GraphicsException("FrameBuffer must be bound when calling setRenderTargets. Bind a FrameBuffer using FrameBufferBinder.bind(frameBuffer)");
+        if (!Graphics.frameBufferIsBound(this)) throw new GraphicsException("FrameBuffer must be bound when calling setRenderTargets. Bind a FrameBuffer using FrameBufferBinder.bind(frameBuffer)");
         activeAttachments.clear();
         for (String target : targets) {
             int index = colorAttachmentsMap.get(target).getGLAttachmentIndex();

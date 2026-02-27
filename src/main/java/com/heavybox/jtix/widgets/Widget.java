@@ -24,33 +24,25 @@ public class Widget implements InputLayer {
         // maybe register itself as input layer.
     }
 
-    public final void addNodes(final WidgetNode... nodes) {
+    public final void addNodes(final WidgetNode ...nodes) {
         for (WidgetNode node : nodes) {
             if (node == null) throw new WidgetsException("node must not be null.");
             if (node.hasParent()) throw new WidgetsException("Only ROOT Nodes go inside a Widget. Node " + node + " already has a parent.");
-            if (this.nodes.contains(node, true)) throw new WidgetsException("Widget already contains Node node.");
+            if (this.nodes.contains(node, true)) throw new WidgetsException("Widget already contains Node " + node);
 
             this.nodes.add(node);
             node.setWidget(this);
         }
     }
 
-    @Deprecated
-    public final void addNode(final WidgetNode node) {
-        if (node == null) throw new WidgetsException("node must not be null.");
-        if (node.hasParent()) throw new WidgetsException("Only ROOT Nodes go inside a Widget. Node " + node + " already has a parent.");
-        if (nodes.contains(node, true)) throw new WidgetsException("Widget already contains Node node.");
+    public final void removeNodes(final WidgetNode ...nodes) {
+        for (WidgetNode node : nodes) {
+            if (node == null) throw new WidgetsException("node must not be null.");
+            if (!this.nodes.contains(node, true)) throw new WidgetsException("Node node is not directly contained in the Widget.");
 
-        nodes.add(node);
-        node.setWidget(this);
-    }
-
-    public final void removeNode(final WidgetNode node) {
-        if (node == null) throw new WidgetsException("node must not be null.");
-        if (!nodes.contains(node, true)) throw new WidgetsException("Node node is not directly contained in the Widget.");
-
-        nodes.removeValue(node, true);
-        node.setWidget(null);
+            this.nodes.removeValue(node, true);
+            node.setWidget(null);
+        }
     }
 
     public final void show() {

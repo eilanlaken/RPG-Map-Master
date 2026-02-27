@@ -2173,20 +2173,20 @@ public class Renderer2D implements MemoryResourceHolder {
         }
     }
 
-    public void drawPolygonThin(float[] polygon, int[] triangles, float x, float y, float degrees, float scaleX, float scaleY) {
+    public void drawPolygonThin(final ArrayFloat polygon, final ArrayInt triangles, float x, float y, float degrees, float scaleX, float scaleY) {
         if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
-        if (polygon.length < 6) throw new GraphicsException("A polygon requires a minimum of 3 vertices, so the polygon array must be of length > 6. Got: " + polygon.length);
-        if (polygon.length % 2 != 0) throw new GraphicsException("Polygon must be represented as a flat array of vertices, each vertex must have x and y coordinates: [x0,y0,  x1,y1, ...]. Therefore, polygon array length must be even.");
+        if (polygon.size < 6) throw new GraphicsException("A polygon requires a minimum of 3 vertices, so the polygon array must be of length > 6. Got: " + polygon.size);
+        if (polygon.size % 2 != 0) throw new GraphicsException("Polygon must be represented as a flat array of vertices, each vertex must have x and y coordinates: [x0,y0,  x1,y1, ...]. Therefore, polygon array length must be even.");
 
-        int count = polygon.length / 2;
+        int count = polygon.size / 2;
         if (!ensureCapacity(count, count * 6)) flush();
 
         setMode(GL11.GL_LINES);
 
         Vector2 vertex = vectors2Pool.allocate();
-        for (int i = 0; i < polygon.length; i += 2) {
-            float poly_x = polygon[i];
-            float poly_y = polygon[i + 1];
+        for (int i = 0; i < polygon.size; i += 2) {
+            float poly_x = polygon.get(i);
+            float poly_y = polygon.get(i + 1);
             float u = 0.5f + (poly_x * currentTexture.invWidth * pixelScaleWidth);
             float v = 0.5f - (poly_y * currentTexture.invHeight * pixelScaleHeight);
             textCoords.put(u).put(v);
@@ -2201,15 +2201,15 @@ public class Renderer2D implements MemoryResourceHolder {
         }
 
         int startVertex = this.vertexIndex;
-        for (int i = 0; i < triangles.length - 2; i += 3) {
-            indices.put(startVertex + triangles[i + 0]);
-            indices.put(startVertex + triangles[i + 1]);
-            indices.put(startVertex + triangles[i + 1]);
-            indices.put(startVertex + triangles[i + 2]);
-            indices.put(startVertex + triangles[i + 2]);
-            indices.put(startVertex + triangles[i + 0]);
+        for (int i = 0; i < triangles.size - 2; i += 3) {
+            indices.put(startVertex + triangles.get(i + 0));
+            indices.put(startVertex + triangles.get(i + 1));
+            indices.put(startVertex + triangles.get(i + 1));
+            indices.put(startVertex + triangles.get(i + 2));
+            indices.put(startVertex + triangles.get(i + 2));
+            indices.put(startVertex + triangles.get(i + 0));
         }
-        vertexIndex += polygon.length / 2;
+        vertexIndex += polygon.size / 2;
 
         vectors2Pool.free(vertex);
     }

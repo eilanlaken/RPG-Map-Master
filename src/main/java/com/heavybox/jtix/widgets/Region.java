@@ -7,7 +7,8 @@ import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Transform2D;
 import com.heavybox.jtix.math.Vector2;
 
-// TODO: use Shape2D from math?
+// TODO: try to replace with Shape2D
+@Deprecated
 public final class Region {
 
     private final ArrayFloat points = new ArrayFloat(true, 8);

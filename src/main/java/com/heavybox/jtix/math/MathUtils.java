@@ -1198,21 +1198,26 @@ public final class MathUtils {
 
     // TODO: write tests.
     // NOTE: the winding order of the polygon does not matter here.
-    public static boolean polygonContainsPoint(ArrayFloat polygon, float px, float py) {
+    public static boolean polygonContainsPoint(@NotNull final ArrayFloat polygon, float x, float y) {
         if (polygon.size < 6) throw new MathException("A polygon requires a minimum of 3 vertices, so the polygon array must be of length > 6. Got: " + polygon.size);
         if (polygon.size % 2 != 0) throw new MathException("Polygon must be represented as a flat array of vertices, each vertex must have x and y coordinates: [x0,y0,  x1,y1, ...]. Therefore, polygon array length must be even. Got: " + polygon.size);
 
-        int numVertices = polygon.size / 2;
-        boolean inside = false;
+        boolean result = false;
+        int n = polygon.size / 2;
 
-        for (int i = 0, j = numVertices - 1; i < numVertices; j = i++) {
-            float xi = polygon.get(2 * i), yi = polygon.get(2 * i + 1);
-            float xj = polygon.get(2 * j), yj = polygon.get(2 * j + 1);
-            boolean intersect = ((yi > py) != (yj > py)) && (px < (xj - xi) * (py - yi) / (yj - yi) + xi);
-            if (intersect) inside = !inside;
+        int j = n - 1;
+        for (int i = 0; i < n; j = i++) {
+            float xi = polygon.get(2 * i);
+            float yi = polygon.get(2 * i + 1);
+            float xj = polygon.get(2 * j);
+            float yj = polygon.get(2 * j + 1);
+
+            boolean intersect = ((yi > y) != (yj > y)) &&
+                    (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+            if (intersect) result = !result;
         }
 
-        return inside;
+        return result;
     }
 
     /*** GEOMETRY - curves ***/

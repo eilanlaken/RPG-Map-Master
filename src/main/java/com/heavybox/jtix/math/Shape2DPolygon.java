@@ -30,26 +30,6 @@ public class Shape2DPolygon implements Shape2D {
         return MathUtils.polygonContainsPoint(points, x, y);
     }
 
-    @Override
-    public boolean containsPoint(float x, float y, Transform2D t) {
-        float dx = x - t.x;
-        float dy = y - t.y;
-
-        // 2. inverse rotate
-        float rad = (float) Math.toRadians(-t.deg);
-        float cos = (float) Math.cos(rad);
-        float sin = (float) Math.sin(rad);
-        float lx = dx * cos - dy * sin;
-        float ly = dx * sin + dy * cos;
-
-        // 3. inverse scale
-        lx /= t.sclX;
-        ly /= t.sclY;
-
-        // 4. test polygon in local space
-        return MathUtils.polygonContainsPoint(this.points, lx, ly);
-    }
-
     public void getVertex(int i, @NotNull Vector2 out) {
         if (i < 0 || i >= this.points.size / 2) throw new MathException("Index i: " + i + " out of bounds. Polygon " + this + " contains " + this.points.size / 2 + " vertices");
 
@@ -105,7 +85,7 @@ public class Shape2DPolygon implements Shape2D {
     }
 
     @Override
-    public void centroid(Vector2 out) {
+    public void centerOfMass(Vector2 out) {
         if (dirty) recalculateMetrics();
         out.set(centroid.x, centroid.y);
     }
