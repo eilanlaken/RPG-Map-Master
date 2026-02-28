@@ -207,12 +207,9 @@ public class FrameBuffer implements MemoryResource {
         GL30.glDeleteRenderbuffers(depthStencilRBO);
     }
 
-    // TODO: test
     public void bind() {
         Graphics.bindFrameBuffer(this);
     }
-
-    // TODO: test
     public static void bind(@Nullable FrameBuffer frameBuffer) {
         Graphics.bindFrameBuffer(frameBuffer);
     }

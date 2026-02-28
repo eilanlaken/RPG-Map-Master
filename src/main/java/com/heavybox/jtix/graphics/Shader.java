@@ -324,8 +324,8 @@ public final class Shader implements MemoryResource {
     }
 
     void bind() { Graphics.bindShader(this); }
-
     void unbind() { Graphics.unbindShader(this); }
+    boolean isBound() { return Graphics.isBound(this); }
 
     /* NOTE: before binding any uniform, the shader itself must be bound */
     boolean bindUniforms(final HashMap<String, Object> uniforms) {

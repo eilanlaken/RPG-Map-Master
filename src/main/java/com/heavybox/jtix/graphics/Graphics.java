@@ -246,6 +246,10 @@ public final class Graphics {
         bindShader(null);
     }
 
+    static boolean isBound(@NotNull Shader shader) {
+        return boundShaderProgram == shader.program;
+    }
+
     public static int getMaxShaderAttributes() {
         return GL11.glGetInteger(GL20.GL_MAX_VERTEX_ATTRIBS);
     }
