@@ -2,6 +2,7 @@ package com.heavybox.jtix.graphics;
 
 import com.heavybox.jtix.application.Application;
 import com.heavybox.jtix.application.ApplicationException;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.PointerBuffer;
@@ -182,6 +183,10 @@ public final class Graphics {
         return Application.getWindowWidth();
     }
 
+    public static float getWindowAspectRatio() {
+        return getWindowWidth() / (float) getWindowHeight();
+    }
+
     public static float getMonitorAspectRatio() {
         return getMonitorWidth() / (float) getMonitorHeight();
     }
@@ -194,28 +199,58 @@ public final class Graphics {
         return GL11.glGetInteger(GL20.GL_MAX_ELEMENTS_INDICES);
     }
 
-    public static float getWindowAspectRatio() {
-        return getWindowWidth() / (float) getWindowHeight();
-    }
-
-    // TODO: test
     public static void enableVSync() {
         int refreshRate = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor()).refreshRate();
         setTargetFps(refreshRate);
         Application.enableVSync();
     }
 
-    // TODO: test
     public static void disableVSync() {
         GLFW.glfwSwapInterval(1);
         setTargetFps(prevTargetFps); // restore target refresh rate before vsync.
         Application.disableVSync();
     }
 
-    // TODO: test
     public static boolean isVSyncEnabled() {
         return Application.isVSyncEnabled();
     }
+
+    public static int getMaxMSAA() {
+        IntBuffer intBuffer = BufferUtils.createIntBuffer(1);
+        GL11.glGetIntegerv(GL30.GL_MAX_SAMPLES, intBuffer);
+        return intBuffer.get(0);
+    }
+
+    public static float getMaxLineWidth() {
+        float[] lineWidth = new float[2];
+        GL11.glGetFloatv(GL11.GL_LINE_WIDTH_RANGE, lineWidth);
+        return lineWidth[1];
+    }
+
+    /* SHADERS */
+
+    static void bindShader(@Nullable Shader shader) {
+        if (shader == null) {
+            GL20.glUseProgram(0);
+            boundShaderProgram = -1;
+            return;
+        }
+
+        if (boundShaderProgram == shader.program) return;
+        GL20.glUseProgram(shader.program);
+        boundShaderProgram = shader.program;
+    }
+
+    static void unbindShader(@NotNull Shader shader) {
+        if (boundShaderProgram != shader.program) return; // program was not bound to begin with
+        bindShader(null);
+    }
+
+    public static int getMaxShaderAttributes() {
+        return GL11.glGetInteger(GL20.GL_MAX_VERTEX_ATTRIBS);
+    }
+
+    /* Textures */
 
     public static int getMaxFragmentShaderTextureUnits() {
         IntBuffer intBuffer = BufferUtils.createIntBuffer(1);
@@ -239,16 +274,6 @@ public final class Graphics {
         return anisotropicFilteringSupported == 1;
     }
 
-    public static int getMaxMSAA() {
-        IntBuffer intBuffer = BufferUtils.createIntBuffer(1);
-        GL11.glGetIntegerv(GL30.GL_MAX_SAMPLES, intBuffer);
-        return intBuffer.get(0);
-    }
-
-    public static int getMaxShaderAttributes() {
-        return GL11.glGetInteger(GL20.GL_MAX_VERTEX_ATTRIBS);
-    }
-
     public static int getMaxAnisotropy() {
         if (maxAnisotropy > 0) return maxAnisotropy;
 
@@ -264,14 +289,6 @@ public final class Graphics {
 
         return maxAnisotropy;
     }
-
-    public static float getMaxLineWidth() {
-        float[] lineWidth = new float[2];
-        GL11.glGetFloatv(GL11.GL_LINE_WIDTH_RANGE, lineWidth);
-        return lineWidth[1];
-    }
-
-    /* Textures */
 
     public static Texture getTextureSingleWhitePixel() {
         if (singleWhitePixel != null) return singleWhitePixel;
@@ -337,9 +354,7 @@ public final class Graphics {
         return singleNormalMapPixel;
     }
 
-    /* set cursor */
-
-    // create cursors
+    /* CURSOR */
 
     public static void setCursorDefault() {
         GLFW.glfwSetInputMode(Application.getWindowHandle(), GLFW.GLFW_CURSOR, GLFW.GLFW_CURSOR_NORMAL);
@@ -438,31 +453,6 @@ public final class Graphics {
         }
     }
 
-    public static void cleanup() {
-        /* destroy cursors */
-        if (cursorText != -1) GLFW.glfwDestroyCursor(cursorText);
-        if (cursorPointer != -1) GLFW.glfwDestroyCursor(cursorPointer);
-        if (cursorCross != -1) GLFW.glfwDestroyCursor(cursorCross);
-        if (cursorHorizontalResize != -1) GLFW.glfwDestroyCursor(cursorHorizontalResize);
-        if (cursorVerticalResize != -1) GLFW.glfwDestroyCursor(cursorVerticalResize);
-
-        if (cursorPointingHand != -1) GLFW.glfwDestroyCursor(cursorPointingHand);
-        if (cursorNotAllowed != -1) GLFW.glfwDestroyCursor(cursorNotAllowed);
-        if (cursorResizeNESW != -1) GLFW.glfwDestroyCursor(cursorResizeNESW);
-        if (cursorResizeNWSE != -1) GLFW.glfwDestroyCursor(cursorResizeNWSE);
-        if (cursorResizeAll != -1) GLFW.glfwDestroyCursor(cursorResizeAll);
-
-        if (singleWhitePixel != null) singleWhitePixel.delete();
-        if (singleTransparentPixel != null) singleTransparentPixel.delete();
-        if (singleBlackPixel != null) singleBlackPixel.delete();
-        if (singleNormalMapPixel != null) singleNormalMapPixel.delete();
-
-        for (Map.Entry<String, Long> cursorEntry : customCursors.entrySet()) {
-            long cursor = cursorEntry.getValue();
-            GLFW.glfwDestroyCursor(cursor);
-        }
-    }
-
     /* FreeType */
 
     public static long getFreeType() {
@@ -475,7 +465,7 @@ public final class Graphics {
 
     /* FrameBuffer bindings */
 
-    public static void bindFrameBufferScreen() {
+    public static void bindFrameBufferDefault() {
         bindFrameBuffer(null);
     }
 
@@ -501,6 +491,33 @@ public final class Graphics {
 
     static boolean frameBufferIsBound(final FrameBuffer frameBuffer) {
         return boundFrameBuffer == frameBuffer;
+    }
+
+    /* CLEANUP */
+
+    public static void cleanup() {
+        /* destroy cursors */
+        if (cursorText != -1) GLFW.glfwDestroyCursor(cursorText);
+        if (cursorPointer != -1) GLFW.glfwDestroyCursor(cursorPointer);
+        if (cursorCross != -1) GLFW.glfwDestroyCursor(cursorCross);
+        if (cursorHorizontalResize != -1) GLFW.glfwDestroyCursor(cursorHorizontalResize);
+        if (cursorVerticalResize != -1) GLFW.glfwDestroyCursor(cursorVerticalResize);
+
+        if (cursorPointingHand != -1) GLFW.glfwDestroyCursor(cursorPointingHand);
+        if (cursorNotAllowed != -1) GLFW.glfwDestroyCursor(cursorNotAllowed);
+        if (cursorResizeNESW != -1) GLFW.glfwDestroyCursor(cursorResizeNESW);
+        if (cursorResizeNWSE != -1) GLFW.glfwDestroyCursor(cursorResizeNWSE);
+        if (cursorResizeAll != -1) GLFW.glfwDestroyCursor(cursorResizeAll);
+
+        if (singleWhitePixel != null) singleWhitePixel.delete();
+        if (singleTransparentPixel != null) singleTransparentPixel.delete();
+        if (singleBlackPixel != null) singleBlackPixel.delete();
+        if (singleNormalMapPixel != null) singleNormalMapPixel.delete();
+
+        for (Map.Entry<String, Long> cursorEntry : customCursors.entrySet()) {
+            long cursor = cursorEntry.getValue();
+            GLFW.glfwDestroyCursor(cursor);
+        }
     }
 
 }

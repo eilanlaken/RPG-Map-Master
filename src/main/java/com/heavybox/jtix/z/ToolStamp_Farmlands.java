@@ -40,7 +40,6 @@ public class ToolStamp_Farmlands extends Tool {
     public void update(float delta) {
         // inputs
         boolean backspaceJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.BACKSPACE);
-        boolean mouseMoved = Input.mouse.moved();
         boolean pJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.P);
         boolean leftClicked = Input.mouse.isButtonClicked(Mouse.Button.LEFT);
 

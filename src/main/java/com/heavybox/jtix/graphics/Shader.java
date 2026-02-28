@@ -323,12 +323,9 @@ public final class Shader implements MemoryResource {
         return uniformsCache.get(location);
     }
 
-    public boolean bind() {
-        if (Graphics.boundShaderProgram == this.program) return false;
-        GL20.glUseProgram(this.program);
-        Graphics.boundShaderProgram = this.program;
-        return true;
-    }
+    void bind() { Graphics.bindShader(this); }
+
+    void unbind() { Graphics.unbindShader(this); }
 
     /* NOTE: before binding any uniform, the shader itself must be bound */
     boolean bindUniforms(final HashMap<String, Object> uniforms) {
@@ -494,7 +491,8 @@ public final class Shader implements MemoryResource {
     @Override
     public void delete() {
         if (deleted) return;
-        GL20.glUseProgram(0);
+
+        unbind();
         GL20.glDeleteProgram(vertexShaderId);
         if (geometryShaderId != -1) GL20.glDeleteProgram(geometryShaderId);
         GL20.glDeleteProgram(fragmentShaderId);

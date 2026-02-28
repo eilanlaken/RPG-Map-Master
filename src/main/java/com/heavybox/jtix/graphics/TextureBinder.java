@@ -8,11 +8,7 @@ import java.nio.IntBuffer;
 
 /*
 TODO:
-should this stay?
-move to Texture.java?
-move to Graphics.java?
-probable resolution: move entire logic to Graphics.java and add bind() and unbind() methods to Texture.
-Another option is to simply leave as is.
+Move entire logic to Graphics.java and add bind() and unbind() methods to Texture.
  */
 public final class TextureBinder {
 

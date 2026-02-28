@@ -66,7 +66,7 @@ public class FrameBuffer implements MemoryResource {
         if (GL30.glCheckFramebufferStatus(GL30.GL_FRAMEBUFFER) != GL30.GL_FRAMEBUFFER_COMPLETE) {
             throw new GraphicsException("Could not create FrameBuffer. Error: " + "TODO.");
         }
-        Graphics.bindFrameBufferScreen();
+        Graphics.bindFrameBufferDefault();
     }
 
     public void setRenderTargets(final String ...targets) {
@@ -108,7 +108,7 @@ public class FrameBuffer implements MemoryResource {
             throw new GraphicsException("Could not create FrameBuffer. Error: " + "TODO.");
         }
 
-        Graphics.bindFrameBufferScreen();
+        Graphics.bindFrameBufferDefault();
     }
 
     public FrameBuffer(int width, int height, boolean texturesDepth) {
@@ -145,7 +145,7 @@ public class FrameBuffer implements MemoryResource {
             throw new GraphicsException("Could not create FrameBuffer. Error: " + "TODO.");
         }
 
-        Graphics.bindFrameBufferScreen();
+        Graphics.bindFrameBufferDefault();
     }
 
     // TODO: standardize "all args" constructor.
@@ -179,7 +179,7 @@ public class FrameBuffer implements MemoryResource {
             throw new GraphicsException("Could not create FrameBuffer. Error: " + "TODO.");
         }
 
-        Graphics.bindFrameBufferScreen();
+        Graphics.bindFrameBufferDefault();
     }
 
     public int getHandle() {
