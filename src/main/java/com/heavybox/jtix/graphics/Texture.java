@@ -263,16 +263,11 @@ public class Texture implements MemoryResource {
         STBImage.stbi_image_free(buffer);
     }
 
-    void setSlot  (final int slot) { this.slot = slot; }
-    int  getSlot  ()               { return slot; }
-    int  getHandle()               { return handle; }
-
-    public int   getAnisotropy() {
-        return anisotropy;
-    }
-    public float getBiasLOD   () {
-        return biasLOD;
-    }
+    final void         setSlot      (final int slot) { this.slot = slot; }
+    final int          getSlot      ()               { return slot; }
+    final int          getHandle    ()               { return handle; }
+    public final int   getAnisotropy()               { return anisotropy; }
+    public final float getBiasLOD   ()               { return biasLOD; }
 
     public Color getPixelColor(int x, int y) {
         if (x < 0 || x >= width || y < 0 || y >= height) throw new IndexOutOfBoundsException("Trying to read out of bounds pixel: (" + x + ", " + y + ") of " + Texture.class.getSimpleName() + " with dimensions: " + "(" + width + ", " + height + ")");

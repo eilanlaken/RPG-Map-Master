@@ -9,6 +9,10 @@ import java.nio.IntBuffer;
 /*
 TODO:
 Move entire logic to Graphics.java and add bind() and unbind() methods to Texture.
+Remove TextureBinder.java
+Change Texture -> Texture2D
+change TexturePack -> Texture2DPack
+change TextureRegion -> Texture2DPack.Region
  */
 public final class TextureBinder {
 
