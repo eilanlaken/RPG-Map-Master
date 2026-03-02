@@ -3003,8 +3003,6 @@ public class Renderer2D implements MemoryResourceHolder {
         drawStringLine(line, size, antialiasing, 0, line.length(),0, 0, x, y, deg, sclX, sclY);
     }
 
-    // TODO: serious bug here.
-    // TODO: text rendering is impossible ATM.
     public void drawStringLine(final String line, int size, boolean antialiasing, int startIndex, int endIndex, float offsetX, float offsetY, float x, float y, float deg, float sclX, float sclY) {
         if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
         flush();
