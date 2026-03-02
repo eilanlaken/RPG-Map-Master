@@ -104,7 +104,7 @@ public class ToolStamp_Architecture extends Tool {
     }
 
     public Type type = Type.ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT;
-    public Style style = Style.HUMAN;
+    public Race race = Race.HUMAN;
     public boolean singles = false;
     public boolean development = false;
 
@@ -122,10 +122,11 @@ public class ToolStamp_Architecture extends Tool {
         super(scene);
         atlas = Assets.get("assets/texture-packs/layer_3.yml");
 
-//        sclX = 1f / 5;
-//        sclY = 1f / 5;
+        sclX = 1f / 5;
+        sclY = 1f / 5;
 
-
+        shape = Shape.POINT;
+        mode = Mode.ADD;
 
         toolOverlayDevCurrentRegion = getToolOverlayCurrentRegion();
     }
@@ -144,9 +145,11 @@ public class ToolStamp_Architecture extends Tool {
         boolean dPressed = Input.keyboard.isKeyPressed(Keyboard.Key.D);
         boolean wPressed = Input.keyboard.isKeyPressed(Keyboard.Key.W);
         boolean tabJustPressed = Input.keyboard.isKeyJustReleased(Keyboard.Key.TAB);
+        boolean shitJustPressed = Input.keyboard.isKeyJustReleased(Keyboard.Key.LEFT_SHIFT);
+        boolean backspaceJustPressed = Input.keyboard.isKeyJustReleased(Keyboard.Key.BACKSPACE);
         float mouseDy = Input.mouse.getYDelta();
 
-        // tool settings
+        // tool settings - transform
         if (qPressed) {
             deg += 180 * Graphics.getDeltaTime();
         }
@@ -161,70 +164,104 @@ public class ToolStamp_Architecture extends Tool {
             sclX *= 1.00f - 0.8f * Graphics.getDeltaTime();
             sclY *= 1.00f - 0.8f * Graphics.getDeltaTime();
         }
+
+        // tool settings - parameters
+        if (backspaceJustPressed) {
+            mode = Collections.enumNext(mode);
+            onSetParameter();
+            return;
+        }
+        if (shitJustPressed) {
+            shape = Collections.enumNext(shape);
+            onSetParameter();
+            return;
+        }
         if (rightButtonClicked) {
-            sclX *= -1;
+            type = type.getNextView();
+            onSetParameter();
+            return;
+        }
+        if (verticalScroll > 0) {
+            race = Collections.enumNext(race);
+            onSetParameter();
+            return;
+        } else if (verticalScroll < 0) {
+            race = Collections.enumPrev(race);
+            onSetParameter();
+            return;
         }
 
         if (!development) {
-            if (leftButtonClicked) {
-                Block[] blocks = getCurrentBundleBlocks();
-                for (Block block : blocks) {
-                    Vector2 offset = new Vector2(block.x, block.y);
-                    offset.rotateDeg(deg);
-                    offset.scl(sclX, sclY);
-                    CommandTokenCreate cmd = new CommandTokenCreate(3, x + offset.x, y + offset.y, block.deg + deg, block.flipped ? -sclX : sclX, sclY, false, getBlockRegion(block));
-                    cmd.tokenType = type;
-                    map.addCommand(cmd);
-                    //bundleTopViewIndex = MathUtils.randomUniformInt(0, BUNDLES_TOP_VIEW.size);
-                    randomizeIndex();
+            if (mode == Mode.SUB) {
+
+            }
+            else if (mode == Mode.ADD) {
+                if (leftButtonClicked) {
+                    Block[] blocks = getCurrentBundleBlocks();
+                    for (Block block : blocks) {
+                        Vector2 offset = new Vector2(block.x, block.y);
+                        offset.rotateDeg(deg);
+                        offset.scl(sclX, sclY);
+                        CommandTokenCreate cmd = new CommandTokenCreate(3, x + offset.x, y + offset.y, block.deg + deg, block.flipped ? -sclX : sclX, sclY, false, getBlockRegion(block));
+                        cmd.tokenType = type;
+                        map.addCommand(cmd);
+                        randomizeIndex();
+                    }
                 }
             }
 
+
+            return;
         }
 
-        // actions
-        if (development) {
-
-            if (zJustPressed) {
-                dev_nextRegion();
-            } else if (xJustPressed) {
-                dev_prevRegion();
+        // development
+        if (zJustPressed) {
+            dev_nextRegion();
+        } else if (xJustPressed) {
+            dev_prevRegion();
+        }
+        if (leftButtonClicked) {
+            Block block = new Block();
+            block.type = type;
+            block.x = x;
+            block.y = y;
+            block.deg = deg;
+            block.sclX = this.sclX;
+            block.sclY = this.sclY;
+            block.region = getToolOverlayCurrentRegion();
+            toolOverlayDevBlocks.add(block);
+        }
+        if (enterClicked && !toolOverlayDevBlocks.isEmpty()) {
+            Array<Block> blocks = new Array<>();
+            blocks.addAll(this.toolOverlayDevBlocks);
+            blocks.sort(Comparator.comparingInt(o -> -(int) o.y));
+            // calculate center of mass
+            Vector2 cm = new Vector2();
+            for (Block block : blocks) {
+                cm.add(block.x, block.y);
             }
-            if (leftButtonClicked) {
-                Block block = new Block();
-                block.type = type;
-                block.x = x;
-                block.y = y;
-                block.deg = deg;
-                block.sclX = this.sclX;
-                block.sclY = this.sclY;
-                block.region = getToolOverlayCurrentRegion();
-                toolOverlayDevBlocks.add(block);
+            cm.scl(1f / blocks.size);
+            final String prefix = blocks.first().type.name().split("_")[0];
+            System.out.println("<bundle prefix=\"" + prefix + "\">");
+            for (Block block : blocks) {
+                System.out.println("\t" + "<block type=\"" + block.type.name() + "\" flipped=\"" + (block.sclX < 0) + "\" x=\"" + (block.x - cm.x) + "\" y=\"" + (block.y - cm.y) + "\" deg=\"" + block.deg + "\"/>");
             }
-            if (enterClicked && !toolOverlayDevBlocks.isEmpty()) {
-                Array<Block> blocks = new Array<>();
-                blocks.addAll(this.toolOverlayDevBlocks);
-                blocks.sort(Comparator.comparingInt(o -> -(int) o.y));
-                // calculate center of mass
-                Vector2 cm = new Vector2();
-                for (Block block : blocks) {
-                    cm.add(block.x, block.y);
-                }
-                cm.scl(1f / blocks.size);
-                final String prefix = blocks.first().type.name().split("_")[0];
-                System.out.println("<bundle prefix=\"" + prefix + "\">");
-                for (Block block : blocks) {
-                    System.out.println("\t" + "<block type=\"" + block.type.name() + "\" flipped=\"" + (block.sclX < 0) + "\" x=\"" + (block.x - cm.x) + "\" y=\"" + (block.y - cm.y) + "\" deg=\"" + block.deg + "\"/>");
-                }
-                System.out.println("</bundle>");
-            }
+            System.out.println("</bundle>");
         }
     }
 
     @Override
+    protected void onSetParameter() {
+
+    }
+
+    @Override
     public String getHelperText() {
-        return super.getHelperText() +
-                "";
+        return super.getHelperText() + " |" +
+                " Shape: " + shape + " (SHIFT) | " +
+                " Race: " + race + " (scroll) | " +
+                " View: " + type.getView() + " (V) | "
+                ;
     }
 
     @Override
@@ -234,14 +271,37 @@ public class ToolStamp_Architecture extends Tool {
 
     @Override
     public void renderToolOverlay(Renderer2D renderer2D, float x, float y) {
-
+        // internal development tool
         if (development) {
-            renderer2D.setColor(Color.WHITE);
-            renderer2D.drawTextureRegion(toolOverlayDevCurrentRegion, x, y, deg, this.sclX, this.sclY);
-            toolOverlayDevBlocks.sort(Comparator.comparingInt(o -> -(int) o.y));
-            for (Block block : toolOverlayDevBlocks) {
-                renderer2D.drawTextureRegion(block.region, block.x, block.y, block.deg, block.sclX, block.sclY);
-            }
+            render_tool_overlay_dev(renderer2D);
+            return;
+        }
+
+        // delete architecture tool
+        if (mode == Mode.SUB) {
+            renderer2D.setColor(Color.RED);
+            renderer2D.drawCircleFilled(8, 10, x, y, 0, 1, 1);
+            return;
+        }
+
+        // not development
+        if (shape == Shape.POINT) {
+
+            return;
+        }
+
+        if (shape == Shape.CIRCLE) {
+
+            return;
+        }
+
+        if (shape == Shape.LINE) {
+
+            return;
+        }
+
+        if (shape == Shape.POLYGON) {
+
             return;
         }
 
@@ -253,6 +313,15 @@ public class ToolStamp_Architecture extends Tool {
                 toBlock.rotateDeg(deg);
                 renderer2D.drawTextureRegion(getToolOverlayBlockRegion(block), x + toBlock.x, y + toBlock.y, block.deg + deg, block.flipped ? -sclX : sclX, sclY);
             }
+        }
+    }
+
+    private void render_tool_overlay_dev(Renderer2D renderer2D) {
+        renderer2D.setColor(Color.WHITE);
+        renderer2D.drawTextureRegion(toolOverlayDevCurrentRegion, x, y, deg, this.sclX, this.sclY);
+        toolOverlayDevBlocks.sort(Comparator.comparingInt(o -> -(int) o.y));
+        for (Block block : toolOverlayDevBlocks) {
+            renderer2D.drawTextureRegion(block.region, block.x, block.y, block.deg, block.sclX, block.sclY);
         }
     }
 
@@ -281,17 +350,17 @@ public class ToolStamp_Architecture extends Tool {
     }
 
     private TextureRegion getToolOverlayCurrentRegion() {
-        final String regionName = "assets/textures-layer-3/architecture_" + style.name().toLowerCase() + "_" + type.name().toLowerCase() + "_0.png";
+        final String regionName = "assets/textures-layer-3/architecture_" + race.name().toLowerCase() + "_" + type.name().toLowerCase() + "_0.png";
         return atlas.getRegion(regionName);
     }
 
     private TextureRegion getBlockRegion(Block block) {
-        final String regionName = "assets/textures-layer-3/architecture_" + style.name().toLowerCase() + "_" + block.type.name().toLowerCase() + "_" + MathUtils.randomUniformInt(0,6) + ".png";
+        final String regionName = "assets/textures-layer-3/architecture_" + race.name().toLowerCase() + "_" + block.type.name().toLowerCase() + "_" + MathUtils.randomUniformInt(0,6) + ".png";
         return atlas.getRegion(regionName);
     }
 
     private TextureRegion getToolOverlayBlockRegion(Block block) {
-        final String regionName = "assets/textures-layer-3/architecture_" + style.name().toLowerCase() + "_" + block.type.name().toLowerCase() + "_0.png";
+        final String regionName = "assets/textures-layer-3/architecture_" + race.name().toLowerCase() + "_" + block.type.name().toLowerCase() + "_0.png";
         return atlas.getRegion(regionName);
     }
 
@@ -352,6 +421,14 @@ public class ToolStamp_Architecture extends Tool {
         ISOMETRIC_VIEW_WALL_FRONT,
         ;
 
+        public Type getNextView() {
+            final String prefix = this.name().split("_")[0];
+            Type next = Collections.enumNext(this);
+            while (next.name().startsWith(prefix))
+                next = Collections.enumNext(next);
+            return next;
+        }
+
         public Type getNextOfTheSamePrefix() {
             final String prefix = this.name().split("_")[0];
             Type next = Collections.enumNext(this);
@@ -367,9 +444,17 @@ public class ToolStamp_Architecture extends Tool {
                 prev = Collections.enumPrev(prev);
             return prev;
         }
+
+        public String getView() {
+            if (name().startsWith("TOP")) return "TOP";
+            if (name().startsWith("SIDE")) return "SIDE";
+            if (name().startsWith("ISOMETRIC")) return "ISOMETRIC";
+            return null;
+        }
+
     }
 
-    public enum Style {
+    public enum Race {
         HUMAN,
         ELF,
         DWARF,
