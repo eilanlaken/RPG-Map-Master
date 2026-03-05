@@ -18,8 +18,8 @@ import org.lwjgl.opengl.GL11;
 // https://www.youtube.com/watch?v=5gDC1GU3Ivg
 public class SceneDemo implements Scene, RPGMapMakerScene {
 
-    public static int width = 2048;
-    public static int height = 2048;
+    public static int width = 4096;
+    public static int height = 4096;
 
     private final Renderer2D renderer2D;
     public final Camera camera = new Camera(Camera.Mode.ORTHOGRAPHIC, Graphics.getWindowWidth(), Graphics.getWindowHeight(), 2, 0, 100, 75);
@@ -88,7 +88,7 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
 
         Assets.finishLoading();
 
-        map = new Map(2048, 2048);
+        map = new Map(width, height);
 
         // user - interface
         /*

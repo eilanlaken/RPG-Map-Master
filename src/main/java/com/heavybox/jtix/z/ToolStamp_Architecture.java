@@ -118,12 +118,19 @@ public class ToolStamp_Architecture extends Tool {
     private int bundleIsometricViewIndex = MathUtils.randomUniformInt(0, BUNDLES_ISOMETRIC_VIEW.size);
     private int bundleSideViewIndex = MathUtils.randomUniformInt(0, Math.max(1, BUNDLES_SIDE_VIEW.size));
 
+    public StampMode stampMode = StampMode.POINT_SINGLE_SIDE_VIEW;
+
+    // point side view singles
+    private final Block sideViewCurrentBlock = new Block();
+    private int sideViewIndex = MathUtils.randomUniformInt(0,6);
+    private Type sideViewType = Type.SIDE_VIEW_BLOCK;
+
     public ToolStamp_Architecture(final RPGMapMakerScene scene) {
         super(scene);
         atlas = Assets.get("assets/texture-packs/layer_3.yml");
 
-        sclX = 1f / 5;
-        sclY = 1f / 5;
+//        sclX = 1f / 5;
+//        sclY = 1f / 5;
 
         shape = Shape.POINT;
         mode = Mode.ADD;
@@ -145,8 +152,13 @@ public class ToolStamp_Architecture extends Tool {
         boolean dPressed = Input.keyboard.isKeyPressed(Keyboard.Key.D);
         boolean wPressed = Input.keyboard.isKeyPressed(Keyboard.Key.W);
         boolean tabJustPressed = Input.keyboard.isKeyJustReleased(Keyboard.Key.TAB);
-        boolean shitJustPressed = Input.keyboard.isKeyJustReleased(Keyboard.Key.LEFT_SHIFT);
+        boolean leftShiftJustPressed = Input.keyboard.isKeyJustReleased(Keyboard.Key.LEFT_SHIFT);
+        boolean rightShiftJustPressed = Input.keyboard.isKeyJustReleased(Keyboard.Key.RIGHT_SHIFT);
         boolean backspaceJustPressed = Input.keyboard.isKeyJustReleased(Keyboard.Key.BACKSPACE);
+        boolean plusJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.EQUAL);
+        boolean minusJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.MINUS);
+        boolean nJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.N);
+        boolean mJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.M);
         float mouseDy = Input.mouse.getYDelta();
 
         // tool settings - transform
@@ -164,20 +176,28 @@ public class ToolStamp_Architecture extends Tool {
             sclX *= 1.00f - 0.8f * Graphics.getDeltaTime();
             sclY *= 1.00f - 0.8f * Graphics.getDeltaTime();
         }
+        if (tabJustPressed) {
+            sclX *= -1;
+        }
 
         // tool settings - parameters
+        if (leftShiftJustPressed) {
+            stampMode = Collections.enumNext(stampMode);
+            onSetParameter();
+            return;
+        } else if (rightShiftJustPressed) {
+            stampMode = Collections.enumPrev(stampMode);
+            onSetParameter();
+            return;
+        }
         if (backspaceJustPressed) {
             mode = Collections.enumNext(mode);
             onSetParameter();
             return;
         }
-        if (shitJustPressed) {
-            shape = Collections.enumNext(shape);
-            onSetParameter();
-            return;
-        }
         if (rightButtonClicked) {
             type = type.getNextView();
+            sideViewType = sideViewType.getNextOfTheSamePrefix();
             onSetParameter();
             return;
         }
@@ -191,63 +211,95 @@ public class ToolStamp_Architecture extends Tool {
             return;
         }
 
-        if (!development) {
-            if (mode == Mode.SUB) {
-
+        if (development) {
+            if (zJustPressed) {
+                dev_nextRegion();
+            } else if (xJustPressed) {
+                dev_prevRegion();
             }
-            else if (mode == Mode.ADD) {
-                if (leftButtonClicked) {
-                    Block[] blocks = getCurrentBundleBlocks();
-                    for (Block block : blocks) {
-                        Vector2 offset = new Vector2(block.x, block.y);
-                        offset.rotateDeg(deg);
-                        offset.scl(sclX, sclY);
-                        CommandTokenCreate cmd = new CommandTokenCreate(3, x + offset.x, y + offset.y, block.deg + deg, block.flipped ? -sclX : sclX, sclY, false, getBlockRegion(block));
-                        cmd.tokenType = type;
-                        map.addCommand(cmd);
-                        randomizeIndex();
-                    }
+            if (leftButtonClicked) {
+                Block block = new Block();
+                block.type = type;
+                block.x = x;
+                block.y = y;
+                block.deg = deg;
+                block.sclX = this.sclX;
+                block.sclY = this.sclY;
+                block.region = getToolOverlayCurrentRegion();
+                toolOverlayDevBlocks.add(block);
+            }
+            if (enterClicked && !toolOverlayDevBlocks.isEmpty()) {
+                Array<Block> blocks = new Array<>();
+                blocks.addAll(this.toolOverlayDevBlocks);
+                blocks.sort(Comparator.comparingInt(o -> -(int) o.y));
+                // calculate center of mass
+                Vector2 cm = new Vector2();
+                for (Block block : blocks) {
+                    cm.add(block.x, block.y);
                 }
+                cm.scl(1f / blocks.size);
+                final String prefix = blocks.first().type.name().split("_")[0];
+                System.out.println("<bundle prefix=\"" + prefix + "\">");
+                for (Block block : blocks) {
+                    System.out.println("\t" + "<block type=\"" + block.type.name() + "\" flipped=\"" + (block.sclX < 0) + "\" x=\"" + (block.x - cm.x) + "\" y=\"" + (block.y - cm.y) + "\" deg=\"" + block.deg + "\"/>");
+                }
+                System.out.println("</bundle>");
             }
-
 
             return;
         }
 
-        // development
-        if (zJustPressed) {
-            dev_nextRegion();
-        } else if (xJustPressed) {
-            dev_prevRegion();
+        if (mode == Mode.SUB) { // TODO: move to eraser edit tool
+
+            return;
         }
-        if (leftButtonClicked) {
-            Block block = new Block();
-            block.type = type;
-            block.x = x;
-            block.y = y;
-            block.deg = deg;
-            block.sclX = this.sclX;
-            block.sclY = this.sclY;
-            block.region = getToolOverlayCurrentRegion();
-            toolOverlayDevBlocks.add(block);
-        }
-        if (enterClicked && !toolOverlayDevBlocks.isEmpty()) {
-            Array<Block> blocks = new Array<>();
-            blocks.addAll(this.toolOverlayDevBlocks);
-            blocks.sort(Comparator.comparingInt(o -> -(int) o.y));
-            // calculate center of mass
-            Vector2 cm = new Vector2();
-            for (Block block : blocks) {
-                cm.add(block.x, block.y);
+
+        if (stampMode == StampMode.POINT_SINGLE_SIDE_VIEW) {
+            if (nJustPressed) {
+                sideViewIndex++;
+                sideViewIndex %= getRegionCount(race, sideViewType);
+                onSetParameter();
+            } else if (mJustPressed) {
+                sideViewIndex--;
+                if (sideViewIndex < 0) sideViewIndex = getRegionCount(race, sideViewType) - 1;
+                onSetParameter();
+            } else if (leftButtonClicked) {
+                Vector2 offset = new Vector2(sideViewCurrentBlock.x, sideViewCurrentBlock.y);
+                offset.rotateDeg(deg);
+                offset.scl(sclX, sclY);
+                CommandTokenCreate cmd = new CommandTokenCreate(3, x + offset.x, y + offset.y, sideViewCurrentBlock.deg + deg, sideViewCurrentBlock.flipped ? -sclX : sclX, sclY, false, getCurrentParametersRegion_pointSideView());
+                cmd.tokenType = type;
+                map.addCommand(cmd);
             }
-            cm.scl(1f / blocks.size);
-            final String prefix = blocks.first().type.name().split("_")[0];
-            System.out.println("<bundle prefix=\"" + prefix + "\">");
-            for (Block block : blocks) {
-                System.out.println("\t" + "<block type=\"" + block.type.name() + "\" flipped=\"" + (block.sclX < 0) + "\" x=\"" + (block.x - cm.x) + "\" y=\"" + (block.y - cm.y) + "\" deg=\"" + block.deg + "\"/>");
-            }
-            System.out.println("</bundle>");
         }
+
+        if (stampMode == StampMode.POINT_BUNDLE_ISOMETRIC_VIEW) {
+            if (leftButtonClicked) {
+                Block[] blocks = BUNDLES_ISOMETRIC_VIEW.get(bundleIsometricViewIndex).blocks;
+                for (Block block : blocks) {
+                    emitCreateBlockCommand(block);
+                }
+            }
+        }
+
+        if (stampMode == StampMode.POINT_BUNDLE_TOP_VIEW) {
+            if (leftButtonClicked) {
+                Block[] blocks = BUNDLES_TOP_VIEW.get(bundleTopViewIndex).blocks;
+                for (Block block : blocks) {
+                    emitCreateBlockCommand(block);
+                }
+            }
+        }
+    }
+
+    private void emitCreateBlockCommand(Block block) {
+        Vector2 offset = new Vector2(block.x, block.y);
+        offset.rotateDeg(deg);
+        offset.scl(sclX, sclY);
+        CommandTokenCreate cmd = new CommandTokenCreate(3, x + offset.x, y + offset.y, block.deg + deg, block.flipped ? -sclX : sclX, sclY, false, getBlockRegion(block));
+        cmd.tokenType = type;
+        map.addCommand(cmd);
+        randomizeIndex();
     }
 
     @Override
@@ -259,6 +311,8 @@ public class ToolStamp_Architecture extends Tool {
     public String getHelperText() {
         return super.getHelperText() + " |" +
                 " Shape: " + shape + " (SHIFT) | " +
+                " Add / Sub: " + mode + " (BACKSPACE) | " +
+                " Mode: " + stampMode + " (-+) | " +
                 " Race: " + race + " (scroll) | " +
                 " View: " + type.getView() + " (V) | "
                 ;
@@ -277,7 +331,7 @@ public class ToolStamp_Architecture extends Tool {
             return;
         }
 
-        // delete architecture tool
+        // delete architecture from the map
         if (mode == Mode.SUB) {
             renderer2D.setColor(Color.RED);
             renderer2D.drawCircleFilled(8, 10, x, y, 0, 1, 1);
@@ -285,34 +339,34 @@ public class ToolStamp_Architecture extends Tool {
         }
 
         // not development
-        if (shape == Shape.POINT) {
-
+        if (stampMode == StampMode.POINT_SINGLE_SIDE_VIEW) {
+            // current block
+            Vector2 toBlock = new Vector2(sideViewCurrentBlock.x, sideViewCurrentBlock.y);
+            toBlock.scl(sclX, sclY);
+            toBlock.rotateDeg(deg);
+            renderer2D.drawTextureRegion(getCurrentParametersRegion_pointSideView(), x + toBlock.x, y + toBlock.y, sideViewCurrentBlock.deg + deg, sideViewCurrentBlock.flipped ? -sclX : sclX, sclY);
             return;
         }
 
-        if (shape == Shape.CIRCLE) {
-
+        if (stampMode == StampMode.POINT_BUNDLE_ISOMETRIC_VIEW) {
+            renderBlocks(renderer2D);
             return;
         }
 
-        if (shape == Shape.LINE) {
-
+        if (stampMode == StampMode.POINT_BUNDLE_TOP_VIEW) {
+            renderBlocks(renderer2D);
             return;
         }
 
-        if (shape == Shape.POLYGON) {
+    }
 
-            return;
-        }
-
-        if (!singles) { // && bundles top view
-            Block[] blocks = getCurrentBundleBlocks();
-            for (Block block : blocks) {
-                Vector2 toBlock = new Vector2(block.x, block.y);
-                toBlock.scl(Math.abs(sclX), Math.abs(sclY));
-                toBlock.rotateDeg(deg);
-                renderer2D.drawTextureRegion(getToolOverlayBlockRegion(block), x + toBlock.x, y + toBlock.y, block.deg + deg, block.flipped ? -sclX : sclX, sclY);
-            }
+    private void renderBlocks(Renderer2D renderer2D) {
+        Block[] blocks = getBundleBlocks();
+        for (Block block : blocks) {
+            Vector2 toBlock = new Vector2(block.x, block.y);
+            toBlock.scl(Math.abs(sclX), Math.abs(sclY));
+            toBlock.rotateDeg(deg);
+            renderer2D.drawTextureRegion(getToolOverlayBlockRegion(block), x + toBlock.x, y + toBlock.y, block.deg + deg, block.flipped ? -sclX : sclX, sclY);
         }
     }
 
@@ -339,6 +393,13 @@ public class ToolStamp_Architecture extends Tool {
         return BUNDLES_TOP_VIEW.get(bundleTopViewIndex).blocks;
     }
 
+    private Block[] getBundleBlocks() {
+        if (stampMode == StampMode.POINT_BUNDLE_ISOMETRIC_VIEW) return BUNDLES_ISOMETRIC_VIEW.get(bundleIsometricViewIndex).blocks;
+        if (stampMode == StampMode.POINT_BUNDLE_TOP_VIEW) return BUNDLES_TOP_VIEW.get(bundleTopViewIndex).blocks;
+
+        return null;
+    }
+
     private void dev_nextRegion() {
         type = type.getNextOfTheSamePrefix();
         toolOverlayDevCurrentRegion = getToolOverlayCurrentRegion();
@@ -362,6 +423,26 @@ public class ToolStamp_Architecture extends Tool {
     private TextureRegion getToolOverlayBlockRegion(Block block) {
         final String regionName = "assets/textures-layer-3/architecture_" + race.name().toLowerCase() + "_" + block.type.name().toLowerCase() + "_0.png";
         return atlas.getRegion(regionName);
+    }
+
+    private TextureRegion getCurrentParametersRegion_pointSideView() {
+        sideViewIndex %= getRegionCount(race, sideViewType);
+        final String regionName = "assets/textures-layer-3/architecture_" + race.name().toLowerCase() + "_" + sideViewType.name().toLowerCase() + "_" + sideViewIndex + ".png";
+        return atlas.getRegion(regionName);
+    }
+
+    // TODO: refactor into a global static method of Tools.java
+    private int getRegionCount(Race race, Type type) {
+        int count = 0;
+        while (count < 100) {
+            final String regionName = "assets/textures-layer-3/architecture_" + race.name().toLowerCase() + "_" + type.name().toLowerCase() + "_" + count + ".png";
+            if (atlas.contains(regionName)) {
+                count++;
+            } else {
+                break;
+            }
+        }
+        return count;
     }
 
     @Override
@@ -404,7 +485,6 @@ public class ToolStamp_Architecture extends Tool {
 
         SIDE_VIEW_BLOCK,
         SIDE_VIEW_BRIDGE,
-        SIDE_VIEW_DECORATION,
         SIDE_VIEW_TOWER,
 
         ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT,
@@ -452,6 +532,20 @@ public class ToolStamp_Architecture extends Tool {
             return null;
         }
 
+    }
+
+    public enum StampMode {
+        POINT_SINGLE_SIDE_VIEW,
+        POINT_BUNDLE_ISOMETRIC_VIEW,
+        POINT_BUNDLE_TOP_VIEW,
+
+        CIRCLE_TOP_VIEW,
+        CIRCLE_TOP_VIEW_PROCEDURAL,
+
+        LINE_TOP_VIEW,
+
+        POLYGON_TOP_VIEW,
+        POLYGON_TOP_VIEW_PROCEDURAL,
     }
 
     public enum Race {

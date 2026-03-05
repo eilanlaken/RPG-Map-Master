@@ -63,6 +63,10 @@ public final class TexturePack implements MemoryResource {
         return region;
     }
 
+    public boolean contains(final String name) {
+        return namedRegions.get(name) != null;
+    }
+
     @Override
     public void delete() {
         for (Texture texture : textures) {
