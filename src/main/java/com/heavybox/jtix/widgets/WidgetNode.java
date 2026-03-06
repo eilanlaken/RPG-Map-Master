@@ -245,7 +245,7 @@ public abstract class WidgetNode {
         float pointerYPrev = Widgets.getPointerYPrev();
         float pointerX = Widgets.getPointerX();
         float pointerY = Widgets.getPointerY();
-        float verticalScroll = Input.mouse.getVerticalScroll();
+        float verticalScroll = Input.mouse.getScrollY();
         boolean mouseInsidePrev = mouseInside;
         mouseInside = containsPoint(pointerX, pointerY);
         boolean mouseJustEntered = (!mouseInsidePrev && mouseInside) || (Input.mouse.cursorJustEnteredWindow() && mouseInside);
@@ -286,7 +286,7 @@ public abstract class WidgetNode {
         boolean mouseDown = mouseInside && (mouseDownLeft || mouseDownRight || mouseDownMiddle);
 
         /* key presses */
-        boolean codepointPressed = !Input.keyboard.getCodepointPressed().isEmpty();
+        boolean codepointPressed = !Input.keyboard.getCodepointsTyped().isEmpty();
         boolean keysJustPressed = !Input.keyboard.getKeysJustDown().isEmpty();
         boolean keysPressed = !Input.keyboard.getKeysDown().isEmpty();
 
@@ -499,7 +499,7 @@ public abstract class WidgetNode {
         if (focused && codepointPressed) {
             eventFired = true;
             Event.EventCodepointsTyped e = new Event.EventCodepointsTyped(transformScreen);
-            e.codePoints = Input.keyboard.getCodepointPressed();
+            e.codePoints = Input.keyboard.getCodepointsTyped();
             if (onCodepointsTyped != null) onCodepointsTyped.handle(e);
             onCodepointsTypedDefault(e);
         }

@@ -11,7 +11,7 @@ import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.widgets.*;
 import org.lwjgl.opengl.GL11;
 
-public class SceneNewContainers implements Scene, InputEventHandler {
+public class SceneInput implements Scene {
 
     public Renderer2D renderer2D = new Renderer2D();
     Camera camera = new Camera(Camera.Mode.ORTHOGRAPHIC, Graphics.getWindowWidth(), Graphics.getWindowHeight(), 1, 0, 100, 1);
@@ -84,11 +84,6 @@ public class SceneNewContainers implements Scene, InputEventHandler {
     @Override
     public void finish() {
 
-    }
-
-    @Override
-    public int getLayer() {
-        return 0;
     }
 
 }

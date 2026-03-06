@@ -3,10 +3,10 @@ package com.heavybox.jtix.widgets;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.graphics.Graphics;
 import com.heavybox.jtix.graphics.Renderer2D;
-import com.heavybox.jtix.input.InputLayer;
+import com.heavybox.jtix.input.InputEventHandler;
 
 // a container of nodes
-public class Widget implements InputLayer {
+public class Widget implements InputEventHandler {
 
     /*** programmer set user-data for in game logic ***/
     public Object  userData = null;
@@ -78,7 +78,7 @@ public class Widget implements InputLayer {
     }
 
     @Override
-    public int getLevel() {
+    public int getLayer() {
         return zIndex;
     }
 }

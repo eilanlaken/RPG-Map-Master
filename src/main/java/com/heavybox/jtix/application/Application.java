@@ -298,7 +298,7 @@ public class Application {
 
     public static void playScene(@NotNull Scene scene) {
         if (!running) throw new ApplicationException("Application not running. Use launch() method if this is the first scene you are playing. Function playScene() should be called when switching scenes.");
-        Input.clearLayers(); // scenes should set up their own input handling logic.
+        Input.clearEventHandlers(); // scenes should set up their own input handling logic.
         if (currentScene != null) {
             currentScene.finish();
         }

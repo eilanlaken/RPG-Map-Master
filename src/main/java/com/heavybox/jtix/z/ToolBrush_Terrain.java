@@ -84,8 +84,8 @@ public class ToolBrush_Terrain extends Tool {
         boolean leftButtonJustClicked = Input.mouse.isButtonClicked(Mouse.Button.LEFT);
         boolean rightButtonJustPressed = Input.mouse.isButtonJustPressed(Mouse.Button.RIGHT);
         boolean mouseMoved = Input.mouse.moved();
-        boolean scrollUp = Input.mouse.getVerticalScroll() > 0;
-        boolean scrollDown = Input.mouse.getVerticalScroll() < 0;
+        boolean scrollUp = Input.mouse.getScrollY() > 0;
+        boolean scrollDown = Input.mouse.getScrollY() < 0;
         boolean backspaceJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.BACKSPACE);
         boolean plus = Input.keyboard.isKeyJustPressed(Keyboard.Key.EQUAL);
         boolean minus = Input.keyboard.isKeyJustPressed(Keyboard.Key.MINUS);

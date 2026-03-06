@@ -72,6 +72,10 @@ public final class Tools {
             selectTool(3);
         } else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KEY_5)) {
             selectTool(4);
+        } else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KEY_6)) {
+            selectTool(5);
+        } else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KEY_7)) {
+            //selectTool(6);
         }
     }
 

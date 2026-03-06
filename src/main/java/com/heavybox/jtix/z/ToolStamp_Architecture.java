@@ -129,8 +129,8 @@ public class ToolStamp_Architecture extends Tool {
         super(scene);
         atlas = Assets.get("assets/texture-packs/layer_3.yml");
 
-//        sclX = 1f / 5;
-//        sclY = 1f / 5;
+        sclX = 1f / 3;
+        sclY = 1f / 3;
 
         shape = Shape.POINT;
         mode = Mode.ADD;
@@ -140,7 +140,7 @@ public class ToolStamp_Architecture extends Tool {
 
     @Override
     public void update(float delta) {
-        float verticalScroll = Input.mouse.getVerticalScroll();
+        float verticalScroll = Input.mouse.getScrollY();
         boolean leftButtonClicked = Input.mouse.isButtonClicked(Mouse.Button.LEFT);
         boolean rightButtonClicked = Input.mouse.isButtonClicked(Mouse.Button.RIGHT);
         boolean enterClicked = Input.keyboard.isKeyJustReleased(Keyboard.Key.ENTER); // print bundle
@@ -266,8 +266,10 @@ public class ToolStamp_Architecture extends Tool {
             } else if (leftButtonClicked) {
                 Vector2 offset = new Vector2(sideViewCurrentBlock.x, sideViewCurrentBlock.y);
                 offset.rotateDeg(deg);
-                offset.scl(sclX, sclY);
-                CommandTokenCreate cmd = new CommandTokenCreate(3, x + offset.x, y + offset.y, sideViewCurrentBlock.deg + deg, sideViewCurrentBlock.flipped ? -sclX : sclX, sclY, false, getCurrentParametersRegion_pointSideView());
+                float sclXCorrected = sclX * 1.2f;
+                float sclYCorrected = sclY * 1.2f;
+                offset.scl(sclXCorrected, sclYCorrected);
+                CommandTokenCreate cmd = new CommandTokenCreate(3, x + offset.x, y + offset.y, sideViewCurrentBlock.deg + deg, sideViewCurrentBlock.flipped ? -sclXCorrected : sclXCorrected, sclYCorrected, false, getCurrentParametersRegion_pointSideView());
                 cmd.tokenType = type;
                 map.addCommand(cmd);
             }
@@ -342,9 +344,11 @@ public class ToolStamp_Architecture extends Tool {
         if (stampMode == StampMode.POINT_SINGLE_SIDE_VIEW) {
             // current block
             Vector2 toBlock = new Vector2(sideViewCurrentBlock.x, sideViewCurrentBlock.y);
-            toBlock.scl(sclX, sclY);
+            float sclXCorrected = sclX * 1.2f;
+            float sclYCorrected = sclY * 1.2f;
+            toBlock.scl(sclXCorrected, sclYCorrected);
             toBlock.rotateDeg(deg);
-            renderer2D.drawTextureRegion(getCurrentParametersRegion_pointSideView(), x + toBlock.x, y + toBlock.y, sideViewCurrentBlock.deg + deg, sideViewCurrentBlock.flipped ? -sclX : sclX, sclY);
+            renderer2D.drawTextureRegion(getCurrentParametersRegion_pointSideView(), x + toBlock.x, y + toBlock.y, sideViewCurrentBlock.deg + deg, sideViewCurrentBlock.flipped ? -sclXCorrected : sclXCorrected, sclYCorrected);
             return;
         }
 

@@ -33,10 +33,10 @@ public class ToolBrush_Nature extends Tool {
         super(scene);
         atlas = Assets.get("assets/texture-packs/layer_3.yml");
 
-        sclX = 1f / 6;
-        sclY = 1f / 6;
+        sclX = 1f / 3;
+        sclY = 1f / 3;
 
-        shape = Shape.POINT;
+        shape = Shape.CIRCLE;
     }
 
     @Override

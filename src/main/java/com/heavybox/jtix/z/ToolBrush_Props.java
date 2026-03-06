@@ -35,8 +35,8 @@ public class ToolBrush_Props extends Tool {
         atlas = Assets.get("assets/texture-packs/layer_3.yml");
         gatherBrushProps();
 
-        sclX = 1f / 6;
-        sclY = 1f / 6;
+        sclX = 1f / 3;
+        sclY = 1f / 3;
         this.shape = Shape.POINT;
     }
 
@@ -101,7 +101,7 @@ public class ToolBrush_Props extends Tool {
         boolean sKeyPressed = Input.keyboard.isKeyPressed(Keyboard.Key.S);
         boolean cKeyPressed = Input.keyboard.isKeyPressed(Keyboard.Key.C);
         boolean tKeyPressed = Input.keyboard.isKeyPressed(Keyboard.Key.T);
-        float scroll = Input.mouse.getVerticalScroll();
+        float scroll = Input.mouse.getScrollY();
         boolean spaceKeyPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.SPACE);
         float dy = Input.mouse.getYDelta();
 

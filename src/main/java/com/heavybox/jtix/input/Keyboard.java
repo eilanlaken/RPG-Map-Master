@@ -23,7 +23,7 @@ public final class Keyboard {
     private final Array<Key> keysJustUp        = new Array<>(12);
     private final Array<Key> keysJustDown      = new Array<>(12);
 
-    private final ArrayChar codepointPressed   = new ArrayChar(false, 5);
+    private final ArrayChar codepointsTyped       = new ArrayChar(false, 5);
 
     Keyboard() {
 
@@ -77,8 +77,8 @@ public final class Keyboard {
         GLFW.glfwSetCharCallback(Application.getWindowHandle(), new GLFWCharCallback() {
             @Override
             public void invoke(long window, int codepoint) {
-                //System.out.printf("Codepoint: U+%04X, Character: %c%n", codepoint, (char) codepoint);
-                codepointPressed.add((char) codepoint);
+                char c = (char) codepoint;
+                if (!codepointsTyped.contains(c)) codepointsTyped.add(c);
             }
         });
     }
@@ -108,9 +108,7 @@ public final class Keyboard {
         return keysCurrentState[key.glfwCode] == GLFW.GLFW_REPEAT;
     }
 
-    public ArrayChar getCodepointPressed() {
-        return codepointPressed;
-    }
+    public ArrayChar getCodepointsTyped() { return codepointsTyped; }
 
     public Array<Key> getKeysDown() {
         return keysDown;
@@ -136,7 +134,7 @@ public final class Keyboard {
         keysJustDownCodes.clear();
         keysJustDown.clear();
 
-        codepointPressed.clear();
+        codepointsTyped.clear();
     }
 
     public enum Key {

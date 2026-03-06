@@ -1,10 +1,14 @@
 package com.heavybox.jtix.input;
 
 import com.heavybox.jtix.application.Application;
+import com.heavybox.jtix.collections.Array;
 import org.lwjgl.glfw.*;
 
 // TODO: add double-click detection with sensitivity parameters
-public class Mouse {
+public final class Mouse {
+
+    /* static constants */
+    private static final Button[] ALL_BUTTONS = Button.values();
 
     /* mouse info */
     private int     prevCursorX         = 0;
@@ -17,12 +21,19 @@ public class Mouse {
     private boolean cursorInWindow      = true;
     private boolean cursorEnteredWindow = false;
     private boolean cursorLeftWindow    = false;
-    private float   verticalScroll      = 0;
-    private float   horizontalScroll    = 0;
+    private float   scrollY = 0;
+    private float   scrollX = 0;
 
     /* mouse state */
     private final int[] mouseButtonsPrevStates    = new int[5];
     private final int[] mouseButtonsCurrentStates = new int[5];
+
+    private final Array<Button> buttonsPressed           = new Array<>(false, 5);
+    private       boolean       buttonsPressedDirty      = true;
+    private final Array<Button> buttonsJustPressed       = new Array<>(false, 5);
+    private       boolean       buttonsJustPressedDirty  = true;
+    private final Array<Button> buttonsJustReleased      = new Array<>(false, 5);
+    private       boolean       buttonsJustReleasedDirty = true;
 
     Mouse() {
         GLFW.glfwSetMouseButtonCallback(Application.getWindowHandle(), new GLFWMouseButtonCallback() {
@@ -57,18 +68,18 @@ public class Mouse {
         GLFW.glfwSetScrollCallback(Application.getWindowHandle(), new GLFWScrollCallback() {
             @Override
             public void invoke(long window, double xOffset, double yOffset) {
-                verticalScroll = (float) yOffset;
-                horizontalScroll = (float) xOffset;
+                scrollY = (float) yOffset;
+                scrollX = (float) xOffset;
             }
         });
     }
 
-    public float getVerticalScroll() {
-        return verticalScroll;
+    public float getScrollY() {
+        return scrollY;
     }
 
-    public float getHorizontalScroll() {
-        return horizontalScroll;
+    public float getScrollX() {
+        return scrollX;
     }
 
     public void hideCursor() {
@@ -146,10 +157,40 @@ public class Mouse {
         return cursorLeftWindow;
     }
 
+    public Array<Button> getButtonsPressed() {
+        if (!buttonsPressedDirty) return buttonsPressed;
+
+        for (Button button : ALL_BUTTONS) {
+            if (isButtonPressed(button)) buttonsPressed.add(button);
+        }
+        buttonsPressedDirty = false;
+        return buttonsPressed;
+    }
+
+    public Array<Button> getButtonsJustPressed() {
+        if (!buttonsJustPressedDirty) return buttonsJustPressed;
+
+        for (Button button : ALL_BUTTONS) {
+            if (isButtonJustPressed(button)) buttonsJustPressed.add(button);
+        }
+        buttonsJustPressedDirty = false;
+        return buttonsJustPressed;
+    }
+
+    public Array<Button> getButtonsJustReleased() {
+        if (!buttonsJustReleasedDirty) return buttonsJustReleased;
+
+        for (Button button : ALL_BUTTONS) {
+            if (isButtonJustReleased(button)) buttonsJustReleased.add(button);
+        }
+        buttonsJustReleasedDirty = false;
+        return buttonsJustReleased;
+    }
+
     void update() {
         /* reset internal state */
-        verticalScroll = 0;
-        horizontalScroll = 0;
+        scrollY = 0;
+        scrollX = 0;
         cursorDeltaX = 0;
         cursorDeltaY = 0;
         mouseButtonsPrevStates[GLFW.GLFW_MOUSE_BUTTON_1] = mouseButtonsCurrentStates[GLFW.GLFW_MOUSE_BUTTON_1];
@@ -157,6 +198,14 @@ public class Mouse {
         mouseButtonsPrevStates[GLFW.GLFW_MOUSE_BUTTON_3] = mouseButtonsCurrentStates[GLFW.GLFW_MOUSE_BUTTON_3];
         mouseButtonsPrevStates[GLFW.GLFW_MOUSE_BUTTON_4] = mouseButtonsCurrentStates[GLFW.GLFW_MOUSE_BUTTON_4];
         mouseButtonsPrevStates[GLFW.GLFW_MOUSE_BUTTON_5] = mouseButtonsCurrentStates[GLFW.GLFW_MOUSE_BUTTON_5];
+
+        buttonsPressed.clear();
+        buttonsPressedDirty = true;
+        buttonsJustPressed.clear();
+        buttonsJustPressedDirty = true;
+        buttonsJustReleased.clear();
+        buttonsJustReleasedDirty = true;
+
         cursorEnteredWindow = false;
         cursorLeftWindow = false;
     }
