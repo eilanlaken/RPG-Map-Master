@@ -12,13 +12,14 @@ public final class Input {
     public static final Mouse    mouse    = new Mouse();
     public static final Webcam   webcam   = new Webcam();
 
-    private static final Array<InputEventHandler> inputEventHandlers   = new Array<>(true, 3);
+    private static final Array<InputEventHandler>      inputEventHandlers           = new Array<>(true, 3);
+    private static final Comparator<InputEventHandler> inputEventHandlersComparator = (a, b) -> Integer.compare(b.getLayer(), a.getLayer());
 
     private Input() {}
 
     public static void update() {
         // sort input layers every frame as the layers index may change.
-        inputEventHandlers.sort(Comparator.comparingInt(InputEventHandler::getLayer).reversed());
+        inputEventHandlers.sort(inputEventHandlersComparator);
 
         // update event handlers - mouse scrolled.
         float scrollX = mouse.getScrollX();

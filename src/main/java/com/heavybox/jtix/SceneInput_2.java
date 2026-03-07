@@ -38,13 +38,8 @@ public class SceneInput_2 implements Scene {
     };
 
     @Override
-    public void setup() {
-        Input.addEventHandler(second);
-    }
-
-    @Override
     public void start() {
-
+        Input.addEventHandler(second);
     }
 
     @Override

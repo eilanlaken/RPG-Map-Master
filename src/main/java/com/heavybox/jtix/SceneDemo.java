@@ -12,6 +12,7 @@ import com.heavybox.jtix.math.Vector3;
 import com.heavybox.jtix.tools.ToolsTexturePacker;
 import com.heavybox.jtix.widgets.Widget;
 import com.heavybox.jtix.z.*;
+import org.jetbrains.annotations.NotNull;
 import org.lwjgl.opengl.GL11;
 
 // contact points polygon vs polygon:
@@ -43,16 +44,10 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
     }
 
     @Override
-    public void setup() {
+    public void start() {
         try {
-            // We don't pack layer 0
-            // We don't pack layer 1
-            // pack layer 3
             ToolsTexturePacker.packTextures("assets/texture-packs", "layer_3", 0, 2, ToolsTexturePacker.TexturePackSize.XX_LARGE_8192, "assets/textures-layer-3", true);
-            //We don't pack layer 4
-            // pack ui assets
             ToolsTexturePacker.packTextures("assets/texture-packs", "user-interface", 0, 2, ToolsTexturePacker.TexturePackSize.XX_LARGE_8192, "assets/user-interface", true);
-
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -102,15 +97,6 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
         */
         WidgetNodeHelpBar helpBar = new WidgetNodeHelpBar();
         widgetHelpBar.addNodes(helpBar);
-    }
-
-    @Override
-    public void finish() {
-
-    }
-
-    @Override
-    public void start() {
         camera.update();
         Tools.initTools(this);
     }
@@ -200,10 +186,6 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
 
     }
 
-    private void handleInput() {
-
-    }
-
     @Override
     public void windowResized(int width, int height) {
         camera.viewportWidth = width;
@@ -253,5 +235,8 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
     public void load(String path) {
 
     }
+
+    @Override
+    public void finish() {}
 
 }

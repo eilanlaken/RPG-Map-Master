@@ -224,7 +224,7 @@ public class Application {
 
         /* start the application with active scene */
         currentScene = scene;
-        currentScene.setup();
+        Input.addEventHandler(currentScene);
         currentScene.start();
 
         /* main thread game loop */
@@ -303,7 +303,7 @@ public class Application {
             currentScene.finish();
         }
         currentScene = scene;
-        currentScene.setup();
+        Input.addEventHandler(currentScene);
         currentScene.start();
     }
 

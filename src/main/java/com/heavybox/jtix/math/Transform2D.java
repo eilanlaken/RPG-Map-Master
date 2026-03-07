@@ -1,5 +1,8 @@
 package com.heavybox.jtix.math;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 public class Transform2D {
 
     public float x    = 0;
@@ -45,6 +48,45 @@ public class Transform2D {
                 && MathUtils.floatsEqual(deg, other.deg)
                 && MathUtils.floatsEqual(sclX, other.sclX)
                 && MathUtils.floatsEqual(sclY, other.sclY);
+    }
+
+    // TODO: TEST
+    public static void calculateGlobal(final @Nullable Transform2D parent, final @NotNull Transform2D local,
+                                       final @NotNull Transform2D outGlobal) {
+        float refX = parent == null ? 0 : parent.x;
+        float refY = parent == null ? 0 : parent.y;
+        float refDeg = parent == null ? 0 : parent.deg;
+        float refSclX = parent == null ? 1 : parent.sclX;
+        float refSclY = parent == null ? 1 : parent.sclY;
+        float cos = MathUtils.cosDeg(refDeg);
+        float sin = MathUtils.sinDeg(refDeg);
+        float x = local.x * cos - local.y * sin;
+        float y = local.x * sin + local.y * cos;
+        outGlobal.x = refX + x * refSclX;
+        outGlobal.y = refY + y * refSclY;
+        outGlobal.deg  = local.deg + refDeg;
+        outGlobal.sclX = local.sclX * refSclX;
+        outGlobal.sclY = local.sclY * refSclY;
+    }
+
+    // TODO: TEST
+    public static void calculateGlobal(final @Nullable Transform2D parent, final @NotNull Transform2D local,
+                                       final float localOffsetX, final float localOffsetY,
+                                       final @NotNull Transform2D outGlobal) {
+        float refX = parent == null ? 0 : parent.x;
+        float refY = parent == null ? 0 : parent.y;
+        float refDeg = parent == null ? 0 : parent.deg;
+        float refSclX = parent == null ? 1 : parent.sclX;
+        float refSclY = parent == null ? 1 : parent.sclY;
+        float cos = MathUtils.cosDeg(refDeg);
+        float sin = MathUtils.sinDeg(refDeg);
+        float x = local.x * cos - local.y * sin;
+        float y = local.x * sin + local.y * cos;
+        outGlobal.x = refX + x * refSclX + localOffsetX * cos - localOffsetY * sin; // add the rotated offset vector x component
+        outGlobal.y = refY + y * refSclY + localOffsetX * sin + localOffsetY * cos; // add the rotated offset vector y component
+        outGlobal.deg  = local.deg + refDeg;
+        outGlobal.sclX = local.sclX * refSclX;
+        outGlobal.sclY = local.sclY * refSclY;
     }
 
 }

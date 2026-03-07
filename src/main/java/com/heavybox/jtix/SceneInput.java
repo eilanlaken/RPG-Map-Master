@@ -24,7 +24,7 @@ public class SceneInput implements Scene {
     WidgetNodeShapeRectangle rectangle = new WidgetNodeShapeRectangle(300,200, Color.WHITE);
 
     @Override
-    public void setup() {
+    public void start() {
         container.boxPaddingLeft = 10;
         container.boxPaddingRight = 10;
         container.boxPaddingBottom = 50;
@@ -46,11 +46,6 @@ public class SceneInput implements Scene {
         rectangle.anchorX = 200;
 
         widget_2.addNodes(rectangle);
-    }
-
-    @Override
-    public void start() {
-
     }
 
     private WidgetNode currentRect;

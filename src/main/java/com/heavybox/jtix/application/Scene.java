@@ -14,10 +14,9 @@ import com.heavybox.jtix.input.InputEventHandler;
  handleInput()
  render()
  */
-public interface Scene {
+public interface Scene extends InputEventHandler {
 
     /* Scene life-cycle: setup() -> start() -> update()...[repeat] -> finish() */
-    void setup();
     void start();
     void update(); // TODO: refactor name to "frame"
     void finish();
@@ -28,5 +27,8 @@ public interface Scene {
     default void windowMinimized(boolean minimized) {}
     default void windowMaximized(boolean maximized) {}
     default void windowFilesDraggedAndDropped(Array<String> filePaths) {}
+
+    @Override
+    default int getLayer() { return Integer.MIN_VALUE; }
 
 }

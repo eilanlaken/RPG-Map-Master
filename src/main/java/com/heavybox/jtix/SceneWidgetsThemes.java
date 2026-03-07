@@ -23,7 +23,7 @@ public class SceneWidgetsThemes implements Scene {
     Texture ninePatch;
 
     @Override
-    public void setup() {
+    public void start() {
         try {
             ToolsThemeGenerator.themeCheckboxColorCheckmarkBackground = Color.CHARTREUSE;
             ToolsThemeGenerator.themeCheckboxImageChecked = "assets/user-interface-theme/checkbox-checked.png";
@@ -36,10 +36,7 @@ public class SceneWidgetsThemes implements Scene {
         Assets.loadTexture("assets/engine-tests/ninepatch.png");
         Assets.loadTheme("assets/user-interface-theme/widgets-theme.yml");
         Assets.finishLoading();
-    }
 
-    @Override
-    public void start() {
         ninePatch = Assets.get("assets/engine-tests/ninepatch.png");
         Theme theme = Assets.get("assets/user-interface-theme/widgets-theme.yml");
         Widgets.setGlobalTheme(theme);
