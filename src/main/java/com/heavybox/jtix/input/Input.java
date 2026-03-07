@@ -18,7 +18,7 @@ public final class Input {
     private Input() {}
 
     public static void update() {
-        // sort input layers every frame as the layers index may change.
+        // sort input layers every frame as the layers index may change. Sorts from high to low (descending order).
         inputEventHandlers.sort(inputEventHandlersComparator);
 
         // update event handlers - mouse scrolled.
@@ -108,12 +108,12 @@ public final class Input {
         if (inputEventHandler == null) throw new InputException("event handler cannot be null.");
         if (inputEventHandlers.contains(inputEventHandler,true)) throw new InputException("cannot register the same event handler more than once");
         inputEventHandlers.add(inputEventHandler);
-        inputEventHandlers.sort(Comparator.comparingInt(InputEventHandler::getLayer).reversed());
+        inputEventHandlers.sort(inputEventHandlersComparator);
     }
 
     public static void removeEventHandler(final InputEventHandler inputEventHandler) {
         inputEventHandlers.removeValue(inputEventHandler,true);
-        inputEventHandlers.sort(Comparator.comparingInt(InputEventHandler::getLayer)); // order should be maintained but ok.
+        inputEventHandlers.sort(inputEventHandlersComparator);
     }
 
     public static void clearEventHandlers() {

@@ -129,8 +129,8 @@ public class ToolStamp_Architecture extends Tool {
         super(scene);
         atlas = Assets.get("assets/texture-packs/layer_3.yml");
 
-        sclX = 1f / 3;
-        sclY = 1f / 3;
+        sclX = 2f / 3;
+        sclY = 2f / 3;
 
         shape = Shape.POINT;
         mode = Mode.ADD;
@@ -168,13 +168,13 @@ public class ToolStamp_Architecture extends Tool {
         if (wPressed) {
             deg -= 180 * Graphics.getDeltaTime();
         }
-        if (sPressed) {
-            sclX *= 1.00f + 0.8f * Graphics.getDeltaTime();
-            sclY *= 1.00f + 0.8f * Graphics.getDeltaTime();
+        if (plusJustPressed) {
+            sclX *= 2;
+            sclY *= 2;
         }
-        if (aPressed) {
-            sclX *= 1.00f - 0.8f * Graphics.getDeltaTime();
-            sclY *= 1.00f - 0.8f * Graphics.getDeltaTime();
+        if (minusJustPressed) {
+            sclX *= 0.5f;
+            sclY *= 0.5f;
         }
         if (tabJustPressed) {
             sclX *= -1;

@@ -3,22 +3,11 @@ package com.heavybox.jtix.application;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.input.InputEventHandler;
 
-/*
-!!!
- CRITICAL
- FIXME
- TODO: separate update()
- into:
- fixedUpdate(delta)
- frameUpdate(delta)
- handleInput()
- render()
- */
 public interface Scene extends InputEventHandler {
 
-    /* Scene life-cycle: setup() -> start() -> update()...[repeat] -> finish() */
+    /* Scene life-cycle: start() -> update()...[repeat] -> finish() */
     void start();
-    void update(); // TODO: refactor name to "frame"
+    void update(); // TODO: refactor update into update(fixedDelta) and render() or frameUpdate(delta)
     void finish();
 
     /* GLFW Window callbacks. */
