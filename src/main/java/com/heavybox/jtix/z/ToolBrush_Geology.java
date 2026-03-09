@@ -69,7 +69,8 @@ public class ToolBrush_Geology extends Tool {
         boolean leftClicked = Input.mouse.isButtonClicked(Mouse.Button.LEFT);
         boolean rightClicked = Input.mouse.isButtonClicked(Mouse.Button.RIGHT);
         boolean sKeyPressed = Input.keyboard.isKeyPressed(Keyboard.Key.S);
-        boolean spaceKeyPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.SPACE);
+        boolean spaceKeyJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.SPACE);
+        boolean backspaceKeyJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.BACKSPACE);
         float dy = Input.mouse.getYDelta();
 
         // brush settings - TODO
@@ -78,7 +79,7 @@ public class ToolBrush_Geology extends Tool {
             setShape(Collections.enumNext(shape));
         }
 
-        if (spaceKeyPressed) {
+        if (backspaceKeyJustPressed) {
             mode = Collections.enumNext(mode);
             onSetMode();
         }
@@ -95,7 +96,7 @@ public class ToolBrush_Geology extends Tool {
         } else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.MINUS)) {
             setScale(sclX * 0.5f, sclY * 0.5f);
             return;
-        } else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.BACKSPACE)) {
+        } else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.TAB)) {
             setScale(sclX * -1.0f, sclY);
             return;
         }

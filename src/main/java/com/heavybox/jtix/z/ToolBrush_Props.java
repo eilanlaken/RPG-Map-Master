@@ -35,8 +35,8 @@ public class ToolBrush_Props extends Tool {
         atlas = Assets.get("assets/texture-packs/layer_3.yml");
         gatherBrushProps();
 
-        sclX = 1f / 3;
-        sclY = 1f / 3;
+        sclX = 2f / 3;
+        sclY = 2f / 3;
         this.shape = Shape.POINT;
     }
 

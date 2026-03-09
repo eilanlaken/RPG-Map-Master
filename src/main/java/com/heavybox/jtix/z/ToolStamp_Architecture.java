@@ -125,6 +125,11 @@ public class ToolStamp_Architecture extends Tool {
     private int sideViewIndex = MathUtils.randomUniformInt(0,6);
     private Type sideViewType = Type.SIDE_VIEW_BLOCK;
 
+    // polygon top view
+    private Array<Block> lineBlocks = new Array<>(false, 10);
+    private final Vector2 linePointStart = new Vector2();
+    private boolean lineFree = true;
+
     public ToolStamp_Architecture(final RPGMapMakerScene scene) {
         super(scene);
         atlas = Assets.get("assets/texture-packs/layer_3.yml");
@@ -292,6 +297,20 @@ public class ToolStamp_Architecture extends Tool {
                 }
             }
         }
+
+        if (stampMode == StampMode.LINE_TOP_VIEW) {
+            if (lineFree) {
+                if (leftButtonClicked) {
+                    linePointStart.set(x,y);
+                    lineFree = false;
+                }
+            } else {
+                if (leftButtonClicked) {
+
+                }
+            }
+        }
+
     }
 
     private void emitCreateBlockCommand(Block block) {
@@ -361,6 +380,25 @@ public class ToolStamp_Architecture extends Tool {
             renderBlocks(renderer2D);
             return;
         }
+
+        if (stampMode == StampMode.LINE_TOP_VIEW) {
+            if (lineFree) {
+                renderer2D.setColor(Color.WHITE);
+                renderer2D.drawCircleThin(Math.max(10, 5), 10, x, y, 0, 1, 1);
+            } else {
+                for (Block block : lineBlocks) {
+
+                }
+                renderer2D.setColor(1,0,0,1f);
+                renderer2D.drawLineThin(lineStart.x, lineStart.y, x, y);
+                renderer2D.setColor(Color.WHITE);
+            }
+        }
+
+    }
+
+    private void refillLineBlocks() {
+        lineBlocks.clear();
 
     }
 
@@ -548,8 +586,8 @@ public class ToolStamp_Architecture extends Tool {
 
         LINE_TOP_VIEW,
 
-        POLYGON_TOP_VIEW,
-        POLYGON_TOP_VIEW_PROCEDURAL,
+//        @Deprecated POLYGON_TOP_VIEW,
+//        @Deprecated POLYGON_TOP_VIEW_PROCEDURAL,
     }
 
     public enum Race {
