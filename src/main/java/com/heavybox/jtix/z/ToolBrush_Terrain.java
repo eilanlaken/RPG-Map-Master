@@ -40,7 +40,7 @@ public class ToolBrush_Terrain extends Tool {
     private float lineMouseY;
 
     // ground textures
-    private final Texture[] terrainGrounds = new Texture[7];
+    private final Texture[] terrainGrounds = new Texture[8];
     private final Texture[] terrainLiquids = new Texture[3];
 
     public ToolBrush_Terrain(RPGMapMakerScene scene) {
@@ -59,8 +59,9 @@ public class ToolBrush_Terrain extends Tool {
         terrainGrounds[2] = Assets.get("assets/textures-layer-0/terrain_land_sand_0.jpg");
         terrainGrounds[3] = Assets.get("assets/textures-layer-0/terrain_land_stone_0.jpg");
         terrainGrounds[4] = Assets.get("assets/textures-layer-0/terrain_land_stone_1.jpg");
-        terrainGrounds[5] = Assets.get("assets/textures-layer-0/terrain_land_road_0.jpg");
+        terrainGrounds[5] = Assets.get("assets/textures-layer-0/terrain_land_stone_2.jpg");
         terrainGrounds[6] = Assets.get("assets/textures-layer-0/terrain_land_dirt_0.jpg");
+        terrainGrounds[7] = Assets.get("assets/textures-layer-0/terrain_land_road_0.jpg");
 
         terrainLiquids[0] = Assets.get("assets/textures-layer-0/terrain_liquid_water_0.jpg");
         terrainLiquids[1] = Assets.get("assets/textures-layer-0/terrain_liquid_water_1.jpg");
@@ -193,12 +194,27 @@ public class ToolBrush_Terrain extends Tool {
             }
             if (lineModeState == LineModeState.DRAWING_ALONG_CREATED_LINE) {
                 // snap mouse back to line
-                // TODO: this does not work for upright lines.
-                // better would be to parametrize the curve.
-                lineMouseX = MathUtils.clampFloat(x, lineStart.x, lineEnd.x);
-                float slope = (lineEnd.y - lineStart.y) / (lineEnd.x - lineStart.x);
-                float n = lineEnd.y - slope * lineEnd.x;
-                lineMouseY = slope * lineMouseX + n;
+                float ax = lineStart.x;
+                float ay = lineStart.y;
+                float bx = lineEnd.x;
+                float by = lineEnd.y;
+
+                float px = x;
+                float py = y;
+
+                float abx = bx - ax;
+                float aby = by - ay;
+
+                float apx = px - ax;
+                float apy = py - ay;
+
+                float ab2 = abx*abx + aby*aby;
+
+                float t = (apx*abx + apy*aby) / ab2;
+                t = MathUtils.clampFloat(t, 0f, 1f);
+
+                float lineMouseX = ax + t * abx;
+                float lineMouseY = ay + t * aby;
 
                 if (rightButtonJustPressed) { // cancel
                     lineModeState = LineModeState.FREE;

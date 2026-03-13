@@ -8,6 +8,8 @@ public class CommandTerrainAddSub extends Command {
     public int liquidIndex;
     public int brushIndex;
 
+    // if shape is polygon
+
     public CommandTerrainAddSub(float x, float y, float sclX, float sclY, boolean anchor) {
         super(0, x, y,0, sclX, sclY, anchor);
     }

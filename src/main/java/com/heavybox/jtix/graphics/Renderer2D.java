@@ -2296,7 +2296,7 @@ public class Renderer2D implements MemoryResourceHolder {
         arrayIntPool.free(triangles);
     }
 
-    public void drawPolygonFilled(float[] polygon, Texture texture, Function<Vector2, Vector2> uvTransform, float x, float y, float deg, float scaleX, float scaleY) {
+    public void drawPolygonFilled(float[] polygon, Texture texture, @Nullable Function<Vector2, Vector2> uvTransform, float x, float y, float deg, float scaleX, float scaleY) {
         if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
         if (polygon.length < 6) throw new GraphicsException("A polygon requires a minimum of 3 vertices, so the polygon array must be of length > 6. Got: " + polygon.length);
         if (polygon.length % 2 != 0) throw new GraphicsException("Polygon must be represented as a flat array of vertices, each vertex must have x and y coordinates: [x0,y0,  x1,y1, ...]. Therefore, polygon array length must be even.");
@@ -2322,7 +2322,7 @@ public class Renderer2D implements MemoryResourceHolder {
             float u = 0.5f + (poly_x * currentTexture.invWidth * pixelScaleWidth);
             float v = 0.5f - (poly_y * currentTexture.invHeight * pixelScaleHeight);
             Vector2 uv = new Vector2(u, v);
-            uvTransform.apply(uv);
+            if (uvTransform != null) uvTransform.apply(uv);
             //uv.rotateDeg(angle);
             textCoords.put(uv.x).put(uv.y);
             vertex.set(poly_x, poly_y);

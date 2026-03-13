@@ -132,11 +132,11 @@ public class ToolStamp_Architecture extends Tool {
     private boolean lineFree = true;
 
     // polygon top view
-    private boolean polygonFree = false;
+    private boolean polygonFree = true;
     private boolean polygonDrawing = false;
-    private boolean polygonDone = true;
+    private boolean polygonDone = false;
     private final Array<Vector2> polygonPoints = new Array<>(true, 10);
-    private Shape2DPolygon polygonShape = new Shape2DPolygon(0,0,  400,0,  400,300,  0,300);
+    private Shape2DPolygon polygonShape;
 
     public ToolStamp_Architecture(final RPGMapMakerScene scene) {
         super(scene);
@@ -472,14 +472,6 @@ public class ToolStamp_Architecture extends Tool {
 
             if (polygonDone) {
                 renderer2D.setColor(Color.RED);
-                // TODO: just for testing
-                    polygonPoints.clear();
-                    polygonPoints.add(new Vector2(0,0));
-                    polygonPoints.add(new Vector2(400,0));
-                    polygonPoints.add(new Vector2(400,300));
-                    polygonPoints.add(new Vector2(0,300));
-                    polygonPoints.add(new Vector2(0,0));
-
 
                 for (int i = 0; i < polygonPoints.size - 1; i++) {
                     Vector2 p1 = polygonPoints.get(i);
@@ -487,7 +479,7 @@ public class ToolStamp_Architecture extends Tool {
                     renderer2D.drawLineThin(p1.x, p1.y, p2.x, p2.y);
                 }
                 Vector2 field = new Vector2(x, y);
-                float angle = Utils.getDirectionRough(field, polygonShape);
+                float angle = Utils.getDirectionSmooth(field, polygonShape);
                 Vector2 arrow = new Vector2(1,0).rotateDeg(angle).scl(100);
                 renderer2D.setColor(Color.WHITE);
                 renderer2D.drawLineThin(x, y, x + arrow.x, y + arrow.y);

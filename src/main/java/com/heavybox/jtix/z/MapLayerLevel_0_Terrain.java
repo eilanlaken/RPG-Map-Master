@@ -4,9 +4,11 @@ import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.graphics.*;
 import com.heavybox.jtix.math.MathUtils;
+import com.heavybox.jtix.math.Vector2;
 import org.lwjgl.opengl.GL11;
 
 import java.util.Arrays;
+import java.util.function.Function;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -26,7 +28,7 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
     private int liquidBaseTextureIndex = 2;
     private float uvScaleFactorGround = 1; // TODO
     private float uvScaleFactorLiquid = 1; // TODO
-    private final Texture[] terrainGrounds = new Texture[7];
+    private final Texture[] terrainGrounds = new Texture[8];
     private final Texture[] terrainLiquids = new Texture[3];
     private final Texture[] bases = new Texture[5];
 
@@ -85,8 +87,9 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
         terrainGrounds[2] = Assets.get("assets/textures-layer-0/terrain_land_sand_0.jpg");
         terrainGrounds[3] = Assets.get("assets/textures-layer-0/terrain_land_stone_0.jpg");
         terrainGrounds[4] = Assets.get("assets/textures-layer-0/terrain_land_stone_1.jpg");
-        terrainGrounds[5] = Assets.get("assets/textures-layer-0/terrain_land_road_0.jpg");
+        terrainGrounds[5] = Assets.get("assets/textures-layer-0/terrain_land_stone_2.jpg");
         terrainGrounds[6] = Assets.get("assets/textures-layer-0/terrain_land_dirt_0.jpg");
+        terrainGrounds[7] = Assets.get("assets/textures-layer-0/terrain_land_road_0.jpg");
 
         bases[0] = Assets.get("assets/textures-layer-0/farmland_0.png");
         bases[1] = Assets.get("assets/textures-layer-0/farmland_1.png");
@@ -183,7 +186,7 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
             renderer2D.setShaderAttribute("u_texture_reveal", groundSrcImg);
             renderer2D.setShaderAttribute("u_width", uvScaleFactorGround * groundSrcImg.width);
             renderer2D.setShaderAttribute("u_height", uvScaleFactorGround * groundSrcImg.height);
-            renderer2D.drawTexture(brushesAdd[cmd.brushIndex],cmd.x,cmd.y,0,cmd.sclX,cmd.sclY);
+            renderer2D.drawTexture(brushesAdd[cmd.brushIndex], cmd.x, cmd.y, 0, cmd.sclX, cmd.sclY);
         }
         renderer2D.end();
 

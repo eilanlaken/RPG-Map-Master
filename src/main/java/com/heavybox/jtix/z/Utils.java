@@ -107,6 +107,7 @@ public class Utils {
     public static float getDirectionSmooth(Vector2 p, Shape2DPolygon polygon) {
         Array<Tuple2<Vector2, Vector2>> edges = new Array<>();
 
+        // gets the edges as tuples(tail, head) of vectors
         final int n = polygon.getNumberOfEdges();
         for (int i = 0; i < n; i++) {
             Vector2 tail = new Vector2();
@@ -116,12 +117,14 @@ public class Utils {
             edges.add(edge);
         }
 
+        // gets the distances to each edge
         ArrayFloat distances = new ArrayFloat(true, n);
         for (int i = 0; i < n; i++) {
             float distance = distancePointToLine(p, edges.get(i).t1, edges.get(i).t2);
             distances.add(distance);
         }
 
+        // gets a direction vector for each edge
         Array<Vector2> directions = new Array<>(true, n);
         for (int i = 0; i < n; i++) {
             Vector2 tail = edges.get(i).t1;
@@ -131,20 +134,20 @@ public class Utils {
             directions.add(direction);
         }
 
-        // calculate weighted sum
+        // calculate weighted sum of the directions vector and a weight (the further the point from the edge, the less the weight)
         Vector2 sumDir = new Vector2();
-        float sumWeights = 0;
         for (int i = 0; i < n; i++) {
             Vector2 direction = directions.get(i);
-            float distance = distances.get(i);
-            float sigma = 50;
+            float d = distances.get(i);
+            float sigma = 150;
             float invDen = 1.0f / (2 * sigma * sigma);
-            float w = (float) Math.exp(-distance * invDen);
+            //float w = (float) Math.exp(-(d * d) * invDen);
+            float w = 1f / (0.05f + d*d); // bias: 0.001, 1, 0.05
             sumDir.add(w * direction.x, w * direction.y);
-            sumWeights += w;
         }
-        sumDir.scl(1.0f / sumWeights);
         sumDir.nor();
+
+        // return the angle of the resulting vector
         return sumDir.angleDeg();
     }
 
