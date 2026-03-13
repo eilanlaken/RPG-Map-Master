@@ -133,9 +133,9 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
             return;
         }
 
-        if (command instanceof CommandTerrainFarmlandCreate) {
+        if (command instanceof CommandTerrainFarmlandAdd) {
             changedFarmlands = true;
-            CommandTerrainFarmlandCreate cmd = (CommandTerrainFarmlandCreate) command;
+            CommandTerrainFarmlandAdd cmd = (CommandTerrainFarmlandAdd) command;
             Farmland farmland = new Farmland();
             farmland.baseType = cmd.baseType;
             farmland.linesAngle = cmd.linesAngle;
@@ -144,8 +144,8 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
             return;
         }
 
-        if (command instanceof CommandTerrainFarmlandDelete) {
-            CommandTerrainFarmlandDelete cmd = (CommandTerrainFarmlandDelete) command;
+        if (command instanceof CommandTerrainFarmlandSub) {
+            CommandTerrainFarmlandSub cmd = (CommandTerrainFarmlandSub) command;
             Farmland toDelete = null;
             for (int i = farmlandsArray.size - 1; i >= 0; i--) {
                 Farmland farmland = farmlandsArray.get(i);

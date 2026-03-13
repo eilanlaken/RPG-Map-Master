@@ -64,7 +64,7 @@ public class ToolStamp_Farmlands extends Tool {
 
         if (mode == Mode.SUB) {
             if (leftClicked) {
-                CommandTerrainFarmlandDelete cmd = new CommandTerrainFarmlandDelete(x, y);
+                CommandTerrainFarmlandSub cmd = new CommandTerrainFarmlandSub(x, y);
                 map.addCommand(cmd);
             }
         }
@@ -95,7 +95,7 @@ public class ToolStamp_Farmlands extends Tool {
     }
 
     private void createFarmland() {
-        CommandTerrainFarmlandCreate cmd = new CommandTerrainFarmlandCreate();
+        CommandTerrainFarmlandAdd cmd = new CommandTerrainFarmlandAdd();
         cmd.polygon = Utils.polygonConvertToFlat(polygonPoints);
         cmd.baseType = baseType;
         cmd.linesAngle = linesAngle;
@@ -174,7 +174,7 @@ public class ToolStamp_Farmlands extends Tool {
         }
 
         for (Shape2DPolygon subPolygon : shape2DSubPolygons) {
-            CommandTerrainFarmlandCreate cmd = new CommandTerrainFarmlandCreate();
+            CommandTerrainFarmlandAdd cmd = new CommandTerrainFarmlandAdd();
             cmd.polygon = subPolygon.points.pack();
             cmd.baseType = baseType;
             cmd.linesAngle = linesAngle;

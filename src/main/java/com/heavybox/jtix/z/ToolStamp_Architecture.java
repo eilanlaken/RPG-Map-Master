@@ -3,7 +3,6 @@ package com.heavybox.jtix.z;
 import com.heavybox.jtix.RPGMapMakerScene;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.collections.Array;
-import com.heavybox.jtix.collections.ArrayFloat;
 import com.heavybox.jtix.collections.Collections;
 import com.heavybox.jtix.graphics.*;
 import com.heavybox.jtix.input.Input;
@@ -488,13 +487,9 @@ public class ToolStamp_Architecture extends Tool {
                     renderer2D.drawLineThin(p1.x, p1.y, p2.x, p2.y);
                 }
                 Vector2 field = new Vector2(x, y);
-                float angle = Utils.getDirection(field, polygonShape);
+                float angle = Utils.getDirectionRough(field, polygonShape);
                 Vector2 arrow = new Vector2(1,0).rotateDeg(angle).scl(100);
                 renderer2D.setColor(Color.WHITE);
-                if (Input.mouse.moved()) {
-                    ArrayFloat distances = Utils.getDirectionVector(x, y, polygonShape, new Vector2());
-                    System.out.println(distances);
-                }
                 renderer2D.drawLineThin(x, y, x + arrow.x, y + arrow.y);
             }
         }

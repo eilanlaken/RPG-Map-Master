@@ -62,7 +62,49 @@ public class Utils {
         return distances;
     }
 
-    @Deprecated public static float getDirection(Vector2 p, Shape2DPolygon polygon) {
+    // min distance direction
+    public static float getDirectionRough(Vector2 p, Shape2DPolygon polygon) {
+        Array<Tuple2<Vector2, Vector2>> edges = new Array<>();
+
+        final int n = polygon.getNumberOfEdges();
+        for (int i = 0; i < n; i++) {
+            Vector2 tail = new Vector2();
+            Vector2 head = new Vector2();
+            polygon.getEdge(i, tail, head);
+            Tuple2<Vector2, Vector2> edge = new Tuple2<>(tail, head);
+            edges.add(edge);
+        }
+
+        ArrayFloat distances = new ArrayFloat(true, n);
+        for (int i = 0; i < n; i++) {
+            float distance = distancePointToLine(p, edges.get(i).t1, edges.get(i).t2);
+            distances.add(distance);
+        }
+
+        float minDistance = Float.POSITIVE_INFINITY;
+        int minIndex = 0;
+        for (int i = 0; i < distances.size; i++) {
+            float current = distances.get(i);
+            if (current < minDistance) {
+                minIndex = i;
+                minDistance = current;
+            }
+        }
+
+        Array<Vector2> directions = new Array<>(true, n);
+        for (int i = 0; i < n; i++) {
+            Vector2 tail = edges.get(i).t1;
+            Vector2 head = edges.get(i).t2;
+            Vector2 direction = new Vector2(head.x - tail.x, head.y - tail.y);
+            direction.nor();
+            directions.add(direction);
+        }
+
+        return directions.get(minIndex).angleDeg();
+    }
+
+    // interpolated direction
+    public static float getDirectionSmooth(Vector2 p, Shape2DPolygon polygon) {
         Array<Tuple2<Vector2, Vector2>> edges = new Array<>();
 
         final int n = polygon.getNumberOfEdges();

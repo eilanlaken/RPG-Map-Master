@@ -82,7 +82,7 @@ public class ToolBrush_Terrain extends Tool {
         boolean shiftLeftJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.LEFT_SHIFT);
         boolean leftButtonPressed = Input.mouse.isButtonPressed(Mouse.Button.LEFT);
         boolean leftButtonJustPressed = Input.mouse.isButtonJustPressed(Mouse.Button.LEFT);
-        boolean leftButtonJustClicked = Input.mouse.isButtonClicked(Mouse.Button.LEFT);
+        boolean leftClick = Input.mouse.isButtonClicked(Mouse.Button.LEFT);
         boolean rightButtonJustPressed = Input.mouse.isButtonJustPressed(Mouse.Button.RIGHT);
         boolean mouseMoved = Input.mouse.moved();
         boolean scrollUp = Input.mouse.getScrollY() > 0;
@@ -175,7 +175,7 @@ public class ToolBrush_Terrain extends Tool {
 
         if (shape == Shape.LINE) {
             if (lineModeState == LineModeState.FREE) {
-                if (leftButtonJustClicked) {
+                if (leftClick) {
                     lineStart.set(x, y);
                     lineModeState = LineModeState.CREATING_LINE;
                 }
@@ -186,7 +186,7 @@ public class ToolBrush_Terrain extends Tool {
                     lineModeState = LineModeState.FREE;
                     return;
                 }
-                if (leftButtonJustClicked) {
+                if (leftClick) {
                     lineEnd.set(x, y);
                     lineModeState = LineModeState.DRAWING_ALONG_CREATED_LINE;
                 }
@@ -221,10 +221,27 @@ public class ToolBrush_Terrain extends Tool {
             return;
         }
 
-        // TODO: later
         if (shape == Shape.POLYGON) {
-
-            return;
+//            if (free) {
+//                if (leftClick) {
+//                    polygonPoints.add(new Vector2(x, y));
+//                    free = false;
+//                }
+//                return;
+//            } else {
+//                if (leftClick) {
+//                    Vector2 p = new Vector2(x, y); // need to test intersections etc.
+//                    polygonPoints.add(p);
+//                    if (polygonPoints.size < 4) {
+//                        return;
+//                    }
+//                    if (Vector2.dst(p, polygonPoints.first()) <= 20) {
+//                        polygonPoints.clear();
+//                        free = true;
+//                    }
+//                }
+//            }
+//            return;
         }
     }
 
@@ -294,7 +311,8 @@ public class ToolBrush_Terrain extends Tool {
         }
 
         if (shape == Shape.POLYGON) {
-            // ignore for now.
+
+
         }
 
         renderer2D.setShader(null);
