@@ -1,5 +1,6 @@
 package com.heavybox.jtix.math;
 
+import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.collections.ArrayFloat;
 import com.heavybox.jtix.collections.ArrayInt;
 import org.jetbrains.annotations.NotNull;
@@ -15,6 +16,17 @@ public class Shape2DPolygon implements Shape2D {
     private Vector2    centroid;
     private boolean    dirty;
 
+    public Shape2DPolygon(@NotNull Array<Vector2> points) {
+        if (points.size < 3) throw new MathException("A Polygon must contain at least 3 points. Therefore, the input array points: [x0,y0, x1,y1, ...] must contain at least 6 values. Got - points.size = " + points.size);
+
+        this.points = new ArrayFloat(true, points.size * 2);
+        for (Vector2 point : points) {
+            this.points.add(point.x, point.y);
+        }
+        MathUtils.polygonRemoveDegenerateVertices(this.points);
+        this.dirty = true;
+    }
+
     public Shape2DPolygon(float ...points) {
         if (points.length < 6) throw new MathException("A Polygon must contain at least 3 points. Therefore, the input array points: [x0,y0, x1,y1, ...] must contain at least 6 values");
         if (points.length % 2 != 0) throw new MathException("points is a flat array of values representing a polygon. A point has a float x and float y values. Therefore points must contain an even number of points.");
@@ -23,6 +35,14 @@ public class Shape2DPolygon implements Shape2D {
         this.points.addAll(points);
         MathUtils.polygonRemoveDegenerateVertices(this.points);
         this.dirty = true;
+    }
+
+    public int getNumberOfVertices() {
+        return this.points.size / 2;
+    }
+
+    public int getNumberOfEdges() {
+        return this.points.size / 2;
     }
 
     @Override
@@ -224,4 +244,14 @@ public class Shape2DPolygon implements Shape2D {
         dirty = true;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Polygon: ").append('[');
+        for (int i = 0; i < points.size / 2; i++) {
+            sb.append('(').append(points.get(i * 2)).append(",").append(points.get(i * 2 + 1)).append(')').append(' ');
+        }
+        sb.append(']');
+        return sb.toString();
+    }
 }

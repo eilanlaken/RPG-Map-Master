@@ -4,8 +4,10 @@ import com.heavybox.jtix.application.Application;
 import com.heavybox.jtix.application.ApplicationSettings;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.collections.Tuple2;
+import com.heavybox.jtix.math.Vector2;
 import com.heavybox.jtix.z.DevTests;
 import com.heavybox.jtix.z.DevTools;
+import com.heavybox.jtix.z.Utils;
 
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
@@ -19,6 +21,10 @@ public class Main {
 
 //        DevTests.run();
 //        if (true) return;
+
+        float d1 = Utils.distancePointToLine(new Vector2(4,3), new Vector2(0,0), new Vector2(0,9));
+        System.out.println(new Vector2(-3,0).angleDeg());
+        System.out.println(d1);
 
         ApplicationSettings settings = new ApplicationSettings();
         //settings.resizable = false;

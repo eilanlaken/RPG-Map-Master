@@ -260,7 +260,8 @@ public class ToolBrush_Props extends Tool {
                 minDistance = Math.min(distanceSquared, minDistance);
             }
             minDistance = (float) Math.sqrt(minDistance);
-            if (minDistance < getMinSpacing()) continue;
+            // we don't do sparse check here.
+            //if (minDistance < getMinSpacing()) continue;
 
             CommandTokenCreate createToken = new CommandTokenCreate(
                     3,

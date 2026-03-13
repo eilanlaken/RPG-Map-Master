@@ -26,7 +26,7 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
     private int liquidBaseTextureIndex = 2;
     private float uvScaleFactorGround = 1; // TODO
     private float uvScaleFactorLiquid = 1; // TODO
-    private final Texture[] terrainGrounds = new Texture[6];
+    private final Texture[] terrainGrounds = new Texture[7];
     private final Texture[] terrainLiquids = new Texture[3];
     private final Texture[] bases = new Texture[5];
 
@@ -86,6 +86,7 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
         terrainGrounds[3] = Assets.get("assets/textures-layer-0/terrain_land_stone_0.jpg");
         terrainGrounds[4] = Assets.get("assets/textures-layer-0/terrain_land_stone_1.jpg");
         terrainGrounds[5] = Assets.get("assets/textures-layer-0/terrain_land_road_0.jpg");
+        terrainGrounds[6] = Assets.get("assets/textures-layer-0/terrain_land_dirt_0.jpg");
 
         bases[0] = Assets.get("assets/textures-layer-0/farmland_0.png");
         bases[1] = Assets.get("assets/textures-layer-0/farmland_1.png");

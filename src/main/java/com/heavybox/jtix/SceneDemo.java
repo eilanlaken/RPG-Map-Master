@@ -19,8 +19,8 @@ import org.lwjgl.opengl.GL11;
 // https://www.youtube.com/watch?v=5gDC1GU3Ivg
 public class SceneDemo implements Scene, RPGMapMakerScene {
 
-    public static int width = 1920;
-    public static int height = 1080;
+    public static int width = 2880;
+    public static int height = 1620;
 
     private final Renderer2D renderer2D;
     public final Camera camera = new Camera(Camera.Mode.ORTHOGRAPHIC, Graphics.getWindowWidth(), Graphics.getWindowHeight(), 2, 0, 100, 75);
@@ -61,6 +61,7 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
         // layer 0 - terrain textures
         Assets.loadTexture("assets/textures-layer-0/terrain_land_grass_0.jpg", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
         Assets.loadTexture("assets/textures-layer-0/terrain_land_grass_1.jpg", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
+        Assets.loadTexture("assets/textures-layer-0/terrain_land_dirt_0.jpg", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
         Assets.loadTexture("assets/textures-layer-0/terrain_land_road_0.jpg", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
         Assets.loadTexture("assets/textures-layer-0/terrain_land_sand_0.jpg", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
         Assets.loadTexture("assets/textures-layer-0/terrain_land_stone_0.jpg", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);

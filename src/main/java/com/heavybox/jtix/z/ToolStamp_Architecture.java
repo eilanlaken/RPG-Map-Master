@@ -3,12 +3,14 @@ package com.heavybox.jtix.z;
 import com.heavybox.jtix.RPGMapMakerScene;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.collections.Array;
+import com.heavybox.jtix.collections.ArrayFloat;
 import com.heavybox.jtix.collections.Collections;
 import com.heavybox.jtix.graphics.*;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.MathUtils;
+import com.heavybox.jtix.math.Shape2DPolygon;
 import com.heavybox.jtix.math.Vector2;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -118,17 +120,24 @@ public class ToolStamp_Architecture extends Tool {
     private int bundleIsometricViewIndex = MathUtils.randomUniformInt(0, BUNDLES_ISOMETRIC_VIEW.size);
     private int bundleSideViewIndex = MathUtils.randomUniformInt(0, Math.max(1, BUNDLES_SIDE_VIEW.size));
 
-    public StampMode stampMode = StampMode.POINT_SINGLE_SIDE_VIEW;
+    public StampMode stampMode = StampMode.POLYGON_TOP_VIEW;
 
     // point side view singles
     private final Block sideViewCurrentBlock = new Block();
     private int sideViewIndex = MathUtils.randomUniformInt(0,6);
     private Type sideViewType = Type.SIDE_VIEW_BLOCK;
 
-    // polygon top view
+    // line top view
     private Array<Block> lineBlocks = new Array<>(false, 10);
     private final Vector2 linePointStart = new Vector2();
     private boolean lineFree = true;
+
+    // polygon top view
+    private boolean polygonFree = false;
+    private boolean polygonDrawing = false;
+    private boolean polygonDone = true;
+    private final Array<Vector2> polygonPoints = new Array<>(true, 10);
+    private Shape2DPolygon polygonShape = new Shape2DPolygon(0,0,  400,0,  400,300,  0,300);
 
     public ToolStamp_Architecture(final RPGMapMakerScene scene) {
         super(scene);
@@ -298,6 +307,14 @@ public class ToolStamp_Architecture extends Tool {
             }
         }
 
+        if (stampMode == StampMode.CIRCLE_TOP_VIEW) {
+
+        }
+
+        if (stampMode == StampMode.CIRCLE_TOP_VIEW_PROCEDURAL) {
+
+        }
+
         if (stampMode == StampMode.LINE_TOP_VIEW) {
             if (lineFree) {
                 if (leftButtonClicked) {
@@ -309,6 +326,35 @@ public class ToolStamp_Architecture extends Tool {
 
                 }
             }
+        }
+
+        if (stampMode == StampMode.POLYGON_TOP_VIEW) {
+            if (polygonFree) {
+                if (leftButtonClicked) {
+                    polygonPoints.add(new Vector2(x, y));
+                    polygonFree = false;
+                    polygonDrawing = true;
+                }
+                return;
+            }
+
+            if (polygonDrawing) {
+                if (leftButtonClicked) {
+                    Vector2 p = new Vector2(x, y); // need to test intersections etc.
+                    polygonPoints.add(p);
+                    if (polygonPoints.size < 4) return;
+                    if (Vector2.dst(p, polygonPoints.first()) <= 20) {
+                        polygonDrawing = false;
+                        polygonDone = true;
+                        polygonShape = new Shape2DPolygon(polygonPoints);
+                    }
+                }
+            }
+
+        }
+
+        if (stampMode == StampMode.POLYGON_TOP_VIEW_PROCEDURAL) {
+
         }
 
     }
@@ -381,6 +427,9 @@ public class ToolStamp_Architecture extends Tool {
             return;
         }
 
+        if (stampMode == StampMode.CIRCLE_TOP_VIEW) {}
+        if (stampMode == StampMode.CIRCLE_TOP_VIEW_PROCEDURAL) {}
+
         if (stampMode == StampMode.LINE_TOP_VIEW) {
             if (lineFree) {
                 renderer2D.setColor(Color.WHITE);
@@ -393,6 +442,65 @@ public class ToolStamp_Architecture extends Tool {
                 renderer2D.drawLineThin(lineStart.x, lineStart.y, x, y);
                 renderer2D.setColor(Color.WHITE);
             }
+        }
+
+        if (stampMode == StampMode.POLYGON_TOP_VIEW) {
+            if (polygonFree) {
+                renderer2D.setColor(Color.RED);
+                renderer2D.drawCircleFilled(10,5, x, y, 0, 1,1);
+                renderer2D.setColor(Color.WHITE);
+                return;
+            }
+
+            if (polygonDrawing) {
+                if (polygonPoints.isEmpty()) return;
+
+                renderer2D.setColor(Color.BLACK);
+                renderer2D.drawCircleBorder(15, 5, 10, polygonPoints.first().x, polygonPoints.first().y, 0, 1, 1);
+                renderer2D.setColor(Color.RED);
+                for (int i = 0; i < polygonPoints.size; i++) {
+                    Vector2 p = polygonPoints.get(i);
+                    renderer2D.drawCircleFilled(5, 5, p.x, p.y, 0, 1, 1);
+                }
+                for (int i = 0; i < polygonPoints.size - 1; i++) {
+                    Vector2 p1 = polygonPoints.get(i);
+                    Vector2 p2 = polygonPoints.get(i + 1);
+                    renderer2D.drawLineThin(p1.x, p1.y, p2.x, p2.y);
+                }
+                renderer2D.drawLineThin(polygonPoints.last().x, polygonPoints.last().y, x, y);
+                renderer2D.drawLineThin(x, y, polygonPoints.first().x, polygonPoints.first().y);
+            }
+
+            if (polygonDone) {
+                renderer2D.setColor(Color.RED);
+                // TODO: just for testing
+                    polygonPoints.clear();
+                    polygonPoints.add(new Vector2(0,0));
+                    polygonPoints.add(new Vector2(400,0));
+                    polygonPoints.add(new Vector2(400,300));
+                    polygonPoints.add(new Vector2(0,300));
+                    polygonPoints.add(new Vector2(0,0));
+
+
+                for (int i = 0; i < polygonPoints.size - 1; i++) {
+                    Vector2 p1 = polygonPoints.get(i);
+                    Vector2 p2 = polygonPoints.get(i + 1);
+                    renderer2D.drawLineThin(p1.x, p1.y, p2.x, p2.y);
+                }
+                Vector2 field = new Vector2(x, y);
+                float angle = Utils.getDirection(field, polygonShape);
+                Vector2 arrow = new Vector2(1,0).rotateDeg(angle).scl(100);
+                renderer2D.setColor(Color.WHITE);
+                if (Input.mouse.moved()) {
+                    ArrayFloat distances = Utils.getDirectionVector(x, y, polygonShape, new Vector2());
+                    System.out.println(distances);
+                }
+                renderer2D.drawLineThin(x, y, x + arrow.x, y + arrow.y);
+            }
+        }
+
+        if (stampMode == StampMode.POLYGON_TOP_VIEW_PROCEDURAL) {
+
         }
 
     }
@@ -586,8 +694,8 @@ public class ToolStamp_Architecture extends Tool {
 
         LINE_TOP_VIEW,
 
-//        @Deprecated POLYGON_TOP_VIEW,
-//        @Deprecated POLYGON_TOP_VIEW_PROCEDURAL,
+        POLYGON_TOP_VIEW,
+        POLYGON_TOP_VIEW_PROCEDURAL,
     }
 
     public enum Race {
