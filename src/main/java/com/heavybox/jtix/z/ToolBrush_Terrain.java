@@ -144,7 +144,7 @@ public class ToolBrush_Terrain extends Tool {
             return;
         }
 
-        if (shape == Shape.POINT) {
+        if (shape == Shape.POINTS) {
             if (leftButtonJustPressed) {
                 CommandTerrainAddSub cmd = new CommandTerrainAddSub(x, y, sclX, sclY, false); // TODO: anchor
                 cmd.target = target;
@@ -213,8 +213,8 @@ public class ToolBrush_Terrain extends Tool {
                 float t = (apx*abx + apy*aby) / ab2;
                 t = MathUtils.clampFloat(t, 0f, 1f);
 
-                float lineMouseX = ax + t * abx;
-                float lineMouseY = ay + t * aby;
+                lineMouseX = ax + t * abx;
+                lineMouseY = ay + t * aby;
 
                 if (rightButtonJustPressed) { // cancel
                     lineModeState = LineModeState.FREE;
@@ -298,7 +298,7 @@ public class ToolBrush_Terrain extends Tool {
     @Override
     public void renderToolOverlay(@NotNull Renderer2D renderer2D, float x, float y) {
 
-        if (shape == Shape.POINT) {
+        if (shape == Shape.POINTS) {
             drawBrushPrediction(renderer2D, x, y);
         }
 
@@ -363,16 +363,21 @@ public class ToolBrush_Terrain extends Tool {
     }
 
     @Override
-    public void activate() {
+    public void onActivate() {
         System.out.println("Active Tool - " + getName());
     }
 
     @Override
-    public void deactivate() {}
+    public void onDeactivate() {}
 
     @Override
     public String getName() {
         return "Terrain Brush";
+    }
+
+    @Override
+    public int getLayer() {
+        return 0;
     }
 
     public enum Target {

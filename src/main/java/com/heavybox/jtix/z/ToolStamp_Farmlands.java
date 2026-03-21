@@ -55,7 +55,7 @@ public class ToolStamp_Farmlands extends Tool {
             mode = Collections.enumNext(mode);
             polygonPoints.clear();
             free = true;
-            shape = (mode == Mode.ADD) ? Shape.POLYGON : Shape.POINT;
+            shape = (mode == Mode.ADD) ? Shape.POLYGON : Shape.POINTS;
             return;
         } else if (pJustPressed) {
             procedural = !procedural;
@@ -240,17 +240,22 @@ public class ToolStamp_Farmlands extends Tool {
     }
 
     @Override
-    public void activate() {
+    public void onActivate() {
 
     }
 
     @Override
-    public void deactivate() {
+    public void onDeactivate() {
 
     }
 
     @Override
     public String getName() {
         return "Farmlands Stamp";
+    }
+
+    @Override
+    public int getLayer() {
+        return 0;
     }
 }

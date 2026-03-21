@@ -239,6 +239,11 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
     }
 
     @Override
+    public boolean active() {
+        return true;
+    }
+
+    @Override
     public void finish() {}
 
 }

@@ -145,12 +145,12 @@ public class ToolStamp_Procedural extends Tool {
     }
 
     @Override
-    public void activate() {
+    public void onActivate() {
 
     }
 
     @Override
-    public void deactivate() {
+    public void onDeactivate() {
 
     }
 
@@ -159,4 +159,8 @@ public class ToolStamp_Procedural extends Tool {
         return "Procedural Brush";
     }
 
+    @Override
+    public int getLayer() {
+        return 0;
+    }
 }

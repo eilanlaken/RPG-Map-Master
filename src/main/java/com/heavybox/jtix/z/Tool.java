@@ -5,13 +5,16 @@ import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.collections.Collections;
 import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.graphics.TextureRegion;
+import com.heavybox.jtix.input.InputEventHandler;
 import com.heavybox.jtix.math.Vector2;
 
-public abstract class Tool {
+public abstract class Tool implements InputEventHandler {
 
     // references
     protected final Map map;
     protected final RPGMapMakerScene scene;
+
+    private boolean active = false;
 
     // modes
     public Mode mode = Mode.ADD;
@@ -102,15 +105,29 @@ public abstract class Tool {
     public abstract void renderToolOverlay(Renderer2D renderer2D, float x, float y);
     public abstract void renderToolText(Renderer2D renderer2D, float x, float y);
     public String getHelperText() {return getName();}
-    public abstract void activate();
-    public abstract void deactivate();
+
+    public void activate() {
+        this.active = true;
+        onActivate();
+    }
+
+    public void deactivate() {
+        this.active = false;
+        onDeactivate();
+    }
+
+    public abstract void onActivate();
+    public abstract void onDeactivate();
     public abstract String getName();
+
+    @Override
+    public boolean active() { return active; }
 
     // TODO
     public enum Shape {
-        POINT,
-        CIRCLE,
+        POINTS,
         LINE,
+        CIRCLE,
         POLYGON, // TODO: BUG HERE WHEN CLOSING A POLYGON EXACTLY
         ;
     }

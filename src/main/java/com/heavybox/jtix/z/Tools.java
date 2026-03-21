@@ -22,6 +22,7 @@ public final class Tools {
     public static ToolBrush_Geology toolBrushGeology;
     public static ToolBrush_Props toolBrushProps;
     public static ToolStamp_Procedural toolStampProcedural;
+    public static ToolBrush_Debug toolBrushDebug;
 
     private static RPGMapMakerScene scene;
 
@@ -35,6 +36,7 @@ public final class Tools {
         toolBrushGeology = new ToolBrush_Geology(scene);
         toolBrushProps = new ToolBrush_Props(scene);
         toolStampProcedural = new ToolStamp_Procedural(scene);
+        toolBrushDebug = new ToolBrush_Debug(scene);
 
         tools.add(toolBrushTerrain);
         tools.add(toolBrushNature);
@@ -43,6 +45,7 @@ public final class Tools {
         tools.add(toolBrushGeology);
         tools.add(toolBrushProps);
         tools.add(toolStampProcedural);
+        tools.add(toolBrushDebug);
 
         selectTool(3);
     }
@@ -75,7 +78,9 @@ public final class Tools {
         } else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KEY_6)) {
             selectTool(5);
         } else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KEY_7)) {
-            //selectTool(6);
+            selectTool(6);
+        } else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KEY_8)) {
+            selectTool(8);
         }
     }
 

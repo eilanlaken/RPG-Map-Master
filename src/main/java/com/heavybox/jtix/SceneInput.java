@@ -77,6 +77,11 @@ public class SceneInput implements Scene {
     }
 
     @Override
+    public boolean active() {
+        return false;
+    }
+
+    @Override
     public void finish() {
 
     }

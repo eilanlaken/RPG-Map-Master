@@ -919,15 +919,33 @@ public final class MathUtils {
         }
     }
 
+    // TODO
+    public static void polygonTriangulate_new(@NotNull ArrayFloat polygon, @NotNull ArrayInt out) {
+        polygonTriangulate_new(polygon.items, polygon.size >> 1, out);
+    }
+
+    // TODO
+    public static void polygonTriangulate_new(float[] polygon, @NotNull ArrayInt out) {
+        polygonTriangulate_new(polygon, polygon.length >> 1, out);
+    }
+
+    // TODO
+    // https://scispace.com/pdf/a-comparison-of-ear-clipping-and-a-new-polygon-triangulation-2qwtryi623.pdf
+    // another approach might be recursively selecting a diagonal inside the polygon, adding the vertices to the index list and triangulating the
+    // 2 partitions. (no, this is an enshitified ear clipping).
+    private static void polygonTriangulate_new(float[] polygon, int vertexCount, @NotNull ArrayInt out) {
+
+    }
+
     // TODO: test test test
-    public static void polygonTriangulate(float[] polygon, @NotNull ArrayFloat outVertices, @NotNull ArrayInt outIndices) {
+    @Deprecated public static void polygonTriangulate(float[] polygon, @NotNull ArrayFloat outVertices, @NotNull ArrayInt outIndices) {
         if (polygon.length < 6) throw new MathException("A polygon requires a minimum of 3 vertices, so the polygon array must be of length > 6. Got: " + polygon.length);
         if (polygon.length % 2 != 0) throw new MathException("Polygon must be represented as a flat array of vertices, each vertex must have x and y coordinates: [x0,y0,  x1,y1, ...]. Therefore, polygon array length must be even. Got: " + polygon.length);
 
         outVertices.clear();
         outVertices.addAll(polygon);
         outIndices.clear();
-        polygonRemoveDegenerateVertices(outVertices);
+        polygonRemoveDegenerateVertices(outVertices); // TODO: try to modify algorithm to remove.
         if (outVertices.size < 6) throw new MathException("Polygon contains " + (polygon.length - outVertices.size) / 2 + " collinear vertices; When removed, that total vertex count is: " + outVertices.size / 2 + ". Must have at least 3 non-collinear vertices.");
 
         int windingOrder = MathUtils.polygonWindingOrder(outVertices);
@@ -1012,12 +1030,13 @@ public final class MathUtils {
         vectors2Pool.free(va_to_vc);
     }
 
-    public static void polygonTriangulate(@NotNull ArrayFloat polygon, @NotNull ArrayInt outIndices) {
+    // TODO: see if you can get rid of polygonRemoveDegenerateVertices(polygon);
+    @Deprecated public static void polygonTriangulate(@NotNull ArrayFloat polygon, @NotNull ArrayInt outIndices) {
         if (polygon.size < 6) throw new MathException("A polygon requires a minimum of 3 vertices, so the polygon array must be of length > 6. Got: " + polygon.size);
         if (polygon.size % 2 != 0) throw new MathException("Polygon must be represented as a flat array of vertices, each vertex must have x and y coordinates: [x0,y0,  x1,y1, ...]. Therefore, polygon array length must be even. Got: " + polygon.size);
 
         outIndices.clear();
-        polygonRemoveDegenerateVertices(polygon);
+        polygonRemoveDegenerateVertices(polygon); // TODO: try to modify algorithm to remove.
         if (polygon.size < 6) throw new MathException("Polygon contains degenerate vertices (collinear or duplicates); When removed, that total vertex count is: " + polygon.size / 2 + ". Must have at least 3 non-collinear vertices.");
 
         int windingOrder = MathUtils.polygonWindingOrder(polygon);

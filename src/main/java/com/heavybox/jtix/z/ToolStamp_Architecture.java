@@ -145,7 +145,7 @@ public class ToolStamp_Architecture extends Tool {
         sclX = 2f / 3;
         sclY = 2f / 3;
 
-        shape = Shape.POINT;
+        shape = Shape.POINTS;
         mode = Mode.ADD;
 
         toolOverlayDevCurrentRegion = getToolOverlayCurrentRegion();
@@ -583,18 +583,23 @@ public class ToolStamp_Architecture extends Tool {
     }
 
     @Override
-    public void activate() {
+    public void onActivate() {
 
     }
 
     @Override
-    public void deactivate() {
+    public void onDeactivate() {
 
     }
 
     @Override
     public String getName() {
         return "Architecture Tool";
+    }
+
+    @Override
+    public int getLayer() {
+        return 0;
     }
 
     public static class Bundle {

@@ -14,6 +14,11 @@ public class SceneInput_2 implements Scene {
     InputEventHandler second = new InputEventHandler() {
 
         @Override
+        public boolean active() {
+            return false;
+        }
+
+        @Override
         public boolean mouseScrolled(float scrollX, float scrollY) {
             System.out.println(scrollX + " , " + scrollY);
             return true;
@@ -45,6 +50,11 @@ public class SceneInput_2 implements Scene {
     @Override
     public void update() {
 
+    }
+
+    @Override
+    public boolean active() {
+        return true;
     }
 
     @Override
