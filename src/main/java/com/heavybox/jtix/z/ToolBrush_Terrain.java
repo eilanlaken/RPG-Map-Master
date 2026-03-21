@@ -144,7 +144,7 @@ public class ToolBrush_Terrain extends Tool {
             return;
         }
 
-        if (shape == Shape.POINTS) {
+        if (shape == Shape.POINT) {
             if (leftButtonJustPressed) {
                 CommandTerrainAddSub cmd = new CommandTerrainAddSub(x, y, sclX, sclY, false); // TODO: anchor
                 cmd.target = target;
@@ -298,7 +298,7 @@ public class ToolBrush_Terrain extends Tool {
     @Override
     public void renderToolOverlay(@NotNull Renderer2D renderer2D, float x, float y) {
 
-        if (shape == Shape.POINTS) {
+        if (shape == Shape.POINT) {
             drawBrushPrediction(renderer2D, x, y);
         }
 

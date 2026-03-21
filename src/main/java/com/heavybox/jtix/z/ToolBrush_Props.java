@@ -37,7 +37,7 @@ public class ToolBrush_Props extends Tool {
 
         sclX = 2f / 3;
         sclY = 2f / 3;
-        this.shape = Shape.POINTS;
+        this.shape = Shape.POINT;
     }
 
     protected void gatherBrushProps() {
@@ -83,7 +83,7 @@ public class ToolBrush_Props extends Tool {
     @Override
     protected void onSetParameter() {
         tokensPreview.clear();
-        if (shape == Shape.POINTS) refillPointWithTokens();
+        if (shape == Shape.POINT) refillPointWithTokens();
         if (shape == Shape.CIRCLE) refillCircleWithTokens();
         if (shape == Shape.LINE) refillLineWithTokens();
         if (shape == Shape.POLYGON) refillPolygonWithTokens();
@@ -174,7 +174,7 @@ public class ToolBrush_Props extends Tool {
         }
 
         if (mode == Mode.ADD) {
-            if (shape == Shape.POINTS) {
+            if (shape == Shape.POINT) {
                 if (leftClicked) {
                     spawnTokens(true);
                     refillPointWithTokens();
@@ -247,7 +247,7 @@ public class ToolBrush_Props extends Tool {
     }
 
     private void spawnTokens(boolean useBrushOffset) {
-        map.getAllTokens(null, alreadyCreatedTokens);
+        map.getAllTokensByType(null, alreadyCreatedTokens);
 
         float offsetX = useBrushOffset ? x : 0;
         float offsetY = useBrushOffset ? y : 0;
@@ -294,7 +294,7 @@ public class ToolBrush_Props extends Tool {
         Color color = mode == Mode.ADD ? Color.GREEN : Color.RED;
         boolean renderPreviewTokens = mode == Mode.ADD;
 
-        if (shape == Shape.POINTS) {
+        if (shape == Shape.POINT) {
             renderer2D.setColor(color);
             renderer2D.drawCircleFilled(8, 10, x, y, 0,1,1);
             renderer2D.setColor(Color.WHITE);
@@ -550,7 +550,7 @@ public class ToolBrush_Props extends Tool {
         System.out.println("active - " + getName());
         tokensPreview.clear();
         polygonPoints.clear();
-        if (shape == Shape.POINTS) {
+        if (shape == Shape.POINT) {
             refillPointWithTokens();
         }
         if (shape == Shape.CIRCLE) {

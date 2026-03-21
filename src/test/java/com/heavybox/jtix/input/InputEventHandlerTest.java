@@ -28,6 +28,11 @@ public class InputEventHandlerTest {
         }
 
         @Override
+        public boolean active() {
+            return false;
+        }
+
+        @Override
         public String toString() {
             return "MyInputLayer{" +
                     "level=" + level +

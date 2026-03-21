@@ -145,7 +145,7 @@ public class ToolStamp_Architecture extends Tool {
         sclX = 2f / 3;
         sclY = 2f / 3;
 
-        shape = Shape.POINTS;
+        shape = Shape.POINT;
         mode = Mode.ADD;
 
         toolOverlayDevCurrentRegion = getToolOverlayCurrentRegion();

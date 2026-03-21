@@ -55,7 +55,7 @@ public class ToolStamp_Farmlands extends Tool {
             mode = Collections.enumNext(mode);
             polygonPoints.clear();
             free = true;
-            shape = (mode == Mode.ADD) ? Shape.POLYGON : Shape.POINTS;
+            shape = (mode == Mode.ADD) ? Shape.POLYGON : Shape.POINT;
             return;
         } else if (pJustPressed) {
             procedural = !procedural;

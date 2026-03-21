@@ -71,7 +71,14 @@ public class Map {
         }
     }
 
-    public void getAllTokens(Enum<?> type, Array<Token> out) {
+    public void getAllTokensByRegion(TextureRegion region, Array<Token> out) {
+        out.clear();
+        for (Token token : layer3.allTokens) {
+            if (token.regions[0] == region) out.add(token);
+        }
+    }
+
+    public void getAllTokensByType(Enum<?> type, Array<Token> out) {
         out.clear();
         for (Token token : layer3.allTokens) {
             if (token.tokenType == type) out.add(token);

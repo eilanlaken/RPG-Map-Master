@@ -31,7 +31,7 @@ public class ToolBrush_Geology extends Tool {
         sclX = 1f / 2;
         sclY = 1f / 2;
 
-        shape = Shape.POINTS;
+        shape = Shape.POINT;
         density = 0.15f; // units per 100 pixels
     }
 
@@ -53,7 +53,7 @@ public class ToolBrush_Geology extends Tool {
     @Override
     protected void onSetParameter() {
         tokensPreview.clear();
-        if (shape == Shape.POINTS) refillPointWithTokens();
+        if (shape == Shape.POINT) refillPointWithTokens();
         if (shape == Shape.CIRCLE) refillCircleWithTokens();
         if (shape == Shape.LINE) refillLineWithTokens();
         if (shape == Shape.POLYGON) refillPolygonWithTokens();
@@ -120,7 +120,7 @@ public class ToolBrush_Geology extends Tool {
         }
 
         if (mode == Mode.ADD) {
-            if (shape == Shape.POINTS) {
+            if (shape == Shape.POINT) {
                 if (leftClicked) {
                     spawnTokens(true, false);
                     refillPointWithTokens();
@@ -193,7 +193,7 @@ public class ToolBrush_Geology extends Tool {
     }
 
     private void spawnTokens(boolean useBrushOffset, boolean maintainMinSpacing) {
-        map.getAllTokens(currentType, alreadyCreatedTokens);
+        map.getAllTokensByType(currentType, alreadyCreatedTokens);
 
         float offsetX = useBrushOffset ? x : 0;
         float offsetY = useBrushOffset ? y : 0;
@@ -245,7 +245,7 @@ public class ToolBrush_Geology extends Tool {
         Color color = mode == Mode.ADD ? Color.GREEN : Color.RED;
         boolean renderPreviewTokens = mode == Mode.ADD;
 
-        if (shape == Shape.POINTS) {
+        if (shape == Shape.POINT) {
             renderer2D.setColor(color);
             renderer2D.drawCircleFilled(8, 10, x, y, 0,1,1);
             renderer2D.setColor(Color.WHITE);
@@ -502,7 +502,7 @@ public class ToolBrush_Geology extends Tool {
         System.out.println("active - " + getName());
         tokensPreview.clear();
         polygonPoints.clear();
-        if (shape == Shape.POINTS) {
+        if (shape == Shape.POINT) {
             refillPointWithTokens();
         }
         if (shape == Shape.CIRCLE) {

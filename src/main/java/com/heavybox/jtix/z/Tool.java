@@ -66,7 +66,7 @@ public abstract class Tool implements InputEventHandler {
     protected void onSetParameter() {}
     protected void onSetMode() {}
 
-    // TODO
+    // TODO - should be abstract
     protected TextureRegion[] getRegions() { return null; }
 
     protected float getMinSpacing() {
@@ -80,7 +80,7 @@ public abstract class Tool implements InputEventHandler {
     }
 
     protected int getBatchCount(float area) {
-        if (area <= 0f || density <= 0f) return 0;
+        if (area <= 0f || density <= 0f) return 1;
         float densityPerPixel = density / 100f;
         return Math.max(1, (int) Math.ceil(area * densityPerPixel));
     }
@@ -125,7 +125,7 @@ public abstract class Tool implements InputEventHandler {
 
     // TODO
     public enum Shape {
-        POINTS,
+        POINT,
         LINE,
         CIRCLE,
         POLYGON, // TODO: BUG HERE WHEN CLOSING A POLYGON EXACTLY

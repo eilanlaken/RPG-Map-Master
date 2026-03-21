@@ -47,7 +47,7 @@ public final class Tools {
         tools.add(toolStampProcedural);
         tools.add(toolBrushDebug);
 
-        selectTool(3);
+        selectTool(7);
     }
 
     public static void selectTool(int index) {
@@ -80,7 +80,7 @@ public final class Tools {
         } else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KEY_7)) {
             selectTool(6);
         } else if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KEY_8)) {
-            selectTool(8);
+            selectTool(7);
         }
     }
 
