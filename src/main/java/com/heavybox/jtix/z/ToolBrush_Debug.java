@@ -28,6 +28,7 @@ public class ToolBrush_Debug extends Tool {
     private float spacing = 1;
     private final Array<Token> tokensPreview = new Array<>();
     private final Array<Token> alreadyCreatedTokens = new Array<>();
+    private boolean angleFollowPath = true;
 
     // point mode
 
@@ -36,10 +37,13 @@ public class ToolBrush_Debug extends Tool {
     private boolean circle_fill = false;
 
     // line mode
-    private Vector2 line_start = new Vector2();
-    private Vector2 line_end = new Vector2();
+    private boolean line_free = true;
+    private final Vector2 line_start = new Vector2();
+    private final Vector2 line_end = new Vector2();
 
     // polygon mode
+    private boolean polygon_free = true;
+    private boolean polygon_fill = false;
     private final Array<Vector2> polygon_points = new Array<>(true, 10);
 
     public ToolBrush_Debug(final RPGMapMakerScene scene) {
@@ -53,6 +57,13 @@ public class ToolBrush_Debug extends Tool {
         selectShape(Shape.POINT);
     }
 
+    private void refillWithTokens() {
+        if (currentShape == Shape.POINT)        point_refillWithTokens();
+        else if (currentShape == Shape.CIRCLE)  circle_refillWithTokens();
+        else if (currentShape == Shape.LINE)    line_refillWithTokens();
+        else if (currentShape == Shape.POLYGON) polygon_refillWithTokens();
+    }
+
     private void point_refillWithTokens() {
         tokensPreview.clear();
         Token token = new Token(3, 0, 0, 0, sclX,sclY, getRegions());
@@ -62,55 +73,102 @@ public class ToolBrush_Debug extends Tool {
     // TODO - filter against self. If a token is too close to one already in the circle, don't add it.
     private void circle_refillWithTokens() {
         tokensPreview.clear();
-        float radius = circle_spreadRadius * sclX;
 
         if (circle_fill) {
-            int batchCount = getBatchCountArea(MathUtils.PI * radius * radius);
+            int batchCount = getBatchCountArea(MathUtils.PI * circle_spreadRadius * circle_spreadRadius);
             for (int i = 0; i < batchCount; i++) {
-                float r = radius * MathUtils.randomUniformFloat(0,1);
-                float deg = MathUtils.randomUniformFloat(0,360);
-                float offsetX = MathUtils.cosDeg(deg) * r;
-                float offsetY = MathUtils.sinDeg(deg) * r;
-                Token token = new Token(3, offsetX, offsetY, 0, sclX, sclY, getRegions());
+                float r = circle_spreadRadius * MathUtils.randomUniformFloat(0,1);
+                float angle = MathUtils.randomUniformFloat(0,360);
+                float offsetX = MathUtils.cosDeg(angle) * r;
+                float offsetY = MathUtils.sinDeg(angle) * r;
+                float deg = this.deg + (!angleFollowPath ? 0 : angle + 90);
+                Token token = new Token(3, offsetX, offsetY, deg, sclX, sclY, getRegions());
                 token.tint = Color.randomOpaque();
                 tokensPreview.add(token);
             }
         } else {
-            int batchCount = getBatchCountLength(2 * MathUtils.PI * radius);
+            int batchCount = getBatchCountLength(2 * MathUtils.PI * circle_spreadRadius);
             for (int i = 0; i < batchCount; i++) {
                 float angle = (360f / batchCount) * i;
-                float offsetX = MathUtils.cosDeg(angle) * radius;
-                float offsetY = MathUtils.sinDeg(angle) * radius;
-                float deg = 0; // calculate deg based on params.
+                float offsetX = MathUtils.cosDeg(angle) * circle_spreadRadius;
+                float offsetY = MathUtils.sinDeg(angle) * circle_spreadRadius;
+                float deg = this.deg + (!angleFollowPath ? 0 : angle + 90);
                 Token token = new Token(3, offsetX, offsetY, deg, sclX, sclY, getRegions());
                 token.tint = Color.randomOpaque();
                 tokensPreview.add(token);
             }
         }
 
-        tokensPreview.sort(Comparator.comparingInt(o -> -(int) o.minY));
+        if (tokensPreview.size >= 2) tokensPreview.sort(Comparator.comparingInt(o -> -(int) o.minY));
+    }
+
+    private void line_refillWithTokens() {
+        tokensPreview.clear();
+        line_end.set(x, y);
+        float length = Vector2.dst(line_start, line_end);
+        int batchCount = getBatchCountLength(length);
+        Vector2 step = new Vector2(line_end.x - line_start.x, line_end.y - line_start.y);
+        step.nor();
+        step.scl(length / batchCount);
+        for (int i = 0; i < batchCount; i++) {
+            float deg = this.deg + (!angleFollowPath ? 0 : step.angleDeg()); // calculate deg based on params.
+            Token token = new Token(3, line_start.x + step.x * i, line_start.y + step.y * i, deg, sclX, sclY, getRegions());
+            token.tint = Color.randomOpaque();
+            tokensPreview.add(token);
+        }
+        if (tokensPreview.size >= 2) tokensPreview.sort(Comparator.comparingInt(o -> -(int) o.minY));
+    }
+
+    private void polygon_refillWithTokens() {
+        tokensPreview.clear();
+
+        if (polygon_fill) {
+
+        } else {
+            for (int i = 0; i < polygon_points.size - 1; i++) {
+                Vector2 start = polygon_points.get(i);
+                Vector2 end = polygon_points.get(i+1);
+                float length = Vector2.dst(start, end);
+                int batchCount = getBatchCountLength(length);
+                Vector2 step = new Vector2(end.x - start.x, end.y - start.y);
+                step.nor();
+                step.scl(length / batchCount);
+                for (int j = 0; j < batchCount - 1; j++) {
+                    float deg = this.deg + (!angleFollowPath ? 0 : step.angleDeg()); // calculate deg based on params.
+                    Token token = new Token(3, start.x + step.x * j, start.y + step.y * j, deg, sclX, sclY, getRegions());
+                    token.tint = Color.randomOpaque();
+                    tokensPreview.add(token);
+                }
+            }
+            // add last line segment
+            Vector2 start = polygon_points.last();
+            Vector2 end = new Vector2(x,y);
+            float length = Vector2.dst(start, end);
+            int batchCount = getBatchCountLength(length);
+            Vector2 step = new Vector2(end.x - start.x, end.y - start.y);
+            step.nor();
+            step.scl(length / batchCount);
+            for (int j = 0; j < batchCount - 1; j++) {
+                float deg = this.deg + (!angleFollowPath ? 0 : step.angleDeg()); // calculate deg based on params.
+                Token token = new Token(3, start.x + step.x * j, start.y + step.y * j, deg, sclX, sclY, getRegions());
+                token.tint = Color.randomOpaque();
+                tokensPreview.add(token);
+            }
+        }
+
+        if (tokensPreview.size >= 2) tokensPreview.sort(Comparator.comparingInt(o -> -(int) o.minY));
     }
 
     protected int getBatchCountArea(float area) {
         float d = spacing * region.packedWidth * 0.5f * Math.abs(sclX); // center spacing
+        if (d == 0) return 1;
         return (int) (area / (d * d));
     }
 
     protected int getBatchCountLength(float length) {
         float d = spacing * region.packedWidth * 0.5f * Math.abs(sclX); // center spacing
+        if (d == 0) return 1;
         return (int) (length / d);
-    }
-
-    private void line_refillWithTokens() {
-        tokensPreview.clear();
-        //...
-        tokensPreview.sort(Comparator.comparingInt(o -> -(int) o.minY));
-    }
-
-    private void polygon_refillWithTokens() {
-        tokensPreview.clear();
-        //...
-        tokensPreview.sort(Comparator.comparingInt(o -> -(int) o.minY));
     }
 
     private void spawnTokens(boolean useBrushOffset, boolean maintainMinSpacing) {
@@ -169,19 +227,67 @@ public class ToolBrush_Debug extends Tool {
         if (currentShape == Shape.POINT) {
             if (leftClicked) {
                 spawnTokens(true, false);
-                point_refillWithTokens();
+                refillWithTokens();
                 return;
+            }
+        }
+
+
+        if (currentShape == Shape.LINE) {
+            if (line_free) {
+                if (leftClicked) {
+                    line_start.set(x, y);
+                    refillWithTokens();
+                    line_free = false;
+                }
+            } else {
+                if (mouseMoved) refillWithTokens();
+                if (leftClicked) {
+                    spawnTokens(false, false);
+                    tokensPreview.clear();
+                    line_free = true;
+                }
             }
         }
 
         if (currentShape == Shape.CIRCLE) {
             if (leftClicked || leftPressedAndMoved) {
                 spawnTokens(true, true);
-                circle_refillWithTokens();
+                refillWithTokens();
                 return;
             }
             return;
         }
+
+        if (currentShape == Shape.POLYGON) {
+            if (polygon_free) {
+                if (leftClicked) {
+                    polygon_points.add(new Vector2(x, y));
+                    polygon_free = false;
+                }
+                return;
+            } else {
+                if (mouseMoved) refillWithTokens();
+                else if (leftClicked) {
+                    Vector2 p = new Vector2(x, y); // need to test intersections etc.
+
+                    if (polygon_points.size <= 2) {
+                        polygon_points.add(p);
+                        return;
+                    }
+
+                    if (Vector2.dst(p, polygon_points.first()) <= 20) {
+                        spawnTokens(false, true);
+                        tokensPreview.clear();
+                        polygon_points.clear();
+                        polygon_free = true;
+                    }
+
+                    polygon_points.add(p);
+                }
+            }
+        }
+
     }
 
     @Override
@@ -196,10 +302,26 @@ public class ToolBrush_Debug extends Tool {
             renderer2D.setColor(Color.GREEN);
             renderer2D.drawCircleFilled(8, 10, x, y, 0,1,1);
             renderer2D.setColor(Color.WHITE);
-            System.out.println(tokensPreview.size);
-
             for (Token token : tokensPreview) {
                 token.renderPreview(renderer2D, x, y);
+            }
+            return;
+        }
+
+        if (currentShape == Shape.LINE) {
+            if (line_free) {
+                renderer2D.setColor(Color.BLUE);
+                renderer2D.drawCircleThin(Math.max(12, 5), 10, x, y, 0,1,1);
+                renderer2D.setColor(Color.WHITE);
+                renderer2D.drawTextureRegion(region, x,y,deg,sclX,sclY);
+            } else {
+                renderer2D.setColor(Color.BLUE);
+                renderer2D.drawCircleThin(Math.max(12, 5), 10, line_start.x, line_start.y, 0,1,1);
+                renderer2D.drawLineThin(line_start.x, line_start.y, x, y);
+                renderer2D.drawCircleThin(Math.max(12, 5), 10, x, y, 0,1,1);
+                for (Token token : tokensPreview) {
+                    token.render(renderer2D);
+                }
             }
             return;
         }
@@ -215,17 +337,32 @@ public class ToolBrush_Debug extends Tool {
             return;
         }
 
-        if (currentShape == Shape.LINE) {
-
-            return;
-        }
-
-
-
         if (currentShape == Shape.POLYGON) {
-
+            if (polygon_free) {
+                renderer2D.setColor(Color.PURPLE);
+                renderer2D.drawCircleThin(Math.max(12, 5), 10, x, y, 0,1,1);
+                renderer2D.setColor(Color.WHITE);
+                renderer2D.drawTextureRegion(region, x,y,deg,sclX,sclY);
+            } else if (!polygon_points.isEmpty()) {
+                renderer2D.setColor(Color.PURPLE);
+                renderer2D.drawCircleBorder(15, 5, 10, polygon_points.first().x, polygon_points.first().y, 0,1,1);
+                for (int i = 0; i < polygon_points.size; i++) {
+                    Vector2 p = polygon_points.get(i);
+                    renderer2D.drawCircleFilled(5, 5, p.x, p.y, 0, 1, 1);
+                }
+                renderer2D.setColor(Color.YELLOW);
+                for (int i = 0; i < polygon_points.size - 1; i++) {
+                    Vector2 p1 = polygon_points.get(i);
+                    Vector2 p2 = polygon_points.get(i + 1);
+                    renderer2D.drawLineThin(p1.x, p1.y, p2.x, p2.y);
+                }
+                renderer2D.drawLineThin(polygon_points.last().x, polygon_points.last().y, x, y);
+                renderer2D.drawLineThin(x, y, polygon_points.first().x, polygon_points.first().y);
+            }
             return;
         }
+
+        renderer2D.setColor(Color.WHITE);
     }
 
     @Override
