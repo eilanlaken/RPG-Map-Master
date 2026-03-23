@@ -4,15 +4,14 @@ import com.heavybox.jtix.RPGMapMakerScene;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.collections.ArrayChar;
+import com.heavybox.jtix.collections.ArrayFloat;
 import com.heavybox.jtix.collections.Collections;
-import com.heavybox.jtix.graphics.Color;
-import com.heavybox.jtix.graphics.Renderer2D;
-import com.heavybox.jtix.graphics.TexturePack;
-import com.heavybox.jtix.graphics.TextureRegion;
+import com.heavybox.jtix.graphics.*;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.MathUtils;
+import com.heavybox.jtix.math.Shape2DPolygon;
 import com.heavybox.jtix.math.Vector2;
 import org.jetbrains.annotations.NotNull;
 
@@ -25,7 +24,7 @@ public class ToolBrush_Debug extends Tool {
 
     private Mode currentMode;
     private Shape currentShape;
-    private float spacing = 1;
+    private float spacing = 1.0f;
     private final Array<Token> tokensPreview = new Array<>();
     private final Array<Token> alreadyCreatedTokens = new Array<>();
     private boolean angleFollowPath = true;
@@ -42,9 +41,13 @@ public class ToolBrush_Debug extends Tool {
     private final Vector2 line_end = new Vector2();
 
     // polygon mode
+    private boolean polygon_fill = true;
     private boolean polygon_free = true;
-    private boolean polygon_fill = false;
     private final Array<Vector2> polygon_points = new Array<>(true, 10);
+    private final ArrayFloat polygon_flatTmp = new ArrayFloat(true, 10);
+    private final Vector2 polygon_BottomLeft = new Vector2();
+    private final Vector2 polygon_TopRight = new Vector2();
+    private Shape2DPolygon polygon_shape;
 
     public ToolBrush_Debug(final RPGMapMakerScene scene) {
         super(scene);
@@ -55,6 +58,11 @@ public class ToolBrush_Debug extends Tool {
 
         selectMode(Mode.ADD);
         selectShape(Shape.POINT);
+    }
+
+    @Override
+    protected void onSetParameter() {
+        refillWithTokens();
     }
 
     private void refillWithTokens() {
@@ -121,8 +129,55 @@ public class ToolBrush_Debug extends Tool {
 
     private void polygon_refillWithTokens() {
         tokensPreview.clear();
+        if (polygon_points.isEmpty()) return;
 
         if (polygon_fill) {
+            if (polygon_points.size <= 1) return;
+
+            Utils.polygonConvertToArrayFloat(polygon_flatTmp, polygon_points);
+            polygon_flatTmp.add(x,y);
+            Utils.polygonCalculateBoundingBox(polygon_flatTmp, polygon_BottomLeft, polygon_TopRight);
+            float width  = polygon_TopRight.x - polygon_BottomLeft.x;
+            float height = polygon_TopRight.y - polygon_BottomLeft.y;
+            float area = Math.abs(width * height);
+            float ratio = width / height;
+            int batchCount = getBatchCountArea(area);
+
+            float cellArea = area / batchCount;
+            float step = (float)Math.sqrt(cellArea);
+
+
+            float minX = polygon_BottomLeft.x;
+            float minY = polygon_BottomLeft.y;
+
+            float maxX = polygon_TopRight.x;
+            float maxY = polygon_TopRight.y;
+
+            float startX = minX + step * 0.5f;
+            float startY = minY + step * 0.5f;
+            float posY = startY;
+
+            if (polygon_shape == null) {
+                polygon_shape = new Shape2DPolygon(polygon_flatTmp);
+            } else {
+                polygon_shape.setPoints(polygon_flatTmp);
+            }
+            Vector2 field = new Vector2();
+
+            while (posY <= maxY) {
+                float posX = startX;
+                while (posX <= maxX) {
+                    if (MathUtils.polygonContainsPoint(polygon_flatTmp, posX, posY)) {
+                        field.set(posX, posY);
+                        float angle = deg + (angleFollowPath ? Utils.getDirectionRough(field, polygon_shape) : 0);
+                        Token token = new Token(3, posX, posY, angle, sclX, sclY, getRegions());
+                        token.tint = Color.randomOpaque();
+                        tokensPreview.add(token);
+                    }
+                    posX += step;
+                }
+                posY += step;
+            }
 
         } else {
             for (int i = 0; i < polygon_points.size - 1; i++) {
@@ -133,7 +188,7 @@ public class ToolBrush_Debug extends Tool {
                 Vector2 step = new Vector2(end.x - start.x, end.y - start.y);
                 step.nor();
                 step.scl(length / batchCount);
-                for (int j = 0; j < batchCount - 1; j++) {
+                for (int j = 0; j < batchCount; j++) {
                     float deg = this.deg + (!angleFollowPath ? 0 : step.angleDeg()); // calculate deg based on params.
                     Token token = new Token(3, start.x + step.x * j, start.y + step.y * j, deg, sclX, sclY, getRegions());
                     token.tint = Color.randomOpaque();
@@ -148,7 +203,7 @@ public class ToolBrush_Debug extends Tool {
             Vector2 step = new Vector2(end.x - start.x, end.y - start.y);
             step.nor();
             step.scl(length / batchCount);
-            for (int j = 0; j < batchCount - 1; j++) {
+            for (int j = 0; j < batchCount; j++) {
                 float deg = this.deg + (!angleFollowPath ? 0 : step.angleDeg()); // calculate deg based on params.
                 Token token = new Token(3, start.x + step.x * j, start.y + step.y * j, deg, sclX, sclY, getRegions());
                 token.tint = Color.randomOpaque();
@@ -207,15 +262,54 @@ public class ToolBrush_Debug extends Tool {
         boolean leftClicked = Input.mouse.isButtonClicked(Mouse.Button.LEFT);
         boolean mouseMoved = Input.mouse.moved();
         boolean leftPressedAndMoved = Input.mouse.isButtonPressed(Mouse.Button.LEFT) && mouseMoved;
+        boolean plusJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.EQUAL);
+        boolean minusJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.MINUS);
+        boolean sPressed = Input.keyboard.isKeyPressed(Keyboard.Key.S);
+        boolean aPressed = Input.keyboard.isKeyPressed(Keyboard.Key.A);
+        boolean dPressed = Input.keyboard.isKeyPressed(Keyboard.Key.D);
+        float dy = Input.mouse.getYDelta();
 
         // tool settings
         if (leftShiftJustPressed) {
             selectShape(Collections.enumNext(this.currentShape));
+            onSetParameter();
+            return;
+        }
+
+        if (dPressed && dy != 0) {
+            float deltaSpacing = dy > 0 ? 0.01f : -0.01f;
+            spacing *= (1.0f + deltaSpacing);
+            onSetParameter();
+            return;
+        }
+
+        if (sPressed && dy != 0) {
+            float deltaSpreadRadius = -dy / 1000 * Graphics.getWindowHeight();
+            circle_spreadRadius += deltaSpreadRadius;
+            circle_spreadRadius = Math.max(0, circle_spreadRadius);
+            onSetParameter();
+            return;
+        }
+
+        if (aPressed && dy != 0) {
+            float deltaDeg = -dy / 1000 * Graphics.getWindowHeight();
+            deg += deltaDeg;
+            onSetParameter();
             return;
         }
 
         if (backspaceJustPressed) {
             selectMode(Collections.enumNext(this.currentMode));
+        }
+
+        if (plusJustPressed) {
+            setScale(sclX * 2, sclY * 2);
+            onSetParameter();
+            return;
+        } else if (minusJustPressed) {
+            setScale(sclX * 0.5f, sclY * 0.5f);
+            onSetParameter();
+            return;
         }
 
         if (currentMode == Mode.SUB) {
@@ -338,6 +432,9 @@ public class ToolBrush_Debug extends Tool {
         }
 
         if (currentShape == Shape.POLYGON) {
+            for (Token token : tokensPreview) {
+                token.render(renderer2D);
+            }
             if (polygon_free) {
                 renderer2D.setColor(Color.PURPLE);
                 renderer2D.drawCircleThin(Math.max(12, 5), 10, x, y, 0,1,1);
@@ -391,20 +488,8 @@ public class ToolBrush_Debug extends Tool {
     }
 
     private void selectShape(Shape newCurrentShape) {
-        if (newCurrentShape == Shape.POINT) {
-            point_refillWithTokens();
-            System.out.println("ok");
-        }
-
-        if (newCurrentShape == Shape.CIRCLE) {
-            circle_refillWithTokens();
-        }
-
-        if (newCurrentShape == Shape.LINE) {
-            line_refillWithTokens();
-        }
-
         this.currentShape = newCurrentShape;
+        refillWithTokens();
     }
 
     @Override

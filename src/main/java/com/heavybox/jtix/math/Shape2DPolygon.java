@@ -37,6 +37,16 @@ public class Shape2DPolygon implements Shape2D {
         this.dirty = true;
     }
 
+    public Shape2DPolygon(@NotNull final ArrayFloat points) {
+        if (points.size < 6) throw new MathException("A Polygon must contain at least 3 points. Therefore, the input array points: [x0,y0, x1,y1, ...] must contain at least 6 values");
+        if (points.size % 2 != 0) throw new MathException("points is a flat array of values representing a polygon. A point has a float x and float y values. Therefore points must contain an even number of points.");
+
+        this.points = new ArrayFloat(true, points.size);
+        this.points.addAll(points);
+        MathUtils.polygonRemoveDegenerateVertices(this.points);
+        this.dirty = true;
+    }
+
     public int getNumberOfVertices() {
         return this.points.size / 2;
     }
@@ -111,6 +121,20 @@ public class Shape2DPolygon implements Shape2D {
     }
 
     public void setPoints(float ...points) {
+        this.points.clear();
+        this.points.addAll(points);
+        dirty = true;
+    }
+
+    public void setPoints(final @NotNull Array<Vector2> points) {
+        this.points.clear();
+        for (Vector2 point : points) {
+            this.points.add(point.x, point.y);
+        }
+        dirty = true;
+    }
+
+    public void setPoints(final @NotNull ArrayFloat points) {
         this.points.clear();
         this.points.addAll(points);
         dirty = true;

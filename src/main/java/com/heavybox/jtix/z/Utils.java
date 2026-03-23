@@ -18,6 +18,44 @@ public class Utils {
         return polygonFlat;
     }
 
+    public static void polygonConvertToArrayFloat(@NotNull final ArrayFloat flat, @NotNull final Array<Vector2> polygon) {
+        flat.clear();
+        for (int i = 0; i < polygon.size; i++) {
+            flat.add(polygon.get(i).x);
+            flat.add(polygon.get(i).y);
+        }
+    }
+
+    public static void polygonCalculateBoundingBox(@NotNull final Array<Vector2> polygon, @NotNull Vector2 outBottomLeft, @NotNull Vector2 outTopRight) {
+        outBottomLeft.x = Float.POSITIVE_INFINITY;
+        outBottomLeft.y = Float.POSITIVE_INFINITY;
+
+        outTopRight.x = Float.NEGATIVE_INFINITY;
+        outTopRight.y = Float.NEGATIVE_INFINITY;
+
+        for (Vector2 point : polygon) {
+            outBottomLeft.x = Math.min(point.x, outBottomLeft.x);
+            outBottomLeft.y = Math.min(point.y, outBottomLeft.y);
+
+            outTopRight.x = Math.max(point.x, outTopRight.x);
+            outTopRight.y = Math.max(point.y, outTopRight.y);
+        }
+    }
+
+    public static void polygonCalculateBoundingBox(@NotNull final ArrayFloat polygon, @NotNull Vector2 outBottomLeft, @NotNull Vector2 outTopRight) {
+        outBottomLeft.x = Float.POSITIVE_INFINITY;
+        outBottomLeft.y = Float.POSITIVE_INFINITY;
+        outTopRight.x = Float.NEGATIVE_INFINITY;
+        outTopRight.y = Float.NEGATIVE_INFINITY;
+
+        for (int i = 0; i < polygon.size / 2; i++) {
+            outBottomLeft.x = Math.min(polygon.get(2 * i), outBottomLeft.x);
+            outBottomLeft.y = Math.min(polygon.get(2 * i + 1), outBottomLeft.y);
+            outTopRight.x = Math.max(polygon.get(2 * i), outTopRight.x);
+            outTopRight.y = Math.max(polygon.get(2 * i + 1), outTopRight.y);
+        }
+    }
+
     public static Enum<?> enumNext(Enum<?> value) {
         var values = value.getDeclaringClass().getEnumConstants();
         return values[(value.ordinal() + 1) % values.length];
