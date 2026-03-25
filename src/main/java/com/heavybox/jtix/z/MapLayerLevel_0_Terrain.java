@@ -6,6 +6,8 @@ import com.heavybox.jtix.graphics.*;
 import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.z.Tool;
 import com.heavybox.jtix.z.ToolBrush_Terrain;
+import com.heavybox.jtix.z.tools_new.Tool_1_Terrain;
+import com.heavybox.jtix.z.tools_new.Tool_new;
 import org.lwjgl.opengl.GL11;
 
 import java.util.Arrays;
@@ -43,9 +45,9 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
     private boolean changed = true;
     private boolean changedFarmlands = true;
 
-    private final Array<CommandTerrainAddSub> commandsBlendMap = new Array<>(true, 100);
-    private final Array<CommandTerrainAddSub> commandsGround = new Array<>(true, 100);
-    private final Array<CommandTerrainAddSub> commandsLiquid = new Array<>(true, 100);
+    private final Array<CommandTerrain> commandsBlendMap = new Array<>(true, 100);
+    private final Array<CommandTerrain> commandsGround = new Array<>(true, 100);
+    private final Array<CommandTerrain> commandsLiquid = new Array<>(true, 100);
 
     /* farmlands */
     private final Array<Farmland> farmlandsArray = new Array<>(true, 20);
@@ -128,11 +130,11 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
     public void executeCommand(Command command) {
         changed = true;
 
-        if (command instanceof CommandTerrainAddSub) {
-            CommandTerrainAddSub cmd = (CommandTerrainAddSub) command;
-            if (cmd.target == ToolBrush_Terrain.Target.GROUND) commandsGround.add(cmd);
-            if (cmd.target == ToolBrush_Terrain.Target.LIQUID) commandsLiquid.add(cmd);
-            if (cmd.target == ToolBrush_Terrain.Target.BLEND_MAP) commandsBlendMap.add(cmd);
+        if (command instanceof CommandTerrain) {
+            CommandTerrain cmd = (CommandTerrain) command;
+            if (cmd.target == Tool_1_Terrain.Target.GROUND) commandsGround.add(cmd);
+            if (cmd.target == Tool_1_Terrain.Target.LIQUID) commandsLiquid.add(cmd);
+            if (cmd.target == Tool_1_Terrain.Target.BLEND_MAP) commandsBlendMap.add(cmd);
             return;
         }
 
@@ -180,13 +182,13 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
         renderer2D.begin(camera);
         renderer2D.blendingSet(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         renderer2D.setShader(shader_brush);
-        for (CommandTerrainAddSub cmd : commandsGround) {
+        for (CommandTerrain cmd : commandsGround) {
             int groundIndex = cmd.groundIndex % terrainGrounds.length;
             Texture groundSrcImg = terrainGrounds[groundIndex];
             renderer2D.setShaderAttribute("u_texture_reveal", groundSrcImg);
             renderer2D.setShaderAttribute("u_width", uvScaleFactorGround * groundSrcImg.width);
             renderer2D.setShaderAttribute("u_height", uvScaleFactorGround * groundSrcImg.height);
-            renderer2D.drawTexture(brushesAdd[cmd.brushIndex], cmd.x, cmd.y, 0, cmd.sclX, cmd.sclY);
+            renderer2D.drawTexture(brushesAdd[cmd.brushIndex], cmd.x, cmd.y, cmd.deg, cmd.sclX, cmd.sclY);
         }
         renderer2D.end();
 
@@ -195,13 +197,13 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
         renderer2D.begin(camera);
         renderer2D.blendingSet(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         renderer2D.setShader(shader_brush);
-        for (CommandTerrainAddSub cmd : commandsLiquid) {
+        for (CommandTerrain cmd : commandsLiquid) {
             int liquidIndex = cmd.liquidIndex % terrainLiquids.length;
             Texture liquidSrcImg = terrainLiquids[liquidIndex];
             renderer2D.setShaderAttribute("u_texture_reveal", liquidSrcImg);
             renderer2D.setShaderAttribute("u_width", uvScaleFactorLiquid * liquidSrcImg.width);
             renderer2D.setShaderAttribute("u_height", uvScaleFactorLiquid * liquidSrcImg.height);
-            renderer2D.drawTexture(brushesAdd[cmd.brushIndex],cmd.x,cmd.y,0,cmd.sclX,cmd.sclY);
+            renderer2D.drawTexture(brushesAdd[cmd.brushIndex],cmd.x,cmd.y,cmd.deg,cmd.sclX,cmd.sclY);
         }
         renderer2D.end();
 
@@ -240,9 +242,9 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
         Graphics.bindFrameBuffer(blendMap);
         renderer2D.begin(camera);
         renderer2D.blendingSet(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-        for (CommandTerrainAddSub cmd : commandsBlendMap) {
-            Texture brush = cmd.mode == Tool.Mode.ADD ? brushesAdd[cmd.brushIndex] : brushesSub[cmd.brushIndex];
-            renderer2D.drawTexture(brush,cmd.x,cmd.y,0,cmd.sclX,cmd.sclY);
+        for (CommandTerrain cmd : commandsBlendMap) {
+            Texture brush = cmd.mode == Tool_new.Mode.ADD ? brushesAdd[cmd.brushIndex] : brushesSub[cmd.brushIndex];
+            renderer2D.drawTexture(brush,cmd.x,cmd.y,cmd.deg,cmd.sclX,cmd.sclY);
         }
         renderer2D.end();
 

@@ -6,10 +6,7 @@ import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.collections.ArrayChar;
 import com.heavybox.jtix.collections.ArrayFloat;
 import com.heavybox.jtix.collections.Collections;
-import com.heavybox.jtix.graphics.Graphics;
-import com.heavybox.jtix.graphics.Renderer2D;
-import com.heavybox.jtix.graphics.Shader;
-import com.heavybox.jtix.graphics.Texture;
+import com.heavybox.jtix.graphics.*;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
@@ -43,9 +40,6 @@ public class Tool_1_Terrain extends Tool_new {
 
     private Mode currentMode = Mode.ADD;
     private Shape currentShape = Shape.POINT;
-    private final Set<Token> tokensToDelete = new HashSet<>();
-    private final Array<Token> tokensPreview = new Array<>();
-    private final Array<Token> alreadyCreatedTokens = new Array<>();
     private boolean angleFollowPath = true;
 
     // point mode
@@ -138,7 +132,11 @@ public class Tool_1_Terrain extends Tool_new {
             onChangeParameters();
             return;
         }
-
+        if (spaceJustPressed) {
+            brushIndex = (brushIndex + 1) % brushesAdd.length;
+            onChangeParameters();
+            return;
+        }
         if (shiftLeftJustPressed) {
             currentShape = Collections.enumNext(this.currentShape);
             onChangeParameters();
@@ -176,9 +174,53 @@ public class Tool_1_Terrain extends Tool_new {
             return;
         }
 
+        // ********* Actions ************
+
+        if (currentShape == Shape.POINT) {
+            if (leftButtonJustPressed || (leftButtonPressed && mouseMoved)) {
+                spawnTerrainCommand(x,y);
+            }
+            return;
+        }
+
+        if (currentShape == Shape.LINE) {
+            if (line_free) {
+                if (leftButtonJustPressed) {
+                    line_start.set(x, y);
+                    line_free = false;
+                }
+            } else {
+                if (leftButtonJustPressed) {
+                    // spawn
+                    Vector2 step = new Vector2(x - line_start.x, y - line_start.y);
+                    float length = step.len();
+                    int count = (int) (length / 50f);
+                    step.nor();
+                    step.scl(50);
+                    for (int i = 0; i < count; i++) {
+                        spawnTerrainCommand(line_start.x + i * step.x, line_start.y + i * step.y);
+                        spawnTerrainCommand(line_start.x + i * step.x, line_start.y + i * step.y);
+                    }
+                    line_free = true;
+                }
+            }
+        }
+
+        if (currentShape == Shape.CIRCLE) {
+            if (leftClick) {
+                for (int angleDeg = 0; angleDeg < 360; angleDeg += 2) {
+                    double rad = Math.toRadians(angleDeg);
+                    float px = x + (float)(Math.cos(rad) * circle_spreadRadius);
+                    float py = y + (float)(Math.sin(rad) * circle_spreadRadius);
+                    spawnTerrainCommand(px, py);
+                }
+            }
+            return;
+        }
+
     }
 
-    private void spawnTerrainCommand(float x, float y, float deg) {
+    private void spawnTerrainCommand(float x, float y) {
         CommandTerrain cmd = new CommandTerrain(x, y, deg, sclX, sclY, false); // TODO: anchor
         cmd.target = target;
         cmd.mode = currentMode;
@@ -192,7 +234,9 @@ public class Tool_1_Terrain extends Tool_new {
 
     @Override
     public void renderToolText(Renderer2D renderer2D, float x, float y) {
-
+        if (currentShape == Shape.POLYGON) {
+            renderer2D.drawStringLine("Polygon shapes not supported currently", 12, true, x, y, 0, 1, 1);
+        }
     }
 
     @Override
@@ -201,6 +245,43 @@ public class Tool_1_Terrain extends Tool_new {
             drawBrushPrediction(renderer2D, x, y);
         }
 
+        if (currentShape == Shape.LINE) {
+            if (line_free) {
+                renderer2D.setColor(Color.BLUE);
+                renderer2D.drawCircleThin(Math.max(12, 5), 10, x, y, 0,1,1);
+                renderer2D.setColor(Color.WHITE);
+                drawBrushPrediction(renderer2D, x, y);
+            } else {
+                renderer2D.setColor(Color.BLUE);
+                renderer2D.drawCircleThin(Math.max(12, 5), 10, line_start.x, line_start.y, 0,1,1);
+                renderer2D.drawLineThin(line_start.x, line_start.y, x, y);
+                renderer2D.drawCircleThin(Math.max(12, 5), 10, x, y, 0,1,1);
+                renderer2D.setColor(Color.WHITE);
+                Vector2 step = new Vector2(x - line_start.x, y - line_start.y);
+                float length = step.len();
+                int count = (int) (length / 50f);
+                step.nor();
+                step.scl(50);
+                for (int i = 0; i < count; i++) {
+                    drawBrushPrediction(renderer2D, line_start.x + i * step.x, line_start.y + i * step.y);
+                }
+            }
+            return;
+        }
+
+        if (currentShape == Shape.CIRCLE) {
+            renderer2D.setColor(Color.GREEN);
+            renderer2D.drawCircleThin(circle_spreadRadius, 15, x, y, 0, 1, 1);
+            renderer2D.setColor(Color.WHITE);
+            for (int angleDeg = 0; angleDeg < 360; angleDeg += 2) {
+                double rad = Math.toRadians(angleDeg);
+                float px = x + (float)(Math.cos(rad) * circle_spreadRadius);
+                float py = y + (float)(Math.sin(rad) * circle_spreadRadius);
+                drawBrushPrediction(renderer2D, px, py);
+            }
+        }
+
+        renderer2D.setShader(null);
     }
 
     private void drawBrushPrediction(Renderer2D renderer2D, float x, float y) {
@@ -223,7 +304,6 @@ public class Tool_1_Terrain extends Tool_new {
         } else { // target == blend map
             renderer2D.drawTexture(currentBrush, x, y, deg, sclX, sclY);
         }
-        renderer2D.setShader(null);
     }
 
     @Override
