@@ -125,6 +125,7 @@ public class Tool_1_Terrain extends Tool_new {
         boolean zButtonJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.Z);
         boolean aPressed = Input.keyboard.isKeyPressed(Keyboard.Key.A);
         boolean sPressed = Input.keyboard.isKeyPressed(Keyboard.Key.S);
+        float dy = Input.mouse.getYDelta();
 
         // =============  tool settings  ===============
         if (backspaceJustPressed) {
@@ -170,6 +171,13 @@ public class Tool_1_Terrain extends Tool_new {
         if (scrollDown) {
             if (target == Target.GROUND) groundIndex = (groundIndex - 1 + terrainGrounds.length) % terrainGrounds.length;
             else if (target == Target.LIQUID) liquidIndex = (liquidIndex - 1 + terrainLiquids.length) % terrainLiquids.length;
+            onChangeParameters();
+            return;
+        }
+        if (sPressed && dy != 0) {
+            float deltaSpreadRadius = -dy / 1000 * Graphics.getWindowHeight();
+            circle_spreadRadius += deltaSpreadRadius;
+            circle_spreadRadius = Math.max(0, circle_spreadRadius);
             onChangeParameters();
             return;
         }
