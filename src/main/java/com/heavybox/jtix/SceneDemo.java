@@ -12,6 +12,8 @@ import com.heavybox.jtix.tools.ToolsTexturePacker;
 import com.heavybox.jtix.widgets.Widget;
 import com.heavybox.jtix.z.*;
 import com.heavybox.jtix.z.Tools;
+import com.heavybox.jtix.z.tools_new.Tool_1_Terrain;
+import com.heavybox.jtix.z.tools_new.Tool_new;
 import org.lwjgl.opengl.GL11;
 
 // contact points polygon vs polygon:
@@ -26,6 +28,8 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
 
     // tools - refactor immediately after working version
     public Map map;
+    public final Tool_new[] tools = new Tool_new[8];
+    public int activeToolIndex = 0;
 
     // user-interface
     private final Widget widgetHelpBar = new Widget();
@@ -99,7 +103,11 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
         WidgetNodeHelpBar helpBar = new WidgetNodeHelpBar();
         widgetHelpBar.addNodes(helpBar);
         camera.update();
-        Tools.initTools(this);
+
+        //Tools.initTools(this);
+        // init tools
+        tools[0] = new Tool_1_Terrain(this);
+        tools[activeToolIndex].activate();
     }
 
 
@@ -159,15 +167,27 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
         renderer2D.end();
 
         // update tools
-        Tools.update();
+        //Tools.update();
+        // update tools
+        screen.set(Input.mouse.getX(), Input.mouse.getY(), 0);
+        camera.unProject(screen);
+        Tool_new activeTool = tools[activeToolIndex];
+        activeTool.x = screen.x;
+        activeTool.y = screen.y;
+        activeTool.update(Graphics.getDeltaTime());
+        // do a select tool logic
+
         // draw tools overlay
         renderer2D.begin(camera);
-        Tools.renderToolOverlay(renderer2D, screen.x, screen.y);
+        //Tools.renderToolOverlay(renderer2D, screen.x, screen.y);
+        tools[activeToolIndex].renderToolOverlay(renderer2D, screen.x, screen.y);
+        renderer2D.setShader(null);
+        tools[activeToolIndex].renderToolText(renderer2D, Input.mouse.getX() - Graphics.getWindowWidth() * 0.5f, Graphics.getWindowHeight() * 0.5f - Input.mouse.getY());
         renderer2D.end();
 
-        renderer2D.begin();
-        Tools.renderToolText(renderer2D, Input.mouse.getX() - Graphics.getWindowWidth() * 0.5f, Graphics.getWindowHeight() * 0.5f - Input.mouse.getY());
-        renderer2D.end();
+//        renderer2D.begin();
+//        Tools.renderToolText(renderer2D, Input.mouse.getX() - Graphics.getWindowWidth() * 0.5f, Graphics.getWindowHeight() * 0.5f - Input.mouse.getY());
+//        renderer2D.end();
 
         // update user interface
         /*
@@ -176,7 +196,7 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
         widgetTools.update();
         */
 
-        widgetHelpBar.update();
+        //widgetHelpBar.update();
         // render user interface
         renderer2D.begin();
         widgetHelpBar.render(renderer2D);
@@ -185,6 +205,12 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
 //        widgetTools.render(renderer2D);
         renderer2D.end();
 
+    }
+
+    public void selectTool(int index) {
+        tools[activeToolIndex].deactivate();
+        activeToolIndex = index % tools.length;
+        tools[activeToolIndex].activate();
     }
 
     @Override
