@@ -4,11 +4,11 @@ import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.graphics.*;
 import com.heavybox.jtix.math.MathUtils;
-import com.heavybox.jtix.math.Vector2;
+import com.heavybox.jtix.z.Tool;
+import com.heavybox.jtix.z.ToolBrush_Terrain;
 import org.lwjgl.opengl.GL11;
 
 import java.util.Arrays;
-import java.util.function.Function;
 
 import static org.lwjgl.opengl.GL11.*;
 

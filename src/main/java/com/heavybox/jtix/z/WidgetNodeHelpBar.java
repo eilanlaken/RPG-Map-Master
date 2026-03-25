@@ -2,6 +2,7 @@ package com.heavybox.jtix.z;
 
 import com.heavybox.jtix.widgets.WidgetNodeContainerHorizontal;
 import com.heavybox.jtix.widgets.WidgetNodeText;
+import com.heavybox.jtix.z.Tools;
 
 public class WidgetNodeHelpBar extends WidgetNodeContainerHorizontal {
 

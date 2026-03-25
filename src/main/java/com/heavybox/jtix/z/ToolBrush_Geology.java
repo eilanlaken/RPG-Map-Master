@@ -10,6 +10,10 @@ import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Vector2;
+import com.heavybox.jtix.z.CommandTokenCreate;
+import com.heavybox.jtix.z.CommandTokenDelete;
+import com.heavybox.jtix.z.Token;
+import com.heavybox.jtix.z.Tool;
 
 import java.util.Comparator;
 import java.util.HashSet;
@@ -112,7 +116,7 @@ public class ToolBrush_Geology extends Tool {
 
             tokensToDelete.clear();
             if (leftClicked || leftPressedAndMoved) {
-                map.getAllTokensInCircle(currentType, x, y, spreadRadius * sclX, tokensToDelete);
+                map.getAllTokensInCircleByType(currentType, x, y, spreadRadius * sclX, tokensToDelete);
                 deleteTokens();
             }
 
@@ -186,7 +190,7 @@ public class ToolBrush_Geology extends Tool {
 
     private void deleteTokens() {
         for (Token token : tokensToDelete) {
-            CommandTokenDelete cmd = new CommandTokenDelete(token.tokenType, token.layer, token.transforms[0].x, token.transforms[0].y, false);
+            CommandTokenDelete cmd = new CommandTokenDelete(token.tokenType, token.layer, token.transform.x, token.transform.y, false);
             map.addCommand(cmd);
         }
         tokensToDelete.clear();
@@ -199,14 +203,14 @@ public class ToolBrush_Geology extends Tool {
         float offsetY = useBrushOffset ? y : 0;
 
         for (Token token : tokensPreview) {
-            Vector2 position = new Vector2(token.transforms[0].x + x, token.transforms[0].y + y);
+            Vector2 position = new Vector2(token.transform.x + x, token.transform.y + y);
             float minDistance = Float.POSITIVE_INFINITY;
             float minDistanceX = Float.POSITIVE_INFINITY;
             float minDistanceY = Float.POSITIVE_INFINITY;
             for (Token mapToken : alreadyCreatedTokens) {
-                float distanceSquared = Vector2.dst2(position.x, position.y, mapToken.transforms[0].x, mapToken.transforms[0].y);
-                float distanceX = Math.abs(position.x - mapToken.transforms[0].x);
-                float distanceY = Math.abs(position.y - mapToken.transforms[0].y);
+                float distanceSquared = Vector2.dst2(position.x, position.y, mapToken.transform.x, mapToken.transform.y);
+                float distanceX = Math.abs(position.x - mapToken.transform.x);
+                float distanceY = Math.abs(position.y - mapToken.transform.y);
                 minDistance = Math.min(minDistance, distanceSquared);
                 minDistanceX = Math.min(minDistanceX, distanceX);
                 minDistanceY = Math.min(minDistanceY, distanceY);
@@ -216,9 +220,9 @@ public class ToolBrush_Geology extends Tool {
 
             CommandTokenCreate createToken = new CommandTokenCreate(
                     3,
-                    token.transforms[0].x + offsetX, token.transforms[0].y + offsetY,
-                    token.transforms[0].deg,
-                    token.transforms[0].sclX, token.transforms[0].sclY, true,
+                    token.transform.x + offsetX, token.transform.y + offsetY,
+                    token.transform.deg,
+                    token.transform.sclX, token.transform.sclY, true,
                     token.regions
             );
             createToken.tokenType = currentType;
@@ -356,7 +360,7 @@ public class ToolBrush_Geology extends Tool {
             tokensPreview.add(token);
         }
 
-        tokensPreview.sort(Comparator.comparingInt(o -> -(int) o.minY));
+        tokensPreview.sort(Comparator.comparingInt(o -> -(int) o.transform.y));
     }
 
     private void refillLineWithTokens() {
@@ -413,7 +417,7 @@ public class ToolBrush_Geology extends Tool {
             tokensPreview.add(token);
         }
 
-        tokensPreview.sort(Comparator.comparingInt(o -> -(int) o.minY));
+        tokensPreview.sort(Comparator.comparingInt(o -> -(int) o.transform.y));
     }
 
     private void refillPolygonWithTokens() {
@@ -486,7 +490,7 @@ public class ToolBrush_Geology extends Tool {
             }
         }
 
-        tokensPreview.sort(Comparator.comparingInt(o -> -(int) o.minY));
+        tokensPreview.sort(Comparator.comparingInt(o -> -(int) o.transform.y));
     }
 
     @Override

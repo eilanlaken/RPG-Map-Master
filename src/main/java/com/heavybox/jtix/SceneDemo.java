@@ -3,7 +3,6 @@ package com.heavybox.jtix;
 import com.heavybox.jtix.application.Scene;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.collections.Array;
-import com.heavybox.jtix.collections.ArrayFloat;
 import com.heavybox.jtix.graphics.*;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Keyboard;
@@ -12,7 +11,7 @@ import com.heavybox.jtix.math.Vector3;
 import com.heavybox.jtix.tools.ToolsTexturePacker;
 import com.heavybox.jtix.widgets.Widget;
 import com.heavybox.jtix.z.*;
-import org.jetbrains.annotations.NotNull;
+import com.heavybox.jtix.z.Tools;
 import org.lwjgl.opengl.GL11;
 
 // contact points polygon vs polygon:

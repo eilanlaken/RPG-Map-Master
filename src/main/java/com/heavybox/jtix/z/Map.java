@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.nio.ByteBuffer;
 import java.util.Set;
+import java.util.function.Predicate;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
@@ -57,7 +58,23 @@ public class Map {
         commandsQueue.clear();
     }
 
-    public void getAllTokensInCircle(Enum<?> type, float centerX, float centerY, float radius, Set<Token> out) {
+    public void getAllTokensInCircleByCondition(Predicate<Token> filter, float centerX, float centerY, float radius, Set<Token> out) {
+        out.clear();
+        float r2 = radius * radius;
+
+        for (Token token : layer3.allTokens) {
+            if (!filter.test(token)) continue;
+
+            float dx = token.getX() - centerX;
+            float dy = token.getY() - centerY;
+
+            if (dx * dx + dy * dy <= r2) {
+                out.add(token);
+            }
+        }
+    }
+
+    public void getAllTokensInCircleByType(Enum<?> type, float centerX, float centerY, float radius, Set<Token> out) {
         float r2 = radius * radius;
         for (Token token : layer3.allTokens) {
             if (token.tokenType != type) continue;

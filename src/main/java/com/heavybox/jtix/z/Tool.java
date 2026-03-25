@@ -7,6 +7,7 @@ import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.graphics.TextureRegion;
 import com.heavybox.jtix.input.InputEventHandler;
 import com.heavybox.jtix.math.Vector2;
+import com.heavybox.jtix.z.Map;
 
 public abstract class Tool implements InputEventHandler {
 

@@ -70,7 +70,7 @@ public class MapLayerLevel_1_Tokens implements MapLayerLevel {
         renderer2D.blendingSet(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         //renderer2D.setBlending(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA); // TODO: test);
         //renderer2D.setBlending(GL11.GL_ONE, GL11.GL_ONE_MINUS_SRC_ALPHA); // wrong for sure
-        allTokens.sort(Comparator.comparingInt(o -> -(int) o.minY));
+        allTokens.sort(Comparator.comparingInt(o -> -(int) o.transform.y));
         for (Token token : allTokens) {
             token.render(renderer2D);
         }

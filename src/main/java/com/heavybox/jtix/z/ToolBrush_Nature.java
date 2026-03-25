@@ -10,6 +10,7 @@ import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Vector2;
+import com.heavybox.jtix.z.Tool;
 
 import java.util.Comparator;
 import java.util.HashSet;
@@ -137,7 +138,7 @@ public class ToolBrush_Nature extends Tool {
         if (mode == Mode.SUB) {
             tokensToDelete.clear();
             if (leftClicked || leftPressedAndMoved) {
-                map.getAllTokensInCircle(currentCategory, x, y, spreadRadius * sclX, tokensToDelete);
+                map.getAllTokensInCircleByType(currentCategory, x, y, spreadRadius * sclX, tokensToDelete);
                 deleteTokens();
             }
 
@@ -211,7 +212,7 @@ public class ToolBrush_Nature extends Tool {
 
     private void deleteTokens() {
         for (Token token : tokensToDelete) {
-            CommandTokenDelete cmd = new CommandTokenDelete(token.tokenType, token.layer, token.transforms[0].x, token.transforms[0].y, false);
+            CommandTokenDelete cmd = new CommandTokenDelete(token.tokenType, token.layer, token.transform.x, token.transform.y, false);
             map.addCommand(cmd);
         }
         tokensToDelete.clear();
@@ -224,10 +225,10 @@ public class ToolBrush_Nature extends Tool {
         float offsetY = useBrushOffset ? y : 0;
 
         for (Token token : tokensPreview) {
-            Vector2 position = new Vector2(token.transforms[0].x + x, token.transforms[0].y + y);
+            Vector2 position = new Vector2(token.transform.x + x, token.transform.y + y);
             float minDistance = Float.POSITIVE_INFINITY;
             for (Token mapToken : alreadyCreatedTokens) {
-                float distanceSquared = Vector2.dst2(position.x, position.y, mapToken.transforms[0].x, mapToken.transforms[0].y);
+                float distanceSquared = Vector2.dst2(position.x, position.y, mapToken.transform.x, mapToken.transform.y);
                 minDistance = Math.min(distanceSquared, minDistance);
             }
             minDistance = (float) Math.sqrt(minDistance);
@@ -235,9 +236,9 @@ public class ToolBrush_Nature extends Tool {
 
             CommandTokenCreate createToken = new CommandTokenCreate(
                     3,
-                    token.transforms[0].x + offsetX, token.transforms[0].y + offsetY,
-                    token.transforms[0].deg,
-                    token.transforms[0].sclX, token.transforms[0].sclY, true,
+                    token.transform.x + offsetX, token.transform.y + offsetY,
+                    token.transform.deg,
+                    token.transform.sclX, token.transform.sclY, true,
                     token.regions
             );
             createToken.tokenType = currentCategory;
@@ -381,7 +382,7 @@ public class ToolBrush_Nature extends Tool {
             tokensPreview.add(token);
         }
 
-        tokensPreview.sort(Comparator.comparingInt(o -> -(int) o.minY));
+        tokensPreview.sort(Comparator.comparingInt(o -> -(int) o.transform.y));
     }
 
     private void refillLineWithTokens() {
@@ -438,7 +439,7 @@ public class ToolBrush_Nature extends Tool {
             tokensPreview.add(token);
         }
 
-        tokensPreview.sort(Comparator.comparingInt(o -> -(int) o.minY));
+        tokensPreview.sort(Comparator.comparingInt(o -> -(int) o.transform.y));
     }
 
     private void refillPolygonWithTokens() {
@@ -510,7 +511,7 @@ public class ToolBrush_Nature extends Tool {
             }
         }
 
-        tokensPreview.sort(Comparator.comparingInt(o -> -(int) o.minY));
+        tokensPreview.sort(Comparator.comparingInt(o -> -(int) o.transform.y));
     }
 
     @Override

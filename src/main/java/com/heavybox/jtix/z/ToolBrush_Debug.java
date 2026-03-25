@@ -13,9 +13,16 @@ import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Shape2DPolygon;
 import com.heavybox.jtix.math.Vector2;
+import com.heavybox.jtix.z.CommandTokenCreate;
+import com.heavybox.jtix.z.CommandTokenDelete;
+import com.heavybox.jtix.z.Token;
+import com.heavybox.jtix.z.Utils;
+import com.heavybox.jtix.z.Tool;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Set;
 
 public class ToolBrush_Debug extends Tool {
 
@@ -25,6 +32,7 @@ public class ToolBrush_Debug extends Tool {
     private Mode currentMode;
     private Shape currentShape;
     private float spacing = 1.0f;
+    private final Set<Token> tokensToDelete = new HashSet<>();
     private final Array<Token> tokensPreview = new Array<>();
     private final Array<Token> alreadyCreatedTokens = new Array<>();
     private boolean angleFollowPath = true;
@@ -107,7 +115,7 @@ public class ToolBrush_Debug extends Tool {
             }
         }
 
-        if (tokensPreview.size >= 2) tokensPreview.sort(Comparator.comparingInt(o -> -(int) o.minY));
+        if (tokensPreview.size >= 2) tokensPreview.sort(Comparator.comparingInt(o -> -(int) o.transform.y));
     }
 
     private void line_refillWithTokens() {
@@ -124,7 +132,7 @@ public class ToolBrush_Debug extends Tool {
             token.tint = Color.randomOpaque();
             tokensPreview.add(token);
         }
-        if (tokensPreview.size >= 2) tokensPreview.sort(Comparator.comparingInt(o -> -(int) o.minY));
+        if (tokensPreview.size >= 2) tokensPreview.sort(Comparator.comparingInt(o -> -(int) o.transform.y));
     }
 
     private void polygon_refillWithTokens() {
@@ -211,7 +219,7 @@ public class ToolBrush_Debug extends Tool {
             }
         }
 
-        if (tokensPreview.size >= 2) tokensPreview.sort(Comparator.comparingInt(o -> -(int) o.minY));
+        if (tokensPreview.size >= 2) tokensPreview.sort(Comparator.comparingInt(o -> -(int) o.transform.y));
     }
 
     protected int getBatchCountArea(float area) {
@@ -226,6 +234,14 @@ public class ToolBrush_Debug extends Tool {
         return (int) (length / d);
     }
 
+    private void deleteTokens() {
+        for (Token token : tokensToDelete) {
+            CommandTokenDelete cmd = new CommandTokenDelete(token.tokenType, token.layer, token.transform.x, token.transform.y, false);
+            map.addCommand(cmd);
+        }
+        tokensToDelete.clear();
+    }
+
     private void spawnTokens(boolean useBrushOffset, boolean maintainMinSpacing) {
         map.getAllTokensByRegion(region, alreadyCreatedTokens);
 
@@ -233,10 +249,10 @@ public class ToolBrush_Debug extends Tool {
         float offsetY = useBrushOffset ? y : 0;
 
         for (Token token : tokensPreview) {
-            Vector2 position = new Vector2(token.transforms[0].x + x, token.transforms[0].y + y);
+            Vector2 position = new Vector2(token.transform.x + x, token.transform.y + y);
             float minDistance = Float.POSITIVE_INFINITY;
             for (Token mapToken : alreadyCreatedTokens) {
-                float distanceSquared = Vector2.dst2(position.x, position.y, mapToken.transforms[0].x, mapToken.transforms[0].y);
+                float distanceSquared = Vector2.dst2(position.x, position.y, mapToken.transform.x, mapToken.transform.y);
                 minDistance = Math.min(distanceSquared, minDistance);
             }
             minDistance = (float) Math.sqrt(minDistance);
@@ -244,12 +260,13 @@ public class ToolBrush_Debug extends Tool {
 
             CommandTokenCreate createToken = new CommandTokenCreate(
                     3,
-                    token.transforms[0].x + offsetX, token.transforms[0].y + offsetY,
-                    token.transforms[0].deg,
-                    token.transforms[0].sclX, token.transforms[0].sclY, true,
+                    token.transform.x + offsetX, token.transform.y + offsetY,
+                    token.transform.deg,
+                    token.transform.sclX, token.transform.sclY, true,
                     token.regions
             );
-            createToken.tokenType = null;
+
+            createToken.tokenType = Type.DEBUG_RECT;
             createToken.tint = token.tint;
             map.addCommand(createToken);
         }
@@ -257,6 +274,7 @@ public class ToolBrush_Debug extends Tool {
 
     @Override
     public void update(float delta) {
+        // =============  input parameters  ===============
         boolean backspaceJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.BACKSPACE);
         boolean leftShiftJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.LEFT_SHIFT);
         boolean leftClicked = Input.mouse.isButtonClicked(Mouse.Button.LEFT);
@@ -269,7 +287,7 @@ public class ToolBrush_Debug extends Tool {
         boolean dPressed = Input.keyboard.isKeyPressed(Keyboard.Key.D);
         float dy = Input.mouse.getYDelta();
 
-        // tool settings
+        // =============  tool settings  ===============
         if (leftShiftJustPressed) {
             selectShape(Collections.enumNext(this.currentShape));
             onSetParameter();
@@ -312,8 +330,16 @@ public class ToolBrush_Debug extends Tool {
             return;
         }
 
-        if (currentMode == Mode.SUB) {
+        // =============  actions  ===============
 
+        if (currentMode == Mode.SUB) {
+            if (leftClicked || leftPressedAndMoved) {
+                tokensToDelete.clear();
+                float radius = Math.abs(circle_spreadRadius * sclX);
+                radius = Math.max(radius, 10);
+                map.getAllTokensInCircleByType(Type.DEBUG_RECT, x, y, radius, tokensToDelete);
+                deleteTokens();
+            }
             return;
         }
 
@@ -371,7 +397,7 @@ public class ToolBrush_Debug extends Tool {
                     }
 
                     if (Vector2.dst(p, polygon_points.first()) <= 20) {
-                        spawnTokens(false, true);
+                        spawnTokens(false, false);
                         tokensPreview.clear();
                         polygon_points.clear();
                         polygon_free = true;
@@ -387,7 +413,9 @@ public class ToolBrush_Debug extends Tool {
     @Override
     public void renderToolOverlay(Renderer2D renderer2D, float x, float y) {
         if (currentMode == Mode.SUB) {
-
+            float radius = Math.abs(circle_spreadRadius * sclX);
+            renderer2D.setColor(Color.RED);
+            renderer2D.drawCircleThin(Math.max(radius, 10), 10, x, y, 0,1,1);
             return;
         }
 
@@ -490,6 +518,10 @@ public class ToolBrush_Debug extends Tool {
     private void selectShape(Shape newCurrentShape) {
         this.currentShape = newCurrentShape;
         refillWithTokens();
+    }
+
+    public enum Type {
+        DEBUG_RECT,
     }
 
     @Override

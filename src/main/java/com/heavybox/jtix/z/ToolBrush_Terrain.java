@@ -12,6 +12,7 @@ import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Vector2;
+import com.heavybox.jtix.z.CommandTerrainAddSub;
 import org.jetbrains.annotations.NotNull;
 
 public class ToolBrush_Terrain extends Tool {
