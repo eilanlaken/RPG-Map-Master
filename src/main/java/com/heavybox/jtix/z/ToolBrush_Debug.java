@@ -401,9 +401,9 @@ public class ToolBrush_Debug extends Tool {
                         tokensPreview.clear();
                         polygon_points.clear();
                         polygon_free = true;
+                    } else {
+                        polygon_points.add(p);
                     }
-
-                    polygon_points.add(p);
                 }
             }
         }

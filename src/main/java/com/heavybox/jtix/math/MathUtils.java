@@ -57,6 +57,14 @@ public final class MathUtils {
     }
 
     /**
+     * Returns a random boolean true / false akin to a coin flip
+     * @return a random boolean true / false akin to a coin flip
+     */
+    public static boolean randomUniformBoolean() {
+        return Math.random() < 0.5;
+    }
+
+    /**
      * Returns a random real number uniformly in [a, b).
      *
      * @param  a the left endpoint

@@ -23,7 +23,7 @@ import org.lwjgl.opengl.GL11;
 public class SceneDemo implements Scene, RPGMapMakerScene {
 
     public static int width = 2880;
-    public static int height = 1620;
+    public static int height = 2880; //1620;
 
     private final Renderer2D renderer2D;
     public final Camera camera = new Camera(Camera.Mode.ORTHOGRAPHIC, Graphics.getWindowWidth(), Graphics.getWindowHeight(), 2, 0, 100, 75);
@@ -185,9 +185,11 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
         //Tools.renderToolOverlay(renderer2D, screen.x, screen.y);
         tools[activeToolIndex].renderToolOverlay(renderer2D, screen.x, screen.y);
         renderer2D.setShader(null);
-        tools[activeToolIndex].renderToolText(renderer2D, Input.mouse.getX() - Graphics.getWindowWidth() * 0.5f, Graphics.getWindowHeight() * 0.5f - Input.mouse.getY());
         renderer2D.end();
 
+        renderer2D.begin();
+        tools[activeToolIndex].renderToolText(renderer2D, Input.mouse.getX() - Graphics.getWindowWidth() * 0.5f, Graphics.getWindowHeight() * 0.5f - Input.mouse.getY());
+        renderer2D.end();
 //        renderer2D.begin();
 //        Tools.renderToolText(renderer2D, Input.mouse.getX() - Graphics.getWindowWidth() * 0.5f, Graphics.getWindowHeight() * 0.5f - Input.mouse.getY());
 //        renderer2D.end();

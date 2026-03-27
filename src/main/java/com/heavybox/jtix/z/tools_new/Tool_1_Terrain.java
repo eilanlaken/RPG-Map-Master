@@ -36,7 +36,7 @@ public class Tool_1_Terrain extends Tool_new {
     public int defaultLiquidIndex = 0;
     public int groundIndex = 5;
     public int liquidIndex = 1;
-    public boolean randomDegree = true;
+    public boolean randomDegree = false;
 
     private Mode currentMode = Mode.ADD;
     private Shape currentShape = Shape.POINT;
@@ -202,9 +202,10 @@ public class Tool_1_Terrain extends Tool_new {
                     // spawn
                     Vector2 step = new Vector2(x - line_start.x, y - line_start.y);
                     float length = step.len();
-                    int count = (int) (length / 50f);
+                    float stepSize = currentBrush.width * sclX * 0.25f;
+                    int count = (int) (length / stepSize);
                     step.nor();
-                    step.scl(50);
+                    step.scl(stepSize);
                     for (int i = 0; i < count; i++) {
                         spawnTerrainCommand(line_start.x + i * step.x, line_start.y + i * step.y);
                         spawnTerrainCommand(line_start.x + i * step.x, line_start.y + i * step.y);
@@ -267,9 +268,10 @@ public class Tool_1_Terrain extends Tool_new {
                 renderer2D.setColor(Color.WHITE);
                 Vector2 step = new Vector2(x - line_start.x, y - line_start.y);
                 float length = step.len();
-                int count = (int) (length / 50f);
+                float stepSize = currentBrush.width * sclX * 0.25f;
+                int count = (int) (length / stepSize);
                 step.nor();
-                step.scl(50);
+                step.scl(stepSize);
                 for (int i = 0; i < count; i++) {
                     drawBrushPrediction(renderer2D, line_start.x + i * step.x, line_start.y + i * step.y);
                 }
