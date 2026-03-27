@@ -13,7 +13,9 @@ import com.heavybox.jtix.widgets.Widget;
 import com.heavybox.jtix.z.*;
 import com.heavybox.jtix.z.Tools;
 import com.heavybox.jtix.z.tools_new.Tool_1_Terrain;
+import com.heavybox.jtix.z.tools_new.Tool_2_Farmlands;
 import com.heavybox.jtix.z.tools_new.Tool_new;
+import org.jetbrains.annotations.NotNull;
 import org.lwjgl.opengl.GL11;
 
 // contact points polygon vs polygon:
@@ -29,7 +31,7 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
     // tools - refactor immediately after working version
     public Map map;
     public final Tool_new[] tools = new Tool_new[8];
-    public int activeToolIndex = 0;
+    public int activeToolIndex = 1;
 
     // user-interface
     private final Widget widgetHelpBar = new Widget();
@@ -107,6 +109,7 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
         //Tools.initTools(this);
         // init tools
         tools[0] = new Tool_1_Terrain(this);
+        tools[1] = new Tool_2_Farmlands(this);
         tools[activeToolIndex].activate();
     }
 
@@ -271,4 +274,16 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
     @Override
     public void finish() {}
 
+    // **** Input handler ****
+
+
+    @Override
+    public boolean keyboardKeysJustPressed(@NotNull Array<Keyboard.Key> keys) {
+        if (keys.contains(Keyboard.Key.KEY_1, true)) {
+            selectTool(0);
+        } else if (keys.contains(Keyboard.Key.KEY_2, true)) {
+            selectTool(1);
+        }
+        return true;
+    }
 }

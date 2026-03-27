@@ -1029,6 +1029,61 @@ class MathUtilsTest {
     }
 
     @Test
+    void polygonArea_vector2() {
+        Array<Vector2> p1 = new Array<>(true, 4);
+        p1.addAll(
+                new Vector2(0f, 0f),
+                new Vector2(2f, 0f),
+                new Vector2(2f, 2f),
+                new Vector2(0f, 2f)
+        );
+        Assertions.assertEquals(4f, MathUtils.polygonArea(p1), MathUtils.FLOAT_ROUNDING_ERROR);
+
+        Array<Vector2> p2 = new Array<>(true, 4); // reverse winding order
+        p2.addAll(
+                new Vector2(0f, 0f),
+                new Vector2(0f, 2f),
+                new Vector2(2f, 2f),
+                new Vector2(2f, 0f)
+        );
+        Assertions.assertEquals(4f, MathUtils.polygonArea(p2), MathUtils.FLOAT_ROUNDING_ERROR);
+
+        Array<Vector2> p3 = new Array<>(true, 3);
+        p3.addAll(
+                new Vector2(0f, 0f),
+                new Vector2(4f, 0f),
+                new Vector2(0f, 3f)
+        );
+        Assertions.assertEquals(6f, MathUtils.polygonArea(p3), MathUtils.FLOAT_ROUNDING_ERROR);
+
+        Array<Vector2> p4 = new Array<>(true, 5);
+        p4.addAll(
+                new Vector2(0f, 0f),
+                new Vector2(4f, 0f),
+                new Vector2(4f, 2f),
+                new Vector2(2f, 1f),
+                new Vector2(0f, 2f)
+        );
+        Assertions.assertEquals(6f, MathUtils.polygonArea(p4), MathUtils.FLOAT_ROUNDING_ERROR);
+
+        Array<Vector2> p5 = new Array<>(true, 4);
+        p5.addAll(
+                new Vector2(0f, 0f),
+                new Vector2(1f, 0f),
+                new Vector2(2f, 0f),
+                new Vector2(3f, 0f)
+        );
+        Assertions.assertEquals(0f, MathUtils.polygonArea(p5), MathUtils.FLOAT_ROUNDING_ERROR);
+
+        Array<Vector2> p6 = new Array<>(true, 2);
+        p6.addAll(
+                new Vector2(0f, 0f),
+                new Vector2(1f, 0f)
+        );
+        Assertions.assertEquals(0f, MathUtils.polygonArea(p6), MathUtils.FLOAT_ROUNDING_ERROR);
+    }
+
+    @Test
     void polygonCenterOfMass() {
         ArrayFloat polygon = new ArrayFloat(true, 8);
         polygon.addAll(

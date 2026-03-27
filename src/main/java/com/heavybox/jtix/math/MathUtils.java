@@ -1139,6 +1139,22 @@ public final class MathUtils {
         return Math.abs(sum) * 0.5f;
     }
 
+    public static float polygonArea(@NotNull Array<Vector2> polygon) {
+        int n = polygon.size;
+        if (n < 3) return 0f;
+
+        float sum = 0f;
+
+        for (int i = 0; i < n; i++) {
+            Vector2 a = polygon.get(i);
+            Vector2 b = polygon.get((i + 1) % n);
+
+            sum += a.x * b.y - b.x * a.y;
+        }
+
+        return Math.abs(sum) * 0.5f;
+    }
+
     public static float polygonPerimeter(@NotNull ArrayFloat polygon) {
         int n = polygon.size / 2;
         if (n < 2) return 0f;
