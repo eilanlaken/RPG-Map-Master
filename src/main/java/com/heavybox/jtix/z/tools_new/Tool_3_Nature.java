@@ -348,6 +348,7 @@ public class Tool_3_Nature extends Tool_new {
         boolean leftPressedAndMoved = Input.mouse.isButtonPressed(Mouse.Button.LEFT) && mouseMoved;
         boolean plusJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.EQUAL);
         boolean minusJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.MINUS);
+        boolean tabJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.TAB);
         boolean sPressed = Input.keyboard.isKeyPressed(Keyboard.Key.S);
         boolean aPressed = Input.keyboard.isKeyPressed(Keyboard.Key.A);
         boolean dPressed = Input.keyboard.isKeyPressed(Keyboard.Key.D);
@@ -361,6 +362,12 @@ public class Tool_3_Nature extends Tool_new {
         // =============  tool settings  ===============
         if (leftShiftJustPressed) {
             this.currentShape = Collections.enumNext(this.currentShape);
+            onChangeParameters();
+            return;
+        }
+
+        if (tabJustPressed) {
+            this.angleFollowPath = !angleFollowPath;
             onChangeParameters();
             return;
         }
