@@ -7,6 +7,7 @@ import com.heavybox.jtix.collections.ArrayChar;
 import com.heavybox.jtix.collections.ArrayFloat;
 import com.heavybox.jtix.collections.Collections;
 import com.heavybox.jtix.graphics.Color;
+import com.heavybox.jtix.graphics.Graphics;
 import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.graphics.Texture;
 import com.heavybox.jtix.input.Input;
@@ -16,6 +17,7 @@ import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Shape2DPolygon;
 import com.heavybox.jtix.math.Vector2;
 import com.heavybox.jtix.z.CommandTerrainFarmlandAdd;
+import com.heavybox.jtix.z.CommandTerrainFarmlandSub;
 import com.heavybox.jtix.z.Utils;
 import org.jetbrains.annotations.NotNull;
 import org.locationtech.jts.geom.*;
@@ -294,6 +296,7 @@ public class Tool_2_Farmlands extends Tool_new {
         boolean scrollUp = Input.mouse.getScrollY() > 0;
         boolean scrollDown = Input.mouse.getScrollY() < 0;
         boolean backspaceJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.BACKSPACE);
+        boolean pJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.P);
         boolean plusPressed = Input.keyboard.isKeyPressed(Keyboard.Key.EQUAL);
         boolean minusPressed = Input.keyboard.isKeyPressed(Keyboard.Key.MINUS);
         boolean spaceJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.SPACE);
@@ -309,7 +312,40 @@ public class Tool_2_Farmlands extends Tool_new {
             return;
         }
 
+        if (shiftLeftJustPressed) {
+            this.currentShape = Collections.enumNext(this.currentShape);
+            reset();
+            return;
+        }
+
+        if (pJustPressed) {
+            this.procedural = !this.procedural;
+            reset();
+            return;
+        }
+
+        if (plusPressed) {
+            line_width *= 1.00f + 0.8f * Graphics.getDeltaTime();
+            circle_radius *= 1.00f + 0.8f * Graphics.getDeltaTime();
+            refillPoints();
+            return;
+        }
+        if (minusPressed) {
+            line_width *= 1.00f - 0.8f * Graphics.getDeltaTime();
+            circle_radius *= 1.00f - 0.8f * Graphics.getDeltaTime();
+            refillPoints();
+            return;
+        }
+
         // ********* Actions ************
+        if (currentMode == Mode.SUB) {
+            if (leftClick) {
+                CommandTerrainFarmlandSub cmd = new CommandTerrainFarmlandSub(x, y);
+                map.addCommand(cmd);
+            }
+            return;
+        }
+
         if (currentShape == Shape.POINT) {
             // ignored
         }
@@ -384,7 +420,9 @@ public class Tool_2_Farmlands extends Tool_new {
     @Override
     public void renderToolOverlay(Renderer2D renderer2D, float x, float y) {
         if (currentMode == Mode.SUB) {
-
+            renderer2D.setColor(Color.RED);
+            renderer2D.drawCircleFilled(10,10, x, y, 0, 1,1);
+            renderer2D.setColor(Color.WHITE);
             return;
         }
 
@@ -426,19 +464,17 @@ public class Tool_2_Farmlands extends Tool_new {
         }
 
         if (currentShape == Shape.CIRCLE) {
+            renderer2D.setColor(Color.BLUE);
+            renderer2D.drawCircleFilled(12, 10, x, y, 0,1,1);
+            renderer2D.setColor(Color.MAGENTA);
+            renderer2D.drawCircleThin(circle_radius, circle_refinement, x, y, 0, 1, 1);
             if (!procedural) {
-                renderer2D.setColor(Color.BLUE);
-                renderer2D.drawCircleFilled(12, 10, x, y, 0,1,1);
-                renderer2D.setColor(Color.MAGENTA);
-                renderer2D.drawCircleThin(circle_radius, circle_refinement, x, y, 0, 1, 1);
                 if (circle_points.isEmpty()) refillPoints();
                 float[] polygon = Utils.polygonConvertToFlat(circle_points);
                 renderer2D.setColor(0.3569f, 0.3098f, 0.2275f, 0.4f);
                 renderer2D.drawCurveFilled(null, 16.0f, 20, polygon, 0, 0, 0, 1, 1);
                 renderer2D.setColor(Color.WHITE);
                 renderer2D.drawPolygonFilled(polygon, bases[baseType], uv -> uv.rotateDeg(linesAngle).scl(2), 0, 0, 0, 1, 1);
-            } else {
-
             }
         }
 

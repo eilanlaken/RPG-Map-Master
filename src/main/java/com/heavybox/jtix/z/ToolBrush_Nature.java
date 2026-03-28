@@ -27,7 +27,6 @@ public class ToolBrush_Nature extends Tool {
     private String fruitColor = null;
     public boolean addTrunk = true;
     public boolean addLeaves = true;
-
     public Category currentCategory = Category.TREE_REGULAR;
 
     public ToolBrush_Nature(RPGMapMakerScene scene) {

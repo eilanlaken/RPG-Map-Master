@@ -14,6 +14,7 @@ import com.heavybox.jtix.z.*;
 import com.heavybox.jtix.z.Tools;
 import com.heavybox.jtix.z.tools_new.Tool_1_Terrain;
 import com.heavybox.jtix.z.tools_new.Tool_2_Farmlands;
+import com.heavybox.jtix.z.tools_new.Tool_3_Nature;
 import com.heavybox.jtix.z.tools_new.Tool_new;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.opengl.GL11;
@@ -31,7 +32,7 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
     // tools - refactor immediately after working version
     public Map map;
     public final Tool_new[] tools = new Tool_new[8];
-    public int activeToolIndex = 1;
+    public int activeToolIndex = 2;
 
     // user-interface
     private final Widget widgetHelpBar = new Widget();
@@ -110,6 +111,7 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
         // init tools
         tools[0] = new Tool_1_Terrain(this);
         tools[1] = new Tool_2_Farmlands(this);
+        tools[2] = new Tool_3_Nature(this);
         tools[activeToolIndex].activate();
     }
 
@@ -285,6 +287,8 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
             selectTool(0);
         } else if (keys.contains(Keyboard.Key.KEY_2, true)) {
             selectTool(1);
+        } else if (keys.contains(Keyboard.Key.KEY_3, true)) {
+            selectTool(2);
         }
         return true;
     }
