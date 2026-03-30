@@ -98,7 +98,6 @@ public class Tool_2_Farmlands extends Tool_new {
             points[2 * i] = (float) polygon.getCoordinates()[i].x;
             points[2 * i + 1] = (float) polygon.getCoordinates()[i].y;
         }
-        Shape2DPolygon shape2DPolygon = new Shape2DPolygon(points);
 
         List<Coordinate> seeds = new ArrayList<>();
         Envelope env = polygon.getEnvelopeInternal();

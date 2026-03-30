@@ -20,7 +20,7 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Tool_3_Nature extends Tool_new {
+public class Tool_4_Geology extends Tool_new {
 
     private final TexturePack atlas;
     private TextureRegion[] currentRegions;
@@ -53,12 +53,9 @@ public class Tool_3_Nature extends Tool_new {
     private Shape2DPolygon polygon_shape;
 
     // trees specifics
-    private String fruitColor = null;
-    public boolean addTrunk = true;
-    public boolean addLeaves = true;
-    public Category currentCategory = Category.TREE_REGULAR;
+    public Type currentType = Type.BOULDER_PLAIN_BIG;
 
-    public Tool_3_Nature(final RPGMapMakerScene scene) {
+    public Tool_4_Geology(final RPGMapMakerScene scene) {
         super(scene);
         atlas = Assets.get("assets/texture-packs/layer_3.yml");
 
@@ -253,36 +250,9 @@ public class Tool_3_Nature extends Tool_new {
     }
 
     protected TextureRegion[] getRegions() {
-        String prefix = "assets/textures-layer-3/nature_" + currentCategory.name().toLowerCase();
-
-        if (currentCategory.name().startsWith("FLOWER")) {
-            return new TextureRegion[] {atlas.getRegion(prefix + "_" + MathUtils.randomUniformInt(0, 6) + ".png")};
-        }
-
-        TextureRegion leaves = null;
-        try {
-            leaves = atlas.getRegion(prefix + "_" + MathUtils.randomUniformInt(0, 6) + ".png"); // currently, hard coded value "6"
-        } catch (Exception ignored) {}
-
-        TextureRegion fruits = null;
-        if (fruitColor != null) {
-            try {
-                fruits = atlas.getRegion(prefix + "_fruits_" + fruitColor + ".png"); // currently,hard coded "red"
-            } catch (Exception ignored) {
-            }
-        }
-
-        TextureRegion trunk = null;
-        try {
-            trunk = atlas.getRegion(prefix + "_trunk_" + MathUtils.randomUniformInt(0, 6) + ".png"); // currently, hard coded value "6";
-        } catch (Exception ignored) {
-
-        }
-
-        TextureRegion[] regions = new TextureRegion[3];
-        regions[0] = addLeaves ? leaves : null;
-        regions[1] = fruits;
-        regions[2] = addTrunk ? trunk : null;
+        String name = "assets/textures-layer-3/geology_" + currentType.name().toLowerCase() + "_" + MathUtils.randomUniformInt(0,6) + ".png";
+        TextureRegion[] regions = new TextureRegion[1];
+        regions[0] = atlas.getRegion(name);
         return regions;
     }
 
@@ -305,7 +275,7 @@ public class Tool_3_Nature extends Tool_new {
     }
 
     private void spawnTokens(boolean useBrushOffset, boolean maintainMinSpacing) {
-        map.getAllTokensByType(currentCategory, alreadyCreatedTokens);
+        map.getAllTokensByType(currentType, alreadyCreatedTokens);
 
         float offsetX = useBrushOffset ? x : 0;
         float offsetY = useBrushOffset ? y : 0;
@@ -328,7 +298,7 @@ public class Tool_3_Nature extends Tool_new {
                     token.regions
             );
 
-            createToken.tokenType = currentCategory;
+            createToken.tokenType = currentType;
             createToken.tint = token.tint;
             map.addCommand(createToken);
         }
@@ -414,26 +384,11 @@ public class Tool_3_Nature extends Tool_new {
         }
 
         if (zJustPressed) {
-            currentCategory = Collections.enumNext(currentCategory);
+            currentType = Collections.enumNext(currentType);
             onChangeParameters();
             return;
         } else if (xJustPressed) {
-            currentCategory = Collections.enumPrev(currentCategory);
-            onChangeParameters();
-            return;
-        } else if (lJustPressed) {
-            addLeaves = !addLeaves;
-            onChangeParameters();
-            return;
-        } else if (tJustPressed) {
-            addTrunk = !addTrunk;
-            onChangeParameters();
-            return;
-        } else if (fJustPressed) {
-            if (fruitColor == null) fruitColor = "red";
-            else if (fruitColor.equals("red")) fruitColor = "green";
-            else if (fruitColor.equals("green")) fruitColor = "orange";
-            else if (fruitColor.equals("orange")) fruitColor = null;
+            currentType = Collections.enumPrev(currentType);
             onChangeParameters();
             return;
         }
@@ -445,7 +400,7 @@ public class Tool_3_Nature extends Tool_new {
                 tokensToDelete.clear();
                 float radius = Math.abs(circle_spreadRadius * sclX);
                 radius = Math.max(radius, 10);
-                map.getAllTokensInCircleByType(currentCategory, x, y, radius, tokensToDelete);
+                map.getAllTokensInCircleByType(ToolBrush_Debug.Type.DEBUG_RECT, x, y, radius, tokensToDelete);
                 deleteTokens();
             }
             return;
@@ -678,21 +633,13 @@ public class Tool_3_Nature extends Tool_new {
         return false;
     }
 
-    public enum Category {
+    public enum Type {
 
-        TREE_BUSH,
-        TREE_CIRCULAR,
-        TREE_CONIFER,
-        TREE_CYPRESS,
-        TREE_GLOBOSE,
-        TREE_HIGH,
-        TREE_REGULAR,
+        BOULDER_PLAIN_BIG,
+        BOULDER_PLAIN_SMALL,
 
-        FLOWER_DAISY,
-        FLOWER_ROSE,
-        FLOWER_SCORPION,
-        FLOWER_SUNFLOWER,
-        FLOWER_TULIP,
+        HILLS_BROWN,
+        HILLS_GREEN,
 
     }
 

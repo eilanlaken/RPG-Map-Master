@@ -12,10 +12,7 @@ import com.heavybox.jtix.tools.ToolsTexturePacker;
 import com.heavybox.jtix.widgets.Widget;
 import com.heavybox.jtix.z.*;
 import com.heavybox.jtix.z.Tools;
-import com.heavybox.jtix.z.tools_new.Tool_1_Terrain;
-import com.heavybox.jtix.z.tools_new.Tool_2_Farmlands;
-import com.heavybox.jtix.z.tools_new.Tool_3_Nature;
-import com.heavybox.jtix.z.tools_new.Tool_new;
+import com.heavybox.jtix.z.tools_new.*;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.opengl.GL11;
 
@@ -32,7 +29,7 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
     // tools - refactor immediately after working version
     public Map map;
     public final Tool_new[] tools = new Tool_new[8];
-    public int activeToolIndex = 2;
+    public int activeToolIndex = 4;
 
     // user-interface
     private final Widget widgetHelpBar = new Widget();
@@ -112,6 +109,8 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
         tools[0] = new Tool_1_Terrain(this);
         tools[1] = new Tool_2_Farmlands(this);
         tools[2] = new Tool_3_Nature(this);
+        tools[3] = new Tool_4_Geology(this);
+        tools[4] = new Tool_5_Props(this);
         tools[activeToolIndex].activate();
     }
 
@@ -289,6 +288,10 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
             selectTool(1);
         } else if (keys.contains(Keyboard.Key.KEY_3, true)) {
             selectTool(2);
+        } else if (keys.contains(Keyboard.Key.KEY_4, true)) {
+            selectTool(3);
+        } else if (keys.contains(Keyboard.Key.KEY_5, true)) {
+            selectTool(4);
         }
         return true;
     }
