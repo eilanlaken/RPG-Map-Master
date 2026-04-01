@@ -70,7 +70,6 @@ public final class MathUtils {
      * @param  a the left endpoint
      * @param  b the right endpoint
      * @return a random real number uniformly in [a, b)
-     * @throws MathException unless {@code a < b}
      */
     public static float randomUniformFloat(float a, float b) {
         if (b < a) {
@@ -88,7 +87,7 @@ public final class MathUtils {
      * @param  p the probability of returning {@code true}
      * @return {@code true} with probability {@code p} and
      *         {@code false} with probability {@code 1 - p}
-     * @throws IllegalArgumentException unless {@code 0} &le; {@code p} &le; {@code 1.0}
+     * @throws MathException unless {@code 0} &le; {@code p} &le; {@code 1.0}
      */
     public static boolean randomBernoulli(float p) {
         if (!(p >= 0.0 && p <= 1.0))
@@ -883,7 +882,7 @@ public final class MathUtils {
 
     public static void polygonRemoveDegenerateVertices(ArrayFloat polygon) {
         if (polygon == null) throw new MathException("Polygon input cannot be null.");
-        if (polygon.size < 6) throw new MathException("A polygon requires a minimum of 3 vertices. Got: " + polygon.size);
+        if (polygon.size < 6) throw new MathException("A polygon requires a minimum of 3 vertices. So the ArrayFloat.size must be >= 6. Got: " + polygon.size);
         if (polygon.size % 2 != 0) throw new MathException("Polygon must be represented as a flat array of vertices, each vertex must have x and y coordinates: [x0,y0,  x1,y1, ...]. Therefore, polygon array length must be even. Got: " + polygon.size);
 
         /* remove sequential duplicates: [A, B, B, B, C, D, D] -> [A, B, C, D]. Stores the result in a "compact" polygon (ArrayFloat). */

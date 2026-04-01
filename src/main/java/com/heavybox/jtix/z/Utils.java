@@ -3,11 +3,101 @@ package com.heavybox.jtix.z;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.collections.ArrayFloat;
 import com.heavybox.jtix.collections.Tuple2;
+import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Shape2DPolygon;
 import com.heavybox.jtix.math.Vector2;
 import org.jetbrains.annotations.NotNull;
 
 public class Utils {
+
+    private static final Vector2 topLeft = new Vector2();
+    private static final Vector2 topRight = new Vector2();
+    private static final Vector2 bottomRight = new Vector2();
+    private static final Vector2 bottomLeft = new Vector2();
+
+    public static void polygon_generateRandom(float aabb_width, float aabb_height, final @NotNull ArrayFloat out) {
+        out.clear();
+        // get the 4 corners of the rectangle
+        topLeft.set(-aabb_width * 0.5f, aabb_height * 0.5f);
+        topRight.set(aabb_width * 0.5f, aabb_height * 0.5f);
+        bottomRight.set(aabb_width * 0.5f, -aabb_height * 0.5f);
+        bottomLeft.set(-aabb_width * 0.5f, -aabb_height * 0.5f);
+
+        // divide each segment at random, starting with the top segment, going clockwise
+        // top segment
+        int random_up = MathUtils.randomUniformInt(0, 4);
+        if (random_up == 0) { // don't subdivide
+            out.add(topLeft.x, topLeft.y);
+            out.add(topRight.x, topRight.y);
+        } else if (random_up == 1) { // keep left corner, right corner is random
+            out.add(topLeft.x, topLeft.y);
+            out.add(MathUtils.randomUniformFloat(topLeft.x, topRight.x), topRight.y);
+        } else if (random_up == 2) { // left corner is random, keep right corner.
+            out.add(MathUtils.randomUniformFloat(topLeft.x, topRight.x), topLeft.y);
+            out.add(topRight.x, topRight.y);
+        } else { // pick at random two points on the top line segment
+            float x1 = MathUtils.randomUniformFloat(topLeft.x, topRight.x);
+            out.add(x1, topLeft.y);
+            float x2 = MathUtils.randomUniformFloat(x1, topRight.x);
+            out.add(x2, topRight.y);
+        }
+
+        // right segment
+        int random_right = MathUtils.randomUniformInt(0, 4);
+        if (random_right == 0) { // don't subdivide
+            out.add(topRight.x, topRight.y);
+            out.add(bottomRight.x, bottomRight.y);
+        } else if (random_right == 1) { // keep top right corner, bottom right corner is random
+            out.add(topRight.x, topRight.y);
+            out.add(topRight.x, MathUtils.randomUniformFloat(topRight.y, bottomRight.y));
+        } else if (random_right == 2) { // top right corner is random, keep bottom right corner.
+            out.add(topRight.x, MathUtils.randomUniformFloat(topRight.y, bottomRight.y));
+            out.add(bottomRight.x, bottomRight.y);
+        } else { // pick at random two points on the top line segment
+            float y1 = MathUtils.randomUniformFloat(topRight.y, bottomRight.y);
+            out.add(topRight.x, y1);
+            float y2 = MathUtils.randomUniformFloat(bottomRight.y, y1);
+            out.add(topRight.x, y2);
+        }
+
+        // bottom segment
+        int random_bottom = MathUtils.randomUniformInt(0, 4);
+        if (random_bottom == 0) { // don't subdivide
+            out.add(bottomRight.x, bottomRight.y);
+            out.add(bottomLeft.x, bottomLeft.y);
+        } else if (random_bottom == 1) { // keep right corner, left corner is random
+            out.add(bottomRight.x, bottomRight.y);
+            out.add(MathUtils.randomUniformFloat(bottomLeft.x, bottomRight.x), bottomRight.y);
+        } else if (random_bottom == 2) { // left corner is fixed, right corner is random
+            out.add(MathUtils.randomUniformFloat(bottomLeft.x, bottomRight.x), bottomLeft.y);
+            out.add(bottomLeft.x, bottomLeft.y);
+        } else { // pick at random two points on the top line segment
+            float x1 = MathUtils.randomUniformFloat(bottomLeft.x, bottomRight.x);
+            float x2 = MathUtils.randomUniformFloat(bottomLeft.x, x1);
+            out.add(x1, bottomLeft.y);
+            out.add(x2, bottomLeft.y);
+        }
+
+        // left segment
+        int random_left = MathUtils.randomUniformInt(0, 4);
+        if (random_left == 0) { // don't subdivide
+            out.add(bottomLeft.x, bottomLeft.y);
+            out.add(topLeft.x, topLeft.y);
+        } else if (random_left == 1) { // bottom left fixed, top left random
+            out.add(bottomLeft.x, bottomLeft.y);
+            out.add(bottomLeft.x, MathUtils.randomUniformFloat(bottomLeft.y, topLeft.y));
+        } else if (random_left == 2) { // bottom left random, top left fixed
+            out.add(topLeft.x, MathUtils.randomUniformFloat(bottomLeft.y, topLeft.y));
+            out.add(topLeft.x, topLeft.y);
+        } else { // pick at random two points on the top line segment
+            float y1 = MathUtils.randomUniformFloat(bottomLeft.y, topLeft.y);
+            float y2 = MathUtils.randomUniformFloat(y1, topLeft.y);
+            out.add(bottomLeft.x, y1);
+            out.add(bottomLeft.x, y2);
+        }
+
+        MathUtils.polygonRemoveDegenerateVertices(out);
+    }
 
     public static float[] polygonConvertToFlat(Array<Vector2> polygon) {
         float[] polygonFlat = new float[polygon.size * 2];
@@ -54,11 +144,6 @@ public class Utils {
             outTopRight.x = Math.max(polygon.get(2 * i), outTopRight.x);
             outTopRight.y = Math.max(polygon.get(2 * i + 1), outTopRight.y);
         }
-    }
-
-    public static Enum<?> enumNext(Enum<?> value) {
-        var values = value.getDeclaringClass().getEnumConstants();
-        return values[(value.ordinal() + 1) % values.length];
     }
 
     public static float distancePointToLine(Vector2 p, Vector2 v1, Vector2 v2) {

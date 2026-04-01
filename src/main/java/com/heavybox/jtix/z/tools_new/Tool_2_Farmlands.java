@@ -24,6 +24,7 @@ import org.locationtech.jts.geom.*;
 import org.locationtech.jts.triangulate.VoronoiDiagramBuilder;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -36,6 +37,7 @@ public class Tool_2_Farmlands extends Tool_new {
     private int baseType = MathUtils.randomUniformInt(0, bases.length);
     private float linesAngle = MathUtils.randomUniformFloat(0, 360); //TODO: change to deg
     public boolean procedural = true;
+    public float size = 100;
 
     // point (not applicable for farmlands)
 
@@ -43,7 +45,6 @@ public class Tool_2_Farmlands extends Tool_new {
     public Array<Vector2> line_points = new Array<>(true, 10);
     private final Vector2 line_start = new Vector2();
     public boolean line_free = true;
-    public float line_width = 100;
 
     // circle
     public Array<Vector2> circle_points = new Array<>(true, 10);
@@ -52,6 +53,7 @@ public class Tool_2_Farmlands extends Tool_new {
 
     // polygon
     public Array<Vector2> polygon_points = new Array<>(true, 10);
+    public final ArrayFloat polygon_procedural = new ArrayFloat(true, 8);
     public boolean polygon_free = true;
 
     public Tool_2_Farmlands(final RPGMapMakerScene scene) {
@@ -65,6 +67,7 @@ public class Tool_2_Farmlands extends Tool_new {
         line_free = true;
         currentMode = Mode.ADD;
         currentShape = Shape.POLYGON;
+        Utils.polygon_generateRandom(size, size, polygon_procedural);
     }
 
     private void createFarmland(@NotNull Array<Vector2> points) {
@@ -78,87 +81,20 @@ public class Tool_2_Farmlands extends Tool_new {
         points.clear();
     }
 
-    private void createFarmlandsProcedural(@NotNull Array<Vector2> envelopPolygon) {
-        GeometryFactory gf = new GeometryFactory();
-        Coordinate[] coords = new Coordinate[envelopPolygon.size + 1];
-        for (int i = 0; i < envelopPolygon.size; i++) {
-            Vector2 point = envelopPolygon.get(i);
-            coords[i] = new Coordinate(point.x, point.y);
-        }
-        coords[envelopPolygon.size] = new Coordinate(envelopPolygon.first().x, envelopPolygon.first().y);
-
-        LinearRing shell = gf.createLinearRing(coords);
-        Polygon polygon = gf.createPolygon(shell, null);
-        if (!polygon.isValid()) {
-            System.out.println("Invalid polygon");
-        }
-
-        float[] points = new float[polygon.getCoordinates().length * 2];
-        for (int i = 0; i < polygon.getCoordinates().length; i++) {
-            points[2 * i] = (float) polygon.getCoordinates()[i].x;
-            points[2 * i + 1] = (float) polygon.getCoordinates()[i].y;
-        }
-
-        List<Coordinate> seeds = new ArrayList<>();
-        Envelope env = polygon.getEnvelopeInternal();
-        Random rand = new Random(1234); // deterministic
-        int seedCount = 20;
-        while (seeds.size() < seedCount) {
-            double x = env.getMinX() + rand.nextDouble() * env.getWidth();
-            double y = env.getMinY() + rand.nextDouble() * env.getHeight();
-
-            Point p = gf.createPoint(new Coordinate(x, y));
-            if (polygon.contains(p)) {
-                seeds.add(p.getCoordinate());
-            }
-        }
-
-        MultiPoint sites = gf.createMultiPointFromCoords(seeds.toArray(new Coordinate[0]));
-        VoronoiDiagramBuilder builder = new VoronoiDiagramBuilder();
-        builder.setSites(sites);
-        builder.setClipEnvelope(env); // bounding box only
-        Geometry diagram = builder.getDiagram(gf);
-
-        // clip each polygon to parent
-        List<Polygon> subPolygons = new ArrayList<>();
-        for (int i = 0; i < diagram.getNumGeometries(); i++) {
-            Geometry cell = diagram.getGeometryN(i);
-            Geometry clipped = cell.intersection(polygon);
-
-            if (clipped instanceof Polygon) {
-                subPolygons.add((Polygon) clipped);
-            } else if (clipped instanceof MultiPolygon) {
-                MultiPolygon mp = (MultiPolygon) clipped;
-                for (int j = 0; j < mp.getNumGeometries(); j++) {
-                    subPolygons.add((Polygon) mp.getGeometryN(j));
-                }
-            }
-        }
-
-        Shape2DPolygon[] shape2DSubPolygons = new Shape2DPolygon[subPolygons.size()];
-        for (int i = 0; i < subPolygons.size(); i++) {
-            Polygon p = subPolygons.get(i);
-            float[] points_sub = new float[p.getCoordinates().length * 2];
-            for (int j = 0; j < p.getCoordinates().length; j++) {
-                points_sub[2 * j] = (float) p.getCoordinates()[j].x;
-                points_sub[2 * j + 1] = (float) p.getCoordinates()[j].y;
-            }
-            shape2DSubPolygons[i] = new Shape2DPolygon(points_sub);
-        }
-
-        for (Shape2DPolygon subPolygon : shape2DSubPolygons) {
-            CommandTerrainFarmlandAdd cmd = new CommandTerrainFarmlandAdd();
-            cmd.polygon = subPolygon.points.pack();
-            cmd.baseType = baseType;
-            cmd.linesAngle = linesAngle;
-            map.addCommand(cmd);
-            baseType = MathUtils.randomUniformInt(0, bases.length);
-            linesAngle = MathUtils.randomUniformFloat(0, 360);
-        }
+    private void createFarmland(@NotNull ArrayFloat points) {
+        CommandTerrainFarmlandAdd cmd = new CommandTerrainFarmlandAdd();
+        float[] copy = points.pack();
+        cmd.polygon = Arrays.copyOf(copy, copy.length);
+        cmd.baseType = baseType;
+        cmd.linesAngle = linesAngle;
+        map.addCommand(cmd);
+        baseType = MathUtils.randomUniformInt(0, bases.length);
+        linesAngle = MathUtils.randomUniformFloat(0, 360);
+        points.clear();
     }
 
     private void createFarmlandsLineProcedural() {
-        float line_width = this.line_width * 2;
+        float line_width = this.size * 2 * sclY;
         Vector2 segment = new Vector2(x - line_start.x, y - line_start.y);
         float angle = segment.angleDeg(); // later, rotate by angle
         float length = segment.len();
@@ -256,7 +192,7 @@ public class Tool_2_Farmlands extends Tool_new {
 
         Vector2 diff = new Vector2(x - line_start.x, y - line_start.y);
         diff.nor();
-        diff.scl(line_width);
+        diff.scl(size * sclY);
         diff.rotate90(1);
 
         Vector2 a0 = new Vector2(line_start).add(diff);
@@ -280,15 +216,19 @@ public class Tool_2_Farmlands extends Tool_new {
     }
 
     private void refillPoints_polygon() {
+        if (!procedural) return;
 
+        if (polygon_procedural.isEmpty()) {
+            //Utils.polygon_generateRandom(size, size, polygon_procedural);
+            return;
+        }
 
+        // transform points
     }
 
     @Override
     public void update(float delta) {
         boolean shiftLeftJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.LEFT_SHIFT);
-        boolean leftButtonPressed = Input.mouse.isButtonPressed(Mouse.Button.LEFT);
-        boolean leftButtonJustPressed = Input.mouse.isButtonJustPressed(Mouse.Button.LEFT);
         boolean leftClick = Input.mouse.isButtonClicked(Mouse.Button.LEFT);
         boolean rightClick = Input.mouse.isButtonJustPressed(Mouse.Button.RIGHT);
         boolean mouseMoved = Input.mouse.moved();
@@ -311,6 +251,13 @@ public class Tool_2_Farmlands extends Tool_new {
             return;
         }
 
+        if (aPressed && dy != 0) {
+            float deltaDeg = -dy / 1000 * Graphics.getWindowHeight();
+            deg += deltaDeg;
+            refillPoints();
+            return;
+        }
+
         if (shiftLeftJustPressed) {
             this.currentShape = Collections.enumNext(this.currentShape);
             reset();
@@ -324,13 +271,15 @@ public class Tool_2_Farmlands extends Tool_new {
         }
 
         if (plusPressed) {
-            line_width *= 1.00f + 0.8f * Graphics.getDeltaTime();
+            sclX *= 1.00f + 0.8f * Graphics.getDeltaTime();
+            sclY *= 1.00f + 0.8f * Graphics.getDeltaTime();
             circle_radius *= 1.00f + 0.8f * Graphics.getDeltaTime();
             refillPoints();
             return;
         }
         if (minusPressed) {
-            line_width *= 1.00f - 0.8f * Graphics.getDeltaTime();
+            sclX *= 1.00f - 0.8f * Graphics.getDeltaTime();
+            sclY *= 1.00f - 0.8f * Graphics.getDeltaTime();
             circle_radius *= 1.00f - 0.8f * Graphics.getDeltaTime();
             refillPoints();
             return;
@@ -377,39 +326,55 @@ public class Tool_2_Farmlands extends Tool_new {
         if (currentShape == Shape.CIRCLE) {
             if (mouseMoved) refillPoints();
             if (leftClick) {
-                if (!procedural) createFarmland(circle_points);
-                else createFarmlandsProcedural(circle_points);
+                createFarmland(circle_points);
             }
             return;
         }
 
         if (currentShape == Shape.POLYGON) {
-            if (polygon_free) {
-                if (leftClick) {
-                    polygon_points.add(new Vector2(x, y));
-                    polygon_free = false;
+            if (procedural) {
+                if (rightClick) {
+                    Utils.polygon_generateRandom(this.size * sclX, this.size * sclY, polygon_procedural);
+                    return;
                 }
-            } else {
-                if (mouseMoved) refillPoints();
-                else if (leftClick) {
-                    Vector2 p = new Vector2(x, y); // need to test intersections etc.
-
-                    if (polygon_points.size <= 2) {
-                        polygon_points.add(p);
-                        return;
+                if (leftClick) {
+                    // transform first
+                    Vector2 point = new Vector2();
+                    for (int i = 0; i < polygon_procedural.size / 2; i++) {
+                        point.x = polygon_procedural.get(2 * i);
+                        point.y = polygon_procedural.get(2 * i + 1);
+                        point.transform_ScaleRotateTranslate(x,y,deg,sclX,sclY);
+                        polygon_procedural.set(2 * i, point.x);
+                        polygon_procedural.set(2 * i + 1, point.y);
                     }
+                    polygon_procedural.add(polygon_procedural.get(0), polygon_procedural.get(1));
+                    createFarmland(polygon_procedural);
+                    Utils.polygon_generateRandom(this.size, this.size, polygon_procedural);
+                }
+            }
 
-                    if (Vector2.dst(p, polygon_points.first()) <= 20) {
-                        if (!procedural) {
+            if (!procedural) {
+                if (polygon_free) {
+                    if (leftClick) {
+                        polygon_points.add(new Vector2(x, y));
+                        polygon_free = false;
+                    }
+                } else {
+                    if (mouseMoved) refillPoints();
+                    else if (leftClick) {
+                        Vector2 p = new Vector2(x, y); // need to test intersections etc.
+                        if (polygon_points.size <= 2) {
+                            polygon_points.add(p);
+                            return;
+                        }
+                        if (Vector2.dst(p, polygon_points.first()) <= 20) {
                             polygon_points.add(new Vector2(polygon_points.first()));
                             createFarmland(polygon_points);
+                            polygon_points.clear();
+                            polygon_free = true;
                         } else {
-                            createFarmlandsProcedural(polygon_points);
+                            polygon_points.add(p);
                         }
-                        polygon_points.clear();
-                        polygon_free = true;
-                    } else {
-                        polygon_points.add(p);
                     }
                 }
             }
@@ -434,8 +399,8 @@ public class Tool_2_Farmlands extends Tool_new {
             if (line_free) {
                 renderer2D.setColor(Color.BLUE);
                 renderer2D.drawCircleThin(Math.max(12, 5), 10, x, y, 0,1,1);
-                renderer2D.drawRectangleThin(line_width * 2, line_width * 2, x, y, 0,1,1);
-                renderer2D.drawRectangleThin(line_width * 2, line_width * 2, x, y, 45,1,1);
+                renderer2D.drawRectangleThin(size * 2, size * 2, x, y, 0,sclX,sclY);
+                renderer2D.drawRectangleThin(size * 2, size * 2, x, y, 45,sclX,sclY);
                 renderer2D.setColor(Color.WHITE);
             } else {
                 if (line_points.isEmpty()) return;
@@ -478,32 +443,40 @@ public class Tool_2_Farmlands extends Tool_new {
         }
 
         if (currentShape == Shape.POLYGON) {
-            renderer2D.setColor(Color.BLACK);
-            renderer2D.drawCircleFilled(15, 5, x, y, 0, 1,1);
-            if (polygon_points.isEmpty()) return;
-
-            renderer2D.setColor(Color.BLACK);
-            renderer2D.drawCircleBorder(15, 5, 10, polygon_points.first().x, polygon_points.first().y, 0,1,1);
-            renderer2D.setColor(Color.GREEN);
-            for (int i = 0; i < polygon_points.size; i++) {
-                Vector2 p = polygon_points.get(i);
-                renderer2D.drawCircleFilled(5, 5, p.x, p.y, 0, 1, 1);
+            if (procedural) {
+                renderer2D.setColor(Color.BLACK);
+                if (!polygon_procedural.isEmpty()) {
+                    renderer2D.drawPolygonThin(polygon_procedural, false, x, y, deg, sclX, sclY);
+                }
             }
-            for (int i = 0; i < polygon_points.size - 1; i++) {
-                Vector2 p1 = polygon_points.get(i);
-                Vector2 p2 = polygon_points.get(i + 1);
-                renderer2D.drawLineThin(p1.x, p1.y, p2.x, p2.y);
-            }
-            renderer2D.drawLineThin(polygon_points.last().x, polygon_points.last().y, x, y);
-            renderer2D.drawLineThin(x, y, polygon_points.first().x, polygon_points.first().y);
+            if (!procedural) {
+                renderer2D.setColor(Color.BLACK);
+                renderer2D.drawCircleFilled(15, 5, x, y, 0, 1, 1);
+                if (polygon_points.isEmpty()) return;
 
-            if (polygon_points.size >= 3 && !procedural) {
-                // draw farmland
-                float[] polygon = Utils.polygonConvertToFlat(polygon_points);
-                renderer2D.setColor(0.3569f, 0.3098f, 0.2275f, 0.4f);
-                renderer2D.drawCurveFilled(null, 16.0f, 20, polygon, 0, 0, 0, 1, 1);
-                renderer2D.setColor(Color.WHITE);
-                renderer2D.drawPolygonFilled(polygon, bases[baseType], uv -> uv.rotateDeg(linesAngle).scl(2), 0, 0, 0, 1, 1);
+                renderer2D.setColor(Color.BLACK);
+                renderer2D.drawCircleBorder(15, 5, 10, polygon_points.first().x, polygon_points.first().y, 0, 1, 1);
+                renderer2D.setColor(Color.GREEN);
+                for (int i = 0; i < polygon_points.size; i++) {
+                    Vector2 p = polygon_points.get(i);
+                    renderer2D.drawCircleFilled(5, 5, p.x, p.y, 0, 1, 1);
+                }
+                for (int i = 0; i < polygon_points.size - 1; i++) {
+                    Vector2 p1 = polygon_points.get(i);
+                    Vector2 p2 = polygon_points.get(i + 1);
+                    renderer2D.drawLineThin(p1.x, p1.y, p2.x, p2.y);
+                }
+                renderer2D.drawLineThin(polygon_points.last().x, polygon_points.last().y, x, y);
+                renderer2D.drawLineThin(x, y, polygon_points.first().x, polygon_points.first().y);
+
+                if (polygon_points.size >= 3) {
+                    // draw farmland
+                    float[] polygon = Utils.polygonConvertToFlat(polygon_points);
+                    renderer2D.setColor(0.3569f, 0.3098f, 0.2275f, 0.4f);
+                    renderer2D.drawCurveFilled(null, 16.0f, 20, polygon, 0, 0, 0, 1, 1);
+                    renderer2D.setColor(Color.WHITE);
+                    renderer2D.drawPolygonFilled(polygon, bases[baseType], uv -> uv.rotateDeg(linesAngle).scl(2), 0, 0, 0, 1, 1);
+                }
             }
         }
     }
