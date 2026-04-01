@@ -21,26 +21,26 @@ import java.util.Set;
 
 public class Tool_1_Terrain extends Tool_new {
 
-    // brush
-    public Target target = Target.GROUND;
-    private final Shader brushShader;
-    public final Texture[] brushesAdd = new Texture[2];
-    public final Texture[] brushesSub = new Texture[2];
-    private Texture currentBrush;
-    public int brushIndex = 1;
-
-    // terrain textures
+    // resources - terrain and brush textures, shaders
+    public final Texture[] brushesAdd = new Texture[5];
+    public final Texture[] brushesSub = new Texture[5];
     private final Texture[] terrainGrounds = new Texture[8];
     private final Texture[] terrainLiquids = new Texture[3];
+    private final Shader brushShader;
+
+    // state
+    private Mode currentMode = Mode.ADD;
+    private Shape currentShape = Shape.POINT;
+    public Target target = Target.GROUND;
+    private Texture currentBrush;
+    public int brushIndex = 1;
     public int defaultGroundIndex = 0;
     public int defaultLiquidIndex = 0;
     public int groundIndex = 5;
     public int liquidIndex = 1;
-    public boolean randomDegree = false;
-
-    private Mode currentMode = Mode.ADD;
-    private Shape currentShape = Shape.POINT;
+    public boolean randomDegree = true;
     private boolean angleFollowPath = true;
+    private boolean limitDrawingToTarget = true;
 
     // point mode
 
@@ -69,9 +69,16 @@ public class Tool_1_Terrain extends Tool_new {
         String groundFragmentShaderSrc = Assets.getFileContent("assets/shaders/terrain-brush.frag");
         this.brushShader = new Shader(groundVertexShaderSrc, groundFragmentShaderSrc);
         brushesAdd[0] = Assets.get("assets/brushes/brush_terrain_add_0.png");
-        brushesSub[0] = Assets.get("assets/brushes/brush_terrain_sub_0.png");
         brushesAdd[1] = Assets.get("assets/brushes/brush_terrain_add_1.png");
+        brushesAdd[2] = Assets.get("assets/brushes/brush_terrain_add_2.png");
+        brushesAdd[3] = Assets.get("assets/brushes/brush_terrain_add_3.png");
+        brushesAdd[4] = Assets.get("assets/brushes/brush_terrain_add_4.png");
+
+        brushesSub[0] = Assets.get("assets/brushes/brush_terrain_sub_0.png");
         brushesSub[1] = Assets.get("assets/brushes/brush_terrain_sub_1.png");
+        brushesSub[2] = Assets.get("assets/brushes/brush_terrain_sub_2.png");
+        brushesSub[3] = Assets.get("assets/brushes/brush_terrain_sub_3.png");
+        brushesSub[4] = Assets.get("assets/brushes/brush_terrain_sub_4.png");
 
         // init terrain stuff
         terrainGrounds[0] = Assets.get("assets/textures-layer-0/terrain_land_grass_0.jpg");
@@ -125,6 +132,7 @@ public class Tool_1_Terrain extends Tool_new {
         boolean zButtonJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.Z);
         boolean aPressed = Input.keyboard.isKeyPressed(Keyboard.Key.A);
         boolean sPressed = Input.keyboard.isKeyPressed(Keyboard.Key.S);
+        boolean lPressed = Input.keyboard.isKeyPressed(Keyboard.Key.L);
         float dy = Input.mouse.getYDelta();
 
         // =============  tool settings  ===============
@@ -136,6 +144,10 @@ public class Tool_1_Terrain extends Tool_new {
         if (spaceJustPressed) {
             brushIndex = (brushIndex + 1) % brushesAdd.length;
             onChangeParameters();
+            return;
+        }
+        if (lPressed) {
+            limitDrawingToTarget = !limitDrawingToTarget;
             return;
         }
         if (shiftLeftJustPressed) {
@@ -207,8 +219,8 @@ public class Tool_1_Terrain extends Tool_new {
                     step.nor();
                     step.scl(stepSize);
                     for (int i = 0; i < count; i++) {
-                        spawnTerrainCommand(line_start.x + i * step.x, line_start.y + i * step.y);
-                        spawnTerrainCommand(line_start.x + i * step.x, line_start.y + i * step.y);
+                        spawnTerrainCommand(line_start.x + i * step.x, line_start.y + i * step.y, angleFollowPath ? step.angleDeg() : this.deg);
+                        spawnTerrainCommand(line_start.x + i * step.x, line_start.y + i * step.y, angleFollowPath ? step.angleDeg() : this.deg);
                     }
                     line_free = true;
                 }
@@ -221,7 +233,7 @@ public class Tool_1_Terrain extends Tool_new {
                     double rad = Math.toRadians(angleDeg);
                     float px = x + (float)(Math.cos(rad) * circle_spreadRadius);
                     float py = y + (float)(Math.sin(rad) * circle_spreadRadius);
-                    spawnTerrainCommand(px, py);
+                    spawnTerrainCommand(px, py, angleFollowPath ? angleDeg + 90 : this.deg);
                 }
             }
             return;
@@ -229,7 +241,12 @@ public class Tool_1_Terrain extends Tool_new {
 
     }
 
+
     private void spawnTerrainCommand(float x, float y) {
+        spawnTerrainCommand(x, y, this.deg);
+    }
+
+    private void spawnTerrainCommand(float x, float y, float deg) {
         CommandTerrain cmd = new CommandTerrain(x, y, deg, sclX, sclY, false); // TODO: anchor
         cmd.target = target;
         cmd.mode = currentMode;
@@ -237,8 +254,18 @@ public class Tool_1_Terrain extends Tool_new {
         cmd.liquidIndex = liquidIndex;
         cmd.brushIndex = brushIndex;
         map.addCommand(cmd);
-        if (randomDegree) deg = MathUtils.randomUniformFloat(0, 360);
-        else deg = 0;
+
+        if (!limitDrawingToTarget && target != Target.BLEND_MAP) {
+            CommandTerrain cmdBlend = new CommandTerrain(x, y, deg, sclX, sclY, false); // TODO: anchor
+            cmdBlend.target = Target.BLEND_MAP;
+            cmdBlend.mode = target == Target.GROUND ? Mode.ADD : Mode.SUB;
+            cmdBlend.groundIndex = groundIndex;
+            cmdBlend.liquidIndex = liquidIndex;
+            cmdBlend.brushIndex = brushIndex;
+            map.addCommand(cmdBlend);
+        }
+
+        if (randomDegree) this.deg = MathUtils.randomUniformFloat(0, 360);
     }
 
     @Override
@@ -273,7 +300,7 @@ public class Tool_1_Terrain extends Tool_new {
                 step.nor();
                 step.scl(stepSize);
                 for (int i = 0; i < count; i++) {
-                    drawBrushPrediction(renderer2D, line_start.x + i * step.x, line_start.y + i * step.y);
+                    drawBrushPrediction(renderer2D, line_start.x + i * step.x, line_start.y + i * step.y, angleFollowPath ? step.angleDeg() : this.deg);
                 }
             }
             return;
@@ -287,7 +314,7 @@ public class Tool_1_Terrain extends Tool_new {
                 double rad = Math.toRadians(angleDeg);
                 float px = x + (float)(Math.cos(rad) * circle_spreadRadius);
                 float py = y + (float)(Math.sin(rad) * circle_spreadRadius);
-                drawBrushPrediction(renderer2D, px, py);
+                drawBrushPrediction(renderer2D, px, py, angleFollowPath ? angleDeg + 90 : this.deg);
             }
         }
 
@@ -295,6 +322,10 @@ public class Tool_1_Terrain extends Tool_new {
     }
 
     private void drawBrushPrediction(Renderer2D renderer2D, float x, float y) {
+        drawBrushPrediction(renderer2D, x, y, this.deg);
+    }
+
+    private void drawBrushPrediction(Renderer2D renderer2D, float x, float y, float deg) {
         groundIndex = groundIndex % terrainGrounds.length;
         liquidIndex = liquidIndex % terrainGrounds.length;
         if (target == Target.GROUND) {

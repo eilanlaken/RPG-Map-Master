@@ -36,8 +36,8 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
 
     private final Texture terrainSteepness;
 
-    public Texture[] brushesAdd = new Texture[3];
-    public Texture[] brushesSub = new Texture[3];
+    public Texture[] brushesAdd = new Texture[5];
+    public Texture[] brushesSub = new Texture[5];
 
     private final Shader shader_brush;
     private final Shader shader_terrain;
@@ -106,11 +106,17 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
         terrainSteepness = Assets.get("assets/textures-layer-0/terrain_material_rock.jpg");
 
         brushesAdd[0] = Assets.get("assets/brushes/brush_terrain_add_0.png");
-        brushesSub[0] = Assets.get("assets/brushes/brush_terrain_sub_0.png");
         brushesAdd[1] = Assets.get("assets/brushes/brush_terrain_add_1.png");
+        brushesAdd[2] = Assets.get("assets/brushes/brush_terrain_add_2.png");
+        brushesAdd[3] = Assets.get("assets/brushes/brush_terrain_add_3.png");
+        brushesAdd[4] = Assets.get("assets/brushes/brush_terrain_add_4.png");
+
+
+        brushesSub[0] = Assets.get("assets/brushes/brush_terrain_sub_0.png");
         brushesSub[1] = Assets.get("assets/brushes/brush_terrain_sub_1.png");
-        //brushesAdd[2] = Assets.get("assets/brushes/brush_terrain_add_2.png");
-        //brushesSub[2] = Assets.get("assets/brushes/brush_terrain_sub_2.png");
+        brushesSub[2] = Assets.get("assets/brushes/brush_terrain_sub_2.png");
+        brushesSub[3] = Assets.get("assets/brushes/brush_terrain_sub_3.png");
+        brushesSub[4] = Assets.get("assets/brushes/brush_terrain_sub_4.png");
 
         String terrainVertexShaderSrc = Assets.getFileContent("assets/shaders/terrain.vert");
         String terrainFragmentShaderSrc = Assets.getFileContent("assets/shaders/terrain.frag");

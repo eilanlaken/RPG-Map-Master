@@ -290,7 +290,7 @@ public class Tool_2_Farmlands extends Tool_new {
         boolean leftButtonPressed = Input.mouse.isButtonPressed(Mouse.Button.LEFT);
         boolean leftButtonJustPressed = Input.mouse.isButtonJustPressed(Mouse.Button.LEFT);
         boolean leftClick = Input.mouse.isButtonClicked(Mouse.Button.LEFT);
-        boolean rightButtonJustPressed = Input.mouse.isButtonJustPressed(Mouse.Button.RIGHT);
+        boolean rightClick = Input.mouse.isButtonJustPressed(Mouse.Button.RIGHT);
         boolean mouseMoved = Input.mouse.moved();
         boolean scrollUp = Input.mouse.getScrollY() > 0;
         boolean scrollDown = Input.mouse.getScrollY() < 0;
