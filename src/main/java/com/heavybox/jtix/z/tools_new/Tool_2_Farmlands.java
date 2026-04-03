@@ -587,4 +587,83 @@ public class Tool_2_Farmlands extends Tool_new {
 
     }
 
+    private void createFarmlandsProcedural_old(@NotNull Array<Vector2> envelopPolygon) {
+        GeometryFactory gf = new GeometryFactory();
+        Coordinate[] coords = new Coordinate[envelopPolygon.size + 1];
+        for (int i = 0; i < envelopPolygon.size; i++) {
+            Vector2 point = envelopPolygon.get(i);
+            coords[i] = new Coordinate(point.x, point.y);
+        }
+        coords[envelopPolygon.size] = new Coordinate(envelopPolygon.first().x, envelopPolygon.first().y);
+
+        LinearRing shell = gf.createLinearRing(coords);
+        Polygon polygon = gf.createPolygon(shell, null);
+        if (!polygon.isValid()) {
+            System.out.println("Invalid polygon");
+        }
+
+        float[] points = new float[polygon.getCoordinates().length * 2];
+        for (int i = 0; i < polygon.getCoordinates().length; i++) {
+            points[2 * i] = (float) polygon.getCoordinates()[i].x;
+            points[2 * i + 1] = (float) polygon.getCoordinates()[i].y;
+        }
+
+        List<Coordinate> seeds = new ArrayList<>();
+        Envelope env = polygon.getEnvelopeInternal();
+        Random rand = new Random(1234); // deterministic
+        int seedCount = 20;
+        while (seeds.size() < seedCount) {
+            double x = env.getMinX() + rand.nextDouble() * env.getWidth();
+            double y = env.getMinY() + rand.nextDouble() * env.getHeight();
+
+            Point p = gf.createPoint(new Coordinate(x, y));
+            if (polygon.contains(p)) {
+                seeds.add(p.getCoordinate());
+            }
+        }
+
+        MultiPoint sites = gf.createMultiPointFromCoords(seeds.toArray(new Coordinate[0]));
+        VoronoiDiagramBuilder builder = new VoronoiDiagramBuilder();
+        builder.setSites(sites);
+        builder.setClipEnvelope(env); // bounding box only
+        Geometry diagram = builder.getDiagram(gf);
+
+        // clip each polygon to parent
+        List<Polygon> subPolygons = new ArrayList<>();
+        for (int i = 0; i < diagram.getNumGeometries(); i++) {
+            Geometry cell = diagram.getGeometryN(i);
+            Geometry clipped = cell.intersection(polygon);
+
+            if (clipped instanceof Polygon) {
+                subPolygons.add((Polygon) clipped);
+            } else if (clipped instanceof MultiPolygon) {
+                MultiPolygon mp = (MultiPolygon) clipped;
+                for (int j = 0; j < mp.getNumGeometries(); j++) {
+                    subPolygons.add((Polygon) mp.getGeometryN(j));
+                }
+            }
+        }
+
+        Shape2DPolygon[] shape2DSubPolygons = new Shape2DPolygon[subPolygons.size()];
+        for (int i = 0; i < subPolygons.size(); i++) {
+            Polygon p = subPolygons.get(i);
+            float[] points_sub = new float[p.getCoordinates().length * 2];
+            for (int j = 0; j < p.getCoordinates().length; j++) {
+                points_sub[2 * j] = (float) p.getCoordinates()[j].x;
+                points_sub[2 * j + 1] = (float) p.getCoordinates()[j].y;
+            }
+            shape2DSubPolygons[i] = new Shape2DPolygon(points_sub);
+        }
+
+        for (Shape2DPolygon subPolygon : shape2DSubPolygons) {
+            CommandTerrainFarmlandAdd cmd = new CommandTerrainFarmlandAdd();
+            cmd.polygon = subPolygon.points.pack();
+            cmd.baseType = baseType;
+            cmd.linesAngle = linesAngle;
+            map.addCommand(cmd);
+            baseType = MathUtils.randomUniformInt(0, bases.length);
+            linesAngle = MathUtils.randomUniformFloat(0, 360);
+        }
+    }
+
 }

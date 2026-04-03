@@ -8,11 +8,35 @@ import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.graphics.TexturePack;
 import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
+import com.heavybox.jtix.z.Token;
+import com.heavybox.jtix.z.Tool;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class Tool_6_Architecture extends Tool_new {
 
     private final TexturePack atlas;
+
+    // global state
+    private Tool.Mode currentMode;
+    private Tool.Shape currentShape;
+    private float spacing = 1.0f;
+    private final Set<Token> tokensToDelete = new HashSet<>();
+    private final Array<Token> tokensPreview = new Array<>();
+    private final Array<Token> alreadyCreatedTokens = new Array<>();
+    private boolean angleFollowPath = false;
+    private boolean fillShape = false;
+    private boolean procedural = false;
+
+    // point mode
+
+    // line mode
+
+    // circle mode
+
+    // polygon mode
 
     public Tool_6_Architecture(final RPGMapMakerScene scene) {
         super(scene);
@@ -106,6 +130,12 @@ public class Tool_6_Architecture extends Tool_new {
     @Override
     public boolean keyboardCodepointsTyped(@NotNull ArrayChar codepoints) {
         return false;
+    }
+
+    public enum View {
+        TOP_VIEW,
+        SIDE_VIEW,
+        ISOMETRIC_VIEW
     }
 
 }

@@ -62,7 +62,7 @@ public class Tool_4_Geology extends Tool_new {
         sclX = 1f / 3;
         sclY = 1f / 3;
 
-        currentShape = Tool.Shape.CIRCLE;
+        currentShape = Tool.Shape.POINT;
         currentMode = Tool.Mode.ADD;
         currentRegions = getRegions();
         refillWithTokens();
@@ -320,9 +320,6 @@ public class Tool_4_Geology extends Tool_new {
         boolean aPressed = Input.keyboard.isKeyPressed(Keyboard.Key.A);
         boolean dPressed = Input.keyboard.isKeyPressed(Keyboard.Key.D);
         float dy = Input.mouse.getYDelta();
-        boolean fJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.F);
-        boolean lJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.L);
-        boolean tJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.T);
         boolean zJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.Z);
         boolean xJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.X);
 

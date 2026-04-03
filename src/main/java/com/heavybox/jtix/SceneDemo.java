@@ -117,6 +117,7 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
         tools[2] = new Tool_3_Nature(this);
         tools[3] = new Tool_4_Geology(this);
         tools[4] = new Tool_5_Props(this);
+        tools[5] = new Tool_6_Architecture(this);
         tools[activeToolIndex].activate();
     }
 
@@ -298,6 +299,8 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
             selectTool(3);
         } else if (keys.contains(Keyboard.Key.KEY_5, true)) {
             selectTool(4);
+        } else if (keys.contains(Keyboard.Key.KEY_6, true)) {
+            selectTool(5);
         }
         return true;
     }
