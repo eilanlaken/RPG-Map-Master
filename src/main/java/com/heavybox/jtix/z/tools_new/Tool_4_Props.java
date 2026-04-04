@@ -452,7 +452,7 @@ public class Tool_4_Props extends Tool_new {
                 tokensToDelete.clear();
                 float radius = Math.abs(circle_spreadRadius * sclX);
                 radius = Math.max(radius, 10);
-                map.getAllTokensInCircleByType(TYPE, x, y, radius, tokensToDelete);
+                map.getAllTokensInCircleByEnumValue(TYPE, x, y, radius, tokensToDelete);
                 deleteTokens();
             }
             return;

@@ -10,7 +10,6 @@ import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Vector2;
-import com.heavybox.jtix.z.Tool;
 
 import java.util.Comparator;
 import java.util.HashSet;
@@ -137,7 +136,7 @@ public class ToolBrush_Nature extends Tool {
         if (mode == Mode.SUB) {
             tokensToDelete.clear();
             if (leftClicked || leftPressedAndMoved) {
-                map.getAllTokensInCircleByType(currentCategory, x, y, spreadRadius * sclX, tokensToDelete);
+                map.getAllTokensInCircleByEnumValue(currentCategory, x, y, spreadRadius * sclX, tokensToDelete);
                 deleteTokens();
             }
 

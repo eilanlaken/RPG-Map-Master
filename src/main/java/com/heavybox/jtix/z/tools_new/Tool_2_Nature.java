@@ -445,7 +445,7 @@ public class Tool_2_Nature extends Tool_new {
                 tokensToDelete.clear();
                 float radius = Math.abs(circle_spreadRadius * sclX);
                 radius = Math.max(radius, 10);
-                map.getAllTokensInCircleByType(currentCategory, x, y, radius, tokensToDelete);
+                map.getAllTokensInCircleByEnumValue(currentCategory, x, y, radius, tokensToDelete);
                 deleteTokens();
             }
             return;

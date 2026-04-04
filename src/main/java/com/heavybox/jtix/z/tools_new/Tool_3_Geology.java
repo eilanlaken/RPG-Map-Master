@@ -32,7 +32,7 @@ public class Tool_3_Geology extends Tool_new {
     private final Array<Token> tokensPreview = new Array<>();
     private final Array<Token> alreadyCreatedTokens = new Array<>();
     private boolean angleFollowPath = false;
-    private boolean fillShape = false;
+    private boolean fillShape = true;
 
     // point mode
 
@@ -397,7 +397,7 @@ public class Tool_3_Geology extends Tool_new {
                 tokensToDelete.clear();
                 float radius = Math.abs(circle_spreadRadius * sclX);
                 radius = Math.max(radius, 10);
-                map.getAllTokensInCircleByType(ToolBrush_Debug.Type.DEBUG_RECT, x, y, radius, tokensToDelete);
+                map.getAllTokensInCircleByEnumClass(Type.class, x, y, radius, tokensToDelete);
                 deleteTokens();
             }
             return;

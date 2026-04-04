@@ -13,11 +13,6 @@ import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Shape2DPolygon;
 import com.heavybox.jtix.math.Vector2;
-import com.heavybox.jtix.z.CommandTokenCreate;
-import com.heavybox.jtix.z.CommandTokenDelete;
-import com.heavybox.jtix.z.Token;
-import com.heavybox.jtix.z.Utils;
-import com.heavybox.jtix.z.Tool;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Comparator;
@@ -337,7 +332,7 @@ public class ToolBrush_Debug extends Tool {
                 tokensToDelete.clear();
                 float radius = Math.abs(circle_spreadRadius * sclX);
                 radius = Math.max(radius, 10);
-                map.getAllTokensInCircleByType(Type.DEBUG_RECT, x, y, radius, tokensToDelete);
+                map.getAllTokensInCircleByEnumValue(Type.DEBUG_RECT, x, y, radius, tokensToDelete);
                 deleteTokens();
             }
             return;

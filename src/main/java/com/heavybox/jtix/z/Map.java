@@ -74,10 +74,24 @@ public class Map {
         }
     }
 
-    public void getAllTokensInCircleByType(Enum<?> type, float centerX, float centerY, float radius, Set<Token> out) {
+    public void getAllTokensInCircleByEnumValue(Enum<?> type, float centerX, float centerY, float radius, Set<Token> out) {
         float r2 = radius * radius;
         for (Token token : layer3.allTokens) {
             if (token.tokenType != type) continue;
+
+            float dx = token.getX() - centerX;
+            float dy = token.getY() - centerY;
+
+            if (dx * dx + dy * dy <= r2) {
+                out.add(token);
+            }
+        }
+    }
+
+    public void getAllTokensInCircleByEnumClass(Class<? extends Enum<?>> type, float centerX, float centerY, float radius, Set<Token> out) {
+        float r2 = radius * radius;
+        for (Token token : layer3.allTokens) {
+            if (token.tokenType.getClass() != type) continue;
 
             float dx = token.getX() - centerX;
             float dy = token.getY() - centerY;
