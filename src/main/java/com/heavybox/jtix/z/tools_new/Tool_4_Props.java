@@ -17,13 +17,22 @@ import com.heavybox.jtix.z.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Tool_3_Nature extends Tool_new {
+public class Tool_4_Props extends Tool_new {
+
+    private static final String PREFIX = "assets/textures-layer-3/prop_";
+    private static final Type TYPE = Type.PROP;
 
     private final TexturePack atlas;
     private TextureRegion[] currentRegions;
+    private HashMap<String, Array<String>> categoryRegions = new HashMap<>();
+    private Array<String> allCategories = new Array<>();
+    public String currentCategory;
+    public int currentAssetIndex = 0;
+
 
     private Tool.Mode currentMode;
     private Tool.Shape currentShape;
@@ -52,15 +61,10 @@ public class Tool_3_Nature extends Tool_new {
     private final Vector2 polygon_TopRight = new Vector2();
     private Shape2DPolygon polygon_shape;
 
-    // trees specifics
-    private String fruitColor = null;
-    public boolean addTrunk = true;
-    public boolean addLeaves = true;
-    public Category currentCategory = Category.TREE_REGULAR;
-
-    public Tool_3_Nature(final RPGMapMakerScene scene) {
+    public Tool_4_Props(final RPGMapMakerScene scene) {
         super(scene);
         atlas = Assets.get("assets/texture-packs/layer_3.yml");
+        gatherBrushProps();
 
         sclX = 1f / 3;
         sclY = 1f / 3;
@@ -69,6 +73,31 @@ public class Tool_3_Nature extends Tool_new {
         currentMode = Tool.Mode.ADD;
         currentRegions = getRegions();
         refillWithTokens();
+    }
+
+    protected void gatherBrushProps() {
+        Array<String> allPropNames = new Array<>(false, 40);
+        for (String regionName : atlas.namedRegions.keySet()) {
+            if (regionName.startsWith(PREFIX)) allPropNames.add(regionName);
+        }
+
+        for (String propName : allPropNames) {
+            String rest = propName.substring(PREFIX.length());
+            int underscore = rest.indexOf('_');
+            String category = rest.substring(0, underscore);
+            if (this.currentCategory == null) this.currentCategory = category; // init category to first
+
+            int dot = rest.lastIndexOf('.');
+            if (dot == -1)
+                dot = rest.length();
+            String type = rest.substring(underscore + 1, dot);
+            Array<String> regions = categoryRegions.computeIfAbsent(category, k -> new Array<>());
+            regions.add(type);
+        }
+
+        for (String categoryName : categoryRegions.keySet()) {
+            this.allCategories.add(categoryName);
+        }
     }
 
     protected int getBatchCountArea(float area) {
@@ -253,37 +282,9 @@ public class Tool_3_Nature extends Tool_new {
     }
 
     protected TextureRegion[] getRegions() {
-        String prefix = "assets/textures-layer-3/nature_" + currentCategory.name().toLowerCase();
-
-        if (currentCategory.name().startsWith("FLOWER")) {
-            return new TextureRegion[] {atlas.getRegion(prefix + "_" + MathUtils.randomUniformInt(0, 6) + ".png")};
-        }
-
-        TextureRegion leaves = null;
-        try {
-            leaves = atlas.getRegion(prefix + "_" + MathUtils.randomUniformInt(0, 6) + ".png"); // currently, hard coded value "6"
-        } catch (Exception ignored) {}
-
-        TextureRegion fruits = null;
-        if (fruitColor != null) {
-            try {
-                fruits = atlas.getRegion(prefix + "_fruits_" + fruitColor + ".png"); // currently,hard coded "red"
-            } catch (Exception ignored) {
-            }
-        }
-
-        TextureRegion trunk = null;
-        try {
-            trunk = atlas.getRegion(prefix + "_trunk_" + MathUtils.randomUniformInt(0, 6) + ".png"); // currently, hard coded value "6";
-        } catch (Exception ignored) {
-
-        }
-
-        TextureRegion[] regions = new TextureRegion[3];
-        regions[0] = addLeaves ? leaves : null;
-        regions[1] = fruits;
-        regions[2] = addTrunk ? trunk : null;
-        return regions;
+        String name = PREFIX + currentCategory + "_" + categoryRegions.get(currentCategory).get(currentAssetIndex) + ".png";
+        TextureRegion region = atlas.getRegion(name);
+        return new TextureRegion[] {region};
     }
 
     private void deleteTokens() {
@@ -305,7 +306,7 @@ public class Tool_3_Nature extends Tool_new {
     }
 
     private void spawnTokens(boolean useBrushOffset, boolean maintainMinSpacing) {
-        map.getAllTokensByType(currentCategory, alreadyCreatedTokens);
+        map.getAllTokensByType(TYPE, alreadyCreatedTokens);
 
         float offsetX = useBrushOffset ? x : 0;
         float offsetY = useBrushOffset ? y : 0;
@@ -328,7 +329,7 @@ public class Tool_3_Nature extends Tool_new {
                     token.regions
             );
 
-            createToken.tokenType = currentCategory;
+            createToken.tokenType = TYPE;
             createToken.tint = token.tint;
             map.addCommand(createToken);
         }
@@ -350,11 +351,10 @@ public class Tool_3_Nature extends Tool_new {
         boolean aPressed = Input.keyboard.isKeyPressed(Keyboard.Key.A);
         boolean dPressed = Input.keyboard.isKeyPressed(Keyboard.Key.D);
         float dy = Input.mouse.getYDelta();
-        boolean fJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.F);
-        boolean lJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.L);
-        boolean tJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.T);
         boolean zJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.Z);
         boolean xJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.X);
+        boolean cJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.C);
+        boolean vJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.V);
 
         // =============  tool settings  ===============
         if (leftShiftJustPressed) {
@@ -414,27 +414,34 @@ public class Tool_3_Nature extends Tool_new {
         }
 
         if (zJustPressed) {
-            currentCategory = Collections.enumNext(currentCategory);
+            currentAssetIndex++;
+            currentAssetIndex %= categoryRegions.get(currentCategory).size;
             onChangeParameters();
+            System.out.println(currentAssetIndex);
             return;
         } else if (xJustPressed) {
-            currentCategory = Collections.enumPrev(currentCategory);
+            currentAssetIndex--;
+            if (currentAssetIndex == -1) currentAssetIndex = categoryRegions.get(currentCategory).size - 1;
             onChangeParameters();
+            System.out.println(currentAssetIndex);
             return;
-        } else if (lJustPressed) {
-            addLeaves = !addLeaves;
+        } else if (cJustPressed) {
+            int currentCategoryIndex = allCategories.indexOf(currentCategory, false);
+            currentCategoryIndex++;
+            currentCategoryIndex %= allCategories.size;
+            this.currentCategory = allCategories.get(currentCategoryIndex);
+            currentAssetIndex %= categoryRegions.get(this.currentCategory).size;
             onChangeParameters();
+            System.out.println(currentCategory);
             return;
-        } else if (tJustPressed) {
-            addTrunk = !addTrunk;
+        } else if (vJustPressed) {
+            int currentCategoryIndex = allCategories.indexOf(currentCategory, false);
+            currentCategoryIndex--;
+            if (currentCategoryIndex == -1) currentCategoryIndex = allCategories.size - 1;
+            this.currentCategory = allCategories.get(currentCategoryIndex);
+            currentAssetIndex %= categoryRegions.get(this.currentCategory).size;
             onChangeParameters();
-            return;
-        } else if (fJustPressed) {
-            if (fruitColor == null) fruitColor = "red";
-            else if (fruitColor.equals("red")) fruitColor = "green";
-            else if (fruitColor.equals("green")) fruitColor = "orange";
-            else if (fruitColor.equals("orange")) fruitColor = null;
-            onChangeParameters();
+            System.out.println(currentCategory);
             return;
         }
 
@@ -445,7 +452,7 @@ public class Tool_3_Nature extends Tool_new {
                 tokensToDelete.clear();
                 float radius = Math.abs(circle_spreadRadius * sclX);
                 radius = Math.max(radius, 10);
-                map.getAllTokensInCircleByType(currentCategory, x, y, radius, tokensToDelete);
+                map.getAllTokensInCircleByType(TYPE, x, y, radius, tokensToDelete);
                 deleteTokens();
             }
             return;
@@ -678,21 +685,9 @@ public class Tool_3_Nature extends Tool_new {
         return false;
     }
 
-    public enum Category {
+    public enum Type {
 
-        TREE_BUSH,
-        TREE_CIRCULAR,
-        TREE_CONIFER,
-        TREE_CYPRESS,
-        TREE_GLOBOSE,
-        TREE_HIGH,
-        TREE_REGULAR,
-
-        FLOWER_DAISY,
-        FLOWER_ROSE,
-        FLOWER_SCORPION,
-        FLOWER_SUNFLOWER,
-        FLOWER_TULIP,
+        PROP
 
     }
 

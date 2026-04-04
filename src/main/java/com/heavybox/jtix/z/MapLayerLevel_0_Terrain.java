@@ -20,7 +20,6 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
 
     private final FrameBuffer layer0; // <- final composite layer image
     private final FrameBuffer ground;
-    private final FrameBuffer farmlands;
     private final FrameBuffer liquid;
     private final FrameBuffer blendMap;
 
@@ -32,7 +31,6 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
     private float uvScaleFactorLiquid = 1; // TODO
     private final Texture[] terrainGrounds = new Texture[8];
     private final Texture[] terrainLiquids = new Texture[3];
-    private final Texture[] bases = new Texture[5];
 
     private final Texture terrainSteepness;
 
@@ -43,14 +41,10 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
     private final Shader shader_terrain;
 
     private boolean changed = true;
-    private boolean changedFarmlands = true;
 
     private final Array<CommandTerrain> commandsBlendMap = new Array<>(true, 100);
     private final Array<CommandTerrain> commandsGround = new Array<>(true, 100);
     private final Array<CommandTerrain> commandsLiquid = new Array<>(true, 100);
-
-    /* farmlands */
-    private final Array<Farmland> farmlandsArray = new Array<>(true, 20);
 
     public MapLayerLevel_0_Terrain(int width, int height) {
         this.width = width;
@@ -71,11 +65,6 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
                 .setHeight(height)
                 .addColorAttachment("attachment_0")
                 .end(); // <- draw ground textures (grass, roads, stones, ...) here
-        farmlands = FrameBufferBuilder.begin()
-                .setWidth(width)
-                .setHeight(height)
-                .addColorAttachment("attachment_0")
-                .end(); // <- farmlands go here
         liquid = FrameBufferBuilder.begin()
                 .setWidth(width)
                 .setHeight(height)
@@ -92,12 +81,6 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
         terrainGrounds[5] = Assets.get("assets/textures-layer-0/terrain_land_stone_2.jpg");
         terrainGrounds[6] = Assets.get("assets/textures-layer-0/terrain_land_dirt_0.jpg");
         terrainGrounds[7] = Assets.get("assets/textures-layer-0/terrain_land_road_0.jpg");
-
-        bases[0] = Assets.get("assets/textures-layer-0/farmland_0.png");
-        bases[1] = Assets.get("assets/textures-layer-0/farmland_1.png");
-        bases[2] = Assets.get("assets/textures-layer-0/farmland_2.png");
-        bases[3] = Assets.get("assets/textures-layer-0/farmland_3.png");
-        bases[4] = Assets.get("assets/textures-layer-0/farmland_4.png");
 
         terrainLiquids[0] = Assets.get("assets/textures-layer-0/terrain_liquid_water_0.jpg");
         terrainLiquids[1] = Assets.get("assets/textures-layer-0/terrain_liquid_water_1.jpg");
@@ -146,33 +129,6 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
             if (cmd.target == Tool_1_Terrain.Target.LIQUID) commandsLiquid.add(cmd);
             if (cmd.target == Tool_1_Terrain.Target.BLEND_MAP) commandsBlendMap.add(cmd);
             return;
-        }
-
-        if (command instanceof CommandTerrainFarmlandAdd) {
-            changedFarmlands = true;
-            CommandTerrainFarmlandAdd cmd = (CommandTerrainFarmlandAdd) command;
-            Farmland farmland = new Farmland();
-            farmland.baseType = cmd.baseType;
-            farmland.linesAngle = cmd.linesAngle;
-            farmland.polygon = Arrays.copyOf(cmd.polygon, cmd.polygon.length);
-            farmlandsArray.add(farmland);
-            return;
-        }
-
-        if (command instanceof CommandTerrainFarmlandSub) {
-            CommandTerrainFarmlandSub cmd = (CommandTerrainFarmlandSub) command;
-            Farmland toDelete = null;
-            for (int i = farmlandsArray.size - 1; i >= 0; i--) {
-                Farmland farmland = farmlandsArray.get(i);
-                if (MathUtils.polygonContainsPoint(farmland.polygon, cmd.x, cmd.y)) {
-                    toDelete = farmland;
-                    break;
-                }
-            }
-            if (toDelete != null) {
-                farmlandsArray.removeValue(toDelete, true);
-                changedFarmlands = true;
-            }
         }
 
     }
@@ -232,22 +188,6 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
 //        }
 //        renderer2D.end();
 
-        // re-render farmlands - only if changed
-        if (changedFarmlands) {
-            Graphics.bindFrameBuffer(farmlands);
-            renderer2D.begin(camera);
-            GL11.glClearColor(0, 0, 0, 0);
-            GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
-            for (Farmland farmland : farmlandsArray) {
-                // draw the farmland to the frame buffer
-                renderer2D.setColor(0.3569f, 0.3098f, 0.2275f, 0.45f); // TODO: remove this and move to an outline shader for the farmlands.
-                renderer2D.drawCurveFilled(null, 7.0f, 12, farmland.polygon, 0, 0, 0, 1, 1);
-                renderer2D.setColor(Color.WHITE);
-                renderer2D.drawPolygonFilled(farmland.polygon, bases[farmland.baseType], uv -> uv.rotateDeg(farmland.linesAngle).scl(2), 0, 0, 0, 1, 1);
-            }
-            renderer2D.end();
-        }
-
         // render blend map
         Graphics.bindFrameBuffer(blendMap);
         renderer2D.begin(camera);
@@ -271,7 +211,6 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
         renderer2D.setShaderAttribute("u_height_liquidBase", uvScaleFactorLiquid * terrainLiquids[liquidBaseTextureIndex].height);
         renderer2D.setShaderAttribute("u_texture_ground_base", terrainGrounds[groundBaseTextureIndex]);
         renderer2D.setShaderAttribute("u_texture_ground", ground.getDefaultColorAttachment());
-        renderer2D.setShaderAttribute("u_texture_farmlands", farmlands.getDefaultColorAttachment());
         renderer2D.setShaderAttribute("u_texture_liquid_base", terrainLiquids[liquidBaseTextureIndex]);
         renderer2D.setShaderAttribute("u_texture_liquid", liquid.getDefaultColorAttachment());
         renderer2D.setShaderAttribute("u_texture_steepness", terrainSteepness);
@@ -281,18 +220,10 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
         renderer2D.setShader(null);
         renderer2D.end();
 
-//        Graphics.bind(layer0);
-//        GL11.glClearColor(0,0,0,1);
-//        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
-//        renderer2D.begin(camera);
-//        renderer2D.drawTexture(farmlands.getDefaultColorAttachment(), 0,0,0,1,-1);
-//        renderer2D.end();
-
         commandsBlendMap.clear();
         commandsGround.clear();
         commandsLiquid.clear();
         changed = false;
-        changedFarmlands = false;
     }
 
     @Override

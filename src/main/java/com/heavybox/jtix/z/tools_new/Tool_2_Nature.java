@@ -20,7 +20,7 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Tool_4_Geology extends Tool_new {
+public class Tool_2_Nature extends Tool_new {
 
     private final TexturePack atlas;
     private TextureRegion[] currentRegions;
@@ -53,16 +53,19 @@ public class Tool_4_Geology extends Tool_new {
     private Shape2DPolygon polygon_shape;
 
     // trees specifics
-    public Type currentType = Type.BOULDER_PLAIN_BIG;
+    private String fruitColor = null;
+    public boolean addTrunk = true;
+    public boolean addLeaves = true;
+    public Category currentCategory = Category.TREE_REGULAR;
 
-    public Tool_4_Geology(final RPGMapMakerScene scene) {
+    public Tool_2_Nature(final RPGMapMakerScene scene) {
         super(scene);
         atlas = Assets.get("assets/texture-packs/layer_3.yml");
 
         sclX = 1f / 3;
         sclY = 1f / 3;
 
-        currentShape = Tool.Shape.POINT;
+        currentShape = Tool.Shape.CIRCLE;
         currentMode = Tool.Mode.ADD;
         currentRegions = getRegions();
         refillWithTokens();
@@ -250,9 +253,36 @@ public class Tool_4_Geology extends Tool_new {
     }
 
     protected TextureRegion[] getRegions() {
-        String name = "assets/textures-layer-3/geology_" + currentType.name().toLowerCase() + "_" + MathUtils.randomUniformInt(0,6) + ".png";
-        TextureRegion[] regions = new TextureRegion[1];
-        regions[0] = atlas.getRegion(name);
+        String prefix = "assets/textures-layer-3/nature_" + currentCategory.name().toLowerCase();
+
+        if (currentCategory.name().startsWith("FLOWER")) {
+            return new TextureRegion[] {atlas.getRegion(prefix + "_" + MathUtils.randomUniformInt(0, 6) + ".png")};
+        }
+
+        TextureRegion leaves = null;
+        try {
+            leaves = atlas.getRegion(prefix + "_" + MathUtils.randomUniformInt(0, 6) + ".png"); // currently, hard coded value "6"
+        } catch (Exception ignored) {}
+
+        TextureRegion fruits = null;
+        if (fruitColor != null) {
+            try {
+                fruits = atlas.getRegion(prefix + "_fruits_" + fruitColor + ".png"); // currently,hard coded "red"
+            } catch (Exception ignored) {
+            }
+        }
+
+        TextureRegion trunk = null;
+        try {
+            trunk = atlas.getRegion(prefix + "_trunk_" + MathUtils.randomUniformInt(0, 6) + ".png"); // currently, hard coded value "6";
+        } catch (Exception ignored) {
+
+        }
+
+        TextureRegion[] regions = new TextureRegion[3];
+        regions[0] = addLeaves ? leaves : null;
+        regions[1] = fruits;
+        regions[2] = addTrunk ? trunk : null;
         return regions;
     }
 
@@ -275,7 +305,7 @@ public class Tool_4_Geology extends Tool_new {
     }
 
     private void spawnTokens(boolean useBrushOffset, boolean maintainMinSpacing) {
-        map.getAllTokensByType(currentType, alreadyCreatedTokens);
+        map.getAllTokensByType(currentCategory, alreadyCreatedTokens);
 
         float offsetX = useBrushOffset ? x : 0;
         float offsetY = useBrushOffset ? y : 0;
@@ -298,7 +328,7 @@ public class Tool_4_Geology extends Tool_new {
                     token.regions
             );
 
-            createToken.tokenType = currentType;
+            createToken.tokenType = currentCategory;
             createToken.tint = token.tint;
             map.addCommand(createToken);
         }
@@ -320,6 +350,9 @@ public class Tool_4_Geology extends Tool_new {
         boolean aPressed = Input.keyboard.isKeyPressed(Keyboard.Key.A);
         boolean dPressed = Input.keyboard.isKeyPressed(Keyboard.Key.D);
         float dy = Input.mouse.getYDelta();
+        boolean fJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.F);
+        boolean lJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.L);
+        boolean tJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.T);
         boolean zJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.Z);
         boolean xJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.X);
 
@@ -381,11 +414,26 @@ public class Tool_4_Geology extends Tool_new {
         }
 
         if (zJustPressed) {
-            currentType = Collections.enumNext(currentType);
+            currentCategory = Collections.enumNext(currentCategory);
             onChangeParameters();
             return;
         } else if (xJustPressed) {
-            currentType = Collections.enumPrev(currentType);
+            currentCategory = Collections.enumPrev(currentCategory);
+            onChangeParameters();
+            return;
+        } else if (lJustPressed) {
+            addLeaves = !addLeaves;
+            onChangeParameters();
+            return;
+        } else if (tJustPressed) {
+            addTrunk = !addTrunk;
+            onChangeParameters();
+            return;
+        } else if (fJustPressed) {
+            if (fruitColor == null) fruitColor = "red";
+            else if (fruitColor.equals("red")) fruitColor = "green";
+            else if (fruitColor.equals("green")) fruitColor = "orange";
+            else if (fruitColor.equals("orange")) fruitColor = null;
             onChangeParameters();
             return;
         }
@@ -397,7 +445,7 @@ public class Tool_4_Geology extends Tool_new {
                 tokensToDelete.clear();
                 float radius = Math.abs(circle_spreadRadius * sclX);
                 radius = Math.max(radius, 10);
-                map.getAllTokensInCircleByType(ToolBrush_Debug.Type.DEBUG_RECT, x, y, radius, tokensToDelete);
+                map.getAllTokensInCircleByType(currentCategory, x, y, radius, tokensToDelete);
                 deleteTokens();
             }
             return;
@@ -630,13 +678,21 @@ public class Tool_4_Geology extends Tool_new {
         return false;
     }
 
-    public enum Type {
+    public enum Category {
 
-        BOULDER_PLAIN_BIG,
-        BOULDER_PLAIN_SMALL,
+        TREE_BUSH,
+        TREE_CIRCULAR,
+        TREE_CONIFER,
+        TREE_CYPRESS,
+        TREE_GLOBOSE,
+        TREE_HIGH,
+        TREE_REGULAR,
 
-        HILLS_BROWN,
-        HILLS_GREEN,
+        FLOWER_DAISY,
+        FLOWER_ROSE,
+        FLOWER_SCORPION,
+        FLOWER_SUNFLOWER,
+        FLOWER_TULIP,
 
     }
 

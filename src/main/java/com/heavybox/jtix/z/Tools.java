@@ -16,7 +16,6 @@ public final class Tools {
     public static int activeToolIndex = 0;
 
     public static ToolBrush_Terrain toolBrushTerrain;
-    public static ToolStamp_Farmlands toolStampFarmlands; // TODO: unify farmlands with terrain
     public static ToolBrush_Nature toolBrushNature;
     public static ToolStamp_Architecture toolStampArchitecture;
     public static ToolBrush_Geology toolBrushGeology;
@@ -31,7 +30,6 @@ public final class Tools {
 
         toolBrushTerrain = new ToolBrush_Terrain(scene);
         toolBrushNature = new ToolBrush_Nature(scene);
-        toolStampFarmlands = new ToolStamp_Farmlands(scene);
         toolStampArchitecture = new ToolStamp_Architecture(scene);
         toolBrushGeology = new ToolBrush_Geology(scene);
         toolBrushProps = new ToolBrush_Props(scene);
@@ -40,7 +38,6 @@ public final class Tools {
 
         tools.add(toolBrushTerrain);
         tools.add(toolBrushNature);
-        tools.add(toolStampFarmlands);
         tools.add(toolStampArchitecture);
         tools.add(toolBrushGeology);
         tools.add(toolBrushProps);

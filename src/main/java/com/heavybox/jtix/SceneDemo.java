@@ -85,12 +85,6 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
         Assets.loadTexture("assets/textures-layer-0/terrain_liquid_water_1.jpg", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
         Assets.loadTexture("assets/textures-layer-0/terrain_liquid_water_2.jpg", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
         Assets.loadTexture("assets/textures-layer-0/terrain_material_rock.jpg", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
-        // layer 0 - farmlands
-        Assets.loadTexture("assets/textures-layer-0/farmland_0.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
-        Assets.loadTexture("assets/textures-layer-0/farmland_1.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
-        Assets.loadTexture("assets/textures-layer-0/farmland_2.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
-        Assets.loadTexture("assets/textures-layer-0/farmland_3.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
-        Assets.loadTexture("assets/textures-layer-0/farmland_4.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
         // layer 3
         Assets.loadTexturePack("assets/texture-packs/layer_3.yml", Texture.FilterMag.NEAREST, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, 4);
 
@@ -118,11 +112,10 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
         //Tools.initTools(this);
         // init tools
         tools[0] = new Tool_1_Terrain(this);
-        tools[1] = new Tool_2_Farmlands(this);
-        tools[2] = new Tool_3_Nature(this);
-        tools[3] = new Tool_4_Geology(this);
-        tools[4] = new Tool_5_Props(this);
-        tools[5] = new Tool_6_Architecture(this);
+        tools[1] = new Tool_2_Nature(this);
+        tools[2] = new Tool_3_Geology(this);
+        tools[3] = new Tool_4_Props(this);
+        tools[4] = new Tool_5_Architecture(this);
         tools[activeToolIndex].activate();
     }
 
@@ -304,8 +297,6 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
             selectTool(3);
         } else if (keys.contains(Keyboard.Key.KEY_5, true)) {
             selectTool(4);
-        } else if (keys.contains(Keyboard.Key.KEY_6, true)) {
-            selectTool(5);
         }
         return true;
     }

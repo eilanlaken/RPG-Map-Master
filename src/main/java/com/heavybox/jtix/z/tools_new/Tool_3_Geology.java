@@ -17,22 +17,13 @@ import com.heavybox.jtix.z.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Tool_5_Props extends Tool_new {
-
-    private static final String PREFIX = "assets/textures-layer-3/prop_";
-    private static final Type TYPE = Type.PROP;
+public class Tool_3_Geology extends Tool_new {
 
     private final TexturePack atlas;
     private TextureRegion[] currentRegions;
-    private HashMap<String, Array<String>> categoryRegions = new HashMap<>();
-    private Array<String> allCategories = new Array<>();
-    public String currentCategory;
-    public int currentAssetIndex = 0;
-
 
     private Tool.Mode currentMode;
     private Tool.Shape currentShape;
@@ -61,43 +52,20 @@ public class Tool_5_Props extends Tool_new {
     private final Vector2 polygon_TopRight = new Vector2();
     private Shape2DPolygon polygon_shape;
 
-    public Tool_5_Props(final RPGMapMakerScene scene) {
+    // trees specifics
+    public Type currentType = Type.BOULDER_PLAIN_BIG;
+
+    public Tool_3_Geology(final RPGMapMakerScene scene) {
         super(scene);
         atlas = Assets.get("assets/texture-packs/layer_3.yml");
-        gatherBrushProps();
 
         sclX = 1f / 3;
         sclY = 1f / 3;
 
-        currentShape = Tool.Shape.CIRCLE;
+        currentShape = Tool.Shape.POINT;
         currentMode = Tool.Mode.ADD;
         currentRegions = getRegions();
         refillWithTokens();
-    }
-
-    protected void gatherBrushProps() {
-        Array<String> allPropNames = new Array<>(false, 40);
-        for (String regionName : atlas.namedRegions.keySet()) {
-            if (regionName.startsWith(PREFIX)) allPropNames.add(regionName);
-        }
-
-        for (String propName : allPropNames) {
-            String rest = propName.substring(PREFIX.length());
-            int underscore = rest.indexOf('_');
-            String category = rest.substring(0, underscore);
-            if (this.currentCategory == null) this.currentCategory = category; // init category to first
-
-            int dot = rest.lastIndexOf('.');
-            if (dot == -1)
-                dot = rest.length();
-            String type = rest.substring(underscore + 1, dot);
-            Array<String> regions = categoryRegions.computeIfAbsent(category, k -> new Array<>());
-            regions.add(type);
-        }
-
-        for (String categoryName : categoryRegions.keySet()) {
-            this.allCategories.add(categoryName);
-        }
     }
 
     protected int getBatchCountArea(float area) {
@@ -282,9 +250,10 @@ public class Tool_5_Props extends Tool_new {
     }
 
     protected TextureRegion[] getRegions() {
-        String name = PREFIX + currentCategory + "_" + categoryRegions.get(currentCategory).get(currentAssetIndex) + ".png";
-        TextureRegion region = atlas.getRegion(name);
-        return new TextureRegion[] {region};
+        String name = "assets/textures-layer-3/geology_" + currentType.name().toLowerCase() + "_" + MathUtils.randomUniformInt(0,6) + ".png";
+        TextureRegion[] regions = new TextureRegion[1];
+        regions[0] = atlas.getRegion(name);
+        return regions;
     }
 
     private void deleteTokens() {
@@ -306,7 +275,7 @@ public class Tool_5_Props extends Tool_new {
     }
 
     private void spawnTokens(boolean useBrushOffset, boolean maintainMinSpacing) {
-        map.getAllTokensByType(TYPE, alreadyCreatedTokens);
+        map.getAllTokensByType(currentType, alreadyCreatedTokens);
 
         float offsetX = useBrushOffset ? x : 0;
         float offsetY = useBrushOffset ? y : 0;
@@ -329,7 +298,7 @@ public class Tool_5_Props extends Tool_new {
                     token.regions
             );
 
-            createToken.tokenType = TYPE;
+            createToken.tokenType = currentType;
             createToken.tint = token.tint;
             map.addCommand(createToken);
         }
@@ -353,8 +322,6 @@ public class Tool_5_Props extends Tool_new {
         float dy = Input.mouse.getYDelta();
         boolean zJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.Z);
         boolean xJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.X);
-        boolean cJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.C);
-        boolean vJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.V);
 
         // =============  tool settings  ===============
         if (leftShiftJustPressed) {
@@ -414,34 +381,12 @@ public class Tool_5_Props extends Tool_new {
         }
 
         if (zJustPressed) {
-            currentAssetIndex++;
-            currentAssetIndex %= categoryRegions.get(currentCategory).size;
+            currentType = Collections.enumNext(currentType);
             onChangeParameters();
-            System.out.println(currentAssetIndex);
             return;
         } else if (xJustPressed) {
-            currentAssetIndex--;
-            if (currentAssetIndex == -1) currentAssetIndex = categoryRegions.get(currentCategory).size - 1;
+            currentType = Collections.enumPrev(currentType);
             onChangeParameters();
-            System.out.println(currentAssetIndex);
-            return;
-        } else if (cJustPressed) {
-            int currentCategoryIndex = allCategories.indexOf(currentCategory, false);
-            currentCategoryIndex++;
-            currentCategoryIndex %= allCategories.size;
-            this.currentCategory = allCategories.get(currentCategoryIndex);
-            currentAssetIndex %= categoryRegions.get(this.currentCategory).size;
-            onChangeParameters();
-            System.out.println(currentCategory);
-            return;
-        } else if (vJustPressed) {
-            int currentCategoryIndex = allCategories.indexOf(currentCategory, false);
-            currentCategoryIndex--;
-            if (currentCategoryIndex == -1) currentCategoryIndex = allCategories.size - 1;
-            this.currentCategory = allCategories.get(currentCategoryIndex);
-            currentAssetIndex %= categoryRegions.get(this.currentCategory).size;
-            onChangeParameters();
-            System.out.println(currentCategory);
             return;
         }
 
@@ -452,7 +397,7 @@ public class Tool_5_Props extends Tool_new {
                 tokensToDelete.clear();
                 float radius = Math.abs(circle_spreadRadius * sclX);
                 radius = Math.max(radius, 10);
-                map.getAllTokensInCircleByType(TYPE, x, y, radius, tokensToDelete);
+                map.getAllTokensInCircleByType(ToolBrush_Debug.Type.DEBUG_RECT, x, y, radius, tokensToDelete);
                 deleteTokens();
             }
             return;
@@ -687,7 +632,11 @@ public class Tool_5_Props extends Tool_new {
 
     public enum Type {
 
-        PROP
+        BOULDER_PLAIN_BIG,
+        BOULDER_PLAIN_SMALL,
+
+        HILLS_BROWN,
+        HILLS_GREEN,
 
     }
 

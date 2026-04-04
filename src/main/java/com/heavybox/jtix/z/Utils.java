@@ -7,6 +7,12 @@ import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Shape2DPolygon;
 import com.heavybox.jtix.math.Vector2;
 import org.jetbrains.annotations.NotNull;
+import org.locationtech.jts.geom.*;
+import org.locationtech.jts.triangulate.VoronoiDiagramBuilder;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class Utils {
 
@@ -272,6 +278,184 @@ public class Utils {
 
         // return the angle of the resulting vector
         return sumDir.angleDeg();
+    }
+
+    // subdivide a polygon using voronoi
+    @Deprecated private void createFarmlandsProcedural_old(@NotNull Array<Vector2> envelopPolygon, final @NotNull Array<Shape2DPolygon> out) {
+        GeometryFactory gf = new GeometryFactory();
+        Coordinate[] coords = new Coordinate[envelopPolygon.size + 1];
+        for (int i = 0; i < envelopPolygon.size; i++) {
+            Vector2 point = envelopPolygon.get(i);
+            coords[i] = new Coordinate(point.x, point.y);
+        }
+        coords[envelopPolygon.size] = new Coordinate(envelopPolygon.first().x, envelopPolygon.first().y);
+
+        LinearRing shell = gf.createLinearRing(coords);
+        Polygon polygon = gf.createPolygon(shell, null);
+        if (!polygon.isValid()) {
+            System.out.println("Invalid polygon");
+        }
+
+        float[] points = new float[polygon.getCoordinates().length * 2];
+        for (int i = 0; i < polygon.getCoordinates().length; i++) {
+            points[2 * i] = (float) polygon.getCoordinates()[i].x;
+            points[2 * i + 1] = (float) polygon.getCoordinates()[i].y;
+        }
+
+        List<Coordinate> seeds = new ArrayList<>();
+        Envelope env = polygon.getEnvelopeInternal();
+        Random rand = new Random(1234); // deterministic
+        int seedCount = 20;
+        while (seeds.size() < seedCount) {
+            double x = env.getMinX() + rand.nextDouble() * env.getWidth();
+            double y = env.getMinY() + rand.nextDouble() * env.getHeight();
+
+            Point p = gf.createPoint(new Coordinate(x, y));
+            if (polygon.contains(p)) {
+                seeds.add(p.getCoordinate());
+            }
+        }
+
+        MultiPoint sites = gf.createMultiPointFromCoords(seeds.toArray(new Coordinate[0]));
+        VoronoiDiagramBuilder builder = new VoronoiDiagramBuilder();
+        builder.setSites(sites);
+        builder.setClipEnvelope(env); // bounding box only
+        Geometry diagram = builder.getDiagram(gf);
+
+        // clip each polygon to parent
+        List<Polygon> subPolygons = new ArrayList<>();
+        for (int i = 0; i < diagram.getNumGeometries(); i++) {
+            Geometry cell = diagram.getGeometryN(i);
+            Geometry clipped = cell.intersection(polygon);
+
+            if (clipped instanceof Polygon) {
+                subPolygons.add((Polygon) clipped);
+            } else if (clipped instanceof MultiPolygon) {
+                MultiPolygon mp = (MultiPolygon) clipped;
+                for (int j = 0; j < mp.getNumGeometries(); j++) {
+                    subPolygons.add((Polygon) mp.getGeometryN(j));
+                }
+            }
+        }
+
+        Shape2DPolygon[] shape2DSubPolygons = new Shape2DPolygon[subPolygons.size()];
+        for (int i = 0; i < subPolygons.size(); i++) {
+            Polygon p = subPolygons.get(i);
+            float[] points_sub = new float[p.getCoordinates().length * 2];
+            for (int j = 0; j < p.getCoordinates().length; j++) {
+                points_sub[2 * j] = (float) p.getCoordinates()[j].x;
+                points_sub[2 * j + 1] = (float) p.getCoordinates()[j].y;
+            }
+            shape2DSubPolygons[i] = new Shape2DPolygon(points_sub);
+        }
+
+        out.clear();
+        for (Shape2DPolygon subPolygon : shape2DSubPolygons) {
+            out.add(subPolygon);
+        }
+    }
+
+    @Deprecated private Array<Rect> createProceduralRectangles(float width, Vector2 start, Vector2 end) {
+        Vector2 segment = new Vector2(end.x - start.x, end.y - start.y);
+        float angle = segment.angleDeg(); // later, rotate by angle
+        float length = segment.len();
+
+        // subdivide the segment
+        ArrayFloat segments = new ArrayFloat(true, 4);
+        int n = Math.max(1, Math.round(length / width));
+        float min = 0.75f;
+        float max = 1.25f;
+        float[] lens = new float[n];
+        float sum = 0f;
+        for (int i = 0; i < n; i++) {
+            float factor = MathUtils.randomUniformFloat(min, max); // uniform or gaussian centered at 1
+            lens[i] = width * factor;
+            sum += lens[i];
+        }
+        float scale = length / sum;
+        for (int i = 0; i < n; i++) {
+            lens[i] *= scale;
+        }
+        float acc = 0f;
+        for (int i = 0; i < n; i++) {
+            acc += lens[i];
+            segments.add(acc);
+        }
+
+        // create rect for the segments
+        Array<Rect> rects = new Array<>(true, segments.size);
+        float prev = 0f;
+        for (int i = 0; i < segments.size; i++) {
+            float curr = segments.get(i);
+            float segLength = curr - prev;
+            float midX = (prev + curr) * 0.5f;
+
+            float heightFactor = MathUtils.randomUniformFloat(0.8f, 1.2f);
+            float h = width * heightFactor;
+
+            boolean coinFlip = MathUtils.randomUniformBoolean();
+            float maxOffset = width * 0.055f;
+
+            if (coinFlip) {
+                // single rect
+                Rect r = new Rect();
+                r.width = segLength;
+                r.height = h;
+
+                float dx = MathUtils.randomUniformFloat(-maxOffset, maxOffset);
+                float dy = MathUtils.randomUniformFloat(-maxOffset, maxOffset);
+                r.center = new Vector2(midX + dx, 0f + dy);
+                rects.add(r);
+            } else {
+                // split into 2 stacked rects
+                float halfH = h * 0.5f;
+                float offsetY = halfH * 0.5f; // center offset
+
+                Rect r1 = new Rect();
+                r1.width = segLength;
+                r1.height = halfH;
+                float dx1 = MathUtils.randomUniformFloat(-maxOffset, maxOffset);
+                float dy1 = MathUtils.randomUniformFloat(-maxOffset, 0);
+                r1.center = new Vector2(midX + dx1, +offsetY + dy1);
+
+                Rect r2 = new Rect();
+                r2.width = segLength;
+                r2.height = halfH;
+                float dx2 = MathUtils.randomUniformFloat(-maxOffset, maxOffset);
+                float dy2 = MathUtils.randomUniformFloat(0, maxOffset);
+                r2.center = new Vector2(midX + dx2, -offsetY + dy2);
+
+                rects.add(r1);
+                rects.add(r2);
+            }
+            prev = curr;
+        }
+
+        return rects;
+    }
+
+    @Deprecated public class Rect {
+
+        public float width;
+        public float height;
+        public Vector2 center;
+
+        public Array<Vector2> getPolygonPoints(Vector2 origin, float angle) {
+            Array<Vector2> points = new Array<>(true, 4);
+            float hw = width * 0.5f;
+            float hh = height * 0.5f;
+
+            Vector2 a0 = new Vector2(-hw, -hh).add(center).rotateDeg(angle).add(origin);
+            Vector2 a1 = new Vector2(hw, -hh).add(center).rotateDeg(angle).add(origin);
+            Vector2 a2 = new Vector2(hw,  hh).add(center).rotateDeg(angle).add(origin);
+            Vector2 a3 = new Vector2(-hw,  hh).add(center).rotateDeg(angle).add(origin);
+            Vector2 a4 = new Vector2(-hw, -hh).add(center).rotateDeg(angle).add(origin);
+
+            points.add(a0, a1, a2, a3);
+            points.add(a4);
+            return points;
+        }
+
     }
 
 }
