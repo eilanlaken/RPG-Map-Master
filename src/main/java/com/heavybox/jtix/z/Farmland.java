@@ -6,6 +6,7 @@ import com.heavybox.jtix.graphics.Renderer2D;
 /*
 TODO: refactor into a nested class of MapLayer
  */
+@Deprecated
 public class Farmland {
 
     public float[] polygon;

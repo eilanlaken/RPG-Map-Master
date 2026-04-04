@@ -28,6 +28,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+@Deprecated
 public class Tool_2_Farmlands extends Tool_new {
 
     private Mode currentMode = Mode.ADD;

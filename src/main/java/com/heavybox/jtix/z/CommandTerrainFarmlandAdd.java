@@ -1,5 +1,6 @@
 package com.heavybox.jtix.z;
 
+@Deprecated
 public class CommandTerrainFarmlandAdd extends Command {
 
     public float[] polygon;

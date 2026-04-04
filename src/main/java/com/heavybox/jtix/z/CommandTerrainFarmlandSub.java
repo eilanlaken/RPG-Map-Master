@@ -1,5 +1,6 @@
 package com.heavybox.jtix.z;
 
+@Deprecated
 public class CommandTerrainFarmlandSub extends Command {
 
     public CommandTerrainFarmlandSub(float x, float y) {
