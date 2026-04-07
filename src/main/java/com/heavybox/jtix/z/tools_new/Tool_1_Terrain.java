@@ -22,8 +22,8 @@ import java.util.Set;
 public class Tool_1_Terrain extends Tool_new {
 
     // resources - terrain and brush textures, shaders
-    public final Texture[] brushesAdd = new Texture[7];
-    public final Texture[] brushesSub = new Texture[7];
+    public final Texture[] brushesAdd = new Texture[8];
+    public final Texture[] brushesSub = new Texture[8];
     private final Texture[] terrainGrounds = new Texture[8];
     private final Texture[] terrainLiquids = new Texture[3];
     private final Shader brushShader;
@@ -75,6 +75,7 @@ public class Tool_1_Terrain extends Tool_new {
         brushesAdd[4] = Assets.get("assets/brushes/brush_terrain_add_4.png");
         brushesAdd[5] = Assets.get("assets/brushes/brush_terrain_add_5.png");
         brushesAdd[6] = Assets.get("assets/brushes/brush_terrain_add_6.png");
+        brushesAdd[7] = Assets.get("assets/brushes/brush_terrain_add_7.png");
 
         brushesSub[0] = Assets.get("assets/brushes/brush_terrain_sub_0.png");
         brushesSub[1] = Assets.get("assets/brushes/brush_terrain_sub_1.png");
@@ -83,6 +84,7 @@ public class Tool_1_Terrain extends Tool_new {
         brushesSub[4] = Assets.get("assets/brushes/brush_terrain_sub_4.png");
         brushesSub[5] = Assets.get("assets/brushes/brush_terrain_sub_5.png");
         brushesSub[6] = Assets.get("assets/brushes/brush_terrain_sub_6.png");
+        brushesSub[7] = Assets.get("assets/brushes/brush_terrain_sub_7.png");
 
         // init terrain stuff
         terrainGrounds[0] = Assets.get("assets/textures-layer-0/terrain_land_grass_0.jpg");

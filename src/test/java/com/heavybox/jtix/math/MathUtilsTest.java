@@ -423,6 +423,31 @@ class MathUtilsTest {
     }
 
     @Test
+    void shortestAngularDistanceDeg() {
+        // same angle
+        Assertions.assertEquals(0f, MathUtils.shortestAngularDistanceDeg(0f, 0f), MathUtils.FLOAT_ROUNDING_ERROR);
+        Assertions.assertEquals(0f, MathUtils.shortestAngularDistanceDeg(123f, 123f), MathUtils.FLOAT_ROUNDING_ERROR);
+
+        // simple cases
+        Assertions.assertEquals(10f, MathUtils.shortestAngularDistanceDeg(0f, 10f), MathUtils.FLOAT_ROUNDING_ERROR);
+        Assertions.assertEquals(10f, MathUtils.shortestAngularDistanceDeg(10f, 0f), MathUtils.FLOAT_ROUNDING_ERROR);
+        Assertions.assertEquals(45f, MathUtils.shortestAngularDistanceDeg(30f, 75f), MathUtils.FLOAT_ROUNDING_ERROR);
+
+        // wrap around case
+        Assertions.assertEquals(10f, MathUtils.shortestAngularDistanceDeg(350f, 0f), MathUtils.FLOAT_ROUNDING_ERROR);
+        Assertions.assertEquals(10f, MathUtils.shortestAngularDistanceDeg(0f, 350f), MathUtils.FLOAT_ROUNDING_ERROR);
+        Assertions.assertEquals(20f, MathUtils.shortestAngularDistanceDeg(350f, 10f), MathUtils.FLOAT_ROUNDING_ERROR);
+
+        // opposite angles
+        Assertions.assertEquals(180f, MathUtils.shortestAngularDistanceDeg(0f, 180f), MathUtils.FLOAT_ROUNDING_ERROR);
+        Assertions.assertEquals(180f, MathUtils.shortestAngularDistanceDeg(90f, 270f), MathUtils.FLOAT_ROUNDING_ERROR);
+
+        // full circle and extra laps
+        Assertions.assertEquals(0f, MathUtils.shortestAngularDistanceDeg(0f, 360f), MathUtils.FLOAT_ROUNDING_ERROR);
+        Assertions.assertEquals(0f, MathUtils.shortestAngularDistanceDeg(720f, 00f), MathUtils.FLOAT_ROUNDING_ERROR);
+    }
+
+    @Test
     void intervalsOverlap() {
         Assertions.assertEquals(0.0f, MathUtils.intervalsOverlap(0.0f, 1.0f, 2.0f, 4.0f), MathUtils.FLOAT_ROUNDING_ERROR);
         Assertions.assertEquals(0.0f, MathUtils.intervalsOverlap(9.0f, 8.0f, 4.0f, 2.0f), MathUtils.FLOAT_ROUNDING_ERROR);

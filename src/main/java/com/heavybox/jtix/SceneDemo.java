@@ -28,7 +28,7 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
     // tools - refactor immediately after working version
     public Map map;
     public final Tool_new[] tools = new Tool_new[8];
-    public int activeToolIndex = 1;
+    public int activeToolIndex = 4;
 
     // user-interface
     private final Widget widgetHelpBar = new Widget();
@@ -63,6 +63,7 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
         Assets.loadTexture("assets/brushes/brush_terrain_add_4.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.CLAMP_TO_EDGE, Texture.Wrap.CLAMP_TO_EDGE, 1);
         Assets.loadTexture("assets/brushes/brush_terrain_add_5.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.CLAMP_TO_EDGE, Texture.Wrap.CLAMP_TO_EDGE, 1);
         Assets.loadTexture("assets/brushes/brush_terrain_add_6.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.CLAMP_TO_EDGE, Texture.Wrap.CLAMP_TO_EDGE, 1);
+        Assets.loadTexture("assets/brushes/brush_terrain_add_7.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.CLAMP_TO_EDGE, Texture.Wrap.CLAMP_TO_EDGE, 1);
         // brushes - sub
         Assets.loadTexture("assets/brushes/brush_terrain_sub_0.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.CLAMP_TO_EDGE, Texture.Wrap.CLAMP_TO_EDGE, 1);
         Assets.loadTexture("assets/brushes/brush_terrain_sub_1.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.CLAMP_TO_EDGE, Texture.Wrap.CLAMP_TO_EDGE, 1);
@@ -71,6 +72,7 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
         Assets.loadTexture("assets/brushes/brush_terrain_sub_4.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.CLAMP_TO_EDGE, Texture.Wrap.CLAMP_TO_EDGE, 1);
         Assets.loadTexture("assets/brushes/brush_terrain_sub_5.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.CLAMP_TO_EDGE, Texture.Wrap.CLAMP_TO_EDGE, 1);
         Assets.loadTexture("assets/brushes/brush_terrain_sub_6.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.CLAMP_TO_EDGE, Texture.Wrap.CLAMP_TO_EDGE, 1);
+        Assets.loadTexture("assets/brushes/brush_terrain_sub_7.png", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.CLAMP_TO_EDGE, Texture.Wrap.CLAMP_TO_EDGE, 1);
 
         // layer 0 - terrain textures
         Assets.loadTexture("assets/textures-layer-0/terrain_land_dirt_0.jpg", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
@@ -115,7 +117,7 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
         tools[1] = new Tool_2_Nature(this);
         tools[2] = new Tool_3_Geology(this);
         tools[3] = new Tool_4_Props(this);
-        tools[4] = new Tool_5_Architecture(this);
+        tools[4] = new Tool_5_DEV_Architecture(this);
         tools[activeToolIndex].activate();
     }
 

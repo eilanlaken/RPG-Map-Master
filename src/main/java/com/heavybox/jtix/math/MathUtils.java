@@ -404,6 +404,11 @@ public final class MathUtils {
         return x < xi ? xi - 1 : xi;
     }
 
+    public static float shortestAngularDistanceDeg(float a_deg, float b_deg) {
+        float angle = (b_deg - a_deg + 360.0f) % 360;
+        return Math.min(angle, 360.0f - angle);
+    }
+
     // [x1, x2] and [x3, x4] are intervals.
     public static float intervalsOverlap(float a_min, float a_max, float b_min, float b_max) {
         if (a_min > a_max) {
