@@ -322,6 +322,7 @@ public class Tool_3_Geology extends Tool_new {
         float dy = Input.mouse.getYDelta();
         boolean zJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.Z);
         boolean xJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.X);
+        boolean cJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.C);
 
         // =============  tool settings  ===============
         if (leftShiftJustPressed) {
@@ -386,6 +387,10 @@ public class Tool_3_Geology extends Tool_new {
             return;
         } else if (xJustPressed) {
             currentType = Collections.enumPrev(currentType);
+            onChangeParameters();
+            return;
+        } else if (cJustPressed) {
+            sclX *= -1;
             onChangeParameters();
             return;
         }
