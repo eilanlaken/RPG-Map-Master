@@ -16,7 +16,7 @@ import java.util.Comparator;
 
 public class Tool_5_DEV_Architecture extends Tool_new {
 
-    public Type type = Type.SIDE_VIEW_BLOCK;
+    public Type type = Type.ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT;
 
 
     private final TexturePack atlas;
@@ -48,11 +48,29 @@ public class Tool_5_DEV_Architecture extends Tool_new {
         boolean enterClicked = Input.keyboard.isKeyJustReleased(Keyboard.Key.ENTER); // print bundle
         boolean zJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.Z);
         boolean xJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.X);
+        boolean rJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.R);
+        boolean aPressed = Input.keyboard.isKeyPressed(Keyboard.Key.A);
+        boolean sPressed = Input.keyboard.isKeyPressed(Keyboard.Key.S);
         boolean spaceJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.SPACE);
         boolean rightClick = Input.mouse.isButtonClicked(Mouse.Button.RIGHT);
         boolean plusPressed = Input.keyboard.isKeyPressed(Keyboard.Key.EQUAL);
         boolean minusPressed = Input.keyboard.isKeyPressed(Keyboard.Key.MINUS);
 
+        if (rJustPressed) { // reset
+            deg = 0;
+            sclX = 1;
+            sclY = 1;
+            return;
+        }
+
+        if (aPressed) {
+            deg += 30 * Graphics.getDeltaTime();
+            deg %= 360;
+        }
+        if (sPressed) {
+            deg -= 30 * Graphics.getDeltaTime();
+            deg %= 360;
+        }
         if (spaceJustPressed) {
             deg += 90;
             deg %= 360;
@@ -102,8 +120,15 @@ public class Tool_5_DEV_Architecture extends Tool_new {
             final String prefix = blocks.first().type.name().split("_")[0];
             System.out.println("<bundle prefix=\"" + prefix + "\">");
             for (Block block : blocks) {
-                System.out.println("\t" + "<block type=\"" + block.type.name() + "\" flipped=\"" + (block.sclX < 0) + "\" x=\"" + (block.x - cm.x) + "\" y=\"" + (block.y - cm.y) + "\" deg=\"" + block.deg + "\"/>");
-            }
+                System.out.println("\t" +
+                        "<block type=\"" + block.type.name() +
+                        "\" sclX=\"" + block.sclX +
+                        "\" sclY=\"" + block.sclY +
+                        "\" x=\"" + (block.x - cm.x) +
+                        "\" y=\"" + (block.y - cm.y) +
+                        "\" deg=\"" + block.deg +
+                        "\"/>"
+                );            }
             System.out.println("</bundle>");
         }
 

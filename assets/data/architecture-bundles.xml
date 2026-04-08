@@ -2,142 +2,97 @@
 <!-- =========== ISOMETRIC VIEW: ============ -->
 
     <bundle prefix="ISOMETRIC">
-        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT" flipped="false" x="18.500015" y="36.5" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT" flipped="false" x="-9.500008" y="12.500015" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT" flipped="false" x="-39.500008" y="-15.500015" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT" flipped="true" x="30.499985" y="-33.49997" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT" sclX="1.0" sclY="1.0" x="44.350067" y="20.200058" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT" sclX="-1.0" sclY="1.0" x="-46.65009" y="11.399902" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT" sclX="-1.0" sclY="1.0" x="-14.45002" y="-6.7999725" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT" sclX="-1.0" sclY="1.0" x="16.750046" y="-24.799988" deg="0.0"/>
     </bundle>
 
     <bundle prefix="ISOMETRIC">
-        <block type="ISOMETRIC_VIEW_WALL_BACK" flipped="false" x="7.999954" y="62.333336" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_TALL" flipped="false" x="52.000042" y="44.333275" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_TOWER_SHORT" flipped="false" x="-62.00004" y="20.33329" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_TOWER_TALL" flipped="false" x="82.000046" y="-35.66665" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HOUSE_VERTICAL_SHORT" flipped="false" x="-75.99998" y="-43.66664" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HOUSE_HORIZONTAL_TALL" flipped="false" x="-4.0000134" y="-47.666695" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HUT_DIAGONAL" sclX="1.0" sclY="1.0" x="14.037506" y="112.08773" deg="-1.0485177"/>
+        <block type="ISOMETRIC_VIEW_WALL_BACK" sclX="1.0" sclY="1.0" x="-16.462511" y="46.187515" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_WALL_FRONT" sclX="1.0" sclY="1.0" x="-44.762497" y="18.887503" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_TOWER_SHORT" sclX="1.0" sclY="1.0" x="10.137485" y="-14.712539" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_TOWER_TALL" sclX="1.0" sclY="1.0" x="-31.162542" y="-15.412529" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_VERTICAL_SHORT" sclX="1.0" sclY="1.0" x="66.83759" y="-18.91252" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HUT_VERTICAL" sclX="1.0" sclY="1.0" x="-18.562536" y="-63.712578" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HUT_VERTICAL" sclX="1.0" sclY="1.0" x="19.937506" y="-64.412575" deg="0.0"/>
     </bundle>
 
     <bundle prefix="ISOMETRIC">
-        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT" flipped="false" x="35.200005" y="33.59996" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT" flipped="true" x="-34.799988" y="33.59996" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_TALL" flipped="true" x="-2.8000202" y="1.5999908" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT" flipped="true" x="43.200035" y="-18.399933" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_TALL" flipped="false" x="-40.80005" y="-50.400024" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_HORIZONTAL_SHORT" sclX="-1.0" sclY="1.0" x="8.7333145" y="-16.7" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_HORIZONTAL_SHORT" sclX="-1.0" sclY="1.0" x="3.5333405" y="-79.74999" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_VERTICAL_TALL" sclX="1.0" sclY="1.0" x="67.033325" y="-80.00001" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_VERTICAL_TALL" sclX="-1.0" sclY="1.0" x="24.983307" y="-80.39999" deg="0.0"/>
     </bundle>
 
     <bundle prefix="ISOMETRIC">
-        <block type="ISOMETRIC_VIEW_HOUSE_HORIZONTAL_TALL" flipped="false" x="-2.6666718" y="48.333344" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_WALL_BACK" flipped="false" x="-28.666733" y="44.333313" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_WALL_FRONT" flipped="false" x="-40.666702" y="-5.666626" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HOUSE_VERTICAL_SHORT" flipped="false" x="47.33333" y="-15.666687" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HOUSE_VERTICAL_SHORT" flipped="false" x="47.33333" y="-15.666687" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HOUSE_VERTICAL_SHORT" flipped="true" x="-22.666672" y="-55.666656" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_HORIZONTAL_SHORT" sclX="1.0" sclY="1.0" x="-5.025017" y="68.46258" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_VERTICAL_SHORT" sclX="1.0" sclY="1.0" x="40.575058" y="-13.237488" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HUT_VERTICAL" sclX="1.0" sclY="1.0" x="1.6250381" y="-27.48751" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HUT_VERTICAL" sclX="1.0" sclY="1.0" x="-37.175087" y="-27.73758" deg="0.0"/>
     </bundle>
 
     <bundle prefix="ISOMETRIC">
-        <block type="ISOMETRIC_VIEW_HOUSE_HORIZONTAL_SHORT" flipped="false" x="0.6666565" y="38.66667" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HOUSE_HORIZONTAL_SHORT" flipped="false" x="0.6666565" y="0.666687" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HOUSE_HORIZONTAL_SHORT" flipped="false" x="-1.333313" y="-39.333385" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_HORIZONTAL_TALL" sclX="-1.0" sclY="1.0" x="-1.1750107" y="52.30005" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_TOWER_SHORT" sclX="1.0" sclY="1.0" x="40.325054" y="25.949982" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_VERTICAL_SHORT" sclX="1.0" sclY="1.0" x="1.125" y="-38.549988" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_VERTICAL_SHORT" sclX="-1.0" sclY="1.0" x="-40.275055" y="-39.700043" deg="0.0"/>
     </bundle>
 
     <bundle prefix="ISOMETRIC">
-        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT" flipped="true" x="-7.3749695" y="51.250046" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_TALL" flipped="true" x="61.025078" y="-0.049987793" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_TALL" flipped="false" x="-13.675011" y="-17.150002" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_TALL" flipped="false" x="-39.975094" y="-34.05007" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT" sclX="-1.0" sclY="1.0" x="-51.225067" y="22.000015" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HUT_DIAGONAL" sclX="-1.0" sclY="1.0" x="65.12509" y="8.550017" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_TALL" sclX="1.0" sclY="1.0" x="7.925003" y="-6.3500023" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_TALL" sclX="1.0" sclY="1.0" x="-21.825027" y="-24.200027" deg="0.0"/>
     </bundle>
 
     <bundle prefix="ISOMETRIC">
-        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT" flipped="false" x="29.500025" y="17.499985" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT" flipped="true" x="-48.5" y="13.500046" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HUT_DIAGONAL" flipped="true" x="25.50001" y="-4.5000305" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HUT_DIAGONAL" flipped="true" x="-6.5000343" y="-26.50003" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_HORIZONTAL_SHORT" sclX="-1.0" sclY="1.0" x="-13.5" y="50.558304" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_HORIZONTAL_SHORT" sclX="-1.0" sclY="1.0" x="-9.649994" y="-30.291706" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_VERTICAL_TALL" sclX="-1.0" sclY="1.0" x="58.550034" y="-32.491703" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_VERTICAL_SHORT" sclX="-1.0" sclY="1.0" x="20.050001" y="-33.041695" deg="0.0"/>
     </bundle>
 
     <bundle prefix="ISOMETRIC">
-        <block type="ISOMETRIC_VIEW_HUT_VERTICAL" flipped="false" x="12.599953" y="22.40004" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_TOWER_TALL" flipped="false" x="-5.3999634" y="16.400024" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_WALL_BACK" flipped="false" x="-19.399979" y="12.399963" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HOUSE_VERTICAL_SHORT" flipped="false" x="50.600014" y="-9.600021" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT" flipped="false" x="-38.400078" y="-41.600037" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT" sclX="-1.0" sclY="1.0" x="-45.98003" y="29.990036" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HUT_DIAGONAL" sclX="1.0" sclY="1.0" x="69.520096" y="19.490005" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HUT_DIAGONAL" sclX="-1.0" sclY="1.0" x="41.170025" y="-0.4600029" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_TALL" sclX="1.0" sclY="1.0" x="-16.630049" y="-14.960033" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_TALL" sclX="1.0" sclY="1.0" x="-48.08004" y="-34.059998" deg="0.0"/>
     </bundle>
 
     <bundle prefix="ISOMETRIC">
-        <block type="ISOMETRIC_VIEW_WALL_BACK" flipped="false" x="10.209998" y="43.43991" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_TALL" flipped="false" x="52.21004" y="23.439987" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_TOWER_TALL" flipped="true" x="-71.99006" y="-1.9599304" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_TALL" flipped="false" x="-39.84001" y="-24.059952" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT" flipped="true" x="49.41004" y="-40.86" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT" sclX="-1.0" sclY="1.0" x="12.666636" y="48.10002" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_TALL" sclX="1.0" sclY="1.0" x="0.016679764" y="0.950017" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HUT_DIAGONAL" sclX="-1.0" sclY="1.0" x="-50.98335" y="-0.34998608" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HUT_VERTICAL" sclX="-1.0" sclY="1.0" x="-74.98341" y="-6.0500126" deg="14.991094"/>
+        <block type="ISOMETRIC_VIEW_HUT_VERTICAL" sclX="-1.0" sclY="1.0" x="74.01677" y="-9.050028" deg="-9.260149"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT" sclX="-1.0" sclY="1.0" x="39.26667" y="-33.600006" deg="0.0"/>
     </bundle>
 
     <bundle prefix="ISOMETRIC">
-        <block type="ISOMETRIC_VIEW_WALL_BACK" flipped="false" x="-25.200073" y="41.199997" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_WALL_FRONT" flipped="false" x="-29.200012" y="5.1999817" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HOUSE_VERTICAL_TALL" flipped="false" x="-1.1999817" y="-0.8000488" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HOUSE_VERTICAL_TALL" flipped="false" x="36.80004" y="-2.8000183" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HOUSE_HORIZONTAL_SHORT" flipped="false" x="18.80001" y="-42.799973" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_TOWER_TALL" sclX="-1.0" sclY="1.0" x="-70.869995" y="25.549992" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_HORIZONTAL_TALL" sclX="1.0" sclY="1.0" x="32.63006" y="21.350033" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_WALL_BACK" sclX="1.0" sclY="1.0" x="-22.470123" y="13.749958" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_WALL_FRONT" sclX="1.0" sclY="1.0" x="-4.470093" y="-24.250029" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HUT_DIAGONAL" sclX="-1.0" sclY="1.0" x="65.18015" y="-36.39998" deg="0.0"/>
     </bundle>
 
     <bundle prefix="ISOMETRIC">
-        <block type="ISOMETRIC_VIEW_WALL_BACK" flipped="false" x="1.1427994" y="47.42856" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_WALL_BACK" flipped="true" x="1.1427994" y="47.42856" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HUT_DIAGONAL" flipped="true" x="85.14288" y="5.4285126" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_TALL" flipped="false" x="-54.8571" y="1.4285736" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_TALL" flipped="false" x="-86.85715" y="-16.571487" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT" flipped="true" x="27.14286" y="-42.57144" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT" flipped="true" x="27.14286" y="-42.57144" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_HORIZONTAL_SHORT" sclX="1.0" sclY="1.0" x="-13.939987" y="41.88006" deg="0.017279744"/>
+        <block type="ISOMETRIC_VIEW_HUT_VERTICAL" sclX="1.0" sclY="1.0" x="64.16005" y="31.980019" deg="0.017279744"/>
+        <block type="ISOMETRIC_VIEW_HUT_VERTICAL" sclX="1.0" sclY="1.0" x="-84.340065" y="27.58001" deg="0.017279744"/>
+        <block type="ISOMETRIC_VIEW_TOWER_SHORT" sclX="1.0" sclY="1.0" x="50.960083" y="-49.42" deg="0.017279744"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_HORIZONTAL_TALL" sclX="1.0" sclY="1.0" x="-16.840096" y="-52.02012" deg="0.0"/>
     </bundle>
 
     <bundle prefix="ISOMETRIC">
-        <block type="ISOMETRIC_VIEW_HOUSE_VERTICAL_SHORT" flipped="false" x="-39.999996" y="0.0" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HOUSE_VERTICAL_SHORT" flipped="false" x="0.0" y="0.0" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HOUSE_VERTICAL_TALL" flipped="false" x="39.999992" y="0.0" deg="0.0"/>
-    </bundle>
-
-    <bundle prefix="ISOMETRIC">
-        <block type="ISOMETRIC_VIEW_HOUSE_HORIZONTAL_TALL" flipped="false" x="6.333374" y="37.333336" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_TOWER_TALL" flipped="false" x="8.3333435" y="15.333321" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HUT_DIAGONAL" flipped="false" x="-15.66674" y="-0.6666565" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HOUSE_VERTICAL_SHORT" flipped="false" x="66.333374" y="-6.6666794" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HOUSE_VERTICAL_SHORT" flipped="false" x="-49.66668" y="-8.666649" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT" flipped="false" x="-15.66674" y="-36.66668" deg="0.0"/>
-    </bundle>
-
-    <bundle prefix="ISOMETRIC">
-        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT" flipped="true" x="-29.99996" y="35.499985" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT" flipped="true" x="-4.0000534" y="17.50003" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT" flipped="true" x="50.000034" y="-20.49997" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT" flipped="false" x="-16.000023" y="-32.500008" deg="0.0"/>
-    </bundle>
-
-    <bundle prefix="ISOMETRIC">
-        <block type="ISOMETRIC_VIEW_WALL_BACK" flipped="false" x="-42.00004" y="21.999985" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HOUSE_VERTICAL_TALL" flipped="false" x="-24.000008" y="-5.999939" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HOUSE_VERTICAL_TALL" flipped="false" x="14.000015" y="-8.000015" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HOUSE_VERTICAL_SHORT" flipped="false" x="52.000046" y="-8.000015" deg="0.0"/>
-    </bundle>
-
-    <bundle prefix="ISOMETRIC">
-        <block type="ISOMETRIC_VIEW_TOWER_TALL" flipped="false" x="11.999985" y="36.39998" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_WALL_BACK" flipped="false" x="-3.999999" y="34.40001" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT" flipped="false" x="44.000027" y="20.399994" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HUT_VERTICAL" flipped="false" x="-8.000014" y="-45.60002" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HUT_VERTICAL" flipped="false" x="-43.999992" y="-45.60002" deg="0.0"/>
-    </bundle>
-
-    <bundle prefix="ISOMETRIC">
-        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT" flipped="true" x="-52.900032" y="52.16005" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT" flipped="true" x="12.0000305" y="18.060043" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_WALL_FRONT" flipped="false" x="-34.80007" y="8.05983" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HOUSE_VERTICAL_SHORT" flipped="true" x="67.00008" y="-38.040024" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HOUSE_HORIZONTAL_TALL" flipped="false" x="8.699997" y="-40.23999" deg="0.0"/>
-    </bundle>
-
-    <bundle prefix="ISOMETRIC">
-        <block type="ISOMETRIC_VIEW_HOUSE_HORIZONTAL_SHORT" flipped="false" x="4.0000153" y="42.000046" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HUT_VERTICAL" flipped="false" x="-82.00004" y="-1.9999695" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HOUSE_HORIZONTAL_SHORT" flipped="false" x="4.0000153" y="-20.000038" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HOUSE_VERTICAL_SHORT" flipped="false" x="74.000015" y="-20.000038" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HUT_DIAGONAL" sclX="-1.0" sclY="1.0" x="-6.959961" y="39.680065" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HUT_DIAGONAL" sclX="-1.0" sclY="1.0" x="-50.160027" y="11.680004" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_TALL" sclX="1.0" sclY="1.0" x="48.240112" y="-0.32000732" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_TALL" sclX="1.0" sclY="1.0" x="19.839874" y="-16.32003" deg="0.0"/>
+        <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_TALL" sclX="1.0" sclY="1.0" x="-10.959969" y="-34.720024" deg="0.0"/>
     </bundle>
 
     <!-- =========== TOP VIEW: ============ -->
