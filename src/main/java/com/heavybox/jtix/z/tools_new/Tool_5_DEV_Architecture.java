@@ -10,13 +10,14 @@ import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.Vector2;
+import com.heavybox.jtix.z.Utils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Comparator;
 
 public class Tool_5_DEV_Architecture extends Tool_new {
 
-    public Type type = Type.ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT;
+    public Type type = Type.SIDE_VIEW_BLOCK_BIG;
 
 
     private final TexturePack atlas;
@@ -29,7 +30,6 @@ public class Tool_5_DEV_Architecture extends Tool_new {
         atlas = Assets.get("assets/texture-packs/layer_3.yml");
 
         toolOverlayDevCurrentRegion = getToolOverlayCurrentRegion();
-
     }
 
     private TextureRegion getToolOverlayCurrentRegion() {
@@ -189,9 +189,11 @@ public class Tool_5_DEV_Architecture extends Tool_new {
         TOP_VIEW_TOWER,
         TOP_VIEW_WALL,
 
-        SIDE_VIEW_BLOCK,
+        SIDE_VIEW_BLOCK_SMALL,
+        SIDE_VIEW_BLOCK_BIG,
         SIDE_VIEW_BRIDGE,
-        SIDE_VIEW_TOWER,
+        SIDE_VIEW_TOWER_SMALL,
+        SIDE_VIEW_TOWER_BIG,
 
         ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT,
         ISOMETRIC_VIEW_HOUSE_DIAGONAL_TALL,

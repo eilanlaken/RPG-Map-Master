@@ -3,6 +3,8 @@ package com.heavybox.jtix.z;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.collections.ArrayFloat;
 import com.heavybox.jtix.collections.Tuple2;
+import com.heavybox.jtix.graphics.TexturePack;
+import com.heavybox.jtix.graphics.TextureRegion;
 import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Shape2DPolygon;
 import com.heavybox.jtix.math.Vector2;
@@ -11,6 +13,7 @@ import org.locationtech.jts.geom.*;
 import org.locationtech.jts.triangulate.VoronoiDiagramBuilder;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -20,6 +23,15 @@ public class Utils {
     private static final Vector2 topRight = new Vector2();
     private static final Vector2 bottomRight = new Vector2();
     private static final Vector2 bottomLeft = new Vector2();
+
+    public static int countVariations(final @NotNull TexturePack pack, final String prefix) {
+        int counter = 0;
+        HashMap<String, TextureRegion> namedRegions = pack.namedRegions;
+        for (String name : namedRegions.keySet()) {
+            if (name.startsWith(prefix)) counter++;
+        }
+        return counter;
+    }
 
     public static void polygon_generateRandom(float aabb_width, float aabb_height, final @NotNull ArrayFloat out) {
         out.clear();
