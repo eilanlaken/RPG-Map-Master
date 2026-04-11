@@ -2,9 +2,7 @@ package com.heavybox.jtix.z.tools_new;
 
 import com.heavybox.jtix.RPGMapMakerScene;
 import com.heavybox.jtix.assets.Assets;
-import com.heavybox.jtix.collections.Array;
-import com.heavybox.jtix.collections.ArrayChar;
-import com.heavybox.jtix.collections.ArrayFloat;
+import com.heavybox.jtix.collections.*;
 import com.heavybox.jtix.collections.Collections;
 import com.heavybox.jtix.graphics.*;
 import com.heavybox.jtix.input.Input;
@@ -16,10 +14,7 @@ import com.heavybox.jtix.math.Vector2;
 import com.heavybox.jtix.z.*;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class Tool_4_Props extends Tool_new {
 
@@ -28,11 +23,10 @@ public class Tool_4_Props extends Tool_new {
 
     private final TexturePack atlas;
     private TextureRegion[] currentRegions;
-    private HashMap<String, Array<String>> categoryRegions = new HashMap<>();
-    private Array<String> allCategories = new Array<>();
-    public String currentCategory;
-    public int currentAssetIndex = 0;
-
+    private TreeMap<String, Array<TextureRegion>> regionSets = new TreeMap();
+    private Array<String> allSets = new Array<>();
+    private int currentAssetIndex = 0;
+    private int currentAssetVariationIndex = 0;
 
     private Tool.Mode currentMode;
     private Tool.Shape currentShape;
@@ -42,6 +36,8 @@ public class Tool_4_Props extends Tool_new {
     private final Array<Token> alreadyCreatedTokens = new Array<>();
     private boolean angleFollowPath = false;
     private boolean fillShape = false;
+
+    float randomAngleOffset = 15;
 
     // point mode
 
@@ -64,40 +60,63 @@ public class Tool_4_Props extends Tool_new {
     public Tool_4_Props(final RPGMapMakerScene scene) {
         super(scene);
         atlas = Assets.get("assets/texture-packs/layer_3.yml");
-        gatherBrushProps();
+        regionSets = gatherBrushProps2();
+
 
         sclX = 1f / 3;
         sclY = 1f / 3;
 
-        currentShape = Tool.Shape.CIRCLE;
+        currentShape = Tool.Shape.POINT;
         currentMode = Tool.Mode.ADD;
         currentRegions = getRegions();
         refillWithTokens();
     }
 
-    protected void gatherBrushProps() {
-        Array<String> allPropNames = new Array<>(false, 40);
+    protected TreeMap<String, Array<TextureRegion>> gatherBrushProps2() {
+        TreeMap<String, Array<TextureRegion>> grouped = new TreeMap<>();
+        HashMap<String, Array<String>> pdd = new HashMap<>();
+
         for (String regionName : atlas.namedRegions.keySet()) {
-            if (regionName.startsWith(PREFIX)) allPropNames.add(regionName);
+
+            if (!regionName.startsWith("assets/textures-layer-3/prop_"))
+                continue;
+
+            String base = regionName.substring("assets/textures-layer-3/".length());
+            base = base.substring(5); // remove "prop_"
+            // strip .png
+            if (base.endsWith(".png")) {
+                base = base.substring(0, base.length() - 4);
+            }
+
+            // without prefix: farmland_hut_3.png
+            int lastUnderscore = base.lastIndexOf('_');
+            String key = base;
+            if (lastUnderscore != -1) {
+                String tail = base.substring(lastUnderscore + 1);
+                if (isNumeric(tail)) {
+                    key = base.substring(0, lastUnderscore);
+                }
+            }
+
+            Array<String> arr = pdd.computeIfAbsent(key, k -> new Array<>());
+            arr.add(regionName);
+            Array<TextureRegion> regions = grouped.computeIfAbsent(key, k -> new Array<>());
+            regions.add(atlas.getRegion(regionName));
         }
 
-        for (String propName : allPropNames) {
-            String rest = propName.substring(PREFIX.length());
-            int underscore = rest.indexOf('_');
-            String category = rest.substring(0, underscore);
-            if (this.currentCategory == null) this.currentCategory = category; // init category to first
-
-            int dot = rest.lastIndexOf('.');
-            if (dot == -1)
-                dot = rest.length();
-            String type = rest.substring(underscore + 1, dot);
-            Array<String> regions = categoryRegions.computeIfAbsent(category, k -> new Array<>());
-            regions.add(type);
+        // set the array of all region
+        for (String entry : grouped.keySet()) {
+            allSets.add(entry);
         }
 
-        for (String categoryName : categoryRegions.keySet()) {
-            this.allCategories.add(categoryName);
+        return grouped;
+    }
+
+    private static boolean isNumeric(String s) {
+        for (int i = 0; i < s.length(); i++) {
+            if (!Character.isDigit(s.charAt(i))) return false;
         }
+        return !s.isEmpty();
     }
 
     protected int getBatchCountArea(float area) {
@@ -125,6 +144,11 @@ public class Tool_4_Props extends Tool_new {
     @Override
     void onChangeParameters() {
         refillWithTokens();
+
+        String currentCategory = allSets.get(currentAssetIndex);
+        int range = regionSets.get(currentCategory).size;
+        currentAssetVariationIndex = MathUtils.randomUniformInt(0, range);
+
         currentRegions = getRegions();
     }
 
@@ -137,7 +161,10 @@ public class Tool_4_Props extends Tool_new {
 
     private void point_refillWithTokens() {
         tokensPreview.clear();
-        Token token = new Token(3, 0, 0, 0, sclX,sclY, getRegions());
+        float deg = this.deg + MathUtils.randomUniformFloat(-randomAngleOffset, randomAngleOffset);
+        Token token = new Token(3, 0, 0, deg, sclX,sclY, getRegions());
+        String category = allSets.get(currentAssetIndex);
+        currentAssetVariationIndex = MathUtils.randomUniformInt(0, regionSets.get(category).size);
         tokensPreview.add(token);
     }
 
@@ -282,8 +309,12 @@ public class Tool_4_Props extends Tool_new {
     }
 
     protected TextureRegion[] getRegions() {
-        String name = PREFIX + currentCategory + "_" + categoryRegions.get(currentCategory).get(currentAssetIndex) + ".png";
-        TextureRegion region = atlas.getRegion(name);
+//        String name = PREFIX + currentCategory + "_" + categoryRegions.get(currentCategory).get(currentAssetIndex) + ".png";
+//        TextureRegion region = atlas.getRegion(name);
+//        return new TextureRegion[] {region};
+        String category = allSets.get(currentAssetIndex);
+        Array<TextureRegion> regions = regionSets.get(category);
+        TextureRegion region = regions.getCyclic(currentAssetVariationIndex);
         return new TextureRegion[] {region};
     }
 
@@ -415,33 +446,15 @@ public class Tool_4_Props extends Tool_new {
 
         if (zJustPressed) {
             currentAssetIndex++;
-            currentAssetIndex %= categoryRegions.get(currentCategory).size;
+            if (currentAssetIndex > allSets.size) currentAssetIndex = 0;
             onChangeParameters();
             System.out.println(currentAssetIndex);
             return;
         } else if (xJustPressed) {
             currentAssetIndex--;
-            if (currentAssetIndex == -1) currentAssetIndex = categoryRegions.get(currentCategory).size - 1;
+            if (currentAssetIndex < 0) currentAssetIndex = allSets.size - 1;
             onChangeParameters();
             System.out.println(currentAssetIndex);
-            return;
-        } else if (cJustPressed) {
-            int currentCategoryIndex = allCategories.indexOf(currentCategory, false);
-            currentCategoryIndex++;
-            currentCategoryIndex %= allCategories.size;
-            this.currentCategory = allCategories.get(currentCategoryIndex);
-            currentAssetIndex %= categoryRegions.get(this.currentCategory).size;
-            onChangeParameters();
-            System.out.println(currentCategory);
-            return;
-        } else if (vJustPressed) {
-            int currentCategoryIndex = allCategories.indexOf(currentCategory, false);
-            currentCategoryIndex--;
-            if (currentCategoryIndex == -1) currentCategoryIndex = allCategories.size - 1;
-            this.currentCategory = allCategories.get(currentCategoryIndex);
-            currentAssetIndex %= categoryRegions.get(this.currentCategory).size;
-            onChangeParameters();
-            System.out.println(currentCategory);
             return;
         }
 

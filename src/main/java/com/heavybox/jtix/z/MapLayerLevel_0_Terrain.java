@@ -34,8 +34,8 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
 
     private final Texture terrainSteepness;
 
-    public Texture[] brushesAdd = new Texture[8];
-    public Texture[] brushesSub = new Texture[8];
+    public Texture[] brushesAdd = new Texture[9];
+    public Texture[] brushesSub = new Texture[9];
 
     private final Shader shader_brush;
     private final Shader shader_terrain;
@@ -96,6 +96,7 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
         brushesAdd[5] = Assets.get("assets/brushes/brush_terrain_add_5.png");
         brushesAdd[6] = Assets.get("assets/brushes/brush_terrain_add_6.png");
         brushesAdd[7] = Assets.get("assets/brushes/brush_terrain_add_7.png");
+        brushesAdd[8] = Assets.get("assets/brushes/brush_terrain_add_8.png");
 
 
         brushesSub[0] = Assets.get("assets/brushes/brush_terrain_sub_0.png");
@@ -106,6 +107,7 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
         brushesSub[5] = Assets.get("assets/brushes/brush_terrain_sub_5.png");
         brushesSub[6] = Assets.get("assets/brushes/brush_terrain_sub_6.png");
         brushesSub[7] = Assets.get("assets/brushes/brush_terrain_sub_7.png");
+        brushesSub[8] = Assets.get("assets/brushes/brush_terrain_sub_8.png");
 
         String terrainVertexShaderSrc = Assets.getFileContent("assets/shaders/terrain.vert");
         String terrainFragmentShaderSrc = Assets.getFileContent("assets/shaders/terrain.frag");

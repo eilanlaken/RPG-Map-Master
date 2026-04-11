@@ -319,6 +319,8 @@ public class Tool_3_Geology extends Tool_new {
         boolean sPressed = Input.keyboard.isKeyPressed(Keyboard.Key.S);
         boolean aPressed = Input.keyboard.isKeyPressed(Keyboard.Key.A);
         boolean dPressed = Input.keyboard.isKeyPressed(Keyboard.Key.D);
+        boolean tPressed = Input.keyboard.isKeyPressed(Keyboard.Key.T);
+        boolean yPressed = Input.keyboard.isKeyPressed(Keyboard.Key.Y);
         float dy = Input.mouse.getYDelta();
         boolean zJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.Z);
         boolean xJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.X);
@@ -340,6 +342,18 @@ public class Tool_3_Geology extends Tool_new {
         if (dPressed && dy != 0) {
             float deltaSpacing = dy > 0 ? 0.01f : -0.01f;
             spacing *= (1.0f + deltaSpacing);
+            onChangeParameters();
+            return;
+        }
+
+        if (tPressed && dy != 0) {
+            float dSclX = dy < 0 ? 0.01f : -0.01f;
+            sclX *= (1.0f + dSclX);
+            onChangeParameters();
+            return;
+        } else if (yPressed && dy != 0) {
+            float dSclY = dy < 0 ? 0.01f : -0.01f;
+            sclY *= (1.0f + dSclY);
             onChangeParameters();
             return;
         }
