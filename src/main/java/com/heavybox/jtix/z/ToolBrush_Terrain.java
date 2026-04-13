@@ -41,7 +41,7 @@ public class ToolBrush_Terrain extends Tool {
     private float lineMouseY;
 
     // ground textures
-    private final Texture[] terrainGrounds = new Texture[8];
+    private final Texture[] terrainGrounds = new Texture[7];
     private final Texture[] terrainLiquids = new Texture[3];
 
     public ToolBrush_Terrain(RPGMapMakerScene scene) {
@@ -60,9 +60,8 @@ public class ToolBrush_Terrain extends Tool {
         terrainGrounds[2] = Assets.get("assets/textures-layer-0/terrain_land_sand_0.jpg");
         terrainGrounds[3] = Assets.get("assets/textures-layer-0/terrain_land_stone_0.jpg");
         terrainGrounds[4] = Assets.get("assets/textures-layer-0/terrain_land_stone_1.jpg");
-        terrainGrounds[5] = Assets.get("assets/textures-layer-0/terrain_land_stone_2.jpg");
-        terrainGrounds[6] = Assets.get("assets/textures-layer-0/terrain_land_dirt_0.jpg");
-        terrainGrounds[7] = Assets.get("assets/textures-layer-0/terrain_land_road_0.jpg");
+        terrainGrounds[5] = Assets.get("assets/textures-layer-0/terrain_land_dirt_0.jpg");
+        terrainGrounds[6] = Assets.get("assets/textures-layer-0/terrain_land_road_0.jpg");
 
         terrainLiquids[0] = Assets.get("assets/textures-layer-0/terrain_liquid_water_0.jpg");
         terrainLiquids[1] = Assets.get("assets/textures-layer-0/terrain_liquid_water_1.jpg");

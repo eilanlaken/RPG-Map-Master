@@ -24,7 +24,7 @@ public class Tool_4_Props extends Tool_new {
     private final TexturePack atlas;
     private TextureRegion[] currentRegions;
     private TreeMap<String, Array<TextureRegion>> regionSets = new TreeMap();
-    private Array<String> allSets = new Array<>();
+    private final Array<String> allSets = new Array<>();
     private int currentAssetIndex = 0;
     private int currentAssetVariationIndex = 0;
 
@@ -162,6 +162,7 @@ public class Tool_4_Props extends Tool_new {
     private void point_refillWithTokens() {
         tokensPreview.clear();
         float deg = this.deg + MathUtils.randomUniformFloat(-randomAngleOffset, randomAngleOffset);
+        sclX *= -1;
         Token token = new Token(3, 0, 0, deg, sclX,sclY, getRegions());
         String category = allSets.get(currentAssetIndex);
         currentAssetVariationIndex = MathUtils.randomUniformInt(0, regionSets.get(category).size);
@@ -446,7 +447,7 @@ public class Tool_4_Props extends Tool_new {
 
         if (zJustPressed) {
             currentAssetIndex++;
-            if (currentAssetIndex > allSets.size) currentAssetIndex = 0;
+            currentAssetIndex %= allSets.size;
             onChangeParameters();
             System.out.println(currentAssetIndex);
             return;

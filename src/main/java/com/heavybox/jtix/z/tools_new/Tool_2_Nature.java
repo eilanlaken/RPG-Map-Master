@@ -32,7 +32,7 @@ public class Tool_2_Nature extends Tool_new {
     private final Array<Token> tokensPreview = new Array<>();
     private final Array<Token> alreadyCreatedTokens = new Array<>();
     private boolean angleFollowPath = false;
-    private boolean fillShape = false;
+    private boolean fillShape = true;
 
     // point mode
 
