@@ -98,77 +98,77 @@
     <!-- =========== TOP VIEW: ============ -->
 
     <bundle prefix="TOP">
-        <block type="TOP_VIEW_HOUSE_LARGE" flipped="false" x="0.8000717" y="26.399918" deg="0.0"/>
-        <block type="TOP_VIEW_HOUSE_SMALL" flipped="false" x="-38.40007" y="-12.799965" deg="0.0"/>
-        <block type="TOP_VIEW_HOUSE_LARGE" flipped="false" x="37.60002" y="-13.599953" deg="90.0"/>
+        <block type="TOP_VIEW_HOUSE_LARGE" sclX="1.0" sclY="1.0" x="0.8000717" y="26.399918" deg="0.0"/>
+        <block type="TOP_VIEW_HOUSE_SMALL" sclX="1.0" sclY="1.0" x="-38.40007" y="-12.799965" deg="0.0"/>
+        <block type="TOP_VIEW_HOUSE_LARGE" sclX="1.0" sclY="1.0" x="37.60002" y="-13.599953" deg="90.0"/>
     </bundle>
 
     <bundle prefix="TOP">
-        <block type="TOP_VIEW_HOUSE_MEDIUM" flipped="false" x="0.5000229" y="20.999962" deg="0.0"/>
-        <block type="TOP_VIEW_HOUSE_MEDIUM" flipped="false" x="-0.5000229" y="-20.999962" deg="0.0"/>
+        <block type="TOP_VIEW_HOUSE_MEDIUM" sclX="1.0" sclY="1.0" x="0.5000229" y="20.999962" deg="0.0"/>
+        <block type="TOP_VIEW_HOUSE_MEDIUM" sclX="1.0" sclY="1.0" x="-0.5000229" y="-20.999962" deg="0.0"/>
     </bundle>
 
     <bundle prefix="TOP">
-        <block type="TOP_VIEW_HOUSE_MEDIUM" flipped="false" x="-23.933287" y="20.100014" deg="0.0"/>
-        <block type="TOP_VIEW_HOUSE_SMALL" flipped="false" x="29.866688" y="15.800034" deg="90.0"/>
-        <block type="TOP_VIEW_HOUSE_LARGE" flipped="false" x="-5.9334106" y="-35.900043" deg="0.0"/>
+        <block type="TOP_VIEW_HOUSE_MEDIUM" sclX="1.0" sclY="1.0" x="-23.933287" y="20.100014" deg="0.0"/>
+        <block type="TOP_VIEW_HOUSE_SMALL" sclX="1.0" sclY="1.0" x="29.866688" y="15.800034" deg="90.0"/>
+        <block type="TOP_VIEW_HOUSE_LARGE" sclX="1.0" sclY="1.0" x="-5.9334106" y="-35.900043" deg="0.0"/>
     </bundle>
 
     <bundle prefix="TOP">
-        <block type="TOP_VIEW_HOUSE_LARGE" flipped="false" x="7.9999733" y="38.000046" deg="0.0"/>
-        <block type="TOP_VIEW_HOUSE_LARGE" flipped="false" x="46.0" y="-6.1035156E-5" deg="90.0"/>
-        <block type="TOP_VIEW_HOUSE_LARGE" flipped="false" x="-29.999977" y="-2.0000305" deg="90.0"/>
+        <block type="TOP_VIEW_HOUSE_LARGE" sclX="1.0" sclY="1.0" x="7.9999733" y="38.000046" deg="0.0"/>
+        <block type="TOP_VIEW_HOUSE_LARGE" sclX="1.0" sclY="1.0" x="46.0" y="-6.1035156E-5" deg="90.0"/>
+        <block type="TOP_VIEW_HOUSE_LARGE" sclX="1.0" sclY="1.0" x="-29.999977" y="-2.0000305" deg="90.0"/>
     </bundle>
 
     <bundle prefix="TOP">
-        <block type="TOP_VIEW_HOUSE_SMALL" flipped="false" x="44.000004" y="20.33339" deg="0.0"/>
-        <block type="TOP_VIEW_HOUSE_SMALL" flipped="false" x="-20.999939" y="19.333252" deg="0.0"/>
-        <block type="TOP_VIEW_HOUSE_SMALL" flipped="false" x="-23.000046" y="-39.66664" deg="0.0"/>
+        <block type="TOP_VIEW_HOUSE_SMALL" sclX="1.0" sclY="1.0" x="44.000004" y="20.33339" deg="0.0"/>
+        <block type="TOP_VIEW_HOUSE_SMALL" sclX="1.0" sclY="1.0" x="-20.999939" y="19.333252" deg="0.0"/>
+        <block type="TOP_VIEW_HOUSE_SMALL" sclX="1.0" sclY="1.0" x="-23.000046" y="-39.66664" deg="0.0"/>
     </bundle>
 
     <bundle prefix="TOP">
-        <block type="TOP_VIEW_HOUSE_SMALL" flipped="false" x="33.333374" y="24.00003" deg="90.0"/>
-        <block type="TOP_VIEW_HOUSE_MEDIUM" flipped="false" x="-34.666687" y="8.999939" deg="90.0"/>
-        <block type="TOP_VIEW_HOUSE_MEDIUM" flipped="false" x="1.3333111" y="-32.999985" deg="180.0"/>
+        <block type="TOP_VIEW_HOUSE_SMALL" sclX="1.0" sclY="1.0" x="33.333374" y="24.00003" deg="90.0"/>
+        <block type="TOP_VIEW_HOUSE_MEDIUM" sclX="1.0" sclY="1.0" x="-34.666687" y="8.999939" deg="90.0"/>
+        <block type="TOP_VIEW_HOUSE_MEDIUM" sclX="1.0" sclY="1.0" x="1.3333111" y="-32.999985" deg="180.0"/>
     </bundle>
 
     <bundle prefix="TOP">
-        <block type="TOP_VIEW_HOUSE_LARGE" flipped="false" x="3.2999725" y="36.30002" deg="180.0"/>
-        <block type="TOP_VIEW_HOUSE_LARGE" flipped="false" x="-44.40002" y="1.2000122" deg="90.0"/>
-        <block type="TOP_VIEW_HOUSE_SMALL" flipped="false" x="41.100044" y="-37.50004" deg="180.0"/>
+        <block type="TOP_VIEW_HOUSE_LARGE" sclX="1.0" sclY="1.0" x="3.2999725" y="36.30002" deg="180.0"/>
+        <block type="TOP_VIEW_HOUSE_LARGE" sclX="1.0" sclY="1.0" x="-44.40002" y="1.2000122" deg="90.0"/>
+        <block type="TOP_VIEW_HOUSE_SMALL" sclX="1.0" sclY="1.0" x="41.100044" y="-37.50004" deg="180.0"/>
     </bundle>
 
     <bundle prefix="TOP">
-        <block type="TOP_VIEW_HOUSE_MEDIUM" flipped="false" x="0.10002899" y="26.333267" deg="0.0"/>
-        <block type="TOP_VIEW_HOUSE_SMALL" flipped="true" x="-20.300026" y="-13.166641" deg="90.0"/>
-        <block type="TOP_VIEW_HOUSE_SMALL" flipped="true" x="20.200005" y="-13.166641" deg="90.0"/>
+        <block type="TOP_VIEW_HOUSE_MEDIUM" sclX="1.0" sclY="1.0" x="0.10002899" y="26.333267" deg="0.0"/>
+        <block type="TOP_VIEW_HOUSE_SMALL" sclX="1.0" sclY="1.0" x="-20.300026" y="-13.166641" deg="90.0"/>
+        <block type="TOP_VIEW_HOUSE_SMALL" sclX="1.0" sclY="1.0" x="20.200005" y="-13.166641" deg="90.0"/>
     </bundle>
 
     <bundle prefix="TOP">
-        <block type="TOP_VIEW_HOUSE_LARGE" flipped="false" x="0.2666831" y="34.933372" deg="0.0"/>
-        <block type="TOP_VIEW_HOUSE_MEDIUM" flipped="false" x="17.866667" y="-9.066669" deg="90.0"/>
-        <block type="TOP_VIEW_HOUSE_MEDIUM" flipped="false" x="-18.13335" y="-25.866701" deg="0.0"/>
+        <block type="TOP_VIEW_HOUSE_LARGE" sclX="1.0" sclY="1.0" x="0.2666831" y="34.933372" deg="0.0"/>
+        <block type="TOP_VIEW_HOUSE_MEDIUM" sclX="1.0" sclY="1.0" x="17.866667" y="-9.066669" deg="90.0"/>
+        <block type="TOP_VIEW_HOUSE_MEDIUM" sclX="1.0" sclY="1.0" x="-18.13335" y="-25.866701" deg="0.0"/>
     </bundle>
 
     <bundle prefix="TOP">
-        <block type="TOP_VIEW_HOUSE_SMALL" flipped="false" x="34.72001" y="33.620033" deg="0.0"/>
-        <block type="TOP_VIEW_HOUSE_SMALL" flipped="false" x="-33.530045" y="27.32006" deg="270.0"/>
-        <block type="TOP_VIEW_HOUSE_MEDIUM" flipped="false" x="-19.179916" y="7.2699203" deg="0.0"/>
-        <block type="TOP_VIEW_HOUSE_MEDIUM" flipped="false" x="37.870003" y="-10.479988" deg="90.0"/>
-        <block type="TOP_VIEW_HOUSE_MEDIUM" flipped="false" x="-19.880035" y="-57.730022" deg="0.0"/>
+        <block type="TOP_VIEW_HOUSE_SMALL" sclX="1.0" sclY="1.0" x="34.72001" y="33.620033" deg="0.0"/>
+        <block type="TOP_VIEW_HOUSE_SMALL" sclX="1.0" sclY="1.0" x="-33.530045" y="27.32006" deg="270.0"/>
+        <block type="TOP_VIEW_HOUSE_MEDIUM" sclX="1.0" sclY="1.0" x="-19.179916" y="7.2699203" deg="0.0"/>
+        <block type="TOP_VIEW_HOUSE_MEDIUM" sclX="1.0" sclY="1.0" x="37.870003" y="-10.479988" deg="90.0"/>
+        <block type="TOP_VIEW_HOUSE_MEDIUM" sclX="1.0" sclY="1.0" x="-19.880035" y="-57.730022" deg="0.0"/>
     </bundle>
 
     <bundle prefix="TOP">
-        <block type="TOP_VIEW_HOUSE_MEDIUM" flipped="false" x="-0.12499809" y="26.875015" deg="180.0"/>
-        <block type="TOP_VIEW_HOUSE_SMALL" flipped="false" x="19.875017" y="4.375" deg="90.0"/>
-        <block type="TOP_VIEW_HOUSE_MEDIUM" flipped="false" x="1.875011" y="-9.125" deg="90.0"/>
-        <block type="TOP_VIEW_HOUSE_SMALL" flipped="true" x="-21.62503" y="-22.125011" deg="90.0"/>
+        <block type="TOP_VIEW_HOUSE_MEDIUM" sclX="1.0" sclY="1.0" x="-0.12499809" y="26.875015" deg="180.0"/>
+        <block type="TOP_VIEW_HOUSE_SMALL" sclX="1.0" sclY="1.0" x="19.875017" y="4.375" deg="90.0"/>
+        <block type="TOP_VIEW_HOUSE_MEDIUM" sclX="1.0" sclY="1.0" x="1.875011" y="-9.125" deg="90.0"/>
+        <block type="TOP_VIEW_HOUSE_SMALL" sclX="1.0" sclY="1.0" x="-21.62503" y="-22.125011" deg="90.0"/>
     </bundle>
 
     <bundle prefix="TOP">
-        <block type="TOP_VIEW_HOUSE_SMALL" flipped="true" x="24.666718" y="28.000053" deg="90.0"/>
-        <block type="TOP_VIEW_HOUSE_LARGE" flipped="true" x="-30.33332" y="4.9999695" deg="90.0"/>
-        <block type="TOP_VIEW_HOUSE_LARGE" flipped="false" x="5.66658" y="-33.000023" deg="0.0"/>
+        <block type="TOP_VIEW_HOUSE_SMALL" sclX="1.0" sclY="1.0" x="24.666718" y="28.000053" deg="90.0"/>
+        <block type="TOP_VIEW_HOUSE_LARGE" sclX="1.0" sclY="1.0" x="-30.33332" y="4.9999695" deg="90.0"/>
+        <block type="TOP_VIEW_HOUSE_LARGE" sclX="1.0" sclY="1.0" x="5.66658" y="-33.000023" deg="0.0"/>
     </bundle>
 
     <!-- =========== SIDE VIEW: ============ -->

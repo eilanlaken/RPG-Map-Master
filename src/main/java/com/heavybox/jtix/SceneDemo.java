@@ -119,7 +119,7 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
         tools[1] = new Tool_2_Nature(this);
         tools[2] = new Tool_3_Geology(this);
         tools[3] = new Tool_4_Props(this);
-        tools[4] = new Tool_5_DEV_Architecture(this);
+        tools[4] = new Tool_5_Architecture(this);
         tools[activeToolIndex].activate();
     }
 

@@ -4,6 +4,7 @@ import com.heavybox.jtix.RPGMapMakerScene;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.collections.ArrayChar;
+import com.heavybox.jtix.collections.Collections;
 import com.heavybox.jtix.collections.Tuple2;
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Renderer2D;
@@ -17,12 +18,128 @@ import com.heavybox.jtix.math.Vector2;
 import com.heavybox.jtix.z.CommandTokenCreate;
 import com.heavybox.jtix.z.Token;
 import com.heavybox.jtix.z.Tool;
+import com.heavybox.jtix.z.ToolStamp_Architecture;
 import org.jetbrains.annotations.NotNull;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.File;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Tool_5_Architecture extends Tool_new {
+
+    private static final Array<Bundle> BUNDLES_TOP_VIEW       = new Array<>(true, 10);
+    private static final Array<Bundle> BUNDLES_SIDE_VIEW      = new Array<>(true, 10);
+    private static final Array<Bundle> BUNDLES_ISOMETRIC_VIEW = new Array<>(true, 10);
+
+    static {
+        try {
+            File file = new File("assets/data/architecture-bundles.xml");
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.parse(file);
+            doc.getDocumentElement().normalize();
+            NodeList bundlesList = doc.getElementsByTagName("bundle");
+
+            List<Element> bundles_top_view = new ArrayList<>();
+            List<Element> bundles_side_view = new ArrayList<>();
+            List<Element> bundles_isometric_view = new ArrayList<>();
+
+            for (int i = 0; i < bundlesList.getLength(); i++) {
+                Element e = (Element) bundlesList.item(i);
+                if ("TOP".equals(e.getAttribute("prefix"))) {
+                    bundles_top_view.add(e);
+                }
+                if ("SIDE".equals(e.getAttribute("prefix"))) {
+                    bundles_side_view.add(e);
+                }
+                if ("ISOMETRIC".equals(e.getAttribute("prefix"))) {
+                    bundles_isometric_view.add(e);
+                }
+            }
+
+            for (Element bundleElement : bundles_top_view) {
+                NodeList blocks = bundleElement.getElementsByTagName("block");
+                Bundle bundle = new Bundle();
+                bundle.blocks = new Block[blocks.getLength()];
+                for (int i = 0; i < blocks.getLength(); i++) {
+                    Element blockElement = (Element) blocks.item(i);
+                    float x = Float.parseFloat(blockElement.getAttribute("x"));
+                    float y = Float.parseFloat(blockElement.getAttribute("y"));
+                    float deg = Float.parseFloat(blockElement.getAttribute("deg"));
+                    float sclX = Float.parseFloat(blockElement.getAttribute("sclX"));
+                    float sclY = Float.parseFloat(blockElement.getAttribute("sclY"));
+                    Type type = Type.valueOf(blockElement.getAttribute("type"));
+                    bundle.blocks[i] = new Block();
+                    bundle.blocks[i].x = x;
+                    bundle.blocks[i].y = y;
+                    bundle.blocks[i].deg = deg;
+                    bundle.blocks[i].sclX = sclX;
+                    bundle.blocks[i].sclY = sclY;
+                    bundle.blocks[i].type = type;
+                }
+
+                BUNDLES_TOP_VIEW.add(bundle);
+            }
+
+            for (Element bundleElement : bundles_isometric_view) {
+                NodeList blocks = bundleElement.getElementsByTagName("block");
+                Bundle bundle = new Bundle();
+                bundle.blocks = new Block[blocks.getLength()];
+                for (int i = 0; i < blocks.getLength(); i++) {
+                    Element blockElement = (Element) blocks.item(i);
+                    float x = Float.parseFloat(blockElement.getAttribute("x"));
+                    float y = Float.parseFloat(blockElement.getAttribute("y"));
+                    float deg = Float.parseFloat(blockElement.getAttribute("deg"));
+                    float sclX = Float.parseFloat(blockElement.getAttribute("sclX"));
+                    float sclY = Float.parseFloat(blockElement.getAttribute("sclY"));
+                    Type type = Type.valueOf(blockElement.getAttribute("type"));
+                    bundle.blocks[i] = new Block();
+                    bundle.blocks[i].x = x;
+                    bundle.blocks[i].y = y;
+                    bundle.blocks[i].deg = deg;
+                    bundle.blocks[i].sclX = sclX;
+                    bundle.blocks[i].sclY = sclY;
+                    bundle.blocks[i].type = type;
+                }
+
+                BUNDLES_ISOMETRIC_VIEW.add(bundle);
+            }
+
+            for (Element bundleElement : bundles_side_view) {
+                NodeList blocks = bundleElement.getElementsByTagName("block");
+                Bundle bundle = new Bundle();
+                bundle.blocks = new Block[blocks.getLength()];
+                for (int i = 0; i < blocks.getLength(); i++) {
+                    Element blockElement = (Element) blocks.item(i);
+                    float x = Float.parseFloat(blockElement.getAttribute("x"));
+                    float y = Float.parseFloat(blockElement.getAttribute("y"));
+                    float deg = Float.parseFloat(blockElement.getAttribute("deg"));
+                    float sclX = Float.parseFloat(blockElement.getAttribute("sclX"));
+                    float sclY = Float.parseFloat(blockElement.getAttribute("sclY"));
+                    Type type = Type.valueOf(blockElement.getAttribute("type"));
+                    bundle.blocks[i] = new Block();
+                    bundle.blocks[i].x = x;
+                    bundle.blocks[i].y = y;
+                    bundle.blocks[i].deg = deg;
+                    bundle.blocks[i].sclX = sclX;
+                    bundle.blocks[i].sclY = sclY;
+                    bundle.blocks[i].type = type;
+                }
+
+                BUNDLES_SIDE_VIEW.add(bundle);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
     private final TexturePack atlas;
 
@@ -42,8 +159,7 @@ public class Tool_5_Architecture extends Tool_new {
     private boolean bundleMode = true;
 
     // point mode
-    private float point_currentDragDistance = 0;
-    private final Vector2 point_lastDragPoint = new Vector2();
+    private final Vector2 point_lastSpawnPoint = new Vector2();
     private final Array<Tuple2<Vector2, Float>> point_debugTokens = new Array<>();
 
     // line mode
@@ -65,7 +181,6 @@ public class Tool_5_Architecture extends Tool_new {
     }
 
     // this is the heart of the architecture tool
-    // TODO: move this logic to update() when using point mode.
     private void setTokenParams(float mouseAngleDeg) {
 
         // for isometric view
@@ -201,25 +316,25 @@ public class Tool_5_Architecture extends Tool_new {
         // add tokens
         if (currentShape == Tool.Shape.POINT) {
             if (leftJustDown) {
-                point_lastDragPoint.set(x, y);
+                point_lastSpawnPoint.set(x, y);
                 return;
             } else if (leftJustUp) {
 
                 return;
             } else if (leftPressed && mouseMoved) {
                 Vector2 current = new Vector2(x, y);
-                float dst = Vector2.dst(current, point_lastDragPoint);
+                float dst = Vector2.dst(current, point_lastSpawnPoint);
                 if (dst < getProceduralSpacing()) return;
 
                 // spawn token and reset anchor
-                Vector2 dir = new Vector2(x - point_lastDragPoint.x, y - point_lastDragPoint.y);
+                Vector2 dir = new Vector2(x - point_lastSpawnPoint.x, y - point_lastSpawnPoint.y);
                 float angleDeg = getDiscreteAngle(dir.angleDeg());
                 int angleIndex = getDiscreteAngleIndex(dir.angleDeg());
                 TextureRegion region = getRegion(angleIndex);
                 spawnToken(region, 0, flipX(angleIndex));
                 //Tuple2<Vector2, Float> debugToken = new Tuple2<>(new Vector2(x, y), angleDeg);
                 //point_debugTokens.add(debugToken);
-                point_lastDragPoint.set(x, y);
+                point_lastSpawnPoint.set(x, y);
                 return;
             }
         }
@@ -325,6 +440,83 @@ public class Tool_5_Architecture extends Tool_new {
         HUMAN,
         ELF,
         DWARF,
+    }
+
+    public static class Bundle {
+        public Block[] blocks;
+    }
+
+    public static class Block {
+
+        public Type type;
+        public float x, y;
+        public float sclX;
+        public float sclY;
+        public float deg;
+        public TextureRegion region;
+
+    }
+
+    public enum Type {
+        TOP_VIEW_HOUSE_LARGE,
+        TOP_VIEW_HOUSE_MEDIUM,
+        TOP_VIEW_HOUSE_SMALL,
+        TOP_VIEW_TOWER,
+        TOP_VIEW_WALL,
+
+        SIDE_VIEW_BLOCK_SMALL,
+        SIDE_VIEW_BLOCK_BIG,
+        SIDE_VIEW_BRIDGE,
+        SIDE_VIEW_TOWER_SMALL,
+        SIDE_VIEW_TOWER_BIG,
+
+        ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT,
+        ISOMETRIC_VIEW_HOUSE_DIAGONAL_TALL,
+        ISOMETRIC_VIEW_HOUSE_HORIZONTAL_SHORT,
+        ISOMETRIC_VIEW_HOUSE_HORIZONTAL_TALL,
+        ISOMETRIC_VIEW_HOUSE_VERTICAL_SHORT,
+        ISOMETRIC_VIEW_HOUSE_VERTICAL_TALL,
+        ISOMETRIC_VIEW_HUT_DIAGONAL,
+        ISOMETRIC_VIEW_HUT_VERTICAL,
+        ISOMETRIC_VIEW_TOWER_SHORT,
+        ISOMETRIC_VIEW_TOWER_TALL,
+        ISOMETRIC_VIEW_WALL_BACK,
+        ISOMETRIC_VIEW_WALL_FRONT,
+        ;
+
+        public Type getNextView() {
+            final String prefix = this.name().split("_")[0];
+
+            Type next = Collections.enumNext(this);
+            while (next.name().startsWith(prefix))
+                next = Collections.enumNext(next);
+            return next;
+        }
+
+        public Type getNextOfTheSamePrefix() {
+            final String prefix = this.name().split("_")[0];
+
+            Type next = Collections.enumNext(this);
+            while (!next.name().startsWith(prefix))
+                next = Collections.enumNext(next);
+            return next;
+        }
+
+        public Type getPrevOfTheSamePrefix() {
+            final String prefix = this.name().split("_")[0];
+            Type prev = Collections.enumPrev(this);
+            while (!prev.name().startsWith(prefix))
+                prev = Collections.enumPrev(prev);
+            return prev;
+        }
+
+        public String getView() {
+            if (name().startsWith("TOP")) return "TOP";
+            if (name().startsWith("SIDE")) return "SIDE";
+            if (name().startsWith("ISOMETRIC")) return "ISOMETRIC";
+            return null;
+        }
+
     }
 
 }
