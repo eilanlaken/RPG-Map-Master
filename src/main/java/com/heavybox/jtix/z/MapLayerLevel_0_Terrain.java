@@ -158,9 +158,11 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
             renderer2D.setShaderAttribute("u_texture_reveal", groundSrcImg);
             renderer2D.setShaderAttribute("u_width", uvScaleFactorGround * groundSrcImg.width);
             renderer2D.setShaderAttribute("u_height", uvScaleFactorGround * groundSrcImg.height);
+            renderer2D.setColor(cmd.tint);
             renderer2D.drawTexture(brushesAdd[cmd.brushIndex], cmd.x, cmd.y, cmd.deg, cmd.sclX, cmd.sclY);
         }
         renderer2D.end();
+
 
         // render liquid image
         Graphics.bindFrameBuffer(liquid);
@@ -173,24 +175,10 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
             renderer2D.setShaderAttribute("u_texture_reveal", liquidSrcImg);
             renderer2D.setShaderAttribute("u_width", uvScaleFactorLiquid * liquidSrcImg.width);
             renderer2D.setShaderAttribute("u_height", uvScaleFactorLiquid * liquidSrcImg.height);
+            renderer2D.setColor(cmd.tint);
             renderer2D.drawTexture(brushesAdd[cmd.brushIndex],cmd.x,cmd.y,cmd.deg,cmd.sclX,cmd.sclY);
         }
         renderer2D.end();
-
-        // render farmlands
-//        Graphics.bind(farmlands);
-//        renderer2D.begin(camera);
-//        renderer2D.blendingSet(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-//        for (CommandTerrainFarmlandCreate cmd : commandsFarmlandsCreate) {
-//            // draw the farmland to the frame buffer
-//            renderer2D.setColor(0.3569f, 0.3098f, 0.2275f, 0.4f); // TODO: remove this and move to an outline shader for the farmlands.
-//            renderer2D.drawCurveFilled(null, 8.0f, 12, cmd.polygon, 0, 0, 0, 1, 1);
-//            renderer2D.setColor(Color.WHITE);
-//            renderer2D.drawPolygonFilled(cmd.polygon, bases[cmd.baseType], uv -> uv.rotateDeg(cmd.linesAngle).scl(2), 0, 0, 0, 1, 1);
-//            // store the farmland in the farmlands array for future processing.
-//
-//        }
-//        renderer2D.end();
 
         // render blend map
         Graphics.bindFrameBuffer(blendMap);
@@ -198,6 +186,7 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
         renderer2D.blendingSet(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         for (CommandTerrain cmd : commandsBlendMap) {
             Texture brush = cmd.mode == Tool_new.Mode.ADD ? brushesAdd[cmd.brushIndex] : brushesSub[cmd.brushIndex];
+            renderer2D.setColor(cmd.tint);
             renderer2D.drawTexture(brush,cmd.x,cmd.y,cmd.deg,cmd.sclX,cmd.sclY);
         }
         renderer2D.end();

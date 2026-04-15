@@ -41,6 +41,7 @@ public class Tool_1_Terrain extends Tool_new {
     public boolean randomDegree = false;
     private boolean angleFollowPath = true;
     private boolean limitDrawingToTarget = false;
+    private Color tint = Color.WHITE.clone();
 
     // point mode
     private final Vector2 point_lastSpawned = new Vector2();
@@ -142,6 +143,7 @@ public class Tool_1_Terrain extends Tool_new {
         boolean aPressed = Input.keyboard.isKeyPressed(Keyboard.Key.A);
         boolean sPressed = Input.keyboard.isKeyPressed(Keyboard.Key.S);
         boolean lPressed = Input.keyboard.isKeyPressed(Keyboard.Key.L);
+        boolean qPressed = Input.keyboard.isKeyPressed(Keyboard.Key.Q);
         float dy = Input.mouse.getYDelta();
 
         // =============  tool settings  ===============
@@ -208,6 +210,15 @@ public class Tool_1_Terrain extends Tool_new {
             onChangeParameters();
             return;
         }
+        if (qPressed && dy != 0) {
+            float deltaAlpha = -dy / Graphics.getWindowHeight();
+            tint.a += deltaAlpha;
+            tint.a = MathUtils.clampFloat(tint.a, 0, 1);
+            System.out.println(tint.a);
+            onChangeParameters();
+            return;
+        }
+
 
         // ********* Actions ************
 
@@ -270,6 +281,7 @@ public class Tool_1_Terrain extends Tool_new {
         cmd.groundIndex = groundIndex;
         cmd.liquidIndex = liquidIndex;
         cmd.brushIndex = brushIndex;
+        cmd.tint = tint.toFloatBits();
         map.addCommand(cmd);
 
         if (!limitDrawingToTarget && target != Target.BLEND_MAP) {
@@ -279,6 +291,7 @@ public class Tool_1_Terrain extends Tool_new {
             cmdBlend.groundIndex = groundIndex;
             cmdBlend.liquidIndex = liquidIndex;
             cmdBlend.brushIndex = brushIndex;
+            cmdBlend.tint = tint.toFloatBits();
             map.addCommand(cmdBlend);
         }
 

@@ -1,10 +1,12 @@
 package com.heavybox.jtix.z;
 
+import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.z.tools_new.Tool_1_Terrain;
 import com.heavybox.jtix.z.tools_new.Tool_new;
 
 public class CommandTerrain extends Command {
 
+    public float tint = Color.WHITE.toFloatBits();
     public Tool_1_Terrain.Target target;
     public Tool_new.Mode mode;
     public int groundIndex;

@@ -18,7 +18,6 @@ import com.heavybox.jtix.math.Vector2;
 import com.heavybox.jtix.z.CommandTokenCreate;
 import com.heavybox.jtix.z.Token;
 import com.heavybox.jtix.z.Tool;
-import com.heavybox.jtix.z.ToolStamp_Architecture;
 import org.jetbrains.annotations.NotNull;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -149,16 +148,17 @@ public class Tool_5_Architecture extends Tool_new {
     private View currentView;
 
     private float spacing = 1.0f;
-    private Race race = Race.HUMAN;
+    private Race race = Race.ELF;
     private final Set<Token> tokensToDelete = new HashSet<>();
     private final Array<Token> tokensPreview = new Array<>();
     private final Array<Token> alreadyCreatedTokens = new Array<>();
     private boolean angleFollowPath = true;
     private boolean fillShape = false;
     private boolean procedural = true;
-    private boolean bundleMode = true;
+    private boolean bundleModeOn = false;
 
     // point mode
+    private boolean dragged = false;
     private final Vector2 point_lastSpawnPoint = new Vector2();
     private final Array<Tuple2<Vector2, Float>> point_debugTokens = new Array<>();
 
@@ -249,21 +249,39 @@ public class Tool_5_Architecture extends Tool_new {
         return 38 * spacing * Math.abs(sclX); // TODO: for now, this is hard-coded.
     }
 
-    private TextureRegion getRegion(int angleIndex) {
+    private TextureRegion getRegion_isometricTower() {
+        String prefix = "assets/textures-layer-3/architecture_" + race.name().toLowerCase() + "_" + currentView.name().toLowerCase() + "_";
+        boolean tall = MathUtils.randomUniformInt(0,2) == 1;
+        String middle = "tower_" + (tall ? "tall" : "short");
+        String suffix = "_" + MathUtils.randomUniformInt(0,6) + ".png";
+        return atlas.getRegion(prefix + middle + suffix);
+    }
+
+    private TextureRegion getRegion_isometricHouse(int angleIndex) {
         String prefix = "assets/textures-layer-3/architecture_" + race.name().toLowerCase() + "_" + currentView.name().toLowerCase() + "_";
 
         String middle = "";
         if (angleIndex == 0 || angleIndex == 4) {
-            middle = "house_horizontal_short";
+            boolean tall = MathUtils.randomUniformInt(0,2) == 1;
+            middle = "house_horizontal_" + (tall ? "tall" : "short");
         }
         if (angleIndex == 1 || angleIndex == 5) {
-            middle = "house_diagonal_short";
+            int type = MathUtils.randomUniformInt(0,3);
+            if (type == 0) middle = "house_diagonal_short";
+            if (type == 1) middle = "house_diagonal_tall";
+            if (type == 2) middle = "hut_diagonal";
         }
         if (angleIndex == 2 || angleIndex == 6) {
-            middle = "house_vertical_short";
+            int type = MathUtils.randomUniformInt(0,3);
+            if (type == 0) middle = "house_vertical_short";
+            if (type == 1) middle = "house_vertical_tall";
+            if (type == 2) middle = "hut_vertical";
         }
         if (angleIndex == 3 || angleIndex == 7) {
-            middle = "house_diagonal_short";
+            int type = MathUtils.randomUniformInt(0,3);
+            if (type == 0) middle = "house_diagonal_short";
+            if (type == 1) middle = "house_diagonal_tall";
+            if (type == 2) middle = "hut_diagonal";
         }
 
         String suffix = "_" + MathUtils.randomUniformInt(0,6) + ".png";
@@ -277,7 +295,8 @@ public class Tool_5_Architecture extends Tool_new {
                 3,
                 x, y,
                 deg,
-                flipX ? -sclX : sclX, sclY,
+                flipX ? -sclX : sclX,
+                sclY,
                 false,
                 region
         );
@@ -314,14 +333,13 @@ public class Tool_5_Architecture extends Tool_new {
         }
 
         // add tokens
-        if (currentShape == Tool.Shape.POINT) {
+        if (currentShape == Tool.Shape.POINT && currentView == View.ISOMETRIC_VIEW && !bundleModeOn) {
             if (leftJustDown) {
                 point_lastSpawnPoint.set(x, y);
-                return;
-            } else if (leftJustUp) {
-
+                dragged = false;
                 return;
             } else if (leftPressed && mouseMoved) {
+                dragged = true;
                 Vector2 current = new Vector2(x, y);
                 float dst = Vector2.dst(current, point_lastSpawnPoint);
                 if (dst < getProceduralSpacing()) return;
@@ -330,14 +348,30 @@ public class Tool_5_Architecture extends Tool_new {
                 Vector2 dir = new Vector2(x - point_lastSpawnPoint.x, y - point_lastSpawnPoint.y);
                 float angleDeg = getDiscreteAngle(dir.angleDeg());
                 int angleIndex = getDiscreteAngleIndex(dir.angleDeg());
-                TextureRegion region = getRegion(angleIndex);
-                spawnToken(region, 0, flipX(angleIndex));
-                //Tuple2<Vector2, Float> debugToken = new Tuple2<>(new Vector2(x, y), angleDeg);
-                //point_debugTokens.add(debugToken);
+                TextureRegion region = getRegion_isometricHouse(angleIndex);
+                spawnToken(region, MathUtils.randomUniformFloat(-5,5), flipX(angleIndex));
                 point_lastSpawnPoint.set(x, y);
                 return;
+            } else if (leftJustUp) {
+                if (!dragged) {
+                    TextureRegion region = getRegion_isometricTower();
+                    spawnToken(region, 0, MathUtils.randomUniformInt(0,2) == 1);
+                }
             }
         }
+
+        if (currentShape == Tool.Shape.LINE) {
+
+        }
+
+        if (currentShape == Tool.Shape.CIRCLE) {
+
+        }
+
+        if (currentShape == Tool.Shape.POLYGON) {
+
+        }
+
     }
 
     @Override
@@ -352,6 +386,18 @@ public class Tool_5_Architecture extends Tool_new {
                 renderer2D.setColor(Color.randomOpaque());
                 renderer2D.drawRectangleFilled(38, 100, debugToken.t1.x, debugToken.t1.y, debugToken.t2, 1, 1);
             }
+        }
+
+        if (currentShape == Tool.Shape.LINE) {
+
+        }
+
+        if (currentShape == Tool.Shape.CIRCLE) {
+
+        }
+
+        if (currentShape == Tool.Shape.POLYGON) {
+
         }
 
         renderer2D.setColor(Color.WHITE);
