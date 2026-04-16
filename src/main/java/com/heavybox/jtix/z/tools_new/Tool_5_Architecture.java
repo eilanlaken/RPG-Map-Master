@@ -349,7 +349,7 @@ public class Tool_5_Architecture extends Tool_new {
                 float angleDeg = getDiscreteAngle(dir.angleDeg());
                 int angleIndex = getDiscreteAngleIndex(dir.angleDeg());
                 TextureRegion region = getRegion_isometricHouse(angleIndex);
-                spawnToken(region, MathUtils.randomUniformFloat(-5,5), flipX(angleIndex));
+                spawnToken(region, MathUtils.randomUniformFloat(-2.5f,2.5f), flipX(angleIndex));
                 point_lastSpawnPoint.set(x, y);
                 return;
             } else if (leftJustUp) {
