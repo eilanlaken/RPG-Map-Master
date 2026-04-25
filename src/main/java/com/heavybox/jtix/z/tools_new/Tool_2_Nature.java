@@ -330,9 +330,9 @@ public class Tool_2_Nature extends Tool_new {
 
             createToken.tokenType = currentCategory;
             Color tint = new Color();
-            tint.r = 1 + MathUtils.randomUniformFloat(-0.1f, 0.0f);
-            tint.g = 1 + MathUtils.randomUniformFloat(-0.1f, 0.0f);
-            tint.b = 1 + MathUtils.randomUniformFloat(-0.1f, 0.0f);
+            tint.r = 1 + MathUtils.randomUniformFloat(-0.05f, 0.0f);
+            tint.g = 1 + MathUtils.randomUniformFloat(-0.05f, 0.0f);
+            tint.b = 1 + MathUtils.randomUniformFloat(-0.05f, 0.0f);
             tint.a = 1;
             createToken.tint = tint;
             map.addCommand(createToken);
