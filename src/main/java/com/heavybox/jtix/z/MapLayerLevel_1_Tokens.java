@@ -33,6 +33,7 @@ public class MapLayerLevel_1_Tokens implements MapLayerLevel {
         if (command instanceof CommandTokenCreate) {
             CommandTokenCreate cmd = (CommandTokenCreate) command;
             Token token = new Token(cmd.layer, cmd.x, cmd.y, cmd.deg, cmd.sclX, cmd.sclY, cmd.regions);
+            token.shader = cmd.shader;
             token.tokenType = cmd.tokenType;
             token.tint = cmd.tint.equals(Color.WHITE) ? Color.WHITE : cmd.tint.clone();
             allTokens.add(token);

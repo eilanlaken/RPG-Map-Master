@@ -6,10 +6,7 @@ import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.collections.ArrayChar;
 import com.heavybox.jtix.collections.Collections;
 import com.heavybox.jtix.collections.Tuple2;
-import com.heavybox.jtix.graphics.Color;
-import com.heavybox.jtix.graphics.Renderer2D;
-import com.heavybox.jtix.graphics.TexturePack;
-import com.heavybox.jtix.graphics.TextureRegion;
+import com.heavybox.jtix.graphics.*;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
@@ -31,6 +28,7 @@ import java.util.Set;
 
 public class Tool_5_Architecture extends Tool_new {
 
+    private Shader shader;
     private final TexturePack atlas;
 
     // global state
@@ -39,7 +37,7 @@ public class Tool_5_Architecture extends Tool_new {
     private View currentView;
 
     private float spacing = 1.0f;
-    private Race race = Race.ELF;
+    private Race race = Race.DWARF;
     private final Set<Token> tokensToDelete = new HashSet<>();
     private final Array<Token> tokensPreview = new Array<>();
     private final Array<Token> alreadyCreatedTokens = new Array<>();
@@ -73,6 +71,10 @@ public class Tool_5_Architecture extends Tool_new {
         currentView = View.ISOMETRIC_VIEW;
 
         Utils.countVariations(atlas, "assets/textures-layer-3/architecture_dwarf_top_view_tower");
+
+        String vertex = Assets.getFileContent("assets/shaders/default-shader.vert");
+        String fragment = Assets.getFileContent("assets/shaders/default-shader.frag");
+        this.shader = new Shader(vertex, fragment);
     }
 
     private float getDiscreteAngle(float angle) {
@@ -208,6 +210,13 @@ public class Tool_5_Architecture extends Tool_new {
                 region
         );
 
+        Color tint = new Color();
+        tint.r = 1 + MathUtils.randomUniformFloat(-0.05f, 0.0f);
+        tint.g = 1 + MathUtils.randomUniformFloat(-0.05f, 0.0f);
+        tint.b = 1 + MathUtils.randomUniformFloat(-0.05f, 0.0f);
+        tint.a = 1;
+        createToken.tint = tint;
+        createToken.shader = shader;
         createToken.tokenType = currentView;
         map.addCommand(createToken);
     }

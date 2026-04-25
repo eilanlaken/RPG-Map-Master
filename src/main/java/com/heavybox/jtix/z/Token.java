@@ -2,11 +2,13 @@ package com.heavybox.jtix.z;
 
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Renderer2D;
+import com.heavybox.jtix.graphics.Shader;
 import com.heavybox.jtix.graphics.TextureRegion;
 import com.heavybox.jtix.math.Transform2D;
 
 public class Token {
 
+    public Shader shader;
     public Enum<?> tokenType;
     public Color tint = Color.WHITE;
     public final int layer;
@@ -32,6 +34,7 @@ public class Token {
     }
 
     public void render(Renderer2D renderer2D) {
+        renderer2D.setShader(shader);
         renderer2D.setColor(tint);
         for (int i = 0; i < regions.length; i++) {
             TextureRegion region = regions[i];
