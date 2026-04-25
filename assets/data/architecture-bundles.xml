@@ -66,7 +66,6 @@
         <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT" sclX="-1.0" sclY="1.0" x="12.666636" y="48.10002" deg="0.0"/>
         <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_TALL" sclX="1.0" sclY="1.0" x="0.016679764" y="0.950017" deg="0.0"/>
         <block type="ISOMETRIC_VIEW_HUT_DIAGONAL" sclX="-1.0" sclY="1.0" x="-50.98335" y="-0.34998608" deg="0.0"/>
-        <block type="ISOMETRIC_VIEW_HUT_VERTICAL" sclX="-1.0" sclY="1.0" x="-74.98341" y="-6.0500126" deg="14.991094"/>
         <block type="ISOMETRIC_VIEW_HUT_VERTICAL" sclX="-1.0" sclY="1.0" x="74.01677" y="-9.050028" deg="-9.260149"/>
         <block type="ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT" sclX="-1.0" sclY="1.0" x="39.26667" y="-33.600006" deg="0.0"/>
     </bundle>

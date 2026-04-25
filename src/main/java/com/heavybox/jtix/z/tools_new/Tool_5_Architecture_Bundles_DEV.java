@@ -10,12 +10,11 @@ import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.Vector2;
-import com.heavybox.jtix.z.Utils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Comparator;
 
-public class Tool_5_DEV_Architecture extends Tool_new {
+public class Tool_5_Architecture_Bundles_DEV extends Tool_new {
 
     public Type type = Type.SIDE_VIEW_BLOCK_BIG;
 
@@ -25,7 +24,7 @@ public class Tool_5_DEV_Architecture extends Tool_new {
     private final Array<Block> toolOverlayDevBlocks = new Array<>(false, 5);
 
 
-    public Tool_5_DEV_Architecture(RPGMapMakerScene scene) {
+    public Tool_5_Architecture_Bundles_DEV(RPGMapMakerScene scene) {
         super(scene);
         atlas = Assets.get("assets/texture-packs/layer_3.yml");
 

@@ -15,7 +15,9 @@ import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Vector2;
-import com.heavybox.jtix.z.*;
+import com.heavybox.jtix.z.CommandTokenCreate;
+import com.heavybox.jtix.z.Token;
+import com.heavybox.jtix.z.Tool;
 import org.jetbrains.annotations.NotNull;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -29,7 +31,114 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class Tool_5_Architecture extends Tool_new {
+public class Tool_5_Architecture_Bundles extends Tool_new {
+
+    private static final Array<Bundle> BUNDLES_TOP_VIEW       = new Array<>(true, 10);
+    private static final Array<Bundle> BUNDLES_SIDE_VIEW      = new Array<>(true, 10);
+    private static final Array<Bundle> BUNDLES_ISOMETRIC_VIEW = new Array<>(true, 10);
+
+    static {
+        try {
+            File file = new File("assets/data/architecture-bundles.xml");
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.parse(file);
+            doc.getDocumentElement().normalize();
+            NodeList bundlesList = doc.getElementsByTagName("bundle");
+
+            List<Element> bundles_top_view = new ArrayList<>();
+            List<Element> bundles_side_view = new ArrayList<>();
+            List<Element> bundles_isometric_view = new ArrayList<>();
+
+            for (int i = 0; i < bundlesList.getLength(); i++) {
+                Element e = (Element) bundlesList.item(i);
+                if ("TOP".equals(e.getAttribute("prefix"))) {
+                    bundles_top_view.add(e);
+                }
+                if ("SIDE".equals(e.getAttribute("prefix"))) {
+                    bundles_side_view.add(e);
+                }
+                if ("ISOMETRIC".equals(e.getAttribute("prefix"))) {
+                    bundles_isometric_view.add(e);
+                }
+            }
+
+            for (Element bundleElement : bundles_top_view) {
+                NodeList blocks = bundleElement.getElementsByTagName("block");
+                Bundle bundle = new Bundle();
+                bundle.blocks = new Block[blocks.getLength()];
+                for (int i = 0; i < blocks.getLength(); i++) {
+                    Element blockElement = (Element) blocks.item(i);
+                    float x = Float.parseFloat(blockElement.getAttribute("x"));
+                    float y = Float.parseFloat(blockElement.getAttribute("y"));
+                    float deg = Float.parseFloat(blockElement.getAttribute("deg"));
+                    float sclX = Float.parseFloat(blockElement.getAttribute("sclX"));
+                    float sclY = Float.parseFloat(blockElement.getAttribute("sclY"));
+                    Type type = Type.valueOf(blockElement.getAttribute("type"));
+                    bundle.blocks[i] = new Block();
+                    bundle.blocks[i].x = x;
+                    bundle.blocks[i].y = y;
+                    bundle.blocks[i].deg = deg;
+                    bundle.blocks[i].sclX = sclX;
+                    bundle.blocks[i].sclY = sclY;
+                    bundle.blocks[i].type = type;
+                }
+
+                BUNDLES_TOP_VIEW.add(bundle);
+            }
+
+            for (Element bundleElement : bundles_isometric_view) {
+                NodeList blocks = bundleElement.getElementsByTagName("block");
+                Bundle bundle = new Bundle();
+                bundle.blocks = new Block[blocks.getLength()];
+                for (int i = 0; i < blocks.getLength(); i++) {
+                    Element blockElement = (Element) blocks.item(i);
+                    float x = Float.parseFloat(blockElement.getAttribute("x"));
+                    float y = Float.parseFloat(blockElement.getAttribute("y"));
+                    float deg = Float.parseFloat(blockElement.getAttribute("deg"));
+                    float sclX = Float.parseFloat(blockElement.getAttribute("sclX"));
+                    float sclY = Float.parseFloat(blockElement.getAttribute("sclY"));
+                    Type type = Type.valueOf(blockElement.getAttribute("type"));
+                    bundle.blocks[i] = new Block();
+                    bundle.blocks[i].x = x;
+                    bundle.blocks[i].y = y;
+                    bundle.blocks[i].deg = deg;
+                    bundle.blocks[i].sclX = sclX;
+                    bundle.blocks[i].sclY = sclY;
+                    bundle.blocks[i].type = type;
+                }
+
+                BUNDLES_ISOMETRIC_VIEW.add(bundle);
+            }
+
+            for (Element bundleElement : bundles_side_view) {
+                NodeList blocks = bundleElement.getElementsByTagName("block");
+                Bundle bundle = new Bundle();
+                bundle.blocks = new Block[blocks.getLength()];
+                for (int i = 0; i < blocks.getLength(); i++) {
+                    Element blockElement = (Element) blocks.item(i);
+                    float x = Float.parseFloat(blockElement.getAttribute("x"));
+                    float y = Float.parseFloat(blockElement.getAttribute("y"));
+                    float deg = Float.parseFloat(blockElement.getAttribute("deg"));
+                    float sclX = Float.parseFloat(blockElement.getAttribute("sclX"));
+                    float sclY = Float.parseFloat(blockElement.getAttribute("sclY"));
+                    Type type = Type.valueOf(blockElement.getAttribute("type"));
+                    bundle.blocks[i] = new Block();
+                    bundle.blocks[i].x = x;
+                    bundle.blocks[i].y = y;
+                    bundle.blocks[i].deg = deg;
+                    bundle.blocks[i].sclX = sclX;
+                    bundle.blocks[i].sclY = sclY;
+                    bundle.blocks[i].type = type;
+                }
+
+                BUNDLES_SIDE_VIEW.add(bundle);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
     private final TexturePack atlas;
 
@@ -39,29 +148,27 @@ public class Tool_5_Architecture extends Tool_new {
     private View currentView;
 
     private float spacing = 1.0f;
-    private Race race = Race.ELF;
+    private Race race = Race.DWARF;
     private final Set<Token> tokensToDelete = new HashSet<>();
     private final Array<Token> tokensPreview = new Array<>();
     private final Array<Token> alreadyCreatedTokens = new Array<>();
     private boolean angleFollowPath = true;
     private boolean fillShape = false;
     private boolean procedural = true;
+    private boolean bundleModeOn = false;
 
     // point mode
     private boolean dragged = false;
     private final Vector2 point_lastSpawnPoint = new Vector2();
+    private final Array<Tuple2<Vector2, Float>> point_debugTokens = new Array<>();
 
     // line mode
-    private boolean line_free = true;
-    private final Vector2 line_start = new Vector2();
-    private final Vector2 line_end = new Vector2();
 
     // circle mode
-    private float circle_spreadRadius = 200;
 
     // polygon mode
 
-    public Tool_5_Architecture(final RPGMapMakerScene scene) {
+    public Tool_5_Architecture_Bundles(final RPGMapMakerScene scene) {
         super(scene);
         atlas = Assets.get("assets/texture-packs/layer_3.yml");
         sclX = 1f / 3;
@@ -71,8 +178,6 @@ public class Tool_5_Architecture extends Tool_new {
         currentMode = Tool.Mode.ADD;
         currentShape = Tool.Shape.POINT;
         currentView = View.ISOMETRIC_VIEW;
-
-        Utils.countVariations(atlas, "assets/textures-layer-3/architecture_dwarf_top_view_tower");
     }
 
     private float getDiscreteAngle(float angle) {
@@ -111,48 +216,21 @@ public class Tool_5_Architecture extends Tool_new {
     }
 
     protected float getProceduralSpacing() {
-        if (currentView == View.ISOMETRIC_VIEW) return 38 * spacing * Math.abs(sclX);
+        if (currentShape == Tool.Shape.POINT && currentView == View.ISOMETRIC_VIEW && !bundleModeOn) return 38 * spacing * Math.abs(sclX);
+        if (currentShape == Tool.Shape.POINT && currentView == View.ISOMETRIC_VIEW && bundleModeOn) return 90 * spacing * Math.abs(sclX);
         return 38 * spacing * Math.abs(sclX); // TODO: for now, this is hard-coded.
     }
 
-    private TextureRegion getRegion() {
-
-        return null;
-    }
-
-    private TextureRegion getRegion_tower() {
-        if (currentView == View.SIDE_VIEW) {
-            String race = this.race.name().toLowerCase();
-            String prefix = "assets/textures-layer-3/architecture_" + race + "_" + View.SIDE_VIEW.name().toLowerCase() + "_";
-            String middle = "tower_" + (MathUtils.randomUniformInt(0, 2) == 1 ? "big" : "small");
-            int variations = Utils.countVariations(atlas, prefix + middle);
-            String suffix = "_" + MathUtils.randomUniformInt(0, variations) + ".png";
-            return atlas.getRegion(prefix + middle + suffix);
-        }
-
-        if (currentView == View.ISOMETRIC_VIEW) {
-            String race = this.race.name().toLowerCase();
-            String prefix = "assets/textures-layer-3/architecture_" + race + "_" + View.ISOMETRIC_VIEW.name().toLowerCase() + "_";
-            boolean tall = MathUtils.randomUniformInt(0,2) == 1;
-            String middle = "tower_" + (tall ? "tall" : "short");
-            String suffix = "_" + MathUtils.randomUniformInt(0,6) + ".png";
-            return atlas.getRegion(prefix + middle + suffix);
-        }
-
-        return null;
-    }
-
-    private TextureRegion getRegion_sideBlock() {
-        String race = this.race.name().toLowerCase();
-        String prefix = "assets/textures-layer-3/architecture_" + race + "_" + View.SIDE_VIEW.name().toLowerCase() + "_";
-        String middle = "block_" + (MathUtils.randomUniformInt(0, 2) == 1 ? "big" : "small");
-        String suffix = "_" + MathUtils.randomUniformInt(0, Utils.countVariations(atlas, prefix + middle)) + ".png";
+    private TextureRegion getRegion_isometricTower() {
+        String prefix = "assets/textures-layer-3/architecture_" + race.name().toLowerCase() + "_" + currentView.name().toLowerCase() + "_";
+        boolean tall = MathUtils.randomUniformInt(0,2) == 1;
+        String middle = "tower_" + (tall ? "tall" : "short");
+        String suffix = "_" + MathUtils.randomUniformInt(0,6) + ".png";
         return atlas.getRegion(prefix + middle + suffix);
     }
 
     private TextureRegion getRegion_isometricHouse(int angleIndex) {
-        String race = this.race.name().toLowerCase();
-        String prefix = "assets/textures-layer-3/architecture_" + race + "_" + View.ISOMETRIC_VIEW.name().toLowerCase() + "_";
+        String prefix = "assets/textures-layer-3/architecture_" + race.name().toLowerCase() + "_" + currentView.name().toLowerCase() + "_";
 
         String middle = "";
         if (angleIndex == 0 || angleIndex == 4) {
@@ -212,6 +290,11 @@ public class Tool_5_Architecture extends Tool_new {
         map.addCommand(createToken);
     }
 
+    private TextureRegion getBlockRegion(Block block) {
+        final String regionName = "assets/textures-layer-3/architecture_" + race.name().toLowerCase() + "_" + block.type.name().toLowerCase() + "_" + MathUtils.randomUniformInt(0,6) + ".png";
+        return atlas.getRegion(regionName);
+    }
+
     @Override
     void onChangeParameters() {
 
@@ -233,12 +316,6 @@ public class Tool_5_Architecture extends Tool_new {
         boolean sPressed = Input.keyboard.isKeyPressed(Keyboard.Key.S);
         boolean aPressed = Input.keyboard.isKeyPressed(Keyboard.Key.A);
         boolean dPressed = Input.keyboard.isKeyPressed(Keyboard.Key.D);
-        boolean zJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.Z);
-
-        if (zJustPressed) {
-            this.currentView = Collections.enumNext(currentView);
-            return;
-        }
 
         if (currentMode == Tool.Mode.SUB) {
             // TODO
@@ -246,7 +323,7 @@ public class Tool_5_Architecture extends Tool_new {
         }
 
         // add tokens
-        if (currentShape == Tool.Shape.POINT) {
+        if (currentShape == Tool.Shape.POINT && currentView == View.ISOMETRIC_VIEW && !bundleModeOn) {
             if (leftJustDown) {
                 point_lastSpawnPoint.set(x, y);
                 dragged = false;
@@ -259,21 +336,29 @@ public class Tool_5_Architecture extends Tool_new {
 
                 // spawn token and reset anchor
                 Vector2 dir = new Vector2(x - point_lastSpawnPoint.x, y - point_lastSpawnPoint.y);
-                if (currentView == View.ISOMETRIC_VIEW) {
-                    float angleDeg = getDiscreteAngle(dir.angleDeg());
-                    int angleIndex = getDiscreteAngleIndex(dir.angleDeg());
-                    TextureRegion region = getRegion_isometricHouse(angleIndex);
-                    spawnToken(region, MathUtils.randomUniformFloat(-2.5f, 2.5f), flipX(angleIndex));
-                } else if (currentView == View.SIDE_VIEW) {
-                    TextureRegion region = getRegion_sideBlock();
-                    spawnToken(region, 0, MathUtils.randomUniformInt(0,2) == 1);
-                }
+                float angleDeg = getDiscreteAngle(dir.angleDeg());
+                int angleIndex = getDiscreteAngleIndex(dir.angleDeg());
+                TextureRegion region = getRegion_isometricHouse(angleIndex);
+                spawnToken(region, MathUtils.randomUniformFloat(-2.5f,2.5f), flipX(angleIndex));
                 point_lastSpawnPoint.set(x, y);
                 return;
             } else if (leftJustUp) {
                 if (!dragged) {
-                    TextureRegion region = getRegion_tower();
+                    TextureRegion region = getRegion_isometricTower();
                     spawnToken(region, 0, MathUtils.randomUniformInt(0,2) == 1);
+                }
+            }
+        }
+        if (currentShape == Tool.Shape.POINT && currentView == View.ISOMETRIC_VIEW && bundleModeOn) {
+            if (leftJustDown) {
+                int index = MathUtils.randomUniformInt(0,12);
+                System.out.println(index);
+                Block[] blocks = BUNDLES_ISOMETRIC_VIEW.get(index).blocks;
+                for (Block block : blocks) {
+                    Vector2 offset = new Vector2(block.x, block.y);
+                    offset.rotateDeg(deg);
+                    offset.scl(sclX, sclY);
+                    spawnToken(getBlockRegion(block), x + sclX * block.x, y + sclY * block.y, block.deg + deg, sclX * block.sclX, sclY * block.sclY);
                 }
             }
         }
@@ -300,7 +385,10 @@ public class Tool_5_Architecture extends Tool_new {
         }
 
         if (currentShape == Tool.Shape.POINT) {
-
+            for (Tuple2<Vector2, Float> debugToken : point_debugTokens) {
+                renderer2D.setColor(Color.randomOpaque());
+                renderer2D.drawRectangleFilled(38, 100, debugToken.t1.x, debugToken.t1.y, debugToken.t2, 1, 1);
+            }
         }
 
         if (currentShape == Tool.Shape.LINE) {

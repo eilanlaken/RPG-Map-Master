@@ -28,7 +28,7 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
     // tools - refactor immediately after working version
     public Map map;
     public final Tool_new[] tools = new Tool_new[8];
-    public int activeToolIndex = 3;
+    public int activeToolIndex = 4;
 
     // user-interface
     private final Widget widgetHelpBar = new Widget();

@@ -40,7 +40,7 @@ public class Tool_1_Terrain extends Tool_new {
     public int liquidIndex = 1;
     public boolean randomDegree = false;
     private boolean angleFollowPath = true;
-    private boolean limitDrawingToTarget = false;
+    private boolean limitDrawingToTarget = true;
     private Color tint = Color.WHITE.clone();
 
     // point mode
