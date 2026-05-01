@@ -5,25 +5,19 @@ import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.collections.ArrayChar;
 import com.heavybox.jtix.collections.Collections;
-import com.heavybox.jtix.collections.Tuple2;
 import com.heavybox.jtix.graphics.*;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Vector2;
-import com.heavybox.jtix.z.*;
+import com.heavybox.jtix.z.CommandTokenCreate;
+import com.heavybox.jtix.z.Token;
+import com.heavybox.jtix.z.Tool;
+import com.heavybox.jtix.z.Utils;
 import org.jetbrains.annotations.NotNull;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.File;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class Tool_5_Architecture extends Tool_new {
@@ -74,7 +68,7 @@ public class Tool_5_Architecture extends Tool_new {
 
         String vertex = Assets.getFileContent("assets/shaders/default-shader.vert");
         String fragment = Assets.getFileContent("assets/shaders/default-shader.frag");
-        this.shader = new Shader(vertex, fragment);
+        //this.shader = new Shader(vertex, fragment);
     }
 
     private float getDiscreteAngle(float angle) {
@@ -123,33 +117,17 @@ public class Tool_5_Architecture extends Tool_new {
     }
 
     private TextureRegion getRegion_tower() {
-        if (currentView == View.SIDE_VIEW) {
-            String race = this.race.name().toLowerCase();
-            String prefix = "assets/textures-layer-3/architecture_" + race + "_" + View.SIDE_VIEW.name().toLowerCase() + "_";
-            String middle = "tower_" + (MathUtils.randomUniformInt(0, 2) == 1 ? "big" : "small");
-            int variations = Utils.countVariations(atlas, prefix + middle);
-            String suffix = "_" + MathUtils.randomUniformInt(0, variations) + ".png";
-            return atlas.getRegion(prefix + middle + suffix);
-        }
-
         if (currentView == View.ISOMETRIC_VIEW) {
             String race = this.race.name().toLowerCase();
             String prefix = "assets/textures-layer-3/architecture_" + race + "_" + View.ISOMETRIC_VIEW.name().toLowerCase() + "_";
             boolean tall = MathUtils.randomUniformInt(0,2) == 1;
             String middle = "tower_" + (tall ? "tall" : "short");
-            String suffix = "_" + MathUtils.randomUniformInt(0,6) + ".png";
+            int variations = Utils.countVariations(atlas, prefix + middle);
+            String suffix = "_" + MathUtils.randomUniformInt(0,variations) + ".png";
             return atlas.getRegion(prefix + middle + suffix);
         }
 
         return null;
-    }
-
-    private TextureRegion getRegion_sideBlock() {
-        String race = this.race.name().toLowerCase();
-        String prefix = "assets/textures-layer-3/architecture_" + race + "_" + View.SIDE_VIEW.name().toLowerCase() + "_";
-        String middle = "block_" + (MathUtils.randomUniformInt(0, 2) == 1 ? "big" : "small");
-        String suffix = "_" + MathUtils.randomUniformInt(0, Utils.countVariations(atlas, prefix + middle)) + ".png";
-        return atlas.getRegion(prefix + middle + suffix);
     }
 
     private TextureRegion getRegion_isometricHouse(int angleIndex) {
@@ -180,7 +158,8 @@ public class Tool_5_Architecture extends Tool_new {
             if (type == 2) middle = "hut_diagonal";
         }
 
-        String suffix = "_" + MathUtils.randomUniformInt(0,6) + ".png";
+        int variations = Utils.countVariations(atlas, prefix + middle);
+        String suffix = "_" + MathUtils.randomUniformInt(0,variations) + ".png";
 
         return atlas.getRegion(prefix + middle + suffix);
     }
@@ -273,9 +252,6 @@ public class Tool_5_Architecture extends Tool_new {
                     int angleIndex = getDiscreteAngleIndex(dir.angleDeg());
                     TextureRegion region = getRegion_isometricHouse(angleIndex);
                     spawnToken(region, MathUtils.randomUniformFloat(-2.5f, 2.5f), flipX(angleIndex));
-                } else if (currentView == View.SIDE_VIEW) {
-                    TextureRegion region = getRegion_sideBlock();
-                    spawnToken(region, 0, MathUtils.randomUniformInt(0,2) == 1);
                 }
                 point_lastSpawnPoint.set(x, y);
                 return;
@@ -402,7 +378,6 @@ public class Tool_5_Architecture extends Tool_new {
 
     public enum View {
         TOP_VIEW,
-        SIDE_VIEW,
         ISOMETRIC_VIEW
     }
 
