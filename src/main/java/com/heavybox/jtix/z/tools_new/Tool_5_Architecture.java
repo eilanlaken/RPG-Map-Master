@@ -130,6 +130,20 @@ public class Tool_5_Architecture extends Tool_new {
         return null;
     }
 
+    private TextureRegion getRegion_bridge() {
+        if (currentView == View.ISOMETRIC_VIEW) {
+            String race = this.race.name().toLowerCase();
+            String prefix = "assets/textures-layer-3/architecture_" + race + "_" + View.ISOMETRIC_VIEW.name().toLowerCase() + "_";
+            boolean tall = MathUtils.randomUniformInt(0,2) == 1;
+            String middle = "bridge";
+            int variations = Utils.countVariations(atlas, prefix + middle);
+            String suffix = "_" + MathUtils.randomUniformInt(0,variations) + ".png";
+            return atlas.getRegion(prefix + middle + suffix);
+        }
+
+        return null;
+    }
+
     private TextureRegion getRegion_isometricHouse(int angleIndex) {
         String race = this.race.name().toLowerCase();
         String prefix = "assets/textures-layer-3/architecture_" + race + "_" + View.ISOMETRIC_VIEW.name().toLowerCase() + "_";
@@ -211,6 +225,7 @@ public class Tool_5_Architecture extends Tool_new {
         boolean backspaceJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.BACKSPACE);
         boolean leftShiftJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.LEFT_SHIFT);
         boolean leftClicked = Input.mouse.isButtonClicked(Mouse.Button.LEFT);
+        boolean rightClicked = Input.mouse.isButtonClicked(Mouse.Button.RIGHT);
         boolean leftJustDown = Input.mouse.isButtonJustPressed(Mouse.Button.LEFT);
         boolean leftJustUp = Input.mouse.isButtonJustReleased(Mouse.Button.LEFT);
         boolean leftPressed = Input.mouse.isButtonPressed(Mouse.Button.LEFT);
@@ -235,6 +250,11 @@ public class Tool_5_Architecture extends Tool_new {
 
         // add tokens
         if (currentShape == Tool.Shape.POINT) {
+            if (rightClicked) {
+                TextureRegion region = getRegion_bridge();
+                spawnToken(region, 0, false);
+                return;
+            }
             if (leftJustDown) {
                 point_lastSpawnPoint.set(x, y);
                 dragged = false;
@@ -408,12 +428,6 @@ public class Tool_5_Architecture extends Tool_new {
         TOP_VIEW_TOWER,
         TOP_VIEW_WALL,
 
-        SIDE_VIEW_BLOCK_SMALL,
-        SIDE_VIEW_BLOCK_BIG,
-        SIDE_VIEW_BRIDGE,
-        SIDE_VIEW_TOWER_SMALL,
-        SIDE_VIEW_TOWER_BIG,
-
         ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT,
         ISOMETRIC_VIEW_HOUSE_DIAGONAL_TALL,
         ISOMETRIC_VIEW_HOUSE_HORIZONTAL_SHORT,
@@ -424,8 +438,7 @@ public class Tool_5_Architecture extends Tool_new {
         ISOMETRIC_VIEW_HUT_VERTICAL,
         ISOMETRIC_VIEW_TOWER_SHORT,
         ISOMETRIC_VIEW_TOWER_TALL,
-        ISOMETRIC_VIEW_WALL_BACK,
-        ISOMETRIC_VIEW_WALL_FRONT,
+        ISOMETRIC_VIEW_BRIDGE,
         ;
 
         public Type getNextView() {
