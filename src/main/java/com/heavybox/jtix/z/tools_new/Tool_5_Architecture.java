@@ -31,7 +31,7 @@ public class Tool_5_Architecture extends Tool_new {
     private View currentView;
 
     private float spacing = 1.0f;
-    private Race race = Race.DWARF;
+    private Race race = Race.ELF;
     private final Set<Token> tokensToDelete = new HashSet<>();
     private final Array<Token> tokensPreview = new Array<>();
     private final Array<Token> alreadyCreatedTokens = new Array<>();
