@@ -17,12 +17,12 @@ import com.heavybox.jtix.z.Tool;
 import com.heavybox.jtix.z.Utils;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 
 public class Tool_5_Architecture extends Tool_new {
 
-    private Shader shader;
     private final TexturePack atlas;
 
     // global state
@@ -63,12 +63,6 @@ public class Tool_5_Architecture extends Tool_new {
         currentMode = Tool.Mode.ADD;
         currentShape = Tool.Shape.POINT;
         currentView = View.ISOMETRIC_VIEW;
-
-        Utils.countVariations(atlas, "assets/textures-layer-3/architecture_dwarf_top_view_tower");
-
-        String vertex = Assets.getFileContent("assets/shaders/default-shader.vert");
-        String fragment = Assets.getFileContent("assets/shaders/default-shader.frag");
-        //this.shader = new Shader(vertex, fragment);
     }
 
     private float getDiscreteAngle(float angle) {
@@ -209,14 +203,81 @@ public class Tool_5_Architecture extends Tool_new {
         tint.b = 1 + MathUtils.randomUniformFloat(-0.05f, 0.0f);
         tint.a = 1;
         createToken.tint = tint;
-        createToken.shader = shader;
         createToken.tokenType = currentView;
         map.addCommand(createToken);
     }
 
     @Override
     void onChangeParameters() {
+        refillWithTokens();
+    }
 
+    private void refillWithTokens() {
+        if (currentShape == Tool.Shape.POINT)        point_refillWithTokens();
+        else if (currentShape == Tool.Shape.CIRCLE)  circle_refillWithTokens();
+        else if (currentShape == Tool.Shape.LINE)    line_refillWithTokens();
+        else if (currentShape == Tool.Shape.POLYGON) polygon_refillWithTokens();
+    }
+
+    private void point_refillWithTokens() {}
+
+    private void line_refillWithTokens() {
+        tokensPreview.clear();
+        if (line_free) return;
+        line_end.set(x, y);
+        float length = Vector2.dst(line_start, line_end);
+        int batchCount = getBatchCountLength(length);
+        Vector2 step = new Vector2(line_end.x - line_start.x, line_end.y - line_start.y);
+        step.nor();
+        step.scl(length / batchCount);
+        for (int i = 0; i < batchCount; i++) {
+            float deg = this.deg + (!angleFollowPath ? 0 : step.angleDeg()); // calculate deg based on params.
+            int angleIndex = getDiscreteAngleIndex(deg);
+            TextureRegion region = getRegion_isometricHouse(angleIndex);
+            Token token = new Token(3, line_start.x + step.x * i, line_start.y + step.y * i, 0, flipX(angleIndex) ? -sclX : sclX, sclY, region);
+            tokensPreview.add(token);
+        }
+        if (tokensPreview.size >= 2) tokensPreview.sort(Comparator.comparingInt(o -> -(int) o.transform.y));
+    }
+
+    private void circle_refillWithTokens() {}
+    private void polygon_refillWithTokens() {}
+
+    // TODO
+    protected int getBatchCountLength(float length) {
+        float maxExtent = 100;
+        float d = spacing * maxExtent * 0.5f * Math.abs(sclX); // center spacing
+        if (d == 0) return 1;
+        return (int) (length / d);
+    }
+
+    private void spawnTokens(boolean useBrushOffset, boolean maintainMinSpacing) {
+        map.getAllTokensByType(ArchitectureEnum.ARCHITECTURE_ENUM, alreadyCreatedTokens);
+
+        float offsetX = useBrushOffset ? x : 0;
+        float offsetY = useBrushOffset ? y : 0;
+
+        for (Token token : tokensPreview) {
+            Vector2 position = new Vector2(token.transform.x + x, token.transform.y + y);
+            float minDistance = Float.POSITIVE_INFINITY;
+            for (Token mapToken : alreadyCreatedTokens) {
+                float distanceSquared = Vector2.dst2(position.x, position.y, mapToken.transform.x, mapToken.transform.y);
+                minDistance = Math.min(distanceSquared, minDistance);
+            }
+            minDistance = (float) Math.sqrt(minDistance);
+            if (minDistance < 40 * Math.abs(sclX) && maintainMinSpacing) continue;
+
+            CommandTokenCreate createToken = new CommandTokenCreate(
+                    3,
+                    token.transform.x + offsetX, token.transform.y + offsetY,
+                    token.transform.deg,
+                    token.transform.sclX, token.transform.sclY, true,
+                    token.regions
+            );
+
+            createToken.tokenType = ArchitectureEnum.ARCHITECTURE_ENUM;
+            map.addCommand(createToken);
+        }
     }
 
     @Override
@@ -245,6 +306,12 @@ public class Tool_5_Architecture extends Tool_new {
 
         if (currentMode == Tool.Mode.SUB) {
             // TODO
+            return;
+        }
+
+        if (leftShiftJustPressed) {
+            this.currentShape = Collections.enumNext(this.currentShape);
+            onChangeParameters();
             return;
         }
 
@@ -283,14 +350,30 @@ public class Tool_5_Architecture extends Tool_new {
             }
         }
 
+        // TODO
         if (currentShape == Tool.Shape.LINE) {
-
+            if (line_free) {
+                if (leftClicked) {
+                    line_start.set(x, y);
+                    refillWithTokens();
+                    line_free = false;
+                }
+            } else {
+                if (mouseMoved) refillWithTokens();
+                if (leftClicked) {
+                    spawnTokens(false, true);
+                    tokensPreview.clear();
+                    line_free = true;
+                }
+            }
         }
 
+        // TODO (with fill-shape true / false)
         if (currentShape == Tool.Shape.CIRCLE) {
 
         }
 
+        // TODO (with fill-shape true / false)
         if (currentShape == Tool.Shape.POLYGON) {
 
         }
@@ -309,7 +392,24 @@ public class Tool_5_Architecture extends Tool_new {
         }
 
         if (currentShape == Tool.Shape.LINE) {
-
+            if (line_free) {
+                renderer2D.setColor(Color.BLUE);
+                renderer2D.drawCircleThin(Math.max(12, 5), 10, x, y, 0,1,1);
+                renderer2D.setColor(Color.WHITE);
+//                for (TextureRegion region : currentRegions) {
+//                    if (region == null) continue;
+//                    renderer2D.drawTextureRegion(region, x, y, deg, sclX, sclY);
+//                }
+            } else {
+                renderer2D.setColor(Color.BLUE);
+                renderer2D.drawCircleThin(Math.max(12, 5), 10, line_start.x, line_start.y, 0,1,1);
+                renderer2D.drawLineThin(line_start.x, line_start.y, x, y);
+                renderer2D.drawCircleThin(Math.max(12, 5), 10, x, y, 0,1,1);
+                for (Token token : tokensPreview) {
+                    token.render(renderer2D);
+                }
+            }
+            return;
         }
 
         if (currentShape == Tool.Shape.CIRCLE) {
@@ -474,6 +574,10 @@ public class Tool_5_Architecture extends Tool_new {
             return null;
         }
 
+    }
+
+    public enum ArchitectureEnum {
+        ARCHITECTURE_ENUM;
     }
 
 }

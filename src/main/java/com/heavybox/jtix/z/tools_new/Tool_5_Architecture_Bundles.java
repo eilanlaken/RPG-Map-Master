@@ -31,6 +31,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@Deprecated
 public class Tool_5_Architecture_Bundles extends Tool_new {
 
     private static final Array<Bundle> BUNDLES_TOP_VIEW       = new Array<>(true, 10);

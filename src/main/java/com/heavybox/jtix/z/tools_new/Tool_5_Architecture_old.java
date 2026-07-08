@@ -17,6 +17,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
+@Deprecated
 public class Tool_5_Architecture_old extends Tool_new {
 
     private Shader shader;

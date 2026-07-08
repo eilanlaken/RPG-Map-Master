@@ -14,6 +14,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Comparator;
 
+@Deprecated
 public class Tool_5_Architecture_Bundles_DEV extends Tool_new {
 
     public Type type = Type.SIDE_VIEW_BLOCK_BIG;
