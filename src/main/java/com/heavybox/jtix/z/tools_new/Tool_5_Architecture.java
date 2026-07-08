@@ -4,12 +4,14 @@ import com.heavybox.jtix.RPGMapMakerScene;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.collections.ArrayChar;
+import com.heavybox.jtix.collections.ArrayFloat;
 import com.heavybox.jtix.collections.Collections;
 import com.heavybox.jtix.graphics.*;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.MathUtils;
+import com.heavybox.jtix.math.Shape2DPolygon;
 import com.heavybox.jtix.math.Vector2;
 import com.heavybox.jtix.z.CommandTokenCreate;
 import com.heavybox.jtix.z.Token;
@@ -52,6 +54,13 @@ public class Tool_5_Architecture extends Tool_new {
     private float circle_spreadRadius = 200;
 
     // polygon mode
+    private boolean polygon_fill = false;
+    private boolean polygon_free = true;
+    private final Array<Vector2> polygon_points = new Array<>(true, 10);
+    private final ArrayFloat polygon_flatTmp = new ArrayFloat(true, 10);
+    private final Vector2 polygon_BottomLeft = new Vector2();
+    private final Vector2 polygon_TopRight = new Vector2();
+    private Shape2DPolygon polygon_shape;
 
     public Tool_5_Architecture(final RPGMapMakerScene scene) {
         super(scene);
@@ -240,15 +249,150 @@ public class Tool_5_Architecture extends Tool_new {
         if (tokensPreview.size >= 2) tokensPreview.sort(Comparator.comparingInt(o -> -(int) o.transform.y));
     }
 
-    private void circle_refillWithTokens() {}
-    private void polygon_refillWithTokens() {}
+    private void circle_refillWithTokens() {
+        tokensPreview.clear();
+        if (fillShape) {
+            int batchCount = getBatchCountArea(MathUtils.PI * circle_spreadRadius * circle_spreadRadius);
+            for (int i = 0; i < batchCount; i++) {
+                float r = circle_spreadRadius * MathUtils.randomUniformFloat(0,1);
+                float angle = MathUtils.randomUniformFloat(0,360);
+                float offsetX = MathUtils.cosDeg(angle) * r;
+                float offsetY = MathUtils.sinDeg(angle) * r;
 
-    // TODO
+                // filter against added tokens
+                Vector2 position = new Vector2(offsetX, offsetY);
+                float minDistance = Float.POSITIVE_INFINITY;
+                for (Token mapToken : tokensPreview) {
+                    float distanceSquared = Vector2.dst2(position.x, position.y, mapToken.transform.x, mapToken.transform.y);
+                    minDistance = Math.min(distanceSquared, minDistance);
+                }
+                minDistance = (float) Math.sqrt(minDistance);
+                if (minDistance < 100) continue;
+
+                float deg = this.deg + (angle + 90);
+                int angleIndex = getDiscreteAngleIndex(deg);
+                TextureRegion region = getRegion_isometricHouse(angleIndex);
+                Token token = new Token(3, offsetX, offsetY, 0, flipX(angleIndex) ? -sclX : sclX, sclY, region);
+                tokensPreview.add(token);
+            }
+        } else {
+            int batchCount = getBatchCountLength(2 * MathUtils.PI * circle_spreadRadius);
+            for (int i = 0; i < batchCount; i++) {
+                float angle = (360f / batchCount) * i;
+                float offsetX = MathUtils.cosDeg(angle) * circle_spreadRadius;
+                float offsetY = MathUtils.sinDeg(angle) * circle_spreadRadius;
+                float deg = this.deg + (angle + 90);
+                int angleIndex = getDiscreteAngleIndex(deg);
+                TextureRegion region = getRegion_isometricHouse(angleIndex);
+                Token token = new Token(3, offsetX, offsetY, 0, flipX(angleIndex) ? -sclX : sclX, sclY, region);
+                tokensPreview.add(token);
+            }
+        }
+
+        if (tokensPreview.size >= 2) tokensPreview.sort(Comparator.comparingInt(o -> -(int) o.transform.y));
+    }
+
+    private void polygon_refillWithTokens() {
+        tokensPreview.clear();
+        if (polygon_points.isEmpty()) return;
+
+        if (fillShape) {
+            if (polygon_points.size <= 1) return;
+
+            Utils.polygonConvertToArrayFloat(polygon_flatTmp, polygon_points);
+            polygon_flatTmp.add(x,y);
+            Utils.polygonCalculateBoundingBox(polygon_flatTmp, polygon_BottomLeft, polygon_TopRight);
+            float width  = polygon_TopRight.x - polygon_BottomLeft.x;
+            float height = polygon_TopRight.y - polygon_BottomLeft.y;
+            float area = Math.abs(width * height);
+            float ratio = width / height;
+            int batchCount = getBatchCountArea(area);
+
+            float cellArea = area / batchCount;
+            float step = (float)Math.sqrt(cellArea) * 1;
+
+            float minX = polygon_BottomLeft.x;
+            float minY = polygon_BottomLeft.y;
+
+            float maxX = polygon_TopRight.x;
+            float maxY = polygon_TopRight.y;
+
+            float startX = minX + step * 0.5f;
+            float startY = minY + step * 0.5f;
+            float posY = startY;
+
+            if (polygon_shape == null) {
+                polygon_shape = new Shape2DPolygon(polygon_flatTmp);
+            } else {
+                polygon_shape.setPoints(polygon_flatTmp);
+            }
+            Vector2 field = new Vector2();
+
+            while (posY <= maxY) {
+                float posX = startX;
+                while (posX <= maxX) {
+                    if (MathUtils.polygonContainsPoint(polygon_flatTmp, posX, posY)) {
+                        field.set(posX, posY);
+                        float angle = deg + (angleFollowPath ? Utils.getDirectionRough(field, polygon_shape) : 0);
+                        int angleIndex = getDiscreteAngleIndex(angle);
+                        TextureRegion region = getRegion_isometricHouse(angleIndex);
+                        Token token = new Token(3, posX, posY, 0, flipX(angleIndex) ? -sclX : sclX, sclY, region);
+                        tokensPreview.add(token);
+                    }
+                    posX += step;
+                }
+                posY += step;
+            }
+
+        } else {
+            for (int i = 0; i < polygon_points.size - 1; i++) {
+                Vector2 start = polygon_points.get(i);
+                Vector2 end = polygon_points.get(i+1);
+                float length = Vector2.dst(start, end);
+                int batchCount = getBatchCountLength(length);
+                Vector2 step = new Vector2(end.x - start.x, end.y - start.y);
+                step.nor();
+                step.scl(length / batchCount);
+                for (int j = 0; j < batchCount; j++) {
+                    float deg = this.deg + step.angleDeg(); // calculate deg based on params.
+                    int angleIndex = getDiscreteAngleIndex(deg);
+                    TextureRegion region = getRegion_isometricHouse(angleIndex);
+                    Token token = new Token(3, start.x + step.x * j, start.y + step.y * j, 0, flipX(angleIndex) ? -sclX : sclX, sclY, region);
+                    tokensPreview.add(token);
+                }
+            }
+            // add last line segment
+            Vector2 start = polygon_points.last();
+            Vector2 end = new Vector2(x,y);
+            float length = Vector2.dst(start, end);
+            int batchCount = getBatchCountLength(length);
+            Vector2 step = new Vector2(end.x - start.x, end.y - start.y);
+            step.nor();
+            step.scl(length / batchCount);
+            for (int j = 0; j < batchCount; j++) {
+                float deg = this.deg + step.angleDeg(); // calculate deg based on params.
+                int angleIndex = getDiscreteAngleIndex(deg);
+                TextureRegion region = getRegion_isometricHouse(angleIndex);
+                Token token = new Token(3, start.x + step.x * j, start.y + step.y * j, 0, flipX(angleIndex) ? -sclX : sclX, sclY, region);
+                tokensPreview.add(token);
+            }
+        }
+
+        if (tokensPreview.size >= 2) tokensPreview.sort(Comparator.comparingInt(o -> -(int) o.transform.y));
+    }
+
     protected int getBatchCountLength(float length) {
         float maxExtent = 100;
         float d = spacing * maxExtent * 0.5f * Math.abs(sclX); // center spacing
         if (d == 0) return 1;
         return (int) (length / d);
+    }
+
+    protected int getBatchCountArea(float area) {
+        float maxExtent = 100;
+        float d = spacing * maxExtent * 0.5f * Math.abs(sclX); // center spacing
+        if (d == 0) return 1;
+        return (int) (area / (d * d));
     }
 
     private void spawnTokens(boolean useBrushOffset, boolean maintainMinSpacing) {
@@ -370,12 +514,42 @@ public class Tool_5_Architecture extends Tool_new {
 
         // TODO (with fill-shape true / false)
         if (currentShape == Tool.Shape.CIRCLE) {
-
+            if (leftClicked || leftPressedAndMoved) {
+                spawnTokens(true, true);
+                refillWithTokens();
+                return;
+            }
+            return;
         }
 
         // TODO (with fill-shape true / false)
         if (currentShape == Tool.Shape.POLYGON) {
+            if (polygon_free) {
+                if (leftClicked) {
+                    polygon_points.add(new Vector2(x, y));
+                    polygon_free = false;
+                }
+                return;
+            } else {
+                if (mouseMoved) refillWithTokens();
+                else if (leftClicked) {
+                    Vector2 p = new Vector2(x, y); // need to test intersections etc.
 
+                    if (polygon_points.size <= 2) {
+                        polygon_points.add(p);
+                        return;
+                    }
+
+                    if (Vector2.dst(p, polygon_points.first()) <= 20) {
+                        spawnTokens(false, false);
+                        tokensPreview.clear();
+                        polygon_points.clear();
+                        polygon_free = true;
+                    } else {
+                        polygon_points.add(p);
+                    }
+                }
+            }
         }
 
     }
@@ -413,11 +587,42 @@ public class Tool_5_Architecture extends Tool_new {
         }
 
         if (currentShape == Tool.Shape.CIRCLE) {
-
+            float radius = Math.abs(circle_spreadRadius);
+            renderer2D.setColor(Color.GREEN);
+            renderer2D.drawCircleThin(Math.max(radius, 5), 10, x, y, 0,1,1);
+            renderer2D.setColor(Color.WHITE);
+            for (Token token : tokensPreview) {
+                token.renderPreview(renderer2D, x, y);
+            }
+            return;
         }
 
         if (currentShape == Tool.Shape.POLYGON) {
-
+            for (Token token : tokensPreview) {
+                token.render(renderer2D);
+            }
+            if (polygon_free) {
+                renderer2D.setColor(Color.PURPLE);
+                renderer2D.drawCircleThin(Math.max(12, 5), 10, x, y, 0,1,1);
+                renderer2D.setColor(Color.WHITE);
+                //renderer2D.drawTextureRegion(region, x,y,deg,sclX,sclY);
+            } else if (!polygon_points.isEmpty()) {
+                renderer2D.setColor(Color.PURPLE);
+                renderer2D.drawCircleBorder(15, 5, 10, polygon_points.first().x, polygon_points.first().y, 0,1,1);
+                for (int i = 0; i < polygon_points.size; i++) {
+                    Vector2 p = polygon_points.get(i);
+                    renderer2D.drawCircleFilled(5, 5, p.x, p.y, 0, 1, 1);
+                }
+                renderer2D.setColor(Color.YELLOW);
+                for (int i = 0; i < polygon_points.size - 1; i++) {
+                    Vector2 p1 = polygon_points.get(i);
+                    Vector2 p2 = polygon_points.get(i + 1);
+                    renderer2D.drawLineThin(p1.x, p1.y, p2.x, p2.y);
+                }
+                renderer2D.drawLineThin(polygon_points.last().x, polygon_points.last().y, x, y);
+                renderer2D.drawLineThin(x, y, polygon_points.first().x, polygon_points.first().y);
+            }
+            return;
         }
 
         renderer2D.setColor(Color.WHITE);
