@@ -15,4 +15,9 @@ public class CommandTerrainChangeEnvironment extends Command {
         ;
     }
 
+    @Override
+    public Surface getSurface() {
+        return Surface.TERRAIN;
+    }
+
 }

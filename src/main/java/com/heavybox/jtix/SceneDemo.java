@@ -29,6 +29,7 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
     public Map map;
     public final Tool_new[] tools = new Tool_new[8];
     public int activeToolIndex = 4;
+    public int activeLayerIndex = 1;
 
     // user-interface
     private final Widget widgetHelpBar = new Widget();
@@ -280,6 +281,11 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
     }
 
     @Override
+    public int getActiveLayerIndex() {
+        return activeLayerIndex;
+    }
+
+    @Override
     public boolean active() {
         return true;
     }
@@ -292,6 +298,15 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
 
     @Override
     public boolean keyboardKeysJustPressed(@NotNull Array<Keyboard.Key> keys) {
+        if (keys.contains(Keyboard.Key.PAGE_UP, true)) {
+            activeLayerIndex++;
+            System.out.println("Layer: " + activeLayerIndex);
+            return true;
+        } else if (keys.contains(Keyboard.Key.PAGE_DOWN, true)) {
+            activeLayerIndex = Math.max(1, --activeLayerIndex);
+            System.out.println("Layer: " + activeLayerIndex);
+            return true;
+        }
         if (keys.contains(Keyboard.Key.KEY_1, true)) {
             selectTool(0);
         } else if (keys.contains(Keyboard.Key.KEY_2, true)) {

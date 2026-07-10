@@ -50,9 +50,9 @@ public class WidgetNodeStatisticsBar extends WidgetNodeContainerHorizontal {
 
     @Override
     public void fixedUpdateContainer(float delta) {
-        if (this.map.layer3.allTokens.size != objectCountPrev) {
-            objectCountPrev = this.map.layer3.allTokens.size;
-            objectCount.text = "Objects: " + this.map.layer3.allTokens.size + " |";
+        if (this.map.mapSurface_1_tokens.allTokens.size != objectCountPrev) {
+            objectCountPrev = this.map.mapSurface_1_tokens.allTokens.size;
+            objectCount.text = "Objects: " + this.map.mapSurface_1_tokens.allTokens.size + " |";
         }
 
         if (Input.mouse.moved()) {

@@ -163,7 +163,7 @@ public class Tool_4_Props extends Tool_new {
         tokensPreview.clear();
         float deg = this.deg + MathUtils.randomUniformFloat(-randomAngleOffset, randomAngleOffset);
         sclX *= -1;
-        Token token = new Token(3, 0, 0, deg, sclX,sclY, getRegions());
+        Token token = new Token(scene.getActiveLayerIndex(), 0, 0, deg, sclX,sclY, getRegions());
         String category = allSets.get(currentAssetIndex);
         currentAssetVariationIndex = MathUtils.randomUniformInt(0, regionSets.get(category).size);
         tokensPreview.add(token);
@@ -191,7 +191,7 @@ public class Tool_4_Props extends Tool_new {
                 if (minDistance < getMinSpacing()) continue;
 
                 float deg = this.deg + (!angleFollowPath ? 0 : angle + 90);
-                Token token = new Token(3, offsetX, offsetY, deg, sclX, sclY, getRegions());
+                Token token = new Token(scene.getActiveLayerIndex(), offsetX, offsetY, deg, sclX, sclY, getRegions());
                 tokensPreview.add(token);
             }
         } else {
@@ -201,7 +201,7 @@ public class Tool_4_Props extends Tool_new {
                 float offsetX = MathUtils.cosDeg(angle) * circle_spreadRadius;
                 float offsetY = MathUtils.sinDeg(angle) * circle_spreadRadius;
                 float deg = this.deg + (!angleFollowPath ? 0 : angle + 90);
-                Token token = new Token(3, offsetX, offsetY, deg, sclX, sclY, getRegions());
+                Token token = new Token(scene.getActiveLayerIndex(), offsetX, offsetY, deg, sclX, sclY, getRegions());
                 tokensPreview.add(token);
             }
         }
@@ -219,7 +219,7 @@ public class Tool_4_Props extends Tool_new {
         step.scl(length / batchCount);
         for (int i = 0; i < batchCount; i++) {
             float deg = this.deg + (!angleFollowPath ? 0 : step.angleDeg()); // calculate deg based on params.
-            Token token = new Token(3, line_start.x + step.x * i, line_start.y + step.y * i, deg, sclX, sclY, getRegions());
+            Token token = new Token(scene.getActiveLayerIndex(), line_start.x + step.x * i, line_start.y + step.y * i, deg, sclX, sclY, getRegions());
             tokensPreview.add(token);
         }
         if (tokensPreview.size >= 2) tokensPreview.sort(Comparator.comparingInt(o -> -(int) o.transform.y));
@@ -268,7 +268,7 @@ public class Tool_4_Props extends Tool_new {
                     if (MathUtils.polygonContainsPoint(polygon_flatTmp, posX, posY)) {
                         field.set(posX, posY);
                         float angle = deg + (angleFollowPath ? Utils.getDirectionRough(field, polygon_shape) : 0);
-                        Token token = new Token(3, posX, posY, angle, sclX, sclY, getRegions());
+                        Token token = new Token(scene.getActiveLayerIndex(), posX, posY, angle, sclX, sclY, getRegions());
                         tokensPreview.add(token);
                     }
                     posX += step;
@@ -287,7 +287,7 @@ public class Tool_4_Props extends Tool_new {
                 step.scl(length / batchCount);
                 for (int j = 0; j < batchCount; j++) {
                     float deg = this.deg + (!angleFollowPath ? 0 : step.angleDeg()); // calculate deg based on params.
-                    Token token = new Token(3, start.x + step.x * j, start.y + step.y * j, deg, sclX, sclY, getRegions());
+                    Token token = new Token(scene.getActiveLayerIndex(), start.x + step.x * j, start.y + step.y * j, deg, sclX, sclY, getRegions());
                     tokensPreview.add(token);
                 }
             }
@@ -301,7 +301,7 @@ public class Tool_4_Props extends Tool_new {
             step.scl(length / batchCount);
             for (int j = 0; j < batchCount; j++) {
                 float deg = this.deg + (!angleFollowPath ? 0 : step.angleDeg()); // calculate deg based on params.
-                Token token = new Token(3, start.x + step.x * j, start.y + step.y * j, deg, sclX, sclY, getRegions());
+                Token token = new Token(scene.getActiveLayerIndex(), start.x + step.x * j, start.y + step.y * j, deg, sclX, sclY, getRegions());
                 tokensPreview.add(token);
             }
         }
@@ -354,7 +354,7 @@ public class Tool_4_Props extends Tool_new {
             if (minDistance < getMinSpacing() && maintainMinSpacing) continue;
 
             CommandTokenCreate createToken = new CommandTokenCreate(
-                    3,
+                    scene.getActiveLayerIndex(),
                     token.transform.x + offsetX, token.transform.y + offsetY,
                     token.transform.deg,
                     token.transform.sclX, token.transform.sclY, true,

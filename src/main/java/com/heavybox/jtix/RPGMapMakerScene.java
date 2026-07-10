@@ -7,6 +7,7 @@ public interface RPGMapMakerScene {
 
     Camera getCamera();
     Map getMap();
+    int getActiveLayerIndex();
 
     void undo();
     void redo();

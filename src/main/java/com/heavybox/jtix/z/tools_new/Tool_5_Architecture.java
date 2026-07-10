@@ -183,7 +183,7 @@ public class Tool_5_Architecture extends Tool_new {
 
     private void spawnToken(TextureRegion region, float x, float y, float deg, float sclX, float sclY) {
         CommandTokenCreate createToken = new CommandTokenCreate(
-                3,
+                scene.getActiveLayerIndex(),
                 x, y,
                 deg,
                 sclX, sclY,
@@ -197,7 +197,7 @@ public class Tool_5_Architecture extends Tool_new {
 
     private void spawnToken(TextureRegion region, float deg, boolean flipX) {
         CommandTokenCreate createToken = new CommandTokenCreate(
-                3,
+                scene.getActiveLayerIndex(),
                 x, y,
                 deg,
                 flipX ? -sclX : sclX,
@@ -243,7 +243,7 @@ public class Tool_5_Architecture extends Tool_new {
             float deg = this.deg + (!angleFollowPath ? 0 : step.angleDeg()); // calculate deg based on params.
             int angleIndex = getDiscreteAngleIndex(deg);
             TextureRegion region = getRegion_isometricHouse(angleIndex);
-            Token token = new Token(3, line_start.x + step.x * i, line_start.y + step.y * i, 0, flipX(angleIndex) ? -sclX : sclX, sclY, region);
+            Token token = new Token(scene.getActiveLayerIndex(), line_start.x + step.x * i, line_start.y + step.y * i, 0, flipX(angleIndex) ? -sclX : sclX, sclY, region);
             tokensPreview.add(token);
         }
         if (tokensPreview.size >= 2) tokensPreview.sort(Comparator.comparingInt(o -> -(int) o.transform.y));
@@ -272,7 +272,7 @@ public class Tool_5_Architecture extends Tool_new {
                 float deg = this.deg + (angle + 90);
                 int angleIndex = getDiscreteAngleIndex(deg);
                 TextureRegion region = getRegion_isometricHouse(angleIndex);
-                Token token = new Token(3, offsetX, offsetY, 0, flipX(angleIndex) ? -sclX : sclX, sclY, region);
+                Token token = new Token(scene.getActiveLayerIndex(), offsetX, offsetY, 0, flipX(angleIndex) ? -sclX : sclX, sclY, region);
                 tokensPreview.add(token);
             }
         } else {
@@ -284,7 +284,7 @@ public class Tool_5_Architecture extends Tool_new {
                 float deg = this.deg + (angle + 90);
                 int angleIndex = getDiscreteAngleIndex(deg);
                 TextureRegion region = getRegion_isometricHouse(angleIndex);
-                Token token = new Token(3, offsetX, offsetY, 0, flipX(angleIndex) ? -sclX : sclX, sclY, region);
+                Token token = new Token(scene.getActiveLayerIndex(), offsetX, offsetY, 0, flipX(angleIndex) ? -sclX : sclX, sclY, region);
                 tokensPreview.add(token);
             }
         }
@@ -336,7 +336,7 @@ public class Tool_5_Architecture extends Tool_new {
                         float angle = deg + (angleFollowPath ? Utils.getDirectionRough(field, polygon_shape) : 0);
                         int angleIndex = getDiscreteAngleIndex(angle);
                         TextureRegion region = getRegion_isometricHouse(angleIndex);
-                        Token token = new Token(3, posX, posY, 0, flipX(angleIndex) ? -sclX : sclX, sclY, region);
+                        Token token = new Token(scene.getActiveLayerIndex(), posX, posY, 0, flipX(angleIndex) ? -sclX : sclX, sclY, region);
                         tokensPreview.add(token);
                     }
                     posX += step;
@@ -357,7 +357,7 @@ public class Tool_5_Architecture extends Tool_new {
                     float deg = this.deg + step.angleDeg(); // calculate deg based on params.
                     int angleIndex = getDiscreteAngleIndex(deg);
                     TextureRegion region = getRegion_isometricHouse(angleIndex);
-                    Token token = new Token(3, start.x + step.x * j, start.y + step.y * j, 0, flipX(angleIndex) ? -sclX : sclX, sclY, region);
+                    Token token = new Token(scene.getActiveLayerIndex(), start.x + step.x * j, start.y + step.y * j, 0, flipX(angleIndex) ? -sclX : sclX, sclY, region);
                     tokensPreview.add(token);
                 }
             }
@@ -373,7 +373,7 @@ public class Tool_5_Architecture extends Tool_new {
                 float deg = this.deg + step.angleDeg(); // calculate deg based on params.
                 int angleIndex = getDiscreteAngleIndex(deg);
                 TextureRegion region = getRegion_isometricHouse(angleIndex);
-                Token token = new Token(3, start.x + step.x * j, start.y + step.y * j, 0, flipX(angleIndex) ? -sclX : sclX, sclY, region);
+                Token token = new Token(scene.getActiveLayerIndex(), start.x + step.x * j, start.y + step.y * j, 0, flipX(angleIndex) ? -sclX : sclX, sclY, region);
                 tokensPreview.add(token);
             }
         }
@@ -412,7 +412,7 @@ public class Tool_5_Architecture extends Tool_new {
             if (minDistance < 40 * Math.abs(sclX) && maintainMinSpacing) continue;
 
             CommandTokenCreate createToken = new CommandTokenCreate(
-                    3,
+                    scene.getActiveLayerIndex(),
                     token.transform.x + offsetX, token.transform.y + offsetY,
                     token.transform.deg,
                     token.transform.sclX, token.transform.sclY, true,

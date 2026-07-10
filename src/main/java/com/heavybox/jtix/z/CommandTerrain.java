@@ -17,4 +17,8 @@ public class CommandTerrain extends Command {
         super(0, x, y,deg, sclX, sclY, anchor);
     }
 
+    @Override
+    public Surface getSurface() {
+        return Surface.TERRAIN;
+    }
 }

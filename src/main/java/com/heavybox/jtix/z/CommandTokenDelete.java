@@ -9,4 +9,9 @@ public class CommandTokenDelete extends Command {
         this.type = type;
     }
 
+    @Override
+    public Surface getSurface() {
+        return Surface.TOKENS;
+    }
+
 }

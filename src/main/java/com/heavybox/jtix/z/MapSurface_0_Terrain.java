@@ -3,18 +3,13 @@ package com.heavybox.jtix.z;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.graphics.*;
-import com.heavybox.jtix.math.MathUtils;
-import com.heavybox.jtix.z.Tool;
-import com.heavybox.jtix.z.ToolBrush_Terrain;
 import com.heavybox.jtix.z.tools_new.Tool_1_Terrain;
 import com.heavybox.jtix.z.tools_new.Tool_new;
 import org.lwjgl.opengl.GL11;
 
-import java.util.Arrays;
-
 import static org.lwjgl.opengl.GL11.*;
 
-public class MapLayerLevel_0_Terrain implements MapLayerLevel {
+public class MapSurface_0_Terrain implements MapSurface {
 
     public int width, height;
 
@@ -46,7 +41,7 @@ public class MapLayerLevel_0_Terrain implements MapLayerLevel {
     private final Array<CommandTerrain> commandsGround = new Array<>(true, 100);
     private final Array<CommandTerrain> commandsLiquid = new Array<>(true, 100);
 
-    public MapLayerLevel_0_Terrain(int width, int height) {
+    public MapSurface_0_Terrain(int width, int height) {
         this.width = width;
         this.height = height;
 

@@ -10,7 +10,7 @@ import java.util.Comparator;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
 
-public class MapLayerLevel_1_Tokens implements MapLayerLevel {
+public class MapSurface_1_Tokens implements MapSurface {
 
     // DEBUGGING
     private boolean changed = false;
@@ -20,7 +20,7 @@ public class MapLayerLevel_1_Tokens implements MapLayerLevel {
     public final Array<Token> allTokens = new Array<>(false, 10); // TODO: maybe refactor to be member of Map
     public final Camera camera;
 
-    public MapLayerLevel_1_Tokens(int width, int height) {
+    public MapSurface_1_Tokens(int width, int height) {
         layer3 = new FrameBuffer(width, height);
         camera = new Camera(Camera.Mode.ORTHOGRAPHIC, width, height, 1, 0, 100, 75);
     }
@@ -67,11 +67,12 @@ public class MapLayerLevel_1_Tokens implements MapLayerLevel {
         GL11.glClearColor(0,0,0,0);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
         renderer2D.begin(camera);
-        // TODO
         renderer2D.blendingSet(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-        //renderer2D.setBlending(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA); // TODO: test);
-        //renderer2D.setBlending(GL11.GL_ONE, GL11.GL_ONE_MINUS_SRC_ALPHA); // wrong for sure
-        allTokens.sort(Comparator.comparingInt(o -> -(int) o.transform.y));
+        //allTokens.sort(Comparator.comparingInt(o -> -(int) o.transform.y));
+        allTokens.sort(Comparator
+                .comparingInt((Token o) -> o.layer) // sort by layers first
+                .thenComparingInt(o -> -(int) o.transform.y) // sort by transform
+        );
         for (Token token : allTokens) {
             token.render(renderer2D);
         }

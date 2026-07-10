@@ -15,4 +15,13 @@ public abstract class Command {
         this.sclY = sclY;
         this.anchor = anchor;
     }
+
+    public abstract Surface getSurface();
+
+    public enum Surface {
+        TERRAIN,
+        TOKENS,
+        ;
+    }
+
 }

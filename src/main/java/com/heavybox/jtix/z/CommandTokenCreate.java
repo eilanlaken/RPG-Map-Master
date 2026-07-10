@@ -19,4 +19,9 @@ public class CommandTokenCreate extends Command {
         this.regions = Arrays.stream(regions).filter(Objects::nonNull).toArray(TextureRegion[]::new);
     }
 
+    @Override
+    public Surface getSurface() {
+        return Surface.TOKENS;
+    }
+
 }
