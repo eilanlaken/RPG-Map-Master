@@ -1,5 +1,7 @@
 package com.heavybox.jtix;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.heavybox.jtix.application.Scene;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.collections.Array;
@@ -18,6 +20,10 @@ import org.lwjgl.opengl.GL11;
 // contact points polygon vs polygon:
 // https://www.youtube.com/watch?v=5gDC1GU3Ivg
 public class SceneDemo implements Scene, RPGMapMakerScene {
+
+    // dev save and load
+    public final String saveDirectory = "assets/dev-saved-files";
+    public final String saveFile = "save_1";
 
     public static int width = 2880;
     public static int height = 2880; //1620;
@@ -267,7 +273,15 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
 
     @Override
     public void saveAs(String path) {
-
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String text = gson.toJson(map.serialize());
+        try {
+            Assets.saveFile(saveDirectory, saveFile, text);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return;
+        }
+        System.out.println("Saved to: ");
     }
 
     @Override
@@ -298,6 +312,10 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
 
     @Override
     public boolean keyboardKeysJustPressed(@NotNull Array<Keyboard.Key> keys) {
+        if (keys.contains(Keyboard.Key.END, true)) {
+            saveAs("path");
+            return true;
+        }
         if (keys.contains(Keyboard.Key.PAGE_UP, true)) {
             activeLayerIndex++;
             System.out.println("Layer: " + activeLayerIndex);

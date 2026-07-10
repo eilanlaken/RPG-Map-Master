@@ -1,5 +1,8 @@
 package com.heavybox.jtix.z;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.graphics.*;
 import org.lwjgl.opengl.GL11;
@@ -188,6 +191,14 @@ public class Map {
         } catch (Exception e) {
 
         }
+    }
+
+    public JsonElement serialize() {
+        JsonObject json = new JsonObject();
+        JsonArray commands = new JsonArray();
+        for (Command command : commandsHistory) commands.add(command.serialize());
+        json.add("commands", commands);
+        return json;
     }
 
 }

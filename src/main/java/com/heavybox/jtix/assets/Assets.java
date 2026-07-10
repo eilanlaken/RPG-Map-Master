@@ -393,13 +393,18 @@ public final class Assets {
 
     public static void saveFile(final String directory, final String filename, final String content) throws IOException {
         if (!directoryExists(directory)) throw new AssetsException("Directory: " + directory + " does not exist.");
-        String filePath = directory + File.separator + filename;
-        File file = new File(filePath);
-        FileWriter fileWriter = new FileWriter(file, false);
-        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-        bufferedWriter.write(content);
-        bufferedWriter.close();
-        fileWriter.close();
+        File file = new File(directory, filename);
+        try (FileWriter writer = new FileWriter(file,false)) {
+            writer.write(content);
+        }
+    }
+
+    public static void saveFile(final String path, final String content) {
+        try (FileWriter writer = new FileWriter(path, false)) {
+            writer.write(content);
+        } catch (IOException e) {
+            throw new AssetsException(e.getMessage());
+        }
     }
 
     public static void saveImage(final String directory, final String filename, BufferedImage image) throws IOException {

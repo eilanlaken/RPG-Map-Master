@@ -34,7 +34,6 @@ public class Token {
     }
 
     public void render(Renderer2D renderer2D) {
-        renderer2D.setShader(shader);
         renderer2D.setColor(tint);
         for (int i = 0; i < regions.length; i++) {
             TextureRegion region = regions[i];

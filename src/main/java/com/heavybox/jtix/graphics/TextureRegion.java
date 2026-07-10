@@ -3,7 +3,8 @@ package com.heavybox.jtix.graphics;
 // TODO: change name to Texture2DRegion
 public class TextureRegion {
 
-    public final Texture texture; // TODO: this will be Texture2D
+    public final TexturePack texturePack;
+    public final Texture     texture; // TODO: this will be Texture2D
 
     public final float x;
     public final float y;
@@ -22,7 +23,9 @@ public class TextureRegion {
     public final float u2;
     public final float v2;
 
+    // TODO: see if this is needed. Maybe remove.
     public TextureRegion(Texture texture) {
+        this.texturePack = null;
         this.texture = texture;
         this.x = 0;
         this.y = 0;
@@ -42,9 +45,10 @@ public class TextureRegion {
         this.v2 = 1;
     }
 
-    public TextureRegion(final Texture texture,
+    public TextureRegion(final TexturePack texturePack, final Texture texture,
                   int x, int y, int offsetX, int offsetY,
                   int packedWidth, int packedHeight, int originalWidth, int originalHeight) {
+        this.texturePack = texturePack;
         this.texture = texture;
         this.x = x;
         this.y = y;

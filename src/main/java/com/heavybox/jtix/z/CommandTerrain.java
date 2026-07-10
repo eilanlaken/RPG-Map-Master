@@ -21,4 +21,5 @@ public class CommandTerrain extends Command {
     public Surface getSurface() {
         return Surface.TERRAIN;
     }
+
 }

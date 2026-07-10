@@ -14,6 +14,7 @@ public final class TexturePack implements MemoryResource {
     public final Texture[] textures; // TODO: delete.
 
     public final HashMap<String, TextureRegion> namedRegions;
+    public final HashMap<TextureRegion, String> regionNames;
 
     // TODO: continue.
     public TexturePack(final String path) {
@@ -25,12 +26,14 @@ public final class TexturePack implements MemoryResource {
         // TODO
         textures = null;
         namedRegions = null;
+        regionNames = null;
     }
 
     @SuppressWarnings("unchecked")
     public TexturePack(Texture[] textures, String yamlString) {
         this.textures = textures;
         this.namedRegions = new HashMap<>();
+        this.regionNames = new HashMap<>();
         try {
             Yaml yaml = Assets.yaml();
             Map<String, Object> data = yaml.load(yamlString);
@@ -46,8 +49,9 @@ public final class TexturePack implements MemoryResource {
                 int packedHeight = (int) regionData.get("packedHeight");
                 int x = (int) regionData.get("x");
                 int y = (int) regionData.get("y");
-                TextureRegion region = new TextureRegion(texture, x, y, offsetX, offsetY, packedWidth, packedHeight, originalWidth, originalHeight);
+                TextureRegion region = new TextureRegion(this, texture, x, y, offsetX, offsetY, packedWidth, packedHeight, originalWidth, originalHeight);
                 namedRegions.put(name, region);
+                regionNames.put(region, name);
             }
         } catch (YAMLException e) {
             throw new GraphicsException("Failed to create " + TexturePack.class.getSimpleName() + " from invalid yaml: " + yamlString + "\n Error: " + e.getMessage());
@@ -61,6 +65,13 @@ public final class TexturePack implements MemoryResource {
         final TextureRegion region = namedRegions.get(name);
         if (region == null) throw new RuntimeException("The " + TexturePack.class.getSimpleName() + " does not contain a region named " + name);
         return region;
+    }
+
+    public String getName(final TextureRegion region) {
+        if (region == null) return null;
+        final String name = regionNames.get(region);
+        if (name == null) throw new RuntimeException("The " + TexturePack.class.getSimpleName() + " does not contain the specified region");
+        return name;
     }
 
     public boolean contains(final String name) {

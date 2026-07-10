@@ -1,5 +1,6 @@
 package com.heavybox.jtix.z;
 
+@Deprecated
 public class CommandTerrainAddSub extends Command {
 
     public ToolBrush_Terrain.Target target; // FIXME

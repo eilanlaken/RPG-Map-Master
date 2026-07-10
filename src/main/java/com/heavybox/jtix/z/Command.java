@@ -1,5 +1,8 @@
 package com.heavybox.jtix.z;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
 public abstract class Command {
 
     public final int layer;
@@ -17,6 +20,22 @@ public abstract class Command {
     }
 
     public abstract Surface getSurface();
+
+    public JsonElement serialize() {
+
+        JsonObject json = new JsonObject();
+
+        json.addProperty("type", getClass().getSimpleName());
+        json.addProperty("layer", layer);
+        json.addProperty("x", x);
+        json.addProperty("y", y);
+        json.addProperty("deg", deg);
+        json.addProperty("sclX", sclX);
+        json.addProperty("sclY", sclY);
+        json.addProperty("anchor", anchor);
+
+        return json;
+    }
 
     public enum Surface {
         TERRAIN,

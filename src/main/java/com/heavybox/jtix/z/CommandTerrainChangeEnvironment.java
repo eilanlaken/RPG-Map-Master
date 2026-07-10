@@ -1,5 +1,6 @@
 package com.heavybox.jtix.z;
 
+@Deprecated
 public class CommandTerrainChangeEnvironment extends Command {
 
     public final Type type;
