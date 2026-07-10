@@ -449,13 +449,11 @@ public class Tool_4_Props extends Tool_new {
             currentAssetIndex++;
             currentAssetIndex %= allSets.size;
             onChangeParameters();
-            System.out.println(currentAssetIndex);
             return;
         } else if (xJustPressed) {
             currentAssetIndex--;
             if (currentAssetIndex < 0) currentAssetIndex = allSets.size - 1;
             onChangeParameters();
-            System.out.println(currentAssetIndex);
             return;
         }
 
