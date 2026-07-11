@@ -1,14 +1,13 @@
 package com.heavybox.jtix.z;
 
-import com.heavybox.jtix.graphics.Color;
-import com.heavybox.jtix.graphics.Renderer2D;
-import com.heavybox.jtix.graphics.Shader;
-import com.heavybox.jtix.graphics.TextureRegion;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.heavybox.jtix.graphics.*;
 import com.heavybox.jtix.math.Transform2D;
 
 public class Token {
 
-    public Shader shader;
     public Enum<?> tokenType;
     public Color tint = Color.WHITE;
     public final int layer;
@@ -61,6 +60,35 @@ public class Token {
     }
     public float getY() {
         return transform.y;
+    }
+
+    public JsonElement serialize() {
+        JsonObject json = new JsonObject();
+
+        if (tokenType != null)
+            json.addProperty("tokenType", tokenType.name());
+
+        json.addProperty("tint", tint.toFloatBits());
+
+        json.addProperty("layer", layer);
+
+        JsonObject transformJson = new JsonObject();
+        transformJson.addProperty("x", transform.x);
+        transformJson.addProperty("y", transform.y);
+        transformJson.addProperty("deg", transform.deg);
+        transformJson.addProperty("sclX", transform.sclX);
+        transformJson.addProperty("sclY", transform.sclY);
+        json.add("transform", transformJson);
+
+        JsonArray regions = new JsonArray();
+        for (TextureRegion region : this.regions) {
+            TexturePack texturePack = region.texturePack;
+            String regionName = texturePack.getName(region);
+            if (regionName != null) regions.add(regionName);
+        }
+        json.add("regions", regions);
+
+        return json;
     }
 
 }

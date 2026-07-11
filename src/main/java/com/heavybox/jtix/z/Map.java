@@ -3,6 +3,7 @@ package com.heavybox.jtix.z;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.graphics.*;
 import org.lwjgl.opengl.GL11;
@@ -158,7 +159,8 @@ public class Map {
         return mapFinal.getDefaultColorAttachment();
     }
 
-    public void exportLayerAsImage(int layer) {
+    // TODO: delete
+    @Deprecated public void exportLayerAsImage(int layer) {
         Texture texture;
         if (layer == 0) texture = surface_0_terrain.getTexture();
         else if (layer == 3) texture = mapSurface_1_tokens.getTexture();
@@ -193,11 +195,23 @@ public class Map {
         }
     }
 
-    public JsonElement serialize() {
+    public void exportTerrainAsImage(final String path) {
+        Assets.saveImage(path, surface_0_terrain.getTexture());
+    }
+
+    public JsonElement serializeCommandsHistory() {
         JsonObject json = new JsonObject();
         JsonArray commands = new JsonArray();
         for (Command command : commandsHistory) commands.add(command.serialize());
         json.add("commands", commands);
+        return json;
+    }
+
+    public JsonElement serializeTokens() {
+        JsonObject json = new JsonObject();
+        JsonArray tokens = new JsonArray();
+        for (Token token : mapSurface_1_tokens.allTokens) tokens.add(token.serialize());
+        json.add("tokens", tokens);
         return json;
     }
 

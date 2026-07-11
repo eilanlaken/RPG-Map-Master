@@ -9,6 +9,7 @@ import com.heavybox.jtix.graphics.*;
 import com.heavybox.jtix.graphics.Font;
 import com.heavybox.jtix.memory.MemoryResource;
 import com.heavybox.jtix.widgets.Theme;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.system.MemoryUtil;
 import org.yaml.snakeyaml.DumperOptions;
@@ -412,6 +413,27 @@ public final class Assets {
         String filePath = directory + File.separator + filename + ".png";
         File file = new File(filePath);
         ImageIO.write(image, "png", file);
+    }
+
+    public static void saveImage(@NotNull final String path, @NotNull Texture texture) {
+        ByteBuffer buffer = texture.getPixmapBytes();
+        BufferedImage image = new BufferedImage(texture.width, texture.height, BufferedImage.TYPE_INT_ARGB);
+        for (int y = 0; y < texture.height; y++) {
+            for (int x = 0; x < texture.width; x++) {
+                int i = (x + (texture.width * y)) * 4;
+                int r = buffer.get(i) & 0xFF;
+                int g = buffer.get(i + 1) & 0xFF;
+                int b = buffer.get(i + 2) & 0xFF;
+                int a = buffer.get(i + 3) & 0xFF;
+                // Flip vertically, since OpenGL textures start bottom-left y -> texture.height - y - 1
+                image.setRGB(x, texture.height - y - 1, ((a & 0xFF) << 24) | ((r & 0xFF) << 16) | ((g & 0xFF) << 8)  | (b & 0xFF));
+            }
+        }
+        try {
+            ImageIO.write(image, "png", new File(path));
+        } catch (Exception e) {
+            throw new AssetsException("Could not save image file: " + e.getMessage());
+        }
     }
 
     // TODO: test

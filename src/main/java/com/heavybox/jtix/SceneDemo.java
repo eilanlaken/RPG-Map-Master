@@ -17,6 +17,8 @@ import com.heavybox.jtix.z.tools_new.*;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.opengl.GL11;
 
+import java.io.File;
+
 // contact points polygon vs polygon:
 // https://www.youtube.com/watch?v=5gDC1GU3Ivg
 public class SceneDemo implements Scene, RPGMapMakerScene {
@@ -164,19 +166,19 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
         }
 
         // export placeholder
-        if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KP_0)) {
-            map.exportLayerAsImage(0);
-        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KP_1)) {
-            map.exportLayerAsImage(1);
-        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KP_2)) {
-            map.exportLayerAsImage(2);
-        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KP_3)) {
-            map.exportLayerAsImage(3);
-        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KP_4)) {
-            //map.saveLayerAsImage(4);
-        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KP_5)) {
-            map.exportLayerAsImage(5);
-        }
+//        if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KP_0)) {
+//            map.exportLayerAsImage(0);
+//        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KP_1)) {
+//            map.exportLayerAsImage(1);
+//        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KP_2)) {
+//            map.exportLayerAsImage(2);
+//        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KP_3)) {
+//            map.exportLayerAsImage(3);
+//        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KP_4)) {
+//            //map.saveLayerAsImage(4);
+//        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KP_5)) {
+//            map.exportLayerAsImage(5);
+//        }
 
         map.update(delta);
         map.render(renderer2D);
@@ -272,16 +274,16 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
     }
 
     @Override
-    public void saveAs(String path) {
+    public void saveAs(String path) { // TODO: revise.
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String text = gson.toJson(map.serialize());
+        String text = gson.toJson(map.serializeCommandsHistory());
         try {
             Assets.saveFile(saveDirectory, saveFile, text);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return;
         }
-        System.out.println("Saved to: ");
+        System.out.println("Saved to: " + saveDirectory + File.separator + saveFile);
     }
 
     @Override
@@ -312,6 +314,10 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
 
     @Override
     public boolean keyboardKeysJustPressed(@NotNull Array<Keyboard.Key> keys) {
+        if (keys.contains(Keyboard.Key.KP_0, true)) {
+            map.exportTerrainAsImage(saveDirectory + File.separator + saveFile + ".png");
+            return true;
+        }
         if (keys.contains(Keyboard.Key.END, true)) {
             saveAs("path");
             return true;

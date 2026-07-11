@@ -269,32 +269,10 @@ public class Texture implements MemoryResource {
     public final int   getAnisotropy()               { return anisotropy; }
     public final float getBiasLOD   ()               { return biasLOD; }
 
-    public Color getPixelColor(int x, int y) {
-        if (x < 0 || x >= width || y < 0 || y >= height) throw new IndexOutOfBoundsException("Trying to read out of bounds pixel: (" + x + ", " + y + ") of " + Texture.class.getSimpleName() + " with dimensions: " + "(" + width + ", " + height + ")");
-
-        if (pixmapBytes == null) {
-            pixmapBytes = BufferUtils.createByteBuffer(width * height * 4);
-            int slot = TextureBinder.bind(this);
-            GL13.glActiveTexture(GL20.GL_TEXTURE0 + slot);
-            GL11.glGetTexImage(GL11.GL_TEXTURE_2D, 0, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, pixmapBytes);
-        }
-
-        int index = (x + y * width) * 4;
-        int r = pixmapBytes.get(index + 0) & 0xFF;
-        int g = pixmapBytes.get(index + 1) & 0xFF;
-        int b = pixmapBytes.get(index + 2) & 0xFF;
-        int a = pixmapBytes.get(index + 3) & 0xFF;
-        return new Color(r / 255.0f, g / 255.0f, b / 255.0f, a / 255.0f);
-    }
-
     public ByteBuffer getPixmapBytes() {
-        if (pixmapBytes == null) {
-            pixmapBytes = BufferUtils.createByteBuffer(width * height * 4); // TODO: change "4" to channels
-            int slot = TextureBinder.bind(this);
-            GL13.glActiveTexture(GL20.GL_TEXTURE0 + slot);
-            GL11.glGetTexImage(GL11.GL_TEXTURE_2D, 0, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, pixmapBytes);
-        }
-
+        if (pixmapBytes == null) pixmapBytes = BufferUtils.createByteBuffer(width * height * 4); // TODO: change "4" to channels
+        TextureBinder.bind(this);
+        GL11.glGetTexImage(GL11.GL_TEXTURE_2D, 0, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, pixmapBytes);
         return pixmapBytes;
     }
 
