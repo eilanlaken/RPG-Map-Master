@@ -50,6 +50,8 @@ public class Map {
         mapFinal = new FrameBuffer(width, height);
     }
 
+    // TODO: create a load constructor.
+
     public void addCommand(Command command) {
         commandsQueue.add(command);
     }
