@@ -436,24 +436,6 @@ public final class Assets {
         }
     }
 
-    // TODO: test
-    public static void saveImage(final String directory, final String filename, ByteBuffer buffer, int width, int height) throws IOException {
-        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                int i = (x + width * y) * 4;
-                int r = buffer.get(i) & 0xFF;
-                int g = buffer.get(i + 1) & 0xFF;
-                int b = buffer.get(i + 2) & 0xFF;
-                int a = buffer.get(i + 3) & 0xFF;
-
-                int argb = (a << 24) | (r << 16) | (g << 8) | b;
-                image.setRGB(x, y, argb);
-            }
-        }
-        saveImage(directory, filename, image);
-    }
-
     /** Returns the file extension (without the dot) or an empty string if the file name doesn't contain a dot. */
     public static String getFileExtension(final String name) {
         int dotIndex = name.lastIndexOf('.');

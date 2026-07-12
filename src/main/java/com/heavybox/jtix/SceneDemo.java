@@ -276,9 +276,10 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
     @Override
     public void saveAs(String path) { // TODO: revise.
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String text = gson.toJson(map.serializeCommandsHistory());
+        String text = gson.toJson(map.serializeTokens());
         try {
-            Assets.saveFile(saveDirectory, saveFile, text);
+            Assets.saveFile(saveDirectory, saveFile + ".json", text);
+            Assets.saveImage(saveDirectory + File.separator + saveFile + ".jpg", map.surface_0_terrain.getTexture());
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return;
@@ -314,10 +315,10 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
 
     @Override
     public boolean keyboardKeysJustPressed(@NotNull Array<Keyboard.Key> keys) {
-        if (keys.contains(Keyboard.Key.KP_0, true)) {
-            map.exportTerrainAsImage(saveDirectory + File.separator + saveFile + ".png");
-            return true;
-        }
+//        if (keys.contains(Keyboard.Key.KP_0, true)) {
+//            map.exportTerrainAsImage(saveDirectory + File.separator + saveFile + ".png");
+//            return true;
+//        }
         if (keys.contains(Keyboard.Key.END, true)) {
             saveAs("path");
             return true;
