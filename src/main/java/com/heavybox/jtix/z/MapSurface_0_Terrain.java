@@ -14,9 +14,9 @@ public class MapSurface_0_Terrain implements MapSurface {
     public int width, height;
 
     private final FrameBuffer layer0; // <- final composite layer image
-    private final FrameBuffer ground;
-    private final FrameBuffer liquid;
-    private final FrameBuffer blendMap;
+    final FrameBuffer ground;
+    final FrameBuffer liquid;
+    final FrameBuffer blendMap;
 
     public final Camera camera;
 
@@ -116,7 +116,6 @@ public class MapSurface_0_Terrain implements MapSurface {
         Graphics.bindFrameBuffer(blendMap);
         GL11.glClearColor(1,1,1,1);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
-
     }
 
     @Override

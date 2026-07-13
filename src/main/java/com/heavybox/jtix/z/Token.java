@@ -3,6 +3,7 @@ package com.heavybox.jtix.z;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.graphics.*;
 import com.heavybox.jtix.math.Transform2D;
 
@@ -10,7 +11,7 @@ public class Token {
 
     public Enum<?> tokenType;
     public Color tint = Color.WHITE;
-    public final int layer;
+    public int layer;
     public Transform2D transform;
     public final float width, height;
     public TextureRegion[] regions;
@@ -65,10 +66,17 @@ public class Token {
     public JsonElement serialize() {
         JsonObject json = new JsonObject();
 
-        if (tokenType != null)
+        if (tokenType != null) {
+            json.addProperty("tokenTypeClass", tokenType.getDeclaringClass().getName());
             json.addProperty("tokenType", tokenType.name());
+        }
 
-        json.addProperty("tint", tint.toFloatBits());
+        JsonObject tintObject = new JsonObject();
+        tintObject.addProperty("r", tint.r);
+        tintObject.addProperty("g", tint.g);
+        tintObject.addProperty("b", tint.b);
+        tintObject.addProperty("a", tint.a);
+        json.add("tint", tintObject);
 
         json.addProperty("layer", layer);
 
@@ -89,6 +97,50 @@ public class Token {
         json.add("regions", regions);
 
         return json;
+    }
+
+    @SuppressWarnings("unchecked")
+    public static Token deserialize(JsonObject json) {
+        JsonArray regionsJson = json.getAsJsonArray("regions");
+
+        TextureRegion[] regions = new TextureRegion[regionsJson.size()];
+        TexturePack pack = Assets.get("assets/texture-packs/layer_3.yml");
+        for (int i = 0; i < regions.length; i++) {
+            String name = regionsJson.get(i).getAsString();
+            regions[i] =  pack.getRegion(name);
+        }
+
+        JsonObject transform = json.getAsJsonObject("transform");
+        Token token = new Token(
+                json.get("layer").getAsInt(),
+                transform.get("x").getAsFloat(),
+                transform.get("y").getAsFloat(),
+                transform.get("deg").getAsFloat(),
+                transform.get("sclX").getAsFloat(),
+                transform.get("sclY").getAsFloat(),
+                regions
+        );
+
+        if (json.has("tokenType")) {
+            try {
+                String className = json.get("tokenTypeClass").getAsString();
+                String value = json.get("tokenType").getAsString();
+                Class<?> clazz = Class.forName(className);
+                token.tokenType = Enum.valueOf((Class<? extends Enum>) clazz, value);
+            } catch (Exception e) {
+
+            }
+        }
+
+        JsonObject tint = json.getAsJsonObject("tint");
+        token.tint = new Color(
+                tint.get("r").getAsFloat(),
+                tint.get("g").getAsFloat(),
+                tint.get("b").getAsFloat(),
+                tint.get("a").getAsFloat()
+        );
+
+        return token;
     }
 
 }

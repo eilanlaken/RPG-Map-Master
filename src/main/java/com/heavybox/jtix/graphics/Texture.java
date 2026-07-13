@@ -216,6 +216,11 @@ public final class Texture implements MemoryResource {
         }
     }
 
+    // TODO: test
+    public Texture(final BufferedImage image, final FilterMag filterMag, final FilterMin filterMin, final Wrap sWrap, final Wrap tWrap, int anisotropy) {
+        this(image.getWidth(), image.getHeight(), getByteBuffer(image), filterMag, filterMin, sWrap, tWrap, anisotropy);
+    }
+
     // 16 bit images
     // TODO: placeholder for now.
     public Texture(final String filepath, Precision precision, boolean generateMipMaps) {
@@ -306,6 +311,22 @@ public final class Texture implements MemoryResource {
     @Override
     public String toString() {
         return "Texture ID: " + handle + ", Slot: " + slot;
+    }
+
+    public static ByteBuffer getByteBuffer(final BufferedImage image) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+        ByteBuffer buffer = BufferUtils.createByteBuffer(width * height * 4);
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                int argb = image.getRGB(x, y);
+                buffer.put((byte) ((argb >> 16) & 0xFF)); // R
+                buffer.put((byte) ((argb >> 8) & 0xFF));  // G
+                buffer.put((byte) (argb & 0xFF));         // B
+                buffer.put((byte) ((argb >> 24) & 0xFF)); // A
+            }
+        }
+        return buffer.flip();
     }
 
     public enum Precision {

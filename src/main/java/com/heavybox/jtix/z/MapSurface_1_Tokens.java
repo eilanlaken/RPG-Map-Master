@@ -25,6 +25,14 @@ public class MapSurface_1_Tokens implements MapSurface {
         camera = new Camera(Camera.Mode.ORTHOGRAPHIC, width, height, 1, 0, 100, 75);
     }
 
+    // from loaded file
+    public MapSurface_1_Tokens(int width, int height, Array<Token> tokens) {
+        layer3 = new FrameBuffer(width, height);
+        camera = new Camera(Camera.Mode.ORTHOGRAPHIC, width, height, 1, 0, 100, 75);
+        this.allTokens.addAll(tokens);
+        changed = true;
+    }
+
     @Override
     public void executeCommand(Command command) {
         changed = true;
@@ -56,8 +64,6 @@ public class MapSurface_1_Tokens implements MapSurface {
         // change token (move, scale, rotate...)
 
     }
-
-
 
     @Override
     public void redraw(Renderer2D renderer2D) {

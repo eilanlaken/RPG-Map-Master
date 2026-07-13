@@ -55,7 +55,30 @@ public class Map {
         mapFinal = new FrameBuffer(width, height);
     }
 
-    // TODO: create a load constructor.
+    // load constructor.
+    public Map(int width, int height, Texture ground, Texture liquid, Texture blendMap, Array<Token> loadedTokens, Renderer2D renderer2D) {
+        this.width = width;
+        this.height = height;
+        camera = new Camera(Camera.Mode.ORTHOGRAPHIC, width, height, 1, 0, 100, 75);
+        surface_0_terrain = new MapSurface_0_Terrain(width, height);
+        mapSurface_1_tokens = new MapSurface_1_Tokens(width, height, loadedTokens);
+        mapFinal = new FrameBuffer(width, height);
+
+        Graphics.bindFrameBuffer(surface_0_terrain.ground);
+        renderer2D.begin(camera);
+        renderer2D.drawTexture(ground, 0,0,0,1,1);
+        renderer2D.end();
+
+        Graphics.bindFrameBuffer(surface_0_terrain.liquid);
+        renderer2D.begin(camera);
+        renderer2D.drawTexture(liquid, 0,0,0,1,1);
+        renderer2D.end();
+
+        Graphics.bindFrameBuffer(surface_0_terrain.blendMap);
+        renderer2D.begin(camera);
+        renderer2D.drawTexture(blendMap, 0,0,0,1,1);
+        renderer2D.end();
+    }
 
     public void addCommand(Command command) {
         commandsQueue.add(command);

@@ -1,7 +1,6 @@
 package com.heavybox.jtix;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.gson.*;
 import com.heavybox.jtix.application.Scene;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.collections.Array;
@@ -17,7 +16,12 @@ import com.heavybox.jtix.z.tools_new.*;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.opengl.GL11;
 
-import java.io.File;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 // contact points polygon vs polygon:
 // https://www.youtube.com/watch?v=5gDC1GU3Ivg
@@ -106,7 +110,19 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
 
         Assets.finishLoading();
 
-        map = new Map(width, height);
+        // load saved file
+        SaveLoadData loadData = null;
+        try {
+            loadData = load();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        //map = new Map(width, height);
+        if (loadData == null) {
+            map = new Map(width, height);
+        } else {
+            map = new Map(width, height, loadData.ground, loadData.liquid, loadData.blendMap, loadData.tokens, renderer2D);
+        }
 
         // user - interface
         /*
@@ -132,6 +148,64 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
         tools[activeToolIndex].activate();
     }
 
+    private SaveLoadData load() throws IOException {
+        if (saveFile == null) return null;
+
+        SaveLoadData data = new SaveLoadData();
+        try (ZipFile zip = new ZipFile(saveFile)) {
+            data.ground = new Texture(
+                    readImage(zip, "ground.png"),
+                    Texture.FilterMag.NEAREST,
+                    Texture.FilterMin.NEAREST,
+                    Texture.Wrap.CLAMP_TO_EDGE,
+                    Texture.Wrap.CLAMP_TO_EDGE,
+                    1
+            );
+
+            data.liquid = new Texture(
+                    readImage(zip, "liquid.png"),
+                    Texture.FilterMag.NEAREST,
+                    Texture.FilterMin.NEAREST,
+                    Texture.Wrap.CLAMP_TO_EDGE,
+                    Texture.Wrap.CLAMP_TO_EDGE,
+                    1
+            );
+
+            data.blendMap = new Texture(
+                    readImage(zip, "blendMap.png"),
+                    Texture.FilterMag.NEAREST,
+                    Texture.FilterMin.NEAREST,
+                    Texture.Wrap.CLAMP_TO_EDGE,
+                    Texture.Wrap.CLAMP_TO_EDGE,
+                    1
+            );
+
+            ZipEntry entry = zip.getEntry("tokens.json");
+            if (entry == null)
+                throw new IOException("Missing entry: tokens.json");
+
+            try (InputStream in = zip.getInputStream(entry); Reader reader = new InputStreamReader(in, StandardCharsets.UTF_8)) {
+                JsonObject json = JsonParser.parseReader(reader).getAsJsonObject();
+                JsonArray tokensJson = json.getAsJsonArray("tokens");
+                data.tokens = new Array<>(tokensJson.size());
+                for (JsonElement element : tokensJson) {
+                    data.tokens.add(Token.deserialize(element.getAsJsonObject()));
+                }
+            } catch (Exception e) {
+                System.out.println(e.getStackTrace());
+            }
+        }
+
+        return data;
+    }
+
+    private BufferedImage readImage(ZipFile zip, String name) throws IOException {
+        ZipEntry entry = zip.getEntry(name);
+        if (entry == null) throw new IOException("Missing entry: " + name);
+        try (InputStream in = zip.getInputStream(entry)) {
+            return ImageIO.read(in);
+        }
+    }
 
     @Override
     public void update() {
