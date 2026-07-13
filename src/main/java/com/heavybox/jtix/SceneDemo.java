@@ -24,8 +24,7 @@ import java.io.File;
 public class SceneDemo implements Scene, RPGMapMakerScene {
 
     // dev save and load
-    public final String saveDirectory = "assets/dev-saved-files";
-    public final String saveFile = "save_1";
+    public final String saveFile = "C:\\Users\\eilan\\OneDrive\\Desktop\\Heavy Box Games\\projects\\RPG Map Master\\public\\maps\\map_1.map";
 
     public static int width = 2880;
     public static int height = 2880; //1620;
@@ -165,21 +164,6 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
             return;
         }
 
-        // export placeholder
-//        if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KP_0)) {
-//            map.exportLayerAsImage(0);
-//        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KP_1)) {
-//            map.exportLayerAsImage(1);
-//        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KP_2)) {
-//            map.exportLayerAsImage(2);
-//        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KP_3)) {
-//            map.exportLayerAsImage(3);
-//        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KP_4)) {
-//            //map.saveLayerAsImage(4);
-//        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KP_5)) {
-//            map.exportLayerAsImage(5);
-//        }
-
         map.update(delta);
         map.render(renderer2D);
         Graphics.bindFrameBuffer(null);
@@ -275,16 +259,12 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
 
     @Override
     public void saveAs(String path) { // TODO: revise.
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String text = gson.toJson(map.serializeTokens());
         try {
-            Assets.saveFile(saveDirectory, saveFile + ".json", text);
-            Assets.saveImage(saveDirectory + File.separator + saveFile + ".jpg", map.surface_0_terrain.getTexture());
+            map.save(path);
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return;
         }
-        System.out.println("Saved to: " + saveDirectory + File.separator + saveFile);
+        System.out.println("Saved to: " + path);
     }
 
     @Override
@@ -312,15 +292,10 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
 
     // **** Input handler ****
 
-
     @Override
     public boolean keyboardKeysJustPressed(@NotNull Array<Keyboard.Key> keys) {
-//        if (keys.contains(Keyboard.Key.KP_0, true)) {
-//            map.exportTerrainAsImage(saveDirectory + File.separator + saveFile + ".png");
-//            return true;
-//        }
         if (keys.contains(Keyboard.Key.END, true)) {
-            saveAs("path");
+            saveAs(saveFile);
             return true;
         }
         if (keys.contains(Keyboard.Key.PAGE_UP, true)) {

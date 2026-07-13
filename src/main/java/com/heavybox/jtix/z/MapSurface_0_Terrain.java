@@ -235,4 +235,17 @@ public class MapSurface_0_Terrain implements MapSurface {
     public Texture getTexture() {
         return layer0.getDefaultColorAttachment(); // for now.
     }
+
+    public Texture getGroundTexture() {
+        return ground.getDefaultColorAttachment();
+    }
+
+    public Texture getLiquidTexture() {
+        return liquid.getDefaultColorAttachment();
+    }
+
+    public Texture getBlendMapTexture() {
+        return blendMap.getDefaultColorAttachment();
+    }
+
 }

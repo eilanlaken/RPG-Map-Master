@@ -8,6 +8,7 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.*;
 import org.lwjgl.stb.STBImage;
 
+import java.awt.image.BufferedImage;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import java.nio.ShortBuffer;
@@ -17,7 +18,7 @@ import java.nio.ShortBuffer;
 // TODO: change to Texture2D
 // TODO: create a Texture interface with enums for filtering, wrapping, formats etc. ...But what about setSlot()?
 // Keep in mind that some methods must remain package private and be available to all Texture(s)
-public class Texture implements MemoryResource {
+public final class Texture implements MemoryResource {
 
     private       int       handle;
     private       int       slot;
@@ -32,7 +33,7 @@ public class Texture implements MemoryResource {
     private       int       anisotropy;
     private       float     biasLOD; // higher LOD bias will sample from higher mip level, which means lower texture quality.
 
-    private @Nullable ByteBuffer pixmapBytes = null;
+    private @Nullable ByteBuffer bytes = null;
 
     public Texture(int width, int height, int internalFormat, int format) {
         this.handle = GL11.glGenTextures();
@@ -269,11 +270,30 @@ public class Texture implements MemoryResource {
     public final int   getAnisotropy()               { return anisotropy; }
     public final float getBiasLOD   ()               { return biasLOD; }
 
-    public ByteBuffer getPixmapBytes() {
-        if (pixmapBytes == null) pixmapBytes = BufferUtils.createByteBuffer(width * height * 4); // TODO: change "4" to channels
+    public ByteBuffer getBytes() {
+        if (bytes == null) bytes = BufferUtils.createByteBuffer(width * height * 4); // TODO: change "4" to channels
         TextureBinder.bind(this);
-        GL11.glGetTexImage(GL11.GL_TEXTURE_2D, 0, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, pixmapBytes);
-        return pixmapBytes;
+        GL11.glGetTexImage(GL11.GL_TEXTURE_2D, 0, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, bytes);
+        return bytes;
+    }
+
+    // TODO: this does not take format into consideration.
+    // FIXME
+    public BufferedImage getBufferedImage() {
+        ByteBuffer buffer = this.getBytes();
+        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                int i = (x + (width * y)) * 4;
+                int r = buffer.get(i) & 0xFF;
+                int g = buffer.get(i + 1) & 0xFF;
+                int b = buffer.get(i + 2) & 0xFF;
+                int a = buffer.get(i + 3) & 0xFF;
+                // Flip vertically, since OpenGL textures start bottom-left y -> texture.height - y - 1
+                image.setRGB(x, height - y - 1, ((a & 0xFF) << 24) | ((r & 0xFF) << 16) | ((g & 0xFF) << 8)  | (b & 0xFF));
+            }
+        }
+        return image;
     }
 
     @Override

@@ -11,9 +11,14 @@ import org.lwjgl.opengl.GL11;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.util.Set;
 import java.util.function.Predicate;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
@@ -152,7 +157,6 @@ public class Map {
         // render layer-3
         renderer2D.drawTexture(mapSurface_1_tokens.getTexture(), 0, 0, 0, 1,1);
 
-        // render layer-4
         renderer2D.end();
         needsRedraw = false;
     }
@@ -168,7 +172,7 @@ public class Map {
         else if (layer == 3) texture = mapSurface_1_tokens.getTexture();
         else texture = mapSurface_1_tokens.getTexture();
 
-        ByteBuffer buffer = texture.getPixmapBytes();
+        ByteBuffer buffer = texture.getBytes();
 
         // Create BufferedImage
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
@@ -197,11 +201,12 @@ public class Map {
         }
     }
 
-    public void exportTerrainAsImage(final String path) {
+    @Deprecated public void exportTerrainAsImage(final String path) {
         Assets.saveImage(path, surface_0_terrain.getTexture());
     }
 
-    public JsonElement serializeCommandsHistory() {
+
+    @Deprecated public JsonElement serializeCommandsHistory() {
         JsonObject json = new JsonObject();
         JsonArray commands = new JsonArray();
         for (Command command : commandsHistory) commands.add(command.serialize());
@@ -209,12 +214,46 @@ public class Map {
         return json;
     }
 
-    public JsonElement serializeTokens() {
+    @Deprecated public JsonElement serializeTokens() {
         JsonObject json = new JsonObject();
         JsonArray tokens = new JsonArray();
         for (Token token : mapSurface_1_tokens.allTokens) tokens.add(token.serialize());
         json.add("tokens", tokens);
         return json;
+    }
+
+    public void save(final String path) throws IOException {
+        File file = new File(path);
+        try (ZipOutputStream out = new ZipOutputStream(new FileOutputStream(file))) {
+            // Project JSON
+            out.putNextEntry(new ZipEntry("tokens.json"));
+            JsonObject json = new JsonObject();
+            JsonArray tokens = new JsonArray();
+            for (Token token : mapSurface_1_tokens.allTokens) tokens.add(token.serialize());
+            json.add("tokens", tokens);
+            byte[] bytes = json.toString().getBytes(StandardCharsets.UTF_8);
+            out.write(bytes);
+            out.closeEntry();
+
+            // Ground
+            out.putNextEntry(new ZipEntry("ground.png"));
+            BufferedImage ground = surface_0_terrain.getGroundTexture().getBufferedImage();
+            ImageIO.write(ground, "png", out);
+            out.closeEntry();
+
+            // Liquid
+            out.putNextEntry(new ZipEntry("liquid.png"));
+            BufferedImage liquid = surface_0_terrain.getLiquidTexture().getBufferedImage();
+            ImageIO.write(liquid, "png", out);
+            out.closeEntry();
+
+            // Blend Map
+            out.putNextEntry(new ZipEntry("blendMap.png"));
+            BufferedImage blendMap = surface_0_terrain.getBlendMapTexture().getBufferedImage();
+            ImageIO.write(blendMap, "png", out);
+            out.closeEntry();
+
+        }
     }
 
 }
