@@ -82,12 +82,12 @@ public class SceneNewContainers implements Scene, InputEventHandler {
     }
 
     @Override
-    public boolean active() {
+    public boolean isActive() {
         return false;
     }
 
     @Override
-    public int getLayer() {
+    public int getInputLayer() {
         return 0;
     }
 

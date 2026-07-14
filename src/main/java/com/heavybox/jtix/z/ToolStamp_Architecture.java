@@ -600,7 +600,7 @@ public class ToolStamp_Architecture extends Tool {
     }
 
     @Override
-    public int getLayer() {
+    public int getInputLayer() {
         return 0;
     }
 

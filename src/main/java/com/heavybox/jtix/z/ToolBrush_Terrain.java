@@ -378,7 +378,7 @@ public class ToolBrush_Terrain extends Tool {
     }
 
     @Override
-    public int getLayer() {
+    public int getInputLayer() {
         return 0;
     }
 

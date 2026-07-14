@@ -530,7 +530,7 @@ public class ToolBrush_Debug extends Tool {
     }
 
     @Override
-    public int getLayer() {
+    public int getInputLayer() {
         return 2;
     }
 

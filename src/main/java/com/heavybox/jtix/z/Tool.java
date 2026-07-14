@@ -122,7 +122,7 @@ public abstract class Tool implements InputEventHandler {
     public abstract String getName();
 
     @Override
-    public boolean active() { return active; }
+    public boolean isActive() { return active; }
 
     // TODO
     public enum Shape {

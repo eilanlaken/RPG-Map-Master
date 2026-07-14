@@ -634,12 +634,12 @@ public class Tool_2_Nature extends Tool_new {
     // later
 
     @Override
-    public int getLayer() {
+    public int getInputLayer() {
         return 0;
     }
 
     @Override
-    public boolean active() {
+    public boolean isActive() {
         return active;
     }
 

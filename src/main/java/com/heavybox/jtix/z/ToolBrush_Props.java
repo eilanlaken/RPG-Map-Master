@@ -570,7 +570,7 @@ public class ToolBrush_Props extends Tool {
     }
 
     @Override
-    public int getLayer() {
+    public int getInputLayer() {
         return 0;
     }
 }

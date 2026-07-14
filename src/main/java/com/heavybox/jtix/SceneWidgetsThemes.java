@@ -73,7 +73,7 @@ public class SceneWidgetsThemes implements Scene {
     }
 
     @Override
-    public boolean active() {
+    public boolean isActive() {
         return true;
     }
 

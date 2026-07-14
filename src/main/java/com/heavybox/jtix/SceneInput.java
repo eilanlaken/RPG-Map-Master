@@ -77,7 +77,7 @@ public class SceneInput implements Scene {
     }
 
     @Override
-    public boolean active() {
+    public boolean isActive() {
         return false;
     }
 

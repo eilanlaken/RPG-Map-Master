@@ -16,14 +16,17 @@ import com.heavybox.jtix.math.Vector2;
 import com.heavybox.jtix.z.*;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
-public class Tool_3_Geology extends Tool_new {
+public class Tool_6_Decorations extends Tool_new {
+
+    private static final String PREFIX = "assets/textures-layer-3/decorations_";
+    private static final Type TYPE = Type.DECORATION;
 
     private final TexturePack atlas;
-    private TextureRegion[] currentRegions;
+    private TextureRegion currentRegion;
+    private final Array<TextureRegion> allRegions = new Array<>();
+    private int currentAssetIndex = 0;
 
     private Tool.Mode currentMode;
     private Tool.Shape currentShape;
@@ -32,7 +35,9 @@ public class Tool_3_Geology extends Tool_new {
     private final Array<Token> tokensPreview = new Array<>();
     private final Array<Token> alreadyCreatedTokens = new Array<>();
     private boolean angleFollowPath = false;
-    private boolean fillShape = true;
+    private boolean fillShape = false;
+
+    float randomAngleOffset = 0;
 
     // point mode
 
@@ -52,39 +57,45 @@ public class Tool_3_Geology extends Tool_new {
     private final Vector2 polygon_TopRight = new Vector2();
     private Shape2DPolygon polygon_shape;
 
-    // trees specifics
-    public Type currentType = Type.MOUNTAIN_GREEN;
-
-    public Tool_3_Geology(final RPGMapMakerScene scene) {
+    public Tool_6_Decorations(final RPGMapMakerScene scene) {
         super(scene);
         atlas = Assets.get("assets/texture-packs/layer_3.yml");
+        // set al regions
+        for (String regionName : atlas.namedRegions.keySet()) {
+            if (!regionName.startsWith(PREFIX)) continue;
+            allRegions.add(atlas.getRegion(regionName));
+        }
+        allRegions.sort(Comparator.comparing(atlas::getName));
 
-        sclX = 1f / 3;
-        sclY = 1f / 3;
+        sclX = 1f / 1f;
+        sclY = 1f / 1f;
 
         currentShape = Tool.Shape.POINT;
         currentMode = Tool.Mode.ADD;
-        currentRegions = getRegions();
+        currentRegion = allRegions.get(currentAssetIndex);
         refillWithTokens();
     }
 
-    protected int getBatchCountArea(float area) {
-        float maxExtent = 0;
-        for (TextureRegion r : currentRegions) {
-            if (r == null) continue;
-            maxExtent = Math.max(maxExtent, r.packedWidth);
+    protected void getAllRegions() {
+
+    }
+
+    private static boolean isNumeric(String s) {
+        for (int i = 0; i < s.length(); i++) {
+            if (!Character.isDigit(s.charAt(i))) return false;
         }
+        return !s.isEmpty();
+    }
+
+    protected int getBatchCountArea(float area) {
+        float maxExtent = currentRegion.packedWidth;
         float d = spacing * maxExtent * 0.5f * Math.abs(sclX); // center spacing
         if (d == 0) return 1;
         return (int) (area / (d * d));
     }
 
     protected int getBatchCountLength(float length) {
-        float maxExtent = 0;
-        for (TextureRegion r : currentRegions) {
-            if (r == null) continue;
-            maxExtent = Math.max(maxExtent, r.packedWidth);
-        }
+        float maxExtent = currentRegion.packedWidth;
         float d = spacing * maxExtent * 0.5f * Math.abs(sclX); // center spacing
         if (d == 0) return 1;
         return (int) (length / d);
@@ -93,7 +104,6 @@ public class Tool_3_Geology extends Tool_new {
     @Override
     void onChangeParameters() {
         refillWithTokens();
-        currentRegions = getRegions();
     }
 
     private void refillWithTokens() {
@@ -105,11 +115,12 @@ public class Tool_3_Geology extends Tool_new {
 
     private void point_refillWithTokens() {
         tokensPreview.clear();
-        Token token = new Token(scene.getActiveLayerIndex(), 0, 0, 0, sclX,sclY, getRegions());
+        float deg = this.deg + MathUtils.randomUniformFloat(-randomAngleOffset, randomAngleOffset);
+        sclX *= -1;
+        Token token = new Token(scene.getActiveLayerIndex(), 0, 0, deg, sclX,sclY, getCurrentRegion());
         tokensPreview.add(token);
     }
 
-    // TODO - filter against self. If a token is too close to one already in the circle, don't add it.
     private void circle_refillWithTokens() {
         tokensPreview.clear();
         if (fillShape) {
@@ -120,18 +131,8 @@ public class Tool_3_Geology extends Tool_new {
                 float offsetX = MathUtils.cosDeg(angle) * r;
                 float offsetY = MathUtils.sinDeg(angle) * r;
 
-                // filter against added tokens
-                Vector2 position = new Vector2(offsetX, offsetY);
-                float minDistance = Float.POSITIVE_INFINITY;
-                for (Token mapToken : tokensPreview) {
-                    float distanceSquared = Vector2.dst2(position.x, position.y, mapToken.transform.x, mapToken.transform.y);
-                    minDistance = Math.min(distanceSquared, minDistance);
-                }
-                minDistance = (float) Math.sqrt(minDistance);
-                if (minDistance < getMinSpacing()) continue;
-
                 float deg = this.deg + (!angleFollowPath ? 0 : angle + 90);
-                Token token = new Token(scene.getActiveLayerIndex(), offsetX, offsetY, deg, sclX, sclY, getRegions());
+                Token token = new Token(scene.getActiveLayerIndex(), offsetX, offsetY, deg, sclX, sclY, getCurrentRegion());
                 tokensPreview.add(token);
             }
         } else {
@@ -141,7 +142,7 @@ public class Tool_3_Geology extends Tool_new {
                 float offsetX = MathUtils.cosDeg(angle) * circle_spreadRadius;
                 float offsetY = MathUtils.sinDeg(angle) * circle_spreadRadius;
                 float deg = this.deg + (!angleFollowPath ? 0 : angle + 90);
-                Token token = new Token(scene.getActiveLayerIndex(), offsetX, offsetY, deg, sclX, sclY, getRegions());
+                Token token = new Token(scene.getActiveLayerIndex(), offsetX, offsetY, deg, sclX, sclY, getCurrentRegion());
                 tokensPreview.add(token);
             }
         }
@@ -159,7 +160,7 @@ public class Tool_3_Geology extends Tool_new {
         step.scl(length / batchCount);
         for (int i = 0; i < batchCount; i++) {
             float deg = this.deg + (!angleFollowPath ? 0 : step.angleDeg()); // calculate deg based on params.
-            Token token = new Token(scene.getActiveLayerIndex(), line_start.x + step.x * i, line_start.y + step.y * i, deg, sclX, sclY, getRegions());
+            Token token = new Token(scene.getActiveLayerIndex(), line_start.x + step.x * i, line_start.y + step.y * i, deg, sclX, sclY, getCurrentRegion());
             tokensPreview.add(token);
         }
         if (tokensPreview.size >= 2) tokensPreview.sort(Comparator.comparingInt(o -> -(int) o.transform.y));
@@ -208,7 +209,7 @@ public class Tool_3_Geology extends Tool_new {
                     if (MathUtils.polygonContainsPoint(polygon_flatTmp, posX, posY)) {
                         field.set(posX, posY);
                         float angle = deg + (angleFollowPath ? Utils.getDirectionRough(field, polygon_shape) : 0);
-                        Token token = new Token(scene.getActiveLayerIndex(), posX, posY, angle, sclX, sclY, getRegions());
+                        Token token = new Token(scene.getActiveLayerIndex(), posX, posY, angle, sclX, sclY, getCurrentRegion());
                         tokensPreview.add(token);
                     }
                     posX += step;
@@ -227,7 +228,7 @@ public class Tool_3_Geology extends Tool_new {
                 step.scl(length / batchCount);
                 for (int j = 0; j < batchCount; j++) {
                     float deg = this.deg + (!angleFollowPath ? 0 : step.angleDeg()); // calculate deg based on params.
-                    Token token = new Token(scene.getActiveLayerIndex(), start.x + step.x * j, start.y + step.y * j, deg, sclX, sclY, getRegions());
+                    Token token = new Token(scene.getActiveLayerIndex(), start.x + step.x * j, start.y + step.y * j, deg, sclX, sclY, getCurrentRegion());
                     tokensPreview.add(token);
                 }
             }
@@ -241,7 +242,7 @@ public class Tool_3_Geology extends Tool_new {
             step.scl(length / batchCount);
             for (int j = 0; j < batchCount; j++) {
                 float deg = this.deg + (!angleFollowPath ? 0 : step.angleDeg()); // calculate deg based on params.
-                Token token = new Token(scene.getActiveLayerIndex(), start.x + step.x * j, start.y + step.y * j, deg, sclX, sclY, getRegions());
+                Token token = new Token(scene.getActiveLayerIndex(), start.x + step.x * j, start.y + step.y * j, deg, sclX, sclY, getCurrentRegion());
                 tokensPreview.add(token);
             }
         }
@@ -249,11 +250,8 @@ public class Tool_3_Geology extends Tool_new {
         if (tokensPreview.size >= 2) tokensPreview.sort(Comparator.comparingInt(o -> -(int) o.transform.y));
     }
 
-    protected TextureRegion[] getRegions() {
-        String name = "assets/textures-layer-3/geology_" + currentType.name().toLowerCase() + "_" + MathUtils.randomUniformInt(0,6) + ".png";
-        TextureRegion[] regions = new TextureRegion[1];
-        regions[0] = atlas.getRegion(name);
-        return regions;
+    protected TextureRegion getCurrentRegion() {
+        return allRegions.get(currentAssetIndex);
     }
 
     private void deleteTokens() {
@@ -265,17 +263,11 @@ public class Tool_3_Geology extends Tool_new {
     }
 
     protected float getMinSpacing() {
-        TextureRegion[] regions = getRegions();
-        float pixelSpacing = 0;
-        for (TextureRegion region : regions) {
-            if (region == null) continue;
-            pixelSpacing = Math.max(region.packedWidth, pixelSpacing);
-        }
-        return pixelSpacing * 0.5f * Math.abs(sclX);
+        return getCurrentRegion().packedWidth * 0.5f * Math.abs(sclX);
     }
 
     private void spawnTokens(boolean useBrushOffset, boolean maintainMinSpacing) {
-        map.getAllTokensByType(currentType, alreadyCreatedTokens);
+        map.getAllTokensByType(TYPE, alreadyCreatedTokens);
 
         float offsetX = useBrushOffset ? x : 0;
         float offsetY = useBrushOffset ? y : 0;
@@ -298,7 +290,7 @@ public class Tool_3_Geology extends Tool_new {
                     token.regions
             );
 
-            createToken.tokenType = currentType;
+            createToken.tokenType = TYPE;
             createToken.tint = token.tint;
             map.addCommand(createToken);
         }
@@ -319,12 +311,11 @@ public class Tool_3_Geology extends Tool_new {
         boolean sPressed = Input.keyboard.isKeyPressed(Keyboard.Key.S);
         boolean aPressed = Input.keyboard.isKeyPressed(Keyboard.Key.A);
         boolean dPressed = Input.keyboard.isKeyPressed(Keyboard.Key.D);
-        boolean tPressed = Input.keyboard.isKeyPressed(Keyboard.Key.T);
-        boolean yPressed = Input.keyboard.isKeyPressed(Keyboard.Key.Y);
         float dy = Input.mouse.getYDelta();
         boolean zJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.Z);
         boolean xJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.X);
         boolean cJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.C);
+        boolean vJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.V);
 
         // =============  tool settings  ===============
         if (leftShiftJustPressed) {
@@ -342,18 +333,6 @@ public class Tool_3_Geology extends Tool_new {
         if (dPressed && dy != 0) {
             float deltaSpacing = dy > 0 ? 0.01f : -0.01f;
             spacing *= (1.0f + deltaSpacing);
-            onChangeParameters();
-            return;
-        }
-
-        if (tPressed && dy != 0) {
-            float dSclX = dy < 0 ? 0.01f : -0.01f;
-            sclX *= (1.0f + dSclX);
-            onChangeParameters();
-            return;
-        } else if (yPressed && dy != 0) {
-            float dSclY = dy < 0 ? 0.01f : -0.01f;
-            sclY *= (1.0f + dSclY);
             onChangeParameters();
             return;
         }
@@ -396,15 +375,13 @@ public class Tool_3_Geology extends Tool_new {
         }
 
         if (zJustPressed) {
-            currentType = Collections.enumNext(currentType);
+            currentAssetIndex++;
+            currentAssetIndex %= allRegions.size;
             onChangeParameters();
             return;
         } else if (xJustPressed) {
-            currentType = Collections.enumPrev(currentType);
-            onChangeParameters();
-            return;
-        } else if (cJustPressed) {
-            sclX *= -1;
+            currentAssetIndex--;
+            if (currentAssetIndex < 0) currentAssetIndex = allRegions.size - 1;
             onChangeParameters();
             return;
         }
@@ -416,7 +393,7 @@ public class Tool_3_Geology extends Tool_new {
                 tokensToDelete.clear();
                 float radius = Math.abs(circle_spreadRadius * sclX);
                 radius = Math.max(radius, 10);
-                map.getAllTokensInCircleByEnumClass(Type.class, x, y, radius, tokensToDelete);
+                map.getAllTokensInCircleByEnumValue(TYPE, x, y, radius, tokensToDelete);
                 deleteTokens();
             }
             return;
@@ -513,10 +490,8 @@ public class Tool_3_Geology extends Tool_new {
                 renderer2D.setColor(Color.BLUE);
                 renderer2D.drawCircleThin(Math.max(12, 5), 10, x, y, 0,1,1);
                 renderer2D.setColor(Color.WHITE);
-                for (TextureRegion region : currentRegions) {
-                    if (region == null) continue;
-                    renderer2D.drawTextureRegion(region, x, y, deg, sclX, sclY);
-                }
+                TextureRegion currentRegion = getCurrentRegion();
+                renderer2D.drawTextureRegion(currentRegion, x, y, deg, sclX, sclY);
             } else {
                 renderer2D.setColor(Color.BLUE);
                 renderer2D.drawCircleThin(Math.max(12, 5), 10, line_start.x, line_start.y, 0,1,1);
@@ -548,12 +523,8 @@ public class Tool_3_Geology extends Tool_new {
                 renderer2D.setColor(Color.PURPLE);
                 renderer2D.drawCircleThin(Math.max(12, 5), 10, x, y, 0,1,1);
                 renderer2D.setColor(Color.WHITE);
-                if (currentRegions != null) {
-                    for (TextureRegion region : currentRegions) {
-                        if (region == null) continue;
-                        renderer2D.drawTextureRegion(region, x, y, deg, sclX, sclY);
-                    }
-                }
+                TextureRegion currentRegion = getCurrentRegion();
+                renderer2D.drawTextureRegion(currentRegion, x, y, deg, sclX, sclY);
             } else if (!polygon_points.isEmpty()) {
                 renderer2D.setColor(Color.PURPLE);
                 renderer2D.drawCircleBorder(15, 5, 10, polygon_points.first().x, polygon_points.first().y, 0,1,1);
@@ -651,13 +622,7 @@ public class Tool_3_Geology extends Tool_new {
 
     public enum Type {
 
-        MOUNTAIN_GREEN,
-        MOUNTAIN_GREY,
-        MOUNTAIN_RED,
-        BOULDER,
-
-        HILLS_BROWN,
-        HILLS_GREEN,
+        DECORATION
 
     }
 

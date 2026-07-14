@@ -15,7 +15,7 @@ public class InputEventHandlerTest {
             layers.add(new MyInputEventHandler());
         }
 
-        layers.sort(Comparator.comparingInt(InputEventHandler::getLayer).reversed()); // printing confirms it is sorted in descending order.
+        layers.sort(Comparator.comparingInt(InputEventHandler::getInputLayer).reversed()); // printing confirms it is sorted in descending order.
     }
 
     private static class MyInputEventHandler implements InputEventHandler {
@@ -23,12 +23,12 @@ public class InputEventHandlerTest {
         private final int level = MathUtils.randomUniformInt(0,10);
 
         @Override
-        public int getLayer() {
+        public int getInputLayer() {
             return level;
         }
 
         @Override
-        public boolean active() {
+        public boolean isActive() {
             return false;
         }
 

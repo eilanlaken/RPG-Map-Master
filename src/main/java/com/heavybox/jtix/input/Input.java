@@ -13,7 +13,7 @@ public final class Input {
     public static final Webcam   webcam   = new Webcam();
 
     private static final Array<InputEventHandler>      inputEventHandlers           = new Array<>(true, 3);
-    private static final Comparator<InputEventHandler> inputEventHandlersComparator = (a, b) -> Integer.compare(b.getLayer(), a.getLayer());
+    private static final Comparator<InputEventHandler> inputEventHandlersComparator = (a, b) -> Integer.compare(b.getInputLayer(), a.getInputLayer());
 
     private Input() {}
 
@@ -27,7 +27,7 @@ public final class Input {
         float scrollY = mouse.getScrollY();
         if (!MathUtils.isZero(scrollX) || !MathUtils.isZero(scrollY)) {
             for (InputEventHandler inputEventHandler : inputEventHandlers) {
-                if (!inputEventHandler.active()) continue;
+                if (!inputEventHandler.isActive()) continue;
                 boolean handled = inputEventHandler.mouseScrolled(scrollX, scrollY);
                 if (handled) break;
             }
@@ -37,7 +37,7 @@ public final class Input {
         final Array<Mouse.Button> mouseButtonsJustPressed = mouse.getButtonsJustPressed();
         if (!mouseButtonsJustPressed.isEmpty()) {
             for (InputEventHandler inputEventHandler : inputEventHandlers) {
-                if (!inputEventHandler.active()) continue;
+                if (!inputEventHandler.isActive()) continue;
                 boolean handled = inputEventHandler.mouseButtonsDown(mouse.getX(), mouse.getY(), mouseButtonsJustPressed);
                 if (handled) break;
             }
@@ -47,7 +47,7 @@ public final class Input {
         final Array<Mouse.Button> mouseButtonsJustReleased = mouse.getButtonsJustReleased();
         if (!mouseButtonsJustReleased.isEmpty()) {
             for (InputEventHandler inputEventHandler : inputEventHandlers) {
-                if (!inputEventHandler.active()) continue;
+                if (!inputEventHandler.isActive()) continue;
                 boolean handled = inputEventHandler.mouseButtonsUp(mouse.getX(), mouse.getY(), mouseButtonsJustReleased);
                 if (handled) break;
             }
@@ -57,7 +57,7 @@ public final class Input {
         boolean mouseMoved = mouse.moved();
         if (mouseMoved) {
             for (InputEventHandler inputEventHandler : inputEventHandlers) {
-                if (!inputEventHandler.active()) continue;
+                if (!inputEventHandler.isActive()) continue;
                 boolean handled = inputEventHandler.mouseMoved(mouse.getX(), mouse.getY(), mouse.getXDelta(), mouse.getYDelta());
                 if (handled) break;
             }
@@ -68,7 +68,7 @@ public final class Input {
         final boolean mouseDragged = mouse.moved() && !mouseButtonsPressed.isEmpty();
         if (mouseDragged) {
             for (InputEventHandler inputEventHandler : inputEventHandlers) {
-                if (!inputEventHandler.active()) continue;
+                if (!inputEventHandler.isActive()) continue;
                 boolean handled = inputEventHandler.mouseDragged(mouse.getX(), mouse.getY(), mouse.getXDelta(), mouse.getYDelta(), mouseButtonsPressed);
                 if (handled) break;
             }
@@ -78,7 +78,7 @@ public final class Input {
         final Array<Keyboard.Key> keyboardKeysJustPressed = keyboard.getKeysJustDown();
         if (!keyboardKeysJustPressed.isEmpty()) {
             for (InputEventHandler inputEventHandler : inputEventHandlers) {
-                if (!inputEventHandler.active()) continue;
+                if (!inputEventHandler.isActive()) continue;
                 boolean handled = inputEventHandler.keyboardKeysJustPressed(keyboardKeysJustPressed);
                 if (handled) break;
             }
@@ -88,7 +88,7 @@ public final class Input {
         final Array<Keyboard.Key> keyboardKeysJustReleased = keyboard.getKeysJustUp();
         if (!keyboardKeysJustReleased.isEmpty()) {
             for (InputEventHandler inputEventHandler : inputEventHandlers) {
-                if (!inputEventHandler.active()) continue;
+                if (!inputEventHandler.isActive()) continue;
                 boolean handled = inputEventHandler.keyboardKeysJustReleased(keyboardKeysJustReleased);
                 if (handled) break;
             }
@@ -98,7 +98,7 @@ public final class Input {
         final ArrayChar codepointTyped = keyboard.getCodepointsTyped();
         if (!codepointTyped.isEmpty()) {
             for (InputEventHandler inputEventHandler : inputEventHandlers) {
-                if (!inputEventHandler.active()) continue;
+                if (!inputEventHandler.isActive()) continue;
                 boolean handled = inputEventHandler.keyboardCodepointsTyped(codepointTyped);
                 if (handled) break;
             }

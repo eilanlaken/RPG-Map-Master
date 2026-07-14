@@ -14,7 +14,7 @@ public class SceneInput_2 implements Scene {
     InputEventHandler second = new InputEventHandler() {
 
         @Override
-        public boolean active() {
+        public boolean isActive() {
             return false;
         }
 
@@ -37,7 +37,7 @@ public class SceneInput_2 implements Scene {
         }
 
         @Override
-        public int getLayer() {
+        public int getInputLayer() {
             return 1;
         }
     };
@@ -53,7 +53,7 @@ public class SceneInput_2 implements Scene {
     }
 
     @Override
-    public boolean active() {
+    public boolean isActive() {
         return true;
     }
 

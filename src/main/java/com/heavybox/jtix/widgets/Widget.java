@@ -78,12 +78,12 @@ public class Widget implements InputEventHandler {
     }
 
     @Override
-    public boolean active() {
+    public boolean isActive() {
         return active;
     }
 
     @Override
-    public int getLayer() {
+    public int getInputLayer() {
         return zIndex;
     }
 }

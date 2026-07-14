@@ -522,7 +522,7 @@ public class ToolBrush_Geology extends Tool {
     }
 
     @Override
-    public int getLayer() {
+    public int getInputLayer() {
         return 0;
     }
 

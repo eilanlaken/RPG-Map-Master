@@ -648,12 +648,12 @@ public class Tool_4_Props extends Tool_new {
     // later
 
     @Override
-    public int getLayer() {
+    public int getInputLayer() {
         return 0;
     }
 
     @Override
-    public boolean active() {
+    public boolean isActive() {
         return active;
     }
 

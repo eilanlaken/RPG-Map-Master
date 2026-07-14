@@ -6,8 +6,8 @@ import org.jetbrains.annotations.NotNull;
 
 public interface InputEventHandler {
 
-    int getLayer();
-    boolean active();
+    int     getInputLayer();
+    boolean isActive();
 
     default boolean mouseButtonsDown(int mouseX, int mouseY, @NotNull final Array<Mouse.Button> buttons) { return false; }
     default boolean mouseButtonsUp  (int mouseX, int mouseY, @NotNull final Array<Mouse.Button> buttons) { return false;}

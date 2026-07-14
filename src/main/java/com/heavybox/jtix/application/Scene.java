@@ -18,6 +18,6 @@ public interface Scene extends InputEventHandler {
     default void windowFilesDraggedAndDropped(Array<String> filePaths) {}
 
     @Override
-    default int getLayer() { return Integer.MIN_VALUE; }
+    default int getInputLayer() { return Integer.MIN_VALUE; }
 
 }
