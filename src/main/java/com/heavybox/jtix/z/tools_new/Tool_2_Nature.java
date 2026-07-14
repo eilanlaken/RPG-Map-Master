@@ -62,8 +62,8 @@ public class Tool_2_Nature extends Tool_new {
         super(scene);
         atlas = Assets.get("assets/texture-packs/layer_3.yml");
 
-        sclX = 1f / 3;
-        sclY = 1f / 3;
+        sclX = 1f / 6;
+        sclY = 1f / 6;
 
         currentShape = Tool.Shape.CIRCLE;
         currentMode = Tool.Mode.ADD;
