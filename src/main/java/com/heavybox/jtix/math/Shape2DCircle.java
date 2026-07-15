@@ -1,5 +1,7 @@
 package com.heavybox.jtix.math;
 
+import org.jetbrains.annotations.NotNull;
+
 public class Shape2DCircle implements Shape2D {
 
     public final float r;
@@ -13,7 +15,7 @@ public class Shape2DCircle implements Shape2D {
     }
 
     @Override
-    public boolean containsPoint(float x, float y) {
+    public final boolean containsPoint(float x, float y) {
         return x * x + y * y <= r * r;
     }
 
@@ -28,7 +30,8 @@ public class Shape2DCircle implements Shape2D {
     }
 
     @Override
-    public void centerOfMass(Vector2 out) {
+    public void centerOfMass(@NotNull Vector2 out) {
         out.set(0,0);
     }
+
 }

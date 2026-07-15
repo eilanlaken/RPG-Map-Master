@@ -1,5 +1,7 @@
 package com.heavybox.jtix.math;
 
+import org.jetbrains.annotations.NotNull;
+
 public class Shape2DRectangle implements Shape2D {
 
     public  final float  w;
@@ -30,7 +32,7 @@ public class Shape2DRectangle implements Shape2D {
     }
 
     @Override
-    public void centerOfMass(Vector2 out) {
+    public void centerOfMass(@NotNull Vector2 out) {
         out.set(0,0);
     }
 }

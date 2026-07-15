@@ -6,7 +6,7 @@ import com.heavybox.jtix.collections.ArrayInt;
 import org.jetbrains.annotations.NotNull;
 
 // TODO: test
-// represents a SIMPLE polygon: no intersecting edges, no inverse edges, closed, convex or concave, no holes, connected region
+// represents a SIMPLE convex or concave, closed polygon: no intersecting edges, no inverse edges, no holes.
 public class Shape2DPolygon implements Shape2D {
 
     public  ArrayFloat points;
@@ -83,17 +83,13 @@ public class Shape2DPolygon implements Shape2D {
         // triangulate polygon + remove degenerate vertices
         if (indices == null) indices = new ArrayInt(true, 3 * (2 * points.size - 2));
         MathUtils.polygonTriangulate(points, indices);
-
         // calculate area
         this.area = MathUtils.polygonArea(points);
-
         // calculate perimeter
         this.perimeter = MathUtils.polygonPerimeter(points);
-
         // calculate centroid
         if (centroid == null) centroid = new Vector2();
         MathUtils.polygonCenterOfMass(points, centroid);
-
         dirty = false;
     }
 
@@ -115,7 +111,7 @@ public class Shape2DPolygon implements Shape2D {
     }
 
     @Override
-    public void centerOfMass(Vector2 out) {
+    public void centerOfMass(@NotNull Vector2 out) {
         if (dirty) recalculateMetrics();
         out.set(centroid.x, centroid.y);
     }

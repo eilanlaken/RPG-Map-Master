@@ -28,7 +28,7 @@ import java.util.zip.ZipFile;
 public class SceneDemo implements Scene, RPGMapMakerScene {
 
     // dev save and load
-    public final String saveFile = "C:\\Users\\eilan\\OneDrive\\Desktop\\Heavy Box Games\\projects\\RPG Map Master\\public\\maps\\map_1.map";
+    public final String saveFile = "C:\\Users\\eilan\\OneDrive\\Desktop\\Heavy Box Games\\projects\\RPG Map Master\\public\\maps\\map_num.map";
 
     public static int width = 2880;
     public static int height = 2880; //1620;
@@ -237,6 +237,22 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
         } else if (left_ctrl_just_pressed && z_just_pressed) {
             map.undo();
             return;
+        }
+
+
+        // export placeholder
+        if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KP_0)) {
+            map.exportLayerAsImage(0);
+        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KP_1)) {
+            map.exportLayerAsImage(1);
+        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KP_2)) {
+            map.exportLayerAsImage(2);
+        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KP_3)) {
+            map.exportLayerAsImage(3);
+        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KP_4)) {
+            //map.saveLayerAsImage(4);
+        } else if (Input.keyboard.isKeyJustReleased(Keyboard.Key.KP_5)) {
+            map.exportLayerAsImage(5);
         }
 
         map.update(delta);

@@ -11,9 +11,7 @@ public interface InputEventHandler {
 
     default boolean mouseButtonsDown(int mouseX, int mouseY, @NotNull final Array<Mouse.Button> buttons) { return false; }
     default boolean mouseButtonsUp  (int mouseX, int mouseY, @NotNull final Array<Mouse.Button> buttons) { return false;}
-    default boolean mouseMoved      (int mouseX, int mouseY, int deltaMouseX, int deltaMouseY) {
-        return false;
-    }
+    default boolean mouseMoved      (int mouseX, int mouseY, int deltaMouseX, int deltaMouseY) { return false; }
     default boolean mouseScrolled   (float scrollX, float scrollY) {
         return false;
     }
