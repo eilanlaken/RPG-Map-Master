@@ -160,11 +160,7 @@ public class ToolBrush_Debug extends Tool {
             float startY = minY + step * 0.5f;
             float posY = startY;
 
-            if (polygon_shape == null) {
-                polygon_shape = new Shape2DPolygon(polygon_flatTmp);
-            } else {
-                polygon_shape.setPoints(polygon_flatTmp);
-            }
+            polygon_shape = new Shape2DPolygon(polygon_flatTmp);
             Vector2 field = new Vector2();
 
             while (posY <= maxY) {

@@ -38,6 +38,10 @@ public class Transform2D {
         return this;
     }
 
+    public void applyScaleRotateTranslate(@NotNull Vector2 v) {
+        v.scl(this.sclX, this.sclY).rotateDeg(this.deg).add(this.x, this.y);
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;

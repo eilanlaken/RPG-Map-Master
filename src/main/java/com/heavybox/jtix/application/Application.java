@@ -5,7 +5,7 @@ import com.heavybox.jtix.async.Async;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.graphics.Graphics;
 import com.heavybox.jtix.input.Input;
-import com.heavybox.jtix.widgets.Widgets;
+import com.heavybox.jtix.widgets_2.Widgets;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.*;
@@ -237,7 +237,8 @@ public class Application {
 
             Assets.update();
             Input.update();
-            Widgets.update();
+            //Widgets.update();
+            Widgets.update(); // TODO: see if this is the right place to call update().
             GLFW.glfwPollEvents();
 
             boolean requestRendering;
@@ -299,6 +300,7 @@ public class Application {
     public static void playScene(@NotNull Scene scene) {
         if (!running) throw new ApplicationException("Application not running. Use launch() method if this is the first scene you are playing. Function playScene() should be called when switching scenes.");
         Input.clearEventHandlers(); // scenes should set up their own input handling logic.
+        Widgets.clear();
         if (currentScene != null) {
             currentScene.finish();
         }
