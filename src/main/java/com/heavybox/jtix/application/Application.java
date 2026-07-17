@@ -225,6 +225,7 @@ public class Application {
         /* start the application with active scene */
         currentScene = scene;
         Input.addEventHandler(currentScene);
+        Widgets.clear();
         currentScene.start();
 
         /* main thread game loop */
@@ -238,7 +239,6 @@ public class Application {
             Assets.update();
             Input.update();
             //Widgets.update();
-            Widgets.update(); // TODO: see if this is the right place to call update().
             GLFW.glfwPollEvents();
 
             boolean requestRendering;

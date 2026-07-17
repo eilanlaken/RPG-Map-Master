@@ -1,17 +1,20 @@
 package com.heavybox.jtix.widgets_2;
 
-import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Renderer2D;
-import com.heavybox.jtix.math.Transform2D;
 
 public final class WidgetShapeRectangle extends Widget implements WidgetShape {
 
     public DrawMode drawMode = DrawMode.FILLED;
 
-    private float color = Color.RED.toFloatBits();
-    private float width;
-    private float height;
+    public float color = Color.RED.toFloatBits();
+    public float width;
+    public float height;
+
+    public WidgetShapeRectangle(float width, float height) {
+        this.width = width;
+        this.height = height;
+    }
 
     // TODO: add corners, refinement, border radius etc.
     @Override

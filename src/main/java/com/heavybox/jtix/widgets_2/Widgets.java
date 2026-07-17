@@ -2,6 +2,7 @@ package com.heavybox.jtix.widgets_2;
 
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.graphics.Graphics;
+import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.input.Input;
 import org.jetbrains.annotations.NotNull;
 
@@ -16,9 +17,10 @@ public final class Widgets {
     private static float pointerX     = 0;
     private static float pointerY     = 0;
 
-    static final Array<Widget> allWidgets         = new Array<>(false, 4);
-    static final Array<Widget> allWidgetsToAdd    = new Array<>(false, 4);
-    static final Array<Widget> allWidgetsToRemove = new Array<>(false, 4);
+    /*** current scene widgets */
+    private static final Array<Widget> allSceneWidgets         = new Array<>(false, 4);
+    private static final Array<Widget> allSceneWidgetsToAdd    = new Array<>(false, 4);
+    private static final Array<Widget> allSceneWidgetsToRemove = new Array<>(false, 4);
 
     private Widgets() {}
 
@@ -30,17 +32,31 @@ public final class Widgets {
         pointerX = Input.mouse.getX() - windowHalfWidth;
         pointerY = windowHalfHeight - Input.mouse.getY();
 
-        // do widget updates here.
-        allWidgets.addAll(allWidgetsToAdd);
-        allWidgets.removeAll(allWidgetsToRemove, true);
-        allWidgetsToAdd.clear();
-        allWidgetsToRemove.clear();
+        /* add all added widgets */
+        for (Widget widget : allSceneWidgetsToAdd) {
+            Input.addEventHandler(widget);
+        }
+        allSceneWidgets.addAll(allSceneWidgetsToAdd);
+        allSceneWidgetsToAdd.clear();
+        /* remove all added widgets */
+        for (Widget widget : allSceneWidgetsToRemove) {
+            Input.removeEventHandler(widget);
+        }
+        allSceneWidgets.removeAll(allSceneWidgetsToRemove, true);
+        allSceneWidgetsToRemove.clear();
 
         // iterate over all *root* widget nodes and perform offset updates and logical updates.
+        final float delta = Graphics.getDeltaTime();
+        for (Widget widget : allSceneWidgets) {
+            if (widget.isRoot()) widget.update(delta);
+        }
     }
 
-    public static void render() {
+    public static void render(Renderer2D renderer2D) {
         // iterate over all *root* widget nodes and perform renders
+        for (Widget widget : allSceneWidgets) {
+            if (widget.isRoot()) widget.render(renderer2D);
+        }
     }
 
     public static float getPointerX()     { return pointerX; }
@@ -48,14 +64,23 @@ public final class Widgets {
     public static float getPointerXPrev() { return pointerXPrev; }
     public static float getPointerYPrev() { return pointerYPrev; }
 
-    public static void registerWidget(@NotNull Widget widget) {
-        allWidgetsToAdd.add(widget);
+    public static void add(@NotNull final Widget widget) {
+        allSceneWidgetsToAdd.add(widget);
+    }
+
+    public static void remove(@NotNull final Widget widget) {
+        allSceneWidgetsToRemove.add(widget);
     }
 
     public static void clear() {
-        allWidgets.clear();
-        allWidgetsToAdd.clear();
-        allWidgetsToRemove.clear();
+        allSceneWidgets.clear();
+        allSceneWidgetsToAdd.clear();
+        allSceneWidgetsToRemove.clear();
+    }
+
+    static boolean isXAncestorOfY(final Widget X, final Widget Y) {
+        if (X == null || Y == null) return false;
+        return X == Y.getParent() || isXAncestorOfY(X, Y.getParent());
     }
 
 }

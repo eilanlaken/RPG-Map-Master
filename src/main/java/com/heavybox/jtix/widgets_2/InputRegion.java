@@ -10,6 +10,7 @@ import org.jetbrains.annotations.NotNull;
 
 public final class InputRegion {
 
+    /* The envelope points of the region */
     private final ArrayFloat points = new ArrayFloat(true, 8);
 
     public void setToRectangle(float width, float height) {
