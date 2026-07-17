@@ -8,6 +8,7 @@ import org.yaml.snakeyaml.Yaml;
 import java.util.HashMap;
 import java.util.Map;
 
+@Deprecated
 public class AssetLoaderTheme implements AssetLoader<Theme> {
 
     private Array<AssetDescriptor> dependencies;

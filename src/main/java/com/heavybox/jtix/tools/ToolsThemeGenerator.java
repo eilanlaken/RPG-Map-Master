@@ -7,6 +7,7 @@ import com.heavybox.jtix.graphics.GraphicsException;
 import java.util.HashSet;
 import java.util.Set;
 
+@Deprecated
 public final class ToolsThemeGenerator {
 
     // a bunch of static variables containing defaults + paths.

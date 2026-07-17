@@ -20,8 +20,6 @@ public abstract class Widget implements InputEventHandler {
     /*** metrics: transform and dimensions ***/
     private        float      width           = 0; // TODO: use for caching and event handling
     private        float      height          = 0; // TODO: use for caching and event handling
-    private        float      prevWidth       = 0; // TODO: use for caching and event handling
-    private        float      prevHeight      = 0; // TODO: use for caching and event handling
     public  final Transform2D transform       = new Transform2D(); // used for absolute positioning from root and animations
     public        float       offsetX         = 0; // set by the parent or anchor.
     public        float       offsetY         = 0; // set by the parent or anchor.
@@ -35,43 +33,33 @@ public abstract class Widget implements InputEventHandler {
     private       boolean     updated         = false; // TODO: see when to reset the flag. FIXME NEXT
 
     /*** ui hierarchy ***/
-    private       Widget        parent          = null;
-    public        boolean       active          = true;
-    final         Array<Widget> children        = new Array<>();
-    private final Array<Widget> childrenLayout  = new Array<>();
+    private       Widget        parent         = null;
+    public        boolean       active         = true;
+    final         Array<Widget> children       = new Array<>();
+    private final Array<Widget> childrenLayout = new Array<>();
 
     /*** input handling ***/
     public        int                inputLayerIndex           = 1;
-    private       int                inputLayer                = 1;
+    private       int                inputLayer                = 1; // calculated
     public        boolean            preventDefault            = false;
     private final InputRegion        inputRegion               = new InputRegion();
-    private final InputRegion        inputRegionMask           = new InputRegion();
     private final Array<InputRegion> inputRegionsAncestors     = new Array<>(false, 3);
-    private       InputEventListener inputEventListener        = null; // TODO: change into private and add register listener method
+    private       InputEventListener inputEventListener        = null; // TODO: add register listener method
     private       InputEventListener inputEventListenerDefault = null;
-
-
-    public Widget() {
-        // register as input listener etc.?
-
-    }
 
     protected abstract void  draw    (Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY);
     protected          void  drawMask(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) { draw(renderer2D, x, y, deg, sclX, sclY); }
     protected abstract float getWidth();
     protected abstract float getHeight();
+    protected          void  fixedUpdate(float delta) {} // TODO: call with accumulative error
 
-    protected void fixedUpdate(float delta) {} // TODO: call with accumulative error
-    protected void onChildAdded(Widget child) {}
+    /* common event callbacks */
+    protected void onChildAdded  (Widget child) {}
     protected void onChildRemoved(Widget child) {}
-    protected void onResize(final float prevWidth, final float prevHeight, final float newWidth, final float newHeight) {}
+    protected void onResize      (final float prevWidth, final float prevHeight, final float newWidth, final float newHeight) {}
 
     protected void configureInputRegion(final @NotNull InputRegion region) {
         region.setToRectangle(getWidth(), getHeight());
-    }
-
-    protected void configureInputMaskedRegion(final @NotNull InputRegion maskedRegion) {
-        configureInputRegion(maskedRegion);
     }
 
     final Widget getParent() {
@@ -295,17 +283,16 @@ public abstract class Widget implements InputEventHandler {
         if (!active) return;
 
         configureInputRegion(inputRegion);
-        configureInputMaskedRegion(inputRegionMask);
 
         updated = false;
         childrenLayout.clear();
         for (Widget child : children) {
-            if (child.anchor == null) childrenLayout.add(child);
+            if (child.active && child.anchor == null) childrenLayout.add(child);
         }
         setChildrenOffsets(childrenLayout);
         setOffsetsAnchor();
-        prevWidth = width;
-        prevHeight = height;
+        float prevWidth = width;
+        float prevHeight = height;
         width = getWidth();
         height = getHeight();
 
@@ -365,7 +352,7 @@ public abstract class Widget implements InputEventHandler {
         Widget p = parent;
         while (p != null) {
             if (p.maskChildren()) {
-                inputRegionsAncestors.add(p.inputRegionMask);
+                inputRegionsAncestors.add(p.inputRegion);
             }
             p = p.parent;
         }
