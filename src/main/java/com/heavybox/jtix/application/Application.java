@@ -238,7 +238,6 @@ public class Application {
 
             Assets.update();
             Input.update();
-            //Widgets.update();
             GLFW.glfwPollEvents();
 
             boolean requestRendering;
@@ -346,7 +345,7 @@ public class Application {
 
         if (shouldRefresh) {
             Graphics.update();
-            currentScene.update(); // TODO: separate into frameUpdate(deltaTime), fixedUpdate(tickRate), render()
+            currentScene.update(); // FIXME TODO separate into frameUpdate(deltaTime), fixedUpdate(tickRate), render()
             GLFW.glfwSwapBuffers(windowHandle);
         }
 

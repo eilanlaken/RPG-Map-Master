@@ -7,7 +7,7 @@ public final class WidgetShapeRectangle extends Widget implements WidgetShape {
 
     public DrawMode drawMode = DrawMode.FILLED;
 
-    public float color = Color.RED.toFloatBits();
+    public float color = Color.randomOpaque().toFloatBits();
     public float width;
     public float height;
 

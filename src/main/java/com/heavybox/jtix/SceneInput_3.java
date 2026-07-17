@@ -3,6 +3,7 @@ package com.heavybox.jtix;
 import com.heavybox.jtix.application.Scene;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.collections.ArrayChar;
+import com.heavybox.jtix.graphics.Graphics;
 import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.InputEventHandler;
@@ -10,6 +11,7 @@ import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.widgets_2.WidgetShapeRectangle;
 import com.heavybox.jtix.widgets_2.Widgets;
 import org.jetbrains.annotations.NotNull;
+import org.lwjgl.opengl.GL11;
 
 public class SceneInput_3 implements Scene {
 
@@ -18,7 +20,11 @@ public class SceneInput_3 implements Scene {
 
     @Override
     public void start() {
+        rectangle.transform.x = 200;
+        rectangle.transform.y = 200;
+        rectangle.transform.deg = 33;
         rectangle.onMouseDown(e -> {
+            rectangle.width = 30;
             System.out.println("clicked rect");
         });
         Widgets.add(rectangle);
@@ -33,6 +39,10 @@ public class SceneInput_3 implements Scene {
     @Override
     public void update() {
         Widgets.update();
+
+        Graphics.bindFrameBuffer(null);
+        GL11.glClearColor(0.01f,0.01f,0.01f,1);
+        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_STENCIL_BUFFER_BIT); // should probably clear the stencil
 
         renderer2D.begin();
         Widgets.render(renderer2D);

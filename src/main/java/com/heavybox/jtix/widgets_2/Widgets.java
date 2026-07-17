@@ -1,6 +1,7 @@
 package com.heavybox.jtix.widgets_2;
 
 import com.heavybox.jtix.collections.Array;
+import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Graphics;
 import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.input.Input;
@@ -9,7 +10,8 @@ import org.jetbrains.annotations.NotNull;
 public final class Widgets {
 
     /*** some global flags ***/
-    public static boolean debugMode = true; // TODO: use this when rendering: render regions if true.
+    public  static       boolean debugMode        = true; // TODO: use this when rendering: render regions if true.
+    private static final float   WHITE_FLOAT_BITS = Color.WHITE.toFloatBits(); // to reset the color to white before re-rendering components
 
     /*** input device state */
     private static float pointerXPrev = 0;
@@ -55,6 +57,7 @@ public final class Widgets {
     public static void render(Renderer2D renderer2D) {
         // iterate over all *root* widget nodes and perform renders
         for (Widget widget : allSceneWidgets) {
+            renderer2D.setColor(WHITE_FLOAT_BITS);
             if (widget.isRoot()) widget.render(renderer2D);
         }
     }
