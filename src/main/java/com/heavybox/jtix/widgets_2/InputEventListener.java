@@ -1,110 +1,108 @@
 package com.heavybox.jtix.widgets_2;
 
-import com.heavybox.jtix.widgets.Event;
-
 public class InputEventListener {
 
     /*** input - event handlers ***/
-    public MouseUp                 onMouseUp                 = null;
-    public MouseDown               onMouseDown               = null;
-    public MouseEnter              onMouseEnter              = null;
-    public MouseLeave              onMouseLeave              = null;
-    public MouseLeftClick          onMouseLeftClick          = null;
-    public MouseRightClick         onMouseRightClick         = null;
-    public MouseMiddleClick        onMouseMiddleClick        = null;
-    public MouseLeftClickOutside   onMouseLeftClickOutside   = null;
-    public MouseRightClickOutside  onMouseRightClickOutside  = null;
-    public MouseMiddleClickOutside onMouseMiddleClickOutside = null;
-    public MouseScroll             onMouseScroll             = null;
-    public MouseDrag               onMouseDrag               = null;
-    public MouseDragStart          onMouseDragStart          = null;
-    public MouseDragEnd            onMouseDragEnd            = null;
-    public CodepointsTyped         onCodepointsTyped         = null;
-    public KeysJustPressed         onKeysJustPressed         = null;
-    public KeysPressed             onKeysPressed             = null;
+    public OnMouseUp                 onMouseUp                 = null;
+    public OnMouseDown               onMouseDown               = null;
+    public OnMouseEnter              onMouseEnter              = null;
+    public OnMouseLeave              onMouseLeave              = null;
+    public OnMouseLeftClick          onMouseLeftClick          = null;
+    public OnMouseRightClick         onMouseRightClick         = null;
+    public OnMouseMiddleClick        onMouseMiddleClick        = null;
+    public OnMouseLeftClickOutside   onMouseLeftClickOutside   = null;
+    public OnMouseRightClickOutside  onMouseRightClickOutside  = null;
+    public OnMouseMiddleClickOutside onMouseMiddleClickOutside = null;
+    public OnMouseScroll             onMouseScroll             = null;
+    public OnMouseDrag               onMouseDrag               = null;
+    public OnMouseDragStart          onMouseDragStart          = null;
+    public OnMouseDragEnd            onMouseDragEnd            = null;
+    public OnCodepointsTyped         onCodepointsTyped         = null;
+    public OnKeysJustPressed         onKeysJustPressed         = null;
+    public OnKeysPressed             onKeysPressed             = null;
 
     @FunctionalInterface
-    public interface MouseLeftClick {
+    public interface OnMouseLeftClick {
         void handle(InputEventData.MouseLeftClick e);
     }
 
     @FunctionalInterface
-    public interface MouseRightClick {
+    public interface OnMouseRightClick {
         void handle(InputEventData.MouseRightClick e);
     }
 
     @FunctionalInterface
-    public interface MouseMiddleClick {
+    public interface OnMouseMiddleClick {
         void handle(InputEventData.MouseMiddleClick e);
     }
 
     @FunctionalInterface
-    public interface MouseLeftClickOutside {
+    public interface OnMouseLeftClickOutside {
         void handle(InputEventData.MouseLeftClickOutside e);
     }
 
     @FunctionalInterface
-    public interface MouseRightClickOutside {
+    public interface OnMouseRightClickOutside {
         void handle(InputEventData.MouseRightClickOutside e);
     }
 
     @FunctionalInterface
-    public interface MouseMiddleClickOutside {
+    public interface OnMouseMiddleClickOutside {
         void handle(InputEventData.MouseMiddleClickOutside e);
     }
 
     @FunctionalInterface
-    public interface MouseDown {
+    public interface OnMouseDown {
         void handle(InputEventData.MouseDown e);
     }
 
     @FunctionalInterface
-    public interface MouseUp {
+    public interface OnMouseUp {
         void handle(InputEventData.MouseUp e);
     }
 
     @FunctionalInterface
-    public interface MouseEnter {
+    public interface OnMouseEnter {
         void handle(InputEventData.MouseEnter e);
     }
 
     @FunctionalInterface
-    public interface MouseLeave {
+    public interface OnMouseLeave {
         void handle(InputEventData.MouseLeave e);
     }
 
     @FunctionalInterface
-    public interface MouseScroll {
+    public interface OnMouseScroll {
         void handle(InputEventData.MouseScroll e);
     }
 
     @FunctionalInterface
-    public interface MouseDrag {
+    public interface OnMouseDrag {
         void handle(InputEventData.MouseDrag e);
     }
 
     @FunctionalInterface
-    public interface MouseDragStart {
+    public interface OnMouseDragStart {
         void handle(InputEventData.MouseDragStart e);
     }
 
     @FunctionalInterface
-    public interface MouseDragEnd {
+    public interface OnMouseDragEnd {
         void handle(InputEventData.MouseDragEnd e);
     }
 
     @FunctionalInterface
-    public interface CodepointsTyped {
+    public interface OnCodepointsTyped {
         void handle(InputEventData.CodepointsTyped e);
     }
 
     @FunctionalInterface
-    public interface KeysJustPressed {
+    public interface OnKeysJustPressed {
         void handle(InputEventData.KeysJustPressed e);
     }
 
     @FunctionalInterface
-    public interface KeysPressed {
+    public interface OnKeysPressed {
         void handle(InputEventData.KeysPressed e);
     }
 

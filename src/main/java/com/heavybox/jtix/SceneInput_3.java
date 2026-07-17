@@ -18,9 +18,9 @@ public class SceneInput_3 implements Scene {
 
     @Override
     public void start() {
-        rectangle.inputEventListener.onMouseDown = e -> {
+        rectangle.onMouseDown(e -> {
             System.out.println("clicked rect");
-        };
+        });
         Widgets.add(rectangle);
     }
 

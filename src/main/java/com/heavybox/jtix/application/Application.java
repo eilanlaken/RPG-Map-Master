@@ -346,7 +346,7 @@ public class Application {
 
         if (shouldRefresh) {
             Graphics.update();
-            currentScene.update();
+            currentScene.update(); // TODO: separate into frameUpdate(deltaTime), fixedUpdate(tickRate), render()
             GLFW.glfwSwapBuffers(windowHandle);
         }
 

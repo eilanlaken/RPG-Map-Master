@@ -47,8 +47,8 @@ public abstract class Widget implements InputEventHandler {
     private final InputRegion        inputRegion               = new InputRegion();
     private final InputRegion        inputRegionMask           = new InputRegion();
     private final Array<InputRegion> inputRegionsAncestors     = new Array<>(false, 3);
-    public        InputEventListener inputEventListener        = new InputEventListener(); // TODO: change into private and add register listener method
-    private       InputEventListener inputEventListenerDefault = new InputEventListener();
+    private       InputEventListener inputEventListener        = null; // TODO: change into private and add register listener method
+    private       InputEventListener inputEventListenerDefault = null;
 
 
     public Widget() {
@@ -424,8 +424,8 @@ public abstract class Widget implements InputEventHandler {
         e.buttonLeft = buttons.contains(Mouse.Button.LEFT, true);
         e.buttonRight = buttons.contains(Mouse.Button.RIGHT, true);;
         e.buttonMiddle = buttons.contains(Mouse.Button.MIDDLE, true);;
-        if (inputEventListener.onMouseDown != null) inputEventListener.onMouseDown.handle(e);
-        if (!preventDefault && inputEventListenerDefault.onMouseDown != null) inputEventListenerDefault.onMouseDown.handle(e);
+        if (inputEventListener != null && inputEventListener.onMouseDown != null) inputEventListener.onMouseDown.handle(e);
+        if (!preventDefault && inputEventListenerDefault != null && inputEventListenerDefault.onMouseDown != null) inputEventListenerDefault.onMouseDown.handle(e);
 
         return isRoot();
     }
@@ -463,6 +463,17 @@ public abstract class Widget implements InputEventHandler {
     @Override
     public boolean keyboardCodepointsTyped(@NotNull ArrayChar codepoints) {
         return InputEventHandler.super.keyboardCodepointsTyped(codepoints);
+    }
+
+    /*** register event listeners ***/
+    public void onMouseDown(InputEventListener.OnMouseDown listener) {
+        if (inputEventListener == null) inputEventListener = new InputEventListener();
+        inputEventListener.onMouseDown = listener;
+    }
+
+    public void onMouseDownDefault(InputEventListener.OnMouseDown listener) {
+        if (inputEventListenerDefault == null) inputEventListenerDefault = new InputEventListener();
+        inputEventListenerDefault.onMouseDown = listener;
     }
 
 }
