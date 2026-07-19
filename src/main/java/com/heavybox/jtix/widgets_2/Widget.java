@@ -16,6 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 public abstract class Widget implements InputEventHandler {
 
+    public final int ID = Widgets.getID();
 
     /*** metrics: transform and dimensions ***/
     private        float      width           = 0; // TODO: use for caching and event handling
@@ -30,30 +31,27 @@ public abstract class Widget implements InputEventHandler {
     public        boolean     draggableX      = false;
     public        boolean     draggableY      = false;
     private       int         maskLevel       = 1;
-    private       boolean     updated         = false; // TODO: see when to reset the flag. FIXME NEXT
 
     /*** ui hierarchy ***/
-    private       Widget        parent         = null;
     public        boolean       active         = true;
+    protected     Widget        parent         = null;
     final         Array<Widget> children       = new Array<>();
     private final Array<Widget> childrenLayout = new Array<>();
 
     /*** input handling ***/
-    public        int                inputLayerIndex           = 1;
+    public        int                inputLayerIndex           = ID;
     private       int                inputLayer                = 1; // calculated
     public        boolean            preventDefault            = false;
     private final InputRegion        inputRegion               = new InputRegion();
-    private final Array<InputRegion> inputRegionsAncestors     = new Array<>(false, 3);
     private       InputEventListener inputEventListener        = null; // TODO: add register listener method
     private       InputEventListener inputEventListenerDefault = null;
 
     protected abstract void  draw    (Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY);
-    protected          void  drawMask(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) { draw(renderer2D, x, y, deg, sclX, sclY); }
     protected abstract float getWidth();
     protected abstract float getHeight();
-    protected          void  fixedUpdate(float delta) {} // TODO: call with accumulative error
 
     /* common event callbacks */
+    protected void fixedUpdate   (float delta) {} // TODO: call with accumulative error
     protected void onChildAdded  (Widget child) {}
     protected void onChildRemoved(Widget child) {}
     protected void onResize      (final float prevWidth, final float prevHeight, final float newWidth, final float newHeight) {}
@@ -70,33 +68,42 @@ public abstract class Widget implements InputEventHandler {
         return parent == null;
     }
 
+    public final Widget getRoot() {
+        Widget current = this;
+        while (!current.isRoot()) {
+            current = current.getParent();
+        }
+        return current;
+    }
+
     /*** Add and remove child methods ***/
     // TODO: test
-    public final void addChild(Widget child) {
+    public final void connectChild(Widget child) {
         if (child == null) throw new WidgetsException(Widget.class.getSimpleName() + " element cannot be null.");
         if (child == this) throw new WidgetsException("Trying to parent a " + Widget.class.getSimpleName() + " to itself.");
         if (Widgets.isXAncestorOfY(child,this)) throw new WidgetsException("Cannot add an ancestor widget as a child, as this would create a cyclic hierarchy.");
         if (children.contains(child,true)) throw new WidgetsException("Widget " + child.getClass().getSimpleName() + " is already a child of widget.");
 
-        if (child.parent != null) child.parent.removeChild(child);
+        if (child.parent != null) child.parent.children.removeValue(child, true);
         children.add(child);
         child.parent = this;
+
         child.recalculateInputLayer();
         child.recalculateMaskIndex();
-
         onChildAdded(child);
     }
 
     // TODO: test
-    public final void removeChild(Widget child) {
+    public final void disconnectChild(Widget child) {
         if (child == null) throw new WidgetsException(Widget.class.getSimpleName() + " element cannot be null.");
         if (!children.contains(child, true)) throw new WidgetsException(Widget.class.getSimpleName() + " does not contain the element " + child + " as a child so it cannot be removed.");
 
         children.removeValue(child,true);
         child.parent = null;
+        Widgets.add(child);
+
         child.recalculateInputLayer();
         child.recalculateMaskIndex();
-
         onChildRemoved(child);
     }
 
@@ -284,7 +291,6 @@ public abstract class Widget implements InputEventHandler {
 
         configureInputRegion(inputRegion);
 
-        updated = false;
         childrenLayout.clear();
         for (Widget child : children) {
             if (child.active && child.anchor == null) childrenLayout.add(child);
@@ -303,7 +309,6 @@ public abstract class Widget implements InputEventHandler {
 
         calculateGlobalTransform();
         fixedUpdate(delta); // TODO: do the lag stuff
-        updated = true;
         // update children
         for (Widget child : children) {
             child.update(delta);
@@ -320,7 +325,7 @@ public abstract class Widget implements InputEventHandler {
         if (maskChildren) {
             renderer2D.beginStencil();
             renderer2D.setStencilModeIncrement();
-            drawMask(renderer2D, transformScreen.x, transformScreen.y, transformScreen.deg, transformScreen.sclX, transformScreen.sclY);
+            draw(renderer2D, transformScreen.x, transformScreen.y, transformScreen.deg, transformScreen.sclX, transformScreen.sclY);
             renderer2D.endStencil();
         }
 
@@ -339,28 +344,24 @@ public abstract class Widget implements InputEventHandler {
         if (maskChildren) {
             renderer2D.beginStencil();
             renderer2D.setStencilModeDecrement();
-            drawMask(renderer2D, transformScreen.x, transformScreen.y, transformScreen.deg, transformScreen.sclX, transformScreen.sclY);
+            draw(renderer2D, transformScreen.x, transformScreen.y, transformScreen.deg, transformScreen.sclX, transformScreen.sclY);
             renderer2D.endStencil();
         }
     }
 
     private boolean hitTest(float pointerX, float pointerY) {
-        if (!inputRegion.containsPoint(pointerX, pointerY, transformScreen)) return false;
         if (!isActive()) return false;
+        if (!inputRegion.containsPoint(pointerX, pointerY, transformScreen)) return false;
 
-        inputRegionsAncestors.clear();
         Widget p = parent;
+        boolean hit = true;
         while (p != null) {
             if (p.maskChildren()) {
-                inputRegionsAncestors.add(p.inputRegion);
+                hit &= p.inputRegion.containsPoint(pointerX, pointerY, p.transformScreen);
             }
             p = p.parent;
         }
 
-        boolean hit = true;
-        for (InputRegion ancestorRegion : inputRegionsAncestors) {
-            hit &= ancestorRegion.containsPoint(pointerX, pointerY, transformScreen);
-        }
         return hit;
     }
 
@@ -450,6 +451,11 @@ public abstract class Widget implements InputEventHandler {
     @Override
     public boolean keyboardCodepointsTyped(@NotNull ArrayChar codepoints) {
         return InputEventHandler.super.keyboardCodepointsTyped(codepoints);
+    }
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName() + " " + ID;
     }
 
     /*** register event listeners ***/

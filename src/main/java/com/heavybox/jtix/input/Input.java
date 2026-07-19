@@ -115,7 +115,7 @@ public final class Input {
 
     public static void addEventHandler(final InputEventHandler inputEventHandler) {
         if (inputEventHandler == null) throw new InputException("event handler cannot be null.");
-        if (inputEventHandlers.contains(inputEventHandler,true)) throw new InputException("cannot register the same event handler more than once");
+        if (inputEventHandlers.contains(inputEventHandler,true)) return;
         inputEventHandlers.add(inputEventHandler);
         inputEventHandlers.sort(inputEventHandlersComparator);
     }

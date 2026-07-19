@@ -168,6 +168,25 @@ public class Array<T> implements Iterable<T> {
         items[index] = value;
     }
 
+    public void replaceFirst(T oldValue, T newValue, boolean identity) {
+        for (int i = 0; i < size; i++) {
+            T current = items[i];
+            boolean matches = identity ? current == oldValue : Objects.equals(current, oldValue);
+            if (matches) {
+                items[i] = newValue;
+                return;
+            }
+        }
+    }
+
+    public void replaceAll(T oldValue, T newValue, boolean identity) {
+        for (int i = 0; i < size; i++) {
+            T current = items[i];
+            boolean matches = identity ? current == oldValue : Objects.equals(current, oldValue);
+            if (matches) items[i] = newValue;
+        }
+    }
+
     public void swap(int first, int second) {
         if (first >= size) throw new IndexOutOfBoundsException("first can't be >= size: " + first + " >= " + size);
         if (second >= size) throw new IndexOutOfBoundsException("second can't be >= size: " + second + " >= " + size);

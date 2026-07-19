@@ -7,7 +7,10 @@ import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.input.Input;
 import org.jetbrains.annotations.NotNull;
 
+// TODO: find a way to assign an input event handler for all the ROOT nodes.
 public final class Widgets {
+
+    private static int sceneCreatedWidgets = 0;
 
     /*** some global flags ***/
     public  static       boolean debugMode        = true; // TODO: use this when rendering: render regions if true.
@@ -19,12 +22,17 @@ public final class Widgets {
     private static float pointerX     = 0;
     private static float pointerY     = 0;
 
-    /*** current scene widgets */
-    private static final Array<Widget> allSceneWidgets         = new Array<>(false, 4);
-    private static final Array<Widget> allSceneWidgetsToAdd    = new Array<>(false, 4);
-    private static final Array<Widget> allSceneWidgetsToRemove = new Array<>(false, 4);
+    /*** current scene widgets hierarchy */
+    private static final Array<Widget> rootWidgets = new Array<>(false, 5);
+    private static final Array<Widget> toReplace = new Array<>(false, 1);
+    /*** input event handling ***/
 
     private Widgets() {}
+
+    public static float getPointerX()     { return pointerX; }
+    public static float getPointerY()     { return pointerY; }
+    public static float getPointerXPrev() { return pointerXPrev; }
+    public static float getPointerYPrev() { return pointerYPrev; }
 
     public static void update() {
         float windowHalfWidth = Graphics.getWindowWidth() * 0.5f;
@@ -34,56 +42,73 @@ public final class Widgets {
         pointerX = Input.mouse.getX() - windowHalfWidth;
         pointerY = windowHalfHeight - Input.mouse.getY();
 
-        /* add all added widgets */
-        for (Widget widget : allSceneWidgetsToAdd) {
-            Input.addEventHandler(widget);
+        // consolidate root nodes
+        toReplace.clear();
+        for (Widget widget : rootWidgets) {
+            if (!widget.isRoot()) toReplace.add(widget);
         }
-        allSceneWidgets.addAll(allSceneWidgetsToAdd);
-        allSceneWidgetsToAdd.clear();
-        /* remove all added widgets */
-        for (Widget widget : allSceneWidgetsToRemove) {
+        for (Widget widget : toReplace) {
+            Widget newRoot = widget.getRoot();
+            rootWidgets.replaceFirst(widget, newRoot, true);
             Input.removeEventHandler(widget);
+            Input.addEventHandler(newRoot);
         }
-        allSceneWidgets.removeAll(allSceneWidgetsToRemove, true);
-        allSceneWidgetsToRemove.clear();
 
-        // iterate over all *root* widget nodes and perform offset updates and logical updates.
         final float delta = Graphics.getDeltaTime();
-        for (Widget widget : allSceneWidgets) {
-            if (widget.isRoot()) widget.update(delta);
+        for (Widget widget : rootWidgets) {
+            if (!widget.isRoot()) continue;
+            if (!widget.isActive()) continue;
+            widget.update(delta);
         }
     }
 
     public static void render(Renderer2D renderer2D) {
         // iterate over all *root* widget nodes and perform renders
-        for (Widget widget : allSceneWidgets) {
+        for (Widget widget : rootWidgets) {
+            if (!widget.isRoot()) continue; // to be extra sure.
+            if (!widget.isActive()) continue;
             renderer2D.setColor(WHITE_FLOAT_BITS);
-            if (widget.isRoot()) widget.render(renderer2D);
+            widget.render(renderer2D);
         }
     }
 
-    public static float getPointerX()     { return pointerX; }
-    public static float getPointerY()     { return pointerY; }
-    public static float getPointerXPrev() { return pointerXPrev; }
-    public static float getPointerYPrev() { return pointerYPrev; }
+    public static void add(final Widget widget) {
+        Widget root = widget.getRoot();
+        if (rootWidgets.contains(root, true)) return;
 
-    public static void add(@NotNull final Widget widget) {
-        allSceneWidgetsToAdd.add(widget);
+        rootWidgets.add(root);
+        Input.addEventHandler(root);
     }
 
     public static void remove(@NotNull final Widget widget) {
-        allSceneWidgetsToRemove.add(widget);
+        if (widget.isRoot()) {
+            rootWidgets.removeValue(widget, true);
+            Input.removeEventHandler(widget);
+            return;
+        }
+
+        Widget parent = widget.parent;
+        parent.children.removeValue(widget, true);
     }
 
     public static void clear() {
-        allSceneWidgets.clear();
-        allSceneWidgetsToAdd.clear();
-        allSceneWidgetsToRemove.clear();
+        rootWidgets.clear();
+        sceneCreatedWidgets = 0;
     }
 
     static boolean isXAncestorOfY(final Widget X, final Widget Y) {
-        if (X == null || Y == null) return false;
-        return X == Y.getParent() || isXAncestorOfY(X, Y.getParent());
+        Widget current = Y.getParent();
+        while (current != null) {
+            if (current == X) return true;
+            current = current.getParent();
+        }
+        return false;
+    }
+
+    static int getID() {
+        final int id = sceneCreatedWidgets;
+        sceneCreatedWidgets++;
+        return id;
     }
 
 }

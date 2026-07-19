@@ -24,6 +24,11 @@ public final class WidgetShapeRectangle extends Widget implements WidgetShape {
     }
 
     @Override
+    public boolean maskChildren() {
+        return false;
+    }
+
+    @Override
     protected float getWidth() {
         return width;
     }
@@ -32,4 +37,5 @@ public final class WidgetShapeRectangle extends Widget implements WidgetShape {
     protected float getHeight() {
         return height;
     }
+
 }

@@ -5,7 +5,6 @@ import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.collections.ArrayChar;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.InputEventHandler;
-import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
 import org.jetbrains.annotations.NotNull;
 
