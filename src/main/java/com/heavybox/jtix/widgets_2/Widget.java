@@ -10,9 +10,10 @@ import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Transform2D;
-import com.heavybox.jtix.math.Vector2;
 import com.heavybox.jtix.widgets.WidgetsException;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Comparator;
 
 public abstract class Widget implements InputEventHandler {
 
@@ -39,8 +40,7 @@ public abstract class Widget implements InputEventHandler {
     private final Array<Widget> childrenLayout = new Array<>();
 
     /*** input handling ***/
-    public        int                inputLayerIndex           = ID;
-    private       int                inputLayer                = 1; // calculated
+    public        int                inputLayer                = ID;
     public        boolean            preventDefault            = false;
     private final InputRegion        inputRegion               = new InputRegion();
     private       InputEventListener inputEventListener        = null; // TODO: add register listener method
@@ -77,7 +77,6 @@ public abstract class Widget implements InputEventHandler {
     }
 
     /*** Add and remove child methods ***/
-    // TODO: test
     public final void connectChild(Widget child) {
         if (child == null) throw new WidgetsException(Widget.class.getSimpleName() + " element cannot be null.");
         if (child == this) throw new WidgetsException("Trying to parent a " + Widget.class.getSimpleName() + " to itself.");
@@ -88,12 +87,12 @@ public abstract class Widget implements InputEventHandler {
         children.add(child);
         child.parent = this;
 
-        child.recalculateInputLayer();
         child.recalculateMaskIndex();
         onChildAdded(child);
+
+        children.sort(Comparator.comparingInt(a -> a.inputLayer));
     }
 
-    // TODO: test
     public final void disconnectChild(Widget child) {
         if (child == null) throw new WidgetsException(Widget.class.getSimpleName() + " element cannot be null.");
         if (!children.contains(child, true)) throw new WidgetsException(Widget.class.getSimpleName() + " does not contain the element " + child + " as a child so it cannot be removed.");
@@ -102,23 +101,27 @@ public abstract class Widget implements InputEventHandler {
         child.parent = null;
         Widgets.add(child);
 
-        child.recalculateInputLayer();
         child.recalculateMaskIndex();
         onChildRemoved(child);
+
+        children.sort(Comparator.comparingInt(a -> a.inputLayer));
     }
 
+    /* TODO test */
     public void anchorSet(Anchor anchor, float anchorX, float anchorY) {
         this.anchor = anchor;
         this.anchorX = anchorX;
         this.anchorY = anchorY;
     }
 
+    /* TODO test */
     public void anchorRemove() {
         anchor = null;
     }
 
     // containers can override this, for example.
     // takes an array of child widgets and sets their layout
+    /* TODO test */
     protected void setChildrenOffsets(final Array<Widget> childrenLayout) {
         for (Widget widget : childrenLayout) {
             widget.offsetX = 0;
@@ -144,6 +147,7 @@ public abstract class Widget implements InputEventHandler {
         transformScreen.sclY = transform.sclY * refSclY;
     }
 
+    /* TODO test */
     private void setOffsetsAnchor() {
         if (anchor == null) return;
 
@@ -329,6 +333,7 @@ public abstract class Widget implements InputEventHandler {
             renderer2D.endStencil();
         }
 
+        // TODO: before rendering sort by input layer z
         int maskingIndex = getMaskLevel();
         for (Widget child : children) {
             // apply mask, if masking enabled
@@ -376,13 +381,6 @@ public abstract class Widget implements InputEventHandler {
         }
     }
 
-    private void recalculateInputLayer() {
-        inputLayer = parent == null ? inputLayerIndex : parent.inputLayer + inputLayerIndex;
-        for (final Widget child : children) {
-            child.recalculateInputLayer();
-        }
-    }
-
     @Override
     public int getInputLayer() {
         return inputLayer;
@@ -394,28 +392,36 @@ public abstract class Widget implements InputEventHandler {
     }
 
     // only propagate up if the ui element is not root
+//    @Override
+//    public boolean mouseButtonsDown(int mouseX, int mouseY, @NotNull Array<Mouse.Button> buttons) {
+//        float pointerX = Widgets.getPointerX();
+//        float pointerY = Widgets.getPointerY();
+//        boolean mouseInside = hitTest(pointerX, pointerY);
+//        if (!mouseInside) {
+//            // clicked outside event
+//            return false;
+//        }
+//
+//        Vector2 local = new Vector2(pointerX, pointerY);
+//        local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
+//        InputEventData.MouseDown e = new InputEventData.MouseDown(this);
+//        e.mouseLocalX = local.x;
+//        e.mouseLocalY = local.y;
+//        e.buttonLeft = buttons.contains(Mouse.Button.LEFT, true);
+//        e.buttonRight = buttons.contains(Mouse.Button.RIGHT, true);;
+//        e.buttonMiddle = buttons.contains(Mouse.Button.MIDDLE, true);;
+//        if (inputEventListener != null && inputEventListener.onMouseDown != null) inputEventListener.onMouseDown.handle(e);
+//        if (!preventDefault && inputEventListenerDefault != null && inputEventListenerDefault.onMouseDown != null) inputEventListenerDefault.onMouseDown.handle(e);
+//
+//        return isRoot();
+//    }
+
+
     @Override
     public boolean mouseButtonsDown(int mouseX, int mouseY, @NotNull Array<Mouse.Button> buttons) {
-        float pointerX = Widgets.getPointerX();
-        float pointerY = Widgets.getPointerY();
-        boolean mouseInside = hitTest(pointerX, pointerY);
-        if (!mouseInside) {
-            // clicked outside event
-            return false;
-        }
+        // this widget is guaranteed to be a root widget
 
-        Vector2 local = new Vector2(pointerX, pointerY);
-        local.transform_TranslateRotateScale(-transformScreen.x, -transformScreen.y, -transformScreen.deg, 1 / transformScreen.sclX, 1/ transformScreen.sclY);
-        InputEventData.MouseDown e = new InputEventData.MouseDown(this);
-        e.mouseLocalX = local.x;
-        e.mouseLocalY = local.y;
-        e.buttonLeft = buttons.contains(Mouse.Button.LEFT, true);
-        e.buttonRight = buttons.contains(Mouse.Button.RIGHT, true);;
-        e.buttonMiddle = buttons.contains(Mouse.Button.MIDDLE, true);;
-        if (inputEventListener != null && inputEventListener.onMouseDown != null) inputEventListener.onMouseDown.handle(e);
-        if (!preventDefault && inputEventListenerDefault != null && inputEventListenerDefault.onMouseDown != null) inputEventListenerDefault.onMouseDown.handle(e);
-
-        return isRoot();
+        return InputEventHandler.super.mouseButtonsDown(mouseX, mouseY, buttons);
     }
 
     @Override

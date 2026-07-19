@@ -7,6 +7,8 @@ import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.input.Input;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Comparator;
+
 // TODO: find a way to assign an input event handler for all the ROOT nodes.
 public final class Widgets {
 
@@ -25,6 +27,8 @@ public final class Widgets {
     /*** current scene widgets hierarchy */
     private static final Array<Widget> rootWidgets = new Array<>(false, 5);
     private static final Array<Widget> toReplace = new Array<>(false, 1);
+    private static final Comparator<Widget> widgetComparator = Comparator.comparingInt(a -> a.inputLayer);
+
     /*** input event handling ***/
 
     private Widgets() {}
@@ -64,6 +68,7 @@ public final class Widgets {
 
     public static void render(Renderer2D renderer2D) {
         // iterate over all *root* widget nodes and perform renders
+        rootWidgets.sort(widgetComparator);
         for (Widget widget : rootWidgets) {
             if (!widget.isRoot()) continue; // to be extra sure.
             if (!widget.isActive()) continue;

@@ -108,11 +108,6 @@ public final class Input {
         mouse.update();
     }
 
-    public static void cleanup() {
-        webcam.deleteAll();
-        clearEventHandlers();
-    }
-
     public static void addEventHandler(final InputEventHandler inputEventHandler) {
         if (inputEventHandler == null) throw new InputException("event handler cannot be null.");
         if (inputEventHandlers.contains(inputEventHandler,true)) return;
@@ -127,6 +122,11 @@ public final class Input {
 
     public static void clearEventHandlers() {
         inputEventHandlers.clear();
+    }
+
+    public static void cleanup() {
+        webcam.deleteAll();
+        clearEventHandlers();
     }
 
 }

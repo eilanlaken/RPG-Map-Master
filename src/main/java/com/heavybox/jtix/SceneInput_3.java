@@ -46,6 +46,7 @@ public class SceneInput_3 implements Scene {
         rectangle_1.connectChild(rectangle_2);
         rectangle_1.connectChild(rectangle_3);
         Widgets.add(rectangle_1);
+        Widgets.add(rectangle_2);
     }
 
     @Override
