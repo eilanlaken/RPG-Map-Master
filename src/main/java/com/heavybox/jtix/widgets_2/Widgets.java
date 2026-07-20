@@ -12,11 +12,12 @@ import java.util.Comparator;
 // TODO: find a way to assign an input event handler for all the ROOT nodes.
 public final class Widgets {
 
-    private static int sceneCreatedWidgets = 0;
+    public  static final Comparator<Widget> widgetComparator = Comparator.comparingInt(a -> a.inputLayer);
+    private static final float              WHITE_FLOAT_BITS = Color.WHITE.toFloatBits(); // to reset the color to white before re-rendering components
 
     /*** some global flags ***/
-    public  static       boolean debugMode        = true; // TODO: use this when rendering: render regions if true.
-    private static final float   WHITE_FLOAT_BITS = Color.WHITE.toFloatBits(); // to reset the color to white before re-rendering components
+    private static int     currentID = 0;
+    public  static boolean debugMode = true; // TODO: use this when rendering: render regions if true.
 
     /*** input device state */
     private static float pointerXPrev = 0;
@@ -27,7 +28,6 @@ public final class Widgets {
     /*** current scene widgets hierarchy */
     private static final Array<Widget> rootWidgets = new Array<>(false, 5);
     private static final Array<Widget> toReplace = new Array<>(false, 1);
-    private static final Comparator<Widget> widgetComparator = Comparator.comparingInt(a -> a.inputLayer);
 
     /*** input event handling ***/
 
@@ -98,7 +98,7 @@ public final class Widgets {
 
     public static void clear() {
         rootWidgets.clear();
-        sceneCreatedWidgets = 0;
+        currentID = 0;
     }
 
     static boolean isXAncestorOfY(final Widget X, final Widget Y) {
@@ -111,8 +111,8 @@ public final class Widgets {
     }
 
     static int getID() {
-        final int id = sceneCreatedWidgets;
-        sceneCreatedWidgets++;
+        final int id = currentID;
+        currentID++;
         return id;
     }
 

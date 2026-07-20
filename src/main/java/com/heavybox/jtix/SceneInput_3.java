@@ -46,7 +46,6 @@ public class SceneInput_3 implements Scene {
         rectangle_1.connectChild(rectangle_2);
         rectangle_1.connectChild(rectangle_3);
         Widgets.add(rectangle_1);
-        Widgets.add(rectangle_2);
     }
 
     @Override
@@ -66,24 +65,30 @@ public class SceneInput_3 implements Scene {
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_STENCIL_BUFFER_BIT); // should probably clear the stencil
 
         if (Input.keyboard.isKeyPressed(Keyboard.Key.D)) {
-            rectangle_4.transform.x += 1;
+            rectangle_2.transform.x += 1;
         }
         if (Input.keyboard.isKeyPressed(Keyboard.Key.A)) {
-            rectangle_4.transform.x -= 1;
+            rectangle_2.transform.x -= 1;
         }
         if (Input.keyboard.isKeyPressed(Keyboard.Key.W)) {
-            rectangle_4.transform.y += 1;
+            rectangle_2.transform.y += 1;
         }
         if (Input.keyboard.isKeyPressed(Keyboard.Key.S)) {
-            rectangle_4.transform.y -= 1;
+            rectangle_2.transform.y -= 1;
         }
         if (Input.keyboard.isKeyPressed(Keyboard.Key.Q)) {
-            rectangle_4.transform.deg += 1;
+            rectangle_2.transform.deg += 1;
         }
 
 
         if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KEY_1)) {
-            Widgets.remove(rectangle_3);
+            rectangle_2.inputLayer = 8;
+            rectangle_3.inputLayer = 9;
+        }
+
+        if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KEY_2)) {
+            rectangle_2.inputLayer = 9;
+            rectangle_3.inputLayer = 8;
         }
 
         renderer2D.begin();

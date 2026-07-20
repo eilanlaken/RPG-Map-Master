@@ -10,6 +10,7 @@ import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Transform2D;
+import com.heavybox.jtix.math.Vector2;
 import com.heavybox.jtix.widgets.WidgetsException;
 import org.jetbrains.annotations.NotNull;
 
@@ -39,12 +40,11 @@ public abstract class Widget implements InputEventHandler {
     final         Array<Widget> children       = new Array<>();
     private final Array<Widget> childrenLayout = new Array<>();
 
-    /*** input handling ***/
+    /*** input handling ***/ // TODO: add a flag that allows events to penetrate to parent. Maybe re-add preventDefault flag.
     public        int                inputLayer                = ID;
-    public        boolean            preventDefault            = false;
     private final InputRegion        inputRegion               = new InputRegion();
-    private       InputEventListener inputEventListener        = null; // TODO: add register listener method
-    private       InputEventListener inputEventListenerDefault = null;
+    private final InputEventListener inputEventListener        = new InputEventListener(); // TODO: add register listener method
+    private final InputEventListener inputEventListenerDefault = new InputEventListener();
 
     protected abstract void  draw    (Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY);
     protected abstract float getWidth();
@@ -290,6 +290,7 @@ public abstract class Widget implements InputEventHandler {
 
     public boolean maskChildren() { return false; }
 
+    // TODO: separate into update internal state and call after potential state change (on callbacks).
     final void update(float delta) {
         if (!active) return;
 
@@ -319,6 +320,7 @@ public abstract class Widget implements InputEventHandler {
         }
     }
 
+    // TODO: surround the draw() operation with a try-catch clause.
     final void render(Renderer2D renderer2D) {
         if (!active) return;
         renderer2D.setColor(Color.WHITE);
@@ -334,6 +336,7 @@ public abstract class Widget implements InputEventHandler {
         }
 
         // TODO: before rendering sort by input layer z
+        children.sort(Widgets.widgetComparator);
         int maskingIndex = getMaskLevel();
         for (Widget child : children) {
             // apply mask, if masking enabled
@@ -416,46 +419,81 @@ public abstract class Widget implements InputEventHandler {
 //        return isRoot();
 //    }
 
+    private Widget findTopmostChildAt(float pointerX, float pointerY) {
+        for (int i = children.size - 1; i >= 0; i--) {
+            Widget hit = children.get(i).findTopmostChildAt(pointerX, pointerY);
+            if (hit != null) return hit;
+        }
 
+        return hitTest(pointerX, pointerY) ? this : null;
+    }
+
+    /* this widget is guaranteed to be a root widget */
     @Override
-    public boolean mouseButtonsDown(int mouseX, int mouseY, @NotNull Array<Mouse.Button> buttons) {
-        // this widget is guaranteed to be a root widget
+    public final boolean mouseButtonsDown(int mouseX, int mouseY, @NotNull Array<Mouse.Button> buttons) {
+        float pointerX = Widgets.getPointerX();
+        float pointerY = Widgets.getPointerY();
 
-        return InputEventHandler.super.mouseButtonsDown(mouseX, mouseY, buttons);
+        Widget target = findTopmostChildAt(pointerX, pointerY);
+        if (target == null) return false; // no target of the component tree was hit.
+
+        // travels to the top-most component that handles the event.
+        while (target != null) {
+            if (target.inputEventListener.onMouseDown != null || target.inputEventListenerDefault.onMouseDown != null) break;
+            else target = target.getParent();
+        }
+
+        if (target == null) return true; // none of the components handle the event.
+        Vector2 local = new Vector2(pointerX, pointerY);
+        final Transform2D targetTransformScreen = target.transformScreen;
+        local.transform_TranslateRotateScale(-targetTransformScreen.x, -targetTransformScreen.y, -targetTransformScreen.deg, 1 / targetTransformScreen.sclX, 1/ targetTransformScreen.sclY);
+        InputEventData.MouseDown eventData = new InputEventData.MouseDown(target,
+                buttons.contains(Mouse.Button.LEFT, true),
+                buttons.contains(Mouse.Button.RIGHT, true),
+                buttons.contains(Mouse.Button.MIDDLE, true),
+                local.x,
+                local.y);
+        if (target.inputEventListener.onMouseDown != null) {
+            target.inputEventListener.onMouseDown.handle(eventData);
+        }
+        if (target.inputEventListenerDefault.onMouseDown != null) {
+            target.inputEventListenerDefault.onMouseDown.handle(eventData);
+        }
+        return true;
     }
 
     @Override
-    public boolean mouseButtonsUp(int mouseX, int mouseY, @NotNull Array<Mouse.Button> buttons) {
+    public final boolean mouseButtonsUp(int mouseX, int mouseY, @NotNull Array<Mouse.Button> buttons) {
         return InputEventHandler.super.mouseButtonsUp(mouseX, mouseY, buttons);
     }
 
     @Override
-    public boolean mouseMoved(int mouseX, int mouseY, int deltaMouseX, int deltaMouseY) {
+    public final boolean mouseMoved(int mouseX, int mouseY, int deltaMouseX, int deltaMouseY) {
         return InputEventHandler.super.mouseMoved(mouseX, mouseY, deltaMouseX, deltaMouseY);
     }
 
     @Override
-    public boolean mouseScrolled(float scrollX, float scrollY) {
+    public final boolean mouseScrolled(float scrollX, float scrollY) {
         return InputEventHandler.super.mouseScrolled(scrollX, scrollY);
     }
 
     @Override
-    public boolean mouseDragged(int mouseX, int mouseY, int deltaMouseX, int deltaMouseY, @NotNull Array<Mouse.Button> buttons) {
+    public final boolean mouseDragged(int mouseX, int mouseY, int deltaMouseX, int deltaMouseY, @NotNull Array<Mouse.Button> buttons) {
         return InputEventHandler.super.mouseDragged(mouseX, mouseY, deltaMouseX, deltaMouseY, buttons);
     }
 
     @Override
-    public boolean keyboardKeysJustPressed(@NotNull Array<Keyboard.Key> keys) {
+    public final boolean keyboardKeysJustPressed(@NotNull Array<Keyboard.Key> keys) {
         return InputEventHandler.super.keyboardKeysJustPressed(keys);
     }
 
     @Override
-    public boolean keyboardKeysJustReleased(@NotNull Array<Keyboard.Key> keys) {
+    public final boolean keyboardKeysJustReleased(@NotNull Array<Keyboard.Key> keys) {
         return InputEventHandler.super.keyboardKeysJustReleased(keys);
     }
 
     @Override
-    public boolean keyboardCodepointsTyped(@NotNull ArrayChar codepoints) {
+    public final boolean keyboardCodepointsTyped(@NotNull ArrayChar codepoints) {
         return InputEventHandler.super.keyboardCodepointsTyped(codepoints);
     }
 
@@ -465,13 +503,11 @@ public abstract class Widget implements InputEventHandler {
     }
 
     /*** register event listeners ***/
-    public void onMouseDown(InputEventListener.OnMouseDown listener) {
-        if (inputEventListener == null) inputEventListener = new InputEventListener();
+    public final void onMouseDown(InputEventListener.OnMouseDown listener) {
         inputEventListener.onMouseDown = listener;
     }
 
-    public void onMouseDownDefault(InputEventListener.OnMouseDown listener) {
-        if (inputEventListenerDefault == null) inputEventListenerDefault = new InputEventListener();
+    public final void onMouseDownDefault(InputEventListener.OnMouseDown listener) {
         inputEventListenerDefault.onMouseDown = listener;
     }
 
