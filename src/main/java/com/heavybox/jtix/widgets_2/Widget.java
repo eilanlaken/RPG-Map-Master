@@ -440,13 +440,16 @@ public abstract class Widget implements InputEventHandler {
         // travels to the top-most component that handles the event.
         while (target != null) {
             if (target.inputEventListener.onMouseDown != null || target.inputEventListenerDefault.onMouseDown != null) break;
+            if (draggableX || draggableY) break;
             else target = target.getParent();
         }
 
         if (target == null) return true; // none of the components handle the event.
+
         Vector2 local = new Vector2(pointerX, pointerY);
-        final Transform2D targetTransformScreen = target.transformScreen;
-        local.transform_TranslateRotateScale(-targetTransformScreen.x, -targetTransformScreen.y, -targetTransformScreen.deg, 1 / targetTransformScreen.sclX, 1/ targetTransformScreen.sclY);
+        local.transform_TranslateRotateScale(-target.transformScreen.x, -target.transformScreen.y, -target.transformScreen.deg, 1 / target.transformScreen.sclX, 1/ target.transformScreen.sclY);
+
+        // taking care of on mouse down event
         InputEventData.MouseDown eventData = new InputEventData.MouseDown(target,
                 buttons.contains(Mouse.Button.LEFT, true),
                 buttons.contains(Mouse.Button.RIGHT, true),
@@ -459,6 +462,14 @@ public abstract class Widget implements InputEventHandler {
         if (target.inputEventListenerDefault.onMouseDown != null) {
             target.inputEventListenerDefault.onMouseDown.handle(eventData);
         }
+
+        // taking care of dragging
+        if (draggableX || draggableY) {
+            InputEventData.MouseDragStart mouseDragStart = new InputEventData.MouseDragStart(target, local.x, local.y);
+            if (target.inputEventListener.onMouseDragStart != null) target.inputEventListener.onMouseDragStart.handle(mouseDragStart);
+            if (target.inputEventListenerDefault.onMouseDragStart != null) target.inputEventListenerDefault.onMouseDragStart.handle(mouseDragStart);
+        }
+
         return true;
     }
 
