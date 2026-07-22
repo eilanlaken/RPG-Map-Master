@@ -20,8 +20,10 @@ public final class Widgets {
     public  static boolean debugMode = true; // TODO: use this when rendering: render regions if true.
 
     /*** input device state */
-    private static float pointerXPrev = 0;
-    private static float pointerYPrev = 0;
+    private static float pointerXPrevValue = 0;
+    private static float pointerYPrevValue = 0;
+    private static float pointerXPrevFrame = 0;
+    private static float pointerYPrevFrame = 0;
     private static float pointerX     = 0;
     private static float pointerY     = 0;
 
@@ -35,16 +37,24 @@ public final class Widgets {
 
     public static float getPointerX()     { return pointerX; }
     public static float getPointerY()     { return pointerY; }
-    public static float getPointerXPrev() { return pointerXPrev; }
-    public static float getPointerYPrev() { return pointerYPrev; }
+    public static float getPointerXPrevValue() { return pointerXPrevValue; }
+    public static float getPointerYPrevValue() { return pointerYPrevValue; }
+    public static float getPointerXPrevFrame() { return pointerXPrevFrame; }
+    public static float getPointerYPrevFrame() { return pointerYPrevFrame; }
 
     public static void update() {
         float windowHalfWidth = Graphics.getWindowWidth() * 0.5f;
         float windowHalfHeight = Graphics.getWindowHeight() * 0.5f;
-        pointerXPrev = pointerX;
-        pointerYPrev = pointerY;
-        pointerX = Input.mouse.getX() - windowHalfWidth;
-        pointerY = windowHalfHeight - Input.mouse.getY();
+        float newPointerX = Input.mouse.getX() - windowHalfWidth;
+        float newPointerY = windowHalfHeight - Input.mouse.getY();
+        // Previous frame.
+        pointerXPrevFrame = pointerX;
+        pointerYPrevFrame = pointerY;
+        // Previous value.
+        if (newPointerX != pointerX) pointerXPrevValue = pointerX;
+        if (newPointerY != pointerY) pointerYPrevValue = pointerY;
+        pointerX = newPointerX;
+        pointerY = newPointerY;
 
         // consolidate root nodes
         toReplace.clear();

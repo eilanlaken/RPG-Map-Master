@@ -1,54 +1,30 @@
 package com.heavybox.jtix.widgets_2;
 
-public class InputEventListener {
+public final class InputEventListener {
 
     /*** input - event handlers ***/
-    public OnMouseUp                 onMouseUp                 = null;
-    public OnMouseDown               onMouseDown               = null;
-    public OnMouseEnter              onMouseEnter              = null;
-    public OnMouseLeave              onMouseLeave              = null;
-    public OnMouseLeftClick          onMouseLeftClick          = null;
-    public OnMouseRightClick         onMouseRightClick         = null;
-    public OnMouseMiddleClick        onMouseMiddleClick        = null;
-    public OnMouseLeftClickOutside   onMouseLeftClickOutside   = null;
-    public OnMouseRightClickOutside  onMouseRightClickOutside  = null;
-    public OnMouseMiddleClickOutside onMouseMiddleClickOutside = null;
-    public OnMouseScroll             onMouseScroll             = null;
-    public OnMouseDrag               onMouseDrag               = null;
-    public OnMouseDragStart          onMouseDragStart          = null;
-    public OnMouseDragEnd            onMouseDragEnd            = null;
-    public OnCodepointsTyped         onCodepointsTyped         = null;
-    public OnKeysJustPressed         onKeysJustPressed         = null;
-    public OnKeysPressed             onKeysPressed             = null;
+    public OnMouseUp          onMouseUp          = null;
+    public OnMouseDown        onMouseDown        = null;
+    public OnMouseEnter       onMouseEnter       = null;
+    public OnMouseLeave       onMouseLeave       = null;
+    public OnMouseClick       onMouseClick       = null;
+    public OnMouseDoubleClick onMouseDoubleClick = null;
+    public OnMouseScroll      onMouseScroll      = null;
+    public OnMouseDrag        onMouseDrag        = null;
+    public OnMouseDragStart   onMouseDragStart   = null;
+    public OnMouseDragEnd     onMouseDragEnd     = null;
+    public OnCodepointsTyped  onCodepointsTyped  = null;
+    public OnKeysJustPressed  onKeysJustPressed  = null;
+    public OnKeysPressed      onKeysPressed      = null;
 
     @FunctionalInterface
-    public interface OnMouseLeftClick {
-        void handle(InputEventData.MouseLeftClick e);
+    public interface OnMouseClick {
+        void handle(InputEventData.MouseClick e);
     }
 
     @FunctionalInterface
-    public interface OnMouseRightClick {
-        void handle(InputEventData.MouseRightClick e);
-    }
-
-    @FunctionalInterface
-    public interface OnMouseMiddleClick {
-        void handle(InputEventData.MouseMiddleClick e);
-    }
-
-    @FunctionalInterface
-    public interface OnMouseLeftClickOutside {
-        void handle(InputEventData.MouseLeftClickOutside e);
-    }
-
-    @FunctionalInterface
-    public interface OnMouseRightClickOutside {
-        void handle(InputEventData.MouseRightClickOutside e);
-    }
-
-    @FunctionalInterface
-    public interface OnMouseMiddleClickOutside {
-        void handle(InputEventData.MouseMiddleClickOutside e);
+    public interface OnMouseDoubleClick {
+        void handle(InputEventData.MouseDoubleClick e);
     }
 
     @FunctionalInterface

@@ -2,11 +2,13 @@ package com.heavybox.jtix;
 
 import com.heavybox.jtix.application.Scene;
 import com.heavybox.jtix.collections.Array;
+import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Graphics;
 import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
+import com.heavybox.jtix.widgets_2.Anchor;
 import com.heavybox.jtix.widgets_2.WidgetShapeRectangle;
 import com.heavybox.jtix.widgets_2.Widgets;
 import org.jetbrains.annotations.NotNull;
@@ -22,8 +24,8 @@ public class SceneInput_3 implements Scene {
 
     @Override
     public void start() {
-        rectangle_1.transform.x = 100;
-        rectangle_1.transform.y = 100;
+        //rectangle_1.transform.x = 100;
+        //rectangle_1.transform.y = 100;
 
         rectangle_2.transform.x = 60;
         rectangle_2.transform.y = -60;
@@ -35,12 +37,30 @@ public class SceneInput_3 implements Scene {
         rectangle_4.transform.y = -60;
 
 
-        rectangle_1.onMouseDown(e -> {
-            System.out.println("clicked rect 1");
+        rectangle_1.onMouseClick(e -> {
+            rectangle_1.color = Color.randomOpaque().toFloatBits();
+            String button = e.buttonLeft ? "left" : (e.buttonRight ? "right" : "middle");
+            System.out.println("clicked rect 1 " + button);
         });
+        rectangle_2.onMouseClick(e -> {
+            rectangle_2.color = Color.randomOpaque().toFloatBits();
+            String button = e.buttonLeft ? "left" : (e.buttonRight ? "right" : "middle");
+            System.out.println("clicked rect 2 " + button);
+        });
+        rectangle_2.onMouseEnter(e -> {
+            rectangle_2.color = Color.randomOpaque().toFloatBits();
+        });
+        rectangle_2.onMouseLeave(e -> {
+            rectangle_2.color = Color.randomOpaque().toFloatBits();
+        });
+        //rectangle_1.anchorSet(Anchor.PARENT_CENTER_RIGHT, 0, 0);
 
         rectangle_2.onMouseDown(e -> {
-            System.out.println("clicked rect 2");
+            System.out.println("rect 2 - down");
+        });
+
+        rectangle_2.onMouseUp(e -> {
+            System.out.println("rect 2 - UP");
         });
 
         rectangle_1.connectChild(rectangle_2);
@@ -50,7 +70,7 @@ public class SceneInput_3 implements Scene {
 
     @Override
     public boolean mouseButtonsDown(int mouseX, int mouseY, @NotNull Array<Mouse.Button> buttons) {
-        System.out.println("screen");
+        //System.out.println("screen");
         return true;
     }
 
@@ -58,6 +78,8 @@ public class SceneInput_3 implements Scene {
 
     @Override
     public void update() {
+        //System.out.println(Input.mouse.isCursorInWindow());
+
         Widgets.update();
 
         Graphics.bindFrameBuffer(null);

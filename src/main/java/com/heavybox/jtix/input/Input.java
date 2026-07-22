@@ -18,6 +18,7 @@ public final class Input {
     private Input() {}
 
     // TODO: test this with actual rectangles.
+    // TODO: consider copying the buttonsPressed etc. arrays each frame to make it completely bullet proof.
     public static void update() {
         // sort input layers every frame as the layers index may change. Sorts from high to low (descending order).
         inputEventHandlers.sort(inputEventHandlersComparator);

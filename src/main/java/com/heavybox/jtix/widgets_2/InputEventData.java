@@ -54,26 +54,34 @@ public abstract class InputEventData {
 
     }
 
-    public static class MouseLeftClick extends InputEventData {
+    public static class MouseClick extends InputEventData {
 
+        public boolean buttonLeft;
+        public boolean buttonRight;
+        public boolean buttonMiddle;
         public float mouseLocalX;
         public float mouseLocalY;
 
-        public MouseLeftClick(Widget target, float mouseLocalX, float mouseLocalY) {
+        public MouseClick(Widget target, boolean buttonLeft, boolean buttonRight, boolean buttonMiddle, float mouseLocalX, float mouseLocalY) {
             super(target);
+            this.buttonLeft = buttonLeft;
+            this.buttonRight = buttonRight;
+            this.buttonMiddle = buttonMiddle;
             this.mouseLocalX = mouseLocalX;
             this.mouseLocalY = mouseLocalY;
         }
 
     }
 
-    public static class MouseRightClick extends InputEventData {
+    public static class MouseDoubleClick extends InputEventData {
 
+        public float timeIntervalBetweenClicksSec;
         public float mouseLocalX;
         public float mouseLocalY;
 
-        public MouseRightClick(Widget target, float mouseLocalX, float mouseLocalY) {
+        public MouseDoubleClick(Widget target, float timeIntervalBetweenClicksSec, float mouseLocalX, float mouseLocalY) {
             super(target);
+            this.timeIntervalBetweenClicksSec = timeIntervalBetweenClicksSec;
             this.mouseLocalX = mouseLocalX;
             this.mouseLocalY = mouseLocalY;
         }
@@ -168,13 +176,15 @@ public abstract class InputEventData {
 
     public static class MouseScroll extends InputEventData {
 
-        public float scrollValue;
+        public float scrollX;
+        public float scrollY;
         public float mouseLocalX;
         public float mouseLocalY;
 
-        public MouseScroll(Widget target, float scrollValue, float mouseLocalX, float mouseLocalY) {
+        public MouseScroll(Widget target, float scrollX, float scrollY, float mouseLocalX, float mouseLocalY) {
             super(target);
-            this.scrollValue = scrollValue;
+            this.scrollX = scrollX;
+            this.scrollY = scrollY;
             this.mouseLocalX = mouseLocalX;
             this.mouseLocalY = mouseLocalY;
         }

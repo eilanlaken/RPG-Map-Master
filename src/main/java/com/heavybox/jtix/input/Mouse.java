@@ -126,7 +126,7 @@ public final class Mouse {
     }
 
     public boolean moved() {
-        return cursorDeltaX != 0 || cursorDeltaY != 0;
+        return cursorDeltaX != 0 || cursorDeltaY != 0 || cursorLeftWindow || cursorEnteredWindow;
     }
 
     public boolean isButtonPressed(final Button button) {
