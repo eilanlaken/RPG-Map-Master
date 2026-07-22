@@ -239,6 +239,65 @@ public abstract class InputEventData {
 
     }
 
+    public static class MouseDragEnter extends InputEventData {
+
+        public Widget draggable;
+        public float  mouseLocalXPrev;
+        public float  mouseLocalYPrev;
+        public float  mouseLocalX;
+        public float  mouseLocalY;
+        public float  mouseLocalDeltaX;
+        public float  mouseLocalDeltaY;
+
+        public MouseDragEnter(Widget target, Widget draggable, float mouseLocalXPrev, float mouseLocalYPrev, float mouseLocalX, float mouseLocalY, float mouseLocalDeltaX, float mouseLocalDeltaY) {
+            super(target);
+            this.draggable = draggable;
+            this.mouseLocalXPrev = mouseLocalXPrev;
+            this.mouseLocalYPrev = mouseLocalYPrev;
+            this.mouseLocalX = mouseLocalX;
+            this.mouseLocalY = mouseLocalY;
+            this.mouseLocalDeltaX = mouseLocalDeltaX;
+            this.mouseLocalDeltaY = mouseLocalDeltaY;
+        }
+    }
+
+    public static class MouseDragLeave extends InputEventData {
+
+        public Widget draggable;
+        public float  mouseLocalXPrev;
+        public float  mouseLocalYPrev;
+        public float  mouseLocalX;
+        public float  mouseLocalY;
+        public float  mouseLocalDeltaX;
+        public float  mouseLocalDeltaY;
+
+        public MouseDragLeave(Widget target, Widget draggable, float mouseLocalXPrev, float mouseLocalYPrev, float mouseLocalX, float mouseLocalY, float mouseLocalDeltaX, float mouseLocalDeltaY) {
+            super(target);
+            this.draggable = draggable;
+            this.mouseLocalXPrev = mouseLocalXPrev;
+            this.mouseLocalYPrev = mouseLocalYPrev;
+            this.mouseLocalX = mouseLocalX;
+            this.mouseLocalY = mouseLocalY;
+            this.mouseLocalDeltaX = mouseLocalDeltaX;
+            this.mouseLocalDeltaY = mouseLocalDeltaY;
+        }
+    }
+
+    public static class MouseDragDrop extends InputEventData {
+
+        public Widget draggable;
+        public float  mouseLocalX;
+        public float  mouseLocalY;
+
+        public MouseDragDrop(Widget target, Widget draggable, float mouseLocalX, float mouseLocalY) {
+            super(target);
+            this.draggable = draggable;
+            this.mouseLocalX = mouseLocalX;
+            this.mouseLocalY = mouseLocalY;
+        }
+
+    }
+
     public static class CodepointsTyped extends InputEventData {
 
         public ArrayChar codePoints;

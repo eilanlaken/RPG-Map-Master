@@ -301,7 +301,9 @@ public abstract class Widget implements InputEventHandler {
 
         childrenLayout.clear();
         for (Widget child : children) {
-            if (child.active && child.anchor == null) childrenLayout.add(child);
+            if (!child.active) continue;
+            if (child.anchor != null) continue;
+            childrenLayout.add(child);
         }
         setChildrenOffsets(childrenLayout);
         setOffsetsAnchor();

@@ -13,6 +13,9 @@ public final class InputEventListener {
     public OnMouseDrag        onMouseDrag        = null;
     public OnMouseDragStart   onMouseDragStart   = null;
     public OnMouseDragEnd     onMouseDragEnd     = null;
+    public OnMouseDragEnter   onMouseDragEnter   = null;
+    public OnMouseDragLeave   onMouseDragLeave   = null;
+    public OnMouseDragDrop    onMouseDragDrop    = null;
     public OnCodepointsTyped  onCodepointsTyped  = null;
     public OnKeysJustPressed  onKeysJustPressed  = null;
     public OnKeysPressed      onKeysPressed      = null;
@@ -65,6 +68,21 @@ public final class InputEventListener {
     @FunctionalInterface
     public interface OnMouseDragEnd {
         void handle(InputEventData.MouseDragEnd e);
+    }
+
+    @FunctionalInterface
+    public interface OnMouseDragEnter {
+        void handle(InputEventData.MouseDragEnter e);
+    }
+
+    @FunctionalInterface
+    public interface OnMouseDragLeave {
+        void handle(InputEventData.MouseDragLeave e);
+    }
+
+    @FunctionalInterface
+    public interface OnMouseDragDrop {
+        void handle(InputEventData.MouseDragDrop e);
     }
 
     @FunctionalInterface
