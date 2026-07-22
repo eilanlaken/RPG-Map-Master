@@ -17,6 +17,10 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Comparator;
 
+
+// TODO: add messaging mechanism
+// Widget.sendMessage() to ID, Widget, condition
+// Widgets.sendMessage() to ID, Widget, condition
 public abstract class Widget implements InputEventHandler {
 
     public final int ID = Widgets.getID();
@@ -45,7 +49,6 @@ public abstract class Widget implements InputEventHandler {
     private final InputRegion        inputRegion               = new InputRegion();
     private final InputEventListener inputEventListener        = new InputEventListener(); // TODO: add register listener method
     private final InputEventListener inputEventListenerDefault = new InputEventListener();
-    private       boolean            inputMouseInside          = false; // TODO: delete
     private       boolean            inputMouseInsideSubtree   = false; // TODO: delete
     private       Widget             inputMouseDownTarget      = null;
     private       Widget             inputMouseUpTarget        = null;

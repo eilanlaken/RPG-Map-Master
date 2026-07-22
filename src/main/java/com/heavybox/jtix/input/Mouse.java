@@ -3,8 +3,11 @@ package com.heavybox.jtix.input;
 import com.heavybox.jtix.application.Application;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.collections.Tuple3;
+import com.heavybox.jtix.graphics.Graphics;
 import com.heavybox.jtix.math.Vector3;
 import org.lwjgl.glfw.*;
+import org.lwjgl.system.windows.POINT;
+import org.lwjgl.system.windows.User32;
 
 import java.util.Arrays;
 
@@ -144,6 +147,14 @@ public final class Mouse {
 
     public int getYPrev() {
         return prevCursorY;
+    }
+
+    public int getMonitorX() {
+        return Application.getWindowPosX() + cursorX;
+    }
+
+    public int getMonitorY() {
+        return Application.getWindowPosY() + cursorY;
     }
 
     public int getXDelta() { return cursorDeltaX; }

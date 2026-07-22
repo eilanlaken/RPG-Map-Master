@@ -19,7 +19,6 @@ public final class ApplicationSettings implements Cloneable {
     public boolean fullScreen             = false;
     public String  title                  = "JTix Game";
     public boolean vSyncEnabled           = false;
-
     public boolean initialVisible         = true;
     public boolean resizable              = true;
     public boolean decorated              = true;

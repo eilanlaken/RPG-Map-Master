@@ -1,5 +1,6 @@
 package com.heavybox.jtix;
 
+import com.heavybox.jtix.application.Application;
 import com.heavybox.jtix.application.Scene;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.graphics.Color;
@@ -78,13 +79,31 @@ public class SceneInput_3 implements Scene {
         return true;
     }
 
-    int i = 0;
-
+    boolean draggingWindow = false;
+    int dragOffsetX = 0;
+    int dragOffsetY = 0;
     @Override
     public void update() {
-        if (!Input.mouse.getButtonsDoubleClicked().isEmpty()) {
-            System.out.println(Input.mouse.getButtonsDoubleClicked());
+        // TODO: drag the window using:
+        if (Input.mouse.isButtonJustPressed(Mouse.Button.LEFT)) {
+            draggingWindow = true;
+
+            dragOffsetX = Input.mouse.getX();
+            dragOffsetY = Input.mouse.getY();
         }
+
+        if (draggingWindow && Input.mouse.isButtonPressed(Mouse.Button.LEFT)) {
+            Application.windowSetPosition(
+                    Input.mouse.getMonitorX() - dragOffsetX,
+                    Input.mouse.getMonitorY() - dragOffsetY
+            );
+        }
+
+        if (Input.mouse.isButtonJustReleased(Mouse.Button.LEFT)) {
+            draggingWindow = false;
+        }
+
+        System.out.println(Input.mouse.getMonitorX());
 
         Widgets.update();
 
