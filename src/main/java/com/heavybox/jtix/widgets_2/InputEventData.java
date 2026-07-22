@@ -75,13 +75,17 @@ public abstract class InputEventData {
 
     public static class MouseDoubleClick extends InputEventData {
 
-        public float timeIntervalBetweenClicksSec;
+        public boolean buttonLeft;
+        public boolean buttonRight;
+        public boolean buttonMiddle;
         public float mouseLocalX;
         public float mouseLocalY;
 
-        public MouseDoubleClick(Widget target, float timeIntervalBetweenClicksSec, float mouseLocalX, float mouseLocalY) {
+        public MouseDoubleClick(Widget target, boolean buttonLeft, boolean buttonRight, boolean buttonMiddle, float mouseLocalX, float mouseLocalY) {
             super(target);
-            this.timeIntervalBetweenClicksSec = timeIntervalBetweenClicksSec;
+            this.buttonLeft = buttonLeft;
+            this.buttonRight = buttonRight;
+            this.buttonMiddle = buttonMiddle;
             this.mouseLocalX = mouseLocalX;
             this.mouseLocalY = mouseLocalY;
         }

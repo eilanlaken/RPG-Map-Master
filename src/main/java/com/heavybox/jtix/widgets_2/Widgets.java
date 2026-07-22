@@ -112,6 +112,8 @@ public final class Widgets {
     }
 
     static boolean isXAncestorOfY(final Widget X, final Widget Y) {
+        if (X == null || Y == null) return false;
+
         Widget current = Y.getParent();
         while (current != null) {
             if (current == X) return true;

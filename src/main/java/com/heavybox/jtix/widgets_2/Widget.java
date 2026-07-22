@@ -430,6 +430,7 @@ public abstract class Widget implements InputEventHandler {
 
         while (target != null) { // travels to the top-most component that handles the event.
             if (target.inputEventListener.onMouseDown != null || target.inputEventListenerDefault.onMouseDown != null) break;
+            if (target.inputEventListener.onMouseDoubleClick != null || target.inputEventListenerDefault.onMouseDoubleClick != null) break;
             //if (target.inputEventListener.onMouseDragStart != null || target.inputEventListenerDefault.onMouseDragStart != null) break;
             else target = target.getParent();
         }
@@ -441,7 +442,7 @@ public abstract class Widget implements InputEventHandler {
         local.transform_TranslateRotateScale(-target.transformScreen.x, -target.transformScreen.y, -target.transformScreen.deg, 1 / target.transformScreen.sclX, 1/ target.transformScreen.sclY);
 
         // taking care of on mouse down event
-        InputEventData.MouseDown eventData = new InputEventData.MouseDown(
+        InputEventData.MouseDown mouseDown = new InputEventData.MouseDown(
                 target,
                 buttons.contains(Mouse.Button.LEFT, true),
                 buttons.contains(Mouse.Button.RIGHT, true),
@@ -450,10 +451,29 @@ public abstract class Widget implements InputEventHandler {
                 local.y
         );
         if (target.inputEventListener.onMouseDown != null) {
-            target.inputEventListener.onMouseDown.handle(eventData);
+            target.inputEventListener.onMouseDown.handle(mouseDown);
         }
         if (target.inputEventListenerDefault.onMouseDown != null) {
-            target.inputEventListenerDefault.onMouseDown.handle(eventData);
+            target.inputEventListenerDefault.onMouseDown.handle(mouseDown);
+        }
+
+        // taking care of potential double click
+        final Array<Mouse.Button> doubleClicks = Input.mouse.getButtonsDoubleClicked();
+        if (!doubleClicks.isEmpty()) {
+            InputEventData.MouseDoubleClick doubleClick = new InputEventData.MouseDoubleClick(
+                    target,
+                    buttons.contains(Mouse.Button.LEFT, true),
+                    buttons.contains(Mouse.Button.RIGHT, true),
+                    buttons.contains(Mouse.Button.MIDDLE, true),
+                    local.x,
+                    local.y
+            );
+            if (target.inputEventListener.onMouseDoubleClick != null) {
+                target.inputEventListener.onMouseDoubleClick.handle(doubleClick);
+            }
+            if (target.inputEventListenerDefault.onMouseDoubleClick != null) {
+                target.inputEventListenerDefault.onMouseDoubleClick.handle(doubleClick);
+            }
         }
 
         return true;
@@ -516,58 +536,6 @@ public abstract class Widget implements InputEventHandler {
         return true;
     }
 
-//    @Override
-//    public final boolean mouseMoved(int mouseX, int mouseY, int deltaMouseX, int deltaMouseY) {
-//        float pointerX = Widgets.getPointerX();
-//        float pointerY = Widgets.getPointerY();
-//        float pointerXPrevFrame = Widgets.getPointerXPrevFrame();
-//        float pointerYPrevFrame = Widgets.getPointerYPrevFrame();
-//
-//        boolean mouseInsidePrev = inputMouseInside;
-//        inputMouseInside = hitTest(pointerX, pointerY);
-//        boolean mouseJustEntered = !mouseInsidePrev && inputMouseInside;
-//        boolean mouseJustLeft = mouseInsidePrev && !inputMouseInside;
-//
-//        if (mouseJustEntered && inputEventListener.onMouseEnter != null) {
-//            Vector2 local = new Vector2(pointerX, pointerY);
-//            Vector2 localPrevFrame = new Vector2(pointerXPrevFrame, pointerYPrevFrame);
-//            local.transform_TranslateRotateScale(-this.transformScreen.x, -this.transformScreen.y, -this.transformScreen.deg, 1 / this.transformScreen.sclX, 1/ this.transformScreen.sclY);
-//            localPrevFrame.transform_TranslateRotateScale(-this.transformScreen.x, -this.transformScreen.y, -this.transformScreen.deg, 1 / this.transformScreen.sclX, 1/ this.transformScreen.sclY);
-//            InputEventData.MouseEnter mouseEnter = new InputEventData.MouseEnter(this, localPrevFrame.x, localPrevFrame.y, local.x, local.y);
-//            inputEventListener.onMouseEnter.handle(mouseEnter);
-//        }
-//        if (mouseJustEntered && inputEventListenerDefault.onMouseEnter != null) {
-//            Vector2 local = new Vector2(pointerX, pointerY);
-//            Vector2 localPrevFrame = new Vector2(pointerXPrevFrame, pointerYPrevFrame);
-//            local.transform_TranslateRotateScale(-this.transformScreen.x, -this.transformScreen.y, -this.transformScreen.deg, 1 / this.transformScreen.sclX, 1/ this.transformScreen.sclY);
-//            localPrevFrame.transform_TranslateRotateScale(-this.transformScreen.x, -this.transformScreen.y, -this.transformScreen.deg, 1 / this.transformScreen.sclX, 1/ this.transformScreen.sclY);
-//            InputEventData.MouseEnter mouseEnter = new InputEventData.MouseEnter(this, localPrevFrame.x, localPrevFrame.y, local.x, local.y);
-//            inputEventListenerDefault.onMouseEnter.handle(mouseEnter);
-//        }
-//        if (mouseJustLeft && inputEventListener.onMouseLeave != null) {
-//            Vector2 local = new Vector2(pointerX, pointerY);
-//            Vector2 localPrevFrame = new Vector2(pointerXPrevFrame, pointerYPrevFrame);
-//            local.transform_TranslateRotateScale(-this.transformScreen.x, -this.transformScreen.y, -this.transformScreen.deg, 1 / this.transformScreen.sclX, 1/ this.transformScreen.sclY);
-//            localPrevFrame.transform_TranslateRotateScale(-this.transformScreen.x, -this.transformScreen.y, -this.transformScreen.deg, 1 / this.transformScreen.sclX, 1/ this.transformScreen.sclY);
-//            InputEventData.MouseLeave mouseEnter = new InputEventData.MouseLeave(this, localPrevFrame.x, localPrevFrame.y, local.x, local.y);
-//            inputEventListener.onMouseLeave.handle(mouseEnter);
-//        }
-//        if (mouseJustLeft && inputEventListenerDefault.onMouseLeave != null) {
-//            Vector2 local = new Vector2(pointerX, pointerY);
-//            Vector2 localPrevFrame = new Vector2(pointerXPrevFrame, pointerYPrevFrame);
-//            local.transform_TranslateRotateScale(-this.transformScreen.x, -this.transformScreen.y, -this.transformScreen.deg, 1 / this.transformScreen.sclX, 1/ this.transformScreen.sclY);
-//            localPrevFrame.transform_TranslateRotateScale(-this.transformScreen.x, -this.transformScreen.y, -this.transformScreen.deg, 1 / this.transformScreen.sclX, 1/ this.transformScreen.sclY);
-//            InputEventData.MouseLeave mouseEnter = new InputEventData.MouseLeave(this, localPrevFrame.x, localPrevFrame.y, local.x, local.y);
-//            inputEventListenerDefault.onMouseLeave.handle(mouseEnter);
-//        }
-//
-//        boolean mouseInsideTree = inputMouseInside;
-//        for (int i = 0; i < children.size; i++) {
-//            mouseInsideTree |= children.get(i).mouseMoved(mouseX, mouseY, deltaMouseX, deltaMouseY);
-//        }
-//        return mouseInsideTree;
-//    }
-
     @Override
     public final boolean mouseMoved(int mouseX, int mouseY, int deltaMouseX, int deltaMouseY) {
         float pointerXPrevFrame = Widgets.getPointerXPrevFrame();
@@ -614,7 +582,8 @@ public abstract class Widget implements InputEventHandler {
         }
 
         for (int i = 0; i < children.size; i++) {
-            children.get(i).mouseMoved(mouseX, mouseY, deltaMouseX, deltaMouseY);
+            Widget child = children.get(i);
+            child.mouseMoved(mouseX, mouseY, deltaMouseX, deltaMouseY);
         }
         return inputMouseInsideSubtree;
     }
@@ -703,6 +672,14 @@ public abstract class Widget implements InputEventHandler {
 
     public final void onMouseClickDefault(InputEventListener.OnMouseClick listener) {
         inputEventListenerDefault.onMouseClick = listener;
+    }
+
+    public final void onMouseDoubleClick(InputEventListener.OnMouseDoubleClick listener) {
+        inputEventListener.onMouseDoubleClick = listener;
+    }
+
+    public final void onMouseClickDoubleDefault(InputEventListener.OnMouseDoubleClick listener) {
+        inputEventListenerDefault.onMouseDoubleClick = listener;
     }
 
     public final void onMouseEnter(InputEventListener.OnMouseEnter listener) {

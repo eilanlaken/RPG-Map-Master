@@ -32,13 +32,17 @@ public class SceneInput_3 implements Scene {
         child_2.transform.y = -60;
 
 
-        parent.onMouseClick(e -> {
+        parent.onMouseDoubleClick(e -> {
             parent.color = Color.randomOpaque().toFloatBits();
             System.out.println("clicked parent");
         });
         child_1.onMouseClick(e -> {
             child_1.color = Color.randomOpaque().toFloatBits();
             System.out.println("clicked child 1");
+        });
+        child_2.onMouseClick(e -> {
+            child_2.color = Color.randomOpaque().toFloatBits();
+            System.out.println("clicked child 2");
         });
 
         parent.onMouseEnter(e -> {
@@ -78,8 +82,8 @@ public class SceneInput_3 implements Scene {
 
     @Override
     public void update() {
-        if (Input.mouse.isButtonDoubleClicked(Mouse.Button.LEFT)) {
-            System.out.println("double left click " + i++);
+        if (!Input.mouse.getButtonsDoubleClicked().isEmpty()) {
+            System.out.println(Input.mouse.getButtonsDoubleClicked());
         }
 
         Widgets.update();
