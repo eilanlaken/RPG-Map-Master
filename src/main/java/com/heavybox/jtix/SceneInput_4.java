@@ -14,63 +14,40 @@ import com.heavybox.jtix.widgets_2.Widgets;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.opengl.GL11;
 
-public class SceneInput_3 implements Scene {
+public class SceneInput_4 implements Scene {
 
-    WidgetShapeRectangle parent = new WidgetShapeRectangle(50,50);
-    WidgetShapeRectangle child_1 = new WidgetShapeRectangle(50,50);
-    WidgetShapeRectangle child_2 = new WidgetShapeRectangle(50,50);
+    WidgetShapeRectangle panel_1 = new WidgetShapeRectangle(250,250);
+    WidgetShapeRectangle p1_child_1 = new WidgetShapeRectangle(80,80);
+    WidgetShapeRectangle p1_child_2 = new WidgetShapeRectangle(80,80);
+
+    WidgetShapeRectangle panel_2 = new WidgetShapeRectangle(250,250);
+    WidgetShapeRectangle p2_child_1 = new WidgetShapeRectangle(80,80);
+    WidgetShapeRectangle p2_child_2 = new WidgetShapeRectangle(80,80);
+
     Renderer2D renderer2D = new Renderer2D();
 
     @Override
     public void start() {
-        //rectangle_1.transform.x = 100;
-        //rectangle_1.transform.y = 100;
+        panel_1.transform.x = -300;
+        panel_1.transform.y = 0;
+        p1_child_1.transform.x = 0;
+        p1_child_1.transform.y = 60;
+        p1_child_2.transform.x = 0;
+        p1_child_2.transform.y = -60;
+        panel_1.connectChild(p1_child_1);
+        panel_1.connectChild(p1_child_2);
 
-        child_1.transform.x = 60;
-        child_1.transform.y = -60;
+        panel_2.transform.x = 300;
+        panel_2.transform.y = 0;
+        p2_child_1.transform.x = 0;
+        p2_child_1.transform.y = 60;
+        p2_child_2.transform.x = 0;
+        p2_child_2.transform.y = -60;
+        panel_2.connectChild(p2_child_1);
+        panel_2.connectChild(p2_child_2);
 
-        child_2.transform.x = -60;
-        child_2.transform.y = -60;
-
-
-        parent.onMouseDoubleClick(e -> {
-            parent.color = Color.randomOpaque().toFloatBits();
-            System.out.println("clicked parent");
-        });
-        child_1.onMouseClick(e -> {
-            child_1.color = Color.randomOpaque().toFloatBits();
-            System.out.println("clicked child 1");
-        });
-        child_2.onMouseClick(e -> {
-            child_2.color = Color.randomOpaque().toFloatBits();
-            System.out.println("clicked child 2");
-        });
-
-        parent.onMouseEnter(e -> {
-            parent.color = Color.RED.toFloatBits();
-        });
-        parent.onMouseLeave(e -> {
-            parent.color = Color.GREEN.toFloatBits();
-        });
-
-        child_1.onMouseEnter(e -> {
-            child_1.color = Color.RED.toFloatBits();
-        });
-        child_1.onMouseLeave(e -> {
-            child_1.color = Color.GREEN.toFloatBits();
-        });
-
-        child_2.onMouseEnter(e -> {
-            child_2.color = Color.RED.toFloatBits();
-        });
-        child_2.onMouseLeave(e -> {
-            child_2.color = Color.YELLOW.toFloatBits();
-        });
-
-
-        parent.connectChild(child_1);
-        parent.connectChild(child_2);
-        Widgets.add(parent);
+        Widgets.add(panel_1);
+        Widgets.add(panel_2);
     }
 
     @Override
@@ -91,30 +68,30 @@ public class SceneInput_3 implements Scene {
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_STENCIL_BUFFER_BIT); // should probably clear the stencil
 
         if (Input.keyboard.isKeyPressed(Keyboard.Key.D)) {
-            child_1.transform.x += 1;
+            p1_child_1.transform.x += 1;
         }
         if (Input.keyboard.isKeyPressed(Keyboard.Key.A)) {
-            child_1.transform.x -= 1;
+            p1_child_1.transform.x -= 1;
         }
         if (Input.keyboard.isKeyPressed(Keyboard.Key.W)) {
-            child_1.transform.y += 1;
+            p1_child_1.transform.y += 1;
         }
         if (Input.keyboard.isKeyPressed(Keyboard.Key.S)) {
-            child_1.transform.y -= 1;
+            p1_child_1.transform.y -= 1;
         }
         if (Input.keyboard.isKeyPressed(Keyboard.Key.Q)) {
-            child_1.transform.deg += 1;
+            p1_child_1.transform.deg += 1;
         }
 
 
         if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KEY_1)) {
-            child_1.inputLayer = 8;
-            child_2.inputLayer = 9;
+            p1_child_1.inputLayer = 8;
+            p1_child_2.inputLayer = 9;
         }
 
         if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KEY_2)) {
-            child_1.inputLayer = 9;
-            child_2.inputLayer = 8;
+            p1_child_1.inputLayer = 9;
+            p1_child_2.inputLayer = 8;
         }
 
         renderer2D.begin();

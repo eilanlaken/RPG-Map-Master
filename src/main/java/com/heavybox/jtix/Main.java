@@ -28,7 +28,7 @@ public class Main {
         //settings.resizable = false;
         Application.init(settings);
         //Application.launch(new SceneDemo());
-        Application.launch(new SceneInput_3());
+        Application.launch(new SceneInput_4());
 
     }
 
