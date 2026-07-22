@@ -74,11 +74,13 @@ public class SceneInput_3 implements Scene {
         return true;
     }
 
-
+    int i = 0;
 
     @Override
     public void update() {
-        //System.out.println(Input.mouse.isCursorInWindow());
+        if (Input.mouse.isButtonDoubleClicked(Mouse.Button.LEFT)) {
+            System.out.println("double left click " + i++);
+        }
 
         Widgets.update();
 

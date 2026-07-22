@@ -2,15 +2,19 @@ package com.heavybox.jtix.input;
 
 import com.heavybox.jtix.application.Application;
 import com.heavybox.jtix.collections.Array;
+import com.heavybox.jtix.collections.Tuple3;
+import com.heavybox.jtix.math.Vector3;
 import org.lwjgl.glfw.*;
 
 // TODO: add double-click detection with sensitivity parameters
 public final class Mouse {
 
-    /* static constants */
-    private static final Button[] ALL_BUTTONS = Button.values();
+    /*** static constants ***/
+    private static final Button[] ALL_BUTTONS        = Button.values();
+    private static final float    doubleClickTimeSec = 0.5f;
+    private static final float    doubleClickPixels  = 4;
 
-    /* mouse info */
+    /*** mouse info ***/
     private int     prevCursorX         = 0;
     private int     prevCursorY         = 0;
     private int     cursorX             = 0;
@@ -24,10 +28,13 @@ public final class Mouse {
     private float   scrollY = 0;
     private float   scrollX = 0;
 
-    /* mouse state */
-    private final int[] mouseButtonsPrevStates    = new int[5];
-    private final int[] mouseButtonsCurrentStates = new int[5];
+    /*** mouse button state trackers ***/
+    private final int[]     mouseButtonsPrevStates    = new int[5];
+    private final int[]     mouseButtonsCurrentStates = new int[5];
+    private final Vector3[] doubleClickTracker        = new Vector3[ALL_BUTTONS.length];
+    private final boolean[] doubleClickButtons        = new boolean[ALL_BUTTONS.length];
 
+    /*** mouse frame buttons pressed, just-pressed, released, just-released ***/
     private final Array<Button> buttonsPressed           = new Array<>(false, 5);
     private       boolean       buttonsPressedDirty      = true;
     private final Array<Button> buttonsJustPressed       = new Array<>(false, 5);
@@ -41,6 +48,32 @@ public final class Mouse {
             public void invoke(long window, int button, int action, int mods) {
                 mouseButtonsPrevStates[button] = mouseButtonsCurrentStates[button];
                 mouseButtonsCurrentStates[button] = action;
+
+                /* handle double clicks */
+                if (action == GLFW.GLFW_PRESS) {
+                    Vector3 state = doubleClickTracker[button];
+                    if (state == null) {
+                        doubleClickTracker[button] = new Vector3();
+                        doubleClickTracker[button].x = cursorX;
+                        doubleClickTracker[button].y = cursorY;
+                        doubleClickTracker[button].z = System.nanoTime();
+                    } else {
+                        final float now = System.nanoTime();
+                        float dt = (now - doubleClickTracker[button].z) / 1_000_000_000f;
+                        float dx = Math.abs(cursorX - doubleClickTracker[button].x);
+                        float dy = Math.abs(cursorY - doubleClickTracker[button].y);
+                        boolean doubleClicked = dt < 0.5f && dx < 8 && dy < 8;
+                        doubleClickButtons[button] = doubleClicked;
+                        if (doubleClicked) doubleClickTracker[button] = null;
+                        else {
+                            doubleClickTracker[button].x = cursorX;
+                            doubleClickTracker[button].y = cursorY;
+                            doubleClickTracker[button].z = now;
+                        }
+                    }
+                }
+
+                return; // end
             }
         });
 
@@ -149,6 +182,11 @@ public final class Mouse {
         return mouseButtonsPrevStates[button.glfwCode] == GLFW.GLFW_PRESS && mouseButtonsCurrentStates[button.glfwCode] == GLFW.GLFW_RELEASE;
     }
 
+    // TODO
+    public boolean isButtonDoubleClicked(final Button button) {
+        return doubleClickButtons[button.ordinal()];
+    }
+
     public boolean cursorJustEnteredWindow() {
         return cursorEnteredWindow;
     }
@@ -198,6 +236,10 @@ public final class Mouse {
         mouseButtonsPrevStates[GLFW.GLFW_MOUSE_BUTTON_3] = mouseButtonsCurrentStates[GLFW.GLFW_MOUSE_BUTTON_3];
         mouseButtonsPrevStates[GLFW.GLFW_MOUSE_BUTTON_4] = mouseButtonsCurrentStates[GLFW.GLFW_MOUSE_BUTTON_4];
         mouseButtonsPrevStates[GLFW.GLFW_MOUSE_BUTTON_5] = mouseButtonsCurrentStates[GLFW.GLFW_MOUSE_BUTTON_5];
+
+        for (int i = 0; i < doubleClickButtons.length; i++) {
+            doubleClickButtons[i] = false;
+        }
 
         buttonsPressed.clear();
         buttonsPressedDirty = true;
