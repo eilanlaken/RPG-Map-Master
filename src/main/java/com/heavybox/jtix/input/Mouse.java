@@ -149,10 +149,14 @@ public final class Mouse {
         return prevCursorY;
     }
 
+    // TODO: only works when inside the window
+    // FIXME
     public int getMonitorX() {
         return Application.getWindowPosX() + cursorX;
     }
 
+    // TODO: only works when inside the window
+    // FIXME
     public int getMonitorY() {
         return Application.getWindowPosY() + cursorY;
     }
