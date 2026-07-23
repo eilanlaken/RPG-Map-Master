@@ -25,31 +25,30 @@ public abstract class Widget implements InputEventHandler {
 
     public final int ID = Widgets.getID();
 
+    /*** ui hierarchy ***/
+    public        boolean       active        = true;
+    protected     Widget        parent        = null;
+    final         Array<Widget> children      = new Array<>();
+
     /*** metrics: transform and dimensions ***/
-    private        float      width           = 0; // TODO: use for caching and event handling
-    private        float      height          = 0; // TODO: use for caching and event handling
     public  final Transform2D transform       = new Transform2D(); // used for absolute positioning from root and animations
-    public        float       offsetX         = 0; // set by the parent or anchor.
-    public        float       offsetY         = 0; // set by the parent or anchor.
+    private final Transform2D transformOffset = new Transform2D(); // set by the parent layout object.
     private final Transform2D transformScreen = new Transform2D(); // calculated every frame either by self or parent
     public        Anchor      anchor          = null;
     public        float       anchorX         = 0;
     public        float       anchorY         = 0;
-    private       int         maskLevel       = 1;
-    // TODO: add draggableX, draggableY and dragging state
 
-    /*** ui hierarchy ***/
-    public        boolean       active         = true;
-    protected     Widget        parent         = null;
-    final         Array<Widget> children       = new Array<>();
-    private final Array<Widget> childrenLayout = new Array<>();
+    /*** children's layout ***/
+    public        Layout             layout          = null;
+    private final Array<Widget>      childrenLayout  = new Array<>(); // tmp variable
+    private final Array<Transform2D> childrenOffsets = new Array<>(); // tmp variable
 
     /*** input handling and state management ***/ // TODO: add a flag that allows events to penetrate to parent. Maybe re-add preventDefault flag.
     public        int                inputLayer                = ID;
     private final InputRegion        inputRegion               = new InputRegion();
     private final InputEventListener inputEventListener        = new InputEventListener(); // TODO: add register listener method
     private final InputEventListener inputEventListenerDefault = new InputEventListener();
-    private       boolean            inputMouseInsideSubtree   = false; // TODO: delete
+    private       boolean            inputMouseInsideSubtree   = false;
     private       Widget             inputMouseDownTarget      = null;
     private       Widget             inputMouseUpTarget        = null;
 
@@ -61,10 +60,9 @@ public abstract class Widget implements InputEventHandler {
     protected void    fixedUpdate   (float delta) {} // TODO: call with accumulative error
     protected void    onChildAdded  (Widget child) {}
     protected void    onChildRemoved(Widget child) {}
-    protected void    onResize      (final float prevWidth, final float prevHeight, final float newWidth, final float newHeight) {}
-    public    boolean maskChildren  () { return false; }
+    protected boolean maskChildren  () { return false; }
 
-    protected void configureInputRegion(final @NotNull InputRegion region) {
+    protected void setInputRegion(final @NotNull InputRegion region) {
         region.setToRectangle(getWidth(), getHeight());
     }
 
@@ -95,7 +93,6 @@ public abstract class Widget implements InputEventHandler {
         children.add(child);
         child.parent = this;
 
-        child.recalculateMaskIndex();
         onChildAdded(child);
 
         children.sort(Comparator.comparingInt(a -> a.inputLayer));
@@ -109,20 +106,10 @@ public abstract class Widget implements InputEventHandler {
         child.parent = null;
         Widgets.add(child);
 
-        child.recalculateMaskIndex();
+        transformOffset.idt();
         onChildRemoved(child);
 
         children.sort(Comparator.comparingInt(a -> a.inputLayer));
-    }
-
-    // containers can override this, for example.
-    // takes an array of child widgets and sets their layout
-    /* TODO test */
-    protected void setChildrenOffsets(final Array<Widget> childrenLayout) {
-        for (Widget widget : childrenLayout) {
-            widget.offsetX = 0;
-            widget.offsetY = 0;
-        }
     }
 
     /*** anchors ***/
@@ -136,18 +123,38 @@ public abstract class Widget implements InputEventHandler {
         anchor = null;
     }
 
+    private void setChildrenOffsets() {
+        if (layout == null) {
+            for (Widget child : children) {
+                if (!child.active) continue;
+                if (child.anchor != null) continue;
+                child.transformOffset.idt();
+            }
+        } else {
+            childrenLayout.clear();
+            childrenOffsets.clear();
+            for (Widget child : children) {
+                if (!layout.includes(child)) continue;
+                childrenLayout.add(child);
+                childrenOffsets.add(child.transformOffset);
+            }
+            layout.setChildTransformOffset(childrenLayout, childrenOffsets);
+        }
+    }
+
     /* TODO test */
+    // TODO: replace offsetX and offsetY with transformOffset.x and transformOffset.y
     private void setOffsetsAnchor() {
         if (anchor == null) return;
 
-        float currentWidth = width;
-        float currentHeight = height;
+        float width = getWidth();
+        float height = getHeight();
         float halfWidth = width * 0.5f;
         float halfHeight = height * 0.5f;
-        float min_x = -currentWidth * 0.5f;
-        float max_x = currentWidth * 0.5f;
-        float min_y = -currentHeight * 0.5f;
-        float max_y = currentHeight * 0.5f;
+        float min_x = -width * 0.5f;
+        float max_x = width * 0.5f;
+        float min_y = -height * 0.5f;
+        float max_y = height * 0.5f;
 
         float screen_min_x;
         float screen_max_x;
@@ -168,47 +175,47 @@ public abstract class Widget implements InputEventHandler {
         switch (anchor) {
             case PARENT_CENTER_RIGHT:
                 screen_max_x = halfParentWidth - max_x;
-                offsetX = screen_max_x - anchorX;
+                transformOffset.x = screen_max_x - anchorX;
                 //offsetY = 0;
                 break;
             case PARENT_CENTER_LEFT:
                 screen_min_x = min_x + halfParentWidth;
-                offsetX = anchorX - screen_min_x;
+                transformOffset.x = anchorX - screen_min_x;
                 //offsetY = 0;
                 break;
             case PARENT_TOP_CENTER:
                 screen_max_y = halfParentHeight - max_y;
                 //offsetX = 0;
-                offsetY = screen_max_y - anchorY;
+                transformOffset.y = screen_max_y - anchorY;
                 break;
             case PARENT_BOTTOM_CENTER:
                 screen_min_y = min_y + halfParentHeight;
                 //offsetX = 0;
-                offsetY = anchorY - screen_min_y;
+                transformOffset.y = anchorY - screen_min_y;
                 break;
             case PARENT_TOP_LEFT:
                 screen_min_x = min_x + halfParentWidth;
                 screen_max_y = halfParentHeight - max_y;
-                offsetX = anchorX - screen_min_x;
-                offsetY = screen_max_y - anchorY;
+                transformOffset.x = anchorX - screen_min_x;
+                transformOffset.y = screen_max_y - anchorY;
                 break;
             case PARENT_TOP_RIGHT:
                 screen_max_x = halfParentWidth - max_x;
                 screen_max_y = halfParentHeight - max_y;
-                offsetX = screen_max_x - anchorX;
-                offsetY = screen_max_y - anchorY;
+                transformOffset.x = screen_max_x - anchorX;
+                transformOffset.y = screen_max_y - anchorY;
                 break;
             case PARENT_BOTTOM_RIGHT:
                 screen_max_x = halfParentWidth - max_x;
                 screen_min_y = min_y + halfParentHeight;
-                offsetX = screen_max_x - anchorX;
-                offsetY = anchorY - screen_min_y;
+                transformOffset.x = screen_max_x - anchorX;
+                transformOffset.y = anchorY - screen_min_y;
                 break;
             case PARENT_BOTTOM_LEFT:
                 screen_min_x = min_x + halfParentWidth;
                 screen_min_y = min_y + halfParentHeight;
-                offsetX = anchorX - screen_min_x;
-                offsetY = anchorY - screen_min_y;
+                transformOffset.x = anchorX - screen_min_x;
+                transformOffset.y = anchorY - screen_min_y;
                 break;
             case PARENT_CENTER_CENTER:
                 screen_min_x = min_x + halfParentWidth;
@@ -217,52 +224,52 @@ public abstract class Widget implements InputEventHandler {
                 screen_max_y = halfParentHeight - max_y;
                 center_x = (screen_min_x + screen_max_x) * 0.5f;
                 center_y = (screen_min_y + screen_max_y) * 0.5f;
-                offsetX = anchorX - center_x;
-                offsetY = anchorY - center_y;
+                transformOffset.x = anchorX - center_x;
+                transformOffset.y = anchorY - center_y;
                 break;
             case CURSOR_TOP_LEFT:
                 screen_min_x = halfWidth;
                 screen_max_y = -halfHeight;
-                offsetX = (cursorX + screen_min_x - parent_screen_x) + anchorX;
-                offsetY = (cursorY + screen_max_y - parent_screen_y) + anchorY;
+                transformOffset.x = (cursorX + screen_min_x - parent_screen_x) + anchorX;
+                transformOffset.y = (cursorY + screen_max_y - parent_screen_y) + anchorY;
                 break;
             case CURSOR_TOP_CENTER:
                 screen_max_y = -halfHeight;
-                offsetX = (cursorX - parent_screen_x) + anchorX;
-                offsetY = (cursorY + screen_max_y - parent_screen_y) + anchorY;
+                transformOffset.x = (cursorX - parent_screen_x) + anchorX;
+                transformOffset.y = (cursorY + screen_max_y - parent_screen_y) + anchorY;
                 break;
             case CURSOR_TOP_RIGHT:
                 screen_max_x = -halfWidth;
                 screen_max_y = -halfHeight;
-                offsetX = (cursorX + screen_max_x - parent_screen_x) + anchorX;
-                offsetY = (cursorY + screen_max_y - parent_screen_y) + anchorY;
+                transformOffset.x = (cursorX + screen_max_x - parent_screen_x) + anchorX;
+                transformOffset.y = (cursorY + screen_max_y - parent_screen_y) + anchorY;
                 break;
             case CURSOR_CENTER_LEFT:
                 screen_min_x = halfWidth;
-                offsetX = (cursorX + screen_min_x - parent_screen_x) + anchorX;
-                offsetY = (cursorY + 0 - parent_screen_y) + anchorY;
+                transformOffset.x = (cursorX + screen_min_x - parent_screen_x) + anchorX;
+                transformOffset.y = (cursorY + 0 - parent_screen_y) + anchorY;
                 break;
             case CURSOR_CENTER_RIGHT:
                 screen_min_x = -halfWidth;
-                offsetX = (cursorX + screen_min_x - parent_screen_x) + anchorX;
-                offsetY = (cursorY + 0 - parent_screen_y) + anchorY;
+                transformOffset.x = (cursorX + screen_min_x - parent_screen_x) + anchorX;
+                transformOffset.y = (cursorY + 0 - parent_screen_y) + anchorY;
                 break;
             case CURSOR_BOTTOM_LEFT:
                 screen_min_x = halfWidth;
                 screen_min_y = halfHeight;
-                offsetX = (cursorX + screen_min_x - parent_screen_x) + anchorX;
-                offsetY = (cursorY + screen_min_y - parent_screen_y) + anchorY;
+                transformOffset.x = (cursorX + screen_min_x - parent_screen_x) + anchorX;
+                transformOffset.y = (cursorY + screen_min_y - parent_screen_y) + anchorY;
                 break;
             case CURSOR_BOTTOM_CENTER:
                 screen_max_y = halfHeight;
-                offsetX = (cursorX - parent_screen_x) + anchorX;
-                offsetY = (cursorY + screen_max_y - parent_screen_y) + anchorY;
+                transformOffset.x = (cursorX - parent_screen_x) + anchorX;
+                transformOffset.y = (cursorY + screen_max_y - parent_screen_y) + anchorY;
                 break;
             case CURSOR_BOTTOM_RIGHT:
                 screen_max_x = -halfWidth;
                 screen_min_y = halfHeight;
-                offsetX = (cursorX + screen_max_x - parent_screen_x) + anchorX;
-                offsetY = (cursorY + screen_min_y - parent_screen_y) + anchorY;
+                transformOffset.x = (cursorX + screen_max_x - parent_screen_x) + anchorX;
+                transformOffset.y = (cursorY + screen_min_y - parent_screen_y) + anchorY;
                 break;
             case CURSOR_CENTER_CENTER:
                 screen_min_x = min_x + halfWidth;
@@ -271,14 +278,16 @@ public abstract class Widget implements InputEventHandler {
                 screen_max_y = halfHeight - max_y;
                 center_x = (screen_min_x + screen_max_x) * 0.5f;
                 center_y = (screen_min_y + screen_max_y) * 0.5f;
-                offsetX = (cursorX - center_x - parent_screen_x) + anchorX;
-                offsetY = (cursorY - center_y - parent_screen_y) + anchorY;
+                transformOffset.x = (cursorX - center_x - parent_screen_x) + anchorX;
+                transformOffset.y = (cursorY - center_y - parent_screen_y) + anchorY;
                 break;
         }
     }
 
     /*** internal state updates and metrics ***/
-    private void calculateGlobalTransform() {
+    // TODO: consider offset transform
+    @Deprecated
+    private void setGlobalTransform() {
         final Transform2D parentTransform = (parent != null) ? parent.transformScreen : null;
         float refX = parentTransform == null ? 0 : parentTransform.x;
         float refY = parentTransform == null ? 0 : parentTransform.y;
@@ -289,8 +298,8 @@ public abstract class Widget implements InputEventHandler {
         float sin = MathUtils.sinDeg(refDeg);
         float x = this.transform.x * cos - this.transform.y * sin;
         float y = this.transform.x * sin + this.transform.y * cos;
-        transformScreen.x = refX + x * refSclX + offsetX * cos - offsetY * sin; // add the rotated offset vector x component
-        transformScreen.y = refY + y * refSclY + offsetX * sin + offsetY * cos; // add the rotated offset vector y component
+        transformScreen.x = refX + x * refSclX + transformOffset.x * cos - transformOffset.y * sin; // add the rotated offset vector x component
+        transformScreen.y = refY + y * refSclY + transformOffset.x * sin + transformOffset.y * cos; // add the rotated offset vector y component
         transformScreen.deg  = transform.deg + refDeg;
         transformScreen.sclX = transform.sclX * refSclX;
         transformScreen.sclY = transform.sclY * refSclY;
@@ -300,27 +309,10 @@ public abstract class Widget implements InputEventHandler {
     final void update(float delta) {
         if (!active) return;
 
-        configureInputRegion(inputRegion);
-
-        childrenLayout.clear();
-        for (Widget child : children) {
-            if (!child.active) continue;
-            if (child.anchor != null) continue;
-            childrenLayout.add(child);
-        }
-        setChildrenOffsets(childrenLayout);
+        setInputRegion(inputRegion);
+        setChildrenOffsets();
         setOffsetsAnchor();
-        float prevWidth = width;
-        float prevHeight = height;
-        width = getWidth();
-        height = getHeight();
-
-        float deltaWidth  = width - prevWidth;
-        float deltaHeight = height - prevHeight;
-        boolean resized = !MathUtils.isZero(deltaWidth) || !MathUtils.isZero(deltaHeight);
-        if (resized) onResize(prevWidth, prevHeight, width, height);
-
-        calculateGlobalTransform();
+        setGlobalTransform();
         fixedUpdate(delta); // TODO: do the lag stuff
         // update children
         for (Widget child : children) {
@@ -343,14 +335,13 @@ public abstract class Widget implements InputEventHandler {
             renderer2D.endStencil();
         }
 
-        // TODO: before rendering sort by input layer z
         children.sort(Widgets.widgetComparator);
-        int maskingIndex = getMaskLevel();
+        int maskLevel = getMaskingIndex();
         for (Widget child : children) {
             // apply mask, if masking enabled
             if (maskChildren) {
                 renderer2D.enableMasking();
-                renderer2D.setMaskingFunctionEquals(maskingIndex);
+                renderer2D.setMaskingFunctionEquals(maskLevel);
             }
             child.render(renderer2D);
             if (maskChildren) renderer2D.disableMasking();
@@ -394,15 +385,9 @@ public abstract class Widget implements InputEventHandler {
         return hit;
     }
 
-    private int getMaskLevel() {
-        return maskLevel;
-    }
-
-    private void recalculateMaskIndex() {
-        maskLevel = parent != null && parent.maskChildren() ? parent.maskLevel + 1 : 1;
-        for (final Widget child : children) {
-            child.recalculateMaskIndex();
-        }
+    private int getMaskingIndex() {
+        if (parent != null && parent.maskChildren()) return parent.getMaskingIndex() + 1;
+        else return 1;
     }
 
     @Override
