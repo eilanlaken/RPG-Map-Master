@@ -9,6 +9,7 @@ import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
+import com.heavybox.jtix.widgets_2.Anchor;
 import com.heavybox.jtix.widgets_2.WidgetShapeRectangle;
 import com.heavybox.jtix.widgets_2.Widgets;
 import org.jetbrains.annotations.NotNull;
