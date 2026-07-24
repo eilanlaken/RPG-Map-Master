@@ -65,8 +65,8 @@ public class Tool_5_Architecture extends Tool_new {
     public Tool_5_Architecture(final RPGMapMakerScene scene) {
         super(scene);
         atlas = Assets.get("assets/texture-packs/layer_3.yml");
-        sclX = 1f / 3;
-        sclY = 1f / 3;
+        sclX = 1f / 4;
+        sclY = 1f / 4;
         // group assets
 
         currentMode = Tool.Mode.ADD;

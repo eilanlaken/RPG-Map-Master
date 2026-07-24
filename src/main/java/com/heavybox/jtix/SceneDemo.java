@@ -28,7 +28,7 @@ import java.util.zip.ZipFile;
 public class SceneDemo implements Scene, RPGMapMakerScene {
 
     // dev save and load
-    public final String saveFile = "C:\\Users\\eilan\\OneDrive\\Desktop\\Heavy Box Games\\projects\\RPG Map Master\\public\\maps\\map_num.map";
+    public final String saveFile = null;// "C:\\Users\\eilan\\OneDrive\\Desktop\\Heavy Box Games\\projects\\RPG Map Master\\public\\maps\\map_num.map";
 
     public static int width = 2880;
     public static int height = 2880; //1620;
