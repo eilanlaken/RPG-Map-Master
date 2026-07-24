@@ -90,9 +90,7 @@ public abstract class Widget implements InputEventHandler {
         if (child.parent != null) child.parent.children.removeValue(child, true);
         children.add(child);
         child.parent = this;
-
         onChildAdded(child);
-
         children.sort(Comparator.comparingInt(a -> a.inputLayer));
     }
 
@@ -103,10 +101,8 @@ public abstract class Widget implements InputEventHandler {
         children.removeValue(child,true);
         child.parent = null;
         Widgets.add(child);
-
         transformOffset.idt();
         onChildRemoved(child);
-
         children.sort(Comparator.comparingInt(a -> a.inputLayer));
     }
 
@@ -271,24 +267,35 @@ public abstract class Widget implements InputEventHandler {
     }
 
     /*** internal state updates and metrics ***/
-    // TODO: consider offset transform
-    @Deprecated
     private void setGlobalTransform() {
-        final Transform2D parentTransform = (parent != null) ? parent.transformScreen : null;
-        float refX = parentTransform == null ? 0 : parentTransform.x;
-        float refY = parentTransform == null ? 0 : parentTransform.y;
-        float refDeg = parentTransform == null ? 0 : parentTransform.deg;
-        float refSclX = parentTransform == null ? 1 : parentTransform.sclX;
-        float refSclY = parentTransform == null ? 1 : parentTransform.sclY;
-        float cos = MathUtils.cosDeg(refDeg);
-        float sin = MathUtils.sinDeg(refDeg);
-        float x = this.transform.x * cos - this.transform.y * sin;
-        float y = this.transform.x * sin + this.transform.y * cos;
-        transformScreen.x = refX + x * refSclX + transformOffset.x * cos - transformOffset.y * sin; // add the rotated offset vector x component
-        transformScreen.y = refY + y * refSclY + transformOffset.x * sin + transformOffset.y * cos; // add the rotated offset vector y component
-        transformScreen.deg  = transform.deg + refDeg;
-        transformScreen.sclX = transform.sclX * refSclX;
-        transformScreen.sclY = transform.sclY * refSclY;
+        float parentX = parent == null ? 0 : parent.transformScreen.x;
+        float parentY = parent == null ? 0 : parent.transformScreen.y;
+        float parentDeg = parent == null ? 0 : parent.transformScreen.deg;
+        float parentSclX = parent == null ? 1 : parent.transformScreen.sclX;
+        float parentSclY = parent == null ? 1 : parent.transformScreen.sclY;
+
+        // Offset * Local
+        float offsetCos = MathUtils.cosDeg(transformOffset.deg);
+        float offsetSin = MathUtils.sinDeg(transformOffset.deg);
+        float localX = transform.x * transformOffset.sclX;
+        float localY = transform.y * transformOffset.sclY;
+
+        float combinedX = transformOffset.x + localX * offsetCos - localY * offsetSin;
+        float combinedY = transformOffset.y + localX * offsetSin + localY * offsetCos;
+        float combinedDeg = transformOffset.deg + transform.deg;
+        float combinedSclX = transformOffset.sclX * transform.sclX;
+        float combinedSclY = transformOffset.sclY * transform.sclY;
+
+        // ParentGlobal * Combined
+        float parentCos = MathUtils.cosDeg(parentDeg);
+        float parentSin = MathUtils.sinDeg(parentDeg);
+        float x = combinedX * parentSclX;
+        float y = combinedY * parentSclY;
+        transformScreen.x = parentX + x * parentCos - y * parentSin;
+        transformScreen.y = parentY + x * parentSin + y * parentCos;
+        transformScreen.deg = parentDeg + combinedDeg;
+        transformScreen.sclX = parentSclX * combinedSclX;
+        transformScreen.sclY = parentSclY * combinedSclY;
     }
 
     // TODO: separate into update internal state and call after potential state change (on callbacks).
@@ -683,4 +690,73 @@ public abstract class Widget implements InputEventHandler {
         inputEventListenerDefault.onMouseScroll = listener;
     }
 
+    public final void onMouseDrag(InputEventListener.OnMouseDrag listener) {
+        inputEventListener.onMouseDrag = listener;
+    }
+
+    public final void onMouseDragDefault(InputEventListener.OnMouseDrag listener) {
+        inputEventListenerDefault.onMouseDrag = listener;
+    }
+
+    public final void onMouseDragStart(InputEventListener.OnMouseDragStart listener) {
+        inputEventListener.onMouseDragStart = listener;
+    }
+
+    public final void onMouseDragStartDefault(InputEventListener.OnMouseDragStart listener) {
+        inputEventListenerDefault.onMouseDragStart = listener;
+    }
+
+    public final void onMouseDragEnd(InputEventListener.OnMouseDragEnd listener) {
+        inputEventListener.onMouseDragEnd = listener;
+    }
+
+    public final void onMouseDragEndDefault(InputEventListener.OnMouseDragEnd listener) {
+        inputEventListenerDefault.onMouseDragEnd = listener;
+    }
+
+    public final void onMouseDragEnter(InputEventListener.OnMouseDragEnter listener) {
+        inputEventListener.onMouseDragEnter = listener;
+    }
+
+    public final void onMouseDragEnterDefault(InputEventListener.OnMouseDragEnter listener) {
+        inputEventListenerDefault.onMouseDragEnter = listener;
+    }
+
+    public final void onMouseDragLeave(InputEventListener.OnMouseDragLeave listener) {
+        inputEventListener.onMouseDragLeave = listener;
+    }
+
+    public final void onMouseDragLeaveDefault(InputEventListener.OnMouseDragLeave listener) {
+        inputEventListenerDefault.onMouseDragLeave = listener;
+    }
+
+    public final void onMouseDragDrop(InputEventListener.OnMouseDragDrop listener) {
+        inputEventListener.onMouseDragDrop = listener;
+    }
+
+    public final void onMouseDragDropDefault(InputEventListener.OnMouseDragDrop listener) {
+        inputEventListenerDefault.onMouseDragDrop = listener;
+    }
+
 }
+
+/*
+@Deprecated
+    private void setGlobalTransform() {
+        final Transform2D parentTransform = (parent != null) ? parent.transformScreen : null;
+        float refX = parentTransform == null ? 0 : parentTransform.x;
+        float refY = parentTransform == null ? 0 : parentTransform.y;
+        float refDeg = parentTransform == null ? 0 : parentTransform.deg;
+        float refSclX = parentTransform == null ? 1 : parentTransform.sclX;
+        float refSclY = parentTransform == null ? 1 : parentTransform.sclY;
+        float cos = MathUtils.cosDeg(refDeg);
+        float sin = MathUtils.sinDeg(refDeg);
+        float x = this.transform.x * cos - this.transform.y * sin;
+        float y = this.transform.x * sin + this.transform.y * cos;
+        transformScreen.x = refX + x * refSclX + transformOffset.x * cos - transformOffset.y * sin; // add the rotated offset vector x component
+        transformScreen.y = refY + y * refSclY + transformOffset.x * sin + transformOffset.y * cos; // add the rotated offset vector y component
+        transformScreen.deg  = transform.deg + refDeg;
+        transformScreen.sclX = transform.sclX * refSclX;
+        transformScreen.sclY = transform.sclY * refSclY;
+    }
+ */

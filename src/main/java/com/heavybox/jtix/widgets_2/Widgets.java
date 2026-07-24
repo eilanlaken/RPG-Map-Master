@@ -9,7 +9,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Comparator;
 
-// TODO: find a way to assign an input event handler for all the ROOT nodes.
 public final class Widgets {
 
     public  static final Comparator<Widget> widgetComparator = Comparator.comparingInt(a -> a.inputLayer);
@@ -24,8 +23,8 @@ public final class Widgets {
     private static float pointerYPrevValue = 0;
     private static float pointerXPrevFrame = 0;
     private static float pointerYPrevFrame = 0;
-    private static float pointerX     = 0;
-    private static float pointerY     = 0;
+    private static float pointerX          = 0;
+    private static float pointerY          = 0;
 
     /*** current scene widgets hierarchy */
     private static final Array<Widget> rootWidgets = new Array<>(false, 5);
@@ -123,9 +122,7 @@ public final class Widgets {
     }
 
     static int getID() {
-        final int id = currentID;
-        currentID++;
-        return id;
+        return currentID++;
     }
 
 }
