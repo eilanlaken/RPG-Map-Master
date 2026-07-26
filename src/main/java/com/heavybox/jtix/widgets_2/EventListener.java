@@ -1,6 +1,6 @@
 package com.heavybox.jtix.widgets_2;
 
-public final class InputEventListener {
+public final class EventListener {
 
     /*** input - event handlers ***/
     public OnMouseUp          onMouseUp          = null;
@@ -22,82 +22,82 @@ public final class InputEventListener {
 
     @FunctionalInterface
     public interface OnMouseClick {
-        void handle(InputEventData.MouseClick e);
+        void handle(EventData.MouseClick e);
     }
 
     @FunctionalInterface
     public interface OnMouseDoubleClick {
-        void handle(InputEventData.MouseDoubleClick e);
+        void handle(EventData.MouseDoubleClick e);
     }
 
     @FunctionalInterface
     public interface OnMouseDown {
-        void handle(InputEventData.MouseDown e);
+        void handle(EventData.MouseDown e);
     }
 
     @FunctionalInterface
     public interface OnMouseUp {
-        void handle(InputEventData.MouseUp e);
+        void handle(EventData.MouseUp e);
     }
 
     @FunctionalInterface
     public interface OnMouseEnter {
-        void handle(InputEventData.MouseEnter e);
+        void handle(EventData.MouseEnter e);
     }
 
     @FunctionalInterface
     public interface OnMouseLeave {
-        void handle(InputEventData.MouseLeave e);
+        void handle(EventData.MouseLeave e);
     }
 
     @FunctionalInterface
     public interface OnMouseScroll {
-        void handle(InputEventData.MouseScroll e);
+        void handle(EventData.MouseScroll e);
     }
 
     @FunctionalInterface
     public interface OnMouseDrag {
-        void handle(InputEventData.MouseDrag e);
+        void handle(EventData.MouseDrag e);
     }
 
     @FunctionalInterface
     public interface OnMouseDragStart {
-        void handle(InputEventData.MouseDragStart e);
+        void handle(EventData.MouseDragStart e);
     }
 
     @FunctionalInterface
     public interface OnMouseDragEnd {
-        void handle(InputEventData.MouseDragEnd e);
+        void handle(EventData.MouseDragEnd e);
     }
 
     @FunctionalInterface
     public interface OnMouseDragEnter {
-        void handle(InputEventData.MouseDragEnter e);
+        void handle(EventData.MouseDragEnter e);
     }
 
     @FunctionalInterface
     public interface OnMouseDragLeave {
-        void handle(InputEventData.MouseDragLeave e);
+        void handle(EventData.MouseDragLeave e);
     }
 
     @FunctionalInterface
     public interface OnMouseDragDrop {
-        void handle(InputEventData.MouseDragDrop e);
+        void handle(EventData.MouseDragDrop e);
     }
 
     @FunctionalInterface
     public interface OnCodepointsTyped {
-        void handle(InputEventData.CodepointsTyped e);
+        void handle(EventData.CodepointsTyped e);
     }
 
     @FunctionalInterface
     public interface OnKeysJustPressed {
-        void handle(InputEventData.KeysJustPressed e);
+        void handle(EventData.KeysJustPressed e);
     }
 
     @FunctionalInterface
     public interface OnKeysPressed {
-        void handle(InputEventData.KeysPressed e);
+        void handle(EventData.KeysPressed e);
     }
 
 }

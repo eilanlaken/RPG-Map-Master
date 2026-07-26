@@ -8,7 +8,7 @@ import com.heavybox.jtix.math.Transform2D;
 import com.heavybox.jtix.math.Vector2;
 import org.jetbrains.annotations.NotNull;
 
-public final class InputRegion {
+public final class InputShape {
 
     /* The envelope points of the region */
     private final ArrayFloat points = new ArrayFloat(true, 8);

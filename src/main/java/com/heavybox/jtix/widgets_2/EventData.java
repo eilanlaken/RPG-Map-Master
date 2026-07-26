@@ -4,15 +4,15 @@ import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.collections.ArrayChar;
 import com.heavybox.jtix.input.Keyboard;
 
-public abstract class InputEventData {
+public abstract class EventData {
 
     public final Widget target;
 
-    InputEventData(final Widget target) {
+    EventData(final Widget target) {
         this.target = target;
     }
 
-    public static class MouseDown extends InputEventData {
+    public static class MouseDown extends EventData {
 
         public boolean buttonLeft;
         public boolean buttonRight;
@@ -35,7 +35,7 @@ public abstract class InputEventData {
 
     }
 
-    public static class MouseUp extends InputEventData {
+    public static class MouseUp extends EventData {
 
         public boolean buttonLeft;
         public boolean buttonRight;
@@ -54,7 +54,7 @@ public abstract class InputEventData {
 
     }
 
-    public static class MouseClick extends InputEventData {
+    public static class MouseClick extends EventData {
 
         public boolean buttonLeft;
         public boolean buttonRight;
@@ -73,7 +73,7 @@ public abstract class InputEventData {
 
     }
 
-    public static class MouseDoubleClick extends InputEventData {
+    public static class MouseDoubleClick extends EventData {
 
         public boolean buttonLeft;
         public boolean buttonRight;
@@ -92,7 +92,7 @@ public abstract class InputEventData {
 
     }
 
-    public static class MouseMiddleClick extends InputEventData {
+    public static class MouseMiddleClick extends EventData {
 
         public float mouseLocalX;
         public float mouseLocalY;
@@ -105,7 +105,7 @@ public abstract class InputEventData {
 
     }
 
-    public static class MouseLeftClickOutside extends InputEventData {
+    public static class MouseLeftClickOutside extends EventData {
 
         public float mouseLocalX;
         public float mouseLocalY;
@@ -118,7 +118,7 @@ public abstract class InputEventData {
 
     }
 
-    public static class MouseRightClickOutside extends InputEventData {
+    public static class MouseRightClickOutside extends EventData {
 
         public float mouseLocalX;
         public float mouseLocalY;
@@ -131,7 +131,7 @@ public abstract class InputEventData {
 
     }
 
-    public static class MouseMiddleClickOutside extends InputEventData {
+    public static class MouseMiddleClickOutside extends EventData {
 
         public float mouseLocalX;
         public float mouseLocalY;
@@ -144,7 +144,7 @@ public abstract class InputEventData {
 
     }
 
-    public static class MouseEnter extends InputEventData {
+    public static class MouseEnter extends EventData {
 
         public float mouseLocalXPrev;
         public float mouseLocalYPrev;
@@ -161,7 +161,7 @@ public abstract class InputEventData {
 
     }
 
-    public static class MouseLeave extends InputEventData {
+    public static class MouseLeave extends EventData {
 
         public float mouseLocalXPrev;
         public float mouseLocalYPrev;
@@ -178,7 +178,7 @@ public abstract class InputEventData {
 
     }
 
-    public static class MouseScroll extends InputEventData {
+    public static class MouseScroll extends EventData {
 
         public float scrollX;
         public float scrollY;
@@ -194,7 +194,7 @@ public abstract class InputEventData {
         }
     }
 
-    public static class MouseDrag extends InputEventData {
+    public static class MouseDrag extends EventData {
 
         public float mouseLocalXPrev;
         public float mouseLocalYPrev;
@@ -214,7 +214,7 @@ public abstract class InputEventData {
         }
     }
 
-    public static class MouseDragStart extends InputEventData {
+    public static class MouseDragStart extends EventData {
 
         public float mouseLocalX;
         public float mouseLocalY;
@@ -226,7 +226,7 @@ public abstract class InputEventData {
         }
     }
 
-    public static class MouseDragEnd extends InputEventData {
+    public static class MouseDragEnd extends EventData {
 
         public float mouseLocalX;
         public float mouseLocalY;
@@ -239,7 +239,7 @@ public abstract class InputEventData {
 
     }
 
-    public static class MouseDragEnter extends InputEventData {
+    public static class MouseDragEnter extends EventData {
 
         public Widget draggable;
         public float  mouseLocalXPrev;
@@ -261,7 +261,7 @@ public abstract class InputEventData {
         }
     }
 
-    public static class MouseDragLeave extends InputEventData {
+    public static class MouseDragLeave extends EventData {
 
         public Widget draggable;
         public float  mouseLocalXPrev;
@@ -283,7 +283,7 @@ public abstract class InputEventData {
         }
     }
 
-    public static class MouseDragDrop extends InputEventData {
+    public static class MouseDragDrop extends EventData {
 
         public Widget draggable;
         public float  mouseLocalX;
@@ -298,7 +298,7 @@ public abstract class InputEventData {
 
     }
 
-    public static class CodepointsTyped extends InputEventData {
+    public static class CodepointsTyped extends EventData {
 
         public ArrayChar codePoints;
 
@@ -313,7 +313,7 @@ public abstract class InputEventData {
 
     }
 
-    public static class KeysJustPressed extends InputEventData {
+    public static class KeysJustPressed extends EventData {
 
         public Array<Keyboard.Key> keys;
 
@@ -325,7 +325,7 @@ public abstract class InputEventData {
 
     }
 
-    public static class KeysPressed extends InputEventData {
+    public static class KeysPressed extends EventData {
 
         public Array<Keyboard.Key> keys;
 

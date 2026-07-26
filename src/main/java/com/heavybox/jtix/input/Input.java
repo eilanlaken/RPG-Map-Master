@@ -109,14 +109,14 @@ public final class Input {
         mouse.update();
     }
 
-    public static void addEventHandler(final InputEventHandler inputEventHandler) {
+    public static void registerEventHandler(final InputEventHandler inputEventHandler) {
         if (inputEventHandler == null) throw new InputException("event handler cannot be null.");
         if (inputEventHandlers.contains(inputEventHandler,true)) return;
         inputEventHandlers.add(inputEventHandler);
         inputEventHandlers.sort(inputEventHandlersComparator);
     }
 
-    public static void removeEventHandler(final InputEventHandler inputEventHandler) {
+    public static void unregisterEventHandler(final InputEventHandler inputEventHandler) {
         inputEventHandlers.removeValue(inputEventHandler,true);
         inputEventHandlers.sort(inputEventHandlersComparator);
     }

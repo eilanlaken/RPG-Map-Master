@@ -224,7 +224,7 @@ public class Application {
 
         /* start the application with active scene */
         currentScene = scene;
-        Input.addEventHandler(currentScene);
+        Input.registerEventHandler(currentScene);
         Widgets.clear();
         currentScene.start();
 
@@ -304,7 +304,7 @@ public class Application {
             currentScene.finish();
         }
         currentScene = scene;
-        Input.addEventHandler(currentScene);
+        Input.registerEventHandler(currentScene);
         currentScene.start();
     }
 

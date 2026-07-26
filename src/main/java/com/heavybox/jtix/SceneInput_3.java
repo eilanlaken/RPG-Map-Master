@@ -108,13 +108,13 @@ public class SceneInput_3 implements Scene {
 
 
         if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KEY_1)) {
-            child_1.inputLayer = 8;
-            child_2.inputLayer = 9;
+            child_1.zIndex = 8;
+            child_2.zIndex = 9;
         }
 
         if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KEY_2)) {
-            child_1.inputLayer = 9;
-            child_2.inputLayer = 8;
+            child_1.zIndex = 9;
+            child_2.zIndex = 8;
         }
 
         renderer2D.begin();

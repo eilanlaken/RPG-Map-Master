@@ -3,13 +3,11 @@ package com.heavybox.jtix;
 import com.heavybox.jtix.application.Application;
 import com.heavybox.jtix.application.Scene;
 import com.heavybox.jtix.collections.Array;
-import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Graphics;
 import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
-import com.heavybox.jtix.widgets_2.Anchor;
 import com.heavybox.jtix.widgets_2.WidgetShapeRectangle;
 import com.heavybox.jtix.widgets_2.Widgets;
 import org.jetbrains.annotations.NotNull;
@@ -61,7 +59,6 @@ public class SceneInput_4 implements Scene {
     @Override
     public void update() {
         //moveWindow();
-
         Widgets.update();
 
         Graphics.bindFrameBuffer(null);
@@ -86,13 +83,13 @@ public class SceneInput_4 implements Scene {
 
 
         if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KEY_1)) {
-            p1_child_1.inputLayer = 8;
-            p1_child_2.inputLayer = 9;
+            p1_child_1.zIndex = 8;
+            p1_child_2.zIndex = 9;
         }
 
         if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KEY_2)) {
-            p1_child_1.inputLayer = 9;
-            p1_child_2.inputLayer = 8;
+            p1_child_1.zIndex = 9;
+            p1_child_2.zIndex = 8;
         }
 
         renderer2D.begin();

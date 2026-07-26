@@ -2,12 +2,8 @@ package com.heavybox.jtix.input;
 
 import com.heavybox.jtix.application.Application;
 import com.heavybox.jtix.collections.Array;
-import com.heavybox.jtix.collections.Tuple3;
-import com.heavybox.jtix.graphics.Graphics;
 import com.heavybox.jtix.math.Vector3;
 import org.lwjgl.glfw.*;
-import org.lwjgl.system.windows.POINT;
-import org.lwjgl.system.windows.User32;
 
 import java.util.Arrays;
 
@@ -17,18 +13,18 @@ public final class Mouse {
     private static final Button[] ALL_BUTTONS = Button.values();
 
     /*** mouse info ***/
-    private int     prevCursorX         = 0;
-    private int     prevCursorY         = 0;
+    private int     cursorXPrev         = 0;
+    private int     cursorYPrev         = 0;
     private int     cursorX             = 0;
     private int     cursorY             = 0;
-    private int     cursorDeltaX        = 0;
-    private int     cursorDeltaY        = 0;
+    private int     cursorXDelta        = 0;
+    private int     cursorYDelta        = 0;
     private boolean cursorHidden        = false;
     private boolean cursorInWindow      = true;
     private boolean cursorEnteredWindow = false;
     private boolean cursorLeftWindow    = false;
-    private float   scrollY = 0;
-    private float   scrollX = 0;
+    private float   scrollY             = 0;
+    private float   scrollX             = 0;
 
     /*** mouse button state trackers ***/
     private final int[]     mouseButtonsPrevStates    = new int[5];
@@ -84,12 +80,12 @@ public final class Mouse {
         GLFW.glfwSetCursorPosCallback(Application.getWindowHandle(), new GLFWCursorPosCallback() {
             @Override
             public void invoke(long window, double xPos, double yPos) {
-                prevCursorX = cursorX;
-                prevCursorY = cursorY;
+                cursorXPrev = cursorX;
+                cursorYPrev = cursorY;
                 cursorX = (int) xPos;
                 cursorY = (int) yPos;
-                cursorDeltaX = cursorX - prevCursorX;
-                cursorDeltaY = cursorY - prevCursorY;
+                cursorXDelta = cursorX - cursorXPrev;
+                cursorYDelta = cursorY - cursorYPrev;
             }
         });
 
@@ -142,11 +138,11 @@ public final class Mouse {
     public int getY() { return cursorY; }
 
     public int getXPrev() {
-        return prevCursorX;
+        return cursorXPrev;
     }
 
     public int getYPrev() {
-        return prevCursorY;
+        return cursorYPrev;
     }
 
     // TODO: only works when inside the window
@@ -161,9 +157,9 @@ public final class Mouse {
         return Application.getWindowPosY() + cursorY;
     }
 
-    public int getXDelta() { return cursorDeltaX; }
+    public int getXDelta() { return cursorXDelta; }
 
-    public int getYDelta() { return cursorDeltaY; }
+    public int getYDelta() { return cursorYDelta; }
 
     // TODO: test
     public void setCursorPosition(float x, float y) {
@@ -175,7 +171,7 @@ public final class Mouse {
     }
 
     public boolean moved() {
-        return cursorDeltaX != 0 || cursorDeltaY != 0 || cursorLeftWindow || cursorEnteredWindow;
+        return cursorXDelta != 0 || cursorYDelta != 0 || cursorLeftWindow || cursorEnteredWindow;
     }
 
     public boolean isButtonPressed(final Button button) {
@@ -201,8 +197,6 @@ public final class Mouse {
     public boolean isButtonDoubleClicked(final Button button) {
         return doubleClickButtons[button.ordinal()];
     }
-
-    // TODO
 
     public boolean cursorJustEnteredWindow() {
         return cursorEnteredWindow;
@@ -256,8 +250,8 @@ public final class Mouse {
         /* reset internal state */
         scrollY = 0;
         scrollX = 0;
-        cursorDeltaX = 0;
-        cursorDeltaY = 0;
+        cursorXDelta = 0;
+        cursorYDelta = 0;
         mouseButtonsPrevStates[GLFW.GLFW_MOUSE_BUTTON_1] = mouseButtonsCurrentStates[GLFW.GLFW_MOUSE_BUTTON_1];
         mouseButtonsPrevStates[GLFW.GLFW_MOUSE_BUTTON_2] = mouseButtonsCurrentStates[GLFW.GLFW_MOUSE_BUTTON_2];
         mouseButtonsPrevStates[GLFW.GLFW_MOUSE_BUTTON_3] = mouseButtonsCurrentStates[GLFW.GLFW_MOUSE_BUTTON_3];

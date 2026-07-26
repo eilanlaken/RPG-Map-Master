@@ -43,7 +43,7 @@ public class SceneInput_2 implements Scene {
 
     @Override
     public void start() {
-        Input.addEventHandler(second);
+        Input.registerEventHandler(second);
     }
 
     @Override
