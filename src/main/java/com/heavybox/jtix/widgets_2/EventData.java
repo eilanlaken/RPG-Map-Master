@@ -200,17 +200,13 @@ public abstract class EventData {
         public float mouseLocalYPrev;
         public float mouseLocalX;
         public float mouseLocalY;
-        public float mouseLocalDeltaX;
-        public float mouseLocalDeltaY;
 
-        public MouseDrag(Widget target, float mouseLocalXPrev, float mouseLocalYPrev, float mouseLocalX, float mouseLocalY, float mouseLocalDeltaX, float mouseLocalDeltaY) {
+        public MouseDrag(Widget target, float mouseLocalXPrev, float mouseLocalYPrev, float mouseLocalX, float mouseLocalY) {
             super(target);
             this.mouseLocalXPrev = mouseLocalXPrev;
             this.mouseLocalYPrev = mouseLocalYPrev;
             this.mouseLocalX = mouseLocalX;
             this.mouseLocalY = mouseLocalY;
-            this.mouseLocalDeltaX = mouseLocalDeltaX;
-            this.mouseLocalDeltaY = mouseLocalDeltaY;
         }
     }
 

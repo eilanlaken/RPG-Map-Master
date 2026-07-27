@@ -13,7 +13,7 @@ public final class InputShape {
     /* The envelope points of the region */
     private final ArrayFloat points = new ArrayFloat(true, 8);
 
-    boolean isValid() { return points.size >= 6; }
+    boolean isValid() { return points.size >= 6 && points.size % 2 == 0; }
 
     public void setToRectangle(float width, float height) {
         points.clear();

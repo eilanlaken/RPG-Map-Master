@@ -32,6 +32,7 @@ public final class Widgets {
     private static Widget inputMouseOnTarget   = null;
     private static Widget inputMouseDownTarget = null;
     private static Widget inputMouseUpTarget   = null;
+    private static Widget inputMouseDragTarget = null;
 
     private static float pointerXPrev = 0;
     private static float pointerYPrev = 0;
@@ -60,7 +61,7 @@ public final class Widgets {
             while (target != null) {
                 if (target.eventListener.onMouseDown != null || target.eventListenerDefault.onMouseDown != null) break;
                 if (target.eventListener.onMouseDoubleClick != null || target.eventListenerDefault.onMouseDoubleClick != null) break;
-                //if (target.inputEventListener.onMouseDragStart != null || target.inputEventListenerDefault.onMouseDragStart != null) break;
+                if (target.eventListener.onMouseDragStart != null || target.eventListenerDefault.onMouseDragStart != null) break;
                 else target = target.getParent();
             }
 
@@ -104,6 +105,23 @@ public final class Widgets {
                 }
             }
 
+            if (!buttons.contains(Mouse.Button.LEFT, true)) return true;
+
+            // taking care of mouse drag start
+            EventData.MouseDragStart mouseDragStart = new EventData.MouseDragStart(
+                    target,
+                    local.x,
+                    local.y
+            );
+            if (target.eventListener.onMouseDragStart != null) {
+                target.eventListener.onMouseDragStart.handle(mouseDragStart);
+                inputMouseDragTarget = target;
+            }
+            if (target.eventListenerDefault.onMouseDragStart != null) {
+                target.eventListenerDefault.onMouseDragStart.handle(mouseDragStart);
+                inputMouseDragTarget = target;
+            }
+
             return true;
         }
 
@@ -116,9 +134,10 @@ public final class Widgets {
 
             /* travels to the top-most component that handles the event. */
             while (target != null) {
+                if (target == inputMouseDragTarget) break;
                 if (target.eventListener.onMouseUp != null || target.eventListenerDefault.onMouseUp != null) break;
                 if (target.eventListener.onMouseClick != null || target.eventListenerDefault.onMouseClick != null) break;
-                //if (target.inputEventListener.onMouseDragEnd != null || target.inputEventListenerDefault.onMouseDragEnd != null) break;
+                if (target.eventListener.onMouseDragEnd != null || target.eventListenerDefault.onMouseDragEnd != null) break;
                 else target = target.getParent();
             }
 
@@ -160,6 +179,23 @@ public final class Widgets {
                 }
             }
 
+            if (!buttons.contains(Mouse.Button.LEFT, true)) return true;
+            if (inputMouseDragTarget == null) return true;
+
+            /* taking care of mouse drag end event */
+            EventData.MouseDragEnd mouseDragEnd = new EventData.MouseDragEnd(
+                    inputMouseDragTarget,
+                    local.x,
+                    local.y
+            );
+            if (inputMouseDragTarget.eventListener.onMouseDragEnd != null) {
+                inputMouseDragTarget.eventListener.onMouseDragEnd.handle(mouseDragEnd);
+            }
+            if (inputMouseDragTarget.eventListenerDefault.onMouseDragEnd != null) {
+                inputMouseDragTarget.eventListenerDefault.onMouseDragEnd.handle(mouseDragEnd);
+            }
+            inputMouseDragTarget = null;
+
             return true;
         }
 
@@ -172,7 +208,32 @@ public final class Widgets {
         @Override
         public boolean mouseMoved(int mouseX, int mouseY, int deltaMouseX, int deltaMouseY) {
             Widget target = findTopmostChildAt(pointerX, pointerY);
-            return target != null;
+
+            if (inputMouseDragTarget != null) {
+                if (inputMouseDragTarget.eventListener.onMouseDrag == null && inputMouseDragTarget.eventListenerDefault.onMouseDrag == null) return true;
+
+                Vector2 local = new Vector2(pointerX, pointerY);
+                local.transform_TranslateRotateScale(-inputMouseDragTarget.getTransformScreen().x, -inputMouseDragTarget.getTransformScreen().y, -inputMouseDragTarget.getTransformScreen().deg, 1 / inputMouseDragTarget.getTransformScreen().sclX, 1/ inputMouseDragTarget.getTransformScreen().sclY);
+                Vector2 localPrev = new Vector2(pointerXPrev, pointerYPrev);
+                localPrev.transform_TranslateRotateScale(-inputMouseDragTarget.getTransformScreen().x, -inputMouseDragTarget.getTransformScreen().y, -inputMouseDragTarget.getTransformScreen().deg, 1 / inputMouseDragTarget.getTransformScreen().sclX, 1/ inputMouseDragTarget.getTransformScreen().sclY);
+                EventData.MouseDrag mouseDrag = new EventData.MouseDrag(
+                        inputMouseDragTarget,
+                        localPrev.x,
+                        localPrev.y,
+                        local.x,
+                        local.y
+                );
+                if (inputMouseDragTarget.eventListener.onMouseDrag != null) {
+                    inputMouseDragTarget.eventListener.onMouseDrag.handle(mouseDrag);
+                }
+                if (inputMouseDragTarget.eventListenerDefault.onMouseDrag != null) {
+                    inputMouseDragTarget.eventListenerDefault.onMouseDrag.handle(mouseDrag);
+                }
+
+                return true;
+            }
+
+            return target == null;
         }
 
         @Override

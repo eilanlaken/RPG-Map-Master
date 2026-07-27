@@ -1,13 +1,10 @@
 package com.heavybox.jtix.widgets_2;
 
 import com.heavybox.jtix.collections.Array;
-import com.heavybox.jtix.collections.ArrayChar;
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Graphics;
 import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.input.Input;
-import com.heavybox.jtix.input.Keyboard;
-import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Transform2D;
 import com.heavybox.jtix.math.Vector2;
@@ -38,12 +35,10 @@ public abstract class Widget {
     public        Layout      layoutChildren  = null;
 
     /*** input handling and state management ***/ // TODO: add a flag that allows events to penetrate to parent. Maybe re-add preventDefault flag.
-    private final InputShape         inputShape                = new InputShape();
-    final EventListener eventListener = new EventListener();
-    final EventListener eventListenerDefault = new EventListener();
-    private       boolean            inputMouseInsideSubtree   = false;
-    private       Widget             inputMouseDownTarget      = null;
-    private       Widget             inputMouseUpTarget        = null;
+    private final InputShape    inputShape           = new InputShape();
+    private       boolean       inputMouseInside     = false;
+    final         EventListener eventListener        = new EventListener();
+    final         EventListener eventListenerDefault = new EventListener();
 
     protected abstract void  draw    (Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY);
     protected abstract float getWidth();
@@ -99,6 +94,18 @@ public abstract class Widget {
         transformOffset.idt();
         onChildRemoved(child);
         children.sort(Comparator.comparingInt(a -> a.zIndex));
+    }
+
+    // TODO: test
+    public final void disconnectFromParent() {
+        if (parent == null) return;
+        parent.disconnectChild(this);
+    }
+
+    // TODO: test
+    public final void connectToParent(Widget newParent) {
+        if (newParent == null) return;
+        newParent.connectChild(this);
     }
 
     private void setChildrenOffsets() {
@@ -200,6 +207,7 @@ public abstract class Widget {
     }
 
     /*** internal state updates and metrics ***/
+    // TODO: verify
     private void setGlobalTransform() {
         float parentX = parent == null ? 0 : parent.transformScreen.x;
         float parentY = parent == null ? 0 : parent.transformScreen.y;
@@ -236,11 +244,11 @@ public abstract class Widget {
         float pointerYPrevFrame = Widgets.getPointerYPrev();
         float pointerX = Widgets.getPointerX();
         float pointerY = Widgets.getPointerY();
-        boolean mouseInsideSubtreePrev = inputMouseInsideSubtree;
+        boolean mouseInsideSubtreePrev = inputMouseInside;
         Widget mouseOn = Widgets.getInputMouseOnTarget();
-        inputMouseInsideSubtree = hitTestSubtree(pointerX, pointerY) && (this == mouseOn || Widgets.isXAncestorOfY(this, mouseOn) || Widgets.isXAncestorOfY(mouseOn, this));
-        boolean mouseJustEntered = !mouseInsideSubtreePrev && inputMouseInsideSubtree;
-        boolean mouseJustLeft = mouseInsideSubtreePrev && !inputMouseInsideSubtree;
+        inputMouseInside = hitTestSubtree(pointerX, pointerY) && (this == mouseOn || Widgets.isXAncestorOfY(this, mouseOn) || Widgets.isXAncestorOfY(mouseOn, this));
+        boolean mouseJustEntered = !mouseInsideSubtreePrev && inputMouseInside;
+        boolean mouseJustLeft = mouseInsideSubtreePrev && !inputMouseInside;
 
         if (mouseJustEntered && eventListener.onMouseEnter != null) {
             Vector2 local = new Vector2(pointerX, pointerY);
