@@ -13,6 +13,8 @@ public final class InputShape {
     /* The envelope points of the region */
     private final ArrayFloat points = new ArrayFloat(true, 8);
 
+    boolean isValid() { return points.size >= 6; }
+
     public void setToRectangle(float width, float height) {
         points.clear();
         float widthHalf = width * 0.5f;
@@ -132,6 +134,11 @@ public final class InputShape {
             points.add(r * MathUtils.cosDeg(da * i));
             points.add(r * MathUtils.sinDeg(da * i));
         }
+    }
+
+    public void setToPolygon(final float[] polygonPoints) {
+        points.clear();
+        points.addAll(polygonPoints);
     }
 
     // test if point (x,y) is contained inside the transformed polygon

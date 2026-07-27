@@ -10,6 +10,7 @@ import com.heavybox.jtix.input.InputEventHandler;
 import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.Transform2D;
+import com.heavybox.jtix.math.Vector2;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Comparator;
@@ -28,6 +29,7 @@ public final class Widgets {
     public  static boolean debugMode = true; // TODO: use this when rendering: render regions if true.
 
     /*** input device state */
+    private static Widget inputMouseOnTarget   = null;
     private static Widget inputMouseDownTarget = null;
     private static Widget inputMouseUpTarget   = null;
 
@@ -50,22 +52,158 @@ public final class Widgets {
 
         @Override
         public boolean mouseButtonsDown(int mouseX, int mouseY, @NotNull Array<Mouse.Button> buttons) {
-            return InputEventHandler.super.mouseButtonsDown(mouseX, mouseY, buttons);
+            Widget target = findTopmostChildAt(pointerX, pointerY);
+            inputMouseDownTarget = target;
+            if (target == null) return false; // hit an empty space.
+
+            /* travels to the top-most component that *handles* the event - if any. */
+            while (target != null) {
+                if (target.eventListener.onMouseDown != null || target.eventListenerDefault.onMouseDown != null) break;
+                if (target.eventListener.onMouseDoubleClick != null || target.eventListenerDefault.onMouseDoubleClick != null) break;
+                //if (target.inputEventListener.onMouseDragStart != null || target.inputEventListenerDefault.onMouseDragStart != null) break;
+                else target = target.getParent();
+            }
+
+            if (target == null) return true; // none of the components handle the event.
+
+            Vector2 local = new Vector2(pointerX, pointerY);
+            local.transform_TranslateRotateScale(-target.getTransformScreen().x, -target.getTransformScreen().y, -target.getTransformScreen().deg, 1 / target.getTransformScreen().sclX, 1/ target.getTransformScreen().sclY);
+
+            // taking care of on mouse down event
+            EventData.MouseDown mouseDown = new EventData.MouseDown(
+                    target,
+                    buttons.contains(Mouse.Button.LEFT, true),
+                    buttons.contains(Mouse.Button.RIGHT, true),
+                    buttons.contains(Mouse.Button.MIDDLE, true),
+                    local.x,
+                    local.y
+            );
+            if (target.eventListener.onMouseDown != null) {
+                target.eventListener.onMouseDown.handle(mouseDown);
+            }
+            if (target.eventListenerDefault.onMouseDown != null) {
+                target.eventListenerDefault.onMouseDown.handle(mouseDown);
+            }
+
+            // taking care of potential double click
+            final Array<Mouse.Button> doubleClicks = Input.mouse.getButtonsDoubleClicked();
+            if (!doubleClicks.isEmpty()) {
+                EventData.MouseDoubleClick doubleClick = new EventData.MouseDoubleClick(
+                        target,
+                        buttons.contains(Mouse.Button.LEFT, true),
+                        buttons.contains(Mouse.Button.RIGHT, true),
+                        buttons.contains(Mouse.Button.MIDDLE, true),
+                        local.x,
+                        local.y
+                );
+                if (target.eventListener.onMouseDoubleClick != null) {
+                    target.eventListener.onMouseDoubleClick.handle(doubleClick);
+                }
+                if (target.eventListenerDefault.onMouseDoubleClick != null) {
+                    target.eventListenerDefault.onMouseDoubleClick.handle(doubleClick);
+                }
+            }
+
+            return true;
         }
 
         @Override
         public boolean mouseButtonsUp(int mouseX, int mouseY, @NotNull Array<Mouse.Button> buttons) {
-            return InputEventHandler.super.mouseButtonsUp(mouseX, mouseY, buttons);
+            Widget target = findTopmostChildAt(pointerX, pointerY);
+            inputMouseUpTarget = target;
+
+            if (target == null) return false; // no target of the component tree was hit.
+
+            /* travels to the top-most component that handles the event. */
+            while (target != null) {
+                if (target.eventListener.onMouseUp != null || target.eventListenerDefault.onMouseUp != null) break;
+                if (target.eventListener.onMouseClick != null || target.eventListenerDefault.onMouseClick != null) break;
+                //if (target.inputEventListener.onMouseDragEnd != null || target.inputEventListenerDefault.onMouseDragEnd != null) break;
+                else target = target.getParent();
+            }
+
+            if (target == null) return true; // none of the components handle the event.
+
+            Vector2 local = new Vector2(pointerX, pointerY);
+            local.transform_TranslateRotateScale(-target.getTransformScreen().x, -target.getTransformScreen().y, -target.getTransformScreen().deg, 1 / target.getTransformScreen().sclX, 1/ target.getTransformScreen().sclY);
+
+            // taking care of on mouse up event
+            EventData.MouseUp mouseUp = new EventData.MouseUp(
+                    target,
+                    buttons.contains(Mouse.Button.LEFT, true),
+                    buttons.contains(Mouse.Button.RIGHT, true),
+                    buttons.contains(Mouse.Button.MIDDLE, true),
+                    local.x,
+                    local.y
+            );
+            if (target.eventListener.onMouseUp != null) {
+                target.eventListener.onMouseUp.handle(mouseUp);
+            }
+            if (target.eventListenerDefault.onMouseUp != null) {
+                target.eventListenerDefault.onMouseUp.handle(mouseUp);
+            }
+
+            if (inputMouseDownTarget == inputMouseUpTarget) {
+                EventData.MouseClick mouseClick = new EventData.MouseClick(
+                        target,
+                        buttons.contains(Mouse.Button.LEFT, true),
+                        buttons.contains(Mouse.Button.RIGHT, true),
+                        buttons.contains(Mouse.Button.MIDDLE, true),
+                        local.x,
+                        local.y
+                );
+                if (target.eventListener.onMouseClick != null) {
+                    target.eventListener.onMouseClick.handle(mouseClick);
+                }
+                if (target.eventListenerDefault.onMouseClick != null) {
+                    target.eventListenerDefault.onMouseClick.handle(mouseClick);
+                }
+            }
+
+            return true;
         }
 
+        /*
+        the actual mouse movement is handled inside the update().
+        why? because what matters is the movement of the mouse relative to the widget.
+        it could be that the widget has MOVED TOWARDS THE MOUSE (while the mouse was stale).
+        in that case, mouseMoved() would never be invoked.
+        */
         @Override
         public boolean mouseMoved(int mouseX, int mouseY, int deltaMouseX, int deltaMouseY) {
-            return InputEventHandler.super.mouseMoved(mouseX, mouseY, deltaMouseX, deltaMouseY);
+            Widget target = findTopmostChildAt(pointerX, pointerY);
+            return target != null;
         }
 
         @Override
         public boolean mouseScrolled(float scrollX, float scrollY) {
-            return InputEventHandler.super.mouseScrolled(scrollX, scrollY);
+            Widget target = findTopmostChildAt(pointerX, pointerY);
+            if (target == null) return false; // no target of the component tree was hit.
+
+            /* travels to the top-most component that handles the event. */
+            while (target != null) {
+                if (target.eventListener.onMouseScroll != null || target.eventListenerDefault.onMouseScroll != null) break;
+                else target = target.getParent();
+            }
+            if (target == null) return true; // none of the components handle the event.
+
+            Vector2 local = new Vector2(pointerX, pointerY);
+            local.transform_TranslateRotateScale(-target.getTransformScreen().x, -target.getTransformScreen().y, -target.getTransformScreen().deg, 1 / target.getTransformScreen().sclX, 1/ target.getTransformScreen().sclY);
+            EventData.MouseScroll eventData = new EventData.MouseScroll(
+                    target,
+                    scrollX,
+                    scrollY,
+                    local.x,
+                    local.y
+            );
+            if (target.eventListener.onMouseScroll != null) {
+                target.eventListener.onMouseScroll.handle(eventData);
+            }
+            if (target.eventListenerDefault.onMouseScroll != null) {
+                target.eventListenerDefault.onMouseScroll.handle(eventData);
+            }
+
+            return true;
         }
 
         @Override
@@ -97,6 +235,14 @@ public final class Widgets {
     public static float getPointerXPrev() { return pointerXPrev; }
     public static float getPointerYPrev() { return pointerYPrev; }
 
+    private static Widget findTopmostChildAt(float pointerX, float pointerY) {
+        for (int i = rootWidgets.size - 1; i >= 0; i--) {
+            Widget topmost = rootWidgets.get(i).findTopmostChildAt(pointerX, pointerY);
+            if (topmost != null) return topmost;
+        }
+        return null;
+    }
+
     public static void update() {
         Input.registerEventHandler(inputEventHandler);
         layoutChildren.clear();
@@ -125,6 +271,8 @@ public final class Widgets {
             if (!widget.isActive()) continue;
             widget.update(delta);
         }
+
+        inputMouseOnTarget = findTopmostChildAt(pointerX, pointerY);
     }
 
     public static void render(Renderer2D renderer2D) {
@@ -157,7 +305,7 @@ public final class Widgets {
     }
 
     public static void clear() {
-        // TODO: reset state: widget dragged etc.
+        inputMouseOnTarget = null;
         inputMouseDownTarget = null;
         inputMouseUpTarget = null;
         layoutChildren.clear();
@@ -165,6 +313,10 @@ public final class Widgets {
         Input.unregisterEventHandler(inputEventHandler);
         rootWidgets.clear();
         currentID = 0;
+    }
+
+    static Widget getInputMouseOnTarget() {
+        return inputMouseOnTarget;
     }
 
     static boolean isXAncestorOfY(final Widget X, final Widget Y) {

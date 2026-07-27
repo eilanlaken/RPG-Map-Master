@@ -45,6 +45,17 @@ public class SceneInput_4 implements Scene {
         panel_2.connectChild(p2_child_1);
         panel_2.connectChild(p2_child_2);
 
+        panel_1.onMouseDoubleClick(e -> {
+            System.out.println(e.target + " dbl");
+        });
+        p1_child_1.onMouseEnter(e -> {
+            System.out.println("hi");
+        });
+        p1_child_1.onMouseLeave(e -> {
+            System.out.println("bye");
+        });
+
+
         Widgets.add(panel_1);
         Widgets.add(panel_2);
     }
@@ -69,27 +80,27 @@ public class SceneInput_4 implements Scene {
             p1_child_1.transform.x += 1;
         }
         if (Input.keyboard.isKeyPressed(Keyboard.Key.A)) {
-            p1_child_1.transform.x -= 1;
+            panel_1.transform.x -= 1;
         }
         if (Input.keyboard.isKeyPressed(Keyboard.Key.W)) {
-            p1_child_1.transform.y += 1;
+            panel_1.transform.y += 1;
         }
         if (Input.keyboard.isKeyPressed(Keyboard.Key.S)) {
-            p1_child_1.transform.y -= 1;
+            panel_1.transform.y -= 1;
         }
         if (Input.keyboard.isKeyPressed(Keyboard.Key.Q)) {
-            p1_child_1.transform.deg += 1;
+            panel_1.transform.deg += 1;
         }
 
 
         if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KEY_1)) {
-            p1_child_1.zIndex = 8;
-            p1_child_2.zIndex = 9;
+            panel_1.zIndex = 8;
+            panel_2.zIndex = 9;
         }
 
         if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KEY_2)) {
-            p1_child_1.zIndex = 9;
-            p1_child_2.zIndex = 8;
+            panel_1.zIndex = 9;
+            panel_2.zIndex = 8;
         }
 
         renderer2D.begin();
@@ -97,7 +108,7 @@ public class SceneInput_4 implements Scene {
         renderer2D.end();
     }
 
-    // TODO: make components that drag window for a professional look and feel
+    // TODO: this is how you can drag an undecorated window.
     boolean draggingWindow = false;
     int dragOffsetX = 0;
     int dragOffsetY = 0;
