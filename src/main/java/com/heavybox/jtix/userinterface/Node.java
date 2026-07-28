@@ -1,4 +1,4 @@
-package com.heavybox.jtix.widgets_2;
+package com.heavybox.jtix.userinterface;
 
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.graphics.Color;
@@ -19,38 +19,38 @@ import java.util.Comparator;
 // Widgets.sendMessage() to ID, Widget, condition
 public abstract class Node {
 
-    public final int ID = Widgets.getID();
+    public final int ID = UserInterface.getID();
 
     /*** ui hierarchy ***/
-    public        int         zIndex        = ID;
-    public        boolean     active        = true;
-    protected     Node        parent        = null;
-    final         Array<Node> children      = new Array<>();
+    public        int           zIndex               = ID;
+    public        boolean       active               = true;
+    protected     Node          parent               = null;
+    final         Array<Node>   children             = new Array<>();
 
     /*** metrics: transform and dimensions ***/
-    public        Anchor      anchor          = null;
-    public  final Transform2D transform       = new Transform2D(); // used for absolute positioning from root and animations
-    private final Transform2D transformOffset = new Transform2D(); // set by the parent layout object.
-    private final Transform2D transformScreen = new Transform2D(); // calculated every frame either by self or parent
-    public        Layout      layoutChildren  = null;
+    public        Anchor        anchor               = null;
+    public  final Transform2D   transform            = new Transform2D(); // used for absolute positioning from root and animations
+    private final Transform2D   transformOffset      = new Transform2D(); // set by the parent layout object.
+    private final Transform2D   transformScreen      = new Transform2D(); // calculated every frame either by self or parent
+    public        Layout        layoutChildren       = null;
 
     /*** input handling and state management ***/ // TODO: add a flag that allows events to penetrate to parent. Maybe re-add preventDefault flag.
     private final InputShape    inputShape           = new InputShape();
+    final         EventListener eventListener        = new EventListener();
+    final         EventListener eventListenerDefault = new EventListener();
     private       boolean       inputMouseInside     = false;
     private       boolean       draggedWidgetInside  = false;
     private       boolean       hitSubTree           = false;
-    final         EventListener eventListener        = new EventListener();
-    final         EventListener eventListenerDefault = new EventListener();
 
-    protected abstract void  draw    (Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY);
+    protected abstract void  draw (Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY);
     protected abstract float getWidth();
     protected abstract float getHeight();
 
     /* common event callbacks */
     protected void    onFixedUpdate(float delta) {} // TODO: call with accumulative error
-    protected void    onChildAdded  (Node child) {}
+    protected void    onChildAdded(Node child) {}
     protected void    onChildRemoved(Node child) {}
-    protected boolean maskChildren  () { return false; }
+    protected boolean maskChildren() { return false; }
 
     protected void setInputShape(final @NotNull InputShape shape) {
         shape.setToRectangle(getWidth(), getHeight());
@@ -76,7 +76,7 @@ public abstract class Node {
     public final void connectChild(Node child) {
         if (child == null) throw new WidgetsException(Node.class.getSimpleName() + " element cannot be null.");
         if (child == this) throw new WidgetsException("Trying to parent a " + Node.class.getSimpleName() + " to itself.");
-        if (Widgets.isXAncestorOfY(child,this)) throw new WidgetsException("Cannot add an ancestor widget as a child, as this would create a cyclic hierarchy.");
+        if (UserInterface.isXAncestorOfY(child,this)) throw new WidgetsException("Cannot add an ancestor widget as a child, as this would create a cyclic hierarchy.");
         if (children.contains(child,true)) throw new WidgetsException("Widget " + child.getClass().getSimpleName() + " is already a child of widget.");
 
         if (child.parent != null) child.parent.children.removeValue(child, true);
@@ -92,7 +92,7 @@ public abstract class Node {
 
         children.removeValue(child,true);
         child.parent = null;
-        Widgets.add(child);
+        UserInterface.add(child);
         transformOffset.idt();
         onChildRemoved(child);
         children.sort(Comparator.comparingInt(a -> a.zIndex));
@@ -120,14 +120,14 @@ public abstract class Node {
             return;
         }
 
-        Widgets.layoutChildren.clear();
-        Widgets.layoutOffsets.clear();
+        UserInterface.layoutChildren.clear();
+        UserInterface.layoutOffsets.clear();
         for (Node child : children) {
             if (!layoutChildren.includes(child)) continue;
-            Widgets.layoutChildren.add(child);
-            Widgets.layoutOffsets.add(child.transformOffset);
+            UserInterface.layoutChildren.add(child);
+            UserInterface.layoutOffsets.add(child.transformOffset);
         }
-        layoutChildren.setChildTransformOffset(Widgets.layoutChildren, Widgets.layoutOffsets);
+        layoutChildren.setChildTransformOffset(UserInterface.layoutChildren, UserInterface.layoutOffsets);
     }
 
     private void setOffsetsAnchor() {
@@ -244,15 +244,15 @@ public abstract class Node {
     // handles cursor relative to widget movement (free & drag).
     private void afterInternalStateUpdate() {
         /* mouse enter, mouse leave */
-        float pointerXPrevFrame = Widgets.getPointerXPrev();
-        float pointerYPrevFrame = Widgets.getPointerYPrev();
-        float pointerX = Widgets.getPointerX();
-        float pointerY = Widgets.getPointerY();
+        float pointerXPrevFrame = UserInterface.getPointerXPrev();
+        float pointerYPrevFrame = UserInterface.getPointerYPrev();
+        float pointerX = UserInterface.getPointerX();
+        float pointerY = UserInterface.getPointerY();
         boolean mouseInsideSubtreePrev = inputMouseInside;
-        Node mouseOn = Widgets.getInputMouseOnTarget();
+        Node mouseOn = UserInterface.getInputMouseOnTarget();
         boolean hitSubtreePrev = hitSubTree;
         hitSubTree = hitTestSubtree(pointerX, pointerY);
-        inputMouseInside = hitSubTree && (this == mouseOn || Widgets.isXAncestorOfY(this, mouseOn) || Widgets.isXAncestorOfY(mouseOn, this));
+        inputMouseInside = hitSubTree && (this == mouseOn || UserInterface.isXAncestorOfY(this, mouseOn) || UserInterface.isXAncestorOfY(mouseOn, this));
         boolean mouseJustEntered = !mouseInsideSubtreePrev && inputMouseInside;
         boolean mouseJustLeft = mouseInsideSubtreePrev && !inputMouseInside;
 
@@ -290,7 +290,7 @@ public abstract class Node {
         }
 
         /* drag enter, drag leave */
-        Node draggedNode = Widgets.getInputMouseDragTarget();
+        Node draggedNode = UserInterface.getInputMouseDragTarget();
         boolean draggedWidgetInsidePrev = draggedWidgetInside && draggedNode != null;
         draggedWidgetInside = (draggedNode != null && draggedNode != this && hitSubTree);
         boolean crossed = hitSubtreePrev != hitSubTree;
@@ -361,7 +361,7 @@ public abstract class Node {
             renderer2D.endStencil();
         }
 
-        children.sort(Widgets.widgetComparator);
+        children.sort(UserInterface.widgetComparator);
         int maskLevel = getMaskingIndex();
         for (Node child : children) {
             // apply mask, if masking enabled

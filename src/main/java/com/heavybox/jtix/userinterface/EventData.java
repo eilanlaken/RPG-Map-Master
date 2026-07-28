@@ -1,4 +1,4 @@
-package com.heavybox.jtix.widgets_2;
+package com.heavybox.jtix.userinterface;
 
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.collections.ArrayChar;

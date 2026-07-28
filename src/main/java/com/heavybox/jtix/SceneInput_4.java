@@ -8,8 +8,8 @@ import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
-import com.heavybox.jtix.widgets_2.NodeShape;
-import com.heavybox.jtix.widgets_2.Widgets;
+import com.heavybox.jtix.userinterface.NodeShape;
+import com.heavybox.jtix.userinterface.UserInterface;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.opengl.GL11;
 
@@ -58,12 +58,12 @@ public class SceneInput_4 implements Scene {
         p1_child_1.onMouseDragStart(e -> {
             e.target.disconnectFromParent();
             e.target.zIndex = 100;
-            e.target.transform.x = Widgets.getPointerX();
-            e.target.transform.y = Widgets.getPointerY();
+            e.target.transform.x = UserInterface.getPointerX();
+            e.target.transform.y = UserInterface.getPointerY();
         });
         p1_child_1.onMouseDrag(e -> {
-            e.target.transform.x = Widgets.getPointerX();
-            e.target.transform.y = Widgets.getPointerY();
+            e.target.transform.x = UserInterface.getPointerX();
+            e.target.transform.y = UserInterface.getPointerY();
         });
         p1_child_1.onMouseDragEnter(e -> {
             System.out.println("error enter");
@@ -83,9 +83,9 @@ public class SceneInput_4 implements Scene {
         });
 
 
-        Widgets.add(panel_1);
-        Widgets.add(panel_2);
-        Widgets.add(rect);
+        UserInterface.add(panel_1);
+        UserInterface.add(panel_2);
+        UserInterface.add(rect);
     }
 
     @Override
@@ -98,7 +98,7 @@ public class SceneInput_4 implements Scene {
     @Override
     public void update() {
         //moveWindow();
-        Widgets.update();
+        UserInterface.update();
 
         Graphics.bindFrameBuffer(null);
         GL11.glClearColor(0.01f,0.01f,0.01f,1);
@@ -132,7 +132,7 @@ public class SceneInput_4 implements Scene {
         }
 
         renderer2D.begin();
-        Widgets.render(renderer2D);
+        UserInterface.render(renderer2D);
         renderer2D.end();
     }
 

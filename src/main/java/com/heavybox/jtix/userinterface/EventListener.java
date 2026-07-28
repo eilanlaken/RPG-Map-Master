@@ -1,4 +1,4 @@
-package com.heavybox.jtix.widgets_2;
+package com.heavybox.jtix.userinterface;
 
 public final class EventListener {
 

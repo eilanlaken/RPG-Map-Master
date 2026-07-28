@@ -1,4 +1,4 @@
-package com.heavybox.jtix.widgets_2;
+package com.heavybox.jtix.userinterface;
 
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.collections.ArrayChar;
@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Comparator;
 
-public final class Widgets {
+public final class UserInterface {
 
     public  static final Comparator<Node> widgetComparator = Comparator.comparingInt(a -> a.zIndex);
     private static final float            WHITE_FLOAT_BITS = Color.WHITE.toFloatBits(); // to reset the color to white before re-rendering components
@@ -307,7 +307,7 @@ public final class Widgets {
     };
 
 
-    private Widgets() {}
+    private UserInterface() {}
 
     public static float getPointerX()     { return pointerX; }
     public static float getPointerY()     { return pointerY; }
