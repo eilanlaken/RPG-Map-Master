@@ -237,57 +237,49 @@ public abstract class EventData {
 
     public static class MouseDragEnter extends EventData {
 
-        public Widget draggable;
+        public Widget dragged;
         public float  mouseLocalXPrev;
         public float  mouseLocalYPrev;
         public float  mouseLocalX;
         public float  mouseLocalY;
-        public float  mouseLocalDeltaX;
-        public float  mouseLocalDeltaY;
 
-        public MouseDragEnter(Widget target, Widget draggable, float mouseLocalXPrev, float mouseLocalYPrev, float mouseLocalX, float mouseLocalY, float mouseLocalDeltaX, float mouseLocalDeltaY) {
+        public MouseDragEnter(Widget target, Widget dragged, float mouseLocalXPrev, float mouseLocalYPrev, float mouseLocalX, float mouseLocalY) {
             super(target);
-            this.draggable = draggable;
+            this.dragged = dragged;
             this.mouseLocalXPrev = mouseLocalXPrev;
             this.mouseLocalYPrev = mouseLocalYPrev;
             this.mouseLocalX = mouseLocalX;
             this.mouseLocalY = mouseLocalY;
-            this.mouseLocalDeltaX = mouseLocalDeltaX;
-            this.mouseLocalDeltaY = mouseLocalDeltaY;
         }
     }
 
     public static class MouseDragLeave extends EventData {
 
-        public Widget draggable;
+        public Widget dragged;
         public float  mouseLocalXPrev;
         public float  mouseLocalYPrev;
         public float  mouseLocalX;
         public float  mouseLocalY;
-        public float  mouseLocalDeltaX;
-        public float  mouseLocalDeltaY;
 
-        public MouseDragLeave(Widget target, Widget draggable, float mouseLocalXPrev, float mouseLocalYPrev, float mouseLocalX, float mouseLocalY, float mouseLocalDeltaX, float mouseLocalDeltaY) {
+        public MouseDragLeave(Widget target, Widget dragged, float mouseLocalXPrev, float mouseLocalYPrev, float mouseLocalX, float mouseLocalY) {
             super(target);
-            this.draggable = draggable;
+            this.dragged = dragged;
             this.mouseLocalXPrev = mouseLocalXPrev;
             this.mouseLocalYPrev = mouseLocalYPrev;
             this.mouseLocalX = mouseLocalX;
             this.mouseLocalY = mouseLocalY;
-            this.mouseLocalDeltaX = mouseLocalDeltaX;
-            this.mouseLocalDeltaY = mouseLocalDeltaY;
         }
     }
 
     public static class MouseDragDrop extends EventData {
 
-        public Widget draggable;
+        public Widget dragged;
         public float  mouseLocalX;
         public float  mouseLocalY;
 
-        public MouseDragDrop(Widget target, Widget draggable, float mouseLocalX, float mouseLocalY) {
+        public MouseDragDrop(Widget target, Widget dragged, float mouseLocalX, float mouseLocalY) {
             super(target);
-            this.draggable = draggable;
+            this.dragged = dragged;
             this.mouseLocalX = mouseLocalX;
             this.mouseLocalY = mouseLocalY;
         }

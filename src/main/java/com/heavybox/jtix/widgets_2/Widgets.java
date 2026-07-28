@@ -194,6 +194,24 @@ public final class Widgets {
             if (inputMouseDragTarget.eventListenerDefault.onMouseDragEnd != null) {
                 inputMouseDragTarget.eventListenerDefault.onMouseDragEnd.handle(mouseDragEnd);
             }
+
+            /* taking care of mouse drag drop event */
+            Widget dropTarget = findTopmostChildAtPointerUnderWidget(pointerX, pointerY, inputMouseDragTarget);
+            if (dropTarget != null) {
+                EventData.MouseDragDrop dragDrop = new EventData.MouseDragDrop(
+                        dropTarget,
+                        inputMouseDragTarget,
+                        local.x,
+                        local.y
+                );
+                if (dropTarget.eventListener.onMouseDragDrop != null) {
+                    dropTarget.eventListener.onMouseDragDrop.handle(dragDrop);
+                }
+                if (dropTarget.eventListenerDefault.onMouseDragDrop != null) {
+                    dropTarget.eventListenerDefault.onMouseDragDrop.handle(dragDrop);
+                }
+            }
+
             inputMouseDragTarget = null;
 
             return true;
@@ -304,6 +322,14 @@ public final class Widgets {
         return null;
     }
 
+    private static Widget findTopmostChildAtPointerUnderWidget(float pointerX, float pointerY, final Widget top) {
+        for (int i = rootWidgets.size - 1; i >= 0; i--) {
+            Widget topmost = rootWidgets.get(i).findTopmostChildAt(pointerX, pointerY);
+            if (topmost != null && topmost != top) return topmost;
+        }
+        return null;
+    }
+
     public static void update() {
         Input.registerEventHandler(inputEventHandler);
         layoutChildren.clear();
@@ -366,6 +392,7 @@ public final class Widgets {
     }
 
     public static void clear() {
+        inputMouseDragTarget = null;
         inputMouseOnTarget = null;
         inputMouseDownTarget = null;
         inputMouseUpTarget = null;
@@ -374,6 +401,11 @@ public final class Widgets {
         Input.unregisterEventHandler(inputEventHandler);
         rootWidgets.clear();
         currentID = 0;
+    }
+
+    /* package private methods */
+    static Widget getInputMouseDragTarget() {
+        return inputMouseDragTarget;
     }
 
     static Widget getInputMouseOnTarget() {

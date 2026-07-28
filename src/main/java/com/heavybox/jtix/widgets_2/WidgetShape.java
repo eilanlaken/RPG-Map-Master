@@ -1,11 +1,7 @@
 package com.heavybox.jtix.widgets_2;
 
-public interface WidgetShape {
+public class WidgetShape {
 
-    enum DrawMode {
-        FILLED,
-        OUTLINE,
-        BORDER,
-    }
+    // TODO
 
 }

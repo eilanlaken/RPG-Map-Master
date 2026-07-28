@@ -37,6 +37,7 @@ public abstract class Widget {
     /*** input handling and state management ***/ // TODO: add a flag that allows events to penetrate to parent. Maybe re-add preventDefault flag.
     private final InputShape    inputShape           = new InputShape();
     private       boolean       inputMouseInside     = false;
+    private       boolean       draggedWidgetInside  = false;
     final         EventListener eventListener        = new EventListener();
     final         EventListener eventListenerDefault = new EventListener();
 
@@ -239,14 +240,17 @@ public abstract class Widget {
         transformScreen.sclY = parentSclY * combinedSclY;
     }
 
+    // handles cursor relative to widget movement (free & drag).
     private void afterInternalStateUpdate() {
+        /* mouse enter, mouse leave */
         float pointerXPrevFrame = Widgets.getPointerXPrev();
         float pointerYPrevFrame = Widgets.getPointerYPrev();
         float pointerX = Widgets.getPointerX();
         float pointerY = Widgets.getPointerY();
         boolean mouseInsideSubtreePrev = inputMouseInside;
         Widget mouseOn = Widgets.getInputMouseOnTarget();
-        inputMouseInside = hitTestSubtree(pointerX, pointerY) && (this == mouseOn || Widgets.isXAncestorOfY(this, mouseOn) || Widgets.isXAncestorOfY(mouseOn, this));
+        boolean hitSubtree = hitTestSubtree(pointerX, pointerY);
+        inputMouseInside = hitSubtree && (this == mouseOn || Widgets.isXAncestorOfY(this, mouseOn) || Widgets.isXAncestorOfY(mouseOn, this));
         boolean mouseJustEntered = !mouseInsideSubtreePrev && inputMouseInside;
         boolean mouseJustLeft = mouseInsideSubtreePrev && !inputMouseInside;
 
@@ -281,6 +285,46 @@ public abstract class Widget {
             localPrevFrame.transform_TranslateRotateScale(-this.transformScreen.x, -this.transformScreen.y, -this.transformScreen.deg, 1 / this.transformScreen.sclX, 1/ this.transformScreen.sclY);
             EventData.MouseLeave mouseEnter = new EventData.MouseLeave(this, localPrevFrame.x, localPrevFrame.y, local.x, local.y);
             eventListenerDefault.onMouseLeave.handle(mouseEnter);
+        }
+
+        /* drag enter, drag leave */
+        Widget draggedWidget = Widgets.getInputMouseDragTarget();
+        boolean draggedWidgetInsidePrev = draggedWidgetInside && draggedWidget != null;
+        draggedWidgetInside = (draggedWidget != null && draggedWidget != this && hitSubtree);
+        boolean dragJustEntered = !draggedWidgetInsidePrev && draggedWidgetInside;
+        boolean dragJustLeft = draggedWidgetInsidePrev && !draggedWidgetInside;
+
+        if (dragJustEntered && eventListener.onMouseDragEnter != null) {
+            Vector2 local = new Vector2(pointerX, pointerY);
+            Vector2 localPrevFrame = new Vector2(pointerXPrevFrame, pointerYPrevFrame);
+            local.transform_TranslateRotateScale(-this.transformScreen.x, -this.transformScreen.y, -this.transformScreen.deg, 1 / this.transformScreen.sclX, 1/ this.transformScreen.sclY);
+            localPrevFrame.transform_TranslateRotateScale(-this.transformScreen.x, -this.transformScreen.y, -this.transformScreen.deg, 1 / this.transformScreen.sclX, 1/ this.transformScreen.sclY);
+            EventData.MouseDragEnter dragEnter = new EventData.MouseDragEnter(this, draggedWidget, localPrevFrame.x, localPrevFrame.y, local.x, local.y);
+            eventListener.onMouseDragEnter.handle(dragEnter);
+        }
+        if (dragJustEntered && eventListenerDefault.onMouseDragEnter != null) {
+            Vector2 local = new Vector2(pointerX, pointerY);
+            Vector2 localPrevFrame = new Vector2(pointerXPrevFrame, pointerYPrevFrame);
+            local.transform_TranslateRotateScale(-this.transformScreen.x, -this.transformScreen.y, -this.transformScreen.deg, 1 / this.transformScreen.sclX, 1/ this.transformScreen.sclY);
+            localPrevFrame.transform_TranslateRotateScale(-this.transformScreen.x, -this.transformScreen.y, -this.transformScreen.deg, 1 / this.transformScreen.sclX, 1/ this.transformScreen.sclY);
+            EventData.MouseDragEnter dragEnter = new EventData.MouseDragEnter(this, draggedWidget, localPrevFrame.x, localPrevFrame.y, local.x, local.y);
+            eventListenerDefault.onMouseDragEnter.handle(dragEnter);
+        }
+        if (dragJustLeft && eventListener.onMouseDragLeave != null) {
+            Vector2 local = new Vector2(pointerX, pointerY);
+            Vector2 localPrevFrame = new Vector2(pointerXPrevFrame, pointerYPrevFrame);
+            local.transform_TranslateRotateScale(-this.transformScreen.x, -this.transformScreen.y, -this.transformScreen.deg, 1 / this.transformScreen.sclX, 1/ this.transformScreen.sclY);
+            localPrevFrame.transform_TranslateRotateScale(-this.transformScreen.x, -this.transformScreen.y, -this.transformScreen.deg, 1 / this.transformScreen.sclX, 1/ this.transformScreen.sclY);
+            EventData.MouseDragLeave dragLeave = new EventData.MouseDragLeave(this, draggedWidget, localPrevFrame.x, localPrevFrame.y, local.x, local.y);
+            eventListener.onMouseDragLeave.handle(dragLeave);
+        }
+        if (dragJustLeft && eventListenerDefault.onMouseDragLeave != null) {
+            Vector2 local = new Vector2(pointerX, pointerY);
+            Vector2 localPrevFrame = new Vector2(pointerXPrevFrame, pointerYPrevFrame);
+            local.transform_TranslateRotateScale(-this.transformScreen.x, -this.transformScreen.y, -this.transformScreen.deg, 1 / this.transformScreen.sclX, 1/ this.transformScreen.sclY);
+            localPrevFrame.transform_TranslateRotateScale(-this.transformScreen.x, -this.transformScreen.y, -this.transformScreen.deg, 1 / this.transformScreen.sclX, 1/ this.transformScreen.sclY);
+            EventData.MouseDragLeave dragLeave = new EventData.MouseDragLeave(this, draggedWidget, localPrevFrame.x, localPrevFrame.y, local.x, local.y);
+            eventListenerDefault.onMouseDragLeave.handle(dragLeave);
         }
     }
 

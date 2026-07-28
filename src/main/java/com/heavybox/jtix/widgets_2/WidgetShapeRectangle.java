@@ -3,9 +3,8 @@ package com.heavybox.jtix.widgets_2;
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Renderer2D;
 
-public final class WidgetShapeRectangle extends Widget implements WidgetShape {
-
-    public DrawMode drawMode = DrawMode.FILLED;
+@Deprecated
+public final class WidgetShapeRectangle extends Widget {
 
     public float color = Color.randomOpaque().toFloatBits();
     public float width;

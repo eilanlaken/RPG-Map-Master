@@ -49,24 +49,33 @@ public class SceneInput_4 implements Scene {
             System.out.println(e.target + " dbl");
         });
         p1_child_1.onMouseEnter(e -> {
-            System.out.println("hi");
         });
         p1_child_1.onMouseLeave(e -> {
-            System.out.println("bye");
         });
         // drag and drop
         p1_child_1.onMouseDragStart(e -> {
-            System.out.println("drag start " + e.target);
             e.target.disconnectFromParent();
+            e.target.zIndex = 100;
             e.target.transform.x = Widgets.getPointerX();
             e.target.transform.y = Widgets.getPointerY();
         });
         p1_child_1.onMouseDrag(e -> {
-            System.out.println("drag");
             e.target.transform.x = Widgets.getPointerX();
             e.target.transform.y = Widgets.getPointerY();
         });
+        p1_child_1.onMouseDragEnter(e -> {
+            System.out.println("error enter");
+        });
+        p1_child_1.onMouseDragDrop(e -> {
+            System.out.println("error drop");
+        });
 
+        panel_2.onMouseDragEnter(e -> {
+            System.out.println("enter: " + e.dragged);
+        });
+        panel_2.onMouseDragDrop(e -> {
+            System.out.println("dropped: " + e.dragged);
+        });
 
 
         Widgets.add(panel_1);
