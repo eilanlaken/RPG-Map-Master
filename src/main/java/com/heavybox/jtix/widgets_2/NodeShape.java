@@ -7,6 +7,7 @@ import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.math.MathUtils;
 import org.jetbrains.annotations.NotNull;
 
+// TODO: finish all shapes and fill types.
 public class NodeShape extends Node {
 
     public Color color = Color.randomOpaque();
