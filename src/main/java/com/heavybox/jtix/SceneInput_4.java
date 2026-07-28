@@ -73,6 +73,9 @@ public class SceneInput_4 implements Scene {
         panel_2.onMouseDragEnter(e -> {
             System.out.println("enter: " + e.dragged);
         });
+        panel_2.onMouseDragLeave(e -> {
+            System.out.println("leave: " + e.dragged);
+        });
         panel_2.onMouseDragDrop(e -> {
             System.out.println("dropped: " + e.dragged);
         });

@@ -38,6 +38,7 @@ public abstract class Widget {
     private final InputShape    inputShape           = new InputShape();
     private       boolean       inputMouseInside     = false;
     private       boolean       draggedWidgetInside  = false;
+    private       boolean       hitSubTree           = false;
     final         EventListener eventListener        = new EventListener();
     final         EventListener eventListenerDefault = new EventListener();
 
@@ -249,8 +250,9 @@ public abstract class Widget {
         float pointerY = Widgets.getPointerY();
         boolean mouseInsideSubtreePrev = inputMouseInside;
         Widget mouseOn = Widgets.getInputMouseOnTarget();
-        boolean hitSubtree = hitTestSubtree(pointerX, pointerY);
-        inputMouseInside = hitSubtree && (this == mouseOn || Widgets.isXAncestorOfY(this, mouseOn) || Widgets.isXAncestorOfY(mouseOn, this));
+        boolean hitSubtreePrev = hitSubTree;
+        hitSubTree = hitTestSubtree(pointerX, pointerY);
+        inputMouseInside = hitSubTree && (this == mouseOn || Widgets.isXAncestorOfY(this, mouseOn) || Widgets.isXAncestorOfY(mouseOn, this));
         boolean mouseJustEntered = !mouseInsideSubtreePrev && inputMouseInside;
         boolean mouseJustLeft = mouseInsideSubtreePrev && !inputMouseInside;
 
@@ -290,9 +292,10 @@ public abstract class Widget {
         /* drag enter, drag leave */
         Widget draggedWidget = Widgets.getInputMouseDragTarget();
         boolean draggedWidgetInsidePrev = draggedWidgetInside && draggedWidget != null;
-        draggedWidgetInside = (draggedWidget != null && draggedWidget != this && hitSubtree);
-        boolean dragJustEntered = !draggedWidgetInsidePrev && draggedWidgetInside;
-        boolean dragJustLeft = draggedWidgetInsidePrev && !draggedWidgetInside;
+        draggedWidgetInside = (draggedWidget != null && draggedWidget != this && hitSubTree);
+        boolean crossed = hitSubtreePrev != hitSubTree;
+        boolean dragJustEntered = !draggedWidgetInsidePrev && draggedWidgetInside && crossed;
+        boolean dragJustLeft = draggedWidgetInsidePrev && !draggedWidgetInside && crossed;
 
         if (dragJustEntered && eventListener.onMouseDragEnter != null) {
             Vector2 local = new Vector2(pointerX, pointerY);
