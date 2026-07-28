@@ -17,15 +17,15 @@ import java.util.Comparator;
 // TODO: add messaging mechanism
 // Widget.sendMessage() to ID, Widget, condition
 // Widgets.sendMessage() to ID, Widget, condition
-public abstract class Widget {
+public abstract class Node {
 
     public final int ID = Widgets.getID();
 
     /*** ui hierarchy ***/
-    public        int           zIndex        = ID;
-    public        boolean       active        = true;
-    protected     Widget        parent        = null;
-    final         Array<Widget> children      = new Array<>();
+    public        int         zIndex        = ID;
+    public        boolean     active        = true;
+    protected     Node        parent        = null;
+    final         Array<Node> children      = new Array<>();
 
     /*** metrics: transform and dimensions ***/
     public        Anchor      anchor          = null;
@@ -48,15 +48,15 @@ public abstract class Widget {
 
     /* common event callbacks */
     protected void    onFixedUpdate(float delta) {} // TODO: call with accumulative error
-    protected void    onChildAdded  (Widget child) {}
-    protected void    onChildRemoved(Widget child) {}
+    protected void    onChildAdded  (Node child) {}
+    protected void    onChildRemoved(Node child) {}
     protected boolean maskChildren  () { return false; }
 
     protected void setInputShape(final @NotNull InputShape shape) {
         shape.setToRectangle(getWidth(), getHeight());
     }
 
-    final Widget getParent() {
+    final Node getParent() {
         return parent;
     }
 
@@ -64,8 +64,8 @@ public abstract class Widget {
         return parent == null;
     }
 
-    public final Widget getRoot() {
-        Widget current = this;
+    public final Node getRoot() {
+        Node current = this;
         while (!current.isRoot()) {
             current = current.getParent();
         }
@@ -73,9 +73,9 @@ public abstract class Widget {
     }
 
     /*** Add and remove child methods ***/
-    public final void connectChild(Widget child) {
-        if (child == null) throw new WidgetsException(Widget.class.getSimpleName() + " element cannot be null.");
-        if (child == this) throw new WidgetsException("Trying to parent a " + Widget.class.getSimpleName() + " to itself.");
+    public final void connectChild(Node child) {
+        if (child == null) throw new WidgetsException(Node.class.getSimpleName() + " element cannot be null.");
+        if (child == this) throw new WidgetsException("Trying to parent a " + Node.class.getSimpleName() + " to itself.");
         if (Widgets.isXAncestorOfY(child,this)) throw new WidgetsException("Cannot add an ancestor widget as a child, as this would create a cyclic hierarchy.");
         if (children.contains(child,true)) throw new WidgetsException("Widget " + child.getClass().getSimpleName() + " is already a child of widget.");
 
@@ -86,9 +86,9 @@ public abstract class Widget {
         children.sort(Comparator.comparingInt(a -> a.zIndex));
     }
 
-    public final void disconnectChild(Widget child) {
-        if (child == null) throw new WidgetsException(Widget.class.getSimpleName() + " element cannot be null.");
-        if (!children.contains(child, true)) throw new WidgetsException(Widget.class.getSimpleName() + " does not contain the element " + child + " as a child so it cannot be removed.");
+    public final void disconnectChild(Node child) {
+        if (child == null) throw new WidgetsException(Node.class.getSimpleName() + " element cannot be null.");
+        if (!children.contains(child, true)) throw new WidgetsException(Node.class.getSimpleName() + " does not contain the element " + child + " as a child so it cannot be removed.");
 
         children.removeValue(child,true);
         child.parent = null;
@@ -105,14 +105,14 @@ public abstract class Widget {
     }
 
     // TODO: test
-    public final void connectToParent(Widget newParent) {
+    public final void connectToParent(Node newParent) {
         if (newParent == null) return;
         newParent.connectChild(this);
     }
 
     private void setChildrenOffsets() {
         if (layoutChildren == null) { // default no layout behaviour
-            for (Widget child : children) {
+            for (Node child : children) {
                 if (!child.active) continue;
                 if (child.anchor != null) continue;
                 child.transformOffset.idt();
@@ -122,7 +122,7 @@ public abstract class Widget {
 
         Widgets.layoutChildren.clear();
         Widgets.layoutOffsets.clear();
-        for (Widget child : children) {
+        for (Node child : children) {
             if (!layoutChildren.includes(child)) continue;
             Widgets.layoutChildren.add(child);
             Widgets.layoutOffsets.add(child.transformOffset);
@@ -249,7 +249,7 @@ public abstract class Widget {
         float pointerX = Widgets.getPointerX();
         float pointerY = Widgets.getPointerY();
         boolean mouseInsideSubtreePrev = inputMouseInside;
-        Widget mouseOn = Widgets.getInputMouseOnTarget();
+        Node mouseOn = Widgets.getInputMouseOnTarget();
         boolean hitSubtreePrev = hitSubTree;
         hitSubTree = hitTestSubtree(pointerX, pointerY);
         inputMouseInside = hitSubTree && (this == mouseOn || Widgets.isXAncestorOfY(this, mouseOn) || Widgets.isXAncestorOfY(mouseOn, this));
@@ -290,9 +290,9 @@ public abstract class Widget {
         }
 
         /* drag enter, drag leave */
-        Widget draggedWidget = Widgets.getInputMouseDragTarget();
-        boolean draggedWidgetInsidePrev = draggedWidgetInside && draggedWidget != null;
-        draggedWidgetInside = (draggedWidget != null && draggedWidget != this && hitSubTree);
+        Node draggedNode = Widgets.getInputMouseDragTarget();
+        boolean draggedWidgetInsidePrev = draggedWidgetInside && draggedNode != null;
+        draggedWidgetInside = (draggedNode != null && draggedNode != this && hitSubTree);
         boolean crossed = hitSubtreePrev != hitSubTree;
         boolean dragJustEntered = !draggedWidgetInsidePrev && draggedWidgetInside && crossed;
         boolean dragJustLeft = draggedWidgetInsidePrev && !draggedWidgetInside && crossed;
@@ -302,7 +302,7 @@ public abstract class Widget {
             Vector2 localPrevFrame = new Vector2(pointerXPrevFrame, pointerYPrevFrame);
             local.transform_TranslateRotateScale(-this.transformScreen.x, -this.transformScreen.y, -this.transformScreen.deg, 1 / this.transformScreen.sclX, 1/ this.transformScreen.sclY);
             localPrevFrame.transform_TranslateRotateScale(-this.transformScreen.x, -this.transformScreen.y, -this.transformScreen.deg, 1 / this.transformScreen.sclX, 1/ this.transformScreen.sclY);
-            EventData.MouseDragEnter dragEnter = new EventData.MouseDragEnter(this, draggedWidget, localPrevFrame.x, localPrevFrame.y, local.x, local.y);
+            EventData.MouseDragEnter dragEnter = new EventData.MouseDragEnter(this, draggedNode, localPrevFrame.x, localPrevFrame.y, local.x, local.y);
             eventListener.onMouseDragEnter.handle(dragEnter);
         }
         if (dragJustEntered && eventListenerDefault.onMouseDragEnter != null) {
@@ -310,7 +310,7 @@ public abstract class Widget {
             Vector2 localPrevFrame = new Vector2(pointerXPrevFrame, pointerYPrevFrame);
             local.transform_TranslateRotateScale(-this.transformScreen.x, -this.transformScreen.y, -this.transformScreen.deg, 1 / this.transformScreen.sclX, 1/ this.transformScreen.sclY);
             localPrevFrame.transform_TranslateRotateScale(-this.transformScreen.x, -this.transformScreen.y, -this.transformScreen.deg, 1 / this.transformScreen.sclX, 1/ this.transformScreen.sclY);
-            EventData.MouseDragEnter dragEnter = new EventData.MouseDragEnter(this, draggedWidget, localPrevFrame.x, localPrevFrame.y, local.x, local.y);
+            EventData.MouseDragEnter dragEnter = new EventData.MouseDragEnter(this, draggedNode, localPrevFrame.x, localPrevFrame.y, local.x, local.y);
             eventListenerDefault.onMouseDragEnter.handle(dragEnter);
         }
         if (dragJustLeft && eventListener.onMouseDragLeave != null) {
@@ -318,7 +318,7 @@ public abstract class Widget {
             Vector2 localPrevFrame = new Vector2(pointerXPrevFrame, pointerYPrevFrame);
             local.transform_TranslateRotateScale(-this.transformScreen.x, -this.transformScreen.y, -this.transformScreen.deg, 1 / this.transformScreen.sclX, 1/ this.transformScreen.sclY);
             localPrevFrame.transform_TranslateRotateScale(-this.transformScreen.x, -this.transformScreen.y, -this.transformScreen.deg, 1 / this.transformScreen.sclX, 1/ this.transformScreen.sclY);
-            EventData.MouseDragLeave dragLeave = new EventData.MouseDragLeave(this, draggedWidget, localPrevFrame.x, localPrevFrame.y, local.x, local.y);
+            EventData.MouseDragLeave dragLeave = new EventData.MouseDragLeave(this, draggedNode, localPrevFrame.x, localPrevFrame.y, local.x, local.y);
             eventListener.onMouseDragLeave.handle(dragLeave);
         }
         if (dragJustLeft && eventListenerDefault.onMouseDragLeave != null) {
@@ -326,7 +326,7 @@ public abstract class Widget {
             Vector2 localPrevFrame = new Vector2(pointerXPrevFrame, pointerYPrevFrame);
             local.transform_TranslateRotateScale(-this.transformScreen.x, -this.transformScreen.y, -this.transformScreen.deg, 1 / this.transformScreen.sclX, 1/ this.transformScreen.sclY);
             localPrevFrame.transform_TranslateRotateScale(-this.transformScreen.x, -this.transformScreen.y, -this.transformScreen.deg, 1 / this.transformScreen.sclX, 1/ this.transformScreen.sclY);
-            EventData.MouseDragLeave dragLeave = new EventData.MouseDragLeave(this, draggedWidget, localPrevFrame.x, localPrevFrame.y, local.x, local.y);
+            EventData.MouseDragLeave dragLeave = new EventData.MouseDragLeave(this, draggedNode, localPrevFrame.x, localPrevFrame.y, local.x, local.y);
             eventListenerDefault.onMouseDragLeave.handle(dragLeave);
         }
     }
@@ -341,7 +341,7 @@ public abstract class Widget {
         setGlobalTransform();
         onFixedUpdate(delta); // TODO: do the lag stuff
         afterInternalStateUpdate();
-        for (Widget child : children) {
+        for (Node child : children) {
             child.update(delta);
         }
     }
@@ -363,7 +363,7 @@ public abstract class Widget {
 
         children.sort(Widgets.widgetComparator);
         int maskLevel = getMaskingIndex();
-        for (Widget child : children) {
+        for (Node child : children) {
             // apply mask, if masking enabled
             if (maskChildren) {
                 renderer2D.enableMasking();
@@ -388,7 +388,7 @@ public abstract class Widget {
         if (!Input.mouse.isCursorInWindow()) return false;
         if (!inputShape.containsPoint(pointerX, pointerY, transformScreen)) return false;
 
-        Widget p = parent;
+        Node p = parent;
         boolean hit = true;
         while (p != null) {
             if (p.maskChildren()) {
@@ -405,7 +405,7 @@ public abstract class Widget {
         if (!Input.mouse.isCursorInWindow()) return false;
 
         boolean hit = hitTest(pointerX, pointerY);
-        for (final Widget child : children) {
+        for (final Node child : children) {
             hit |= child.hitTestSubtree(pointerX, pointerY);
         }
 
@@ -421,9 +421,9 @@ public abstract class Widget {
         return parent == null ? active : active && parent.isActive();
     }
 
-    final Widget findTopmostChildAt(float pointerX, float pointerY) {
+    final Node findTopmostChildAt(float pointerX, float pointerY) {
         for (int i = children.size - 1; i >= 0; i--) {
-            Widget hit = children.get(i).findTopmostChildAt(pointerX, pointerY);
+            Node hit = children.get(i).findTopmostChildAt(pointerX, pointerY);
             if (hit != null) return hit;
         }
 

@@ -8,20 +8,22 @@ import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
-import com.heavybox.jtix.widgets_2.WidgetShapeRectangle;
+import com.heavybox.jtix.widgets_2.NodeShape;
 import com.heavybox.jtix.widgets_2.Widgets;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.opengl.GL11;
 
 public class SceneInput_4 implements Scene {
 
-    WidgetShapeRectangle panel_1 = new WidgetShapeRectangle(250,250);
-    WidgetShapeRectangle p1_child_1 = new WidgetShapeRectangle(80,80);
-    WidgetShapeRectangle p1_child_2 = new WidgetShapeRectangle(80,80);
+    NodeShape panel_1 = new NodeShape(250,250);
+    NodeShape p1_child_1 = new NodeShape(80,80);
+    NodeShape p1_child_2 = new NodeShape(80,80);
 
-    WidgetShapeRectangle panel_2 = new WidgetShapeRectangle(250,250);
-    WidgetShapeRectangle p2_child_1 = new WidgetShapeRectangle(80,80);
-    WidgetShapeRectangle p2_child_2 = new WidgetShapeRectangle(80,80);
+    NodeShape panel_2 = new NodeShape(250,250);
+    NodeShape p2_child_1 = new NodeShape(80,80);
+    NodeShape p2_child_2 = new NodeShape(80,80);
+
+    NodeShape rect = new NodeShape(55);
 
     Renderer2D renderer2D = new Renderer2D();
 
@@ -83,6 +85,7 @@ public class SceneInput_4 implements Scene {
 
         Widgets.add(panel_1);
         Widgets.add(panel_2);
+        Widgets.add(rect);
     }
 
     @Override

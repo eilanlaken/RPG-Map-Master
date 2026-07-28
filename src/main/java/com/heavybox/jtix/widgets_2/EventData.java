@@ -6,9 +6,9 @@ import com.heavybox.jtix.input.Keyboard;
 
 public abstract class EventData {
 
-    public final Widget target;
+    public final Node target;
 
-    EventData(final Widget target) {
+    EventData(final Node target) {
         this.target = target;
     }
 
@@ -20,7 +20,7 @@ public abstract class EventData {
         public float   mouseLocalX;
         public float   mouseLocalY;
 
-        public MouseDown(Widget target, boolean buttonLeft, boolean buttonRight, boolean buttonMiddle, float mouseLocalX, float mouseLocalY) {
+        public MouseDown(Node target, boolean buttonLeft, boolean buttonRight, boolean buttonMiddle, float mouseLocalX, float mouseLocalY) {
             super(target);
             this.buttonLeft = buttonLeft;
             this.buttonRight = buttonRight;
@@ -29,7 +29,7 @@ public abstract class EventData {
             this.mouseLocalY = mouseLocalY;
         }
 
-        public MouseDown(Widget target) {
+        public MouseDown(Node target) {
             super(target);
         }
 
@@ -43,7 +43,7 @@ public abstract class EventData {
         public float   mouseLocalX;
         public float   mouseLocalY;
 
-        public MouseUp(Widget target, boolean buttonLeft, boolean buttonRight, boolean buttonMiddle, float mouseLocalX, float mouseLocalY) {
+        public MouseUp(Node target, boolean buttonLeft, boolean buttonRight, boolean buttonMiddle, float mouseLocalX, float mouseLocalY) {
             super(target);
             this.buttonLeft = buttonLeft;
             this.buttonRight = buttonRight;
@@ -62,7 +62,7 @@ public abstract class EventData {
         public float mouseLocalX;
         public float mouseLocalY;
 
-        public MouseClick(Widget target, boolean buttonLeft, boolean buttonRight, boolean buttonMiddle, float mouseLocalX, float mouseLocalY) {
+        public MouseClick(Node target, boolean buttonLeft, boolean buttonRight, boolean buttonMiddle, float mouseLocalX, float mouseLocalY) {
             super(target);
             this.buttonLeft = buttonLeft;
             this.buttonRight = buttonRight;
@@ -81,7 +81,7 @@ public abstract class EventData {
         public float mouseLocalX;
         public float mouseLocalY;
 
-        public MouseDoubleClick(Widget target, boolean buttonLeft, boolean buttonRight, boolean buttonMiddle, float mouseLocalX, float mouseLocalY) {
+        public MouseDoubleClick(Node target, boolean buttonLeft, boolean buttonRight, boolean buttonMiddle, float mouseLocalX, float mouseLocalY) {
             super(target);
             this.buttonLeft = buttonLeft;
             this.buttonRight = buttonRight;
@@ -97,7 +97,7 @@ public abstract class EventData {
         public float mouseLocalX;
         public float mouseLocalY;
 
-        public MouseMiddleClick(Widget target, float mouseLocalX, float mouseLocalY) {
+        public MouseMiddleClick(Node target, float mouseLocalX, float mouseLocalY) {
             super(target);
             this.mouseLocalX = mouseLocalX;
             this.mouseLocalY = mouseLocalY;
@@ -110,7 +110,7 @@ public abstract class EventData {
         public float mouseLocalX;
         public float mouseLocalY;
 
-        public MouseLeftClickOutside(Widget target, float mouseLocalX, float mouseLocalY) {
+        public MouseLeftClickOutside(Node target, float mouseLocalX, float mouseLocalY) {
             super(target);
             this.mouseLocalX = mouseLocalX;
             this.mouseLocalY = mouseLocalY;
@@ -123,7 +123,7 @@ public abstract class EventData {
         public float mouseLocalX;
         public float mouseLocalY;
 
-        public MouseRightClickOutside(Widget target, float mouseLocalX, float mouseLocalY) {
+        public MouseRightClickOutside(Node target, float mouseLocalX, float mouseLocalY) {
             super(target);
             this.mouseLocalX = mouseLocalX;
             this.mouseLocalY = mouseLocalY;
@@ -136,7 +136,7 @@ public abstract class EventData {
         public float mouseLocalX;
         public float mouseLocalY;
 
-        public MouseMiddleClickOutside(Widget target, float mouseLocalX, float mouseLocalY) {
+        public MouseMiddleClickOutside(Node target, float mouseLocalX, float mouseLocalY) {
             super(target);
             this.mouseLocalX = mouseLocalX;
             this.mouseLocalY = mouseLocalY;
@@ -151,7 +151,7 @@ public abstract class EventData {
         public float mouseLocalX;
         public float mouseLocalY;
 
-        public MouseEnter(Widget target, float mouseLocalXPrev, float mouseLocalYPrev, float mouseLocalX, float mouseLocalY) {
+        public MouseEnter(Node target, float mouseLocalXPrev, float mouseLocalYPrev, float mouseLocalX, float mouseLocalY) {
             super(target);
             this.mouseLocalXPrev = mouseLocalXPrev;
             this.mouseLocalYPrev = mouseLocalYPrev;
@@ -168,7 +168,7 @@ public abstract class EventData {
         public float mouseLocalX;
         public float mouseLocalY;
 
-        public MouseLeave(Widget target, float mouseLocalXPrev, float mouseLocalYPrev, float mouseLocalX, float mouseLocalY) {
+        public MouseLeave(Node target, float mouseLocalXPrev, float mouseLocalYPrev, float mouseLocalX, float mouseLocalY) {
             super(target);
             this.mouseLocalXPrev = mouseLocalXPrev;
             this.mouseLocalYPrev = mouseLocalYPrev;
@@ -185,7 +185,7 @@ public abstract class EventData {
         public float mouseLocalX;
         public float mouseLocalY;
 
-        public MouseScroll(Widget target, float scrollX, float scrollY, float mouseLocalX, float mouseLocalY) {
+        public MouseScroll(Node target, float scrollX, float scrollY, float mouseLocalX, float mouseLocalY) {
             super(target);
             this.scrollX = scrollX;
             this.scrollY = scrollY;
@@ -201,7 +201,7 @@ public abstract class EventData {
         public float mouseLocalX;
         public float mouseLocalY;
 
-        public MouseDrag(Widget target, float mouseLocalXPrev, float mouseLocalYPrev, float mouseLocalX, float mouseLocalY) {
+        public MouseDrag(Node target, float mouseLocalXPrev, float mouseLocalYPrev, float mouseLocalX, float mouseLocalY) {
             super(target);
             this.mouseLocalXPrev = mouseLocalXPrev;
             this.mouseLocalYPrev = mouseLocalYPrev;
@@ -215,7 +215,7 @@ public abstract class EventData {
         public float mouseLocalX;
         public float mouseLocalY;
 
-        public MouseDragStart(Widget target, float mouseLocalX, float mouseLocalY) {
+        public MouseDragStart(Node target, float mouseLocalX, float mouseLocalY) {
             super(target);
             this.mouseLocalX = mouseLocalX;
             this.mouseLocalY = mouseLocalY;
@@ -227,7 +227,7 @@ public abstract class EventData {
         public float mouseLocalX;
         public float mouseLocalY;
 
-        public MouseDragEnd(Widget target, float mouseLocalX, float mouseLocalY) {
+        public MouseDragEnd(Node target, float mouseLocalX, float mouseLocalY) {
             super(target);
             this.mouseLocalX = mouseLocalX;
             this.mouseLocalY = mouseLocalY;
@@ -237,13 +237,13 @@ public abstract class EventData {
 
     public static class MouseDragEnter extends EventData {
 
-        public Widget dragged;
+        public Node dragged;
         public float  mouseLocalXPrev;
         public float  mouseLocalYPrev;
         public float  mouseLocalX;
         public float  mouseLocalY;
 
-        public MouseDragEnter(Widget target, Widget dragged, float mouseLocalXPrev, float mouseLocalYPrev, float mouseLocalX, float mouseLocalY) {
+        public MouseDragEnter(Node target, Node dragged, float mouseLocalXPrev, float mouseLocalYPrev, float mouseLocalX, float mouseLocalY) {
             super(target);
             this.dragged = dragged;
             this.mouseLocalXPrev = mouseLocalXPrev;
@@ -255,13 +255,13 @@ public abstract class EventData {
 
     public static class MouseDragLeave extends EventData {
 
-        public Widget dragged;
+        public Node dragged;
         public float  mouseLocalXPrev;
         public float  mouseLocalYPrev;
         public float  mouseLocalX;
         public float  mouseLocalY;
 
-        public MouseDragLeave(Widget target, Widget dragged, float mouseLocalXPrev, float mouseLocalYPrev, float mouseLocalX, float mouseLocalY) {
+        public MouseDragLeave(Node target, Node dragged, float mouseLocalXPrev, float mouseLocalYPrev, float mouseLocalX, float mouseLocalY) {
             super(target);
             this.dragged = dragged;
             this.mouseLocalXPrev = mouseLocalXPrev;
@@ -273,11 +273,11 @@ public abstract class EventData {
 
     public static class MouseDragDrop extends EventData {
 
-        public Widget dragged;
+        public Node dragged;
         public float  mouseLocalX;
         public float  mouseLocalY;
 
-        public MouseDragDrop(Widget target, Widget dragged, float mouseLocalX, float mouseLocalY) {
+        public MouseDragDrop(Node target, Node dragged, float mouseLocalX, float mouseLocalY) {
             super(target);
             this.dragged = dragged;
             this.mouseLocalX = mouseLocalX;
@@ -290,7 +290,7 @@ public abstract class EventData {
 
         public ArrayChar codePoints;
 
-        public CodepointsTyped(Widget target, char ...chars) {
+        public CodepointsTyped(Node target, char ...chars) {
             super(target);
             this.codePoints = new ArrayChar(true, 1);
             if (chars == null) return;
@@ -305,7 +305,7 @@ public abstract class EventData {
 
         public Array<Keyboard.Key> keys;
 
-        public KeysJustPressed(Widget target, Keyboard.Key ...keys) {
+        public KeysJustPressed(Node target, Keyboard.Key ...keys) {
             super(target);
             this.keys = new Array<>(true, 1);
             this.keys.addAll(keys);
@@ -317,7 +317,7 @@ public abstract class EventData {
 
         public Array<Keyboard.Key> keys;
 
-        public KeysPressed(Widget target, Keyboard.Key ...keys) {
+        public KeysPressed(Node target, Keyboard.Key ...keys) {
             super(target);
             this.keys = new Array<>(true, 1);
             this.keys.addAll(keys);

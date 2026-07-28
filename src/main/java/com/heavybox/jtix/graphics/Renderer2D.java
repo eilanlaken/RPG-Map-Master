@@ -2346,6 +2346,12 @@ public class Renderer2D implements MemoryResourceHolder {
         drawPolygonFilled(polygon, (Texture) null, x, y, deg, scaleX, scaleY);
     }
 
+    public void drawPolygonFilled(ArrayFloat polygon, ArrayInt triangles, float x, float y, float deg, float scaleX, float scaleY) {
+        final float[] points = polygon.pack();
+        final int[] indices = triangles.pack();
+        drawPolygonFilled(points, indices, x, y, deg, scaleX, scaleY);
+    }
+
     // TODO: test
     public void drawPolygonFilled(float[] polygon, int[] triangles, float x, float y, float deg, float scaleX, float scaleY) {
         if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
