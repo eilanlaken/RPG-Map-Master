@@ -96,8 +96,8 @@ public class NodeShape extends Node {
     }
 
     @Override
-    protected void setInputShape(@NotNull InputShape shape) {
-        shape.setToPolygon(points.items);
+    protected void setHitZone(@NotNull HitZone hitZone) {
+        hitZone.setToPolygon(points.items);
     }
 
     public enum FillType {

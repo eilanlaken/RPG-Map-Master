@@ -35,10 +35,10 @@ public abstract class Node {
     public        Layout        layoutChildren       = null;
 
     /*** input handling and state management ***/ // TODO: add a flag that allows events to penetrate to parent. Maybe re-add preventDefault flag.
-    private final InputShape    inputShape           = new InputShape();
+    private final HitZone       hitZone              = new HitZone();
     final         EventListener eventListener        = new EventListener();
     final         EventListener eventListenerDefault = new EventListener();
-    private       boolean       inputMouseInside     = false;
+    private       boolean       mouseInside          = false;
     private       boolean       draggedWidgetInside  = false;
     private       boolean       hitSubTree           = false;
 
@@ -52,8 +52,8 @@ public abstract class Node {
     protected void    onChildRemoved(Node child) {}
     protected boolean maskChildren() { return false; }
 
-    protected void setInputShape(final @NotNull InputShape shape) {
-        shape.setToRectangle(getWidth(), getHeight());
+    protected void setHitZone(final @NotNull HitZone hitZone) {
+        hitZone.setToRectangle(getWidth(), getHeight());
     }
 
     final Node getParent() {
@@ -98,13 +98,11 @@ public abstract class Node {
         children.sort(Comparator.comparingInt(a -> a.zIndex));
     }
 
-    // TODO: test
     public final void disconnectFromParent() {
         if (parent == null) return;
         parent.disconnectChild(this);
     }
 
-    // TODO: test
     public final void connectToParent(Node newParent) {
         if (newParent == null) return;
         newParent.connectChild(this);
@@ -248,13 +246,13 @@ public abstract class Node {
         float pointerYPrevFrame = UserInterface.getPointerYPrev();
         float pointerX = UserInterface.getPointerX();
         float pointerY = UserInterface.getPointerY();
-        boolean mouseInsideSubtreePrev = inputMouseInside;
+        boolean mouseInsideSubtreePrev = mouseInside;
         Node mouseOn = UserInterface.getInputMouseOnTarget();
         boolean hitSubtreePrev = hitSubTree;
         hitSubTree = hitTestSubtree(pointerX, pointerY);
-        inputMouseInside = hitSubTree && (this == mouseOn || UserInterface.isXAncestorOfY(this, mouseOn) || UserInterface.isXAncestorOfY(mouseOn, this));
-        boolean mouseJustEntered = !mouseInsideSubtreePrev && inputMouseInside;
-        boolean mouseJustLeft = mouseInsideSubtreePrev && !inputMouseInside;
+        mouseInside = hitSubTree && (this == mouseOn || UserInterface.isXAncestorOfY(this, mouseOn) || UserInterface.isXAncestorOfY(mouseOn, this));
+        boolean mouseJustEntered = !mouseInsideSubtreePrev && mouseInside;
+        boolean mouseJustLeft = mouseInsideSubtreePrev && !mouseInside;
 
         if (mouseJustEntered && eventListener.onMouseEnter != null) {
             Vector2 local = new Vector2(pointerX, pointerY);
@@ -335,7 +333,7 @@ public abstract class Node {
     final void update(float delta) {
         if (!active) return;
 
-        setInputShape(inputShape);
+        setHitZone(hitZone);
         setChildrenOffsets();
         setOffsetsAnchor();
         setGlobalTransform();
@@ -383,16 +381,16 @@ public abstract class Node {
     }
 
     final boolean hitTest(float pointerX, float pointerY) {
-        if (!inputShape.isValid()) return false;
+        if (!hitZone.isValid()) return false;
         if (!isActive()) return false;
         if (!Input.mouse.isCursorInWindow()) return false;
-        if (!inputShape.containsPoint(pointerX, pointerY, transformScreen)) return false;
+        if (!hitZone.containsPoint(pointerX, pointerY, transformScreen)) return false;
 
         Node p = parent;
         boolean hit = true;
         while (p != null) {
             if (p.maskChildren()) {
-                hit &= p.inputShape.containsPoint(pointerX, pointerY, p.transformScreen);
+                hit &= p.hitZone.containsPoint(pointerX, pointerY, p.transformScreen);
             }
             p = p.parent;
         }
