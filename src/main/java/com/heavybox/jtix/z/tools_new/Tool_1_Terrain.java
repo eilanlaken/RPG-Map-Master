@@ -24,7 +24,7 @@ public class Tool_1_Terrain extends Tool_new {
     // resources - terrain and brush textures, shaders
     public final Texture[] brushesAdd = new Texture[9];
     public final Texture[] brushesSub = new Texture[9];
-    private final Texture[] terrainGrounds = new Texture[9];
+    private final Texture[] terrainGrounds = new Texture[10];
     private final Texture[] terrainLiquids = new Texture[3];
     private final Shader brushShader;
 
@@ -100,6 +100,7 @@ public class Tool_1_Terrain extends Tool_new {
         terrainGrounds[6] = Assets.get("assets/textures-layer-0/terrain_land_dirt_1.jpg");
         terrainGrounds[7] = Assets.get("assets/textures-layer-0/terrain_land_road_0.jpg");
         terrainGrounds[8] = Assets.get("assets/textures-layer-0/terrain_land_rocks_0.jpg");
+        terrainGrounds[9] = Assets.get("assets/textures-layer-0/terrain_land_parchment_0.jpg");
 
         terrainLiquids[0] = Assets.get("assets/textures-layer-0/terrain_liquid_water_0.jpg");
         terrainLiquids[1] = Assets.get("assets/textures-layer-0/terrain_liquid_water_1.jpg");
@@ -129,6 +130,8 @@ public class Tool_1_Terrain extends Tool_new {
 
     @Override
     public void update(float delta) {
+        System.out.println(groundIndex);
+
         boolean shiftLeftJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.LEFT_SHIFT);
         boolean leftButtonPressed = Input.mouse.isButtonPressed(Mouse.Button.LEFT);
         boolean leftButtonJustPressed = Input.mouse.isButtonJustPressed(Mouse.Button.LEFT);
