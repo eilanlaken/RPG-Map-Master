@@ -25,7 +25,7 @@ public class MapSurface_0_Terrain implements MapSurface {
     private float uvScaleFactorGround = 1; // TODO
     private float uvScaleFactorLiquid = 1; // TODO
     private final Texture[] terrainGrounds = new Texture[10];
-    private final Texture[] terrainLiquids = new Texture[3];
+    private final Texture[] terrainLiquids = new Texture[4];
 
     private final Texture terrainSteepness;
 
@@ -82,6 +82,7 @@ public class MapSurface_0_Terrain implements MapSurface {
         terrainLiquids[0] = Assets.get("assets/textures-layer-0/terrain_liquid_water_0.jpg");
         terrainLiquids[1] = Assets.get("assets/textures-layer-0/terrain_liquid_water_1.jpg");
         terrainLiquids[2] = Assets.get("assets/textures-layer-0/terrain_liquid_water_2.jpg");
+        terrainLiquids[3] = Assets.get("assets/textures-layer-0/terrain_liquid_water_3.jpg");
 
         terrainSteepness = Assets.get("assets/textures-layer-0/terrain_material_rock.jpg");
 

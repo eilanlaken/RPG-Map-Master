@@ -25,7 +25,7 @@ public class Tool_1_Terrain extends Tool_new {
     public final Texture[] brushesAdd = new Texture[9];
     public final Texture[] brushesSub = new Texture[9];
     private final Texture[] terrainGrounds = new Texture[10];
-    private final Texture[] terrainLiquids = new Texture[3];
+    private final Texture[] terrainLiquids = new Texture[4];
     private final Shader brushShader;
 
     // state
@@ -104,7 +104,8 @@ public class Tool_1_Terrain extends Tool_new {
 
         terrainLiquids[0] = Assets.get("assets/textures-layer-0/terrain_liquid_water_0.jpg");
         terrainLiquids[1] = Assets.get("assets/textures-layer-0/terrain_liquid_water_1.jpg");
-        terrainLiquids[2] = Assets.get("assets/textures-layer-0/terrain_liquid_water_0.jpg");
+        terrainLiquids[2] = Assets.get("assets/textures-layer-0/terrain_liquid_water_2.jpg");
+        terrainLiquids[3] = Assets.get("assets/textures-layer-0/terrain_liquid_water_3.jpg");
 
         // init
         sclX = 0.25f;
