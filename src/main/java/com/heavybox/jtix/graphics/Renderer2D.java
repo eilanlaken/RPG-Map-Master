@@ -165,7 +165,7 @@ public class Renderer2D implements MemoryResourceHolder {
 
         setShader(defaultShader);
         blendingSet(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA); // TODO: test
-        setShaderAttributes(null);
+        setShaderUniforms(null);
         setTexture(defaultTexture);
         setMode(GL11.GL_TRIANGLES);
         setColor(WHITE_TINT);
@@ -199,14 +199,14 @@ public class Renderer2D implements MemoryResourceHolder {
         currentFont = font;
     }
 
-    public void setShaderAttribute(String uniform, Object value) {
+    public void setShaderUniform(String uniformName, Object uniformValue) {
         flush();
-        currentShader.bindUniform(uniform, value);
+        currentShader.bindUniform(uniformName, uniformValue);
     }
 
-    public void setShaderAttributes(HashMap<String, Object> customAttributes) {
+    public void setShaderUniforms(@Nullable HashMap<String, Object> uniformValues) {
         flush();
-        currentShader.bindUniforms(customAttributes);
+        currentShader.bindUniforms(uniformValues);
     }
 
     private void setMode(final int mode) {
@@ -3176,6 +3176,7 @@ public class Renderer2D implements MemoryResourceHolder {
         return !hasSpaceVertices || !hasSpaceIndices;
     }
 
+    // TODO: revisit with VertexAttribute in mind.
     public void flush() {
         if (vertexIndex == 0) return;
 
@@ -3185,6 +3186,7 @@ public class Renderer2D implements MemoryResourceHolder {
         textCoords.flip();
         indices.flip();
 
+        // TODO: should probably be in the loop.
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vboPositions);
         GL15.glBufferSubData(GL15.GL_ARRAY_BUFFER, 0, positions);
 

@@ -34,7 +34,7 @@ public class ModelMesh implements MemoryResource {
             storeDataInAttributeList(VertexAttribute.POSITION_3D, positions, attributesCollector, vbosCollector);
             storeIndicesBuffer(indices, vbosCollector);
             storeDataInAttributeList(VertexAttribute.TEXT_COORDS0, uvs, attributesCollector, vbosCollector);
-            storeDataInAttributeList(VertexAttribute.NORMAL, normals, attributesCollector, vbosCollector);
+            storeDataInAttributeList(VertexAttribute.NORMAL_3D, normals, attributesCollector, vbosCollector);
             storeDataInAttributeList(VertexAttribute.TANGENT, tangents, attributesCollector, vbosCollector);
             storeDataInAttributeList(VertexAttribute.BI_TANGENT, biTangents, attributesCollector, vbosCollector); // TODO: remove
         }

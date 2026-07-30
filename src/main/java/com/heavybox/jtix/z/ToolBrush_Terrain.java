@@ -12,7 +12,6 @@ import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Vector2;
-import com.heavybox.jtix.z.CommandTerrainAddSub;
 import org.jetbrains.annotations.NotNull;
 
 public class ToolBrush_Terrain extends Tool {
@@ -343,16 +342,16 @@ public class ToolBrush_Terrain extends Tool {
         if (target == Target.GROUND) {
             renderer2D.setShader(brushShader);
             Texture groundSrcImg = terrainGrounds[groundIndex];
-            renderer2D.setShaderAttribute("u_texture_reveal", groundSrcImg);
-            renderer2D.setShaderAttribute("u_width", groundSrcImg.width);
-            renderer2D.setShaderAttribute("u_height", groundSrcImg.height);
+            renderer2D.setShaderUniform("u_texture_reveal", groundSrcImg);
+            renderer2D.setShaderUniform("u_width", groundSrcImg.width);
+            renderer2D.setShaderUniform("u_height", groundSrcImg.height);
             renderer2D.drawTexture(currentBrush, x, y, deg, sclX, sclY);
         } else if (target == Target.LIQUID) {
             renderer2D.setShader(brushShader);
             Texture liquidSrcImg = terrainLiquids[liquidIndex];
-            renderer2D.setShaderAttribute("u_texture_reveal", liquidSrcImg);
-            renderer2D.setShaderAttribute("u_width", liquidSrcImg.width);
-            renderer2D.setShaderAttribute("u_height", liquidSrcImg.height);
+            renderer2D.setShaderUniform("u_texture_reveal", liquidSrcImg);
+            renderer2D.setShaderUniform("u_width", liquidSrcImg.width);
+            renderer2D.setShaderUniform("u_height", liquidSrcImg.height);
             renderer2D.drawTexture(currentBrush, x, y, deg, sclX, sclY);
         } else { // target == blend map
             renderer2D.drawTexture(currentBrush, x, y, deg, sclX, sclY);

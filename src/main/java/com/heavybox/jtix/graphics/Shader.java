@@ -352,7 +352,7 @@ public final class Shader implements MemoryResource {
                 int slot = TextureBinder.bind(texture);
                 final Integer cache = (Integer) uniformsCache.get(location);
                 if (cache == null || !cache.equals(slot)) {
-                    GL20.glUniform1i(location, slot); // bind
+                    GL20.glUniform1i(location, slot); // TODO - consider switching to glProgramUniform1f so shader uniform can be set without binding the program first.
                     uniformsCache.put(location, slot);
                     return true;
                 }
