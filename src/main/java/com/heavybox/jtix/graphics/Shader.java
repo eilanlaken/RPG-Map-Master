@@ -161,14 +161,7 @@ public final class Shader implements MemoryResource {
         this.uniformsCache = new HashMap<>();
 
         /* validation */
-        /* validate: limit the allowed max sampled textures */
-        final int maxSampledTextures = Graphics.getMaxFragmentShaderTextureUnits();
-        int sampledTextures = 0;
-        for (MapObjectInt.Entry<String> uniform : uniformTypes.entries()) {
-            int type = uniform.value;
-            if (type == GL20.GL_SAMPLER_2D) sampledTextures++;
-        }
-        if (sampledTextures > maxSampledTextures) throw new GraphicsException("Error: shader code trying to sample " + sampledTextures + ". The allowed maximum on this hardware is " + maxSampledTextures);
+        validate();
     }
 
     // TODO: simply call the all args constructor
@@ -282,6 +275,10 @@ public final class Shader implements MemoryResource {
         this.uniformsCache = new HashMap<>();
 
         /* validation */
+        validate();
+    }
+
+    private void validate() {
         /* validate: limit the allowed max sampled textures */
         final int maxSampledTextures = Graphics.getMaxFragmentShaderTextureUnits();
         int sampledTextures = 0;
@@ -290,17 +287,16 @@ public final class Shader implements MemoryResource {
             if (type == GL20.GL_SAMPLER_2D) sampledTextures++;
         }
         if (sampledTextures > maxSampledTextures) throw new GraphicsException("Error: shader code trying to sample " + sampledTextures + ". The allowed maximum on this hardware is " + maxSampledTextures);
-        // TODO
         /* validate: attribute names should conform to ShaderVertexAttribute enum */
-//        Set<String> invalidAttributeNames = new HashSet<>();
-//        for (final String attributeName : attributeNames) {
-//            if (VertexAttribute.isValidGlslAttributeName(attributeName)) continue;
-//            invalidAttributeNames.add(attributeName);
-//        }
-//        if (!invalidAttributeNames.isEmpty()) {
-//            throw new GraphicsException("Shader attributes contain invalid attribute names: \n" + invalidAttributeNames + "\n" +
-//                    "You can only use the following attribute names in your shaders: " + VertexAttribute.getValidAttributeNames());
-//        }
+        Set<String> invalidAttributeNames = new HashSet<>();
+        for (final String attributeName : attributeNames) {
+            if (VertexAttribute.isValidGlslAttributeName(attributeName)) continue;
+            invalidAttributeNames.add(attributeName);
+        }
+        if (!invalidAttributeNames.isEmpty()) {
+            throw new GraphicsException("Shader attributes contain invalid attribute names: \n" + invalidAttributeNames + "\n" +
+                    "You can only use the following attribute names in your shaders: " + VertexAttribute.getValidAttributeNames());
+        }
     }
 
     public boolean hasVertexAttribute(final VertexAttribute attribute) {

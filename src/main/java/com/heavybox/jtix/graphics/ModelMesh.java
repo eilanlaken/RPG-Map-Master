@@ -3,18 +3,14 @@ package com.heavybox.jtix.graphics;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.collections.ArrayFloat;
 import com.heavybox.jtix.collections.ArrayInt;
-import com.heavybox.jtix.math.MathUtils;
-import com.heavybox.jtix.math.Vector3;
 import com.heavybox.jtix.memory.MemoryResource;
 import com.heavybox.jtix.memory.MemoryUtils;
-import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
-import java.util.Arrays;
 
 // primitives:
 // https://github.com/mrdoob/three.js/tree/dev/src/geometries
@@ -35,7 +31,7 @@ public class ModelMesh implements MemoryResource {
         this.vertexArrayObjectId = GL30.glGenVertexArrays();
         GL30.glBindVertexArray(vertexArrayObjectId);
         {
-            storeDataInAttributeList(VertexAttribute.POSITION, positions, attributesCollector, vbosCollector);
+            storeDataInAttributeList(VertexAttribute.POSITION_3D, positions, attributesCollector, vbosCollector);
             storeIndicesBuffer(indices, vbosCollector);
             storeDataInAttributeList(VertexAttribute.TEXT_COORDS0, uvs, attributesCollector, vbosCollector);
             storeDataInAttributeList(VertexAttribute.NORMAL, normals, attributesCollector, vbosCollector);

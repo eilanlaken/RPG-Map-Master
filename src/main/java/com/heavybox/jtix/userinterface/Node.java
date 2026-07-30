@@ -239,8 +239,8 @@ public abstract class Node {
         transformScreen.sclY = parentSclY * combinedSclY;
     }
 
-    // handles cursor relative to widget movement (free & drag).
-    private void afterInternalStateUpdate() {
+    // TODO remove and handle in Widgets mouseMoved()
+    private void handleCursorRelativeToNodeMovement() {
         /* mouse enter, mouse leave */
         float pointerXPrevFrame = UserInterface.getPointerXPrev();
         float pointerYPrevFrame = UserInterface.getPointerYPrev();
@@ -337,8 +337,9 @@ public abstract class Node {
         setChildrenOffsets();
         setOffsetsAnchor();
         setGlobalTransform();
+        handleCursorRelativeToNodeMovement();
+
         onFixedUpdate(delta); // TODO: do the lag stuff
-        afterInternalStateUpdate();
         for (Node child : children) {
             child.update(delta);
         }

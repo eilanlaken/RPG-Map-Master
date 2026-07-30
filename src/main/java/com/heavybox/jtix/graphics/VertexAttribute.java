@@ -12,22 +12,19 @@ import java.util.Set;
 public enum VertexAttribute {
 
     // TODO: see how to handle this later.
-    //POSITION_2D        (GL20.GL_FLOAT_VEC2,2,"a_position"   , 0,  GL11.GL_FLOAT,         false),
-    //NORMAL_2D          (GL20.GL_FLOAT_VEC2,2,"a_normal"     , 4,  GL11.GL_FLOAT,         false),
-    //TANGENT_2D         (GL20.GL_FLOAT_VEC2,2,"a_tangent"    , 5,  GL11.GL_FLOAT,         false), // TODO: normalize. Look at the docs.
-
-    POSITION       (GL20.GL_FLOAT_VEC3,3,"a_position"   , 0,  GL11.GL_FLOAT,         false),
-    @Deprecated COLOR          (GL20.GL_FLOAT_VEC4,4,"a_color"      , 1,  GL11.GL_UNSIGNED_BYTE, true),
-    TEXT_COORDS0   (GL20.GL_FLOAT_VEC2,2,"a_textCoords0", 2,  GL11.GL_FLOAT,         false),
-    TEXT_COORDS1   (GL20.GL_FLOAT_VEC2,2,"a_textCoords1", 3,  GL11.GL_FLOAT,         false),
-    NORMAL         (GL20.GL_FLOAT_VEC3,3,"a_normal"     , 4,  GL11.GL_FLOAT,         false), // TODO: normalize. Look at the docs.
-    TANGENT        (GL20.GL_FLOAT_VEC3,3,"a_tangent"    , 5,  GL11.GL_FLOAT,         false), // TODO: normalize. Look at the docs.
-    @Deprecated BI_TANGENT     (GL20.GL_FLOAT_VEC3,3,"a_biTangent"  , 6,  GL11.GL_FLOAT,         false), // TODO: normalize. Look at the docs.
-    BONE_WEIGHT0   (GL20.GL_FLOAT_VEC3,2,"a_boneWeight0", 7,  GL11.GL_FLOAT,         false),
-    BONE_WEIGHT1   (GL20.GL_FLOAT_VEC3,2,"a_boneWeight1", 8,  GL11.GL_FLOAT,         false),
-    BONE_WEIGHT2   (GL20.GL_FLOAT_VEC3,2,"a_boneWeight2", 9,  GL11.GL_FLOAT,         false),
-    BONE_WEIGHT3   (GL20.GL_FLOAT_VEC3,2,"a_boneWeight3", 10, GL11.GL_FLOAT,         false),
-    BONE_WEIGHT4   (GL20.GL_FLOAT_VEC3,2,"a_boneWeight4", 11, GL11.GL_FLOAT,         false),
+    POSITION_2D  (GL20.GL_FLOAT_VEC2,2,"a_position"   , 0,  GL11.GL_FLOAT,         false),
+    POSITION_3D  (GL20.GL_FLOAT_VEC3,3,"a_position"   , 0,  GL11.GL_FLOAT,         false),
+    COLOR        (GL20.GL_FLOAT_VEC4,4,"a_color"      , 1,  GL11.GL_UNSIGNED_BYTE, true),
+    TEXT_COORDS0 (GL20.GL_FLOAT_VEC2,2,"a_textCoords0", 2,  GL11.GL_FLOAT,         false),
+    TEXT_COORDS1 (GL20.GL_FLOAT_VEC2,2,"a_textCoords1", 3,  GL11.GL_FLOAT,         false),
+    NORMAL       (GL20.GL_FLOAT_VEC3,3,"a_normal"     , 4,  GL11.GL_FLOAT,         false), // TODO: normalize. Look at the docs.
+    TANGENT      (GL20.GL_FLOAT_VEC3,3,"a_tangent"    , 5,  GL11.GL_FLOAT,         false), // TODO: normalize. Look at the docs.
+    BI_TANGENT   (GL20.GL_FLOAT_VEC3,3,"a_biTangent"  , 6,  GL11.GL_FLOAT,         false), // TODO: normalize. Look at the docs.
+    BONE_WEIGHT0 (GL20.GL_FLOAT_VEC3,2,"a_boneWeight0", 7,  GL11.GL_FLOAT,         false),
+    BONE_WEIGHT1 (GL20.GL_FLOAT_VEC3,2,"a_boneWeight1", 8,  GL11.GL_FLOAT,         false),
+    BONE_WEIGHT2 (GL20.GL_FLOAT_VEC3,2,"a_boneWeight2", 9,  GL11.GL_FLOAT,         false),
+    BONE_WEIGHT3 (GL20.GL_FLOAT_VEC3,2,"a_boneWeight3", 10, GL11.GL_FLOAT,         false),
+    BONE_WEIGHT4 (GL20.GL_FLOAT_VEC3,2,"a_boneWeight4", 11, GL11.GL_FLOAT,         false),
     ;
 
     public final int     glslVariableType;

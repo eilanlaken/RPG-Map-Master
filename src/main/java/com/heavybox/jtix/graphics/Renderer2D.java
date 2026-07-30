@@ -21,6 +21,7 @@ import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Stack;
 import java.util.function.Function;
@@ -69,14 +70,10 @@ public class Renderer2D implements MemoryResourceHolder {
     private final int         vboPositions;
     private final int         vboColors;
     private final int         vboTextCoords;
-    private final int         vboNormals;
-    private final int         vboTangents;
     private final int         ebo;
     private final FloatBuffer positions;
     private final FloatBuffer colors;
     private final FloatBuffer textCoords;
-    private final FloatBuffer normals;
-    private final FloatBuffer tangents;
     private final IntBuffer   indices;
 
     /* masking */
@@ -87,8 +84,6 @@ public class Renderer2D implements MemoryResourceHolder {
         positions  = BufferUtils.createFloatBuffer(VERTICES_CAPACITY * 2);
         colors     = BufferUtils.createFloatBuffer(VERTICES_CAPACITY * 1);
         textCoords = BufferUtils.createFloatBuffer(VERTICES_CAPACITY * 2);
-        normals    = BufferUtils.createFloatBuffer(VERTICES_CAPACITY * 2);
-        tangents   = BufferUtils.createFloatBuffer(VERTICES_CAPACITY * 2);
         indices    = BufferUtils.createIntBuffer(VERTICES_CAPACITY * 2);
 
         this.vao = GL30.glGenVertexArrays();
@@ -108,16 +103,6 @@ public class Renderer2D implements MemoryResourceHolder {
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vboTextCoords); // bind
         GL15.glBufferData(GL15.GL_ARRAY_BUFFER, textCoords, GL15.GL_DYNAMIC_DRAW);
         GL20.glVertexAttribPointer(2, 2, GL11.GL_FLOAT, false, 0, 0);
-
-        this.vboNormals = GL15.glGenBuffers();
-        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vboNormals); // bind
-        GL15.glBufferData(GL15.GL_ARRAY_BUFFER, normals, GL15.GL_DYNAMIC_DRAW);
-        GL20.glVertexAttribPointer(3, 2, GL11.GL_FLOAT, false, 0, 0);
-
-        this.vboTangents = GL15.glGenBuffers();
-        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vboTangents); // bind
-        GL15.glBufferData(GL15.GL_ARRAY_BUFFER, tangents, GL15.GL_DYNAMIC_DRAW);
-        GL20.glVertexAttribPointer(4, 2, GL11.GL_FLOAT, false, 0, 0);
 
         this.ebo = GL15.glGenBuffers();
         GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, ebo);
@@ -232,25 +217,25 @@ public class Renderer2D implements MemoryResourceHolder {
 
     public void blendingSet(int sFactor, int dFactor) {
         flush();
-        GL11.glEnable(GL11.GL_BLEND); //TODO
+        GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(sFactor, dFactor);
     }
 
     public void blendingSet(int sFactorRGB, int dFactorRGB, int sFactorAlpha, int dFactorAlpha) {
         flush();
-        GL11.glEnable(GL11.GL_BLEND); //TODO
+        GL11.glEnable(GL11.GL_BLEND);
         GL14.glBlendFuncSeparate(sFactorRGB, dFactorRGB, sFactorAlpha, dFactorAlpha);
     }
 
     public void blendingEnable() {
         flush();
-        GL11.glEnable(GL11.GL_BLEND); //TODO
-        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA); // TODO: test
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
     }
 
     public void blendingDisable() {
         flush();
-        GL11.glDisable(GL11.GL_BLEND); //TODO
+        GL11.glDisable(GL11.GL_BLEND);
     }
 
     public void setColor(final Color color) {
@@ -438,7 +423,7 @@ public class Renderer2D implements MemoryResourceHolder {
 
     public void drawTexture(@NotNull Texture texture, float x, float y, float degrees, float scaleX, float scaleY) {
         if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
-        if (!ensureCapacity(4, 6)) flush();
+        if (requiresFlush(4, 6)) flush();
 
         setTexture(texture);
         setMode(GL11.GL_TRIANGLES);
@@ -506,7 +491,7 @@ public class Renderer2D implements MemoryResourceHolder {
         if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
         if (refinement > 500) throw new GraphicsException("Refinement value too big (> 500): " + refinement);
         refinement = Math.max(2, refinement);
-        if (!ensureCapacity(refinement * 4, 3 * (refinement * 4 - 2))) flush();
+        if (requiresFlush(refinement * 4, 3 * (refinement * 4 - 2))) flush();
 
         setMode(GL11.GL_TRIANGLES);
         setTexture(texture);
@@ -582,7 +567,7 @@ public class Renderer2D implements MemoryResourceHolder {
 
     public void drawTexture(@NotNull Texture texture, float u1, float v1, float u2, float v2, float x, float y, float deg, float scaleX, float scaleY) {
         if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
-        if (!ensureCapacity(4, 6)) flush();
+        if (requiresFlush(4, 6)) flush();
 
         setTexture(texture);
         setMode(GL11.GL_TRIANGLES);
@@ -662,7 +647,7 @@ public class Renderer2D implements MemoryResourceHolder {
 
     public void drawTextureRegion(TextureRegion region, float x, float y, float degrees, float scaleX, float scaleY) {
         if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
-        if (!ensureCapacity(4, 6)) flush();
+        if (requiresFlush(4, 6)) flush();
 
         setTexture(region.texture);
         setMode(GL11.GL_TRIANGLES);
@@ -753,7 +738,7 @@ public class Renderer2D implements MemoryResourceHolder {
         if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
 
         refinement = Math.max(refinement, 3);
-        if (!ensureCapacity(refinement, 2 * (refinement + 1))) flush();
+        if (requiresFlush(refinement, 2 * (refinement + 1))) flush();
 
         setMode(GL11.GL_LINES);
         setTexture(defaultTexture);
@@ -786,7 +771,7 @@ public class Renderer2D implements MemoryResourceHolder {
         if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
 
         refinement = Math.max(refinement, 3);
-        if (!ensureCapacity(refinement, 2 * (refinement + 1))) flush();
+        if (requiresFlush(refinement, 2 * (refinement + 1))) flush();
 
         setMode(GL11.GL_LINES);
         setTexture(defaultTexture);
@@ -818,7 +803,7 @@ public class Renderer2D implements MemoryResourceHolder {
         if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
 
         refinement = Math.max(refinement, 3);
-        if (!ensureCapacity(refinement, 3 * (refinement - 2))) flush();
+        if (requiresFlush(refinement, 3 * (refinement - 2))) flush();
 
         setMode(GL11.GL_TRIANGLES);
         setTexture(defaultTexture);
@@ -854,7 +839,7 @@ public class Renderer2D implements MemoryResourceHolder {
     public void drawCircleFilled(float r, int refinement, float angle, float x, float y, float degrees, float scaleX, float scaleY) {
         if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
         refinement = Math.max(refinement, 3);
-        if (!ensureCapacity(refinement, 3 * (refinement - 2))) flush();
+        if (requiresFlush(refinement, 3 * (refinement - 2))) flush();
 
         setMode(GL11.GL_TRIANGLES);
         setTexture(defaultTexture);
@@ -891,7 +876,7 @@ public class Renderer2D implements MemoryResourceHolder {
     public void drawCircleBorder(float r, float thickness, int refinement, float x, float y, float degrees, float scaleX, float scaleY) {
         if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
         refinement = Math.max(3, refinement);
-        if (!ensureCapacity(refinement * 2, refinement * 6)) flush();
+        if (requiresFlush(refinement * 2, refinement * 6)) flush();
 
         setMode(GL11.GL_TRIANGLES);
         setTexture(defaultTexture);
@@ -947,7 +932,7 @@ public class Renderer2D implements MemoryResourceHolder {
     public void drawCircleBorder(float r, float thickness, float angle, int refinement, float x, float y, float degrees, float scaleX, float scaleY) {
         if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
         refinement = Math.max(3, refinement);
-        if (!ensureCapacity(refinement * 2, refinement * 6)) flush();
+        if (requiresFlush(refinement * 2, refinement * 6)) flush();
 
         setMode(GL11.GL_TRIANGLES);
         setTexture(defaultTexture);
@@ -995,7 +980,7 @@ public class Renderer2D implements MemoryResourceHolder {
 
     public void drawRectangleThin(float width, float height, float x, float y, float deg, float sclX, float sclY) {
         if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
-        if (!ensureCapacity(4, 6)) flush();
+        if (requiresFlush(4, 6)) flush();
 
         setMode(GL11.GL_LINES);
         setTexture(defaultTexture);
@@ -1061,7 +1046,7 @@ public class Renderer2D implements MemoryResourceHolder {
     // TODO: test
     public void drawRectangleThin(float x0, float y0, float x1, float y1, float x2, float y2, float x3, float y3) {
         if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
-        if (!ensureCapacity(4, 8)) flush();
+        if (requiresFlush(4, 8)) flush();
 
         setMode(GL11.GL_LINES);
         setTexture(defaultTexture);
@@ -1101,7 +1086,7 @@ public class Renderer2D implements MemoryResourceHolder {
     public void drawRectangleThin(float width, float height, float cornerRadius, int refinement, float x, float y, float deg, float sclX, float sclY) {
         if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
         refinement = Math.max(2, refinement);
-        if (!ensureCapacity(refinement * 4, refinement * 8)) flush();
+        if (requiresFlush(refinement * 4, refinement * 8)) flush();
 
         setMode(GL11.GL_LINES);
         setTexture(defaultTexture);
@@ -1186,7 +1171,7 @@ public class Renderer2D implements MemoryResourceHolder {
         segmentsBottomRight = Math.max(2, segmentsBottomRight);
         segmentsBottomLeft = Math.max(2, segmentsBottomLeft);
         int maxRefinement = (int) MathUtils.max(segmentsTopLeft, segmentsTopRight, segmentsBottomRight, segmentsBottomLeft);
-        if (!ensureCapacity(4 * maxRefinement, maxRefinement * 3)) flush();
+        if (requiresFlush(4 * maxRefinement, maxRefinement * 3)) flush();
 
         setMode(GL11.GL_LINES);
         setTexture(defaultTexture);
@@ -1264,7 +1249,7 @@ public class Renderer2D implements MemoryResourceHolder {
 
     @Deprecated public void drawRectangleFilled_old(@Nullable Texture texture, float width, float height, float x, float y, float degrees, float scaleX, float scaleY) {
         if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
-        if (!ensureCapacity(4,6)) flush();
+        if (requiresFlush(4, 6)) flush();
 
         setMode(GL11.GL_TRIANGLES);
         setTexture(texture);
@@ -1328,7 +1313,7 @@ public class Renderer2D implements MemoryResourceHolder {
 
     public void drawRectangleFilled(@Nullable Texture texture, float width, float height, float x, float y, float degrees, float scaleX, float scaleY) {
         if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
-        if (!ensureCapacity(4,6)) flush();
+        if (requiresFlush(4, 6)) flush();
 
         float uSpan = 1f;
         float vSpan = 1f;
@@ -1414,7 +1399,7 @@ public class Renderer2D implements MemoryResourceHolder {
             return;
         }
         refinement = Math.max(2, refinement);
-        if (!ensureCapacity(refinement * 4, refinement * 12)) flush();
+        if (requiresFlush(refinement * 4, refinement * 12)) flush();
 
         setMode(GL11.GL_TRIANGLES);
         setTexture(texture);
@@ -1524,7 +1509,7 @@ public class Renderer2D implements MemoryResourceHolder {
         refinementBottomRight = Math.max(2, refinementBottomRight);
         refinementBottomLeft = Math.max(2, refinementBottomLeft);
         int maxRefinement = (int) MathUtils.max(refinementTopLeft, refinementTopRight, refinementBottomRight, refinementBottomLeft);
-        if (!ensureCapacity(4 * maxRefinement, maxRefinement * 3)) flush();
+        if (requiresFlush(4 * maxRefinement, maxRefinement * 3)) flush();
 
         setMode(GL11.GL_TRIANGLES);
         setTexture(texture);
@@ -1653,7 +1638,7 @@ public class Renderer2D implements MemoryResourceHolder {
     // TODO: maybe also create a version w or w/o Texture
     public void drawRectangleBorder(float width, float height, float thickness, float x, float y, float deg, float scaleX, float scaleY) {
         if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
-        if (!ensureCapacity(8, 24)) flush();
+        if (requiresFlush(8, 24)) flush();
 
         setMode(GL11.GL_TRIANGLES);
         setTexture(defaultTexture);
@@ -1737,7 +1722,7 @@ public class Renderer2D implements MemoryResourceHolder {
         segmentsBottomRight = Math.max(2, segmentsBottomRight);
         segmentsBottomLeft = Math.max(2, segmentsBottomLeft);
         int maxRefinement = (int) MathUtils.max(segmentsTopLeft, segmentsTopRight, segmentsBottomRight, segmentsBottomLeft);
-        if (!ensureCapacity(4 * maxRefinement, maxRefinement * 3)) flush();
+        if (requiresFlush(4 * maxRefinement, maxRefinement * 3)) flush();
 
         setMode(GL11.GL_TRIANGLES);
         setTexture(defaultTexture);
@@ -2020,7 +2005,7 @@ public class Renderer2D implements MemoryResourceHolder {
         if (polygon.size % 2 != 0) throw new GraphicsException("Polygon must be represented as a flat array of vertices, each vertex must have x and y coordinates: [x0,y0,  x1,y1, ...]. Therefore, polygon array length must be even.");
 
         int count = polygon.size / 2;
-        if (!ensureCapacity(count, count * 6)) flush();
+        if (requiresFlush(count, count * 6)) flush();
 
         setMode(GL11.GL_LINES);
         setTexture(defaultTexture);
@@ -2100,7 +2085,7 @@ public class Renderer2D implements MemoryResourceHolder {
         if (polygon.length % 2 != 0) throw new GraphicsException("Polygon must be represented as a flat array of vertices, each vertex must have x and y coordinates: [x0,y0,  x1,y1, ...]. Therefore, polygon array length must be even.");
 
         int count = polygon.length / 2;
-        if (!ensureCapacity(count, count * 6)) flush();
+        if (requiresFlush(count, count * 6)) flush();
 
         setMode(GL11.GL_LINES);
         setTexture(defaultTexture);
@@ -2179,7 +2164,7 @@ public class Renderer2D implements MemoryResourceHolder {
         if (polygon.size % 2 != 0) throw new GraphicsException("Polygon must be represented as a flat array of vertices, each vertex must have x and y coordinates: [x0,y0,  x1,y1, ...]. Therefore, polygon array length must be even.");
 
         int count = polygon.size / 2;
-        if (!ensureCapacity(count, count * 6)) flush();
+        if (requiresFlush(count, count * 6)) flush();
 
         setMode(GL11.GL_LINES);
 
@@ -2221,7 +2206,7 @@ public class Renderer2D implements MemoryResourceHolder {
         if (polygon.length % 2 != 0) throw new GraphicsException("Polygon must be represented as a flat array of vertices, each vertex must have x and y coordinates: [x0,y0,  x1,y1, ...]. Therefore, polygon array length must be even.");
 
         int count = polygon.length / 2;
-        if (!ensureCapacity(count, count * 6)) flush();
+        if (requiresFlush(count, count * 6)) flush();
 
         setMode(GL11.GL_TRIANGLES);
 
@@ -2259,7 +2244,7 @@ public class Renderer2D implements MemoryResourceHolder {
         if (polygon.length % 2 != 0) throw new GraphicsException("Polygon must be represented as a flat array of vertices, each vertex must have x and y coordinates: [x0,y0,  x1,y1, ...]. Therefore, polygon array length must be even.");
 
         int count = polygon.length / 2;
-        if (!ensureCapacity(count, count * 6)) flush();
+        if (requiresFlush(count, count * 6)) flush();
 
         setTexture(texture);
         setMode(GL11.GL_TRIANGLES);
@@ -2302,7 +2287,7 @@ public class Renderer2D implements MemoryResourceHolder {
         if (polygon.length % 2 != 0) throw new GraphicsException("Polygon must be represented as a flat array of vertices, each vertex must have x and y coordinates: [x0,y0,  x1,y1, ...]. Therefore, polygon array length must be even.");
 
         int count = polygon.length / 2;
-        if (!ensureCapacity(count, count * 6)) flush();
+        if (requiresFlush(count, count * 6)) flush();
 
         setTexture(texture);
         setMode(GL11.GL_TRIANGLES);
@@ -2359,7 +2344,7 @@ public class Renderer2D implements MemoryResourceHolder {
         if (polygon.length % 2 != 0) throw new GraphicsException("Polygon must be represented as a flat array of vertices, each vertex must have x and y coordinates: [x0,y0,  x1,y1, ...]. Therefore, polygon array length must be even.");
 
         int count = polygon.length / 2;
-        if (!ensureCapacity(count, triangles.length)) flush();
+        if (requiresFlush(count, triangles.length)) flush();
 
         setMode(GL11.GL_TRIANGLES);
         setTexture(defaultTexture);
@@ -2392,7 +2377,7 @@ public class Renderer2D implements MemoryResourceHolder {
 
     public final void drawLineThin(float x1, float y1, float x2, float y2) {
         if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
-        if (!ensureCapacity(2, 2)) flush();
+        if (requiresFlush(2, 2)) flush();
 
         setMode(GL11.GL_LINES);
         setTexture(defaultTexture);
@@ -2415,7 +2400,7 @@ public class Renderer2D implements MemoryResourceHolder {
 
     public final void drawLineThin(float p1X, float p1Y, float p2X, float p2Y, float x, float y, float degrees, float scaleX, float scaleY) {
         if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
-        if (!ensureCapacity(2, 2)) flush();
+        if (requiresFlush(2, 2)) flush();
 
         setMode(GL11.GL_LINES);
         setTexture(defaultTexture);
@@ -2453,7 +2438,7 @@ public class Renderer2D implements MemoryResourceHolder {
 
     public void drawLineFilled(float x1, float y1, float x2, float y2, float thickness) {
         if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
-        if (!ensureCapacity(4, 6)) flush();
+        if (requiresFlush(4, 6)) flush();
 
         setMode(GL11.GL_TRIANGLES);
         setTexture(defaultTexture);
@@ -2496,7 +2481,7 @@ public class Renderer2D implements MemoryResourceHolder {
 
     public void drawLineFilled(float x1, float y1, float x2, float y2, float thickness, float x, float y, float degrees, float scaleX, float scaleY) {
         if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
-        if (!ensureCapacity(4, 6)) flush();
+        if (requiresFlush(4, 6)) flush();
 
         setMode(GL11.GL_TRIANGLES);
         setTexture(defaultTexture);
@@ -2569,7 +2554,7 @@ public class Renderer2D implements MemoryResourceHolder {
     public void drawCurveThin(final Vector2... values) {
         if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
         if (values == null || values.length < 2) return;
-        if (!ensureCapacity(values.length, values.length * 2)) flush();
+        if (requiresFlush(values.length, values.length * 2)) flush();
 
         setMode(GL11.GL_LINES);
         setTexture(defaultTexture);
@@ -2593,7 +2578,7 @@ public class Renderer2D implements MemoryResourceHolder {
     public void drawCurveThin(final Vector2[] values, float x, float y, float deg, float scaleX, float scaleY) {
         if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
         if (values == null || values.length < 2) return;
-        if (!ensureCapacity(values.length, values.length * 2)) flush();
+        if (requiresFlush(values.length, values.length * 2)) flush();
 
         setMode(GL11.GL_LINES);
         setTexture(defaultTexture);
@@ -2637,7 +2622,7 @@ public class Renderer2D implements MemoryResourceHolder {
         }
 
         Array<Vector2> vertices = curveFilledCalculateVertices(stroke, smoothness, points_transformed);
-        if (!ensureCapacity(vertices.size, vertices.size)) flush();
+        if (requiresFlush(vertices.size, vertices.size)) flush();
 
         for (int i = 0; i < vertices.size; i++) {
             Vector2 vertex = vertices.get(i);
@@ -2671,7 +2656,7 @@ public class Renderer2D implements MemoryResourceHolder {
         }
 
         Array<Vector2> vertices = curveFilledCalculateVertices(stroke, smoothness, points_transformed);
-        if (!ensureCapacity(vertices.size, vertices.size)) flush();
+        if (requiresFlush(vertices.size, vertices.size)) flush();
 
         /*
         In the case of curve rendering, we might have a case where the number of vertices exceeds the capacity of the entire batch.
@@ -2716,7 +2701,7 @@ public class Renderer2D implements MemoryResourceHolder {
         }
 
         Array<Vector2> vertices = curveFilledCalculateVertices(stroke, smoothness, points_transformed);
-        if (!ensureCapacity(vertices.size, vertices.size)) flush();
+        if (requiresFlush(vertices.size, vertices.size)) flush();
 
         /*
         In the case of curve rendering, we might have a case where the number of vertices exceeds the capacity of the entire batch.
@@ -2976,7 +2961,7 @@ public class Renderer2D implements MemoryResourceHolder {
                                    float x2, float y2, float c2, float u2, float v2,
                                    float x3, float y3, float c3, float u3, float v3) {
         if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
-        if (!ensureCapacity(3, 3)) flush();
+        if (requiresFlush(3, 3)) flush();
 
         setTexture(texture);
         setMode(GL11.GL_TRIANGLES);
@@ -3012,7 +2997,7 @@ public class Renderer2D implements MemoryResourceHolder {
     public void drawStringLine(final String line, int size, boolean antialiasing, int startIndex, int endIndex, float offsetX, float offsetY, float x, float y, float deg, float sclX, float sclY) {
         if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
         flush();
-        if (!ensureCapacity(line.length() * 4, line.length() * 4)) flush();
+        if (requiresFlush(line.length() * 4, line.length() * 4)) flush();
 
         setMode(GL11.GL_TRIANGLES);
 
@@ -3102,7 +3087,7 @@ public class Renderer2D implements MemoryResourceHolder {
     public void drawFunctionThin(int widthPixels, float minX, float maxX, int refinement, Function<Float, Float> f, float x, float y, float degrees, float scaleX, float scaleY) {
         if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
         refinement = Math.max(2, refinement);
-        if (!ensureCapacity(refinement, refinement * 2)) flush();
+        if (requiresFlush(refinement, refinement * 2)) flush();
 
         setMode(GL11.GL_LINES);
         setTexture(defaultTexture);
@@ -3170,12 +3155,25 @@ public class Renderer2D implements MemoryResourceHolder {
         drawCurveFilled(strokePixels * pixelScaleHeightInv, smoothness, points, x, y, deg, scaleX, scaleY);
     }
 
+    /* Rendering Meshes */
+
+    // TODO
+    public void drawMesh(@Nullable Shader shader, Map<String, Object> shaderUniforms, Map<VertexAttribute, ArrayFloat> vbos, ArrayInt triangles) {
+
+    }
+
     /* Rendering Ops: ensureCapacity(), flush(), end(), deleteAll(), createDefaults...() */
 
-    private boolean ensureCapacity(int numVertices, int numIndices) {
+    /**
+     * returns true if the batch needs a flush (at full capacity) before the next draw operation.
+     * @param numVertices the number of indices that the next operation will write to the batch
+     * @param numIndices the number of vertices that the next operation will write to the batch
+     * @return true if the batch is at full vertex capacity
+     */
+    private boolean requiresFlush(int numVertices, int numIndices) {
         boolean hasSpaceVertices = VERTICES_CAPACITY - vertexIndex >= numVertices;
         boolean hasSpaceIndices  = indices.capacity() - indices.position() >= numIndices;
-        return hasSpaceVertices && hasSpaceIndices;
+        return !hasSpaceVertices || !hasSpaceIndices;
     }
 
     public void flush() {
@@ -3185,8 +3183,6 @@ public class Renderer2D implements MemoryResourceHolder {
         positions.flip();
         colors.flip();
         textCoords.flip();
-        normals.flip();
-        tangents.flip();
         indices.flip();
 
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vboPositions);
@@ -3213,8 +3209,6 @@ public class Renderer2D implements MemoryResourceHolder {
         positions.clear();
         colors.clear();
         textCoords.clear();
-        normals.clear();
-        tangents.clear();
         indices.clear();
         vertexIndex = 0;
         perFrameDrawCalls++;
@@ -3239,8 +3233,6 @@ public class Renderer2D implements MemoryResourceHolder {
         GL30.glDeleteBuffers(vboPositions);
         GL30.glDeleteBuffers(vboColors);
         GL30.glDeleteBuffers(vboTextCoords);
-        GL30.glDeleteBuffers(vboNormals);
-        GL30.glDeleteBuffers(vboTangents);
         GL30.glDeleteBuffers(ebo);
         defaultTexture.delete();
         defaultFont.delete();
