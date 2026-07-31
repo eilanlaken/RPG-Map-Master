@@ -59,8 +59,8 @@ public class Tool_3_Geology extends Tool_new {
         super(scene);
         atlas = Assets.get("assets/texture-packs/layer_3.yml");
 
-        sclX = 1f / 3;
-        sclY = 1f / 3;
+        sclX = 2f / 3;
+        sclY = 2f / 3;
 
         currentShape = Tool.Shape.POINT;
         currentMode = Tool.Mode.ADD;

@@ -47,13 +47,27 @@ public class SceneInput_4 implements Scene {
         panel_2.connectChild(p2_child_1);
         panel_2.connectChild(p2_child_2);
 
-        panel_1.onMouseDoubleClick(e -> {
-            System.out.println(e.target + " dbl");
-        });
-        p1_child_1.onMouseEnter(e -> {
+        panel_1.onMouseLeave(e -> {
+            System.out.println("panel_1 leave");
         });
         p1_child_1.onMouseLeave(e -> {
+            System.out.println("c1 leave");
         });
+        p1_child_2.onMouseLeave(e -> {
+            System.out.println("c2 leave");
+        });
+
+        panel_1.onMouseEnter(e -> {
+            System.out.println("panel_1 enter");
+        });
+        p1_child_1.onMouseEnter(e -> {
+            System.out.println("c1 enter");
+        });
+        p1_child_2.onMouseEnter(e -> {
+            System.out.println("c2 enter");
+        });
+
+
         // drag and drop
         p1_child_1.onMouseDragStart(e -> {
             e.target.disconnectFromParent();
@@ -108,13 +122,13 @@ public class SceneInput_4 implements Scene {
             p1_child_1.transform.x += 1;
         }
         if (Input.keyboard.isKeyPressed(Keyboard.Key.A)) {
-            panel_1.transform.x -= 1;
+            p1_child_1.transform.x -= 1;
         }
         if (Input.keyboard.isKeyPressed(Keyboard.Key.W)) {
-            panel_1.transform.y += 1;
+            p1_child_1.transform.y += 1;
         }
         if (Input.keyboard.isKeyPressed(Keyboard.Key.S)) {
-            panel_1.transform.y -= 1;
+            p1_child_1.transform.y -= 1;
         }
         if (Input.keyboard.isKeyPressed(Keyboard.Key.Q)) {
             panel_1.transform.deg += 1;
