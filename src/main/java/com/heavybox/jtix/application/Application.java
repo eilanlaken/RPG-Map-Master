@@ -225,7 +225,7 @@ public class Application {
         /* start the application with active scene */
         currentScene = scene;
         Input.registerEventHandler(currentScene);
-        UserInterface.clear();
+        UserInterface.cleanup();
         currentScene.start();
 
         /* main thread game loop */
@@ -268,6 +268,7 @@ public class Application {
         Assets.cleanup(); // TODO: implement
         Input.cleanup();
         Graphics.cleanup();
+        UserInterface.cleanup();
 
         GLFW.glfwSetWindowFocusCallback(windowHandle, null);
         GLFW.glfwSetWindowIconifyCallback(windowHandle, null);
@@ -299,7 +300,7 @@ public class Application {
     public static void playScene(@NotNull Scene scene) {
         if (!running) throw new ApplicationException("Application not running. Use launch() method if this is the first scene you are playing. Function playScene() should be called when switching scenes.");
         Input.clearEventHandlers(); // scenes should set up their own input handling logic.
-        UserInterface.clear();
+        UserInterface.cleanup();
         if (currentScene != null) {
             currentScene.finish();
         }

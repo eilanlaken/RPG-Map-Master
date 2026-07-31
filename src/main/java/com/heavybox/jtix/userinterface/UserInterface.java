@@ -506,7 +506,7 @@ public final class UserInterface {
         node.parent = null; // severe the connection completely
     }
 
-    public static void clear() {
+    public static void cleanup() {
         inputMouseDragTarget = null;
         inputMouseTarget = null;
         inputMouseDownTarget = null;
