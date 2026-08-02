@@ -20,27 +20,23 @@ import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Stack;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-// TODO: convert to a static class. Renderer2D.
 // TODO: in Graphics.cleanup(), call Renderer2D.delete()
 // TODO: in FrameBufferBinder.bind(), throw an exception if Renderer2D or Renderer3D is in drawing state.
 // TODO: in begin(), first check if Renderer3D isDrawing = true. They cannot step on each other.
 public class Renderer2D implements MemoryResourceHolder {
 
-    private static final int   VERTICES_CAPACITY = 8000; // The batch can render VERTICES_CAPACITY vertices (so wee need a float buffer of size: VERTICES_CAPACITY * VERTEX_SIZE)
-    private static final float WHITE_TINT        = Color.WHITE.toFloatBits();
+    private static final int               VERTICES_CAPACITY = 8000; // The batch can render VERTICES_CAPACITY vertices (so wee need a float buffer of size: VERTICES_CAPACITY * VERTEX_SIZE)
+    private static final float             WHITE_TINT        = Color.WHITE.toFloatBits();
+    private static final VertexAttribute[] ATTRIBUTES        = VertexAttribute.USED_FOR_2D_RENDERING;
 
-    /* defaults */ // TODO: maybe make them static?
     private static final Shader  defaultShader  = createDefaultShaderProgram();
     private static final Texture defaultTexture = createDefaultTexture();
     private static final Camera  defaultCamera  = createDefaultCamera();
-    public static final Font    defaultFont    = createDefaultFont(); // change back to private
+    private static final Font    defaultFont    = createDefaultFont(); // change back to private
 
     /* memory pools */ // TODO: remove all these memory pools. Replace with static? arrays.
     private final MemoryPool<Vector2>    vectors2Pool   = new MemoryPool<>(Vector2.class, 10);
@@ -76,13 +72,23 @@ public class Renderer2D implements MemoryResourceHolder {
     private final FloatBuffer textCoords;
     private final IntBuffer   indices;
 
+    // TODO user this vertex capacitor
+    // a sparse array containing float buffer for each 2d vertex attribute.
+    /*
+    vboBatch[POSITION_2D] = positions;
+    vboBatch[COLOR]       = colors;
+    ...
+     */
+    private final FloatBuffer[] vaoBatch = new FloatBuffer[ATTRIBUTES.length]; // TODO
+    private final int[]         vbos     = new int[ATTRIBUTES.length]; // TODO
+
     /* masking */
     private boolean drawingToStencil = false;
     private boolean maskingEnabled   = false;
 
     public Renderer2D() {
         positions  = BufferUtils.createFloatBuffer(VERTICES_CAPACITY * 2);
-        colors     = BufferUtils.createFloatBuffer(VERTICES_CAPACITY * 1);
+        colors     = BufferUtils.createFloatBuffer(VERTICES_CAPACITY);
         textCoords = BufferUtils.createFloatBuffer(VERTICES_CAPACITY * 2);
         indices    = BufferUtils.createIntBuffer(VERTICES_CAPACITY * 2);
 
@@ -106,10 +112,38 @@ public class Renderer2D implements MemoryResourceHolder {
 
         this.ebo = GL15.glGenBuffers();
         GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, ebo);
-        GL15.glBufferData(GL15.GL_ELEMENT_ARRAY_BUFFER, indices, GL15.GL_STATIC_DRAW);
+        GL15.glBufferData(GL15.GL_ELEMENT_ARRAY_BUFFER, indices, GL15.GL_DYNAMIC_DRAW);
 
         GL30.glBindVertexArray(0);
     }
+
+    // TODO this is the generalized 2d renderer
+//    public Renderer2D(boolean placeholder) {
+//        this.vao = GL30.glGenVertexArrays();
+//        GL30.glBindVertexArray(vao);
+//        Arrays.fill(vbos, -1);
+//
+//        for (VertexAttribute attribute : ATTRIBUTES) {
+//            FloatBuffer buffer = BufferUtils.createFloatBuffer(VERTICES_CAPACITY * attribute.dimension);
+//            vaoBatch[attribute.ordinal()] = buffer;
+//            final int vbo = GL15.glGenBuffers();
+//            vbos[attribute.ordinal()] = vbo;
+//
+//            GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vbo); // bind
+//            GL15.glBufferData(GL15.GL_ARRAY_BUFFER, buffer, GL15.GL_DYNAMIC_DRAW);
+//            GL20.glVertexAttribPointer(attribute.glslLocation, attribute.dimension, attribute.glType, attribute.normalized, 0, 0);
+//        }
+//        indices = BufferUtils.createIntBuffer(VERTICES_CAPACITY * 2);
+//        this.ebo = GL15.glGenBuffers();
+//        GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, ebo);
+//        GL15.glBufferData(GL15.GL_ELEMENT_ARRAY_BUFFER, indices, GL15.GL_STATIC_DRAW);
+//
+//        positions = vaoBatch[VertexAttribute.POSITION_2D.ordinal()];
+//        colors = vaoBatch[VertexAttribute.COLOR.ordinal()];
+//        textCoords = vaoBatch[VertexAttribute.TEXT_COORDS0.ordinal()];
+//
+//        GL30.glBindVertexArray(0);
+//    }
 
     public Camera getCurrentCamera() {
         return currentCamera;
@@ -3176,8 +3210,48 @@ public class Renderer2D implements MemoryResourceHolder {
         return !hasSpaceVertices || !hasSpaceIndices;
     }
 
+    // TODO: work on this when trying out multiple shaders and general mesh rendering.
+    public void flush_2() {
+        if (vertexIndex == 0) return;
+
+        // copy used buffers to the gpu
+        GL30.glBindVertexArray(vao);
+        for (int i = 0; i < ATTRIBUTES.length; i++) {
+            VertexAttribute attribute = ATTRIBUTES[i];
+            int vbo = vbos[i];
+            if (vbo == -1) continue;
+            FloatBuffer buffer = vaoBatch[i];
+            if (currentShader.hasVertexAttribute(attribute) && buffer != null) {
+                buffer.flip();
+                GL20.glEnableVertexAttribArray(attribute.glslLocation); // enable attribute
+                GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vbo);
+                GL15.glBufferSubData(GL15.GL_ARRAY_BUFFER, 0, buffer);
+            } else {
+                GL20.glDisableVertexAttribArray(attribute.glslLocation); // disable attribute
+            }
+        }
+
+        // draw elements
+        if (indices.position() == 0) {
+            GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, ebo);
+            GL15.glBufferSubData(GL15.GL_ELEMENT_ARRAY_BUFFER, 0, indices);
+            GL11.glDrawElements(currentMode, indices.limit(), GL11.GL_UNSIGNED_INT, 0);
+        } else { // draw arrays
+            GL11.glDrawArrays(currentMode, 0, vertexIndex);
+        }
+
+        // reset
+        GL30.glBindVertexArray(0);
+        for (FloatBuffer buffer : vaoBatch) {
+            if (buffer != null) buffer.clear();
+        }
+        indices.clear();
+        vertexIndex = 0;
+        perFrameDrawCalls++;
+    }
+
     // TODO: revisit with VertexAttribute in mind.
-    public void flush() {
+    @Deprecated public void flush() {
         if (vertexIndex == 0) return;
 
         GL30.glBindVertexArray(vao);
@@ -3199,7 +3273,7 @@ public class Renderer2D implements MemoryResourceHolder {
         GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, ebo);
         GL15.glBufferSubData(GL15.GL_ELEMENT_ARRAY_BUFFER, 0, indices);
 
-        for (VertexAttribute attribute : VertexAttribute.values()) {
+        for (VertexAttribute attribute : ATTRIBUTES) {
             final boolean hasAttribute = (currentShader.vertexAttributesBitmask & attribute.bitmask) != 0;
             if (hasAttribute) GL20.glEnableVertexAttribArray(attribute.glslLocation); // enable attribute
             else GL20.glDisableVertexAttribArray(attribute.glslLocation); // disable attribute

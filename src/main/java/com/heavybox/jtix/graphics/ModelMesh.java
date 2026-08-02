@@ -35,8 +35,8 @@ public class ModelMesh implements MemoryResource {
             storeIndicesBuffer(indices, vbosCollector);
             storeDataInAttributeList(VertexAttribute.TEXT_COORDS0, uvs, attributesCollector, vbosCollector);
             storeDataInAttributeList(VertexAttribute.NORMAL_3D, normals, attributesCollector, vbosCollector);
-            storeDataInAttributeList(VertexAttribute.TANGENT, tangents, attributesCollector, vbosCollector);
-            storeDataInAttributeList(VertexAttribute.BI_TANGENT, biTangents, attributesCollector, vbosCollector); // TODO: remove
+            storeDataInAttributeList(VertexAttribute.TANGENT_3D, tangents, attributesCollector, vbosCollector);
+            storeDataInAttributeList(VertexAttribute.BITANGENT_3D, biTangents, attributesCollector, vbosCollector); // TODO: remove
         }
         GL30.glBindVertexArray(0);
 

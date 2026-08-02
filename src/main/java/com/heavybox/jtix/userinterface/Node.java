@@ -7,7 +7,6 @@ import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Transform2D;
-import com.heavybox.jtix.math.Vector2;
 import com.heavybox.jtix.widgets.WidgetsException;
 import org.jetbrains.annotations.NotNull;
 
@@ -32,7 +31,7 @@ public abstract class Node {
     public  final Transform2D   transform            = new Transform2D(); // used for absolute positioning from root and animations
     private final Transform2D   transformOffset      = new Transform2D(); // set by the parent layout object.
     private final Transform2D   transformScreen      = new Transform2D(); // calculated every frame either by self or parent
-    public        Layout        layoutChildren       = null;
+    public        Layout        layout               = null;
 
     /*** input handling and state management ***/ // TODO: add a flag that allows events to penetrate to parent. Maybe re-add preventDefault flag.
     private final HitZone       hitZone              = new HitZone();
@@ -106,7 +105,7 @@ public abstract class Node {
     }
 
     private void setChildrenOffsets() {
-        if (layoutChildren == null) { // default no layout behaviour
+        if (layout == null) { // default no layout behaviour
             for (Node child : children) {
                 if (!child.active) continue;
                 if (child.anchor != null) continue;
@@ -118,11 +117,11 @@ public abstract class Node {
         UserInterface.layoutChildren.clear();
         UserInterface.layoutOffsets.clear();
         for (Node child : children) {
-            if (!layoutChildren.includes(child)) continue;
+            if (!layout.includes(child)) continue;
             UserInterface.layoutChildren.add(child);
             UserInterface.layoutOffsets.add(child.transformOffset);
         }
-        layoutChildren.setChildTransformOffset(UserInterface.layoutChildren, UserInterface.layoutOffsets);
+        layout.setChildTransformOffset(UserInterface.layoutChildren, UserInterface.layoutOffsets);
     }
 
     private void setOffsetsAnchor() {
@@ -304,18 +303,6 @@ public abstract class Node {
         return hit;
     }
 
-    final boolean hitTestSubtree(float pointerX, float pointerY) {
-        if (!isActive()) return false;
-        if (!Input.mouse.isCursorInWindow()) return false;
-
-        boolean hit = hitTest(pointerX, pointerY);
-        for (final Node child : children) {
-            hit |= child.hitTestSubtree(pointerX, pointerY);
-        }
-
-        return hit;
-    }
-
     private int getMaskingIndex() {
         if (parent != null && parent.maskChildren()) return parent.getMaskingIndex() + 1;
         else return 1;
@@ -472,149 +459,4 @@ public abstract class Node {
         transformScreen.sclX = transform.sclX * refSclX;
         transformScreen.sclY = transform.sclY * refSclY;
     }
- */
-
-/*
-
-private void setOffsetsAnchor() {
-        if (anchor == null) return;
-
-        float width = getWidth();
-        float height = getHeight();
-        float halfWidth = width * 0.5f;
-        float halfHeight = height * 0.5f;
-        float min_x = -width * 0.5f;
-        float max_x = width * 0.5f;
-        float min_y = -height * 0.5f;
-        float max_y = height * 0.5f;
-
-        float screen_min_x;
-        float screen_max_x;
-        float screen_min_y;
-        float screen_max_y;
-        float center_x;
-        float center_y;
-
-        float halfParentWidth = parent == null ? Graphics.getWindowWidth() * 0.5f : parent.getWidth() * 0.5f;
-        float halfParentHeight = parent == null ? Graphics.getWindowHeight() * 0.5f : parent.getHeight() * 0.5f;
-
-        float pointerX = Widgets.getPointerX();
-        float pointerY = Widgets.getPointerY();
-
-        float parent_screen_x = parent == null ? 0 : parent.transformScreen.x;
-        float parent_screen_y = parent == null ? 0 : parent.transformScreen.y;
-
-        switch (anchor) {
-            case PARENT_CENTER_RIGHT:
-                screen_max_x = halfParentWidth - max_x;
-                transformOffset.x = screen_max_x;
-                transformOffset.y = 0;
-                break;
-            case PARENT_CENTER_LEFT:
-                screen_min_x = min_x + halfParentWidth;
-                transformOffset.x = -screen_min_x;
-                transformOffset.y = 0;
-                break;
-            case PARENT_TOP_CENTER:
-                screen_max_y = halfParentHeight - max_y;
-                transformOffset.x = 0;
-                transformOffset.y = screen_max_y;
-                break;
-            case PARENT_BOTTOM_CENTER:
-                screen_min_y = min_y + halfParentHeight;
-                transformOffset.x = 0;
-                transformOffset.y = -screen_min_y;
-                break;
-            case PARENT_TOP_LEFT:
-                screen_min_x = min_x + halfParentWidth;
-                screen_max_y = halfParentHeight - max_y;
-                transformOffset.x = -screen_min_x;
-                transformOffset.y = screen_max_y;
-                break;
-            case PARENT_TOP_RIGHT:
-                screen_max_x = halfParentWidth - max_x;
-                screen_max_y = halfParentHeight - max_y;
-                transformOffset.x = screen_max_x;
-                transformOffset.y = screen_max_y;
-                break;
-            case PARENT_BOTTOM_RIGHT:
-                screen_max_x = halfParentWidth - max_x;
-                screen_min_y = min_y + halfParentHeight;
-                transformOffset.x = screen_max_x;
-                transformOffset.y = -screen_min_y;
-                break;
-            case PARENT_BOTTOM_LEFT:
-                screen_min_x = min_x + halfParentWidth;
-                screen_min_y = min_y + halfParentHeight;
-                transformOffset.x = -screen_min_x;
-                transformOffset.y = -screen_min_y;
-                break;
-            case PARENT_CENTER_CENTER:
-                screen_min_x = min_x + halfParentWidth;
-                screen_min_y = min_y + halfParentHeight;
-                screen_max_x = halfParentWidth - max_x;
-                screen_max_y = halfParentHeight - max_y;
-                center_x = (screen_min_x + screen_max_x) * 0.5f;
-                center_y = (screen_min_y + screen_max_y) * 0.5f;
-                transformOffset.x = -center_x;
-                transformOffset.y = -center_y;
-                break;
-            case CURSOR_TOP_LEFT:
-                screen_min_x = halfWidth;
-                screen_max_y = -halfHeight;
-                transformOffset.x = (pointerX + screen_min_x - parent_screen_x);
-                transformOffset.y = (pointerY + screen_max_y - parent_screen_y);
-                break;
-            case CURSOR_TOP_CENTER:
-                screen_max_y = -halfHeight;
-                transformOffset.x = (pointerX - parent_screen_x);
-                transformOffset.y = (pointerY + screen_max_y - parent_screen_y);
-                break;
-            case CURSOR_TOP_RIGHT:
-                screen_max_x = -halfWidth;
-                screen_max_y = -halfHeight;
-                transformOffset.x = (pointerX + screen_max_x - parent_screen_x);
-                transformOffset.y = (pointerY + screen_max_y - parent_screen_y);
-                break;
-            case CURSOR_CENTER_LEFT:
-                screen_min_x = halfWidth;
-                transformOffset.x = (pointerX + screen_min_x - parent_screen_x);
-                transformOffset.y = (pointerY + 0 - parent_screen_y);
-                break;
-            case CURSOR_CENTER_RIGHT:
-                screen_min_x = -halfWidth;
-                transformOffset.x = (pointerX + screen_min_x - parent_screen_x);
-                transformOffset.y = (pointerY + 0 - parent_screen_y);
-                break;
-            case CURSOR_BOTTOM_LEFT:
-                screen_min_x = halfWidth;
-                screen_min_y = halfHeight;
-                transformOffset.x = (pointerX + screen_min_x - parent_screen_x);
-                transformOffset.y = (pointerY + screen_min_y - parent_screen_y);
-                break;
-            case CURSOR_BOTTOM_CENTER:
-                screen_max_y = halfHeight;
-                transformOffset.x = (pointerX - parent_screen_x);
-                transformOffset.y = (pointerY + screen_max_y - parent_screen_y);
-                break;
-            case CURSOR_BOTTOM_RIGHT:
-                screen_max_x = -halfWidth;
-                screen_min_y = halfHeight;
-                transformOffset.x = (pointerX + screen_max_x - parent_screen_x);
-                transformOffset.y = (pointerY + screen_min_y - parent_screen_y);
-                break;
-            case CURSOR_CENTER_CENTER:
-                screen_min_x = min_x + halfWidth;
-                screen_min_y = min_y + halfHeight;
-                screen_max_x = halfWidth - max_x;
-                screen_max_y = halfHeight - max_y;
-                center_x = (screen_min_x + screen_max_x) * 0.5f;
-                center_y = (screen_min_y + screen_max_y) * 0.5f;
-                transformOffset.x = (pointerX - center_x - parent_screen_x);
-                transformOffset.y = (pointerY - center_y - parent_screen_y);
-                break;
-        }
-    }
-
-
  */
