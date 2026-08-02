@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-// TODO: make clone()able
+// TODO: remove MemoryResource
 public class ModelMaterial implements MemoryResource, Cloneable {
 
     public String name = null;
@@ -15,6 +15,7 @@ public class ModelMaterial implements MemoryResource, Cloneable {
     public boolean transparent = false;
     public HashMap<String, Object> materialAttributes = new HashMap<>();
 
+    // TODO: remove memory resource. This can cause a serious error when cleaning up materials that share textures.
     @Override
     public void delete() {
         for (Map.Entry<String, Object> attribute : materialAttributes.entrySet()) {
@@ -52,25 +53,6 @@ public class ModelMaterial implements MemoryResource, Cloneable {
         return name + ": ModelMaterial{" +
                 materialAttributes +
                 '}';
-    }
-
-    // TODO
-    public static ModelMaterial createPBRMaterial() {
-        ModelMaterial material = new ModelMaterial();
-        material.materialAttributes.put("u_color_diffuse", Color.RED.clone()); // TODO
-        material.materialAttributes.put("u_texture_diffuse", Graphics.getTextureSingleWhitePixel()); // TODO
-
-        material.materialAttributes.put("u_prop_metallic", 0.04f); // TODO
-        material.materialAttributes.put("u_texture_metalness", Graphics.getTextureSingleWhitePixel()); // TODO
-
-        material.materialAttributes.put("u_prop_roughness", 0.8f); // TODO
-        material.materialAttributes.put("u_texture_roughness", Graphics.getTextureSingleWhitePixel()); // TODO
-
-        material.materialAttributes.put("u_prop_opacity", 1.0f); // TODO
-        material.materialAttributes.put("u_texture_opacity", Graphics.getTextureSingleWhitePixel()); // TODO
-
-        material.materialAttributes.put("u_texture_normalMap", Graphics.getTextureSinglePixelNormalMap()); // TODO
-        return material;
     }
 
     public static ModelMaterial create() {
