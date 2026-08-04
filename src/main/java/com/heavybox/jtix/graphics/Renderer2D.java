@@ -29,9 +29,10 @@ import java.util.stream.Collectors;
 // TODO: in begin(), first check if Renderer3D isDrawing = true. They cannot step on each other.
 public class Renderer2D implements MemoryResourceHolder {
 
-    private static final int               VERTICES_CAPACITY = 8000; // The batch can render VERTICES_CAPACITY vertices (so wee need a float buffer of size: VERTICES_CAPACITY * VERTEX_SIZE)
-    private static final float             WHITE_TINT        = Color.WHITE.toFloatBits();
-    private static final VertexAttribute[] ATTRIBUTES        = VertexAttribute.USED_FOR_2D_RENDERING;
+    private static final Vector2 tmp = new Vector2(); // used for in-place optimization.
+
+    private static final int               VERTICES_CAPACITY = 8000; // The batch can render VERTICES_CAPACITY vertices (so wee need float buffers of size: VERTICES_CAPACITY * 2 for positions, * 1 for colors, * 2 for uvs etc.)
+    private static final VertexAttribute[] ATTRIBUTES_2D     = VertexAttribute.USED_FOR_2D_RENDERING;
 
     private static final Shader  defaultShader  = createDefaultShaderProgram();
     private static final Texture defaultTexture = createDefaultTexture();
@@ -51,7 +52,7 @@ public class Renderer2D implements MemoryResourceHolder {
     private Texture   currentTexture      = defaultTexture;
     private Font      currentFont         = defaultFont; // TODO
     private Shader    currentShader       = null;
-    private float     currentTint         = WHITE_TINT;
+    private float     currentTint         = Color.WHITE.toFloatBits();
     private boolean   drawing             = false;
     private int       vertexIndex         = 0;
     private int       currentMode         = GL11.GL_TRIANGLES;
@@ -79,8 +80,8 @@ public class Renderer2D implements MemoryResourceHolder {
     vboBatch[COLOR]       = colors;
     ...
      */
-    private final FloatBuffer[] vaoBatch = new FloatBuffer[ATTRIBUTES.length]; // TODO
-    private final int[]         vbos     = new int[ATTRIBUTES.length]; // TODO
+    private final FloatBuffer[] vaoBatch = new FloatBuffer[ATTRIBUTES_2D.length]; // TODO
+    private final int[]         vbos     = new int[ATTRIBUTES_2D.length]; // TODO
 
     /* masking */
     private boolean drawingToStencil = false;
@@ -202,7 +203,7 @@ public class Renderer2D implements MemoryResourceHolder {
         setShaderUniforms(null);
         setTexture(defaultTexture);
         setMode(GL11.GL_TRIANGLES);
-        setColor(WHITE_TINT);
+        setColor(Color.WHITE.toFloatBits());
         this.drawing = true;
     }
 
@@ -465,41 +466,31 @@ public class Renderer2D implements MemoryResourceHolder {
         float widthHalf  = texture.width  * scaleX * 0.5f;
         float heightHalf = texture.height * scaleY * 0.5f;
 
-        Vector2 arm0 = vectors2Pool.allocate();
-        Vector2 arm1 = vectors2Pool.allocate();
-        Vector2 arm2 = vectors2Pool.allocate();
-        Vector2 arm3 = vectors2Pool.allocate();
-
-        arm0.x = -widthHalf;
-        arm0.y =  heightHalf;
-        arm0.rotateDeg(degrees);
-
-        arm1.x = -widthHalf;
-        arm1.y = -heightHalf;
-        arm1.rotateDeg(degrees);
-
-        arm2.x =  widthHalf;
-        arm2.y = -heightHalf;
-        arm2.rotateDeg(degrees);
-
-        arm3.x = widthHalf;
-        arm3.y = heightHalf;
-        arm3.rotateDeg(degrees);
-
-        /* put vertices */
-        positions.put(arm0.x + x).put(arm0.y + y);
+        tmp.x = -widthHalf;
+        tmp.y =  heightHalf;
+        tmp.rotateDeg(degrees);
+        positions.put(tmp.x + x).put(tmp.y + y);
         colors.put(currentTint);
         textCoords.put(0).put(0);
 
-        positions.put(arm1.x + x).put(arm1.y + y);
+        tmp.x = -widthHalf;
+        tmp.y = -heightHalf;
+        tmp.rotateDeg(degrees);
+        positions.put(tmp.x + x).put(tmp.y + y);
         colors.put(currentTint);
         textCoords.put(0).put(1);
 
-        positions.put(arm2.x + x).put(arm2.y + y);
+        tmp.x = widthHalf;
+        tmp.y = -heightHalf;
+        tmp.rotateDeg(degrees);
+        positions.put(tmp.x + x).put(tmp.y + y);
         colors.put(currentTint);
         textCoords.put(1).put(1);
 
-        positions.put(arm3.x + x).put(arm3.y + y);
+        tmp.x = widthHalf;
+        tmp.y = heightHalf;
+        tmp.rotateDeg(degrees);
+        positions.put(tmp.x + x).put(tmp.y + y);
         colors.put(currentTint);
         textCoords.put(1).put(0);
 
@@ -512,12 +503,6 @@ public class Renderer2D implements MemoryResourceHolder {
         indices.put(startVertex + 1);
         indices.put(startVertex + 2);
         vertexIndex += 4;
-
-        /* free resources */
-        vectors2Pool.free(arm0);
-        vectors2Pool.free(arm1);
-        vectors2Pool.free(arm2);
-        vectors2Pool.free(arm3);
     }
 
 
@@ -3187,13 +3172,13 @@ public class Renderer2D implements MemoryResourceHolder {
 
     /**
      * returns true if the batch needs a flush (at full capacity) before the next draw operation.
-     * @param numVertices the number of indices that the next operation will write to the batch
-     * @param numIndices the number of vertices that the next operation will write to the batch
+     * @param extraVertices the number of vertices that the next operation will write to the batch
+     * @param extraIndices the number of indices that the next operation will write to the batch
      * @return true if the batch is at full vertex capacity
      */
-    private boolean requiresFlush(int numVertices, int numIndices) {
-        boolean hasSpaceVertices = VERTICES_CAPACITY - vertexIndex >= numVertices;
-        boolean hasSpaceIndices  = indices.capacity() - indices.position() >= numIndices;
+    private boolean requiresFlush(int extraVertices, int extraIndices) {
+        boolean hasSpaceVertices = vertexIndex + extraVertices < VERTICES_CAPACITY;
+        boolean hasSpaceIndices  = indices.position() + extraIndices < indices.capacity();
         return !hasSpaceVertices || !hasSpaceIndices;
     }
 
@@ -3203,8 +3188,8 @@ public class Renderer2D implements MemoryResourceHolder {
 
         // copy used buffers to the gpu
         GL30.glBindVertexArray(vao);
-        for (int i = 0; i < ATTRIBUTES.length; i++) {
-            VertexAttribute attribute = ATTRIBUTES[i];
+        for (int i = 0; i < ATTRIBUTES_2D.length; i++) {
+            VertexAttribute attribute = ATTRIBUTES_2D[i];
             int vbo = vbos[i];
             if (vbo == -1) continue;
             FloatBuffer buffer = vaoBatch[i];
@@ -3260,7 +3245,7 @@ public class Renderer2D implements MemoryResourceHolder {
         GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, ebo);
         GL15.glBufferSubData(GL15.GL_ELEMENT_ARRAY_BUFFER, 0, indices);
 
-        for (VertexAttribute attribute : ATTRIBUTES) {
+        for (VertexAttribute attribute : ATTRIBUTES_2D) {
             final boolean hasAttribute = (currentShader.vertexAttributesBitmask & attribute.bitmask) != 0;
             if (hasAttribute) GL20.glEnableVertexAttribArray(attribute.glslLocation); // enable attribute
             else GL20.glDisableVertexAttribArray(attribute.glslLocation); // disable attribute

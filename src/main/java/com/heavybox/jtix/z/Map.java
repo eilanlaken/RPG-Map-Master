@@ -173,7 +173,7 @@ public class Map {
         GL11.glClearColor(1.0f,1.0f,1.0f,1);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_STENCIL_BUFFER_BIT); // should probably clear the stencil
         renderer2D.begin(camera);
-        renderer2D.blendingSet(GL_ONE, GL_ONE_MINUS_SRC_ALPHA); // TODO <- this fixes the dark artifacts.
+        renderer2D.blendingSet(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 
         // render layer-0
         renderer2D.drawTexture(surface_0_terrain.getTexture(), 0, 0, 0, 1,1);

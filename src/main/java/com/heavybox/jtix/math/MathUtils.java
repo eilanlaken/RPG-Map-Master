@@ -1224,7 +1224,6 @@ public final class MathUtils {
         return inside;
     }
 
-    // TODO: write tests.
     // NOTE: the winding order of the polygon does not matter here.
     public static boolean polygonContainsPoint(@NotNull final ArrayFloat polygon, float x, float y) {
         if (polygon.size < 6) throw new MathException("A polygon requires a minimum of 3 vertices, so the polygon array must be of length > 6. Got: " + polygon.size);
@@ -1240,8 +1239,7 @@ public final class MathUtils {
             float xj = polygon.get(2 * j);
             float yj = polygon.get(2 * j + 1);
 
-            boolean intersect = ((yi > y) != (yj > y)) &&
-                    (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+            boolean intersect = ((yi > y) != (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
             if (intersect) result = !result;
         }
 

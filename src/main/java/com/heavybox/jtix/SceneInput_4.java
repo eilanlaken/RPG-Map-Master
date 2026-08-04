@@ -9,6 +9,7 @@ import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.userinterface.NodeShape;
+import com.heavybox.jtix.userinterface.NodeText;
 import com.heavybox.jtix.userinterface.UserInterface;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.opengl.GL11;
@@ -23,7 +24,8 @@ public class SceneInput_4 implements Scene {
     NodeShape p2_child_1 = new NodeShape(80,80);
     NodeShape p2_child_2 = new NodeShape(80,80);
 
-    NodeShape rect = new NodeShape(55);
+    NodeShape shape = new NodeShape(55);
+    NodeText text = new NodeText("hello text");
 
     Renderer2D renderer2D = new Renderer2D();
 
@@ -46,6 +48,9 @@ public class SceneInput_4 implements Scene {
         p2_child_2.transform.y = -60;
         panel_2.connectChild(p2_child_1);
         panel_2.connectChild(p2_child_2);
+
+        shape.setToCircleArc(55,22,30);
+        shape.connectChild(text);
 
         panel_1.onMouseLeave(e -> {
             System.out.println("panel_1 leave");
@@ -99,7 +104,7 @@ public class SceneInput_4 implements Scene {
 
         UserInterface.add(panel_1);
         UserInterface.add(panel_2);
-        UserInterface.add(rect);
+        UserInterface.add(shape);
     }
 
     @Override

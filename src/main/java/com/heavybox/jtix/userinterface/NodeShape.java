@@ -7,7 +7,7 @@ import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.math.MathUtils;
 import org.jetbrains.annotations.NotNull;
 
-// TODO: finish all shapes and fill types.
+// TODO: add curves and functions
 public class NodeShape extends Node {
 
     public Color color = Color.randomOpaque();
@@ -30,35 +30,59 @@ public class NodeShape extends Node {
 
     public void setToRectangle(float width, float height) {
         points.clear();
+        indices.clear();
         float widthHalf = width * 0.5f;
         float heightHalf = height * 0.5f;
         points.add(-widthHalf, -heightHalf);
         points.add( widthHalf, -heightHalf);
         points.add( widthHalf,  heightHalf);
         points.add(-widthHalf,  heightHalf);
-        updateInternals();
+        points.pack();
+        MathUtils.polygonTriangulate(points, indices);
+        indices.pack();
+        this.width = width;
+        this.height = height;
     }
 
     public void setToCircle(float r, int refinement) {
         points.clear();
+        indices.clear();
         refinement = Math.max(refinement, 3);
         float da = 360f / refinement;
         for (int i = 0; i < refinement; i++) {
             points.add(r * MathUtils.cosDeg(da * i));
             points.add(r * MathUtils.sinDeg(da * i));
         }
-        updateInternals();
+        points.pack();
+        MathUtils.polygonTriangulate(points, indices);
+        indices.pack();
+        width = 2 * Math.abs(r);
+        height = 2 * Math.abs(r);
+    }
+
+    public void setToCircleArc(float r, int refinement, float angleDeg) {
+        points.clear();
+        indices.clear();
+        refinement = Math.max(refinement, 3);
+        float da = angleDeg / refinement;
+        points.add(0,0);
+        for (int i = 0; i < refinement; i++) {
+            points.add(r * MathUtils.cosDeg(da * i));
+            points.add(r * MathUtils.sinDeg(da * i));
+        }
+        points.pack();
+        MathUtils.polygonTriangulate(points, indices);
+        indices.pack();
+        width = 2 * Math.abs(r);
+        height = 2 * Math.abs(r);
     }
 
     public void setToPolygon(final float[] polygonPoints) {
         points.clear();
+        indices.clear();
         points.addAll(polygonPoints);
-        updateInternals();
-    }
 
-    private void updateInternals() {
-        if (points.size < 6 || points.size % 2 != 0) return;
-        // triangulate
+        if (points.size < 6 || points.size % 2 != 0) return; // TODO: maybe throw exception here
         points.pack();
         MathUtils.polygonTriangulate(points, indices);
         indices.pack();
@@ -79,6 +103,7 @@ public class NodeShape extends Node {
         height = maxY - minY;
     }
 
+
     @Override
     protected void draw(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
         renderer2D.setColor(color);
@@ -98,12 +123,6 @@ public class NodeShape extends Node {
     @Override
     protected void setHitZone(@NotNull HitZone hitZone) {
         hitZone.setToPolygon(points.items);
-    }
-
-    public enum FillType {
-        FILLED,
-        BORDER,
-        THIN,
     }
 
 }
