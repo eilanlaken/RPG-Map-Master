@@ -12,7 +12,7 @@ public class NodeText extends Node {
     public Color     color        = Color.WHITE.clone();
     public String    text         = "";
     public Font      font         = null;
-    public int       size         = 18;
+    public int       size         = 22;
     public boolean   antialiasing = true;
     public float     lineSpacing  = 1.1f;
     public Alignment alignment    = null;
@@ -28,8 +28,8 @@ public class NodeText extends Node {
     /* internally calculated values and metrics */
     private float width;
     private float height;
-    private final Array<String> textLines  = new Array<>(true, 1);
-    private final ArrayFloat linesWidths = new ArrayFloat(true, 1);
+    private final Array<String> textLines   = new Array<>(true, 1);
+    private final ArrayFloat    linesWidths = new ArrayFloat(true, 1);
 
     public NodeText(String text) {
         this.text = text;
@@ -93,8 +93,6 @@ public class NodeText extends Node {
             width = Math.max(width, lineWidth);
             linesWidths.add(lineWidth);
         }
-        System.out.println("recalc");
-        // TODO: continue
     }
 
     protected void onFixedUpdateText(float delta) {}

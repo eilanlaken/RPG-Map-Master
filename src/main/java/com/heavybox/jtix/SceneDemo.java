@@ -45,13 +45,6 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
     // user-interface
     private final Widget widgetHelpBar = new Widget();
 
-    /*
-    private final Widget widgetActionsBar = new Widget();
-    private final Widget widgetStatisticsBar = new Widget();
-    private final Widget widgetTools = new Widget();
-    private WidgetNodeToolbar toolbar;
-    private WidgetNodeToolSettings toolSettings;
-    */
 
     public SceneDemo() {
         renderer2D = new Renderer2D();

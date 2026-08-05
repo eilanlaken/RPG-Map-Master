@@ -651,7 +651,7 @@ public class Renderer2D implements MemoryResourceHolder {
         vectors2Pool.free(arm3);
     }
 
-    public void drawTextureRegion(TextureRegion region, float x, float y, float degrees, float scaleX, float scaleY) {
+    public void drawTextureRegion(@NotNull TextureRegion region, float x, float y, float degrees, float scaleX, float scaleY) {
         if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
         if (requiresFlush(4, 6)) flush();
 
