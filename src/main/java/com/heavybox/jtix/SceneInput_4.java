@@ -110,6 +110,7 @@ public class SceneInput_4 implements Scene {
     @Override
     public boolean mouseButtonsDown(int mouseX, int mouseY, @NotNull Array<Mouse.Button> buttons) {
         //System.out.println("screen");
+        text.text = "abs asdakl asdasldkj asd \nasdkals \nasdalkj ";
         return true;
     }
 
