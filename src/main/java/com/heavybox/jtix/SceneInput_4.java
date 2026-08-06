@@ -28,7 +28,7 @@ public class SceneInput_4 implements Scene {
     NodeText text = new NodeText("hello text");
     NodePicture picture;
 
-    NodeValueSlider slider = new NodeValueSlider();
+    NodeSlider slider = new NodeSlider();
 
     Renderer2D renderer2D = new Renderer2D();
     TexturePack atlas;

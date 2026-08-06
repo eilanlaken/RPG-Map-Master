@@ -5,31 +5,30 @@ import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Vector2;
 
-public class NodeValueSlider extends Node implements NodeValue<Float> {
+public class NodeSlider extends Node {
 
-    public boolean horizontal = true;
+    public boolean horizontal = true; // TODO
 
     public float min = 0;
     public float max = 1;
     public float val = 0.5f; // sliding will change this fraction.
 
     /* TODO: theme. See how to make it flexible */
-    public float width     = 200;
+    public float size = 200;
     public float thickness = 7.5f;
     public float thumbSize = 18;
     public final Color colorBar = Color.GRAY.clone();
     public final Color colorThumb = Color.valueOf("0075FF");
     public final Color colorFill  = Color.valueOf("0075FF");
 
-    public NodeValueSlider() {
-        onMouseDownDefault(e -> {
-            System.out.println(e.mouseLocalX);
-            float value = 0.5f + e.mouseLocalX / width;
+    public NodeSlider() {
+        onMouseDragStartDefault(e -> {
+            float value = 0.5f + e.mouseLocalX / size;
             setValue(value);
         });
 
         onMouseDragDefault(e -> {
-            setValue(val + (e.mouseLocalX - e.mouseLocalXPrev) / width);
+            setValue(val + (e.mouseLocalX - e.mouseLocalXPrev) / size);
         });
     }
 
@@ -41,14 +40,14 @@ public class NodeValueSlider extends Node implements NodeValue<Float> {
 
     protected void drawBar(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
         renderer2D.setColor(colorBar);
-        renderer2D.drawLineFilled(-width * 0.5f, 0, width * 0.5f, 0, thickness, x, y, deg, sclX, sclY);
+        renderer2D.drawLineFilled(-size * 0.5f, 0, size * 0.5f, 0, thickness, x, y, deg, sclX, sclY);
         renderer2D.setColor(colorFill);
-        renderer2D.drawLineFilled(-width * 0.5f, 0, -width * 0.5f + width * val, 0, thickness, x, y, deg, sclX, sclY);
+        renderer2D.drawLineFilled(-size * 0.5f, 0, -size * 0.5f + size * val, 0, thickness, x, y, deg, sclX, sclY);
     }
 
     protected void drawThumb(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
         // calculate offset
-        float offset_x = width * (val - 0.5f);
+        float offset_x = size * (val - 0.5f);
         float offset_y = 0;
         Vector2 offset_transformed = new Vector2(offset_x, offset_y);
         offset_transformed.scl(sclX, sclY);
@@ -60,7 +59,7 @@ public class NodeValueSlider extends Node implements NodeValue<Float> {
 
     @Override
     protected float getWidth() {
-        return width + thumbSize * 0.75f;
+        return size + thumbSize * 0.75f;
     }
 
     @Override
@@ -68,12 +67,10 @@ public class NodeValueSlider extends Node implements NodeValue<Float> {
         return Math.max(thickness, thumbSize);
     }
 
-    @Override
     public Float getValue() {
         return min + val * (max - min);
     }
 
-    @Override
     public void setValue(Float value) {
         this.val = value != null ? MathUtils.clampFloat(value, 0, 1) : 0.5f;
     }
