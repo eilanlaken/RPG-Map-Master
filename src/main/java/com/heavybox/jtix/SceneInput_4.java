@@ -10,10 +10,7 @@ import com.heavybox.jtix.graphics.TexturePack;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
-import com.heavybox.jtix.userinterface.NodePicture;
-import com.heavybox.jtix.userinterface.NodeShape;
-import com.heavybox.jtix.userinterface.NodeText;
-import com.heavybox.jtix.userinterface.UserInterface;
+import com.heavybox.jtix.userinterface.*;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.opengl.GL11;
 
@@ -30,8 +27,10 @@ public class SceneInput_4 implements Scene {
     NodeShape shape = new NodeShape(55);
     NodeText text = new NodeText("hello text");
     NodePicture picture;
-    Renderer2D renderer2D = new Renderer2D();
 
+    NodeValueSlider slider = new NodeValueSlider();
+
+    Renderer2D renderer2D = new Renderer2D();
     TexturePack atlas;
 
     @Override
@@ -116,15 +115,16 @@ public class SceneInput_4 implements Scene {
 
         UserInterface.add(panel_1);
         UserInterface.add(panel_2);
-        UserInterface.add(shape);
-        UserInterface.add(picture);
+        //UserInterface.add(shape);
+        //UserInterface.add(picture);
+        UserInterface.add(slider);
     }
 
     @Override
     public boolean mouseButtonsDown(int mouseX, int mouseY, @NotNull Array<Mouse.Button> buttons) {
         //System.out.println("screen");
         text.text = "abs asdakl asdasldkj asd \nasdkals \nasdalkj ";
-        return true;
+        return false;
     }
 
 

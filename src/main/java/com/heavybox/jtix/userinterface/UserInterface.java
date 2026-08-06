@@ -118,12 +118,11 @@ public final class UserInterface {
             );
             if (target.eventListener.onMouseDragStart != null) {
                 target.eventListener.onMouseDragStart.handle(mouseDragStart);
-                inputMouseDragTarget = target;
             }
             if (target.eventListenerDefault.onMouseDragStart != null) {
                 target.eventListenerDefault.onMouseDragStart.handle(mouseDragStart);
-                inputMouseDragTarget = target;
             }
+            inputMouseDragTarget = target;
 
             return true;
         }
