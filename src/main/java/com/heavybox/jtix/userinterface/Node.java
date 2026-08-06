@@ -24,7 +24,7 @@ public abstract class Node {
     public        int           zIndex               = ID;
     public        boolean       active               = true;
     protected     Node          parent               = null;
-    final         Array<Node>   children             = new Array<>();
+    private final Array<Node>   children             = new Array<>();
 
     /*** metrics: transform and dimensions ***/
     public        Anchor        anchor               = null;
@@ -89,7 +89,7 @@ public abstract class Node {
         children.removeValue(child,true);
         child.parent = null;
         UserInterface.add(child);
-        transformOffset.idt();
+        child.transformOffset.idt();
         onChildRemoved(child);
         children.sort(Comparator.comparingInt(a -> a.zIndex));
     }
@@ -336,107 +336,47 @@ public abstract class Node {
     public final void onMouseDown(EventListener.OnMouseDown listener) {
         eventListener.onMouseDown = listener;
     }
-
-    public final void onMouseDownDefault(EventListener.OnMouseDown listener) {
-        eventListenerDefault.onMouseDown = listener;
-    }
-
+    public final void onMouseDownDefault(EventListener.OnMouseDown listener) { eventListenerDefault.onMouseDown = listener; }
     public final void onMouseUp(EventListener.OnMouseUp listener) {
         eventListener.onMouseUp = listener;
     }
-
     public final void onMouseUpDefault(EventListener.OnMouseUp listener) {
         eventListenerDefault.onMouseUp = listener;
     }
-
     public final void onMouseClick(EventListener.OnMouseClick listener) {
         eventListener.onMouseClick = listener;
     }
-
-    public final void onMouseClickDefault(EventListener.OnMouseClick listener) {
-        eventListenerDefault.onMouseClick = listener;
-    }
-
-    public final void onMouseDoubleClick(EventListener.OnMouseDoubleClick listener) {
-        eventListener.onMouseDoubleClick = listener;
-    }
-
-    public final void onMouseClickDoubleDefault(EventListener.OnMouseDoubleClick listener) {
-        eventListenerDefault.onMouseDoubleClick = listener;
-    }
-
+    public final void onMouseClickDefault(EventListener.OnMouseClick listener) { eventListenerDefault.onMouseClick = listener; }
+    public final void onMouseDoubleClick(EventListener.OnMouseDoubleClick listener) { eventListener.onMouseDoubleClick = listener; }
+    public final void onMouseClickDoubleDefault(EventListener.OnMouseDoubleClick listener) { eventListenerDefault.onMouseDoubleClick = listener; }
     public final void onMouseEnter(EventListener.OnMouseEnter listener) {
         eventListener.onMouseEnter = listener;
     }
-
-    public final void onMouseEnterDefault(EventListener.OnMouseEnter listener) {
-        eventListenerDefault.onMouseEnter = listener;
-    }
-
+    public final void onMouseEnterDefault(EventListener.OnMouseEnter listener) { eventListenerDefault.onMouseEnter = listener; }
     public final void onMouseLeave(EventListener.OnMouseLeave listener) {
         eventListener.onMouseLeave = listener;
     }
-
-    public final void onMouseLeaveDefault(EventListener.OnMouseLeave listener) {
-        eventListenerDefault.onMouseLeave = listener;
-    }
-
-
+    public final void onMouseLeaveDefault(EventListener.OnMouseLeave listener) { eventListenerDefault.onMouseLeave = listener; }
     public final void onMouseScroll(EventListener.OnMouseScroll listener) {
         eventListener.onMouseScroll = listener;
     }
-
-    public final void onMouseScrollDefault(EventListener.OnMouseScroll listener) {
-        eventListenerDefault.onMouseScroll = listener;
-    }
-
+    public final void onMouseScrollDefault(EventListener.OnMouseScroll listener) { eventListenerDefault.onMouseScroll = listener; }
     public final void onMouseDrag(EventListener.OnMouseDrag listener) {
         eventListener.onMouseDrag = listener;
     }
-
-    public final void onMouseDragDefault(EventListener.OnMouseDrag listener) {
-        eventListenerDefault.onMouseDrag = listener;
-    }
-
-    public final void onMouseDragStart(EventListener.OnMouseDragStart listener) {
-        eventListener.onMouseDragStart = listener;
-    }
-
-    public final void onMouseDragStartDefault(EventListener.OnMouseDragStart listener) {
-        eventListenerDefault.onMouseDragStart = listener;
-    }
-
+    public final void onMouseDragDefault(EventListener.OnMouseDrag listener) { eventListenerDefault.onMouseDrag = listener; }
+    public final void onMouseDragStart(EventListener.OnMouseDragStart listener) { eventListener.onMouseDragStart = listener; }
+    public final void onMouseDragStartDefault(EventListener.OnMouseDragStart listener) { eventListenerDefault.onMouseDragStart = listener; }
     public final void onMouseDragEnd(EventListener.OnMouseDragEnd listener) {
         eventListener.onMouseDragEnd = listener;
     }
-
-    public final void onMouseDragEndDefault(EventListener.OnMouseDragEnd listener) {
-        eventListenerDefault.onMouseDragEnd = listener;
-    }
-
-    public final void onMouseDragEnter(EventListener.OnMouseDragEnter listener) {
-        eventListener.onMouseDragEnter = listener;
-    }
-
-    public final void onMouseDragEnterDefault(EventListener.OnMouseDragEnter listener) {
-        eventListenerDefault.onMouseDragEnter = listener;
-    }
-
-    public final void onMouseDragLeave(EventListener.OnMouseDragLeave listener) {
-        eventListener.onMouseDragLeave = listener;
-    }
-
-    public final void onMouseDragLeaveDefault(EventListener.OnMouseDragLeave listener) {
-        eventListenerDefault.onMouseDragLeave = listener;
-    }
-
-    public final void onMouseDragDrop(EventListener.OnMouseDragDrop listener) {
-        eventListener.onMouseDragDrop = listener;
-    }
-
-    public final void onMouseDragDropDefault(EventListener.OnMouseDragDrop listener) {
-        eventListenerDefault.onMouseDragDrop = listener;
-    }
+    public final void onMouseDragEndDefault(EventListener.OnMouseDragEnd listener) { eventListenerDefault.onMouseDragEnd = listener; }
+    public final void onMouseDragEnter(EventListener.OnMouseDragEnter listener) { eventListener.onMouseDragEnter = listener; }
+    public final void onMouseDragEnterDefault(EventListener.OnMouseDragEnter listener) { eventListenerDefault.onMouseDragEnter = listener; }
+    public final void onMouseDragLeave(EventListener.OnMouseDragLeave listener) { eventListener.onMouseDragLeave = listener; }
+    public final void onMouseDragLeaveDefault(EventListener.OnMouseDragLeave listener) { eventListenerDefault.onMouseDragLeave = listener; }
+    public final void onMouseDragDrop(EventListener.OnMouseDragDrop listener) { eventListener.onMouseDragDrop = listener; }
+    public final void onMouseDragDropDefault(EventListener.OnMouseDragDrop listener) { eventListenerDefault.onMouseDragDrop = listener; }
 
 }
 

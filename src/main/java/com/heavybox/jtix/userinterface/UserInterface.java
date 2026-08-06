@@ -496,14 +496,8 @@ public final class UserInterface {
     }
 
     public static void remove(@NotNull final Node node) {
-        if (node.isRoot()) {
-            rootWidgets.removeValue(node, true);
-            return;
-        }
-
-        Node parent = node.parent;
-        parent.children.removeValue(node, true);
-        node.parent = null; // severe the connection completely
+        node.disconnectFromParent();
+        rootWidgets.removeValue(node, true);
     }
 
     public static void cleanup() {
