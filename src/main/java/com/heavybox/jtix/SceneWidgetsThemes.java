@@ -6,7 +6,7 @@ import com.heavybox.jtix.graphics.*;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.MathUtils;
-import com.heavybox.jtix.tools.ToolsThemeGenerator;
+import com.heavybox.jtix.tools.ToolsThemeGenerator_z;
 import com.heavybox.jtix.widgets.*;
 import org.lwjgl.opengl.GL11;
 
@@ -25,10 +25,10 @@ public class SceneWidgetsThemes implements Scene {
     @Override
     public void start() {
         try {
-            ToolsThemeGenerator.themeCheckboxColorCheckmarkBackground = Color.CHARTREUSE;
-            ToolsThemeGenerator.themeCheckboxImageChecked = "assets/user-interface-theme/checkbox-checked.png";
-            ToolsThemeGenerator.themeCheckboxImageUnchecked = "assets/user-interface-theme/checkbox-unchecked.png";
-            ToolsThemeGenerator.generateTheme("assets/user-interface-theme", "widgets-theme");
+            ToolsThemeGenerator_z.themeCheckboxColorCheckmarkBackground = Color.CHARTREUSE;
+            ToolsThemeGenerator_z.themeCheckboxImageChecked = "assets/user-interface-theme/checkbox-checked.png";
+            ToolsThemeGenerator_z.themeCheckboxImageUnchecked = "assets/user-interface-theme/checkbox-unchecked.png";
+            ToolsThemeGenerator_z.generateTheme("assets/user-interface-theme", "widgets-theme");
         } catch (Exception e) {
 
         }

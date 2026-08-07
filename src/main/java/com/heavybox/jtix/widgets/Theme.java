@@ -6,6 +6,7 @@ import com.heavybox.jtix.graphics.TexturePack;
 import com.heavybox.jtix.graphics.TextureRegion;
 import com.heavybox.jtix.memory.MemoryResource;
 
+@Deprecated
 public final class Theme implements MemoryResource {
 
     public TexturePack texturePack;

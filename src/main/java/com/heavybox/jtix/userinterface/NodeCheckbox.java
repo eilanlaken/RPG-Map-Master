@@ -3,7 +3,6 @@ package com.heavybox.jtix.userinterface;
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.graphics.TextureRegion;
-import com.heavybox.jtix.math.MathUtils;
 
 public class NodeCheckbox extends Node {
 
@@ -20,8 +19,8 @@ public class NodeCheckbox extends Node {
     public float         sizeBorder               = UserInterface.getTheme().checkboxSizeBorder;
 
     public NodeCheckbox() {
-        onMouseClickDefault(e -> {
-            if (e.buttonLeft) flip();
+        onMouseDownDefault(e -> {
+            if (e.buttonLeft) setValue(!checked);
         });
     }
 
@@ -65,20 +64,14 @@ public class NodeCheckbox extends Node {
 
     @Override
     protected float getWidth() {
-        if (checked) {
-            return imageChecked != null ? imageChecked.originalWidth : size;
-        }
-
-        return imageUnchecked != null ? imageUnchecked.originalWidth : size;
+        if (checked) return imageChecked != null ? imageChecked.packedWidth : size;
+        return imageUnchecked != null ? imageUnchecked.packedWidth : size;
     }
 
     @Override
     protected float getHeight() {
-        if (checked) {
-            return imageChecked != null ? imageChecked.originalHeight : size;
-        }
-
-        return imageUnchecked != null ? imageUnchecked.originalHeight : size;
+        if (checked) return imageChecked != null ? imageChecked.packedHeight : size;
+        return imageUnchecked != null ? imageUnchecked.packedHeight : size;
     }
 
     public void setValue(boolean value) {
@@ -87,10 +80,6 @@ public class NodeCheckbox extends Node {
 
     public boolean getValue() {
         return checked;
-    }
-
-    public void flip() {
-        this.checked = !this.checked;
     }
 
 }

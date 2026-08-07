@@ -15,7 +15,6 @@ public class Theme {
 
     /* scrollbar */
 
-
     /* checkbox */
     public TextureRegion checkboxImageChecked             = null;
     public TextureRegion checkboxImageUnchecked           = null;
