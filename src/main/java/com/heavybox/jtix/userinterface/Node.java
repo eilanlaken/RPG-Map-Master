@@ -264,7 +264,7 @@ public abstract class Node {
             renderer2D.endStencil();
         }
 
-        children.sort(UserInterface.widgetComparator);
+        children.sort(UserInterface.NODE_COMPARATOR);
         int maskLevel = getMaskingIndex();
         for (Node child : children) {
             // apply mask, if masking enabled

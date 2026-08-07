@@ -4,6 +4,7 @@ import com.heavybox.jtix.math.MathUtils;
 
 public class Color implements Cloneable {
 
+    public static final float WHITE_FLOAT = new Color(1,1,1,1).toFloatBits();
     public static final Color WHITE       = new Color(1, 1, 1, 1);
     public static final Color LIGHT_GRAY  = new Color(0xbfbfbfff);
     public static final Color GRAY        = new Color(0x7f7f7fff);

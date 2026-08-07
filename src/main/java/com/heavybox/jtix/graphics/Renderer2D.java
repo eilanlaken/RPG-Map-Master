@@ -52,7 +52,7 @@ public class Renderer2D implements MemoryResourceHolder {
     private Texture   currentTexture      = defaultTexture;
     private Font      currentFont         = defaultFont; // TODO
     private Shader    currentShader       = null;
-    private float     currentTint         = Color.WHITE.toFloatBits();
+    private float     currentTint         = Color.WHITE_FLOAT;
     private boolean   drawing             = false;
     private int       vertexIndex         = 0;
     private int       currentMode         = GL11.GL_TRIANGLES;
@@ -203,7 +203,7 @@ public class Renderer2D implements MemoryResourceHolder {
         setShaderUniforms(null);
         setTexture(defaultTexture);
         setMode(GL11.GL_TRIANGLES);
-        setColor(Color.WHITE.toFloatBits());
+        setColor(Color.WHITE_FLOAT);
         this.drawing = true;
     }
 
@@ -274,7 +274,7 @@ public class Renderer2D implements MemoryResourceHolder {
     }
 
     public void setColor(final Color color) {
-        if (color == null) setColor(Color.WHITE.toFloatBits());
+        if (color == null) setColor(Color.WHITE_FLOAT);
         else setColor(color.toFloatBits());
     }
 

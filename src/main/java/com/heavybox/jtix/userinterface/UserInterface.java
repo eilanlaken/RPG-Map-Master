@@ -17,8 +17,7 @@ import java.util.Comparator;
 
 public final class UserInterface {
 
-    public  static final Comparator<Node> widgetComparator = Comparator.comparingInt(a -> a.zIndex);
-    private static final float            WHITE_FLOAT_BITS = Color.WHITE.toFloatBits(); // to reset the color to white before re-rendering components
+    public static final Comparator<Node> NODE_COMPARATOR = Comparator.comparingInt(a -> a.zIndex);
 
     /*** tmp Widget helpers ***/
     static final Array<Node>        layoutChildren = new Array<>(true, 10);
@@ -28,19 +27,17 @@ public final class UserInterface {
     private static int     currentID = 0;
     public  static boolean debugMode = true; // TODO: use this when rendering: render regions if true.
 
-    /*** input device state */
-    private static Node inputMouseTarget        = null;
-    private static Node inputMouseTargetPrev    = null;
-    private static Node inputMouseDragTarget    = null;
-    private static Node inputMouseDragUnder     = null;
-    private static Node inputMouseDragUnderPrev = null;
-    private static Node inputMouseDownTarget    = null;
-    private static Node inputMouseUpTarget      = null;
-
-    private static float pointerXPrev = 0;
-    private static float pointerYPrev = 0;
-    private static float pointerX     = 0;
-    private static float pointerY     = 0;
+    /*** nodes and input device state management */
+    private static Node  inputMouseTarget        = null;
+    private static Node  inputMouseDragTarget    = null;
+    private static Node  inputMouseDragUnder     = null;
+    private static Node  inputMouseDragUnderPrev = null;
+    private static Node  inputMouseDownTarget    = null;
+    private static Node  inputMouseUpTarget      = null;
+    private static float pointerXPrev            = 0;
+    private static float pointerYPrev            = 0;
+    private static float pointerX                = 0;
+    private static float pointerY                = 0;
 
     /*** current scene widgets hierarchy */
     private static final Array<Node> rootWidgets = new Array<>(false, 5);
@@ -221,7 +218,7 @@ public final class UserInterface {
 
         @Override
         public boolean mouseMoved(int mouseX, int mouseY, int deltaMouseX, int deltaMouseY) {
-            inputMouseTargetPrev = inputMouseTarget;
+            Node inputMouseTargetPrev = inputMouseTarget;
             inputMouseTarget = findTopmostChildAt(pointerX, pointerY, null);
 
             if (inputMouseTarget == inputMouseTargetPrev) return inputMouseTarget != null;
@@ -466,7 +463,7 @@ public final class UserInterface {
             if (!rootWidgets.contains(newRoot, true)) rootWidgets.replaceFirst(node, newRoot, true);
             else rootWidgets.removeValue(node, true);
         }
-        rootWidgets.sort(widgetComparator);
+        rootWidgets.sort(NODE_COMPARATOR);
 
         final float delta = Graphics.getDeltaTime();
         for (Node node : rootWidgets) {
@@ -478,11 +475,11 @@ public final class UserInterface {
 
     public static void render(Renderer2D renderer2D) {
         // iterate over all *root* widget nodes and perform renders
-        rootWidgets.sort(widgetComparator);
+        rootWidgets.sort(NODE_COMPARATOR);
         for (Node node : rootWidgets) {
             if (!node.isRoot()) continue; // to be extra sure.
             if (!node.isActive()) continue; // to be extra sure.
-            renderer2D.setColor(WHITE_FLOAT_BITS);
+            renderer2D.setColor(Color.WHITE_FLOAT);
             node.render(renderer2D);
         }
     }

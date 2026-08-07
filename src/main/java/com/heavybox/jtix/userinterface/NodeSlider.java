@@ -5,10 +5,12 @@ import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Vector2;
 
+// TODO: improve and complete following the checkbox example.
 public class NodeSlider extends Node {
 
     public boolean horizontal = true; // TODO
 
+    public boolean integers = false;
     public float min = 0;
     public float max = 1;
     public float val = 0.5f; // sliding will change this fraction.
@@ -54,7 +56,7 @@ public class NodeSlider extends Node {
         offset_transformed.rotateDeg(deg);
 
         renderer2D.setColor(colorThumb);
-        renderer2D.drawCircleFilled(thumbSize * 0.5f,10, x + offset_transformed.x, y + offset_transformed.y, deg, sclX, sclY);
+        renderer2D.drawCircleFilled(thumbSize * 0.5f,15, x + offset_transformed.x, y + offset_transformed.y, deg, sclX, sclY);
     }
 
     @Override
@@ -67,12 +69,12 @@ public class NodeSlider extends Node {
         return Math.max(thickness, thumbSize);
     }
 
-    public Float getValue() {
+    public float getValue() {
         return min + val * (max - min);
     }
 
-    public void setValue(Float value) {
-        this.val = value != null ? MathUtils.clampFloat(value, 0, 1) : 0.5f;
+    public void setValue(float value) {
+        this.val = MathUtils.clampFloat(value, 0, 1);
     }
 
 }
