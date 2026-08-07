@@ -19,12 +19,11 @@ public class Theme {
     /* checkbox */
     public TextureRegion checkboxImageChecked             = null;
     public TextureRegion checkboxImageUnchecked           = null;
-    public Color         checkboxColorBorderUnchecked     = Color.valueOf("767676");
     public Color         checkboxColorBorderChecked       = Color.valueOf("0075FF");
+    public Color         checkboxColorBorderUnchecked     = Color.valueOf("767676");
     public Color         checkboxColorCheckmarkBackground = Color.valueOf("0075FF");
     public Color         checkboxColorCheckmark           = Color.valueOf("FFFFFF");
     public float         checkboxSize                     = 27;
     public float         checkboxSizeBorder               = 5;
-    public float         checkboxCornerRadius             = 5;
 
 }

@@ -29,6 +29,7 @@ public class SceneInput_4 implements Scene {
     NodePicture picture;
 
     NodeSlider slider = new NodeSlider();
+    NodeCheckbox checkbox = new NodeCheckbox();
 
     Renderer2D renderer2D = new Renderer2D();
     TexturePack atlas;
@@ -117,7 +118,8 @@ public class SceneInput_4 implements Scene {
         UserInterface.add(panel_2);
         //UserInterface.add(shape);
         //UserInterface.add(picture);
-        UserInterface.add(slider);
+        //UserInterface.add(slider);
+        UserInterface.add(checkbox);
     }
 
     @Override

@@ -449,6 +449,10 @@ public final class UserInterface {
         UserInterface.theme = theme;
     }
 
+    public static Theme getTheme() {
+        return theme;
+    }
+
     private static Node findTopmostChildAt(float pointerX, float pointerY, final Node excluded) {
         for (int i = rootWidgets.size - 1; i >= 0; i--) {
             Node topmost = rootWidgets.get(i).findTopmostChildAt(pointerX, pointerY, excluded);
