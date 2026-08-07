@@ -35,7 +35,7 @@ public class NodeSlider extends Node {
     }
 
     @Override
-    protected void draw(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
+    protected final void draw(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
         drawBar(renderer2D, x, y, deg, sclX, sclY);
         drawThumb(renderer2D, x, y, deg, sclX, sclY);
     }

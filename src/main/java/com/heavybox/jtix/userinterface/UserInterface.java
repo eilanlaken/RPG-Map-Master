@@ -12,12 +12,17 @@ import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.Transform2D;
 import com.heavybox.jtix.math.Vector2;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Comparator;
 
 public final class UserInterface {
 
     public static final Comparator<Node> NODE_COMPARATOR = Comparator.comparingInt(a -> a.zIndex);
+
+    /*** global theme ***/
+    private static final Theme THEME_DEFAULT = new Theme();
+    private static       Theme theme         = THEME_DEFAULT;
 
     /*** tmp Widget helpers ***/
     static final Array<Node>        layoutChildren = new Array<>(true, 10);
@@ -434,6 +439,15 @@ public final class UserInterface {
     public static float getPointerY()     { return pointerY; }
     public static float getPointerXPrev() { return pointerXPrev; }
     public static float getPointerYPrev() { return pointerYPrev; }
+
+    public static void setTheme(@Nullable Theme theme) {
+        if (theme == null) {
+            UserInterface.theme = THEME_DEFAULT;
+            return;
+        }
+
+        UserInterface.theme = theme;
+    }
 
     private static Node findTopmostChildAt(float pointerX, float pointerY, final Node excluded) {
         for (int i = rootWidgets.size - 1; i >= 0; i--) {

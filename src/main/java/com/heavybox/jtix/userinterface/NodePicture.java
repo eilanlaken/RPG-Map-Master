@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class NodePicture extends Node {
 
-    public Color tint;
+    public Color         tint;
     public TextureRegion region;
 
     public NodePicture(@NotNull TextureRegion region) {

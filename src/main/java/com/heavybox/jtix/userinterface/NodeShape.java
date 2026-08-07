@@ -8,6 +8,7 @@ import com.heavybox.jtix.math.MathUtils;
 import org.jetbrains.annotations.NotNull;
 
 // TODO: add curves and functions
+// TODO: add borders and thin lines
 public class NodeShape extends Node {
 
     public Color color = Color.randomOpaque();
@@ -105,7 +106,7 @@ public class NodeShape extends Node {
 
 
     @Override
-    protected void draw(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
+    protected final void draw(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
         renderer2D.setColor(color);
         renderer2D.drawPolygonFilled(points, indices, x, y, deg, sclX, sclY);
     }

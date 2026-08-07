@@ -36,7 +36,7 @@ public class NodeText extends Node {
     }
 
     @Override
-    protected void draw(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
+    protected final void draw(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
         renderer2D.setColor(color);
         renderer2D.setFont(font);
         for (int i = 0; i < textLines.size; i++) {
