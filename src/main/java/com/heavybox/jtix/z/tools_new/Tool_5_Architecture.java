@@ -30,7 +30,6 @@ public class Tool_5_Architecture extends Tool_new {
     // global state
     private Tool.Mode currentMode;
     private Tool.Shape currentShape;
-    private View currentView;
 
     private float spacing = 1.0f;
     private Race race = Race.HUMAN;
@@ -71,7 +70,6 @@ public class Tool_5_Architecture extends Tool_new {
 
         currentMode = Tool.Mode.ADD;
         currentShape = Tool.Shape.POINT;
-        currentView = View.ISOMETRIC_VIEW;
     }
 
     private float getDiscreteAngle(float angle) {
@@ -110,8 +108,7 @@ public class Tool_5_Architecture extends Tool_new {
     }
 
     protected float getProceduralSpacing() {
-        if (currentView == View.ISOMETRIC_VIEW) return 38 * spacing * Math.abs(sclX);
-        return 38 * spacing * Math.abs(sclX); // TODO: for now, this is hard-coded.
+        return 38 * spacing * Math.abs(sclX);
     }
 
     private TextureRegion getRegion() {
@@ -120,36 +117,28 @@ public class Tool_5_Architecture extends Tool_new {
     }
 
     private TextureRegion getRegion_tower() {
-        if (currentView == View.ISOMETRIC_VIEW) {
-            String race = this.race.name().toLowerCase();
-            String prefix = "assets/textures-layer-3/architecture_" + race + "_" + View.ISOMETRIC_VIEW.name().toLowerCase() + "_";
-            boolean tall = MathUtils.randomUniformInt(0,2) == 1;
-            String middle = "tower_" + (tall ? "tall" : "short");
-            int variations = Utils.countVariations(atlas, prefix + middle);
-            String suffix = "_" + MathUtils.randomUniformInt(0,variations) + ".png";
-            return atlas.getRegion(prefix + middle + suffix);
-        }
-
-        return null;
+        String race = this.race.name().toLowerCase();
+        String prefix = "assets/textures-layer-3/architecture_" + race + "_";
+        boolean tall = MathUtils.randomUniformInt(0,2) == 1;
+        String middle = "tower_" + (tall ? "tall" : "short");
+        int variations = Utils.countVariations(atlas, prefix + middle);
+        String suffix = "_" + MathUtils.randomUniformInt(0,variations) + ".png";
+        return atlas.getRegion(prefix + middle + suffix);
     }
 
     private TextureRegion getRegion_bridge() {
-        if (currentView == View.ISOMETRIC_VIEW) {
-            String race = this.race.name().toLowerCase();
-            String prefix = "assets/textures-layer-3/architecture_" + race + "_" + View.ISOMETRIC_VIEW.name().toLowerCase() + "_";
-            boolean tall = MathUtils.randomUniformInt(0,2) == 1;
-            String middle = "bridge";
-            int variations = Utils.countVariations(atlas, prefix + middle);
-            String suffix = "_" + MathUtils.randomUniformInt(0,variations) + ".png";
-            return atlas.getRegion(prefix + middle + suffix);
-        }
-
-        return null;
+        String race = this.race.name().toLowerCase();
+        String prefix = "assets/textures-layer-3/architecture_" + race + "_";
+        boolean tall = MathUtils.randomUniformInt(0,2) == 1;
+        String middle = "bridge";
+        int variations = Utils.countVariations(atlas, prefix + middle);
+        String suffix = "_" + MathUtils.randomUniformInt(0,variations) + ".png";
+        return atlas.getRegion(prefix + middle + suffix);
     }
 
-    private TextureRegion getRegion_isometricHouse(int angleIndex) {
+    private TextureRegion getRegion_house(int angleIndex) {
         String race = this.race.name().toLowerCase();
-        String prefix = "assets/textures-layer-3/architecture_" + race + "_" + View.ISOMETRIC_VIEW.name().toLowerCase() + "_";
+        String prefix = "assets/textures-layer-3/architecture_" + race + "_";
 
         String middle = "";
         if (angleIndex == 0 || angleIndex == 4) {
@@ -191,7 +180,7 @@ public class Tool_5_Architecture extends Tool_new {
                 region
         );
 
-        createToken.tokenType = currentView;
+        createToken.tokenType = Architecture.ARCHITECTURE;
         map.addCommand(createToken);
     }
 
@@ -212,7 +201,7 @@ public class Tool_5_Architecture extends Tool_new {
         tint.b = 1 + MathUtils.randomUniformFloat(-0.05f, 0.0f);
         tint.a = 1;
         createToken.tint = tint;
-        createToken.tokenType = currentView;
+        createToken.tokenType = Architecture.ARCHITECTURE;
         map.addCommand(createToken);
     }
 
@@ -242,7 +231,7 @@ public class Tool_5_Architecture extends Tool_new {
         for (int i = 0; i < batchCount; i++) {
             float deg = this.deg + (!angleFollowPath ? 0 : step.angleDeg()); // calculate deg based on params.
             int angleIndex = getDiscreteAngleIndex(deg);
-            TextureRegion region = getRegion_isometricHouse(angleIndex);
+            TextureRegion region = getRegion_house(angleIndex);
             Token token = new Token(scene.getActiveLayerIndex(), line_start.x + step.x * i, line_start.y + step.y * i, 0, flipX(angleIndex) ? -sclX : sclX, sclY, region);
             tokensPreview.add(token);
         }
@@ -271,7 +260,7 @@ public class Tool_5_Architecture extends Tool_new {
 
                 float deg = this.deg + (angle + 90);
                 int angleIndex = getDiscreteAngleIndex(deg);
-                TextureRegion region = getRegion_isometricHouse(angleIndex);
+                TextureRegion region = getRegion_house(angleIndex);
                 Token token = new Token(scene.getActiveLayerIndex(), offsetX, offsetY, 0, flipX(angleIndex) ? -sclX : sclX, sclY, region);
                 tokensPreview.add(token);
             }
@@ -283,7 +272,7 @@ public class Tool_5_Architecture extends Tool_new {
                 float offsetY = MathUtils.sinDeg(angle) * circle_spreadRadius;
                 float deg = this.deg + (angle + 90);
                 int angleIndex = getDiscreteAngleIndex(deg);
-                TextureRegion region = getRegion_isometricHouse(angleIndex);
+                TextureRegion region = getRegion_house(angleIndex);
                 Token token = new Token(scene.getActiveLayerIndex(), offsetX, offsetY, 0, flipX(angleIndex) ? -sclX : sclX, sclY, region);
                 tokensPreview.add(token);
             }
@@ -331,7 +320,7 @@ public class Tool_5_Architecture extends Tool_new {
                         field.set(posX, posY);
                         float angle = deg + (angleFollowPath ? Utils.getDirectionRough(field, polygon_shape) : 0);
                         int angleIndex = getDiscreteAngleIndex(angle);
-                        TextureRegion region = getRegion_isometricHouse(angleIndex);
+                        TextureRegion region = getRegion_house(angleIndex);
                         Token token = new Token(scene.getActiveLayerIndex(), posX, posY, 0, flipX(angleIndex) ? -sclX : sclX, sclY, region);
                         tokensPreview.add(token);
                     }
@@ -352,7 +341,7 @@ public class Tool_5_Architecture extends Tool_new {
                 for (int j = 0; j < batchCount; j++) {
                     float deg = this.deg + step.angleDeg(); // calculate deg based on params.
                     int angleIndex = getDiscreteAngleIndex(deg);
-                    TextureRegion region = getRegion_isometricHouse(angleIndex);
+                    TextureRegion region = getRegion_house(angleIndex);
                     Token token = new Token(scene.getActiveLayerIndex(), start.x + step.x * j, start.y + step.y * j, 0, flipX(angleIndex) ? -sclX : sclX, sclY, region);
                     tokensPreview.add(token);
                 }
@@ -368,7 +357,7 @@ public class Tool_5_Architecture extends Tool_new {
             for (int j = 0; j < batchCount; j++) {
                 float deg = this.deg + step.angleDeg(); // calculate deg based on params.
                 int angleIndex = getDiscreteAngleIndex(deg);
-                TextureRegion region = getRegion_isometricHouse(angleIndex);
+                TextureRegion region = getRegion_house(angleIndex);
                 Token token = new Token(scene.getActiveLayerIndex(), start.x + step.x * j, start.y + step.y * j, 0, flipX(angleIndex) ? -sclX : sclX, sclY, region);
                 tokensPreview.add(token);
             }
@@ -392,7 +381,7 @@ public class Tool_5_Architecture extends Tool_new {
     }
 
     private void spawnTokens(boolean useBrushOffset, boolean maintainMinSpacing) {
-        map.getAllTokensByType(ArchitectureEnum.ARCHITECTURE_ENUM, alreadyCreatedTokens);
+        map.getAllTokensByType(Architecture.ARCHITECTURE, alreadyCreatedTokens);
 
         float offsetX = useBrushOffset ? x : 0;
         float offsetY = useBrushOffset ? y : 0;
@@ -415,7 +404,7 @@ public class Tool_5_Architecture extends Tool_new {
                     token.regions
             );
 
-            createToken.tokenType = ArchitectureEnum.ARCHITECTURE_ENUM;
+            createToken.tokenType = Architecture.ARCHITECTURE;
             map.addCommand(createToken);
         }
     }
@@ -440,7 +429,7 @@ public class Tool_5_Architecture extends Tool_new {
         boolean zJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.Z);
 
         if (zJustPressed) {
-            this.currentView = Collections.enumNext(currentView);
+
             return;
         }
 
@@ -474,12 +463,10 @@ public class Tool_5_Architecture extends Tool_new {
 
                 // spawn token and reset anchor
                 Vector2 dir = new Vector2(x - point_lastSpawnPoint.x, y - point_lastSpawnPoint.y);
-                if (currentView == View.ISOMETRIC_VIEW) {
-                    float angleDeg = getDiscreteAngle(dir.angleDeg());
-                    int angleIndex = getDiscreteAngleIndex(dir.angleDeg());
-                    TextureRegion region = getRegion_isometricHouse(angleIndex);
-                    spawnToken(region, MathUtils.randomUniformFloat(-2.5f, 2.5f), flipX(angleIndex));
-                }
+                float angleDeg = getDiscreteAngle(dir.angleDeg());
+                int angleIndex = getDiscreteAngleIndex(dir.angleDeg());
+                TextureRegion region = getRegion_house(angleIndex);
+                spawnToken(region, MathUtils.randomUniformFloat(-2.5f, 2.5f), flipX(angleIndex));
                 point_lastSpawnPoint.set(x, y);
                 return;
             } else if (leftJustUp) {
@@ -697,11 +684,6 @@ public class Tool_5_Architecture extends Tool_new {
         return false;
     }
 
-    public enum View {
-        TOP_VIEW,
-        ISOMETRIC_VIEW
-    }
-
     public enum Race {
         HUMAN,
         ELF,
@@ -723,62 +705,24 @@ public class Tool_5_Architecture extends Tool_new {
     }
 
     public enum Type {
-        TOP_VIEW_HOUSE_LARGE,
-        TOP_VIEW_HOUSE_MEDIUM,
-        TOP_VIEW_HOUSE_SMALL,
-        TOP_VIEW_TOWER,
-        TOP_VIEW_WALL,
 
-        ISOMETRIC_VIEW_HOUSE_DIAGONAL_SHORT,
-        ISOMETRIC_VIEW_HOUSE_DIAGONAL_TALL,
-        ISOMETRIC_VIEW_HOUSE_HORIZONTAL_SHORT,
-        ISOMETRIC_VIEW_HOUSE_HORIZONTAL_TALL,
-        ISOMETRIC_VIEW_HOUSE_VERTICAL_SHORT,
-        ISOMETRIC_VIEW_HOUSE_VERTICAL_TALL,
-        ISOMETRIC_VIEW_HUT_DIAGONAL,
-        ISOMETRIC_VIEW_HUT_VERTICAL,
-        ISOMETRIC_VIEW_TOWER_SHORT,
-        ISOMETRIC_VIEW_TOWER_TALL,
-        ISOMETRIC_VIEW_BRIDGE,
+        HOUSE_DIAGONAL_SHORT,
+        HOUSE_DIAGONAL_TALL,
+        HOUSE_HORIZONTAL_SHORT,
+        HOUSE_HORIZONTAL_TALL,
+        HOUSE_VERTICAL_SHORT,
+        HOUSE_VERTICAL_TALL,
+        HUT_DIAGONAL,
+        HUT_VERTICAL,
+        TOWER_SHORT,
+        TOWER_TALL,
+        BRIDGE,
         ;
-
-        public Type getNextView() {
-            final String prefix = this.name().split("_")[0];
-
-            Type next = Collections.enumNext(this);
-            while (next.name().startsWith(prefix))
-                next = Collections.enumNext(next);
-            return next;
-        }
-
-        public Type getNextOfTheSamePrefix() {
-            final String prefix = this.name().split("_")[0];
-
-            Type next = Collections.enumNext(this);
-            while (!next.name().startsWith(prefix))
-                next = Collections.enumNext(next);
-            return next;
-        }
-
-        public Type getPrevOfTheSamePrefix() {
-            final String prefix = this.name().split("_")[0];
-            Type prev = Collections.enumPrev(this);
-            while (!prev.name().startsWith(prefix))
-                prev = Collections.enumPrev(prev);
-            return prev;
-        }
-
-        public String getView() {
-            if (name().startsWith("TOP")) return "TOP";
-            if (name().startsWith("SIDE")) return "SIDE";
-            if (name().startsWith("ISOMETRIC")) return "ISOMETRIC";
-            return null;
-        }
 
     }
 
-    public enum ArchitectureEnum {
-        ARCHITECTURE_ENUM;
+    public enum Architecture {
+        ARCHITECTURE;
     }
 
 }

@@ -1,6 +1,7 @@
 package com.heavybox.jtix.z;
 
 import java.io.IOException;
+import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -10,9 +11,32 @@ public class DevTools {
 
     public static void run() {
         try {
-            renameFiles_add_change_prefix_farmland_props();
+            rename_files_remove_isometric_view();
         } catch (Exception e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    public static void rename_files_remove_isometric_view() throws IOException {
+        Path directory = Paths.get("assets/textures-layer-3/");
+
+        try (DirectoryStream<Path> files = Files.newDirectoryStream(directory)) {
+            for (Path file : files) {
+                if (!Files.isRegularFile(file)) {
+                    continue;
+                }
+
+                String fileName = file.getFileName().toString();
+
+                if (!fileName.contains("isometric_view")) {
+                    continue;
+                }
+
+                String newFileName = fileName.replace("_isometric_view", "");
+                Path newFile = file.resolveSibling(newFileName);
+
+                Files.move(file, newFile);
+            }
         }
     }
 
