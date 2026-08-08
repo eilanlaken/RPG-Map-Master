@@ -27,8 +27,8 @@ public class Main {
         ApplicationSettings settings = new ApplicationSettings();
         //settings.resizable = false;
         Application.init(settings);
-        //Application.launch(new SceneDemo());
-        Application.launch(new SceneInput_4());
+        Application.launch(new SceneDemo());
+        //Application.launch(new SceneInput_4());
 
     }
 
