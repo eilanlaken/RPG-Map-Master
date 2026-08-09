@@ -30,6 +30,7 @@ public class Tool_5_Architecture extends Tool_new {
     // global state
     private Tool.Mode currentMode;
     private Tool.Shape currentShape;
+    private boolean decor = false;
 
     private float spacing = 1.0f;
     private Race race = Race.HUMAN;
@@ -121,6 +122,15 @@ public class Tool_5_Architecture extends Tool_new {
         String prefix = "assets/textures-layer-3/architecture_" + race + "_";
         boolean tall = MathUtils.randomUniformInt(0,2) == 1;
         String middle = "tower_" + (tall ? "tall" : "short");
+        int variations = Utils.countVariations(atlas, prefix + middle);
+        String suffix = "_" + MathUtils.randomUniformInt(0,variations) + ".png";
+        return atlas.getRegion(prefix + middle + suffix);
+    }
+
+    private TextureRegion getRegion_decor() {
+        String race = this.race.name().toLowerCase();
+        String prefix = "assets/textures-layer-3/architecture_" + race + "_";
+        String middle = "decor";
         int variations = Utils.countVariations(atlas, prefix + middle);
         String suffix = "_" + MathUtils.randomUniformInt(0,variations) + ".png";
         return atlas.getRegion(prefix + middle + suffix);
@@ -444,13 +454,16 @@ public class Tool_5_Architecture extends Tool_new {
             return;
         }
 
+        if (rightClicked) {
+            decor = !decor;
+            //TextureRegion region = getRegion_bridge();
+            //spawnToken(region, 0, false);
+            return;
+        }
+
         // add tokens
         if (currentShape == Tool.Shape.POINT) {
-            if (rightClicked) {
-                TextureRegion region = getRegion_bridge();
-                spawnToken(region, 0, false);
-                return;
-            }
+
             if (leftJustDown) {
                 point_lastSpawnPoint.set(x, y);
                 dragged = false;
@@ -471,7 +484,7 @@ public class Tool_5_Architecture extends Tool_new {
                 return;
             } else if (leftJustUp) {
                 if (!dragged) {
-                    TextureRegion region = getRegion_tower();
+                    TextureRegion region = decor ? getRegion_decor() : getRegion_tower();
                     spawnToken(region, 0, MathUtils.randomUniformInt(0,2) == 1);
                 }
             }
