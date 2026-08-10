@@ -31,8 +31,7 @@ public class Renderer2D implements MemoryResourceHolder {
 
     private static final Vector2 tmp = new Vector2(); // used for in-place optimization.
 
-    private static final int               VERTICES_CAPACITY = 8000; // The batch can render VERTICES_CAPACITY vertices (so wee need float buffers of size: VERTICES_CAPACITY * 2 for positions, * 1 for colors, * 2 for uvs etc.)
-    private static final VertexAttribute[] ATTRIBUTES_2D     = VertexAttribute.USED_FOR_2D_RENDERING;
+    private static final int VERTICES_CAPACITY = 8000; // The batch can render VERTICES_CAPACITY vertices (so wee need float buffers of size: VERTICES_CAPACITY * 2 for positions, * 1 for colors, * 2 for uvs etc.)
 
     private static final Shader  defaultShader  = createDefaultShaderProgram();
     private static final Texture defaultTexture = createDefaultTexture();
@@ -80,8 +79,8 @@ public class Renderer2D implements MemoryResourceHolder {
     vboBatch[COLOR]       = colors;
     ...
      */
-    private final FloatBuffer[] vaoBatch = new FloatBuffer[ATTRIBUTES_2D.length]; // TODO
-    private final int[]         vbos     = new int[ATTRIBUTES_2D.length]; // TODO
+    private final FloatBuffer[] vaoBatch = new FloatBuffer[VertexAttribute.USED_FOR_2D_RENDERING.length]; // TODO
+    private final int[]         vbos     = new int[VertexAttribute.USED_FOR_2D_RENDERING.length]; // TODO
 
     /* masking */
     private boolean drawingToStencil = false;
@@ -3188,8 +3187,8 @@ public class Renderer2D implements MemoryResourceHolder {
 
         // copy used buffers to the gpu
         GL30.glBindVertexArray(vao);
-        for (int i = 0; i < ATTRIBUTES_2D.length; i++) {
-            VertexAttribute attribute = ATTRIBUTES_2D[i];
+        for (int i = 0; i < VertexAttribute.USED_FOR_2D_RENDERING.length; i++) {
+            VertexAttribute attribute = VertexAttribute.USED_FOR_2D_RENDERING[i];
             int vbo = vbos[i];
             if (vbo == -1) continue;
             FloatBuffer buffer = vaoBatch[i];
@@ -3245,7 +3244,7 @@ public class Renderer2D implements MemoryResourceHolder {
         GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, ebo);
         GL15.glBufferSubData(GL15.GL_ELEMENT_ARRAY_BUFFER, 0, indices);
 
-        for (VertexAttribute attribute : ATTRIBUTES_2D) {
+        for (VertexAttribute attribute : VertexAttribute.USED_FOR_2D_RENDERING) {
             final boolean hasAttribute = (currentShader.vertexAttributesBitmask & attribute.bitmask) != 0;
             if (hasAttribute) GL20.glEnableVertexAttribArray(attribute.glslLocation); // enable attribute
             else GL20.glDisableVertexAttribArray(attribute.glslLocation); // disable attribute
