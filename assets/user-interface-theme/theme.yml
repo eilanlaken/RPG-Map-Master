@@ -1,10 +1,12 @@
 theme:
-  texturePackPath:                      assets/user-interface-theme/theme-pack.yml
+  texturePackPath:                      null
+  text:
+    textFontPath:                       null
   checkbox:
-    checkboxImageCheckedPath:           assets/user-interface-theme/checkbox-checked.png
-    checkboxImageUncheckedPath:         assets/user-interface-theme/checkbox-unchecked.png
+    checkboxImageCheckedPath:           null
+    checkboxImageUncheckedPath:         null
     checkboxColorBorderChecked:         { r: 0.000, g: 0.459, b: 1.000, a: 1.000 }
-    checkboxColorBorderUnchecked:       { r: 0.463, g: 0.463, b: 0.463, a: 1.000 }
+    checkboxColorBorderUnchecked:       { r: 1.000, g: 0.000, b: 0.000, a: 1.000 }
     checkboxColorCheckmarkBackground:   { r: 0.498, g: 1.000, b: 0.000, a: 1.000 }
     checkboxColorCheckmark:             { r: 1.000, g: 1.000, b: 1.000, a: 1.000 }
     checkboxSize:                       27.0

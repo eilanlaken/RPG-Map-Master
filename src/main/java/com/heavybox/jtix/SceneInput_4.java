@@ -41,8 +41,9 @@ public class SceneInput_4 implements Scene {
     public void start() {
         try {
             ToolsThemeGenerator.checkboxColorCheckmarkBackground = Color.CHARTREUSE;
-            ToolsThemeGenerator.checkboxImageCheckedPath = "assets/user-interface-theme/checkbox-checked.png";
-            ToolsThemeGenerator.checkboxImageUncheckedPath = "assets/user-interface-theme/checkbox-unchecked.png";
+            //ToolsThemeGenerator.checkboxImageCheckedPath = "assets/user-interface-theme/checkbox-checked.png";
+            //ToolsThemeGenerator.checkboxImageUncheckedPath = "assets/user-interface-theme/checkbox-unchecked.png";
+            ToolsThemeGenerator.checkboxColorBorderUnchecked = Color.RED;
             ToolsThemeGenerator.generateTheme("assets/user-interface-theme", "theme");
         } catch (Exception e) {
 

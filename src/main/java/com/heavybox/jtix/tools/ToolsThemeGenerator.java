@@ -13,7 +13,7 @@ import java.util.Set;
 public final class ToolsThemeGenerator {
 
     /* text */
-    public static Font    textFont         = null;
+    public static String  textFontPath     = null;
     public static Color   textColor        = Color.WHITE.clone();
     public static int     textSize         = 22;
     public static boolean textAntialiasing = true;
@@ -54,6 +54,8 @@ public final class ToolsThemeGenerator {
         String yaml = """
         theme:
           texturePackPath:                      %s
+          text:
+            textFontPath:                       %s
           checkbox:
             checkboxImageCheckedPath:           %s
             checkboxImageUncheckedPath:         %s
@@ -65,6 +67,8 @@ public final class ToolsThemeGenerator {
             checkboxSizeBorder:                 %s
         """.formatted(
                 texturePackPath,
+                // text
+                textFontPath,
                 // checkbox
                 checkboxImageCheckedPath,
                 checkboxImageUncheckedPath,
