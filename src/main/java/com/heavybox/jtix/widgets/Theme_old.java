@@ -7,7 +7,7 @@ import com.heavybox.jtix.graphics.TextureRegion;
 import com.heavybox.jtix.memory.MemoryResource;
 
 @Deprecated
-public final class Theme implements MemoryResource {
+public final class Theme_old implements MemoryResource {
 
     public TexturePack texturePack;
     public Font font;
@@ -20,9 +20,9 @@ public final class Theme implements MemoryResource {
     public Color         themeCheckboxBackgroundColorCheckmark = Color.valueOf("0075FF");
     public Color         themeCheckboxColorCheckmark           = Color.valueOf("FFFFFF");
 
-    public Theme() {}
+    public Theme_old() {}
 
-    public Theme(final String yaml) {
+    public Theme_old(final String yaml) {
 
     }
 

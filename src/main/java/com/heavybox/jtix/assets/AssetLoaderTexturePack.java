@@ -17,11 +17,6 @@ public class AssetLoaderTexturePack implements AssetLoader<TexturePack> {
     private String                 yamlString;
 
     @Override
-    public void beforeLoad(String path, HashMap<String, Object> options) {
-        if (!Assets.fileExists(path)) throw new AssetsException("File does not exist: " + path);
-    }
-
-    @Override
     public Array<AssetDescriptor> load(String path, final HashMap<String, Object> options) {
         yamlString = Assets.getFileContent(path);
         Yaml yaml = Assets.yaml();

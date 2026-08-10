@@ -79,7 +79,7 @@ public final class Widgets {
     public static float getPointerXPrev() { return pointerXPrev; }
     public static float getPointerYPrev() { return pointerYPrev; }
 
-    public static void setGlobalTheme(@Nullable Theme theme) {
+    public static void setGlobalTheme(@Nullable Theme_old theme) {
         if (theme == null) {
             setGlobalThemeToDefault();
             return;

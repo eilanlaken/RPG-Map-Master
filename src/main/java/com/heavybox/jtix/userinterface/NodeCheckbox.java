@@ -6,6 +6,7 @@ import com.heavybox.jtix.graphics.TextureRegion;
 
 public class NodeCheckbox extends Node {
 
+    /* state */
     private boolean checked = false;
 
     /* rendering - themes and dims */

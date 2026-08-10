@@ -8,16 +8,18 @@ import com.heavybox.jtix.graphics.Renderer2D;
 
 public class NodeText extends Node {
 
-    /* public text params */
-    public Color     color        = Color.WHITE.clone();
+    /* state */
     public String    text         = "";
-    public Font      font         = null;
-    public int       size         = 22;
-    public boolean   antialiasing = true;
-    public float     lineSpacing  = 1.1f;
     public Alignment alignment    = null;
 
-    /* prev values */
+    /* public text params */
+    public Color     color        = UserInterface.getTheme().textColor.clone();
+    public Font      font         = UserInterface.getTheme().textFont;
+    public int       size         = UserInterface.getTheme().textSize;
+    public boolean   antialiasing = UserInterface.getTheme().textAntialiasing;
+    public float     lineSpacing  = UserInterface.getTheme().lineSpacing;
+
+    /* state management - prev values */
     private String    textPrev;
     private Font      fontPrev;
     private int       sizePrev;

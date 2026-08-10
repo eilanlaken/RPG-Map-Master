@@ -34,11 +34,11 @@ public class SceneWidgetsThemes implements Scene {
         }
 
         Assets.loadTexture("assets/engine-tests/ninepatch.png");
-        Assets.loadTheme("assets/user-interface-theme/widgets-theme.yml");
+        Assets.loadTheme_old("assets/user-interface-theme/widgets-theme.yml");
         Assets.finishLoading();
 
         ninePatch = Assets.get("assets/engine-tests/ninepatch.png");
-        Theme theme = Assets.get("assets/user-interface-theme/widgets-theme.yml");
+        Theme_old theme = Assets.get("assets/user-interface-theme/widgets-theme.yml");
         Widgets.setGlobalTheme(theme);
         checkbox = new WidgetNodeInputCheckbox();
         options = new WidgetNodeInputOptions(3,"hello", "bye", "123", "hhhhh", "kkkkk", "jjjjjj");

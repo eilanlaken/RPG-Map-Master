@@ -14,11 +14,6 @@ public class AssetLoaderFont implements AssetLoader<Font> {
     private ByteBuffer fontDataBuffer;
 
     @Override
-    public void beforeLoad(String path, HashMap<String, Object> options) {
-        if (!Assets.fileExists(path)) throw new AssetsException("File does not exist: " + path); // trying to load a bitmap font that does not exist
-    }
-
-    @Override
     public Array<AssetDescriptor> load(final String path, final HashMap<String, Object> options) {
         try {
             fontDataBuffer = Assets.fileToByteBuffer(path);

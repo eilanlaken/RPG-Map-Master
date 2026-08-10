@@ -20,7 +20,7 @@ regions:
   x: 4
   y: 4
 textures:
-- file: widgets-theme-pack_0.png
+- file: theme-pack_0.png
   height: 32
   width: 64
 options:

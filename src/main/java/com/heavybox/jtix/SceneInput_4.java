@@ -4,12 +4,15 @@ import com.heavybox.jtix.application.Application;
 import com.heavybox.jtix.application.Scene;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.collections.Array;
+import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Graphics;
 import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.graphics.TexturePack;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
+import com.heavybox.jtix.tools.ToolsThemeGenerator;
+import com.heavybox.jtix.tools.ToolsThemeGenerator_z;
 import com.heavybox.jtix.userinterface.*;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.opengl.GL11;
@@ -29,16 +32,30 @@ public class SceneInput_4 implements Scene {
     NodePicture picture;
 
     NodeSlider slider = new NodeSlider();
-    NodeCheckbox checkbox = new NodeCheckbox();
+    NodeCheckbox checkbox;
 
     Renderer2D renderer2D = new Renderer2D();
     TexturePack atlas;
 
     @Override
     public void start() {
+        try {
+            ToolsThemeGenerator.checkboxColorCheckmarkBackground = Color.CHARTREUSE;
+            ToolsThemeGenerator.checkboxImageCheckedPath = "assets/user-interface-theme/checkbox-checked.png";
+            ToolsThemeGenerator.checkboxImageUncheckedPath = "assets/user-interface-theme/checkbox-unchecked.png";
+            ToolsThemeGenerator.generateTheme("assets/user-interface-theme", "theme");
+        } catch (Exception e) {
 
+        }
+        Assets.loadTheme("assets/user-interface-theme/theme.yml");
         Assets.loadTexturePack("assets/texture-packs/user-interface.yml");
         Assets.finishLoading();
+
+        Theme theme = Assets.get("assets/user-interface-theme/theme.yml");
+        UserInterface.setTheme(theme);
+
+        checkbox = new NodeCheckbox();
+
         atlas = Assets.get("assets/texture-packs/user-interface.yml");
 
         picture = new NodePicture(atlas.getRegion("assets/user-interface/toolbar-icon-nature.png"));

@@ -47,12 +47,6 @@ public class AssetLoader3DModel implements AssetLoader<Model> {
         namedProps.put("u_prop_opacity", Assimp.AI_MATKEY_OPACITY);
     }
 
-    // TODO: make use of
-    @Override
-    public void beforeLoad(String path, HashMap<String, Object> options) {
-        if (!Assets.fileExists(path)) throw new AssetsException("File does not exist: " + path);
-    }
-
     @Override
     public Array<AssetDescriptor> load(String path, HashMap<String, Object> options) {
         this.texturesFolderPath = options != null ? (String) options.get("texturesFolderPath") : null;

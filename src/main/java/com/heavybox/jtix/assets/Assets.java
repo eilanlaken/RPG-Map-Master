@@ -8,7 +8,8 @@ import com.heavybox.jtix.collections.Queue;
 import com.heavybox.jtix.graphics.*;
 import com.heavybox.jtix.graphics.Font;
 import com.heavybox.jtix.memory.MemoryResource;
-import com.heavybox.jtix.widgets.Theme;
+import com.heavybox.jtix.userinterface.Theme;
+import com.heavybox.jtix.widgets.Theme_old;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.system.MemoryUtil;
@@ -115,6 +116,11 @@ public final class Assets {
         options.put("magFilter", magFilter);
         options.put("minFilter", minFilter);
         load(TexturePack.class, filepath, options,false);
+    }
+
+    // TODO: remove
+    @Deprecated public synchronized static void loadTheme_old(final String filepath) {
+        load(Theme_old.class, filepath, null, false);
     }
 
     public synchronized static void loadTheme(final String filepath) {
@@ -231,7 +237,8 @@ public final class Assets {
         if (type == Shader.class)      return new AssetLoaderShader();
         if (type == TexturePack.class) return new AssetLoaderTexturePack();
         if (type == Font.class)        return new AssetLoaderFont();
-        if (type == Theme.class)       return new AssetLoaderTheme();
+        if (type == Theme.class)        return new AssetLoaderTheme();
+        if (type == Theme_old.class)       return new AssetLoaderTheme_old();
         if (type == Model.class)       return new AssetLoader3DModel();
         if (type == Scene3D.class)  return new AssetLoader3DScene();
 
