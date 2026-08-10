@@ -6,7 +6,9 @@ import com.heavybox.jtix.memory.MemoryResource;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL20;
+import org.lwjgl.opengl.GL30;
 import org.lwjgl.opengl.GL32;
+import org.lwjgl.opengl.GL41;
 
 import java.nio.IntBuffer;
 import java.util.*;
@@ -339,7 +341,7 @@ public final class Shader implements MemoryResource {
         return bound;
     }
 
-    /* NOTE: before binding any uniform, the shader itself must be bound */
+    // TODO - clean-up the old commented-out bind calls.
     boolean bindUniform(final String name, final Object value) {
         if (value == null) throw new GraphicsException("Trying to bind null value to a uniform variable.");
         final int location = uniformLocations.get(name, -1);
@@ -352,25 +354,30 @@ public final class Shader implements MemoryResource {
                 int slot = TextureBinder.bind(texture);
                 final Integer cache = (Integer) uniformsCache.get(location);
                 if (cache == null || !cache.equals(slot)) {
-                    GL20.glUniform1i(location, slot); // TODO - consider switching to glProgramUniform1f so shader uniform can be set without binding the program first.
+                    //GL20.glUniform1i(location, slot);
+                    GL41.glProgramUniform1i(program, location, slot);
                     uniformsCache.put(location, slot);
                     return true;
                 }
                 return false;
             }
 
-            // TODO: cubemaps textures
-
-            // TODO: 3d textures
+            case GL30.GL_SAMPLER_2D_ARRAY -> {
+                throw new UnsupportedOperationException("2D texture arrays are not supported yet.");
+            }
+            case GL20.GL_SAMPLER_CUBE -> {
+                throw new UnsupportedOperationException("Cubemap textures are not supported yet.");
+            }
             case GL20.GL_SAMPLER_3D -> {
-                return false;
+                throw new UnsupportedOperationException("3D textures are not supported yet.");
             }
 
             case GL20.GL_BOOL -> {
                 boolean b = (Boolean) value;
                 final Boolean cache = (Boolean) uniformsCache.get(location);
                 if (cache == null || !cache.equals(b)) {
-                    GL20.glUniform1i(location, b ? GL20.GL_TRUE : GL20.GL_FALSE);  // bind
+                    //GL20.glUniform1i(location, b ? GL20.GL_TRUE : GL20.GL_FALSE);  // bind
+                    GL41.glProgramUniform1i(program, location, b ? GL20.GL_TRUE : GL20.GL_FALSE);
                     uniformsCache.put(location, b);
                     return true;
                 }
@@ -381,7 +388,8 @@ public final class Shader implements MemoryResource {
                 int i = (Integer) value;
                 final Integer cache = (Integer) uniformsCache.get(location);
                 if (cache == null || !cache.equals(i)) {
-                    GL20.glUniform1i(location, i); // bind
+                    //GL20.glUniform1i(location, i); // bind
+                    GL41.glProgramUniform1i(program, location, i);
                     uniformsCache.put(location, i);
                     return true;
                 }
@@ -393,7 +401,8 @@ public final class Shader implements MemoryResource {
                 float f = ((Number) value).floatValue();
                 final Float cache = (Float) uniformsCache.get(location);
                 if (cache == null || !cache.equals(f)) {
-                    GL20.glUniform1f(location, f); // bind
+                    //GL20.glUniform1f(location, f); // bind
+                    GL41.glProgramUniform1f(program, location, f);
                     uniformsCache.put(location, f);
                     return true;
                 }
@@ -404,13 +413,15 @@ public final class Shader implements MemoryResource {
                 Matrix4x4 matrix4 = (Matrix4x4) value;
                 final Matrix4x4 cache = (Matrix4x4) uniformsCache.get(location);
                 if (cache == null) {
-                    GL20.glUniformMatrix4fv(location, false, matrix4.val); // bind
+                    //GL20.glUniformMatrix4fv(location, false, matrix4.val); // bind
+                    GL41.glProgramUniformMatrix4fv(program, location, false, matrix4.val);
                     Matrix4x4 newCache = new Matrix4x4();
                     newCache.set(matrix4);
                     uniformsCache.put(location, newCache);
                     return true;
                 } else if (!cache.equals(matrix4)) {
-                    GL20.glUniformMatrix4fv(location, false, matrix4.val); // bind
+                    //GL20.glUniformMatrix4fv(location, false, matrix4.val); // bind
+                    GL41.glProgramUniformMatrix4fv(program, location, false, matrix4.val);
                     cache.set(matrix4);
                     return true;
                 }
@@ -421,13 +432,15 @@ public final class Shader implements MemoryResource {
                 Vector2 vector2 = (Vector2) value;
                 final Vector2 cache = (Vector2) uniformsCache.get(location);
                 if (cache == null) {
-                    GL20.glUniform2f(location, vector2.x, vector2.y); // bind
+                    //GL20.glUniform2f(location, vector2.x, vector2.y); // bind
+                    GL41.glProgramUniform2f(program, location, vector2.x, vector2.y);
                     Vector2 newCache = new Vector2(); // create cache
                     newCache.set(vector2);
                     uniformsCache.put(location, newCache);
                     return true;
                 } else if (!cache.equals(vector2)) {
-                    GL20.glUniform2f(location, vector2.x, vector2.y); // bind
+                    //GL20.glUniform2f(location, vector2.x, vector2.y); // bind
+                    GL41.glProgramUniform2f(program, location, vector2.x, vector2.y);
                     cache.set(vector2); // store cache
                     return true;
                 }
@@ -438,12 +451,14 @@ public final class Shader implements MemoryResource {
                 Vector3 vector3 = (Vector3) value;
                 final Vector3 cache = (Vector3) uniformsCache.get(location);
                 if (cache == null) {
-                    GL20.glUniform3f(location, vector3.x, vector3.y, vector3.z); // bind
-                    Vector3 newCache = new Vector3(); // create cache
-                    newCache.set(vector3); // store cache
+                    //GL20.glUniform3f(location, vector3.x, vector3.y, vector3.z); // bind
+                    GL41.glProgramUniform3f(program, location, vector3.x, vector3.y, vector3.z);
+                    Vector3 newCache = new Vector3(vector3); // create cache
+                    uniformsCache.put(location, newCache);
                     return true;
                 } else if (!cache.equals(vector3)) {
-                    GL20.glUniform3f(location, vector3.x, vector3.y, vector3.z); // bind
+                    //GL20.glUniform3f(location, vector3.x, vector3.y, vector3.z); // bind
+                    GL41.glProgramUniform3f(program, location, vector3.x, vector3.y, vector3.z);
                     cache.set(vector3); // store cache
                     return true;
                 }
@@ -455,12 +470,14 @@ public final class Shader implements MemoryResource {
                 if (value instanceof Color) {
                     Color color = (Color) value;
                     if (cache == null) {
-                        GL20.glUniform4f(location, color.r, color.g, color.b, color.a); // bind
+                        //GL20.glUniform4f(location, color.r, color.g, color.b, color.a); // bind
+                        GL41.glProgramUniform4f(program, location, color.r, color.g, color.b, color.a);
                         Vector4 newCache = new Vector4(); // create cache
                         newCache.set(color.r, color.g, color.b, color.a); // store cache
                         return true;
                     } else if (cache.x != color.r || cache.y != color.g || cache.z != color.b || cache.w != color.a) {
-                        GL20.glUniform4f(location, color.r, color.g, color.b, color.a); // bind
+                        //GL20.glUniform4f(location, color.r, color.g, color.b, color.a); // bind
+                        GL41.glProgramUniform4f(program, location, color.r, color.g, color.b, color.a);
                         cache.set(color.r, color.g, color.b, color.a); // store cache
                         return true;
                     }
@@ -468,12 +485,14 @@ public final class Shader implements MemoryResource {
                 } else if (value instanceof Vector4) {
                     Vector4 vector4 = (Vector4) value;
                     if (cache == null) {
-                        GL20.glUniform4f(location, vector4.x, vector4.y, vector4.z, vector4.w); // bind
+                        //GL20.glUniform4f(location, vector4.x, vector4.y, vector4.z, vector4.w); // bind
+                        GL41.glProgramUniform4f(program, location, vector4.x, vector4.y, vector4.z, vector4.w);
                         Vector4 newCache = new Vector4(); // create cache
                         newCache.set(vector4); // store cache
                         return true;
                     } else if (!cache.equals(vector4)) {
-                        GL20.glUniform4f(location, vector4.x, vector4.y, vector4.z, vector4.w); // bind
+                        //GL20.glUniform4f(location, vector4.x, vector4.y, vector4.z, vector4.w); // bind
+                        GL41.glProgramUniform4f(program, location, vector4.x, vector4.y, vector4.z, vector4.w);
                         cache.set(vector4); // store cache
                         return true;
                     }
