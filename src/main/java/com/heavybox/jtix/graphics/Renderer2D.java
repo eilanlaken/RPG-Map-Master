@@ -2,6 +2,7 @@ package com.heavybox.jtix.graphics;
 
 import com.heavybox.jtix.collections.*;
 import com.heavybox.jtix.math.MathUtils;
+import com.heavybox.jtix.math.Matrix4x4;
 import com.heavybox.jtix.math.Vector2;
 import com.heavybox.jtix.math.Vector4;
 import com.heavybox.jtix.memory.MemoryPool;
@@ -735,6 +736,29 @@ public class Renderer2D implements MemoryResourceHolder {
         indices.put(startVertex + 1);
         indices.put(startVertex + 2);
         vertexIndex += 4;
+    }
+
+    /* optimized rendering - equivalent to libGDXs' SpriteCache */
+    // TODO
+    public void drawMesh(@NotNull final Mesh mesh, float x, float y, float deg, float sclX, float sclY) {
+        if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
+        flush();
+
+        Matrix4x4 transform = new Matrix4x4();
+        float cos = MathUtils.cosDeg(deg);
+        float sin = MathUtils.sinDeg(deg);
+        transform.set(
+                cos * sclX, -sin * sclY, 0.0f, x,
+                sin * sclX,  cos * sclY, 0.0f,  y,
+                0.0f,        0.0f,       1.0f, 0.0f,
+                0.0f,        0.0f,       0.0f, 1.0f
+        );
+        Matrix4x4 transformedCombined = new Matrix4x4(currentCamera.combined).mul(transform);
+        if (currentShader.uniformExists("u_camera_combined")) currentShader.bindUniform("u_camera_combined", transformedCombined);
+
+        // render the vao using current shader
+
+        if (currentShader.uniformExists("u_camera_combined")) currentShader.bindUniform("u_camera_combined", currentCamera.combined);
     }
 
     /* Rendering 2D primitives - Circles */
@@ -3163,7 +3187,7 @@ public class Renderer2D implements MemoryResourceHolder {
     /* Rendering Meshes */
 
     // TODO
-    public void drawMesh(@Nullable Shader shader, Map<String, Object> shaderUniforms, Map<VertexAttribute, ArrayFloat> vbos, ArrayInt triangles) {
+    public void drawMesh(@Nullable Shader shader, @Nullable Map<String, Object> shaderUniforms, Map<VertexAttribute, ArrayFloat> vbos, ArrayInt triangles) {
 
     }
 

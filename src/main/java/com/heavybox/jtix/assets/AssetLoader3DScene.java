@@ -114,17 +114,17 @@ public class AssetLoader3DScene implements AssetLoader<Scene3D> {
 
     @Override
     public Scene3D afterLoad() {
-        ModelMesh[] allSceneMeshes = new ModelMesh[meshesData.length];
+        Z_ModelMesh[] allSceneMeshes = new Z_ModelMesh[meshesData.length];
         for (int i = 0; i < allSceneMeshes.length; i++) {
             MeshData meshData = meshesData[i];
-            allSceneMeshes[i] = new ModelMesh(meshData.positions, meshData.textureCoords0, meshData.colors, meshData.normals, meshData.tangents, meshData.biTangents, meshData.indices, meshData.boundingSphereRadius);
+            allSceneMeshes[i] = new Z_ModelMesh(meshData.positions, meshData.textureCoords0, meshData.colors, meshData.normals, meshData.tangents, meshData.biTangents, meshData.indices, meshData.boundingSphereRadius);
         }
 
-        ModelMaterial[] allDifferentMaterials = new ModelMaterial[materialsData.length];
+        Z_ModelMaterial[] allDifferentMaterials = new Z_ModelMaterial[materialsData.length];
         for (int i = 0; i < allDifferentMaterials.length; i++) {
             MaterialData materialData = materialsData[i];
-            ModelMaterial modelMaterial = convertMaterialDataToPBRModelMaterial(materialData);
-            allDifferentMaterials[i] = modelMaterial;
+            Z_ModelMaterial modelMaterialOld = convertMaterialDataToPBRModelMaterial(materialData);
+            allDifferentMaterials[i] = modelMaterialOld;
         }
 
         Scene3D scene = new Scene3D();
@@ -137,8 +137,8 @@ public class AssetLoader3DScene implements AssetLoader<Scene3D> {
         return scene;
     }
 
-    private ModelMaterial convertMaterialDataToPBRModelMaterial(final AssetLoader3DScene.MaterialData materialData) {
-        ModelMaterial material = new ModelMaterial();
+    private Z_ModelMaterial convertMaterialDataToPBRModelMaterial(final AssetLoader3DScene.MaterialData materialData) {
+        Z_ModelMaterial material = new Z_ModelMaterial();
 
         material.name = materialData.name;
         // add all the textures
@@ -458,22 +458,22 @@ public class AssetLoader3DScene implements AssetLoader<Scene3D> {
         return nodeData;
     }
 
-    private Scene3D.Node buildNodeTree(ModelMesh[] allSceneMeshes, ModelMaterial[] allSceneMaterials, final NodeData nodeData, final Scene3D.Node parent) {
+    private Scene3D.Node buildNodeTree(Z_ModelMesh[] allSceneMeshes, Z_ModelMaterial[] allSceneMaterials, final NodeData nodeData, final Scene3D.Node parent) {
         if (nodeData == null) return null;
 
         Scene3D.Node node = new Scene3D.Node();
         node.parent = parent;
         node.name = nodeData.name;
         node.localTransform = convertToMatrix4x4(nodeData.matrix);
-        ModelMesh[] nodeMeshes = new ModelMesh[nodeData.meshes.size];
+        Z_ModelMesh[] nodeMeshes = new Z_ModelMesh[nodeData.meshes.size];
         for (int i = 0; i < nodeData.meshes.size; i++) {
             nodeMeshes[i] = allSceneMeshes[nodeData.meshes.get(i)];
         }
-        ModelMaterial[] nodeMaterials = new ModelMaterial[nodeData.materials.size];
+        Z_ModelMaterial[] nodeMaterials = new Z_ModelMaterial[nodeData.materials.size];
         for (int i = 0; i < nodeData.materials.size; i++) {
             nodeMaterials[i] = allSceneMaterials[nodeData.materials.get(i)];
         }
-        node.model = new Model(nodeMeshes, nodeMaterials);
+        node.modelOld = new Z_Model(nodeMeshes, nodeMaterials);
 
         node.children = new Scene3D.Node[nodeData.children.length];
         for (int i = 0; i < nodeData.children.length; i++) {

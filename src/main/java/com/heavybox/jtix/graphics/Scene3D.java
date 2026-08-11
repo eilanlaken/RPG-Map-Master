@@ -1,6 +1,5 @@
 package com.heavybox.jtix.graphics;
 
-import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.math.Matrix4x4;
 import com.heavybox.jtix.memory.MemoryResource;
 
@@ -8,8 +7,8 @@ import java.util.HashMap;
 
 public class Scene3D implements MemoryResource {
 
-    public ModelMesh[]           allMeshes;
-    public ModelMaterial[]       allMaterials;
+    public Z_ModelMesh[]           allMeshes;
+    public Z_ModelMaterial[]       allMaterials;
     public Node[]                allNodes;
     public Node                  root;
     public HashMap<String, Node> namedNodes;
@@ -36,7 +35,7 @@ public class Scene3D implements MemoryResource {
         public Type type;
         public String name;
         public Matrix4x4 localTransform;
-        public Model model;
+        public Z_Model modelOld;
         public Node[] children;
 
         @Override

@@ -134,6 +134,19 @@ public class Matrix4x4 implements MemoryPool.Reset {
         return this;
     }
 
+    // TODO - test
+    public Matrix4x4 set(
+            float m00, float m01, float m02, float m03,
+            float m10, float m11, float m12, float m13,
+            float m20, float m21, float m22, float m23,
+            float m30, float m31, float m32, float m33) {
+        val[M00] = m00; val[M01] = m01; val[M02] = m02; val[M03] = m03;
+        val[M10] = m10; val[M11] = m11; val[M12] = m12; val[M13] = m13;
+        val[M20] = m20; val[M21] = m21; val[M22] = m22; val[M23] = m23;
+        val[M30] = m30; val[M31] = m31; val[M32] = m32; val[M33] = m33;
+        return this;
+    }
+
     /** Sets the matrix to a rotation matrix representing the quaternion.
      * @param quaternion The quaternion that is to be used to set this matrix.
      * @return This matrix for the purpose of chaining methods together. */

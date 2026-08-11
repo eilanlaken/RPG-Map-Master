@@ -146,14 +146,14 @@ public final class Assets {
 
     public synchronized static void loadModel(String filepath) {
         final HashMap<String, Object> options = new HashMap<>();
-        load(Model.class, filepath, options, false);
+        load(Z_Model.class, filepath, options, false);
     }
 
     // use this if you have a models with common textures path.
     public synchronized static void loadModel(String filepath, String texturesPath) {
         final HashMap<String, Object> options = new HashMap<>();
         options.put("texturesFolderPath", texturesPath);
-        load(Model.class, filepath, options, false);
+        load(Z_Model.class, filepath, options, false);
     }
 
     public synchronized static void loadScene(String filepath, String texturesPath) {
@@ -239,7 +239,7 @@ public final class Assets {
         if (type == Font.class)        return new AssetLoaderFont();
         if (type == Theme.class)        return new AssetLoaderTheme();
         if (type == Theme_old.class)       return new AssetLoaderTheme_old();
-        if (type == Model.class)       return new AssetLoader3DModel();
+        if (type == Z_Model.class)       return new AssetLoader3DModel();
         if (type == Scene3D.class)  return new AssetLoader3DScene();
 
         throw new AssetsException("Type: " + type.getSimpleName() + " is not a loadable class type. " +
@@ -247,7 +247,7 @@ public final class Assets {
                 Texture.class.getSimpleName() + ", " +
                 TexturePack.class.getSimpleName() + ", " +
                 Font.class.getSimpleName() + ", " +
-                Model.class.getSimpleName() + "."); // TODO: add audio.
+                Z_Model.class.getSimpleName() + "."); // TODO: add audio.
     }
 
     public static Yaml yaml() {

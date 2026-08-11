@@ -71,7 +71,7 @@ public class Renderer3D {
         Graphics.activeRenderer3Ds++;
     }
 
-    @Deprecated public static void drawModel_tmp_5(ModelMesh mesh, ModelMaterial material, Matrix4x4 transform) {
+    @Deprecated public static void drawModel_tmp_5(Z_ModelMesh mesh, Z_ModelMaterial material, Matrix4x4 transform) {
         currentShader.bind();
         currentShader.bindUniform("u_transform", transform);
         currentShader.bindUniform("u_camera_combined", currentCamera.combined); // TODO: camera binding should not be here.
@@ -166,7 +166,7 @@ public class Renderer3D {
         GL30.glBindVertexArray(0);
     }
 
-    @Deprecated public static void drawModel_tmp_6(ModelMesh mesh, ModelMaterial material, Matrix4x4 transform) {
+    @Deprecated public static void drawModel_tmp_6(Z_ModelMesh mesh, Z_ModelMaterial material, Matrix4x4 transform) {
         currentShader.bind();
         currentShader.bindUniform("u_camera_combined", currentCamera.combined); // TODO: camera binding should not be here.
         currentShader.bindUniform("u_camera_position", currentCamera.position); // TODO: camera binding should not be here.
@@ -214,7 +214,7 @@ public class Renderer3D {
         GL30.glBindVertexArray(0);
     }
 
-    @Deprecated public static void drawModel_custom_shader(Shader shader, ModelMesh mesh, ModelMaterial material, Matrix4x4 transform) {
+    @Deprecated public static void drawModel_custom_shader(Shader shader, Z_ModelMesh mesh, Z_ModelMaterial material, Matrix4x4 transform) {
         shader.bind();
 
         shader.bindUniform("u_camera_combined", currentCamera.combined); // TODO: camera binding should not be here.
@@ -277,7 +277,7 @@ public class Renderer3D {
         GL30.glBindVertexArray(0);
     }
 
-    @Deprecated public static void drawModel_custom_shader_2(Shader shader, ModelMesh mesh, ModelMaterial material, Matrix4x4 transform) {
+    @Deprecated public static void drawModel_custom_shader_2(Shader shader, Z_ModelMesh mesh, Z_ModelMaterial material, Matrix4x4 transform) {
         shader.bind();
         //GL11.glDisable(GL11.GL_CULL_FACE); // TODO: enable!
 
@@ -346,7 +346,7 @@ public class Renderer3D {
 
     }
 
-    @Deprecated public static void drawModel_cloud_shader_2(Shader shader, ModelMesh mesh, ModelMaterial material, Matrix4x4 transform, int index) {
+    @Deprecated public static void drawModel_cloud_shader_2(Shader shader, Z_ModelMesh mesh, Z_ModelMaterial material, Matrix4x4 transform, int index) {
         shader.bind();
         GL11.glDisable(GL11.GL_CULL_FACE); // TODO: enable!
 
@@ -395,7 +395,7 @@ public class Renderer3D {
         GL11.glEnable(GL11.GL_CULL_FACE); // TODO: enable!
     }
 
-    @Deprecated public static void drawModel_custom_unlit_shader(ModelMesh mesh, ModelMaterial material, Matrix4x4 transform) {
+    @Deprecated public static void drawModel_custom_unlit_shader(Z_ModelMesh mesh, Z_ModelMaterial material, Matrix4x4 transform) {
         defaultShaderUnlit.bind();
         defaultShaderUnlit.bindUniform("u_camera_combined", currentCamera.combined); // TODO: camera binding should not be here.
         defaultShaderUnlit.bindUniform("u_transform", transform);
@@ -449,12 +449,12 @@ public class Renderer3D {
     }
 
     // TODO: add support for wireframes
-    public static void drawModel(Model model, Matrix4x4 transform) {
+    public static void drawModel(Z_Model modelOld, Matrix4x4 transform) {
         // for every mesh, create a render command
-        for (int i = 0; i < model.meshes.length; i++) {
+        for (int i = 0; i < modelOld.meshes.length; i++) {
             RenderCommand renderCommand = renderCommandsPool.allocate();
-            renderCommand.mesh = model.meshes[i];
-            renderCommand.material = model.materials[i];
+            renderCommand.mesh = modelOld.meshes[i];
+            renderCommand.material = modelOld.materials[i];
             renderCommand.transform = transform;
             renderCommand.shader = renderCommand.material.shader;
             if (renderCommand.shader == null) {
@@ -469,7 +469,7 @@ public class Renderer3D {
         }
     }
 
-    public static void drawModel(Shader shader, ModelMesh mesh, ModelMaterial material, Matrix4x4 transform) {
+    public static void drawModel(Shader shader, Z_ModelMesh mesh, Z_ModelMaterial material, Matrix4x4 transform) {
         RenderCommand renderCommand = renderCommandsPool.allocate();
         renderCommand.mesh = mesh;
         renderCommand.material = material;
@@ -500,8 +500,8 @@ public class Renderer3D {
         // TODO: sort renderables by shader -> material index.
         for (RenderCommand command : renderCommandsOpaque) {
             Shader shader = command.shader;
-            ModelMesh mesh = command.mesh;
-            ModelMaterial material = command.material;
+            Z_ModelMesh mesh = command.mesh;
+            Z_ModelMaterial material = command.material;
             Matrix4x4 transform = command.transform;
             drawMesh(shader, mesh, material, transform);
         }
@@ -521,8 +521,8 @@ public class Renderer3D {
         });
         for (RenderCommand command : renderCommandsTransparent) {
             Shader shader = command.shader;
-            ModelMesh mesh = command.mesh;
-            ModelMaterial material = command.material;
+            Z_ModelMesh mesh = command.mesh;
+            Z_ModelMaterial material = command.material;
             Matrix4x4 transform = command.transform;
             drawMesh(shader, mesh, material, transform);
         }
@@ -588,7 +588,7 @@ public class Renderer3D {
     }
 
     // TODO: make private
-    public static void drawMesh(Shader shader, ModelMesh mesh, ModelMaterial material, Matrix4x4 transform) {
+    public static void drawMesh(Shader shader, Z_ModelMesh mesh, Z_ModelMaterial material, Matrix4x4 transform) {
         setShader(shader);
 
         /* bind transform, if present. */
@@ -728,8 +728,8 @@ public class Renderer3D {
 
     public static final class RenderCommand implements MemoryPool.Reset {
 
-        public ModelMesh     mesh      = null;
-        public ModelMaterial material  = null;
+        public Z_ModelMesh mesh      = null;
+        public Z_ModelMaterial material  = null;
         public Matrix4x4     transform = null;
         public Shader        shader    = null;
 

@@ -2,9 +2,7 @@ package com.heavybox.jtix.tools;
 
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.graphics.Color;
-import com.heavybox.jtix.graphics.Font;
 import com.heavybox.jtix.graphics.GraphicsException;
-import com.heavybox.jtix.graphics.TextureRegion;
 
 import java.util.HashSet;
 import java.util.Objects;

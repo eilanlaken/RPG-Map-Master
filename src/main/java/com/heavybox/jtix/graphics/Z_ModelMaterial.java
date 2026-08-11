@@ -7,7 +7,7 @@ import java.util.Map;
 
 
 // TODO: remove MemoryResource
-public class ModelMaterial implements MemoryResource, Cloneable {
+public class Z_ModelMaterial implements MemoryResource, Cloneable {
 
     public String name = null;
     public Shader shader = null;
@@ -34,13 +34,13 @@ public class ModelMaterial implements MemoryResource, Cloneable {
 
     // TODO: test
     @Override
-    public ModelMaterial clone() {
+    public Z_ModelMaterial clone() {
         try {
             // TODO: handle name
             // TODO: handle materialIndex
             // Shallow copy for shader, booleans, etc. (already handled by super.clone())
             // Deep copy materialAttributes
-            ModelMaterial cloned = (ModelMaterial) super.clone();
+            Z_ModelMaterial cloned = (Z_ModelMaterial) super.clone();
             cloned.materialAttributes = new HashMap<>(this.materialAttributes);
             return cloned;
         } catch (CloneNotSupportedException e) {
@@ -55,8 +55,8 @@ public class ModelMaterial implements MemoryResource, Cloneable {
                 '}';
     }
 
-    public static ModelMaterial create() {
-        return new ModelMaterial();
+    public static Z_ModelMaterial create() {
+        return new Z_ModelMaterial();
     }
 
 }

@@ -14,11 +14,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 // TODO: improve options (gen Normals, gen smooth normals)
 // TODO: store the transform of a node. May be very useful in some cases. For example, destructible objects.
-public class AssetLoader3DModel implements AssetLoader<Model> {
+public class AssetLoader3DModel implements AssetLoader<Z_Model> {
 
     private final MapObjectInt<String> uniformNameTextureTypes = new MapObjectInt<>();
     private final Map<String, String>  namedColorParams        = new HashMap<>();
@@ -107,18 +106,18 @@ public class AssetLoader3DModel implements AssetLoader<Model> {
     }
 
     @Override
-    public Model afterLoad() {
-        ModelMesh[] modelMeshes = new ModelMesh[meshesData.length];
-        for (int i = 0; i < modelMeshes.length; i++) {
+    public Z_Model afterLoad() {
+        Z_ModelMesh[] modelMeshOlds = new Z_ModelMesh[meshesData.length];
+        for (int i = 0; i < modelMeshOlds.length; i++) {
             MeshData meshData = meshesData[i];
-            modelMeshes[i] = new ModelMesh(meshData.positions, meshData.textureCoords0, meshData.colors, meshData.normals, meshData.tangents, meshData.biTangents, meshData.indices, meshData.boundingSphereRadius);
+            modelMeshOlds[i] = new Z_ModelMesh(meshData.positions, meshData.textureCoords0, meshData.colors, meshData.normals, meshData.tangents, meshData.biTangents, meshData.indices, meshData.boundingSphereRadius);
         }
 
-        ModelMaterial[] allDifferentMaterials = new ModelMaterial[materialsData.length];
+        Z_ModelMaterial[] allDifferentMaterials = new Z_ModelMaterial[materialsData.length];
         for (int i = 0; i < allDifferentMaterials.length; i++) {
             MaterialData materialData = materialsData[i];
-            ModelMaterial modelMaterial = convertMaterialDataToPBRModelMaterial(materialData);
-            allDifferentMaterials[i] = modelMaterial;
+            Z_ModelMaterial modelMaterialOld = convertMaterialDataToPBRModelMaterial(materialData);
+            allDifferentMaterials[i] = modelMaterialOld;
         }
 
         // TODO: maybe revise. See AssetLoaderScene3D for constructing nodes.
@@ -126,18 +125,18 @@ public class AssetLoader3DModel implements AssetLoader<Model> {
         // we create a materials array matching the meshes array. In the materials array
         // we may store reference replicas. The final result are two arrays of the same
         // size where mesh[0],material[0]...mesh[M],material[M] is the entire model.
-        ModelMaterial[] modelMaterials = new ModelMaterial[modelMeshes.length];
-        for (int i = 0; i < modelMaterials.length; i++) {
-            ModelMaterial material = allDifferentMaterials[meshesData[i].materialIndex];
-            modelMaterials[i] = material;
+        Z_ModelMaterial[] modelMaterialOlds = new Z_ModelMaterial[modelMeshOlds.length];
+        for (int i = 0; i < modelMaterialOlds.length; i++) {
+            Z_ModelMaterial material = allDifferentMaterials[meshesData[i].materialIndex];
+            modelMaterialOlds[i] = material;
         }
 
-        return new Model(modelMeshes, modelMaterials);
+        return new Z_Model(modelMeshOlds, modelMaterialOlds);
     }
 
     // TODO
-    private ModelMaterial convertMaterialDataToPBRModelMaterial(final MaterialData materialData) {
-        ModelMaterial material = new ModelMaterial();
+    private Z_ModelMaterial convertMaterialDataToPBRModelMaterial(final MaterialData materialData) {
+        Z_ModelMaterial material = new Z_ModelMaterial();
 
         material.name = materialData.name;
         // add all the textures
