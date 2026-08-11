@@ -2,6 +2,7 @@ package com.heavybox.jtix.graphics;
 
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.collections.ArrayInt;
+import com.heavybox.jtix.memory.MemoryResource;
 import com.heavybox.jtix.memory.MemoryUtils;
 import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
@@ -10,14 +11,14 @@ import org.lwjgl.opengl.GL30;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
-public class Mesh {
+public class Mesh implements MemoryResource {
 
     public int     vertexArrayObjectId;
+    public int[]   vertexBufferObjects;
     public int     vertexCount;
-    public boolean useIndices;
+    public boolean indexed;
     public float   boundingBoxSize;
     public int     attributeBitmask;
-    public int[]   vertexBufferObjects;
 
     public Material material;
 
@@ -30,15 +31,15 @@ public class Mesh {
         this.vertexArrayObjectId = GL30.glGenVertexArrays();
         GL30.glBindVertexArray(vertexArrayObjectId);
         {
-            storeDataInAttributeList(VertexAttribute.POSITION_2D, positions, attributesCollector, vbosCollector);
-            storeDataInAttributeList(VertexAttribute.COLOR, colors, attributesCollector, vbosCollector);
-            storeDataInAttributeList(VertexAttribute.TEXT_COORDS0, uvs, attributesCollector, vbosCollector);
+            storeDataOfAttribute(VertexAttribute.POSITION_2D, positions, attributesCollector, vbosCollector);
+            storeDataOfAttribute(VertexAttribute.COLOR, colors, attributesCollector, vbosCollector);
+            storeDataOfAttribute(VertexAttribute.TEXT_COORDS0, uvs, attributesCollector, vbosCollector);
             storeIndicesBuffer(indices, vbosCollector);
         }
         GL30.glBindVertexArray(0);
 
         this.attributeBitmask = VertexAttribute.generateBitmask(attributesCollector);
-        this.useIndices = indices != null;
+        this.indexed = indices != null;
         this.vertexBufferObjects = vbosCollector.pack();
         this.material = material;
 
@@ -69,7 +70,7 @@ public class Mesh {
         vbosCollector.add(vbo);
     }
 
-    private void storeDataInAttributeList(final VertexAttribute attribute, final float[] data, Array<VertexAttribute> attributesCollector, ArrayInt vbosCollector) {
+    private void storeDataOfAttribute(final VertexAttribute attribute, final float[] data, Array<VertexAttribute> attributesCollector, ArrayInt vbosCollector) {
         if (data == null) return;
         int vbo = GL15.glGenBuffers();
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vbo); // bind
@@ -81,4 +82,11 @@ public class Mesh {
         attributesCollector.add(attribute);
     }
 
+    @Override
+    public void delete() {
+        GL30.glDeleteVertexArrays(vertexArrayObjectId);
+        for (int vbo : vertexBufferObjects) {
+            GL30.glDeleteBuffers(vbo);
+        }
+    }
 }

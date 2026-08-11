@@ -36,6 +36,10 @@ public final class ModelBuilder2D {
 
     }
 
+    public static void addPolygonFilled() {
+
+    }
+
     public static void end() {
 
     }

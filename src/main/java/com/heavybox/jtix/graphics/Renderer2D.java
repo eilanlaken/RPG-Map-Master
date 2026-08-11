@@ -761,6 +761,11 @@ public class Renderer2D implements MemoryResourceHolder {
         if (currentShader.uniformExists("u_camera_combined")) currentShader.bindUniform("u_camera_combined", currentCamera.combined);
     }
 
+    // TODO: draw meshes
+    public void drawModel(@NotNull final Model model, float x, float y, float deg, float sclX, float sclY) {
+
+    }
+
     /* Rendering 2D primitives - Circles */
 
     public void drawCircleThin(float r, int refinement, float x, float y, float degrees, float scaleX, float scaleY) {
