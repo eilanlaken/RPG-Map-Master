@@ -32,6 +32,10 @@ public final class ModelBuilder2D {
 
     }
 
+    public static void addCircleBorder() {
+
+    }
+
     public static void end() {
 
     }
