@@ -2,26 +2,29 @@ package com.heavybox.jtix.userinterface;
 
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Renderer2D;
+import com.heavybox.jtix.graphics.TextureRegion;
 import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Vector2;
 
-// TODO: improve and complete following the checkbox example.
+// TODO: actually finish
 public class NodeSlider extends Node {
 
-    public boolean horizontal = true; // TODO
-
+    /* state and data */
     public boolean integers = false;
-    public float min = 0;
-    public float max = 1;
-    public float val = 0.5f; // sliding will change this fraction.
+    public float   minimum  = 0;
+    public float   maximum  = 1;
+    public float   value    = 0.5f; // sliding will change this fraction.
 
     /* TODO: theme. See how to make it flexible */
-    public float size = 200;
-    public float thickness = 7.5f;
-    public float thumbSize = 18;
-    public final Color colorBar = Color.GRAY.clone();
-    public final Color colorThumb = Color.valueOf("0075FF");
-    public final Color colorFill  = Color.valueOf("0075FF");
+    public TextureRegion imageBackground = UserInterface.getTheme().sliderImageBackground;
+    public TextureRegion imageFill       = UserInterface.getTheme().sliderImageFill;
+    public TextureRegion imageThumb      = UserInterface.getTheme().sliderImageThumb;
+    public float         size            = UserInterface.getTheme().sliderSize;
+    public float         thickness       = UserInterface.getTheme().sliderThickness;
+    public float         thumbSize       = UserInterface.getTheme().sliderThumbSize;
+    public Color         colorBackground = UserInterface.getTheme().sliderColorBackground.clone();
+    public Color         colorThumb      = UserInterface.getTheme().sliderColorThumb.clone();
+    public Color         colorFill       = UserInterface.getTheme().sliderColorFill.clone();
 
     public NodeSlider() {
         onMouseDragStartDefault(e -> {
@@ -30,33 +33,36 @@ public class NodeSlider extends Node {
         });
 
         onMouseDragDefault(e -> {
-            setValue(val + (e.mouseLocalX - e.mouseLocalXPrev) / size);
+            setValue(value + (e.mouseLocalX - e.mouseLocalXPrev) / size);
         });
     }
 
     @Override
     protected final void draw(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
-        drawBar(renderer2D, x, y, deg, sclX, sclY);
-        drawThumb(renderer2D, x, y, deg, sclX, sclY);
-    }
+        drawBackground(renderer2D, x, y, deg, sclX, sclY);
+        drawFill(renderer2D, x, y, deg, sclX, sclY);
 
-    protected void drawBar(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
-        renderer2D.setColor(colorBar);
-        renderer2D.drawLineFilled(-size * 0.5f, 0, size * 0.5f, 0, thickness, x, y, deg, sclX, sclY);
-        renderer2D.setColor(colorFill);
-        renderer2D.drawLineFilled(-size * 0.5f, 0, -size * 0.5f + size * val, 0, thickness, x, y, deg, sclX, sclY);
-    }
-
-    protected void drawThumb(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
-        // calculate offset
-        float offset_x = size * (val - 0.5f);
+        float offset_x = size * (value - 0.5f);
         float offset_y = 0;
         Vector2 offset_transformed = new Vector2(offset_x, offset_y);
         offset_transformed.scl(sclX, sclY);
         offset_transformed.rotateDeg(deg);
+        drawThumb(renderer2D, x + offset_transformed.x, y + offset_transformed.y, deg, sclX, sclY);
+    }
 
+    protected void drawBackground(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
+        renderer2D.setColor(colorBackground);
+        renderer2D.drawLineFilled(-size * 0.5f, 0, size * 0.5f, 0, thickness, x, y, deg, sclX, sclY);
+    }
+
+    protected void drawFill(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
+        renderer2D.setColor(colorFill);
+        renderer2D.drawLineFilled(-size * 0.5f, 0, -size * 0.5f + size * value, 0, thickness, x, y, deg, sclX, sclY);
+    }
+
+    protected void drawThumb(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
         renderer2D.setColor(colorThumb);
-        renderer2D.drawCircleFilled(thumbSize * 0.5f,15, x + offset_transformed.x, y + offset_transformed.y, deg, sclX, sclY);
+        renderer2D.drawCircleFilled(thumbSize * 0.5f,20, x, y, deg, sclX, sclY);
     }
 
     @Override
@@ -70,11 +76,11 @@ public class NodeSlider extends Node {
     }
 
     public float getValue() {
-        return min + val * (max - min);
+        return minimum + value * (maximum - minimum);
     }
 
     public void setValue(float value) {
-        this.val = MathUtils.clampFloat(value, 0, 1);
+        this.value = MathUtils.clampFloat(value, 0, 1);
     }
 
 }

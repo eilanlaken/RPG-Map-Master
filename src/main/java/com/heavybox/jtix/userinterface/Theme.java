@@ -20,6 +20,15 @@ public class Theme implements MemoryResource {
     public float   lineSpacing      = 1.1f;
 
     /* slider */
+    public TextureRegion sliderImageBackground = null;
+    public TextureRegion sliderImageFill       = null;
+    public TextureRegion sliderImageThumb      = null;
+    public float         sliderSize            = 200;
+    public float         sliderThickness       = 7.5f;
+    public float         sliderThumbSize       = 18;
+    public Color         sliderColorBackground = Color.GRAY.clone();
+    public Color         sliderColorFill       = Color.valueOf("0075FF");
+    public Color         sliderColorThumb      = Color.valueOf("0075FF");
 
     /* container */
 

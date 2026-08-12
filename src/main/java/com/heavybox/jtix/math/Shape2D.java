@@ -29,8 +29,6 @@ public interface Shape2D {
     float           area();
     default float   area(@NotNull final Transform2D transform2D) { return Math.abs(transform2D.sclX * transform2D.sclY) * area(); }
 
-    float           perimeter();
-
     void            centerOfMass(@NotNull Vector2 out);
     default void    centerOfMass(@NotNull Transform2D transform2D, @NotNull Vector2 out) { centerOfMass(out); out.add(transform2D.x, transform2D.y); }
 

@@ -7,13 +7,11 @@ public class Shape2DRectangle implements Shape2D {
     public  final float  w;
     public  final float  h;
     private final float  area;
-    private final float  perimeter;
 
     public Shape2DRectangle(float w, float h) {
         this.w = w;
         this.h = h;
         this.area = w * h;
-        this.perimeter = 2 * (w + h);
     }
 
     @Override
@@ -27,12 +25,8 @@ public class Shape2DRectangle implements Shape2D {
     }
 
     @Override
-    public float perimeter() {
-        return perimeter;
-    }
-
-    @Override
     public void centerOfMass(@NotNull Vector2 out) {
         out.set(0,0);
     }
+
 }

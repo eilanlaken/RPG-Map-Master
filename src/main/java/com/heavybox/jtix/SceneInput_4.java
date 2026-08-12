@@ -136,8 +136,9 @@ public class SceneInput_4 implements Scene {
         UserInterface.add(panel_2);
         //UserInterface.add(shape);
         //UserInterface.add(picture);
-        //UserInterface.add(slider);
-        UserInterface.add(checkbox);
+        slider.transform.deg = 90;
+        UserInterface.add(slider);
+        //UserInterface.add(checkbox);
     }
 
     @Override

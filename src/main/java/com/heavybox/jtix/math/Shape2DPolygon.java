@@ -11,7 +11,6 @@ public class Shape2DPolygon implements Shape2D {
 
     public  final ArrayFloat points;
     private final float      area;
-    private final float      perimeter;
     private final Vector2    centroid = new Vector2();
 
     private ArrayInt indices; // calculated on demand
@@ -26,7 +25,6 @@ public class Shape2DPolygon implements Shape2D {
         MathUtils.polygonRemoveDegenerateVertices(this.points);
 
         this.area = MathUtils.polygonArea(this.points);
-        this.perimeter = MathUtils.polygonPerimeter(this.points);
         MathUtils.polygonCenterOfMass(this.points, centroid);
     }
 
@@ -39,7 +37,6 @@ public class Shape2DPolygon implements Shape2D {
         MathUtils.polygonRemoveDegenerateVertices(this.points);
 
         this.area = MathUtils.polygonArea(this.points);
-        this.perimeter = MathUtils.polygonPerimeter(this.points);
         MathUtils.polygonCenterOfMass(this.points, centroid);
     }
 
@@ -52,7 +49,6 @@ public class Shape2DPolygon implements Shape2D {
         MathUtils.polygonRemoveDegenerateVertices(this.points);
 
         this.area = MathUtils.polygonArea(this.points);
-        this.perimeter = MathUtils.polygonPerimeter(this.points);
         MathUtils.polygonCenterOfMass(this.points, centroid);
     }
 
@@ -99,11 +95,6 @@ public class Shape2DPolygon implements Shape2D {
     @Override
     public float area() {
         return area;
-    }
-
-    @Override
-    public float perimeter() {
-        return perimeter;
     }
 
     @Override

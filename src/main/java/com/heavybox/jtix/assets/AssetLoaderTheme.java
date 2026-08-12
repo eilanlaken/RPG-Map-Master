@@ -54,6 +54,7 @@ public class AssetLoaderTheme implements AssetLoader<Theme> {
         }
 
         Map<String, Object> color;
+        Number value;
 
         color = (Map<String, Object>) checkbox.get("checkboxColorBorderChecked");
         if (color != null) theme.checkboxColorBorderChecked = colorFromYaml(color);
@@ -63,8 +64,6 @@ public class AssetLoaderTheme implements AssetLoader<Theme> {
         if (color != null) theme.checkboxColorCheckmarkBackground = colorFromYaml(color);
         color = (Map<String, Object>) checkbox.get("checkboxColorCheckmark");
         if (color != null) theme.checkboxColorCheckmark = colorFromYaml(color);
-
-        Number value;
         value = (Number) checkbox.get("checkboxSize");
         if (value != null) theme.checkboxSize = value.floatValue();
         value = (Number) checkbox.get("checkboxSizeBorder");
