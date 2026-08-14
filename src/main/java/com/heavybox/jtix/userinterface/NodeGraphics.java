@@ -24,15 +24,22 @@ public class NodeGraphics extends Node {
     private float width;
     private float height;
 
-    /* rectangle constructor */
+    /* rectangle shape constructor */
     public NodeGraphics(float width, float height) {
         setToRectangle(width, height);
     }
 
-    /* circle constructor */
+    /* circle shape constructor */
     public NodeGraphics(float r) {
         setToCircle(r, 20);
     }
+
+    public NodeGraphics(TextureRegion region) {
+        this.image = region;
+        setToRectangle(this.image.originalWidth, this.image.originalHeight);
+    }
+
+    // TODO: add line
 
     public void setToRectangle(float width, float height) {
         // set to rect

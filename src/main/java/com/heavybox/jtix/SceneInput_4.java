@@ -38,10 +38,6 @@ public class SceneInput_4 implements Scene {
     Renderer2D renderer2D = new Renderer2D();
     TexturePack atlas;
 
-    TextureRegion region;
-    ArrayFloat polygon = new ArrayFloat(true, 8);
-    ArrayInt triangles = new ArrayInt(true, 6);
-
     @Override
     public void start() {
 
@@ -70,15 +66,6 @@ public class SceneInput_4 implements Scene {
         checkbox = new NodeCheckbox();
 
         atlas = Assets.get("assets/texture-packs/user-interface.yml");
-
-        region = atlas.getRegion("assets/user-interface/debug-img.png");
-        float da = 360f / 10;
-        for (int i = 0; i < 10; i++) {
-            polygon.add(100 * MathUtils.cosDeg(da * i));
-            polygon.add(100 * MathUtils.sinDeg(da * i));
-        }
-        MathUtils.polygonTriangulate(polygon, triangles);
-        System.out.println(region);
 
 
         picture = new NodePicture(atlas.getRegion("assets/user-interface/toolbar-icon-nature.png"));
@@ -211,9 +198,6 @@ public class SceneInput_4 implements Scene {
         UserInterface.render(renderer2D);
         renderer2D.end();
 
-        renderer2D.begin();
-        renderer2D.drawPolygonFilled(region, polygon, triangles, 0, 0, 0, 1, 1);
-        renderer2D.end();
     }
 
     // TODO: this is how you can drag an undecorated window.
