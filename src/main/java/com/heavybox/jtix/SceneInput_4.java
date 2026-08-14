@@ -4,13 +4,14 @@ import com.heavybox.jtix.application.Application;
 import com.heavybox.jtix.application.Scene;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.collections.Array;
-import com.heavybox.jtix.graphics.Color;
-import com.heavybox.jtix.graphics.Graphics;
-import com.heavybox.jtix.graphics.Renderer2D;
-import com.heavybox.jtix.graphics.TexturePack;
+import com.heavybox.jtix.collections.ArrayFloat;
+import com.heavybox.jtix.collections.ArrayInt;
+import com.heavybox.jtix.graphics.*;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
+import com.heavybox.jtix.math.MathUtils;
+import com.heavybox.jtix.tools.ToolsTexturePacker;
 import com.heavybox.jtix.tools.ToolsThemeGenerator;
 import com.heavybox.jtix.tools.ToolsThemeGenerator_z;
 import com.heavybox.jtix.userinterface.*;
@@ -37,8 +38,19 @@ public class SceneInput_4 implements Scene {
     Renderer2D renderer2D = new Renderer2D();
     TexturePack atlas;
 
+    TextureRegion region;
+    ArrayFloat polygon = new ArrayFloat(true, 8);
+    ArrayInt triangles = new ArrayInt(true, 6);
+
     @Override
     public void start() {
+
+        try {
+            ToolsTexturePacker.packTextures("assets/texture-packs", "user-interface", 0, 2, ToolsTexturePacker.TexturePackSize.XX_LARGE_8192, "assets/user-interface", true);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
         try {
             ToolsThemeGenerator.checkboxColorCheckmarkBackground = Color.CHARTREUSE;
             //ToolsThemeGenerator.checkboxImageCheckedPath = "assets/user-interface-theme/checkbox-checked.png";
@@ -58,6 +70,16 @@ public class SceneInput_4 implements Scene {
         checkbox = new NodeCheckbox();
 
         atlas = Assets.get("assets/texture-packs/user-interface.yml");
+
+        region = atlas.getRegion("assets/user-interface/debug-img.png");
+        float da = 360f / 10;
+        for (int i = 0; i < 10; i++) {
+            polygon.add(100 * MathUtils.cosDeg(da * i));
+            polygon.add(100 * MathUtils.sinDeg(da * i));
+        }
+        MathUtils.polygonTriangulate(polygon, triangles);
+        System.out.println(region);
+
 
         picture = new NodePicture(atlas.getRegion("assets/user-interface/toolbar-icon-nature.png"));
 
@@ -187,6 +209,10 @@ public class SceneInput_4 implements Scene {
 
         renderer2D.begin();
         UserInterface.render(renderer2D);
+        renderer2D.end();
+
+        renderer2D.begin();
+        renderer2D.drawPolygonFilled(region, polygon, triangles, 0, 0, 0, 1, 1);
         renderer2D.end();
     }
 

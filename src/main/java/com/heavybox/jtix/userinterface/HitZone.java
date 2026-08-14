@@ -136,7 +136,7 @@ public final class HitZone {
         }
     }
 
-    public void setToPolygon(final float[] polygonPoints) {
+    public void setToPolygon(final ArrayFloat polygonPoints) {
         points.clear();
         points.addAll(polygonPoints);
     }

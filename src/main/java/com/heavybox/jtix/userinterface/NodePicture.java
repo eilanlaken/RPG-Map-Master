@@ -6,7 +6,7 @@ import com.heavybox.jtix.graphics.Texture;
 import com.heavybox.jtix.graphics.TextureRegion;
 import org.jetbrains.annotations.NotNull;
 
-public class NodePicture extends Node {
+@Deprecated public class NodePicture extends Node {
 
     public Color         tint;
     public TextureRegion region;

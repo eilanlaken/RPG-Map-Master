@@ -7,7 +7,7 @@ import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Vector2;
 
 // TODO: actually finish
-public class NodeSlider extends Node {
+public class NodeSlider_2 extends Node {
 
     /* state and data */
     public boolean integers = false;
@@ -17,7 +17,7 @@ public class NodeSlider extends Node {
 
     /* TODO: theme. See how to make it flexible */
     public TextureRegion imageBackground = UserInterface.getTheme().sliderImageBackground;
-    //public TextureRegion imageFill       = UserInterface.getTheme().sliderImageFill; // TODO
+    public TextureRegion imageFill       = UserInterface.getTheme().sliderImageFill; // TODO
     public TextureRegion imageThumb      = UserInterface.getTheme().sliderImageThumb;
     public float         size            = UserInterface.getTheme().sliderSize;
     public float         thickness       = UserInterface.getTheme().sliderThickness;
@@ -26,7 +26,7 @@ public class NodeSlider extends Node {
     public Color         colorThumb      = UserInterface.getTheme().sliderColorThumb.clone();
     public Color         colorFill       = UserInterface.getTheme().sliderColorFill.clone();
 
-    public NodeSlider() {
+    public NodeSlider_2() {
         onMouseDragStartDefault(e -> {
             float value = 0.5f + e.mouseLocalX / size;
             setValue(value);

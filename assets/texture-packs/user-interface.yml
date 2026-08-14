@@ -1,4 +1,14 @@
 regions:
+- name: assets/user-interface/debug-img.png
+  offsetX: 0
+  offsetY: 0
+  originalHeight: 740
+  originalWidth: 740
+  packedHeight: 740
+  packedWidth: 740
+  textureIndex: 0
+  x: 2
+  y: 2
 - name: assets/user-interface/toolbar-icon-decorations.png
   offsetX: 1
   offsetY: 1
@@ -7,7 +17,7 @@ regions:
   packedHeight: 34
   packedWidth: 34
   textureIndex: 0
-  x: 40
+  x: 784
   y: 2
 - name: assets/user-interface/toolbar-icon-geology.png
   offsetX: 1
@@ -17,7 +27,7 @@ regions:
   packedHeight: 34
   packedWidth: 34
   textureIndex: 0
-  x: 2
+  x: 746
   y: 2
 - name: assets/user-interface/toolbar-icon-select.png
   offsetX: 3
@@ -27,7 +37,7 @@ regions:
   packedHeight: 32
   packedWidth: 32
   textureIndex: 0
-  x: 110
+  x: 854
   y: 2
 - name: assets/user-interface/toolbar-icon-eraser.png
   offsetX: 1
@@ -37,7 +47,7 @@ regions:
   packedHeight: 30
   packedWidth: 34
   textureIndex: 0
-  x: 212
+  x: 956
   y: 2
 - name: assets/user-interface/toolbar-icon-terrain.png
   offsetX: 1
@@ -47,7 +57,7 @@ regions:
   packedHeight: 30
   packedWidth: 34
   textureIndex: 0
-  x: 212
+  x: 956
   y: 36
 - name: assets/user-interface/toolbar-icon-architecture.png
   offsetX: 3
@@ -57,7 +67,7 @@ regions:
   packedHeight: 32
   packedWidth: 30
   textureIndex: 0
-  x: 146
+  x: 890
   y: 2
 - name: assets/user-interface/toolbar-icon-props.png
   offsetX: 4
@@ -67,7 +77,7 @@ regions:
   packedHeight: 34
   packedWidth: 28
   textureIndex: 0
-  x: 78
+  x: 822
   y: 2
 - name: assets/user-interface/toolbar-icon-procedural.png
   offsetX: 3
@@ -77,7 +87,7 @@ regions:
   packedHeight: 30
   packedWidth: 30
   textureIndex: 0
-  x: 110
+  x: 854
   y: 38
 - name: assets/user-interface/toolbar-icon-nature.png
   offsetX: 4
@@ -87,7 +97,7 @@ regions:
   packedHeight: 32
   packedWidth: 28
   textureIndex: 0
-  x: 180
+  x: 924
   y: 2
 - name: assets/user-interface/toolbar-icon-text.png
   offsetX: 1
@@ -97,12 +107,12 @@ regions:
   packedHeight: 19
   packedWidth: 34
   textureIndex: 0
-  x: 144
+  x: 888
   y: 38
 textures:
 - file: user-interface_0.png
-  height: 128
-  width: 256
+  height: 1024
+  width: 1024
 options:
   padding: 2
   extrude: 0

@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 // TODO: add curves and functions
 // TODO: add borders and thin lines
-public class NodeShape extends Node {
+@Deprecated public class NodeShape extends Node {
 
     public Color color = Color.randomOpaque();
 
@@ -123,7 +123,7 @@ public class NodeShape extends Node {
 
     @Override
     protected void setHitZone(@NotNull HitZone hitZone) {
-        hitZone.setToPolygon(points.items);
+        hitZone.setToPolygon(points);
     }
 
 }

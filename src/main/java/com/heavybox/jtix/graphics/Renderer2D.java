@@ -30,12 +30,14 @@ import java.util.stream.Collectors;
 // TODO: in begin(), first check if Renderer3D isDrawing = true. They cannot step on each other.
 public class Renderer2D implements MemoryResourceHolder {
 
-    private static final Vector2 tmp = new Vector2(); // used for in-place optimization.
+    private static final Vector2  tmp_vector   = new Vector2(); // used for in-place optimization.
+    private static final ArrayInt tmp_ArrayInt = new ArrayInt(true, 8);
 
     private static final int VERTICES_CAPACITY = 8000; // The batch can render VERTICES_CAPACITY vertices (so wee need float buffers of size: VERTICES_CAPACITY * 2 for positions, * 1 for colors, * 2 for uvs etc.)
 
     private static final Shader  defaultShader  = createDefaultShaderProgram();
     private static final Texture defaultTexture = createDefaultTexture();
+    private static final TextureRegion defaultTextureRegion = new TextureRegion(defaultTexture);
     private static final Camera  defaultCamera  = createDefaultCamera();
     private static final Font    defaultFont    = createDefaultFont(); // change back to private
 
@@ -466,31 +468,31 @@ public class Renderer2D implements MemoryResourceHolder {
         float widthHalf  = texture.width  * scaleX * 0.5f;
         float heightHalf = texture.height * scaleY * 0.5f;
 
-        tmp.x = -widthHalf;
-        tmp.y =  heightHalf;
-        tmp.rotateDeg(degrees);
-        positions.put(tmp.x + x).put(tmp.y + y);
+        tmp_vector.x = -widthHalf;
+        tmp_vector.y =  heightHalf;
+        tmp_vector.rotateDeg(degrees);
+        positions.put(tmp_vector.x + x).put(tmp_vector.y + y);
         colors.put(currentTint);
         textCoords.put(0).put(0);
 
-        tmp.x = -widthHalf;
-        tmp.y = -heightHalf;
-        tmp.rotateDeg(degrees);
-        positions.put(tmp.x + x).put(tmp.y + y);
+        tmp_vector.x = -widthHalf;
+        tmp_vector.y = -heightHalf;
+        tmp_vector.rotateDeg(degrees);
+        positions.put(tmp_vector.x + x).put(tmp_vector.y + y);
         colors.put(currentTint);
         textCoords.put(0).put(1);
 
-        tmp.x = widthHalf;
-        tmp.y = -heightHalf;
-        tmp.rotateDeg(degrees);
-        positions.put(tmp.x + x).put(tmp.y + y);
+        tmp_vector.x = widthHalf;
+        tmp_vector.y = -heightHalf;
+        tmp_vector.rotateDeg(degrees);
+        positions.put(tmp_vector.x + x).put(tmp_vector.y + y);
         colors.put(currentTint);
         textCoords.put(1).put(1);
 
-        tmp.x = widthHalf;
-        tmp.y = heightHalf;
-        tmp.rotateDeg(degrees);
-        positions.put(tmp.x + x).put(tmp.y + y);
+        tmp_vector.x = widthHalf;
+        tmp_vector.y = heightHalf;
+        tmp_vector.rotateDeg(degrees);
+        positions.put(tmp_vector.x + x).put(tmp_vector.y + y);
         colors.put(currentTint);
         textCoords.put(1).put(0);
 
@@ -1659,10 +1661,10 @@ public class Renderer2D implements MemoryResourceHolder {
 
         // put indices
         int startVertex = this.vertexIndex;
-        for (int i = 0; i < (totalRefinement) - 2; i++) {
+        for (int i = 0; i < totalRefinement - 2; i++) {
             indices.put(startVertex);
-            indices.put(startVertex + i + 1);
             indices.put(startVertex + i + 2);
+            indices.put(startVertex + i + 1);
         }
         vertexIndex += totalRefinement;
 
@@ -2313,6 +2315,59 @@ public class Renderer2D implements MemoryResourceHolder {
         vertexIndex += count;
         arrayFloatPool.free(vertices);
         arrayIntPool.free(triangles);
+    }
+
+    // TODO: test
+    public void drawPolygonFilled(@Nullable TextureRegion region,
+                            @NotNull ArrayFloat polygon, @Nullable ArrayInt triangles,
+                            float x, float y, float deg, float sclX, float sclY) {
+        if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
+        if (polygon.size < 6) throw new GraphicsException("A polygon requires a minimum of 3 vertices, so the polygon array must be of length > 6. Got: " + polygon.size);
+        if (polygon.size % 2 != 0) throw new GraphicsException("Polygon must be represented as a flat array of vertices, each vertex must have x and y coordinates: [x0,y0,  x1,y1, ...]. Therefore, polygon array length must be even.");
+
+        int count = polygon.size / 2;
+        if (requiresFlush(count, count * 6)) flush();
+        region = region == null ? defaultTextureRegion : region;
+        if (triangles == null) {
+            try {
+                triangles = tmp_ArrayInt;
+                MathUtils.polygonTriangulate(polygon, triangles);
+            } catch (Exception e) { // Probably the polygon has collapsed into a single point.
+                return;
+            }
+        }
+        setTexture(region.texture);
+        setMode(GL11.GL_TRIANGLES);
+
+        final float left = region.offsetX - region.originalWidthHalf;
+        final float bottom = region.offsetY - region.originalHeightHalf;
+        final float packedWidth = region.packedWidth;
+        final float packedHeight = region.packedHeight;
+        final float uRange = region.u2 - region.u1;
+        final float vRange = region.v2 - region.v1;
+        final float sin = MathUtils.sinDeg(deg);
+        final float cos = MathUtils.cosDeg(deg);
+        for (int i = 0; i < polygon.size; i += 2) {
+            float polyX = polygon.get(i);
+            float polyY = polygon.get(i + 1);
+            float regionX = polyX - left;
+            float regionY = polyY - bottom;
+            float u = region.u1 + (regionX / packedWidth) * uRange;
+            float v = region.v2 - (regionY / packedHeight) * vRange;
+            textCoords.put(u).put(v);
+            colors.put(currentTint);
+            float localX = polyX * sclX;
+            float localY = polyY * sclY;
+            float vertexX = localX * cos - localY * sin + x;
+            float vertexY = localX * sin + localY * cos + y;
+            positions.put(vertexX).put(vertexY);
+        }
+
+        int startVertex = this.vertexIndex;
+        for (int i = 0; i < triangles.size; i ++) {
+            indices.put(startVertex + triangles.get(i));
+        }
+        vertexIndex += count;
     }
 
     public void drawPolygonFilled(float[] polygon, Texture texture, @Nullable Function<Vector2, Vector2> uvTransform, float x, float y, float deg, float scaleX, float scaleY) {
