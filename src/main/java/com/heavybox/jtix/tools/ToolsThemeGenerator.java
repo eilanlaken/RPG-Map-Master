@@ -18,7 +18,15 @@ public final class ToolsThemeGenerator {
     public static float   lineSpacing      = 1.1f;
 
     /* slider */
-
+    public static String sliderImageBackgroundPath = null;
+    public static String sliderImageFillPath       = null;
+    public static String sliderImageThumbPath      = null;
+    public static float  sliderLength              = 200.0f;
+    public static float  sliderThickness           = 8.0f;
+    public static float  sliderThumbSize           = 18;
+    public static Color  sliderColorBackground     = Color.GRAY.clone();
+    public static Color  sliderColorFill           = Color.valueOf("0075FF");
+    public static Color  sliderColorThumb          = Color.valueOf("0075FF");
 
     /* container */
 
@@ -55,6 +63,16 @@ public final class ToolsThemeGenerator {
           texturePackPath:                      %s
           text:
             textFontPath:                       %s
+          slider:
+            sliderImageBackgroundPath:          %s
+            sliderImageFillPath:                %s
+            sliderImageThumbPath:               %s
+            sliderLength:                       %s
+            sliderThickness:                    %s
+            sliderThumbSize:                    %s
+            sliderColorBackground:              %s
+            sliderColorFill:                    %s
+            sliderColorThumb:                   %s
           checkbox:
             checkboxImageCheckedPath:           %s
             checkboxImageUncheckedPath:         %s
@@ -68,6 +86,16 @@ public final class ToolsThemeGenerator {
                 texturePackPath,
                 // text
                 textFontPath,
+                // slider
+                sliderImageBackgroundPath,
+                sliderImageFillPath,
+                sliderImageThumbPath,
+                sliderLength,
+                sliderThickness,
+                sliderThumbSize,
+                colorToYaml(sliderColorBackground),
+                colorToYaml(sliderColorFill),
+                colorToYaml(sliderColorThumb),
                 // checkbox
                 checkboxImageCheckedPath,
                 checkboxImageUncheckedPath,
@@ -93,6 +121,11 @@ public final class ToolsThemeGenerator {
 
     private static Set<String> gatherAllImagePaths() {
         final Set<String> imagePaths = new HashSet<>();
+        // slider
+        imagePaths.add(sliderImageBackgroundPath);
+        imagePaths.add(sliderImageFillPath);
+        imagePaths.add(sliderImageThumbPath);
+        // checkbox
         imagePaths.add(checkboxImageCheckedPath);
         imagePaths.add(checkboxImageUncheckedPath);
         imagePaths.removeIf(Objects::isNull);

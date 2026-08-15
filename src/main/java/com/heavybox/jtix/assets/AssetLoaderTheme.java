@@ -40,6 +40,7 @@ public class AssetLoaderTheme implements AssetLoader<Theme> {
     @Override
     public Theme afterLoad() {
         Theme theme = new Theme();
+        Map<String, Object> slider = (Map<String, Object>) themeMap.get("slider");
         Map<String, Object> checkbox = (Map<String, Object>) themeMap.get("checkbox");
 
         if (texturePackPath != null) {
@@ -47,6 +48,10 @@ public class AssetLoaderTheme implements AssetLoader<Theme> {
             theme.texturePack = texturePack;
             theme.checkboxImageChecked = texturePack.getRegion((String) checkbox.get("checkboxImageCheckedPath"));
             theme.checkboxImageUnchecked = texturePack.getRegion((String) checkbox.get("checkboxImageUncheckedPath"));
+
+            theme.sliderImageBackground = texturePack.getRegion((String) slider.get("sliderImageBackgroundPath"));
+            theme.sliderImageFill = texturePack.getRegion((String) slider.get("sliderImageFillPath"));
+            theme.sliderImageThumb = texturePack.getRegion((String) slider.get("sliderImageThumbPath"));
         }
 
         if (textFontPath != null) {
@@ -56,6 +61,21 @@ public class AssetLoaderTheme implements AssetLoader<Theme> {
         Map<String, Object> color;
         Number value;
 
+        // slider
+        color = (Map<String, Object>) slider.get("sliderColorBackground");
+        if (color != null) theme.sliderColorBackground = colorFromYaml(color);
+        color = (Map<String, Object>) slider.get("sliderColorFill");
+        if (color != null) theme.sliderColorFill = colorFromYaml(color);
+        color = (Map<String, Object>) slider.get("sliderColorThumb");
+        if (color != null) theme.sliderColorThumb = colorFromYaml(color);
+        value = (Number) slider.get("sliderLength");
+        if (value != null) theme.sliderLength = value.floatValue();
+        value = (Number) slider.get("sliderThickness");
+        if (value != null) theme.sliderThickness = value.floatValue();
+        value = (Number) slider.get("sliderThumbSize");
+        if (value != null) theme.sliderThumbSize = value.floatValue();
+
+        // checkbox
         color = (Map<String, Object>) checkbox.get("checkboxColorBorderChecked");
         if (color != null) theme.checkboxColorBorderChecked = colorFromYaml(color);
         color = (Map<String, Object>) checkbox.get("checkboxColorBorderUnchecked");

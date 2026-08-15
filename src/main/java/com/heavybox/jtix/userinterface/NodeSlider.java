@@ -17,9 +17,9 @@ public class NodeSlider extends Node {
 
     /* TODO: theme. See how to make it flexible */
     public TextureRegion imageBackground = UserInterface.getTheme().sliderImageBackground;
-    //public TextureRegion imageFill       = UserInterface.getTheme().sliderImageFill; // TODO
+    public TextureRegion imageFill       = UserInterface.getTheme().sliderImageFill;
     public TextureRegion imageThumb      = UserInterface.getTheme().sliderImageThumb;
-    public float         size            = UserInterface.getTheme().sliderSize;
+    public float         length          = UserInterface.getTheme().sliderLength;
     public float         thickness       = UserInterface.getTheme().sliderThickness;
     public float         thumbSize       = UserInterface.getTheme().sliderThumbSize;
     public Color         colorBackground = UserInterface.getTheme().sliderColorBackground.clone();
@@ -28,12 +28,12 @@ public class NodeSlider extends Node {
 
     public NodeSlider() {
         onMouseDragStartDefault(e -> {
-            float value = 0.5f + e.mouseLocalX / size;
+            float value = 0.5f + e.mouseLocalX / length;
             setValue(value);
         });
 
         onMouseDragDefault(e -> {
-            setValue(value + (e.mouseLocalX - e.mouseLocalXPrev) / size);
+            setValue(value + (e.mouseLocalX - e.mouseLocalXPrev) / length);
         });
     }
 
@@ -42,7 +42,7 @@ public class NodeSlider extends Node {
         drawBackground(renderer2D, x, y, deg, sclX, sclY);
         drawFill(renderer2D, x, y, deg, sclX, sclY);
 
-        float offset_x = size * (value - 0.5f);
+        float offset_x = length * (value - 0.5f);
         float offset_y = 0;
         Vector2 offset_transformed = new Vector2(offset_x, offset_y);
         offset_transformed.scl(sclX, sclY);
@@ -52,12 +52,12 @@ public class NodeSlider extends Node {
 
     protected void drawBackground(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
         renderer2D.setColor(colorBackground);
-        renderer2D.drawLineFilled(-size * 0.5f, 0, size * 0.5f, 0, thickness, x, y, deg, sclX, sclY);
+        renderer2D.drawLineFilled(-length * 0.5f, 0, length * 0.5f, 0, thickness, x, y, deg, sclX, sclY);
     }
 
     protected void drawFill(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
         renderer2D.setColor(colorFill);
-        renderer2D.drawLineFilled(-size * 0.5f, 0, -size * 0.5f + size * value, 0, thickness, x, y, deg, sclX, sclY);
+        renderer2D.drawLineFilled(-length * 0.5f, 0, -length * 0.5f + length * value, 0, thickness, x, y, deg, sclX, sclY);
     }
 
     protected void drawThumb(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
@@ -67,7 +67,7 @@ public class NodeSlider extends Node {
 
     @Override
     protected float getWidth() {
-        return size + thumbSize * 0.75f;
+        return length + thumbSize * 0.75f;
     }
 
     @Override

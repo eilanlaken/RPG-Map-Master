@@ -5,15 +5,12 @@ import com.heavybox.jtix.application.Scene;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.collections.ArrayFloat;
-import com.heavybox.jtix.collections.ArrayInt;
 import com.heavybox.jtix.graphics.*;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
-import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.tools.ToolsTexturePacker;
 import com.heavybox.jtix.tools.ToolsThemeGenerator;
-import com.heavybox.jtix.tools.ToolsThemeGenerator_z;
 import com.heavybox.jtix.userinterface.*;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.opengl.GL11;
@@ -32,12 +29,13 @@ public class SceneInput_4 implements Scene {
     NodeText text = new NodeText("hello text");
     NodeGraphics picture;
 
-    NodeSlider slider = new NodeSlider();
+    NodeSlider_2 slider;
     NodeCheckbox checkbox;
 
     Renderer2D renderer2D = new Renderer2D();
     TexturePack atlas;
 
+    TextureRegion region;
     NodeGraphics graphics;
 
     @Override
@@ -50,10 +48,16 @@ public class SceneInput_4 implements Scene {
         }
 
         try {
-            ToolsThemeGenerator.checkboxColorCheckmarkBackground = Color.CHARTREUSE;
-            //ToolsThemeGenerator.checkboxImageCheckedPath = "assets/user-interface-theme/checkbox-checked.png";
-            //ToolsThemeGenerator.checkboxImageUncheckedPath = "assets/user-interface-theme/checkbox-unchecked.png";
-            ToolsThemeGenerator.checkboxColorBorderUnchecked = Color.RED;
+            //ToolsThemeGenerator.checkboxColorCheckmarkBackground = Color.CHARTREUSE;
+            //ToolsThemeGenerator.checkboxColorBorderUnchecked = Color.RED;
+            ToolsThemeGenerator.checkboxImageCheckedPath = "assets/user-interface-theme/checkbox-checked.png";
+            ToolsThemeGenerator.checkboxImageUncheckedPath = "assets/user-interface-theme/checkbox-unchecked.png";
+
+            ToolsThemeGenerator.sliderImageBackgroundPath = "assets/user-interface-theme/slider-background.png";
+            ToolsThemeGenerator.sliderImageFillPath = "assets/user-interface-theme/slider-fill-2.png";
+            ToolsThemeGenerator.sliderImageThumbPath = "assets/user-interface-theme/slider-thumb.png";
+            ToolsThemeGenerator.sliderLength = 200;
+
             ToolsThemeGenerator.generateTheme("assets/user-interface-theme", "theme");
         } catch (Exception e) {
 
@@ -65,11 +69,12 @@ public class SceneInput_4 implements Scene {
         Theme theme = Assets.get("assets/user-interface-theme/theme.yml");
         UserInterface.setTheme(theme);
 
+        slider = new NodeSlider_2();
         checkbox = new NodeCheckbox();
 
         atlas = Assets.get("assets/texture-packs/user-interface.yml");
-        TextureRegion region = atlas.getRegion("assets/user-interface/debug-mouse.jpg");
-        graphics = new NodeGraphics(region);
+        region = atlas.getRegion("assets/user-interface/debug-mouse.jpg");
+        graphics = new NodeGraphics(344,344);
 
         picture = new NodeGraphics(atlas.getRegion("assets/user-interface/toolbar-icon-nature.png"));
 
@@ -114,7 +119,6 @@ public class SceneInput_4 implements Scene {
             System.out.println("c2 enter");
         });
 
-
         // drag and drop
         p1_child_1.onMouseDragStart(e -> {
             e.target.disconnectFromParent();
@@ -146,13 +150,14 @@ public class SceneInput_4 implements Scene {
 
         graphics.setShapeToRectangleRoundCorners(region.originalWidth, region.originalHeight, 30, 30);
 
-        UserInterface.add(panel_1);
-        UserInterface.add(panel_2);
+  //      UserInterface.add(panel_1);
+//        UserInterface.add(panel_2);
         //UserInterface.add(shape);
         //UserInterface.add(picture);
-        slider.transform.deg = 90;
+        //slider.transform.deg = 90;
         UserInterface.add(slider);
-        UserInterface.add(graphics);
+        //UserInterface.add(graphics);
+
         //UserInterface.add(checkbox);
     }
 
@@ -205,9 +210,19 @@ public class SceneInput_4 implements Scene {
         renderer2D.end();
 
         renderer2D.begin();
-        renderer2D.drawStringLine("Hello World!", 32, true, 0, 12,
-                0, 0,
-                0, 0, 0, 1, 1);
+        ArrayFloat polygon = new ArrayFloat(true, 8);
+        polygon.add(-200,  75);
+        polygon.add(-200,  -75);
+        polygon.add(100,  -75);
+        polygon.add(100,  75);
+
+//        renderer2D.drawPolygonFilled(
+//                region,
+//                polygon,
+//                null,
+//                0, 0, 0,
+//                1, 1
+//        );
         renderer2D.end();
 
     }

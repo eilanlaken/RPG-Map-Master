@@ -23,12 +23,12 @@ public class Theme implements MemoryResource {
     public TextureRegion sliderImageBackground = null;
     public TextureRegion sliderImageFill       = null;
     public TextureRegion sliderImageThumb      = null;
-    public float         sliderSize            = 200;
-    public float         sliderThickness       = 7.5f;
-    public float         sliderThumbSize       = 18;
     public Color         sliderColorBackground = Color.GRAY.clone();
     public Color         sliderColorFill       = Color.valueOf("0075FF");
     public Color         sliderColorThumb      = Color.valueOf("0075FF");
+    public float         sliderLength          = 200;
+    public float         sliderThumbSize       = 18;
+    public float         sliderThickness       = 7.5f;
 
     /* container */
 
