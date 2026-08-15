@@ -20,17 +20,17 @@ import org.lwjgl.opengl.GL11;
 
 public class SceneInput_4 implements Scene {
 
-    NodeShape panel_1 = new NodeShape(250,250);
-    NodeShape p1_child_1 = new NodeShape(80,80);
-    NodeShape p1_child_2 = new NodeShape(80,80);
+    NodeGraphics panel_1 = new NodeGraphics(250,250);
+    NodeGraphics p1_child_1 = new NodeGraphics(80,80);
+    NodeGraphics p1_child_2 = new NodeGraphics(80,80);
 
-    NodeShape panel_2 = new NodeShape(250,250);
-    NodeShape p2_child_1 = new NodeShape(80,80);
-    NodeShape p2_child_2 = new NodeShape(80,80);
+    NodeGraphics panel_2 = new NodeGraphics(250,250);
+    NodeGraphics p2_child_1 = new NodeGraphics(80,80);
+    NodeGraphics p2_child_2 = new NodeGraphics(80,80);
 
-    NodeShape shape = new NodeShape(55);
+    NodeGraphics shape = new NodeGraphics(55);
     NodeText text = new NodeText("hello text");
-    NodePicture picture;
+    NodeGraphics picture;
 
     NodeSlider slider = new NodeSlider();
     NodeCheckbox checkbox;
@@ -71,7 +71,7 @@ public class SceneInput_4 implements Scene {
         TextureRegion region = atlas.getRegion("assets/user-interface/debug-mouse.jpg");
         graphics = new NodeGraphics(region);
 
-        picture = new NodePicture(atlas.getRegion("assets/user-interface/toolbar-icon-nature.png"));
+        picture = new NodeGraphics(atlas.getRegion("assets/user-interface/toolbar-icon-nature.png"));
 
         panel_1.transform.x = -300;
         panel_1.transform.y = 0;
@@ -91,7 +91,7 @@ public class SceneInput_4 implements Scene {
         panel_2.connectChild(p2_child_1);
         panel_2.connectChild(p2_child_2);
 
-        shape.setToCircleArc(55,22,30);
+        shape.setShapeToCircleArc(55,22,30);
         shape.connectChild(text);
 
         panel_1.onMouseLeave(e -> {

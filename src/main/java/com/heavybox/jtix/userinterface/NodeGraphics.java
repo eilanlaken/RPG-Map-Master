@@ -13,7 +13,7 @@ import org.jetbrains.annotations.Nullable;
 public class NodeGraphics extends Node {
 
     public Shader        shader = null;
-    public float         color  = Color.WHITE_FLOAT;
+    public float         color  = Color.randomOpaque().toFloatBits();
     public TextureRegion image  = null;
 
     private final ArrayFloat polygon = new ArrayFloat(true, 8);
@@ -35,6 +35,11 @@ public class NodeGraphics extends Node {
     public NodeGraphics(@NotNull TextureRegion region) {
         this.image = region;
         setShapeToRectangle(this.image.originalWidth, this.image.originalHeight);
+    }
+
+    public NodeGraphics(@NotNull Texture img) {
+        this.image = img.region;
+        setShapeToRectangle(img.width, img.height);
     }
 
     // TODO: add line
