@@ -38,6 +38,8 @@ public class SceneInput_4 implements Scene {
     Renderer2D renderer2D = new Renderer2D();
     TexturePack atlas;
 
+    NodeGraphics graphics;
+
     @Override
     public void start() {
 
@@ -66,7 +68,8 @@ public class SceneInput_4 implements Scene {
         checkbox = new NodeCheckbox();
 
         atlas = Assets.get("assets/texture-packs/user-interface.yml");
-
+        TextureRegion region = atlas.getRegion("assets/user-interface/debug-mouse.jpg");
+        graphics = new NodeGraphics(region);
 
         picture = new NodePicture(atlas.getRegion("assets/user-interface/toolbar-icon-nature.png"));
 
@@ -141,12 +144,15 @@ public class SceneInput_4 implements Scene {
         });
 
 
+        graphics.setShapeToRectangleRoundCorners(region.originalWidth, region.originalHeight, 30, 30);
+
         UserInterface.add(panel_1);
         UserInterface.add(panel_2);
         //UserInterface.add(shape);
         //UserInterface.add(picture);
         slider.transform.deg = 90;
         UserInterface.add(slider);
+        UserInterface.add(graphics);
         //UserInterface.add(checkbox);
     }
 
@@ -196,6 +202,12 @@ public class SceneInput_4 implements Scene {
 
         renderer2D.begin();
         UserInterface.render(renderer2D);
+        renderer2D.end();
+
+        renderer2D.begin();
+        renderer2D.drawStringLine("Hello World!", 32, true, 0, 12,
+                0, 0,
+                0, 0, 0, 1, 1);
         renderer2D.end();
 
     }

@@ -33,6 +33,8 @@ public final class Texture implements MemoryResource {
     private       int       anisotropy;
     private       float     biasLOD; // higher LOD bias will sample from higher mip level, which means lower texture quality.
 
+    public final TextureRegion region;
+
     private @Nullable ByteBuffer bytes = null;
 
     public Texture(int width, int height, int internalFormat, int format) {
@@ -60,6 +62,8 @@ public final class Texture implements MemoryResource {
         GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, internalFormat, width, height, 0, format, GL11.GL_UNSIGNED_BYTE, 0);
         GL11.glTexParameteri(GL20.GL_TEXTURE_2D, GL12.GL_TEXTURE_BASE_LEVEL, 0);
         GL11.glTexParameteri(GL20.GL_TEXTURE_2D, GL12.GL_TEXTURE_MAX_LEVEL, 0);
+
+        this.region = new TextureRegion(this);
     }
 
     public Texture(int width, int height, ByteBuffer bytes, FilterMag filterMag, FilterMin filterMin, Wrap sWrap, Wrap tWrap, int anisotropy, boolean useAlpha) {
@@ -101,6 +105,8 @@ public final class Texture implements MemoryResource {
             GL11.glTexParameteri(GL20.GL_TEXTURE_2D, GL12.GL_TEXTURE_BASE_LEVEL, 0);
             GL11.glTexParameteri(GL20.GL_TEXTURE_2D, GL12.GL_TEXTURE_MAX_LEVEL, 0);
         }
+
+        this.region = new TextureRegion(this);
     }
 
     public Texture(int width, int height, ByteBuffer bytes, FilterMag filterMag, FilterMin filterMin, Wrap sWrap, Wrap tWrap, int anisotropy) {
@@ -138,6 +144,8 @@ public final class Texture implements MemoryResource {
             GL11.glTexParameteri(GL20.GL_TEXTURE_2D, GL12.GL_TEXTURE_BASE_LEVEL, 0);
             GL11.glTexParameteri(GL20.GL_TEXTURE_2D, GL12.GL_TEXTURE_MAX_LEVEL, 0);
         }
+
+        this.region = new TextureRegion(this);
     }
 
     public Texture(final String filepath) {
@@ -175,6 +183,8 @@ public final class Texture implements MemoryResource {
         this.anisotropy = MathUtils.clampInt(anisotropy,1, Graphics.getMaxAnisotropy());
         if (Graphics.isAnisotropicFilteringSupported()) GL11.glTexParameterf(GL11.GL_TEXTURE_2D, EXTTextureFilterAnisotropic.GL_TEXTURE_MAX_ANISOTROPY_EXT, this.anisotropy);
         STBImage.stbi_image_free(buffer);
+
+        this.region = new TextureRegion(this);
     }
 
     // TODO: test
@@ -214,6 +224,8 @@ public final class Texture implements MemoryResource {
             GL11.glTexParameteri(GL20.GL_TEXTURE_2D, GL12.GL_TEXTURE_BASE_LEVEL, 0);
             GL11.glTexParameteri(GL20.GL_TEXTURE_2D, GL12.GL_TEXTURE_MAX_LEVEL, 0);
         }
+
+        this.region = new TextureRegion(this);
     }
 
     // TODO: test
@@ -267,13 +279,15 @@ public final class Texture implements MemoryResource {
             this.anisotropy = 1;
         }
         STBImage.stbi_image_free(buffer);
+
+        this.region = new TextureRegion(this);
     }
 
-    final void         setSlot      (final int slot) { this.slot = slot; }
-    final int          getSlot      ()               { return slot; }
-    final int          getHandle    ()               { return handle; }
-    public final int   getAnisotropy()               { return anisotropy; }
-    public final float getBiasLOD   ()               { return biasLOD; }
+    void         setSlot(final int slot) { this.slot = slot; }
+    int          getSlot()               { return slot; }
+    int          getHandle()             { return handle; }
+    public int   getAnisotropy()         { return anisotropy; }
+    public float getBiasLOD()            { return biasLOD; }
 
     public ByteBuffer getBytes() {
         if (bytes == null) bytes = BufferUtils.createByteBuffer(width * height * 4); // TODO: change "4" to channels

@@ -1,4 +1,24 @@
 regions:
+- name: assets/user-interface/debug-mouse.jpg
+  offsetX: 0
+  offsetY: 0
+  originalHeight: 471
+  originalWidth: 640
+  packedHeight: 471
+  packedWidth: 640
+  textureIndex: 0
+  x: 2
+  y: 497
+- name: assets/user-interface/debug-lion.png
+  offsetX: 1
+  offsetY: 0
+  originalHeight: 492
+  originalWidth: 513
+  packedHeight: 491
+  packedWidth: 512
+  textureIndex: 0
+  x: 2
+  y: 2
 - name: assets/user-interface/toolbar-icon-decorations.png
   offsetX: 1
   offsetY: 1
@@ -7,7 +27,7 @@ regions:
   packedHeight: 34
   packedWidth: 34
   textureIndex: 0
-  x: 40
+  x: 684
   y: 2
 - name: assets/user-interface/toolbar-icon-geology.png
   offsetX: 1
@@ -17,7 +37,7 @@ regions:
   packedHeight: 34
   packedWidth: 34
   textureIndex: 0
-  x: 2
+  x: 646
   y: 2
 - name: assets/user-interface/toolbar-icon-select.png
   offsetX: 3
@@ -27,7 +47,7 @@ regions:
   packedHeight: 32
   packedWidth: 32
   textureIndex: 0
-  x: 110
+  x: 754
   y: 2
 - name: assets/user-interface/toolbar-icon-eraser.png
   offsetX: 1
@@ -37,7 +57,7 @@ regions:
   packedHeight: 30
   packedWidth: 34
   textureIndex: 0
-  x: 212
+  x: 856
   y: 2
 - name: assets/user-interface/toolbar-icon-terrain.png
   offsetX: 1
@@ -47,8 +67,8 @@ regions:
   packedHeight: 30
   packedWidth: 34
   textureIndex: 0
-  x: 212
-  y: 36
+  x: 894
+  y: 2
 - name: assets/user-interface/toolbar-icon-architecture.png
   offsetX: 3
   offsetY: 3
@@ -57,7 +77,7 @@ regions:
   packedHeight: 32
   packedWidth: 30
   textureIndex: 0
-  x: 146
+  x: 790
   y: 2
 - name: assets/user-interface/toolbar-icon-props.png
   offsetX: 4
@@ -67,7 +87,7 @@ regions:
   packedHeight: 34
   packedWidth: 28
   textureIndex: 0
-  x: 78
+  x: 722
   y: 2
 - name: assets/user-interface/toolbar-icon-procedural.png
   offsetX: 3
@@ -77,8 +97,8 @@ regions:
   packedHeight: 30
   packedWidth: 30
   textureIndex: 0
-  x: 110
-  y: 38
+  x: 932
+  y: 2
 - name: assets/user-interface/toolbar-icon-nature.png
   offsetX: 4
   offsetY: 1
@@ -87,7 +107,7 @@ regions:
   packedHeight: 32
   packedWidth: 28
   textureIndex: 0
-  x: 180
+  x: 824
   y: 2
 - name: assets/user-interface/toolbar-icon-text.png
   offsetX: 1
@@ -97,12 +117,12 @@ regions:
   packedHeight: 19
   packedWidth: 34
   textureIndex: 0
-  x: 144
-  y: 38
+  x: 966
+  y: 2
 textures:
 - file: user-interface_0.png
-  height: 128
-  width: 256
+  height: 1024
+  width: 1024
 options:
   padding: 2
   extrude: 0

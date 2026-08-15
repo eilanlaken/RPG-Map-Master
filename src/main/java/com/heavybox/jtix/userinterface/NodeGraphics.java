@@ -2,13 +2,11 @@ package com.heavybox.jtix.userinterface;
 
 import com.heavybox.jtix.collections.ArrayFloat;
 import com.heavybox.jtix.collections.ArrayInt;
-import com.heavybox.jtix.graphics.Color;
-import com.heavybox.jtix.graphics.Renderer2D;
-import com.heavybox.jtix.graphics.Shader;
-import com.heavybox.jtix.graphics.TextureRegion;
+import com.heavybox.jtix.graphics.*;
 import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Vector2;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 // TODO: add curves and functions
 // TODO: add borders and thin lines
@@ -26,22 +24,22 @@ public class NodeGraphics extends Node {
 
     /* rectangle shape constructor */
     public NodeGraphics(float width, float height) {
-        setToRectangle(width, height);
+        setShapeToRectangle(width, height);
     }
 
     /* circle shape constructor */
     public NodeGraphics(float r) {
-        setToCircle(r, 20);
+        setShapeToCircle(r, 20);
     }
 
-    public NodeGraphics(TextureRegion region) {
+    public NodeGraphics(@NotNull TextureRegion region) {
         this.image = region;
-        setToRectangle(this.image.originalWidth, this.image.originalHeight);
+        setShapeToRectangle(this.image.originalWidth, this.image.originalHeight);
     }
 
     // TODO: add line
 
-    public void setToRectangle(float width, float height) {
+    public void setShapeToRectangle(float width, float height) {
         // set to rect
         polygon.clear();
         float widthHalf = width * 0.5f;
@@ -63,21 +61,21 @@ public class NodeGraphics extends Node {
         this.height = height;
     }
 
-    public void setToRectangleRoundCorners(float width, float height, float cornerRadius, int refinement) {
-        setToRectangleRoundCorners(width, height,
+    public void setShapeToRectangleRoundCorners(float width, float height, float cornerRadius, int refinement) {
+        setShapeToRectangleRoundCorners(width, height,
                 cornerRadius, refinement,
                 cornerRadius, refinement,
                 cornerRadius, refinement,
                 cornerRadius, refinement);
     }
 
-    public void setToRectangleRoundCorners(float width, float height,
-                                           float cornerRadiusTopLeft, int refinementTopLeft,
-                                           float cornerRadiusTopRight, int refinementTopRight,
-                                           float cornerRadiusBottomRight, int refinementBottomRight,
-                                           float cornerRadiusBottomLeft, int refinementBottomLeft) {
+    public void setShapeToRectangleRoundCorners(float width, float height,
+                                                float cornerRadiusTopLeft, int refinementTopLeft,
+                                                float cornerRadiusTopRight, int refinementTopRight,
+                                                float cornerRadiusBottomRight, int refinementBottomRight,
+                                                float cornerRadiusBottomLeft, int refinementBottomLeft) {
         if (cornerRadiusTopLeft == 0 && cornerRadiusTopRight == 0 && cornerRadiusBottomRight == 0 && cornerRadiusBottomLeft == 0) {
-            setToRectangle(width, height);
+            setShapeToRectangle(width, height);
             return;
         }
 
@@ -178,7 +176,7 @@ public class NodeGraphics extends Node {
         this.height = height;
     }
 
-    public void setToCircle(float r, int refinement) {
+    public void setShapeToCircle(float r, int refinement) {
         // set to full circle
         polygon.clear();
         refinement = Math.max(refinement, 3);
@@ -199,7 +197,7 @@ public class NodeGraphics extends Node {
         height = 2 * Math.abs(r);
     }
 
-    public void setToCircleArc(float r, int refinement, float angleDeg) {
+    public void setShapeToCircleArc(float r, int refinement, float angleDeg) {
         // set to circle arc
         polygon.clear();
         refinement = Math.max(refinement, 3);
@@ -221,7 +219,7 @@ public class NodeGraphics extends Node {
         height = 2 * Math.abs(r);
     }
 
-    public void setToPolygon(final float[] points) {
+    public void setShapeToPolygon(final float[] points) {
         if (points.length < 6) throw new UserInterfaceException("Points is a flat array of vertices: [x0,y0,  x1,y1,  x2,y2, ...]. A polygon" + " must contain at least 3 points, and therefore 6 values. Got: " + points.length);
         if (points.length % 2 != 0) throw new UserInterfaceException("Points is a flat array of vertices: [x0,y0,  x1,y1,  x2,y2, ...]. A polygon" + " must contain an even number of values. Got: " + points.length);
 
@@ -249,6 +247,18 @@ public class NodeGraphics extends Node {
         height = maxY - minY;
     }
 
+    public void setImage(@Nullable final TextureRegion region) {
+        this.image = region;
+    }
+
+    public void setImage(@Nullable final Texture texture) {
+        if (texture == null) {
+            this.image = null;
+            return;
+        }
+
+        this.image = texture.region;
+    }
 
     @Override
     protected final void draw(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
