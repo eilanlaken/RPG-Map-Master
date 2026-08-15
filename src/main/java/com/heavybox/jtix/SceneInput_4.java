@@ -29,7 +29,7 @@ public class SceneInput_4 implements Scene {
     NodeText text = new NodeText("hello text");
     NodeGraphics picture;
 
-    NodeSlider_2 slider;
+    NodeSlider slider;
     NodeCheckbox checkbox;
 
     Renderer2D renderer2D = new Renderer2D();
@@ -54,7 +54,7 @@ public class SceneInput_4 implements Scene {
             ToolsThemeGenerator.checkboxImageUncheckedPath = "assets/user-interface-theme/checkbox-unchecked.png";
 
             ToolsThemeGenerator.sliderImageBackgroundPath = "assets/user-interface-theme/slider-background.png";
-            ToolsThemeGenerator.sliderImageFillPath = "assets/user-interface-theme/slider-fill-2.png";
+            ToolsThemeGenerator.sliderImageFillPath = "assets/user-interface-theme/slider-fill.png";
             ToolsThemeGenerator.sliderImageThumbPath = "assets/user-interface-theme/slider-thumb.png";
             ToolsThemeGenerator.sliderLength = 200;
 
@@ -69,7 +69,7 @@ public class SceneInput_4 implements Scene {
         Theme theme = Assets.get("assets/user-interface-theme/theme.yml");
         UserInterface.setTheme(theme);
 
-        slider = new NodeSlider_2();
+        slider = new NodeSlider();
         checkbox = new NodeCheckbox();
 
         atlas = Assets.get("assets/texture-packs/user-interface.yml");
@@ -175,7 +175,7 @@ public class SceneInput_4 implements Scene {
         UserInterface.update();
 
         Graphics.bindFrameBuffer(null);
-        GL11.glClearColor(0.01f,0.01f,0.01f,1);
+        GL11.glClearColor(1f,1f,1f,1);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_STENCIL_BUFFER_BIT); // should probably clear the stencil
 
         if (Input.keyboard.isKeyPressed(Keyboard.Key.D)) {
@@ -210,16 +210,10 @@ public class SceneInput_4 implements Scene {
         renderer2D.end();
 
         renderer2D.begin();
-        ArrayFloat polygon = new ArrayFloat(true, 8);
-        polygon.add(-200,  75);
-        polygon.add(-200,  -75);
-        polygon.add(100,  -75);
-        polygon.add(100,  75);
-
-//        renderer2D.drawPolygonFilled(
+//        renderer2D.drawTextureRegion(
 //                region,
-//                polygon,
-//                null,
+//                0f, 0f,
+//                0.5f, 1f,
 //                0, 0, 0,
 //                1, 1
 //        );

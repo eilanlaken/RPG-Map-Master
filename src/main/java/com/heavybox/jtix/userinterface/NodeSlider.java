@@ -51,34 +51,58 @@ public class NodeSlider extends Node {
     }
 
     protected void drawBackground(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
-        renderer2D.setColor(colorBackground);
-        renderer2D.drawLineFilled(-length * 0.5f, 0, length * 0.5f, 0, thickness, x, y, deg, sclX, sclY);
+        if (imageBackground == null) {
+            renderer2D.setColor(colorBackground);
+            renderer2D.drawLineFilled(-length * 0.5f, 0, length * 0.5f, 0, thickness, x, y, deg, sclX, sclY);
+            return;
+        }
+
+        renderer2D.drawTextureRegion(imageBackground, x, y, deg, sclX, sclY);
     }
 
     protected void drawFill(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
-        renderer2D.setColor(colorFill);
-        renderer2D.drawLineFilled(-length * 0.5f, 0, -length * 0.5f + length * value, 0, thickness, x, y, deg, sclX, sclY);
+        if (imageFill == null) {
+            renderer2D.setColor(colorFill);
+            renderer2D.drawLineFilled(-length * 0.5f, 0, -length * 0.5f + length * value, 0, thickness, x, y, deg, sclX, sclY);
+            return;
+        }
+
+        renderer2D.drawTextureRegion(
+                imageFill,
+                0f, 0f,
+                value, 1f,
+                x, y, deg,
+                sclX, sclY
+        );
     }
 
     protected void drawThumb(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
-        renderer2D.setColor(colorThumb);
-        renderer2D.drawCircleFilled(thumbSize * 0.5f,20, x, y, deg, sclX, sclY);
+        if (imageThumb == null) {
+            renderer2D.setColor(colorThumb);
+            renderer2D.drawCircleFilled(thumbSize * 0.5f, 20, x, y, deg, sclX, sclY);
+            return;
+        }
+
+        renderer2D.drawTextureRegion(imageThumb, x, y, deg, sclX, sclY);
     }
 
     @Override
     protected float getWidth() {
-        return length + thumbSize * 0.75f;
+        return imageBackground != null ? imageBackground.packedWidth : length;
+        //return length + thumbSize * 0.75f;
     }
 
     @Override
     protected float getHeight() {
-        return Math.max(thickness, thumbSize);
+        float backgroundHeight = imageBackground != null ? imageBackground.packedHeight : thickness;
+        float fillHeight = imageFill != null ? imageFill.packedHeight : thickness;
+        float thumbHeight = imageThumb != null ? imageThumb.packedHeight : thumbSize;
+        return Math.max(backgroundHeight, Math.max(fillHeight, thumbHeight));
     }
 
     public float getValue() {
         return minimum + value * (maximum - minimum);
     }
-
     public void setValue(float value) {
         this.value = MathUtils.clampFloat(value, 0, 1);
     }

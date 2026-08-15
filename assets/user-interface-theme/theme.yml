@@ -4,7 +4,7 @@ theme:
     textFontPath:                       null
   slider:
     sliderImageBackgroundPath:          assets/user-interface-theme/slider-background.png
-    sliderImageFillPath:                assets/user-interface-theme/slider-fill-2.png
+    sliderImageFillPath:                assets/user-interface-theme/slider-fill.png
     sliderImageThumbPath:               assets/user-interface-theme/slider-thumb.png
     sliderLength:                       200.0
     sliderThickness:                    8.0

@@ -1,33 +1,33 @@
 regions:
-- name: assets/user-interface-theme/slider-fill-2.png
-  offsetX: 1
-  offsetY: 0
-  originalHeight: 492
-  originalWidth: 513
-  packedHeight: 491
-  packedWidth: 512
-  textureIndex: 0
-  x: 4
-  y: 4
 - name: assets/user-interface-theme/slider-background.png
   offsetX: 0
   offsetY: 0
-  originalHeight: 20
+  originalHeight: 30
   originalWidth: 200
-  packedHeight: 20
+  packedHeight: 30
   packedWidth: 200
   textureIndex: 0
-  x: 572
-  y: 4
+  x: 4
+  y: 57
+- name: assets/user-interface-theme/slider-fill.png
+  offsetX: 4
+  offsetY: 4
+  originalHeight: 30
+  originalWidth: 200
+  packedHeight: 21
+  packedWidth: 193
+  textureIndex: 0
+  x: 4
+  y: 95
 - name: assets/user-interface-theme/slider-thumb.png
   offsetX: 0
   offsetY: 0
-  originalHeight: 40
-  originalWidth: 40
-  packedHeight: 40
-  packedWidth: 40
+  originalHeight: 45
+  originalWidth: 50
+  packedHeight: 45
+  packedWidth: 50
   textureIndex: 0
-  x: 524
+  x: 4
   y: 4
 - name: assets/user-interface-theme/checkbox-unchecked.png
   offsetX: 0
@@ -37,8 +37,8 @@ regions:
   packedHeight: 20
   packedWidth: 20
   textureIndex: 0
-  x: 808
-  y: 4
+  x: 212
+  y: 32
 - name: assets/user-interface-theme/checkbox-checked.png
   offsetX: 0
   offsetY: 0
@@ -47,12 +47,12 @@ regions:
   packedHeight: 20
   packedWidth: 20
   textureIndex: 0
-  x: 780
+  x: 212
   y: 4
 textures:
 - file: theme-pack_0.png
-  height: 512
-  width: 1024
+  height: 128
+  width: 256
 options:
   padding: 2
   extrude: 2

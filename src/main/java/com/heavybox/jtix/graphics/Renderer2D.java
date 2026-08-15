@@ -652,6 +652,89 @@ public class Renderer2D implements MemoryResourceHolder {
         vertexIndex += 4;
     }
 
+    public void drawTextureRegion(@NotNull TextureRegion region,
+                                  float u1, float v1, float u2, float v2,
+                                  float x, float y, float degrees,
+                                  float scaleX, float scaleY) {
+        if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
+        if (requiresFlush(4, 6)) flush();
+
+        setTexture(region.texture);
+        setMode(GL11.GL_TRIANGLES);
+
+        final float regionU1 = region.u1;
+        final float regionV1 = region.v1;
+        final float regionU2 = region.u2;
+        final float regionV2 = region.v2;
+
+        final float packedWidth = region.packedWidth;
+        final float packedHeight = region.packedHeight;
+        final float originalWidthHalf = region.originalWidthHalf;
+        final float originalHeightHalf = region.originalHeightHalf;
+
+        final float localLeft = region.offsetX - originalWidthHalf + packedWidth * u1;
+        final float localRight = region.offsetX - originalWidthHalf + packedWidth * u2;
+        final float localBottom = region.offsetY - originalHeightHalf + packedHeight * (1.0f - v2);
+        final float localTop = region.offsetY - originalHeightHalf + packedHeight * (1.0f - v1);
+
+        final float scaledLeft = localLeft * scaleX;
+        final float scaledRight = localRight * scaleX;
+        final float scaledBottom = localBottom * scaleY;
+        final float scaledTop = localTop * scaleY;
+
+        final float sin = MathUtils.sinDeg(degrees);
+        final float cos = MathUtils.cosDeg(degrees);
+
+        final float textureU1 = regionU1 + (regionU2 - regionU1) * u1;
+        final float textureU2 = regionU1 + (regionU2 - regionU1) * u2;
+        final float textureV1 = regionV1 + (regionV2 - regionV1) * v1;
+        final float textureV2 = regionV1 + (regionV2 - regionV1) * v2;
+
+        // top-left
+        float vertexX = scaledLeft * cos - scaledTop * sin + x;
+        float vertexY = scaledLeft * sin + scaledTop * cos + y;
+
+        positions.put(vertexX).put(vertexY);
+        colors.put(currentTint);
+        textCoords.put(textureU1).put(textureV1);
+
+        // bottom-left
+        vertexX = scaledLeft * cos - scaledBottom * sin + x;
+        vertexY = scaledLeft * sin + scaledBottom * cos + y;
+
+        positions.put(vertexX).put(vertexY);
+        colors.put(currentTint);
+        textCoords.put(textureU1).put(textureV2);
+
+        // bottom-right
+        vertexX = scaledRight * cos - scaledBottom * sin + x;
+        vertexY = scaledRight * sin + scaledBottom * cos + y;
+
+        positions.put(vertexX).put(vertexY);
+        colors.put(currentTint);
+        textCoords.put(textureU2).put(textureV2);
+
+        // top-right
+        vertexX = scaledRight * cos - scaledTop * sin + x;
+        vertexY = scaledRight * sin + scaledTop * cos + y;
+
+        positions.put(vertexX).put(vertexY);
+        colors.put(currentTint);
+        textCoords.put(textureU2).put(textureV1);
+
+        int startVertex = vertexIndex;
+
+        indices.put(startVertex);
+        indices.put(startVertex + 1);
+        indices.put(startVertex + 3);
+
+        indices.put(startVertex + 3);
+        indices.put(startVertex + 1);
+        indices.put(startVertex + 2);
+
+        vertexIndex += 4;
+    }
+
     /* optimized rendering - equivalent to libGDXs' SpriteCache */
     // TODO
     public void drawMesh(@NotNull final Mesh mesh, float x, float y, float deg, float sclX, float sclY) {
