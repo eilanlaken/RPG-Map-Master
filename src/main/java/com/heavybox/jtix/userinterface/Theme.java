@@ -17,7 +17,7 @@ public class Theme implements MemoryResource {
     public Color   textColor        = Color.WHITE.clone();
     public int     textSize         = 22;
     public boolean textAntialiasing = true;
-    public float   lineSpacing      = 1.1f;
+    public float   textLineSpacing  = 1.1f;
 
     /* slider */
     public TextureRegion sliderImageBackground = null;

@@ -1,7 +1,11 @@
 theme:
   texturePackPath:                      assets/user-interface-theme/theme-pack.yml
   text:
-    textFontPath:                       null
+    textColor:                          #ffffffff
+    textFontPath:                       assets/user-interface-theme/SnackerComic_PerosnalUseOnly.ttf
+    textSize:                           38
+    textAntialiasing:                   true
+    textLineSpacing:                    1.1
   slider:
     sliderImageBackgroundPath:          assets/user-interface-theme/slider-background.png
     sliderImageFillPath:                assets/user-interface-theme/slider-fill.png

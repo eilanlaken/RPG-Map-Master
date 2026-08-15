@@ -11,11 +11,11 @@ import java.util.Set;
 public final class ToolsThemeGenerator {
 
     /* text */
-    public static String  textFontPath     = null;
     public static Color   textColor        = Color.WHITE.clone();
+    public static String  textFontPath     = null;
     public static int     textSize         = 22;
     public static boolean textAntialiasing = true;
-    public static float   lineSpacing      = 1.1f;
+    public static float   textLineSpacing  = 1.1f;
 
     /* slider */
     public static String sliderImageBackgroundPath = null;
@@ -62,7 +62,11 @@ public final class ToolsThemeGenerator {
         theme:
           texturePackPath:                      %s
           text:
+            textColor:                          %s
             textFontPath:                       %s
+            textSize:                           %s
+            textAntialiasing:                   %s
+            textLineSpacing:                    %s
           slider:
             sliderImageBackgroundPath:          %s
             sliderImageFillPath:                %s
@@ -85,7 +89,11 @@ public final class ToolsThemeGenerator {
         """.formatted(
                 texturePackPath,
                 // text
+                textColor,
                 textFontPath,
+                textSize,
+                textAntialiasing,
+                textLineSpacing,
                 // slider
                 sliderImageBackgroundPath,
                 sliderImageFillPath,

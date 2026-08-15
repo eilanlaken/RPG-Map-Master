@@ -40,6 +40,7 @@ public class AssetLoaderTheme implements AssetLoader<Theme> {
     @Override
     public Theme afterLoad() {
         Theme theme = new Theme();
+        Map<String, Object> text = (Map<String, Object>) themeMap.get("text");
         Map<String, Object> slider = (Map<String, Object>) themeMap.get("slider");
         Map<String, Object> checkbox = (Map<String, Object>) themeMap.get("checkbox");
 
@@ -60,6 +61,16 @@ public class AssetLoaderTheme implements AssetLoader<Theme> {
 
         Map<String, Object> color;
         Number value;
+
+        // text
+        color = (Map<String, Object>) text.get("textColor");
+        if (color != null) theme.textColor = colorFromYaml(color);
+        value = (Number) text.get("textSize");
+        if (value != null) theme.textSize = value.intValue();
+        value = (Number) text.get("textLineSpacing");
+        if (value != null) theme.textLineSpacing = value.intValue();
+        Boolean antialiasing = (Boolean) text.get("textAntialiasing");
+        if (value != null) theme.textAntialiasing = antialiasing;
 
         // slider
         color = (Map<String, Object>) slider.get("sliderColorBackground");

@@ -17,7 +17,7 @@ public class NodeText extends Node {
     public Font      font         = UserInterface.getTheme().textFont;
     public int       size         = UserInterface.getTheme().textSize;
     public boolean   antialiasing = UserInterface.getTheme().textAntialiasing;
-    public float     lineSpacing  = UserInterface.getTheme().lineSpacing;
+    public float     lineSpacing  = UserInterface.getTheme().textLineSpacing;
 
     /* state management - prev values */
     private String    textPrev;

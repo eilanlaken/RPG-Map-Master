@@ -26,7 +26,7 @@ public class SceneInput_4 implements Scene {
     NodeGraphics p2_child_2 = new NodeGraphics(80,80);
 
     NodeGraphics shape = new NodeGraphics(55);
-    NodeText text = new NodeText("hello text");
+    NodeText text;
     NodeGraphics picture;
 
     NodeSlider slider;
@@ -48,11 +48,17 @@ public class SceneInput_4 implements Scene {
         }
 
         try {
-            //ToolsThemeGenerator.checkboxColorCheckmarkBackground = Color.CHARTREUSE;
-            //ToolsThemeGenerator.checkboxColorBorderUnchecked = Color.RED;
+            // text
+            ToolsThemeGenerator.textFontPath = "assets/user-interface-theme/SnackerComic_PerosnalUseOnly.ttf";
+            ToolsThemeGenerator.textSize = 38;
+            ToolsThemeGenerator.textAntialiasing = true;
+
+
+            // checkbox
             ToolsThemeGenerator.checkboxImageCheckedPath = "assets/user-interface-theme/checkbox-checked.png";
             ToolsThemeGenerator.checkboxImageUncheckedPath = "assets/user-interface-theme/checkbox-unchecked.png";
 
+            // slider
             ToolsThemeGenerator.sliderImageBackgroundPath = "assets/user-interface-theme/slider-background.png";
             ToolsThemeGenerator.sliderImageFillPath = "assets/user-interface-theme/slider-fill.png";
             ToolsThemeGenerator.sliderImageThumbPath = "assets/user-interface-theme/slider-thumb.png";
@@ -95,9 +101,6 @@ public class SceneInput_4 implements Scene {
         p2_child_2.transform.y = -60;
         panel_2.connectChild(p2_child_1);
         panel_2.connectChild(p2_child_2);
-
-        shape.setShapeToCircleArc(55,22,30);
-        shape.connectChild(text);
 
         panel_1.onMouseLeave(e -> {
             System.out.println("panel_1 leave");
@@ -155,7 +158,9 @@ public class SceneInput_4 implements Scene {
         //UserInterface.add(shape);
         //UserInterface.add(picture);
         //slider.transform.deg = 90;
-        UserInterface.add(slider);
+        text = new NodeText("hello text");
+        UserInterface.cleanup();
+        UserInterface.add(text);
         //UserInterface.add(graphics);
 
         //UserInterface.add(checkbox);
@@ -175,7 +180,7 @@ public class SceneInput_4 implements Scene {
         UserInterface.update();
 
         Graphics.bindFrameBuffer(null);
-        GL11.glClearColor(1f,1f,1f,1);
+        GL11.glClearColor(0f,0f,0f,1);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_STENCIL_BUFFER_BIT); // should probably clear the stencil
 
         if (Input.keyboard.isKeyPressed(Keyboard.Key.D)) {
