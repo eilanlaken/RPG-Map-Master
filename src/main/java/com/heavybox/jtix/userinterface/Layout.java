@@ -5,12 +5,7 @@ import com.heavybox.jtix.math.Transform2D;
 
 public interface Layout {
 
-    default boolean includes(final Node child) {
-        if (child == null) return false;
-        return child.active && child.anchor != null;
-    }
-
-    default void setChildTransformOffset(final Array<Node> childrenLayout, final Array<Transform2D> out) {
+    default void setChildTransformOffset(Node parent, final Array<Node> childrenLayout, final Array<Transform2D> out) {
         for (Transform2D offset : out) offset.idt();
     }
 

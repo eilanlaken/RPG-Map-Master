@@ -565,7 +565,9 @@ public class Renderer2D implements MemoryResourceHolder {
         vertexIndex += 4;
     }
 
-    public void drawTextureRegion(@NotNull TextureRegion region, float x, float y, float degrees, float scaleX, float scaleY) {
+    // TODO: remove this
+    @Deprecated
+    public void drawTextureRegion_old(@NotNull TextureRegion region, float x, float y, float degrees, float scaleX, float scaleY) {
         if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
         if (requiresFlush(4, 6)) flush();
 
@@ -644,6 +646,80 @@ public class Renderer2D implements MemoryResourceHolder {
         /* put indices */
         int startVertex = this.vertexIndex;
         indices.put(startVertex + 0);
+        indices.put(startVertex + 1);
+        indices.put(startVertex + 3);
+        indices.put(startVertex + 3);
+        indices.put(startVertex + 1);
+        indices.put(startVertex + 2);
+        vertexIndex += 4;
+    }
+
+    public void drawTextureRegion(@NotNull TextureRegion region, float x, float y, float degrees, float scaleX, float scaleY) {
+        if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
+        if (requiresFlush(4, 6)) flush();
+
+        setTexture(region.texture);
+        setMode(GL11.GL_TRIANGLES);
+
+        final float ui = region.u1;
+        final float vi = region.v1;
+        final float uf = region.u2;
+        final float vf = region.v2;
+        final float offsetX = region.offsetX;
+        final float offsetY = region.offsetY;
+        final float packedWidth = region.packedWidth;
+        final float packedHeight = region.packedHeight;
+        final float originalWidthHalf = region.originalWidthHalf;
+        final float originalHeightHalf = region.originalHeightHalf;
+
+        /* calculate local bounds */
+        final float left = (offsetX - originalWidthHalf) * scaleX;
+        final float right = left + packedWidth * scaleX;
+        final float bottom = (offsetY - originalHeightHalf) * scaleY;
+        final float top = bottom + packedHeight * scaleY;
+
+        /* rotation */
+        final float sin = MathUtils.sinDeg(degrees);
+        final float cos = MathUtils.cosDeg(degrees);
+        final float leftCos = left * cos;
+        final float leftSin = left * sin;
+        final float rightCos = right * cos;
+        final float rightSin = right * sin;
+        final float bottomCos = bottom * cos;
+        final float bottomSin = bottom * sin;
+        final float topCos = top * cos;
+        final float topSin = top * sin;
+
+        /* calculate corners */
+        final float x1 = leftCos - topSin + x;
+        final float y1 = leftSin + topCos + y;
+        final float x2 = leftCos - bottomSin + x;
+        final float y2 = leftSin + bottomCos + y;
+        final float x3 = rightCos - bottomSin + x;
+        final float y3 = rightSin + bottomCos + y;
+        final float x4 = rightCos - topSin + x;
+        final float y4 = rightSin + topCos + y;
+
+        /* put vertices */
+        positions.put(x1).put(y1);
+        colors.put(currentTint);
+        textCoords.put(ui).put(vi);
+
+        positions.put(x2).put(y2);
+        colors.put(currentTint);
+        textCoords.put(ui).put(vf);
+
+        positions.put(x3).put(y3);
+        colors.put(currentTint);
+        textCoords.put(uf).put(vf);
+
+        positions.put(x4).put(y4);
+        colors.put(currentTint);
+        textCoords.put(uf).put(vi);
+
+        /* put indices */
+        final int startVertex = this.vertexIndex;
+        indices.put(startVertex);
         indices.put(startVertex + 1);
         indices.put(startVertex + 3);
         indices.put(startVertex + 3);

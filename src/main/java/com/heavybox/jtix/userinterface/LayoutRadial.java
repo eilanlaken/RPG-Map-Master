@@ -7,7 +7,7 @@ import com.heavybox.jtix.math.Transform2D;
 public class LayoutRadial implements Layout {
 
     @Override
-    public void setChildTransformOffset(Array<Node> childrenLayout, Array<Transform2D> out) {
+    public void setChildTransformOffset(Node parent, Array<Node> childrenLayout, Array<Transform2D> out) {
 
     }
 

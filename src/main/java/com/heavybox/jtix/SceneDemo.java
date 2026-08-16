@@ -300,7 +300,6 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
 //        widgetStatisticsBar.render(renderer2D);
 //        widgetTools.render(renderer2D);
         renderer2D.end();
-
     }
 
     public void selectTool(int index) {

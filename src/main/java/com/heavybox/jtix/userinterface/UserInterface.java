@@ -510,7 +510,7 @@ public final class UserInterface {
     }
 
     public static void remove(@NotNull final Node node) {
-        node.disconnectFromParent();
+        node.parentRemove();
         rootWidgets.removeValue(node, true);
     }
 

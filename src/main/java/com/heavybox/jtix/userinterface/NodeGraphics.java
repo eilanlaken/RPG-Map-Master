@@ -13,7 +13,7 @@ import org.jetbrains.annotations.Nullable;
 public class NodeGraphics extends Node {
 
     public Shader        shader = null;
-    public float         color  = Color.WHITE_FLOAT;//Color.randomOpaque().toFloatBits();
+    public float         color  = Color.randomOpaque().toFloatBits();
     public TextureRegion image  = null;
 
     private final ArrayFloat polygon = new ArrayFloat(true, 8);

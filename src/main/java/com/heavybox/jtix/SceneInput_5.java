@@ -4,7 +4,10 @@ import com.heavybox.jtix.application.Application;
 import com.heavybox.jtix.application.Scene;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.collections.Array;
-import com.heavybox.jtix.graphics.*;
+import com.heavybox.jtix.graphics.Graphics;
+import com.heavybox.jtix.graphics.Renderer2D;
+import com.heavybox.jtix.graphics.TexturePack;
+import com.heavybox.jtix.graphics.TextureRegion;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
@@ -14,7 +17,7 @@ import com.heavybox.jtix.userinterface.*;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.opengl.GL11;
 
-public class SceneInput_4 implements Scene {
+public class SceneInput_5 implements Scene {
 
     NodeGraphics panel_1 = new NodeGraphics(250,250);
     NodeGraphics p1_child_1 = new NodeGraphics(80,80);
@@ -23,13 +26,6 @@ public class SceneInput_4 implements Scene {
     NodeGraphics panel_2 = new NodeGraphics(250,250);
     NodeGraphics p2_child_1 = new NodeGraphics(80,80);
     NodeGraphics p2_child_2 = new NodeGraphics(80,80);
-
-    NodeGraphics shape = new NodeGraphics(55);
-    NodeText text;
-    NodeGraphics picture;
-
-    NodeSlider slider;
-    NodeCheckbox checkbox;
 
     Renderer2D renderer2D = new Renderer2D();
     TexturePack atlas;
@@ -74,14 +70,10 @@ public class SceneInput_4 implements Scene {
         Theme theme = Assets.get("assets/user-interface-theme/theme.yml");
         UserInterface.setTheme(theme);
 
-        slider = new NodeSlider();
-        checkbox = new NodeCheckbox();
 
         atlas = Assets.get("assets/texture-packs/user-interface.yml");
         region = atlas.getRegion("assets/user-interface/debug-mouse.jpg");
         graphics = new NodeGraphics(344,344);
-
-        picture = new NodeGraphics(atlas.getRegion("assets/user-interface/toolbar-icon-nature.png"));
 
         panel_1.transform.x = -300;
         panel_1.transform.y = 0;
@@ -101,54 +93,6 @@ public class SceneInput_4 implements Scene {
         panel_2.childAdd(p2_child_1);
         panel_2.childAdd(p2_child_2);
 
-        panel_1.onMouseLeave(e -> {
-            System.out.println("panel_1 leave");
-        });
-        p1_child_1.onMouseLeave(e -> {
-            System.out.println("c1 leave");
-        });
-        p1_child_2.onMouseLeave(e -> {
-            System.out.println("c2 leave");
-        });
-
-        panel_1.onMouseEnter(e -> {
-            System.out.println("panel_1 enter");
-        });
-        p1_child_1.onMouseEnter(e -> {
-            System.out.println("c1 enter");
-        });
-        p1_child_2.onMouseEnter(e -> {
-            System.out.println("c2 enter");
-        });
-
-        // drag and drop
-        p1_child_1.onMouseDragStart(e -> {
-            e.target.parentRemove();
-            e.target.zIndex = 100;
-            e.target.transform.x = UserInterface.getPointerX();
-            e.target.transform.y = UserInterface.getPointerY();
-        });
-        p1_child_1.onMouseDrag(e -> {
-            e.target.transform.x = UserInterface.getPointerX();
-            e.target.transform.y = UserInterface.getPointerY();
-        });
-        p1_child_1.onMouseDragEnter(e -> {
-            System.out.println("error enter");
-        });
-        p1_child_1.onMouseDragDrop(e -> {
-            System.out.println("error drop");
-        });
-
-        panel_2.onMouseDragEnter(e -> {
-            System.out.println("enter: " + e.dragged);
-        });
-        panel_2.onMouseDragLeave(e -> {
-            System.out.println("leave: " + e.dragged);
-        });
-        panel_2.onMouseDragDrop(e -> {
-            System.out.println("dropped: " + e.dragged);
-        });
-
 
         graphics.setShapeToRectangleRoundCorners(region.originalWidth, region.originalHeight, 30, 30);
 
@@ -157,18 +101,12 @@ public class SceneInput_4 implements Scene {
         //UserInterface.add(shape);
         //UserInterface.add(picture);
         //slider.transform.deg = 90;
-        text = new NodeText("hello text");
-        UserInterface.cleanup();
-        UserInterface.add(text);
         //UserInterface.add(graphics);
-
         //UserInterface.add(checkbox);
     }
 
     @Override
     public boolean mouseButtonsDown(int mouseX, int mouseY, @NotNull Array<Mouse.Button> buttons) {
-        //System.out.println("screen");
-        text.text = "abs asdakl asdasldkj asd \nasdkals \nasdalkj ";
         return false;
     }
 

@@ -69,7 +69,7 @@ public abstract class Node {
     }
 
     /*** Add and remove child methods ***/
-    public final void connectChild(Node child) {
+    public final void childAdd(Node child) {
         if (child == null) throw new WidgetsException(Node.class.getSimpleName() + " element cannot be null.");
         if (child == this) throw new WidgetsException("Trying to parent a " + Node.class.getSimpleName() + " to itself.");
         if (UserInterface.isXAncestorOfY(child,this)) throw new WidgetsException("Cannot add an ancestor widget as a child, as this would create a cyclic hierarchy.");
@@ -82,7 +82,7 @@ public abstract class Node {
         children.sort(Comparator.comparingInt(a -> a.zIndex));
     }
 
-    public final void disconnectChild(Node child) {
+    public final void childRemove(Node child) {
         if (child == null) throw new WidgetsException(Node.class.getSimpleName() + " element cannot be null.");
         if (!children.contains(child, true)) throw new WidgetsException(Node.class.getSimpleName() + " does not contain the element " + child + " as a child so it cannot be removed.");
 
@@ -94,14 +94,14 @@ public abstract class Node {
         children.sort(Comparator.comparingInt(a -> a.zIndex));
     }
 
-    public final void disconnectFromParent() {
-        if (parent == null) return;
-        parent.disconnectChild(this);
+    public final void parentSet(Node newParent) {
+        if (this.parent == newParent) return;
+        if (this.parent != null) this.parent.childRemove(this);
+        if (newParent != null) newParent.childAdd(this);
     }
 
-    public final void connectToParent(Node newParent) {
-        if (newParent == null) return;
-        newParent.connectChild(this);
+    public final void parentRemove() {
+        parentSet(null);
     }
 
     private void setChildrenOffsets() {
@@ -117,11 +117,12 @@ public abstract class Node {
         UserInterface.layoutChildren.clear();
         UserInterface.layoutOffsets.clear();
         for (Node child : children) {
-            if (!layout.includes(child)) continue;
+            if (!child.active || child.anchor != null) continue;
+
             UserInterface.layoutChildren.add(child);
             UserInterface.layoutOffsets.add(child.transformOffset);
         }
-        layout.setChildTransformOffset(UserInterface.layoutChildren, UserInterface.layoutOffsets);
+        layout.setChildTransformOffset(this, UserInterface.layoutChildren, UserInterface.layoutOffsets);
     }
 
     private void setOffsetsAnchor() {
@@ -203,6 +204,41 @@ public abstract class Node {
     }
 
     /*** internal state updates and metrics ***/
+
+    protected final float getChildrenSpanWidth() {
+        if (children.isEmpty()) return 0;
+
+        float min_x = Float.POSITIVE_INFINITY;
+        float max_x = Float.NEGATIVE_INFINITY;
+        for (Node node : children) {
+            if (!node.active) continue;
+            if (node.anchor != null) continue;
+
+            float left = node.transformOffset.x - node.getWidth() * 0.5f;
+            float right = node.transformOffset.x + node.getWidth() * 0.5f;
+            min_x = Math.min(min_x, left);
+            max_x = Math.max(max_x, right);
+        }
+        return Math.abs(max_x - min_x);
+    }
+
+    protected final float getChildrenSpanHeight() {
+        if (children.isEmpty()) return 0;
+
+        float min_y = Float.POSITIVE_INFINITY;
+        float max_y = Float.NEGATIVE_INFINITY;
+        for (Node node : children) {
+            if (!node.active) continue;
+            if (node.anchor != null) continue;
+
+            float down = node.transformOffset.y - node.getHeight() * 0.5f;
+            float up = node.transformOffset.y + node.getHeight() * 0.5f;
+            min_y = Math.min(min_y, down);
+            max_y = Math.max(max_y, up);
+        }
+        return Math.abs(max_y - min_y);
+    }
+
     // TODO: verify
     private void setGlobalTransform() {
         float parentX = parent == null ? 0 : parent.transformScreen.x;
