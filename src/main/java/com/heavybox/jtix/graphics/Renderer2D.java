@@ -2454,7 +2454,6 @@ public class Renderer2D implements MemoryResourceHolder {
             }
             triangles = tmp_ArrayInt;
         }
-
         setTexture(region.texture);
         setMode(GL11.GL_TRIANGLES);
 

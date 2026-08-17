@@ -171,8 +171,8 @@ public final class Texture implements MemoryResource {
         // defaults
         this.filterMag = FilterMag.NEAREST;
         this.filterMin = FilterMin.NEAREST_MIPMAP_NEAREST;
-        this.sWrap = Texture.Wrap.CLAMP_TO_EDGE;
-        this.tWrap = Texture.Wrap.CLAMP_TO_EDGE;
+        this.sWrap = Wrap.REPEAT;
+        this.tWrap = Wrap.REPEAT;
         this.anisotropy = MathUtils.nextPowerOf2i(MathUtils.clampInt(anisotropy,1, Graphics.getMaxAnisotropy()));
         this.biasLOD = 0;
 

@@ -19,13 +19,9 @@ import org.lwjgl.opengl.GL11;
 
 public class SceneInput_5 implements Scene {
 
-    NodeGraphics panel_1 = new NodeGraphics(250,250);
+    NodePanel panel_1;
     NodeGraphics p1_child_1 = new NodeGraphics(80,80);
     NodeGraphics p1_child_2 = new NodeGraphics(80,80);
-
-    NodeGraphics panel_2 = new NodeGraphics(250,250);
-    NodeGraphics p2_child_1 = new NodeGraphics(80,80);
-    NodeGraphics p2_child_2 = new NodeGraphics(80,80);
 
     Renderer2D renderer2D = new Renderer2D();
     TexturePack atlas;
@@ -75,34 +71,9 @@ public class SceneInput_5 implements Scene {
         region = atlas.getRegion("assets/user-interface/debug-mouse.jpg");
         graphics = new NodeGraphics(344,344);
 
-        panel_1.transform.x = -300;
-        panel_1.transform.y = 0;
-        p1_child_1.transform.x = 0;
-        p1_child_1.transform.y = 60;
-        p1_child_2.transform.x = 0;
-        p1_child_2.transform.y = -60;
-        panel_1.childAdd(p1_child_1);
-        panel_1.childAdd(p1_child_2);
+        panel_1 = new NodePanel();
 
-        panel_2.transform.x = 300;
-        panel_2.transform.y = 0;
-        p2_child_1.transform.x = 0;
-        p2_child_1.transform.y = 60;
-        p2_child_2.transform.x = 0;
-        p2_child_2.transform.y = -60;
-        panel_2.childAdd(p2_child_1);
-        panel_2.childAdd(p2_child_2);
-
-
-        graphics.setShapeToRectangleRoundCorners(region.originalWidth, region.originalHeight, 30, 30);
-
-  //      UserInterface.add(panel_1);
-//        UserInterface.add(panel_2);
-        //UserInterface.add(shape);
-        //UserInterface.add(picture);
-        //slider.transform.deg = 90;
-        //UserInterface.add(graphics);
-        //UserInterface.add(checkbox);
+        UserInterface.add(panel_1);
     }
 
     @Override
@@ -137,29 +108,19 @@ public class SceneInput_5 implements Scene {
         }
 
 
-        if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KEY_1)) {
-            panel_1.zIndex = 8;
-            panel_2.zIndex = 9;
-        }
-
-        if (Input.keyboard.isKeyJustPressed(Keyboard.Key.KEY_2)) {
-            panel_1.zIndex = 9;
-            panel_2.zIndex = 8;
-        }
-
         renderer2D.begin();
         UserInterface.render(renderer2D);
         renderer2D.end();
 
-        renderer2D.begin();
-//        renderer2D.drawTextureRegion(
-//                region,
-//                0f, 0f,
-//                0.5f, 1f,
-//                0, 0, 0,
-//                1, 1
-//        );
-        renderer2D.end();
+//        renderer2D.begin();
+////        renderer2D.drawTextureRegion(
+////                region,
+////                0f, 0f,
+////                0.5f, 1f,
+////                0, 0, 0,
+////                1, 1
+////        );
+//        renderer2D.end();
 
     }
 
