@@ -40,10 +40,10 @@ public class SceneInput_5 implements Scene {
         try {
             // scrollbar
             //ToolsThemeGenerator.scrollbarImageBarPath = "assets/user-interface-theme/scrollbar-bar.png";
-            ToolsThemeGenerator.scrollbarImageThumbPath = "assets/user-interface-theme/scrollbar-thumb.png";
-            ToolsThemeGenerator.scrollbarColorBar = Color.RED.clone();
-            ToolsThemeGenerator.scrollbarColorThumb = Color.BLUE.clone();
-            ToolsThemeGenerator.scrollbarThickness = 50;
+            //ToolsThemeGenerator.scrollbarImageThumbPath = "assets/user-interface-theme/scrollbar-thumb.png";
+            //ToolsThemeGenerator.scrollbarColorBar = Color.RED.clone();
+            //ToolsThemeGenerator.scrollbarColorThumb = Color.BLUE.clone();
+            //ToolsThemeGenerator.scrollbarThickness = 50;
 
             // group
             ToolsThemeGenerator.groupTextureBackgroundPath = "assets/user-interface-theme/panel-background.png";

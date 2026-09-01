@@ -12,9 +12,7 @@ import com.heavybox.jtix.math.Vector2;
 public class NodeScrollbar extends Node {
 
     /* state */
-    public float   scrollSpeed = 100; // pixels per ? TODO
-    public boolean vertical  = true;
-    public float   value     = 0.9f;
+    public float   value     = 0f;
     public float   length    = 300;
     public float   thumbSize = 0.2f; // percentage
 
@@ -107,12 +105,12 @@ public class NodeScrollbar extends Node {
 
     @Override
     protected float getWidth() {
-        return vertical ? thickness : length;
+        return thickness;
     }
 
     @Override
     protected float getHeight() {
-        return vertical ? length : thickness;
+        return length;
     }
 
 }
