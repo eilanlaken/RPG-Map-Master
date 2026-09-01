@@ -24,6 +24,12 @@ public class ArrayInt implements MemoryPool.Reset {
         this.items = new int[capacity];
     }
 
+    public ArrayInt(boolean ordered, int... values) {
+        this.ordered = ordered;
+        this.items = new int[values.length];
+        for (int val : values) add(val);
+    }
+
     public void add(final int value) {
         int[] items = this.items;
         if (size + 1 >= items.length) items = resize(Math.max(8, size * 2));

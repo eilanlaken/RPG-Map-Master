@@ -2388,6 +2388,7 @@ public class Renderer2D implements MemoryResourceHolder {
         vertexIndex += tmp_ArrayFloat.size / 2;
     }
 
+    @Deprecated
     public void drawPolygonFilled(float[] polygon, Texture texture,
                                   float x, float y, float deg,
                                   float scaleX, float scaleY) {
@@ -2429,6 +2430,13 @@ public class Renderer2D implements MemoryResourceHolder {
             indices.put(startVertex + tmp_ArrayInt.get(i));
         }
         vertexIndex += tmp_ArrayFloat.size / 2;
+    }
+
+    public void drawPolygonFilled(@Nullable Texture texture,
+                                  @NotNull ArrayFloat polygon, @Nullable ArrayInt triangles,
+                                  float x, float y, float deg, float sclX, float sclY) {
+        if (texture == null) texture = defaultTexture;
+        drawPolygonFilled(texture.region, polygon, triangles, x, y, deg, sclX, sclY);
     }
 
     // TODO: test

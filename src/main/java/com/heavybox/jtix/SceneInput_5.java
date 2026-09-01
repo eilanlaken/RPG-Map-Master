@@ -4,10 +4,7 @@ import com.heavybox.jtix.application.Application;
 import com.heavybox.jtix.application.Scene;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.collections.Array;
-import com.heavybox.jtix.graphics.Graphics;
-import com.heavybox.jtix.graphics.Renderer2D;
-import com.heavybox.jtix.graphics.TexturePack;
-import com.heavybox.jtix.graphics.TextureRegion;
+import com.heavybox.jtix.graphics.*;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
@@ -19,7 +16,7 @@ import org.lwjgl.opengl.GL11;
 
 public class SceneInput_5 implements Scene {
 
-    NodePanel panel_1;
+    NodeGroup panel_1;
     NodeGraphics p1_child_1 = new NodeGraphics(80,80);
     NodeGraphics p1_child_2 = new NodeGraphics(80,80);
 
@@ -28,6 +25,8 @@ public class SceneInput_5 implements Scene {
 
     TextureRegion region;
     NodeGraphics graphics;
+
+    NodeScrollbar scrollbar;
 
     @Override
     public void start() {
@@ -39,11 +38,20 @@ public class SceneInput_5 implements Scene {
         }
 
         try {
+            // scrollbar
+            //ToolsThemeGenerator.scrollbarImageBarPath = "assets/user-interface-theme/scrollbar-bar.png";
+            ToolsThemeGenerator.scrollbarImageThumbPath = "assets/user-interface-theme/scrollbar-thumb.png";
+            ToolsThemeGenerator.scrollbarColorBar = Color.RED.clone();
+            ToolsThemeGenerator.scrollbarColorThumb = Color.BLUE.clone();
+            ToolsThemeGenerator.scrollbarThickness = 50;
+
+            // group
+            ToolsThemeGenerator.groupTextureBackgroundPath = "assets/user-interface-theme/panel-background.png";
+
             // text
             ToolsThemeGenerator.textFontPath = "assets/user-interface-theme/SnackerComic_PerosnalUseOnly.ttf";
             ToolsThemeGenerator.textSize = 38;
             ToolsThemeGenerator.textAntialiasing = true;
-
 
             // checkbox
             ToolsThemeGenerator.checkboxImageCheckedPath = "assets/user-interface-theme/checkbox-checked.png";
@@ -71,9 +79,9 @@ public class SceneInput_5 implements Scene {
         region = atlas.getRegion("assets/user-interface/debug-mouse.jpg");
         graphics = new NodeGraphics(344,344);
 
-        panel_1 = new NodePanel();
-
-        UserInterface.add(panel_1);
+        panel_1 = new NodeGroup();
+        scrollbar = new NodeScrollbar();
+        UserInterface.add(scrollbar);
     }
 
     @Override

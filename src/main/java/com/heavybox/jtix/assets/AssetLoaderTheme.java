@@ -3,6 +3,7 @@ package com.heavybox.jtix.assets;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Font;
+import com.heavybox.jtix.graphics.Texture;
 import com.heavybox.jtix.graphics.TexturePack;
 import com.heavybox.jtix.userinterface.Theme;
 import com.heavybox.jtix.widgets.Theme_old;
@@ -17,6 +18,7 @@ public class AssetLoaderTheme implements AssetLoader<Theme> {
     private String                 yamlString;
     private String                 texturePackPath;
     private String                 textFontPath;
+    //private String                 groupTextureBackgroundPath;
     private Map<String, Object>    themeMap;
 
     @Override
@@ -31,15 +33,27 @@ public class AssetLoaderTheme implements AssetLoader<Theme> {
         Map<String, Object> text = (Map<String, Object>) themeMap.get("text");
         textFontPath = (String) text.get("textFontPath");
 
+        Map<String, Object> scrollbar = (Map<String, Object>) themeMap.get("scrollbar");
+        String scrollbarImageBarPath = (String) scrollbar.get("scrollbarImageBarPath");
+        String scrollbarImageThumbPath = (String) scrollbar.get("scrollbarImageThumbPath");
+
+        Map<String, Object> group = (Map<String, Object>) themeMap.get("group");
+        String groupTextureBackgroundPath = (String) group.get("groupTextureBackgroundPath");
+
         dependencies = new Array<>(1);
         if (texturePackPath != null) dependencies.add(new AssetDescriptor(TexturePack.class, texturePackPath, options));
         if (textFontPath != null) dependencies.add(new AssetDescriptor(Font.class, textFontPath, options));
+        if (groupTextureBackgroundPath != null) dependencies.add(new AssetDescriptor(Texture.class, groupTextureBackgroundPath, options));
+        if (scrollbarImageBarPath != null) dependencies.add(new AssetDescriptor(Texture.class, scrollbarImageBarPath, options));
+        if (scrollbarImageThumbPath != null) dependencies.add(new AssetDescriptor(Texture.class, scrollbarImageThumbPath, options));
         return dependencies;
     }
 
     @Override
     public Theme afterLoad() {
         Theme theme = new Theme();
+        Map<String, Object> scrollbar = (Map<String, Object>) themeMap.get("scrollbar");
+        Map<String, Object> group = (Map<String, Object>) themeMap.get("group");
         Map<String, Object> text = (Map<String, Object>) themeMap.get("text");
         Map<String, Object> slider = (Map<String, Object>) themeMap.get("slider");
         Map<String, Object> checkbox = (Map<String, Object>) themeMap.get("checkbox");
@@ -61,6 +75,24 @@ public class AssetLoaderTheme implements AssetLoader<Theme> {
 
         Map<String, Object> color;
         Number value;
+
+        // scrollbar
+        String scrollbarImageBarPath = (String) scrollbar.get("scrollbarImageBarPath");
+        if (scrollbarImageBarPath != null) theme.scrollbarImageBar = Assets.get(scrollbarImageBarPath);
+        String scrollbarImageThumbPath = (String) scrollbar.get("scrollbarImageThumbPath");
+        if (scrollbarImageThumbPath != null) theme.scrollbarImageThumb = Assets.get(scrollbarImageThumbPath);
+        color = (Map<String, Object>) scrollbar.get("scrollbarColorBar");
+        if (color != null) theme.scrollbarColorBar = colorFromYaml(color);
+        color = (Map<String, Object>) scrollbar.get("scrollbarColorThumb");
+        if (color != null) theme.scrollbarColorThumb = colorFromYaml(color);
+        value = (Number) scrollbar.get("scrollbarThickness");
+        if (value != null) theme.scrollbarThickness = value.floatValue();
+        System.out.println(theme.scrollbarColorBar);
+        System.out.println(theme.scrollbarColorThumb);
+
+        // group
+        String groupTextureBackgroundPath = (String) group.get("groupTextureBackgroundPath");
+        if (groupTextureBackgroundPath != null) theme.groupTextureBackground = Assets.get(groupTextureBackgroundPath);
 
         // text
         color = (Map<String, Object>) text.get("textColor");

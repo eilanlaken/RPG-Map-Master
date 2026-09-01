@@ -28,9 +28,15 @@ public final class ToolsThemeGenerator {
     public static Color  sliderColorFill           = Color.valueOf("0075FF");
     public static Color  sliderColorThumb          = Color.valueOf("0075FF");
 
-    /* container */
-
     /* scrollbar */
+    public static String scrollbarImageBarPath   = null;
+    public static String scrollbarImageThumbPath = null;
+    public static Color  scrollbarColorBar       = Color.valueOf("343538");
+    public static Color  scrollbarColorThumb     = Color.valueOf("5c5d5e");
+    public static float  scrollbarThickness      = 10;
+
+    /* group */
+    public static String groupTextureBackgroundPath = null;
 
     /* checkbox */
     public static String checkboxImageCheckedPath         = null;
@@ -61,6 +67,14 @@ public final class ToolsThemeGenerator {
         String yaml = """
         theme:
           texturePackPath:                      %s
+          scrollbar:
+            scrollbarImageBarPath:              %s
+            scrollbarImageThumbPath:            %s
+            scrollbarColorBar:                  %s
+            scrollbarColorThumb:                %s
+            scrollbarThickness:                 %s
+          group:
+            groupTextureBackgroundPath:         %s
           text:
             textColor:                          %s
             textFontPath:                       %s
@@ -88,6 +102,14 @@ public final class ToolsThemeGenerator {
             checkboxSizeBorder:                 %s
         """.formatted(
                 texturePackPath,
+                // scrollbar
+                scrollbarImageBarPath,
+                scrollbarImageThumbPath,
+                colorToYaml(scrollbarColorBar),
+                colorToYaml(scrollbarColorThumb),
+                scrollbarThickness,
+                // group
+                groupTextureBackgroundPath,
                 // text
                 textColor,
                 textFontPath,

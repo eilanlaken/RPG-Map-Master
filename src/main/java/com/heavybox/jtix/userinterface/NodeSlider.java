@@ -10,12 +10,12 @@ import com.heavybox.jtix.math.Vector2;
 public class NodeSlider extends Node {
 
     /* state and data */
-    public boolean integers = false;
+    public boolean integers = false; // TODO
     public float   minimum  = 0;
     public float   maximum  = 1;
     public float   value    = 0.5f; // sliding will change this fraction.
 
-    /* TODO: theme. See how to make it flexible */
+    /* theme */
     public TextureRegion imageBackground = UserInterface.getTheme().sliderImageBackground;
     public TextureRegion imageFill       = UserInterface.getTheme().sliderImageFill;
     public TextureRegion imageThumb      = UserInterface.getTheme().sliderImageThumb;

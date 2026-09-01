@@ -7,44 +7,40 @@ import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.graphics.Texture;
 import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Vector2;
-import com.heavybox.jtix.widgets.Widgets;
 import org.jetbrains.annotations.NotNull;
 
-import java.awt.*;
-
-public class NodePanel extends Node {
+public class NodeGroup extends Node {
 
     /* settings */
-    public Sizing widthSizing  = Sizing.STATIC;
-    public float  width        = 400;
-    public float  widthMin     = 0;
-    public float  widthMax     = Float.POSITIVE_INFINITY;
-    public Sizing heightSizing = Sizing.STATIC;
-    public float  height       = 100;
-    public float  heightMin    = 0;
-    public float  heightMax    = Float.POSITIVE_INFINITY;
-
-    public Overflow overflow = Overflow.HIDDEN;
+    public Sizing   widthSizing  = Sizing.STATIC;
+    public float    width        = 400;
+    public float    widthMin     = 0;
+    public float    widthMax     = Float.POSITIVE_INFINITY;
+    public Sizing   heightSizing = Sizing.STATIC;
+    public float    height       = 100;
+    public float    heightMin    = 0;
+    public float    heightMax    = Float.POSITIVE_INFINITY;
+    public Overflow overflow     = Overflow.HIDDEN;
 
     /* theme */
-    public Texture textureBackground         = null;
-    public Color   colorBackground           = UserInterface.getTheme().panelColorBackground.clone();
-    public float   paddingTop                = UserInterface.getTheme().panelPaddingTop;
-    public float   paddingBottom             = UserInterface.getTheme().panelPaddingBottom;
-    public float   paddingLeft               = UserInterface.getTheme().panelPaddingLeft;
-    public float   paddingRight              = UserInterface.getTheme().panelPaddingRight;
-    public float   childSpacingVertical      = UserInterface.getTheme().panelChildSpacingVertical;
-    public float   childSpacingHorizontal    = UserInterface.getTheme().panelChildSpacingHorizontal;
-    public float   cornerRadiusTopLeft       = UserInterface.getTheme().panelCornerRadiusTopLeft;
-    public float   cornerRadiusTopRight      = UserInterface.getTheme().panelCornerRadiusTopRight;
-    public float   cornerRadiusBottomRight   = UserInterface.getTheme().panelCornerRadiusBottomRight;
-    public float   cornerRadiusBottomLeft    = UserInterface.getTheme().panelCornerRadiusBottomLeft;
-    public int     cornerSegmentsTopLeft     = UserInterface.getTheme().panelCornerSegmentsTopLeft;
-    public int     cornerSegmentsTopRight    = UserInterface.getTheme().panelCornerSegmentsTopRight;
-    public int     cornerSegmentsBottomRight = UserInterface.getTheme().panelCornerSegmentsBottomRight;
-    public int     cornerSegmentsBottomLeft  = UserInterface.getTheme().panelCornerSegmentsBottomLeft;
-    public float   sizeBorder                = UserInterface.getTheme().panelSizeBorder;
-    public Color   colorBorder               = UserInterface.getTheme().panelColorBorder.clone();
+    public Texture textureBackground         = UserInterface.getTheme().groupTextureBackground;
+    public Color   colorBackground           = UserInterface.getTheme().groupColorBackground.clone();
+    public float   paddingTop                = UserInterface.getTheme().groupPaddingTop;
+    public float   paddingBottom             = UserInterface.getTheme().groupPaddingBottom;
+    public float   paddingLeft               = UserInterface.getTheme().groupPaddingLeft;
+    public float   paddingRight              = UserInterface.getTheme().groupPaddingRight;
+    public float   childSpacingVertical      = UserInterface.getTheme().groupChildSpacingVertical;
+    public float   childSpacingHorizontal    = UserInterface.getTheme().groupChildSpacingHorizontal;
+    public float   cornerRadiusTopLeft       = UserInterface.getTheme().groupCornerRadiusTopLeft;
+    public float   cornerRadiusTopRight      = UserInterface.getTheme().groupCornerRadiusTopRight;
+    public float   cornerRadiusBottomRight   = UserInterface.getTheme().groupCornerRadiusBottomRight;
+    public float   cornerRadiusBottomLeft    = UserInterface.getTheme().groupCornerRadiusBottomLeft;
+    public int     cornerSegmentsTopLeft     = UserInterface.getTheme().groupCornerSegmentsTopLeft;
+    public int     cornerSegmentsTopRight    = UserInterface.getTheme().groupCornerSegmentsTopRight;
+    public int     cornerSegmentsBottomRight = UserInterface.getTheme().groupCornerSegmentsBottomRight;
+    public int     cornerSegmentsBottomLeft  = UserInterface.getTheme().groupCornerSegmentsBottomLeft;
+    public float   sizeBorder                = UserInterface.getTheme().groupSizeBorder;
+    public Color   colorBorder               = UserInterface.getTheme().groupColorBorder.clone();
 
     /* state */
     private final ArrayFloat polygon = new ArrayFloat(true, 8);
@@ -55,12 +51,8 @@ public class NodePanel extends Node {
     private float backgroundWidth  = 0;
     private float backgroundHeight = 0;
 
-    // placeholders
-    // TODO: remove. load properly as theme.
-    Texture texture = new Texture("assets/user-interface-theme/panel-background.png");
-
     // set scrolls etc
-    public NodePanel() {
+    public NodeGroup() {
     }
 
     @Override
@@ -69,8 +61,26 @@ public class NodePanel extends Node {
     }
 
     @Override
-    protected void draw(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
-        renderer2D.drawPolygonFilled(texture.region, polygon, indices, x, y, deg, sclX, sclY);
+    protected final void draw(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
+        drawBackground(renderer2D, x, y, deg, sclX, sclY);
+        drawBorder(renderer2D, x, y, deg, sclX, sclY);
+    }
+
+    protected void drawBackground(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
+        renderer2D.setColor(colorBackground);
+        renderer2D.drawPolygonFilled(textureBackground, polygon, indices, x, y, deg, sclX, sclY);
+    }
+
+    protected void drawBorder(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
+        if (sizeBorder <= 0) return;
+
+        renderer2D.setColor(colorBorder);
+        renderer2D.drawRectangleBorder(backgroundWidth, backgroundHeight, sizeBorder,
+                cornerRadiusTopLeft, cornerSegmentsTopLeft,
+                cornerRadiusTopRight, cornerSegmentsTopRight,
+                cornerRadiusBottomRight, cornerSegmentsBottomRight,
+                cornerRadiusBottomLeft, cornerSegmentsBottomLeft,
+                x, y, deg, sclX, sclY);
     }
 
     @Override

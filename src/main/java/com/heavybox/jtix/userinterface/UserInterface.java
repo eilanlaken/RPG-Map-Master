@@ -131,9 +131,9 @@ public final class UserInterface {
 
         @Override
         public boolean mouseButtonsUp(int mouseX, int mouseY, @NotNull Array<Mouse.Button> buttons) {
+            inputMouseDragTarget = null;
             Node target = findTopmostChildAt(pointerX, pointerY, null);
             inputMouseUpTarget = target;
-
             if (target == null) return false; // no target of the component tree was hit.
 
             /* travels to the top-most component that handles the event. */

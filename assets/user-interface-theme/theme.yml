@@ -1,5 +1,13 @@
 theme:
   texturePackPath:                      assets/user-interface-theme/theme-pack.yml
+  scrollbar:
+    scrollbarImageBarPath:              null
+    scrollbarImageThumbPath:            assets/user-interface-theme/scrollbar-thumb.png
+    scrollbarColorBar:                  { r: 1.000, g: 0.000, b: 0.000, a: 1.000 }
+    scrollbarColorThumb:                { r: 0.000, g: 0.000, b: 1.000, a: 1.000 }
+    scrollbarThickness:                 50.0
+  group:
+    groupTextureBackgroundPath:         assets/user-interface-theme/panel-background.png
   text:
     textColor:                          #ffffffff
     textFontPath:                       assets/user-interface-theme/SnackerComic_PerosnalUseOnly.ttf

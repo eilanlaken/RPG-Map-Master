@@ -1,11 +1,7 @@
 package com.heavybox.jtix.userinterface;
 
-import com.heavybox.jtix.graphics.Color;
-import com.heavybox.jtix.graphics.Font;
-import com.heavybox.jtix.graphics.TexturePack;
-import com.heavybox.jtix.graphics.TextureRegion;
+import com.heavybox.jtix.graphics.*;
 import com.heavybox.jtix.memory.MemoryResource;
-import com.heavybox.jtix.widgets.Widgets;
 
 public class Theme implements MemoryResource {
 
@@ -31,26 +27,32 @@ public class Theme implements MemoryResource {
     public float         sliderThumbSize       = 18;
     public float         sliderThickness       = 7.5f;
 
-    /* panel */
-    public Color panelColorBackground           = Color.valueOf("#227BFF");
-    public float panelPaddingTop                = 10;
-    public float panelPaddingBottom             = 10;
-    public float panelPaddingLeft               = 10;
-    public float panelPaddingRight              = 10;
-    public float panelChildSpacingVertical      = 15;
-    public float panelChildSpacingHorizontal    = 15;
-    public float panelCornerRadiusTopLeft       = 0;
-    public float panelCornerRadiusTopRight      = 50;
-    public float panelCornerRadiusBottomRight   = 0;
-    public float panelCornerRadiusBottomLeft    = 0;
-    public int   panelCornerSegmentsTopLeft     = 0;
-    public int   panelCornerSegmentsTopRight    = 3;
-    public int   panelCornerSegmentsBottomRight = 0;
-    public int   panelCornerSegmentsBottomLeft  = 0;
-    public float panelSizeBorder                = 0;
-    public Color panelColorBorder               = Color.RED.clone();
+    /* group */
+    public Texture groupTextureBackground         = null;
+    public Color   groupColorBackground           = Color.WHITE.clone();
+    public float   groupPaddingTop                = 10;
+    public float   groupPaddingBottom             = 10;
+    public float   groupPaddingLeft               = 10;
+    public float   groupPaddingRight              = 10;
+    public float   groupChildSpacingVertical      = 15;
+    public float   groupChildSpacingHorizontal    = 15;
+    public float   groupCornerRadiusTopLeft       = 0;
+    public float   groupCornerRadiusTopRight      = 50;
+    public float   groupCornerRadiusBottomRight   = 0;
+    public float   groupCornerRadiusBottomLeft    = 0;
+    public int     groupCornerSegmentsTopLeft     = 0;
+    public int     groupCornerSegmentsTopRight    = 3;
+    public int     groupCornerSegmentsBottomRight = 0;
+    public int     groupCornerSegmentsBottomLeft  = 0;
+    public float   groupSizeBorder                = 5;
+    public Color   groupColorBorder               = Color.RED.clone();
 
     /* scrollbar */
+    public Texture scrollbarImageBar   = null;
+    public Texture scrollbarImageThumb = null;
+    public Color   scrollbarColorBar   = Color.valueOf("343538");
+    public Color   scrollbarColorThumb = Color.valueOf("5c5d5e");
+    public float   scrollbarThickness  = 10;
 
     /* checkbox */
     public TextureRegion checkboxImageChecked             = null;

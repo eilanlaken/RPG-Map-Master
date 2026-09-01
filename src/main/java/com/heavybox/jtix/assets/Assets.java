@@ -124,7 +124,12 @@ public final class Assets {
     }
 
     public synchronized static void loadTheme(final String filepath) {
-        load(Theme.class, filepath, null, false);
+        final HashMap<String, Object> options = new HashMap<>();
+        options.put("magFilter", Texture.FilterMag.NEAREST);
+        options.put("minFilter", Texture.FilterMin.NEAREST_MIPMAP_NEAREST);
+        options.put("uWrap", Texture.Wrap.REPEAT);
+        options.put("vWrap", Texture.Wrap.REPEAT);
+        load(Theme.class, filepath, options, false);
     }
 
     public synchronized static void loadTexture(String filepath) {
