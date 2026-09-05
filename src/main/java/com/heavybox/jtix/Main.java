@@ -29,7 +29,7 @@ public class Main {
         Application.init(settings);
         //Application.launch(new SceneDemo());
         //Application.launch(new SceneInput_4());
-        Application.launch(new SceneInput_5());
+        Application.launch(new SceneInput_6());
 
     }
 
