@@ -81,8 +81,13 @@ public class NodeGroup extends Node {
         this.layout = new LayoutLinear(false);
     }
 
-    public void setLayoutGrid() {
+    public void setLayoutGrid(final boolean fillRows, final int rows, final int cols, boolean uniformGrid) {
         this.layout = new LayoutGrid();
+        LayoutGrid layoutGrid = (LayoutGrid) this.layout;
+        layoutGrid.fillRows = fillRows;
+        layoutGrid.rows = rows;
+        layoutGrid.cols = cols;
+        layoutGrid.uniformGrid = uniformGrid;
     }
 
     @Override

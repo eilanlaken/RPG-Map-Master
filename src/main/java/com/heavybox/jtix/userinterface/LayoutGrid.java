@@ -2,7 +2,6 @@ package com.heavybox.jtix.userinterface;
 
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.math.Transform2D;
-import com.heavybox.jtix.widgets.WidgetNode;
 
 public class LayoutGrid implements Layout {
 

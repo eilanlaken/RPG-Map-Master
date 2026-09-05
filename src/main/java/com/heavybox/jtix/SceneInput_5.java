@@ -85,7 +85,7 @@ public class SceneInput_5 implements Scene {
         graphics = new NodeGraphics(344,344);
 
         panel_1 = new NodeGroup();
-        panel_1.setLayoutGrid();
+        panel_1.setLayoutGrid(true, 5,5, true);
         p1_child_1.color = Color.randomOpaque().toFloatBits();
         p1_child_2.color = Color.randomOpaque().toFloatBits();
 
