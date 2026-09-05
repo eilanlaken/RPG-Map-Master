@@ -34,17 +34,17 @@ public class Theme implements MemoryResource {
     public float   groupPaddingBottom             = 10;
     public float   groupPaddingLeft               = 10;
     public float   groupPaddingRight              = 10;
-    public float   groupChildSpacingVertical      = 15;
-    public float   groupChildSpacingHorizontal    = 15;
+    public float   groupChildSpacingVertical      = 20;
+    public float   groupChildSpacingHorizontal    = 20;
     public float   groupCornerRadiusTopLeft       = 0;
-    public float   groupCornerRadiusTopRight      = 50;
+    public float   groupCornerRadiusTopRight      = 0;
     public float   groupCornerRadiusBottomRight   = 0;
     public float   groupCornerRadiusBottomLeft    = 0;
-    public int     groupCornerSegmentsTopLeft     = 0;
-    public int     groupCornerSegmentsTopRight    = 3;
-    public int     groupCornerSegmentsBottomRight = 0;
-    public int     groupCornerSegmentsBottomLeft  = 0;
-    public float   groupSizeBorder                = 5;
+    public int     groupCornerSegmentsTopLeft     = 10;
+    public int     groupCornerSegmentsTopRight    = 10;
+    public int     groupCornerSegmentsBottomRight = 10;
+    public int     groupCornerSegmentsBottomLeft  = 10;
+    public float   groupSizeBorder                = 0;
     public Color   groupColorBorder               = Color.RED.clone();
 
     /* scrollbar */

@@ -12,15 +12,16 @@ import org.jetbrains.annotations.NotNull;
 public class NodeGroup extends Node {
 
     /* settings */
-    public Sizing   widthSizing  = Sizing.STATIC;
-    public float    width        = 400;
-    public float    widthMin     = 0;
-    public float    widthMax     = Float.POSITIVE_INFINITY;
-    public Sizing   heightSizing = Sizing.STATIC;
-    public float    height       = 100;
-    public float    heightMin    = 0;
-    public float    heightMax    = Float.POSITIVE_INFINITY;
-    public Overflow overflow     = Overflow.HIDDEN;
+    public boolean widthFitContent  = false;
+    public float   width            = 400;
+    public float   widthMin         = 0;
+    public float   widthMax         = Float.POSITIVE_INFINITY;
+    public boolean heightFitContent = false;
+    public float   height           = 400;
+    public float   heightMin        = 0;
+    public float   heightMax        = Float.POSITIVE_INFINITY;
+    public boolean hideOverflow     = true;
+    public boolean useScrollbar     = true;
 
     /* theme */
     public Texture textureBackground         = UserInterface.getTheme().groupTextureBackground;
@@ -46,24 +47,58 @@ public class NodeGroup extends Node {
     private final ArrayFloat polygon = new ArrayFloat(true, 8);
     private final ArrayInt   indices = new ArrayInt(true, 6);
     private float scrollOffsetY    = 0;
-    private float currentWidth     = 0;
-    private float currentHeight    = 0;
+    private float scrollOffsetX    = 0;
     private float backgroundWidth  = 0;
     private float backgroundHeight = 0;
 
+    // built in children
+    private final NodeScrollbar scrollbarY = new NodeScrollbar(true);
+    private final NodeScrollbar scrollbarX = new NodeScrollbar(false);
+
     // set scrolls etc
     public NodeGroup() {
+        scrollbarY.zIndex = Integer.MAX_VALUE;
+        scrollbarX.zIndex = Integer.MAX_VALUE;
+        scrollbarY.anchor = Anchor.PARENT_TOP_RIGHT;
+        scrollbarX.anchor = Anchor.PARENT_BOTTOM_LEFT;
+        scrollbarX.active = false;
+        scrollbarY.active = false;
+
+        childAdd(scrollbarY);
+        childAdd(scrollbarX);
+
+        onMouseScrollDefault(e -> {
+            scrollbarY.value -= e.scrollY * 0.05f;
+            scrollbarY.value = MathUtils.clampFloat(scrollbarY.value, 0, 1);
+        });
+    }
+
+    public void setLayoutVertical() {
+        this.layout = new LayoutLinear();
+    }
+
+    public void setLayoutHorizontal() {
+        this.layout = new LayoutLinear(false);
+    }
+
+    public void setLayoutGrid() {
+        this.layout = new LayoutGrid();
     }
 
     @Override
     protected boolean maskChildren() {
-        return overflow == null || overflow == Overflow.HIDDEN;
+        return hideOverflow;
     }
 
     @Override
     protected final void draw(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
         drawBackground(renderer2D, x, y, deg, sclX, sclY);
         drawBorder(renderer2D, x, y, deg, sclX, sclY);
+    }
+
+    @Override
+    protected final void drawMask(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
+        drawBackground(renderer2D, x, y, deg, sclX, sclY);
     }
 
     protected void drawBackground(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
@@ -85,27 +120,26 @@ public class NodeGroup extends Node {
 
     @Override
     protected float getWidth() {
-        float width = switch (widthSizing) {
-            case STATIC   -> this.width;
-            case DYNAMIC  -> super.getChildrenSpanWidth() + paddingLeft + paddingRight + sizeBorder + sizeBorder;
-        };
+        float width = widthFitContent
+                ? super.getChildrenSpanWidth() + paddingLeft + paddingRight + sizeBorder + sizeBorder
+                : this.width;
+
         return MathUtils.clampFloat(width, widthMin, widthMax);
     }
 
     @Override
     protected float getHeight() {
-        float height = switch (heightSizing) {
-            case STATIC   -> this.height;
-            case DYNAMIC  -> super.getChildrenSpanHeight() + paddingTop + paddingBottom + sizeBorder + sizeBorder;
-        };
+        float height = heightFitContent
+                ? super.getChildrenSpanHeight() + paddingTop + paddingBottom + sizeBorder + sizeBorder
+                : this.height;
+
         return MathUtils.clampFloat(height, heightMin, heightMax);
     }
 
     @Override
     protected final void onFixedUpdate(float delta) {
-        currentWidth = getWidth();
-        currentHeight = getHeight();
-
+        float currentWidth = getWidth();
+        float currentHeight = getHeight();
         backgroundWidth = Math.max(0, currentWidth - sizeBorder * 2);
         backgroundHeight = Math.max(0, currentHeight - sizeBorder * 2);
         setShapeToRectangleRoundCorners(backgroundWidth, backgroundHeight,
@@ -113,6 +147,63 @@ public class NodeGroup extends Node {
                 cornerRadiusTopRight, cornerSegmentsTopRight,
                 cornerRadiusBottomRight, cornerSegmentsBottomRight,
                 cornerRadiusBottomLeft, cornerSegmentsBottomLeft);
+
+        if (layout instanceof LayoutLinear) {
+            LayoutLinear layoutLinear = (LayoutLinear) layout;
+
+            if (layoutLinear.vertical) {
+                layoutLinear.childSpacing = childSpacingVertical;
+                layoutLinear.primaryAxisOffset = (sizeBorder + paddingTop) - scrollOffsetY;
+                layoutLinear.secondaryAxisOffset = (paddingLeft - paddingRight) * 0.5f;
+                float contentHeight = getChildrenSpanHeight();
+                float verticalOverflow = currentHeight - contentHeight - paddingTop - paddingBottom;
+                scrollbarY.active = useScrollbar && (contentHeight > currentHeight);
+                scrollbarY.thumbSize = contentHeight == 0 ? 1 : currentHeight / contentHeight;
+                scrollOffsetY = scrollbarY.active ? -scrollbarY.value * verticalOverflow : 0;
+                scrollbarY.length = backgroundHeight;
+            }
+
+            if (!layoutLinear.vertical) {
+                layoutLinear.childSpacing = childSpacingHorizontal;
+                layoutLinear.primaryAxisOffset = (sizeBorder + paddingLeft) - scrollOffsetX;
+                layoutLinear.secondaryAxisOffset = (paddingBottom - paddingTop) * 0.5f;
+                float contentWidth = getChildrenSpanWidth();
+                float horizontalOverflow = currentWidth - contentWidth - paddingLeft - paddingRight;
+                scrollbarX.active = useScrollbar && (contentWidth > currentWidth);
+                scrollbarX.thumbSize = contentWidth == 0 ? 1 : currentWidth / contentWidth;
+                scrollOffsetX = scrollbarX.active ? -scrollbarX.value * horizontalOverflow : 0;
+                scrollbarX.length = backgroundWidth;
+            }
+
+        }
+
+        if (layout instanceof LayoutGrid) {
+            LayoutGrid layoutGrid = (LayoutGrid) layout;
+
+            layoutGrid.rowsSpacing = childSpacingVertical;
+            layoutGrid.colsSpacing = childSpacingHorizontal;
+            layoutGrid.colsOffset = (sizeBorder + paddingLeft) - scrollOffsetX;
+            layoutGrid.rowsOffset = -(sizeBorder + paddingTop) + scrollOffsetY;
+
+            float contentWidth = getChildrenSpanWidth();
+            float contentHeight = getChildrenSpanHeight();
+            float horizontalOverflow = currentWidth - contentWidth - paddingLeft - paddingRight;
+            float verticalOverflow = currentHeight - contentHeight - paddingTop - paddingBottom;
+
+            scrollbarY.active = useScrollbar && (contentHeight > currentHeight);
+            scrollbarY.thumbSize = contentHeight == 0 ? 1 : currentHeight / contentHeight;
+            scrollOffsetY = scrollbarY.active ? -scrollbarY.value * verticalOverflow : 0;
+            scrollbarY.length = backgroundHeight;
+
+            scrollbarX.active = useScrollbar && (contentWidth > currentWidth);
+            scrollbarX.thumbSize = contentWidth == 0 ? 1 : currentWidth / contentWidth;
+            scrollOffsetX = scrollbarX.active ? -scrollbarX.value * horizontalOverflow : 0;
+            scrollbarX.length = backgroundWidth - (scrollbarY.active ? scrollbarY.thickness : 0);
+        }
+
+        scrollbarY.transform.x = -sizeBorder;
+        scrollbarX.transform.y = sizeBorder;
+
         onFixedUpdatePanel(delta);
     }
 
@@ -248,18 +339,6 @@ public class NodeGroup extends Node {
                 cornerRadiusBottomRight, cornerSegmentsBottomRight,
                 cornerRadiusBottomLeft, cornerSegmentsBottomLeft
         );
-    }
-
-    public enum Sizing {
-        STATIC, // constant width
-        DYNAMIC, // resize to fit children
-        ;
-    }
-
-    public enum Overflow {
-        HIDDEN,
-        VISIBLE,
-        ;
     }
 
 }

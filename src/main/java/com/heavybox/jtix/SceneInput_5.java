@@ -8,6 +8,7 @@ import com.heavybox.jtix.graphics.*;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
+import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.tools.ToolsTexturePacker;
 import com.heavybox.jtix.tools.ToolsThemeGenerator;
 import com.heavybox.jtix.userinterface.*;
@@ -17,8 +18,8 @@ import org.lwjgl.opengl.GL11;
 public class SceneInput_5 implements Scene {
 
     NodeGroup panel_1;
-    NodeGraphics p1_child_1 = new NodeGraphics(80,80);
-    NodeGraphics p1_child_2 = new NodeGraphics(80,80);
+    NodeGraphics p1_child_1 = new NodeGraphics(180,80);
+    NodeGraphics p1_child_2 = new NodeGraphics(80,110);
 
     Renderer2D renderer2D = new Renderer2D();
     TexturePack atlas;
@@ -27,6 +28,8 @@ public class SceneInput_5 implements Scene {
     NodeGraphics graphics;
 
     NodeScrollbar scrollbar;
+
+
 
     @Override
     public void start() {
@@ -46,7 +49,9 @@ public class SceneInput_5 implements Scene {
             //ToolsThemeGenerator.scrollbarThickness = 50;
 
             // group
-            ToolsThemeGenerator.groupTextureBackgroundPath = "assets/user-interface-theme/panel-background.png";
+            //ToolsThemeGenerator.groupTextureBackgroundPath = "assets/user-interface-theme/panel-background.png";
+            ToolsThemeGenerator.groupColorBackground = Color.valueOf("#2B2B2B");
+            ToolsThemeGenerator.groupSizeBorder = 0;
 
             // text
             ToolsThemeGenerator.textFontPath = "assets/user-interface-theme/SnackerComic_PerosnalUseOnly.ttf";
@@ -80,13 +85,32 @@ public class SceneInput_5 implements Scene {
         graphics = new NodeGraphics(344,344);
 
         panel_1 = new NodeGroup();
-        scrollbar = new NodeScrollbar();
-        UserInterface.add(scrollbar);
+        panel_1.setLayoutGrid();
+        p1_child_1.color = Color.randomOpaque().toFloatBits();
+        p1_child_2.color = Color.randomOpaque().toFloatBits();
+
+        for (int i = 0; i < 10; i++) {
+            NodeGraphics child = new NodeGraphics(MathUtils.randomUniformFloat(50,100), MathUtils.randomUniformFloat(50,100));
+            child.color = Color.randomOpaque().toFloatBits();
+//            panel_1.childAdd(child);
+        }
+
+        //panel_1.widthSizing = NodeGroup.Sizing.DYNAMIC;
+
+        panel_1.widthFitContent = false;
+        panel_1.heightFitContent = false;
+//        panel_1.transform.x = -300;
+//        panel_1.transform.y = 100;
+//        panel_1.transform.deg = 30;
+        UserInterface.add(panel_1);
     }
 
     @Override
     public boolean mouseButtonsDown(int mouseX, int mouseY, @NotNull Array<Mouse.Button> buttons) {
-        return false;
+        NodeGraphics child = new NodeGraphics(MathUtils.randomUniformFloat(50,150), MathUtils.randomUniformFloat(50,150));
+        child.color = Color.randomOpaque().toFloatBits();
+        panel_1.childAdd(child);
+        return true;
     }
 
 

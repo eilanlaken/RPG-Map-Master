@@ -12,6 +12,7 @@ import com.heavybox.jtix.math.Vector2;
 public class NodeScrollbar extends Node {
 
     /* state */
+    public boolean vertical  = true;
     public float   value     = 0f;
     public float   length    = 300;
     public float   thumbSize = 0.2f; // percentage
@@ -28,53 +29,54 @@ public class NodeScrollbar extends Node {
     private final ArrayFloat polygonThumb = new ArrayFloat(true, 8);
     private final ArrayInt   indices      = new ArrayInt(true, 0,1,3,3,1,2);
 
-    public NodeScrollbar() {
+    public NodeScrollbar(boolean vertical) {
+        this.vertical = vertical;
+
         onMouseDragStartDefault(e -> {
-            value = 0.5f - e.mouseLocalY / length;
+            value = vertical ? 0.5f - e.mouseLocalY / length : 0.5f + e.mouseLocalX / length;
             value = MathUtils.clampFloat(value, 0, 1);
         });
 
         onMouseDragDefault(e -> {
-            value = value - (e.mouseLocalY - e.mouseLocalYPrev) / length;
+            value = vertical ? value - (e.mouseLocalY - e.mouseLocalYPrev) / length : value + (e.mouseLocalX - e.mouseLocalXPrev) / length;
             value = MathUtils.clampFloat(value, 0, 1);
         });
+    }
+
+    public NodeScrollbar() {
+        this(true);
     }
 
     @Override
     protected final void draw(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
         if (imageBar != null || imageThumb != null) setPolygonShapes();
 
-        drawBar(renderer2D, x, y, deg, sclX, sclY);
+        if (imageBar != null) {
+            renderer2D.drawPolygonFilled(imageBar, polygonBar, indices, x, y, vertical ? deg : deg + 90, sclX, sclY);
+        } else {
+            renderer2D.setColor(colorBar);
+            float width = vertical ? thickness : length;
+            float height = vertical ? length : thickness;
+            renderer2D.drawRectangleFilled(width, height, x, y, deg, sclX, sclY);
+        }
 
         value = MathUtils.clampFloat(value, 0, 1);
-        float offset_x = 0;
-        float offset_y = (0.5f - value) * (length - thumbSize * length);
+        float offset_x = vertical ? 0 : (0.5f - value) * (-length + thumbSize * length);
+        float offset_y = vertical ? (0.5f - value) * (length - thumbSize * length) : 0;
         Vector2 offset_transformed = new Vector2(offset_x, offset_y);
         offset_transformed.scl(sclX, sclY);
         offset_transformed.rotateDeg(deg);
-        drawThumb(renderer2D, x + offset_transformed.x, y + offset_transformed.y, deg, sclX, sclY);
-    }
-
-    protected void drawBar(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
-        if (imageBar != null) {
-            renderer2D.drawPolygonFilled(imageBar, polygonBar, indices, x, y, deg, sclX, sclY);
-            return;
-        }
-
-        renderer2D.setColor(colorBar);
-        renderer2D.drawRectangleFilled(thickness, length, x, y, deg, sclX, sclY);
-    }
-
-    protected void drawThumb(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
+        float thumbX = x + offset_transformed.x;
+        float thumbY = y + offset_transformed.y;
         if (imageThumb != null) {
-            renderer2D.drawPolygonFilled(imageThumb, polygonThumb, indices, x, y, deg, sclX, sclY);
-            return;
+            renderer2D.drawPolygonFilled(imageThumb, polygonThumb, indices, thumbX, thumbY, vertical ? deg : deg + 90, sclX, sclY);
+        } else {
+            final float thumbLength = thumbSize * length;
+            float width = vertical ? thickness : thumbLength;
+            float height = vertical ? thumbLength : thickness;
+            renderer2D.setColor(colorThumb);
+            renderer2D.drawRectangleFilled(width, height, thumbX, thumbY, deg, sclX, sclY);
         }
-
-        final float thumbLength = thumbSize * length;
-        renderer2D.setColor(colorThumb);
-        renderer2D.setColor(1,1,1,0.3f);
-        renderer2D.drawRectangleFilled(thickness, thumbLength, x, y, deg, sclX, sclY);
     }
 
     @Override
@@ -105,12 +107,12 @@ public class NodeScrollbar extends Node {
 
     @Override
     protected float getWidth() {
-        return thickness;
+        return vertical ? thickness : length;
     }
 
     @Override
     protected float getHeight() {
-        return length;
+        return vertical ? length : thickness;
     }
 
 }

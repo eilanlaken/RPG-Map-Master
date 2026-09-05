@@ -36,7 +36,24 @@ public final class ToolsThemeGenerator {
     public static float  scrollbarThickness      = 10;
 
     /* group */
-    public static String groupTextureBackgroundPath = null;
+    public static String groupTextureBackgroundPath     = null;
+    public static Color  groupColorBackground           = Color.WHITE.clone();
+    public static float  groupPaddingTop                = 10;
+    public static float  groupPaddingBottom             = 10;
+    public static float  groupPaddingLeft               = 10;
+    public static float  groupPaddingRight              = 10;
+    public static float  groupChildSpacingVertical      = 20;
+    public static float  groupChildSpacingHorizontal    = 20;
+    public static float  groupCornerRadiusTopLeft       = 0;
+    public static float  groupCornerRadiusTopRight      = 0;
+    public static float  groupCornerRadiusBottomRight   = 0;
+    public static float  groupCornerRadiusBottomLeft    = 0;
+    public static int    groupCornerSegmentsTopLeft     = 10;
+    public static int    groupCornerSegmentsTopRight    = 10;
+    public static int    groupCornerSegmentsBottomRight = 10;
+    public static int    groupCornerSegmentsBottomLeft  = 10;
+    public static float  groupSizeBorder                = 0;
+    public static Color  groupColorBorder               = Color.valueOf("#2B2B2B");
 
     /* checkbox */
     public static String checkboxImageCheckedPath         = null;
@@ -75,6 +92,23 @@ public final class ToolsThemeGenerator {
             scrollbarThickness:                 %s
           group:
             groupTextureBackgroundPath:         %s
+            groupColorBackground:               %s
+            groupPaddingTop:                    %s
+            groupPaddingBottom:                 %s
+            groupPaddingLeft:                   %s
+            groupPaddingRight:                  %s
+            groupChildSpacingVertical:          %s
+            groupChildSpacingHorizontal:        %s
+            groupCornerRadiusTopLeft:           %s
+            groupCornerRadiusTopRight:          %s
+            groupCornerRadiusBottomRight:       %s
+            groupCornerRadiusBottomLeft:        %s
+            groupCornerSegmentsTopLeft:         %s
+            groupCornerSegmentsTopRight:        %s
+            groupCornerSegmentsBottomRight:     %s
+            groupCornerSegmentsBottomLeft:      %s
+            groupSizeBorder:                    %s
+            groupColorBorder:                   %s
           text:
             textColor:                          %s
             textFontPath:                       %s
@@ -110,6 +144,23 @@ public final class ToolsThemeGenerator {
                 scrollbarThickness,
                 // group
                 groupTextureBackgroundPath,
+                colorToYaml(groupColorBackground),
+                groupPaddingTop,
+                groupPaddingBottom,
+                groupPaddingLeft,
+                groupPaddingRight,
+                groupChildSpacingVertical,
+                groupChildSpacingHorizontal,
+                groupCornerRadiusTopLeft,
+                groupCornerRadiusTopRight,
+                groupCornerRadiusBottomRight,
+                groupCornerRadiusBottomLeft,
+                groupCornerSegmentsTopLeft,
+                groupCornerSegmentsTopRight,
+                groupCornerSegmentsBottomRight,
+                groupCornerSegmentsBottomLeft,
+                groupSizeBorder,
+                colorToYaml(groupColorBorder),
                 // text
                 textColor,
                 textFontPath,

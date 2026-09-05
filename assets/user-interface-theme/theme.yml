@@ -7,7 +7,24 @@ theme:
     scrollbarColorThumb:                { r: 0.361, g: 0.365, b: 0.369, a: 1.000 }
     scrollbarThickness:                 10.0
   group:
-    groupTextureBackgroundPath:         assets/user-interface-theme/panel-background.png
+    groupTextureBackgroundPath:         null
+    groupColorBackground:               { r: 0.169, g: 0.169, b: 0.169, a: 1.000 }
+    groupPaddingTop:                    10.0
+    groupPaddingBottom:                 10.0
+    groupPaddingLeft:                   10.0
+    groupPaddingRight:                  10.0
+    groupChildSpacingVertical:          20.0
+    groupChildSpacingHorizontal:        20.0
+    groupCornerRadiusTopLeft:           0.0
+    groupCornerRadiusTopRight:          0.0
+    groupCornerRadiusBottomRight:       0.0
+    groupCornerRadiusBottomLeft:        0.0
+    groupCornerSegmentsTopLeft:         10
+    groupCornerSegmentsTopRight:        10
+    groupCornerSegmentsBottomRight:     10
+    groupCornerSegmentsBottomLeft:      10
+    groupSizeBorder:                    0.0
+    groupColorBorder:                   { r: 0.169, g: 0.169, b: 0.169, a: 1.000 }
   text:
     textColor:                          #ffffffff
     textFontPath:                       assets/user-interface-theme/SnackerComic_PerosnalUseOnly.ttf

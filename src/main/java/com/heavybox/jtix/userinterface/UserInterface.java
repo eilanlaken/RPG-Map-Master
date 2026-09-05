@@ -48,6 +48,9 @@ public final class UserInterface {
     private static final Array<Node> rootWidgets = new Array<>(false, 5);
     private static final Array<Node> toReplace   = new Array<>(false, 1);
 
+    /*** helper variable - make sure update() was called by the programmer ***/
+    private static boolean readyToRender = false;
+
     /*** input event handling ***/
     private static final InputEventHandler inputEventHandler = new InputEventHandler() {
         @Override
@@ -489,9 +492,12 @@ public final class UserInterface {
             if (!node.isActive()) continue;
             node.update(delta);
         }
+
+        readyToRender = true;
     }
 
     public static void render(Renderer2D renderer2D) {
+        if (!readyToRender) throw new UserInterfaceException("Must call UserInterface.update() before rendering");
         // iterate over all *root* widget nodes and perform renders
         rootWidgets.sort(NODE_COMPARATOR);
         for (Node node : rootWidgets) {
@@ -500,6 +506,8 @@ public final class UserInterface {
             renderer2D.setColor(Color.WHITE_FLOAT);
             node.render(renderer2D);
         }
+
+        readyToRender = false;
     }
 
     public static void add(final Node node) {

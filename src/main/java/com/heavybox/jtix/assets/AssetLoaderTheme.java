@@ -87,12 +87,44 @@ public class AssetLoaderTheme implements AssetLoader<Theme> {
         if (color != null) theme.scrollbarColorThumb = colorFromYaml(color);
         value = (Number) scrollbar.get("scrollbarThickness");
         if (value != null) theme.scrollbarThickness = value.floatValue();
-        System.out.println(theme.scrollbarColorBar);
-        System.out.println(theme.scrollbarColorThumb);
 
         // group
         String groupTextureBackgroundPath = (String) group.get("groupTextureBackgroundPath");
         if (groupTextureBackgroundPath != null) theme.groupTextureBackground = Assets.get(groupTextureBackgroundPath);
+        color = (Map<String, Object>) group.get("groupColorBackground");
+        if (color != null) theme.groupColorBackground = colorFromYaml(color);
+        value = (Number) group.get("groupPaddingTop");
+        if (value != null) theme.groupPaddingTop = value.floatValue();
+        value = (Number) group.get("groupPaddingBottom");
+        if (value != null) theme.groupPaddingBottom = value.floatValue();
+        value = (Number) group.get("groupPaddingLeft");
+        if (value != null) theme.groupPaddingLeft = value.floatValue();
+        value = (Number) group.get("groupPaddingRight");
+        if (value != null) theme.groupPaddingRight = value.floatValue();
+        value = (Number) group.get("groupChildSpacingVertical");
+        if (value != null) theme.groupChildSpacingVertical = value.floatValue();
+        value = (Number) group.get("groupChildSpacingHorizontal");
+        if (value != null) theme.groupChildSpacingHorizontal = value.floatValue();
+        value = (Number) group.get("groupCornerRadiusTopLeft");
+        if (value != null) theme.groupCornerRadiusTopLeft = value.floatValue();
+        value = (Number) group.get("groupCornerRadiusTopRight");
+        if (value != null) theme.groupCornerRadiusTopRight = value.floatValue();
+        value = (Number) group.get("groupCornerRadiusBottomRight");
+        if (value != null) theme.groupCornerRadiusBottomRight = value.floatValue();
+        value = (Number) group.get("groupCornerRadiusBottomLeft");
+        if (value != null) theme.groupCornerRadiusBottomLeft = value.floatValue();
+        value = (Number) group.get("groupCornerSegmentsTopLeft");
+        if (value != null) theme.groupCornerSegmentsTopLeft = value.intValue();
+        value = (Number) group.get("groupCornerSegmentsTopRight");
+        if (value != null) theme.groupCornerSegmentsTopRight = value.intValue();
+        value = (Number) group.get("groupCornerSegmentsBottomRight");
+        if (value != null) theme.groupCornerSegmentsBottomRight = value.intValue();
+        value = (Number) group.get("groupCornerSegmentsBottomLeft");
+        if (value != null) theme.groupCornerSegmentsBottomLeft = value.intValue();
+        value = (Number) group.get("groupSizeBorder");
+        if (value != null) theme.groupSizeBorder = value.floatValue();
+        color = (Map<String, Object>) group.get("groupColorBorder");
+        if (color != null) theme.groupColorBorder = colorFromYaml(color);
 
         // text
         color = (Map<String, Object>) text.get("textColor");

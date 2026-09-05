@@ -27,18 +27,19 @@ public abstract class Node {
     private final Array<Node>   children             = new Array<>();
 
     /*** metrics: transform and dimensions ***/
-    public        Anchor        anchor               = null;
     public  final Transform2D   transform            = new Transform2D(); // used for absolute positioning from root and animations
     private final Transform2D   transformOffset      = new Transform2D(); // set by the parent layout object.
     private final Transform2D   transformScreen      = new Transform2D(); // calculated every frame either by self or parent
+    public        Anchor        anchor               = null;
     public        Layout        layout               = null;
 
     /*** input handling and state management ***/ // TODO: add a flag that allows events to penetrate to parent. Maybe re-add preventDefault flag.
-    private final HitZone       hitZone              = new HitZone();
-    final         EventListener eventListener        = new EventListener();
-    final         EventListener eventListenerDefault = new EventListener();
+    final HitZone       hitZone              = new HitZone();
+    final EventListener eventListener        = new EventListener();
+    final EventListener eventListenerDefault = new EventListener();
 
-    protected abstract void  draw (Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY);
+    protected abstract void  draw(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY);
+    protected void           drawMask(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) { draw(renderer2D, x, y, deg, sclX, sclY); }
     protected abstract float getWidth();
     protected abstract float getHeight();
 
@@ -208,8 +209,8 @@ public abstract class Node {
     protected final float getChildrenSpanWidth() {
         if (children.isEmpty()) return 0;
 
-        float min_x = Float.POSITIVE_INFINITY;
-        float max_x = Float.NEGATIVE_INFINITY;
+        float min_x = 0;
+        float max_x = 0;
         for (Node node : children) {
             if (!node.active) continue;
             if (node.anchor != null) continue;
@@ -225,8 +226,8 @@ public abstract class Node {
     protected final float getChildrenSpanHeight() {
         if (children.isEmpty()) return 0;
 
-        float min_y = Float.POSITIVE_INFINITY;
-        float max_y = Float.NEGATIVE_INFINITY;
+        float min_y = 0;
+        float max_y = 0;
         for (Node node : children) {
             if (!node.active) continue;
             if (node.anchor != null) continue;
@@ -296,7 +297,7 @@ public abstract class Node {
         if (maskChildren) {
             renderer2D.beginStencil();
             renderer2D.setStencilModeIncrement();
-            draw(renderer2D, transformScreen.x, transformScreen.y, transformScreen.deg, transformScreen.sclX, transformScreen.sclY);
+            drawMask(renderer2D, transformScreen.x, transformScreen.y, transformScreen.deg, transformScreen.sclX, transformScreen.sclY);
             renderer2D.endStencil();
         }
 
@@ -316,7 +317,7 @@ public abstract class Node {
         if (maskChildren) {
             renderer2D.beginStencil();
             renderer2D.setStencilModeDecrement();
-            draw(renderer2D, transformScreen.x, transformScreen.y, transformScreen.deg, transformScreen.sclX, transformScreen.sclY);
+            drawMask(renderer2D, transformScreen.x, transformScreen.y, transformScreen.deg, transformScreen.sclX, transformScreen.sclY);
             renderer2D.endStencil();
         }
     }
