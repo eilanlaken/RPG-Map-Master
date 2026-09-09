@@ -7,7 +7,7 @@ import com.heavybox.jtix.math.Vector3;
 import com.heavybox.jtix.widgets.WidgetNodeContainerHorizontal;
 import com.heavybox.jtix.widgets.WidgetNodeText;
 
-public class WidgetNodeStatisticsBar extends WidgetNodeContainerHorizontal {
+@Deprecated public class WidgetNodeStatisticsBar extends WidgetNodeContainerHorizontal {
 
     private final Vector3 screen = new Vector3(Input.mouse.getX(), Input.mouse.getY(), 0);
 

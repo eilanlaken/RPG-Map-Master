@@ -50,6 +50,8 @@ public class NodeGroup extends Node {
     private float scrollOffsetX    = 0;
     private float backgroundWidth  = 0;
     private float backgroundHeight = 0;
+    private float currentWidth     = 0;
+    private float currentHeight    = 0;
 
     // built in children
     private final NodeScrollbar scrollbarY = new NodeScrollbar(true);
@@ -124,27 +126,21 @@ public class NodeGroup extends Node {
     }
 
     @Override
-    protected float getWidth() {
-        float width = widthFitContent
-                ? super.getChildrenSpanWidth() + paddingLeft + paddingRight + sizeBorder + sizeBorder
-                : this.width;
-
-        return MathUtils.clampFloat(width, widthMin, widthMax);
+    public final float getWidth() {
+        return currentWidth;
     }
 
     @Override
-    protected float getHeight() {
-        float height = heightFitContent
-                ? super.getChildrenSpanHeight() + paddingTop + paddingBottom + sizeBorder + sizeBorder
-                : this.height;
-
-        return MathUtils.clampFloat(height, heightMin, heightMax);
+    public final float getHeight() {
+        return currentHeight;
     }
 
     @Override
     protected final void onFixedUpdate(float delta) {
-        float currentWidth = getWidth();
-        float currentHeight = getHeight();
+        currentWidth = widthFitContent ? super.getChildrenSpanWidth() + paddingLeft + paddingRight + sizeBorder + sizeBorder : this.width;
+        currentWidth = MathUtils.clampFloat(currentWidth, widthMin, widthMax);
+        currentHeight = heightFitContent ? super.getChildrenSpanHeight() + paddingTop + paddingBottom + sizeBorder + sizeBorder : this.height;
+        currentHeight = MathUtils.clampFloat(currentHeight, heightMin, heightMax);
         backgroundWidth = Math.max(0, currentWidth - sizeBorder * 2);
         backgroundHeight = Math.max(0, currentHeight - sizeBorder * 2);
         setShapeToRectangleRoundCorners(backgroundWidth, backgroundHeight,

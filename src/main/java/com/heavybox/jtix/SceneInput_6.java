@@ -9,21 +9,28 @@ import com.heavybox.jtix.graphics.Graphics;
 import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.graphics.TexturePack;
 import com.heavybox.jtix.input.Input;
-import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
-import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.tools.ToolsTexturePacker;
 import com.heavybox.jtix.tools.ToolsThemeGenerator;
 import com.heavybox.jtix.userinterface.*;
+import com.heavybox.jtix.z.UINodeToolbar;
+import com.heavybox.jtix.z.UINodeToolbarButton;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.opengl.GL11;
 
 public class SceneInput_6 implements Scene {
 
-    NodeGroup panel_1;
+    UINodeToolbar toolbar;
     Renderer2D renderer2D = new Renderer2D();
-    TexturePack atlas;
+    TexturePack userInterfaceIcons;
 
+    /*** TODO
+     * left toolbar, buttons: terrain, nature, geology, props, architecture, decorations, eraser, procedural, select
+     * upper menu, buttons: new map, open, save, save as, export, undo, redo, settings, tutorial
+     * right panel - tools settings, generic for now
+     * statistics bar - mouse position, object count, camera zoom
+     * bottom panel - layers (current layer, add layer)
+     ***/
 
     @Override
     public void start() {
@@ -41,7 +48,7 @@ public class SceneInput_6 implements Scene {
             ToolsThemeGenerator.groupSizeBorder = 0;
 
             // text
-            ToolsThemeGenerator.textSize = 38;
+            ToolsThemeGenerator.textSize = 24;
             ToolsThemeGenerator.textAntialiasing = true;
 
             // checkbox
@@ -60,21 +67,33 @@ public class SceneInput_6 implements Scene {
         UserInterface.setTheme(theme);
 
 
-        atlas = Assets.get("assets/texture-packs/user-interface.yml");
+        userInterfaceIcons = Assets.get("assets/texture-packs/user-interface.yml");
 
-        panel_1 = new NodeGroup();
-        panel_1.setLayoutGrid(true, 5,5, true);
+        //toolbar = new UINodeToolbar();
 
-        panel_1.widthFitContent = false;
-        panel_1.heightFitContent = false;
-        UserInterface.add(panel_1);
+//        NodeGroup button = new NodeGroup();
+//        button.setLayoutHorizontal();
+//        button.width = 300;
+//        button.colorBackground = Color.RED.clone();
+//        NodeText hello = new NodeText("hello");
+//
+//        button.childAdd(hello);
+//        button.childAdd(new NodeGraphics(userInterfaceIcons.getRegion("assets/user-interface/toolbar-icon-terrain.png")));
+//        button.childAdd(new NodeGraphics(userInterfaceIcons.getRegion("assets/user-interface/toolbar-icon-terrain.png")));
+//        button.widthFitContent = false;
+//        button.heightFitContent = true;
+
+        UINodeToolbarButton button = new UINodeToolbarButton(userInterfaceIcons.getRegion("assets/user-interface/toolbar-icon-terrain.png"),
+                "terrain", "1");
+
+        System.out.println(button.getHeight());
+
+        UserInterface.add(button);
     }
 
     @Override
     public boolean mouseButtonsDown(int mouseX, int mouseY, @NotNull Array<Mouse.Button> buttons) {
-        NodeGraphics child = new NodeGraphics(MathUtils.randomUniformFloat(50,150), MathUtils.randomUniformFloat(50,150));
-        child.color = Color.randomOpaque().toFloatBits();
-        panel_1.childAdd(child);
+
         return true;
     }
 

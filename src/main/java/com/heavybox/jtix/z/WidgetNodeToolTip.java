@@ -4,7 +4,7 @@ import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.widgets.WidgetNodeContainerStack;
 import com.heavybox.jtix.widgets.WidgetNodeText;
 
-public class WidgetNodeToolTip extends WidgetNodeContainerStack {
+@Deprecated public class WidgetNodeToolTip extends WidgetNodeContainerStack {
 
     public final WidgetNodeText tip = new WidgetNodeText("This is a tool tip");
 

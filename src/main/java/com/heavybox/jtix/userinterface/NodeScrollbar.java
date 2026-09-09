@@ -106,12 +106,12 @@ public class NodeScrollbar extends Node {
     protected void fixedUpdateScrollbar(float delta) {}
 
     @Override
-    protected float getWidth() {
+    public final float getWidth() {
         return vertical ? thickness : length;
     }
 
     @Override
-    protected float getHeight() {
+    public final float getHeight() {
         return vertical ? length : thickness;
     }
 

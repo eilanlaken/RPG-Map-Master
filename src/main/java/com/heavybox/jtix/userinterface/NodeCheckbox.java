@@ -64,13 +64,13 @@ public class NodeCheckbox extends Node {
     }
 
     @Override
-    protected float getWidth() {
+    public final float getWidth() {
         if (checked) return imageChecked != null ? imageChecked.packedWidth : size;
         return imageUnchecked != null ? imageUnchecked.packedWidth : size;
     }
 
     @Override
-    protected float getHeight() {
+    public final float getHeight() {
         if (checked) return imageChecked != null ? imageChecked.packedHeight : size;
         return imageUnchecked != null ? imageUnchecked.packedHeight : size;
     }

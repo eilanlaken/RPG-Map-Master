@@ -35,6 +35,7 @@ public class NodeText extends Node {
 
     public NodeText(String text) {
         this.text = text;
+        recalculateMetrics();
     }
 
     @Override
@@ -47,17 +48,18 @@ public class NodeText extends Node {
             if (alignment == null || alignment == Alignment.CENTER) lineXOffset = 0;
             else if (alignment == Alignment.LEFT) lineXOffset = -(width - linesWidths.get(i)) * 0.5f;
             else lineXOffset = (width - linesWidths.get(i)) * 0.5f;
-            renderer2D.drawStringLine(line, size, antialiasing, x + lineXOffset, y + height * 0.5f - i * (size + lineSpacing), deg, sclX, sclY);
+            float linesYOffset = (height - size) * 0.5f - i * (size + lineSpacing);
+            renderer2D.drawStringLine(line, size, antialiasing, x + lineXOffset, y + linesYOffset, deg, sclX, sclY);
         }
     }
 
     @Override
-    protected float getWidth() {
+    public final float getWidth() {
         return width;
     }
 
     @Override
-    protected float getHeight() {
+    public final float getHeight() {
         return height;
     }
 

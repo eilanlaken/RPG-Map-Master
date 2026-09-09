@@ -275,12 +275,12 @@ public class NodeGraphics extends Node {
     }
 
     @Override
-    protected float getWidth() {
+    public final float getWidth() {
         return width;
     }
 
     @Override
-    protected float getHeight() {
+    public final float getHeight() {
         return height;
     }
 

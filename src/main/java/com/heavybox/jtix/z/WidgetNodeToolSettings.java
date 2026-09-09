@@ -3,7 +3,7 @@ package com.heavybox.jtix.z;
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.widgets.WidgetNodeContainerVertical;
 
-public class WidgetNodeToolSettings extends WidgetNodeContainerVertical {
+@Deprecated public class WidgetNodeToolSettings extends WidgetNodeContainerVertical {
 
     public WidgetNodeToolSettings() {
         layoutWidthSizing = Sizing.STATIC;

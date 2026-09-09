@@ -1,5 +1,5 @@
 theme:
-  texturePackPath:                      assets/user-interface-theme/theme-pack.yml
+  texturePackPath:                      null
   scrollbar:
     scrollbarImageBarPath:              null
     scrollbarImageThumbPath:            null
@@ -27,14 +27,14 @@ theme:
     groupColorBorder:                   { r: 0.169, g: 0.169, b: 0.169, a: 1.000 }
   text:
     textColor:                          #ffffffff
-    textFontPath:                       assets/user-interface-theme/SnackerComic_PerosnalUseOnly.ttf
-    textSize:                           38
+    textFontPath:                       null
+    textSize:                           24
     textAntialiasing:                   true
     textLineSpacing:                    1.1
   slider:
-    sliderImageBackgroundPath:          assets/user-interface-theme/slider-background.png
-    sliderImageFillPath:                assets/user-interface-theme/slider-fill.png
-    sliderImageThumbPath:               assets/user-interface-theme/slider-thumb.png
+    sliderImageBackgroundPath:          null
+    sliderImageFillPath:                null
+    sliderImageThumbPath:               null
     sliderLength:                       200.0
     sliderThickness:                    8.0
     sliderThumbSize:                    18.0
@@ -42,8 +42,8 @@ theme:
     sliderColorFill:                    { r: 0.000, g: 0.459, b: 1.000, a: 1.000 }
     sliderColorThumb:                   { r: 0.000, g: 0.459, b: 1.000, a: 1.000 }
   checkbox:
-    checkboxImageCheckedPath:           assets/user-interface-theme/checkbox-checked.png
-    checkboxImageUncheckedPath:         assets/user-interface-theme/checkbox-unchecked.png
+    checkboxImageCheckedPath:           null
+    checkboxImageUncheckedPath:         null
     checkboxColorBorderChecked:         { r: 0.000, g: 0.459, b: 1.000, a: 1.000 }
     checkboxColorBorderUnchecked:       { r: 0.463, g: 0.463, b: 0.463, a: 1.000 }
     checkboxColorCheckmarkBackground:   { r: 0.000, g: 0.459, b: 1.000, a: 1.000 }

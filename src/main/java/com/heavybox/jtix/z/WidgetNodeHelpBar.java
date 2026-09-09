@@ -4,7 +4,7 @@ import com.heavybox.jtix.widgets.WidgetNodeContainerHorizontal;
 import com.heavybox.jtix.widgets.WidgetNodeText;
 import com.heavybox.jtix.z.Tools;
 
-public class WidgetNodeHelpBar extends WidgetNodeContainerHorizontal {
+@Deprecated public class WidgetNodeHelpBar extends WidgetNodeContainerHorizontal {
 
     private final WidgetNodeText helperText = new WidgetNodeText("i am a helper");
 

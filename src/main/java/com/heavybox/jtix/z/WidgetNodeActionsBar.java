@@ -6,6 +6,7 @@ import com.heavybox.jtix.graphics.TexturePack;
 import com.heavybox.jtix.widgets.WidgetNodeContainerHorizontal;
 import com.heavybox.jtix.widgets.WidgetNodeImage;
 
+@Deprecated
 public class WidgetNodeActionsBar extends WidgetNodeContainerHorizontal {
 
     public static final int BUTTON_SIZE = 44;

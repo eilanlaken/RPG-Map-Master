@@ -38,10 +38,10 @@ public abstract class Node {
     final EventListener eventListener        = new EventListener();
     final EventListener eventListenerDefault = new EventListener();
 
-    protected abstract void  draw(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY);
-    protected void           drawMask(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) { draw(renderer2D, x, y, deg, sclX, sclY); }
-    protected abstract float getWidth();
-    protected abstract float getHeight();
+    protected abstract void draw(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY);
+    protected void          drawMask(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) { draw(renderer2D, x, y, deg, sclX, sclY); }
+    public abstract float   getWidth();
+    public abstract float   getHeight();
 
     /* common event callbacks */
     protected void    onFixedUpdate(float delta) {} // TODO: call with accumulative error
@@ -105,9 +105,10 @@ public abstract class Node {
         parentSet(null);
     }
 
-    private void setChildrenOffsets() {
+    private void setChildrenLayoutOffsets() {
         if (layout == null) { // default no layout behaviour
-            for (Node child : children) {
+            for (int i = 0; i < children.size; i++) {
+                Node child = children.get(i);
                 if (!child.active) continue;
                 if (child.anchor != null) continue;
                 child.transformOffset.idt();
@@ -117,7 +118,8 @@ public abstract class Node {
 
         UserInterface.layoutChildren.clear();
         UserInterface.layoutOffsets.clear();
-        for (Node child : children) {
+        for (int i = 0; i < children.size; i++) {
+            Node child = children.get(i);
             if (!child.active || child.anchor != null) continue;
 
             UserInterface.layoutChildren.add(child);
@@ -211,12 +213,13 @@ public abstract class Node {
 
         float min_x = 0;
         float max_x = 0;
-        for (Node node : children) {
-            if (!node.active) continue;
-            if (node.anchor != null) continue;
+        for (int i = 0; i < children.size; i++) {
+            Node child = children.get(i);
+            if (!child.active) continue;
+            if (child.anchor != null) continue;
 
-            float left = node.transformOffset.x - node.getWidth() * 0.5f;
-            float right = node.transformOffset.x + node.getWidth() * 0.5f;
+            float left = child.transformOffset.x - child.getWidth() * 0.5f;
+            float right = child.transformOffset.x + child.getWidth() * 0.5f;
             min_x = Math.min(min_x, left);
             max_x = Math.max(max_x, right);
         }
@@ -228,12 +231,13 @@ public abstract class Node {
 
         float min_y = 0;
         float max_y = 0;
-        for (Node node : children) {
-            if (!node.active) continue;
-            if (node.anchor != null) continue;
+        for (int i = 0; i < children.size; i++) {
+            Node child = children.get(i);
+            if (!child.active) continue;
+            if (child.anchor != null) continue;
 
-            float down = node.transformOffset.y - node.getHeight() * 0.5f;
-            float up = node.transformOffset.y + node.getHeight() * 0.5f;
+            float down = child.transformOffset.y - child.getHeight() * 0.5f;
+            float up = child.transformOffset.y + child.getHeight() * 0.5f;
             min_y = Math.min(min_y, down);
             max_y = Math.max(max_y, up);
         }
@@ -276,13 +280,13 @@ public abstract class Node {
     final void update(float delta) {
         if (!active) return;
 
+        onFixedUpdate(delta); // TODO: do the lag stuff
         setHitZone(hitZone);
-        setChildrenOffsets();
+        setChildrenLayoutOffsets();
         setOffsetsAnchor();
         setGlobalTransform();
-        onFixedUpdate(delta); // TODO: do the lag stuff
-        for (Node child : children) {
-            child.update(delta);
+        for (int i = 0; i < children.size; i++) {
+            children.get(i).update(delta);
         }
     }
 

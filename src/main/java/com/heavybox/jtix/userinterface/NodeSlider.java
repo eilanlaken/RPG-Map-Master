@@ -87,13 +87,13 @@ public class NodeSlider extends Node {
     }
 
     @Override
-    protected float getWidth() {
+    public final float getWidth() {
         return imageBackground != null ? imageBackground.packedWidth : length;
         //return length + thumbSize * 0.75f;
     }
 
     @Override
-    protected float getHeight() {
+    public final float getHeight() {
         float backgroundHeight = imageBackground != null ? imageBackground.packedHeight : thickness;
         float fillHeight = imageFill != null ? imageFill.packedHeight : thickness;
         float thumbHeight = imageThumb != null ? imageThumb.packedHeight : thumbSize;

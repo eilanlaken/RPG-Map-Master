@@ -7,7 +7,7 @@ import com.heavybox.jtix.graphics.TexturePack;
 import com.heavybox.jtix.widgets.WidgetNodeContainerVertical;
 import com.heavybox.jtix.widgets.WidgetNodeImage;
 
-public class WidgetNodeToolbar extends WidgetNodeContainerVertical {
+@Deprecated public class WidgetNodeToolbar extends WidgetNodeContainerVertical {
 
     public static final int BUTTON_SIZE = 44;
 
