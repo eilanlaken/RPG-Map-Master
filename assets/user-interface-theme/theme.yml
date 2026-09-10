@@ -1,5 +1,11 @@
 theme:
   texturePackPath:                      null
+  option:
+    optionImageOnPath:                  null
+    optionImageOffPath:                 null
+    optionColorBorder:                  { r: 0.000, g: 0.459, b: 1.000, a: 1.000 }
+    optionColorFill:                    { r: 0.000, g: 0.459, b: 1.000, a: 1.000 }
+    optionSize:                         22.0
   scrollbar:
     scrollbarImageBarPath:              null
     scrollbarImageThumbPath:            null

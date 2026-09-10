@@ -57,13 +57,21 @@ public class AssetLoaderTheme implements AssetLoader<Theme> {
         Map<String, Object> text = (Map<String, Object>) themeMap.get("text");
         Map<String, Object> slider = (Map<String, Object>) themeMap.get("slider");
         Map<String, Object> checkbox = (Map<String, Object>) themeMap.get("checkbox");
+        Map<String, Object> option = (Map<String, Object>) themeMap.get("option");
 
         if (texturePackPath != null) {
             TexturePack texturePack = Assets.get(texturePackPath);
             theme.texturePack = texturePack;
+
+            // checkbox texture regions
             theme.checkboxImageChecked = texturePack.getRegion((String) checkbox.get("checkboxImageCheckedPath"));
             theme.checkboxImageUnchecked = texturePack.getRegion((String) checkbox.get("checkboxImageUncheckedPath"));
 
+            // option texture regions
+            theme.optionImageOn = texturePack.getRegion((String) option.get("optionImageOnPath"));
+            theme.optionImageOff = texturePack.getRegion((String) option.get("optionImageOffPath"));
+
+            // slider texture regions
             theme.sliderImageBackground = texturePack.getRegion((String) slider.get("sliderImageBackgroundPath"));
             theme.sliderImageFill = texturePack.getRegion((String) slider.get("sliderImageFillPath"));
             theme.sliderImageThumb = texturePack.getRegion((String) slider.get("sliderImageThumbPath"));
@@ -75,6 +83,14 @@ public class AssetLoaderTheme implements AssetLoader<Theme> {
 
         Map<String, Object> color;
         Number value;
+
+        // option
+        color = (Map<String, Object>) option.get("optionColorBorder");
+        if (color != null) theme.optionColorBorder = colorFromYaml(color);
+        color = (Map<String, Object>) option.get("optionColorFill");
+        if (color != null) theme.optionColorFill = colorFromYaml(color);
+        value = (Number) option.get("optionSize");
+        if (value != null) theme.optionSize = value.floatValue();
 
         // scrollbar
         String scrollbarImageBarPath = (String) scrollbar.get("scrollbarImageBarPath");

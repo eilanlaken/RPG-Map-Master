@@ -12,8 +12,8 @@ public class UINodeTopbarButton extends NodeGroup {
     public UINodeTopbarButton(final TextureRegion region, final String text) {
         setLayoutHorizontal();
         useScrollbar = false;
-        width = 135;
-        childSpacingHorizontal = 15;
+        width = 110;
+        childSpacingHorizontal = 12;
         colorBackground = Color.valueOf("#2B2D30");
         widthFitContent = false;
         heightFitContent = true;
@@ -21,7 +21,7 @@ public class UINodeTopbarButton extends NodeGroup {
         childAdd(new NodeGraphics(region));
 
         NodeText nodeText = new NodeText(text);
-        nodeText.size = 18;
+        nodeText.size = 14;
         childAdd(nodeText);
 
         // do the onclick and on mouse enter / leave etc.

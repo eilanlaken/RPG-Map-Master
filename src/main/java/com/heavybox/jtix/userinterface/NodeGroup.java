@@ -75,6 +75,10 @@ public class NodeGroup extends Node {
         });
     }
 
+    public void setLayoutDefault() {
+        this.layout = null;
+    }
+
     public void setLayoutVertical() {
         this.layout = new LayoutLinear();
     }

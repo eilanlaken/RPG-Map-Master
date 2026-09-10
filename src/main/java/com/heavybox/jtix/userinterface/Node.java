@@ -47,6 +47,7 @@ public abstract class Node {
     protected void    onFixedUpdate(float delta) {} // TODO: call with accumulative error
     protected void    onChildAdded(Node child) {}
     protected void    onChildRemoved(Node child) {}
+    protected void    onParentChange() {} // TODO: test, confirm it is called correctly
     protected boolean maskChildren() { return false; }
 
     protected void setHitZone(final @NotNull HitZone hitZone) {
@@ -79,6 +80,7 @@ public abstract class Node {
         if (child.parent != null) child.parent.children.removeValue(child, true);
         children.add(child);
         child.parent = this;
+        child.onParentChange();
         onChildAdded(child);
         children.sort(Comparator.comparingInt(a -> a.zIndex));
     }
@@ -366,6 +368,10 @@ public abstract class Node {
 
     final Transform2D getTransformScreen() {
         return transformScreen;
+    }
+
+    protected final Array<Node> getChildren() {
+        return children;
     }
 
     @Override

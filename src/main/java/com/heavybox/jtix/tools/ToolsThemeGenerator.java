@@ -3,6 +3,7 @@ package com.heavybox.jtix.tools;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.GraphicsException;
+import com.heavybox.jtix.graphics.TextureRegion;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -65,6 +66,13 @@ public final class ToolsThemeGenerator {
     public static float  checkboxSize                     = 27;
     public static float  checkboxSizeBorder               = 5;
 
+    /* option */
+    public static String optionImageOnPath  = null;
+    public static String optionImageOffPath = null;
+    public static Color  optionColorBorder  = Color.valueOf("0075FF");
+    public static Color  optionColorFill    = Color.valueOf("0075FF");
+    public static float  optionSize         = 22;
+
     public static void generateTheme(final String outputDirectoryPath, final String outputFileName) {
         final Set<String> imagePaths = gatherAllImagePaths();
         boolean generatedTexturePack = false;
@@ -84,6 +92,12 @@ public final class ToolsThemeGenerator {
         String yaml = """
         theme:
           texturePackPath:                      %s
+          option:
+            optionImageOnPath:                  %s
+            optionImageOffPath:                 %s
+            optionColorBorder:                  %s
+            optionColorFill:                    %s
+            optionSize:                         %s
           scrollbar:
             scrollbarImageBarPath:              %s
             scrollbarImageThumbPath:            %s
@@ -136,6 +150,12 @@ public final class ToolsThemeGenerator {
             checkboxSizeBorder:                 %s
         """.formatted(
                 texturePackPath,
+                // option
+                optionImageOnPath,
+                optionImageOffPath,
+                colorToYaml(optionColorBorder),
+                colorToYaml(optionColorFill),
+                optionSize,
                 // scrollbar
                 scrollbarImageBarPath,
                 scrollbarImageThumbPath,
@@ -209,6 +229,9 @@ public final class ToolsThemeGenerator {
         // checkbox
         imagePaths.add(checkboxImageCheckedPath);
         imagePaths.add(checkboxImageUncheckedPath);
+        // option
+        imagePaths.add(optionImageOnPath);
+        imagePaths.add(optionImageOffPath);
         imagePaths.removeIf(Objects::isNull);
         return imagePaths;
     }

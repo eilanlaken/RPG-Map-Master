@@ -25,8 +25,9 @@ public class UINodeToolbar extends NodeGroup {
         this.heightFitContent = true;
         this.widthFitContent = true;
         this.width = 300;
-        this.anchor = Anchor.PARENT_CENTER_LEFT;
+        this.anchor = Anchor.PARENT_TOP_LEFT;
         this.transform.x = 40;
+        this.transform.y = -140;
 
         TexturePack uiIconsPack = Assets.get("assets/texture-packs/user-interface.yml");
 

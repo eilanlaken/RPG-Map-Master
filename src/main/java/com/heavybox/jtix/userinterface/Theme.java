@@ -64,6 +64,13 @@ public class Theme implements MemoryResource {
     public float         checkboxSize                     = 27;
     public float         checkboxSizeBorder               = 5;
 
+    /* option */
+    public TextureRegion optionImageOn     = null;
+    public TextureRegion optionImageOff    = null;
+    public Color         optionColorBorder = Color.valueOf("0075FF");
+    public Color         optionColorFill   = Color.valueOf("0075FF");
+    public float         optionSize        = 22;
+
     @Override
     public void delete() {
         if (texturePack != null) texturePack.delete();

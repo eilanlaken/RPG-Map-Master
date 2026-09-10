@@ -510,11 +510,12 @@ public final class UserInterface {
         readyToRender = false;
     }
 
-    public static void add(final Node node) {
+    public static void add(final @NotNull Node node) {
         Node root = node.getRoot();
-        if (rootWidgets.contains(root, true)) return;
+        if (rootWidgets.contains(root,true)) return;
 
         rootWidgets.add(root);
+        root.onParentChange();
     }
 
     public static void remove(@NotNull final Node node) {
