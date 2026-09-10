@@ -15,12 +15,14 @@ import com.heavybox.jtix.tools.ToolsThemeGenerator;
 import com.heavybox.jtix.userinterface.*;
 import com.heavybox.jtix.z.UINodeToolbar;
 import com.heavybox.jtix.z.UINodeToolbarButton;
+import com.heavybox.jtix.z.UINodeTopbar;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.opengl.GL11;
 
 public class SceneInput_6 implements Scene {
 
     UINodeToolbar toolbar;
+    UINodeTopbar topbar;
     Renderer2D renderer2D = new Renderer2D();
     TexturePack userInterfaceIcons;
 
@@ -44,7 +46,7 @@ public class SceneInput_6 implements Scene {
         try {
 
             // group
-            ToolsThemeGenerator.groupColorBackground = Color.valueOf("#2B2B2B");
+            ToolsThemeGenerator.groupColorBackground = Color.valueOf("#1E1F22");
             ToolsThemeGenerator.groupSizeBorder = 0;
 
             // text
@@ -69,7 +71,8 @@ public class SceneInput_6 implements Scene {
 
         userInterfaceIcons = Assets.get("assets/texture-packs/user-interface.yml");
 
-        //toolbar = new UINodeToolbar();
+        toolbar = new UINodeToolbar();
+        topbar = new UINodeTopbar();
 
 //        NodeGroup button = new NodeGroup();
 //        button.setLayoutHorizontal();
@@ -83,12 +86,12 @@ public class SceneInput_6 implements Scene {
 //        button.widthFitContent = false;
 //        button.heightFitContent = true;
 
-        UINodeToolbarButton button = new UINodeToolbarButton(userInterfaceIcons.getRegion("assets/user-interface/toolbar-icon-terrain.png"),
-                "terrain", "1");
+//        UINodeToolbarButton button = new UINodeToolbarButton(userInterfaceIcons.getRegion("assets/user-interface/toolbar-icon-terrain.png"),
+//                "terrain", "1");
 
-        System.out.println(button.getHeight());
 
-        UserInterface.add(button);
+        UserInterface.add(toolbar);
+        UserInterface.add(topbar);
     }
 
     @Override

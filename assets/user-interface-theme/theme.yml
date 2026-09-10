@@ -8,7 +8,7 @@ theme:
     scrollbarThickness:                 10.0
   group:
     groupTextureBackgroundPath:         null
-    groupColorBackground:               { r: 0.169, g: 0.169, b: 0.169, a: 1.000 }
+    groupColorBackground:               { r: 0.118, g: 0.122, b: 0.133, a: 1.000 }
     groupPaddingTop:                    10.0
     groupPaddingBottom:                 10.0
     groupPaddingLeft:                   10.0

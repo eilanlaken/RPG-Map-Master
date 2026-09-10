@@ -1,31 +1,29 @@
 package com.heavybox.jtix.z;
 
-import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.graphics.Color;
-import com.heavybox.jtix.graphics.TexturePack;
 import com.heavybox.jtix.graphics.TextureRegion;
 import com.heavybox.jtix.userinterface.Anchor;
 import com.heavybox.jtix.userinterface.NodeGraphics;
 import com.heavybox.jtix.userinterface.NodeGroup;
 import com.heavybox.jtix.userinterface.NodeText;
 
-public class UINodeToolbarButton extends NodeGroup {
+public class UINodeTopbarButton extends NodeGroup {
 
-
-    public UINodeToolbarButton(final TextureRegion region, final String text, final String hotkeyText) {
+    public UINodeTopbarButton(final TextureRegion region, final String text) {
         setLayoutHorizontal();
-        width = 250;
+        useScrollbar = false;
+        width = 135;
         childSpacingHorizontal = 15;
         colorBackground = Color.valueOf("#2B2D30");
         widthFitContent = false;
         heightFitContent = true;
-        childAdd(new NodeGraphics(region));
-        childAdd(new NodeText(text));
 
-        NodeText hotkey = new NodeText(hotkeyText);
-        hotkey.anchor = Anchor.PARENT_CENTER_RIGHT;
-        hotkey.transform.x = -10;
-        childAdd(hotkey);
+        childAdd(new NodeGraphics(region));
+
+        NodeText nodeText = new NodeText(text);
+        nodeText.size = 18;
+        childAdd(nodeText);
+
         // do the onclick and on mouse enter / leave etc.
 
         onMouseEnter(e -> {

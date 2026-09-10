@@ -10,6 +10,7 @@ import org.jetbrains.annotations.Nullable;
 
 // TODO: add curves and functions
 // TODO: add borders and thin lines
+// TODO: remove the setImage and add a @Nullable image parameter to each set shape method
 public class NodeGraphics extends Node {
 
     public Shader        shader = null;
@@ -34,7 +35,7 @@ public class NodeGraphics extends Node {
 
     public NodeGraphics(@NotNull TextureRegion region) {
         this.image = region;
-        setShapeToRectangle(this.image.originalWidth, this.image.originalHeight);
+        setShapeToRectangle(this.image.packedWidth, this.image.packedHeight);
     }
 
     public NodeGraphics(@NotNull Texture img) {
@@ -254,10 +255,12 @@ public class NodeGraphics extends Node {
         height = maxY - minY;
     }
 
+    // TODO: remove
     public void setImage(@Nullable final TextureRegion region) {
         this.image = region;
     }
 
+    // TODO: remove
     public void setImage(@Nullable final Texture texture) {
         if (texture == null) {
             this.image = null;
@@ -285,8 +288,6 @@ public class NodeGraphics extends Node {
     }
 
     @Override
-    protected void setHitZone(@NotNull HitZone hitZone) {
-        hitZone.setToPolygon(polygon);
-    }
+    protected void setHitZone(@NotNull HitZone hitZone) { hitZone.setToPolygon(polygon); }
 
 }

@@ -89,7 +89,7 @@ regions:
   textureIndex: 0
   x: 180
   y: 2
-- name: assets/user-interface/topbar-icon-tutorial.png
+- name: assets/user-interface/topbar-icon-help.png
   offsetX: 1
   offsetY: 1
   originalHeight: 28
