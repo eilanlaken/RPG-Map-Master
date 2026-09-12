@@ -313,11 +313,11 @@ public abstract class EventData {
 
     }
 
-    public static class KeysPressed extends EventData {
+    public static class KeysJustReleased extends EventData {
 
         public Array<Keyboard.Key> keys;
 
-        public KeysPressed(Node target, Keyboard.Key ...keys) {
+        public KeysJustReleased(Node target, Keyboard.Key ...keys) {
             super(target);
             this.keys = new Array<>(true, 1);
             this.keys.addAll(keys);

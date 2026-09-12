@@ -71,6 +71,16 @@ public class Theme implements MemoryResource {
     public Color         optionColorFill   = Color.valueOf("0075FF");
     public float         optionSize        = 22;
 
+    // TODO
+    public Theme() {}
+
+    // TODO
+    public Theme(final String ymlPath) {
+        // this creates a theme from the yml file path.
+        // used by the UI system to create a default theme.
+
+    }
+
     @Override
     public void delete() {
         if (texturePack != null) texturePack.delete();

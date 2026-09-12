@@ -1,8 +1,8 @@
 theme:
-  texturePackPath:                      null
+  texturePackPath:                      assets/texture-packs/theme-pack.yml
   option:
-    optionImageOnPath:                  null
-    optionImageOffPath:                 null
+    optionImageOnPath:                  assets/user-interface-theme/option-on.png
+    optionImageOffPath:                 assets/user-interface-theme/option-off.png
     optionColorBorder:                  { r: 0.000, g: 0.459, b: 1.000, a: 1.000 }
     optionColorFill:                    { r: 0.000, g: 0.459, b: 1.000, a: 1.000 }
     optionSize:                         22.0
@@ -34,7 +34,7 @@ theme:
   text:
     textColor:                          #ffffffff
     textFontPath:                       null
-    textSize:                           24
+    textSize:                           18
     textAntialiasing:                   true
     textLineSpacing:                    1.1
   slider:
@@ -48,8 +48,8 @@ theme:
     sliderColorFill:                    { r: 0.000, g: 0.459, b: 1.000, a: 1.000 }
     sliderColorThumb:                   { r: 0.000, g: 0.459, b: 1.000, a: 1.000 }
   checkbox:
-    checkboxImageCheckedPath:           null
-    checkboxImageUncheckedPath:         null
+    checkboxImageCheckedPath:           assets/user-interface-theme/checkbox-checked.png
+    checkboxImageUncheckedPath:         assets/user-interface-theme/checkbox-unchecked.png
     checkboxColorBorderChecked:         { r: 0.000, g: 0.459, b: 1.000, a: 1.000 }
     checkboxColorBorderUnchecked:       { r: 0.463, g: 0.463, b: 0.463, a: 1.000 }
     checkboxColorCheckmarkBackground:   { r: 0.000, g: 0.459, b: 1.000, a: 1.000 }

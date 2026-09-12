@@ -3622,20 +3622,6 @@ public class Renderer2D implements MemoryResourceHolder {
 
     /* auxiliary methods */
 
-    // TODO: see if it belongs here.
-    // TODO: change to int
-    @Deprecated public static float getTextLineWidth(@Nullable Font font, final String text, int size, boolean antialiasing) {
-        font = Objects.requireNonNullElse(font, defaultFont);
-        float total_width = 0;
-        for (int i = 0; i < text.length(); i++) {
-            char c = text.charAt(i);
-            final Font.Glyph glyph = font.getGlyph(c, size, antialiasing);
-            if (glyph == null) continue;
-            total_width += glyph.advanceX;
-        }
-        return total_width;
-    }
-
     public static float calculateStringLineWidth(final String line, @Nullable Font font, int fontSize, boolean antialiasing) {
         return calculateStringLineWidth(line, 0, line.length(), font, fontSize, antialiasing);
     }

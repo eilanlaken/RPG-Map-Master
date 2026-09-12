@@ -4,6 +4,7 @@ import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.math.Transform2D;
 import com.heavybox.jtix.widgets.WidgetNode;
 
+// TODO: fix - centralize the nodes
 public class LayoutLinear implements Layout {
 
     public boolean vertical            = true;

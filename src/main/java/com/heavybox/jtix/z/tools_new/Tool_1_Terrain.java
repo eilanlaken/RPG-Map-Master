@@ -36,8 +36,8 @@ public class Tool_1_Terrain extends Tool_new {
     public int groundIndex = 5;
     public int liquidIndex = 1;
     public boolean randomDegree = true;
-    private boolean angleFollowPath = true;
-    private boolean limitDrawingToTarget = true;
+    public boolean angleFollowPath = true;
+    public boolean limitDrawingToTarget = true;
     private Color tint = Color.WHITE.clone();
 
     // point mode

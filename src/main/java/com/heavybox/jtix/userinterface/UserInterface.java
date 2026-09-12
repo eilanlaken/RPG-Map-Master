@@ -15,6 +15,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Comparator;
+import java.util.function.Predicate;
 
 public final class UserInterface {
 
@@ -39,6 +40,7 @@ public final class UserInterface {
     private static Node  inputMouseDragUnderPrev = null;
     private static Node  inputMouseDownTarget    = null;
     private static Node  inputMouseUpTarget      = null;
+    private static Node  inputKeyboardFocus      = null;
     private static float pointerXPrev            = 0;
     private static float pointerYPrev            = 0;
     private static float pointerX                = 0;
@@ -419,18 +421,57 @@ public final class UserInterface {
             return mouseOver != null;
         }
 
+        // TODO
         @Override
         public boolean keyboardKeysJustPressed(@NotNull Array<Keyboard.Key> keys) {
-            return InputEventHandler.super.keyboardKeysJustPressed(keys);
+            if (inputKeyboardFocus == null) return false;
+
+            boolean triggerOnKeysJustPressed = inputKeyboardFocus.eventListener.onKeysJustPressed != null;
+            boolean triggerOnKeysJustPressedDefault = inputKeyboardFocus.eventListenerDefault.onKeysJustPressed != null;
+
+            // TODO: improve.
+            Keyboard.Key[] arr_keys = new Keyboard.Key[keys.size];
+            for (int i = 0; i < arr_keys.length; i++) { arr_keys[i] = keys.get(i);}
+            if (triggerOnKeysJustPressed) {
+                EventData.KeysJustPressed event = new EventData.KeysJustPressed(inputKeyboardFocus, arr_keys);
+                inputKeyboardFocus.eventListener.onKeysJustPressed.handle(event);
+            }
+            if (triggerOnKeysJustPressedDefault) {
+                EventData.KeysJustPressed event = new EventData.KeysJustPressed(inputKeyboardFocus, arr_keys);
+                inputKeyboardFocus.eventListenerDefault.onKeysJustPressed.handle(event);
+            }
+
+            return true;
         }
 
+        // TODO
         @Override
         public boolean keyboardKeysJustReleased(@NotNull Array<Keyboard.Key> keys) {
-            return InputEventHandler.super.keyboardKeysJustReleased(keys);
+            if (inputKeyboardFocus == null) return false;
+
+            boolean triggerOnKeysJustReleased = inputKeyboardFocus.eventListener.onKeysJustReleased != null;
+            boolean triggerOnKeysJustReleasedDefault = inputKeyboardFocus.eventListenerDefault.onKeysJustReleased != null;
+
+            // TODO: improve.
+            Keyboard.Key[] arr_keys = new Keyboard.Key[keys.size];
+            for (int i = 0; i < arr_keys.length; i++) { arr_keys[i] = keys.get(i);}
+            if (triggerOnKeysJustReleased) {
+                EventData.KeysJustReleased event = new EventData.KeysJustReleased(inputKeyboardFocus, arr_keys);
+                inputKeyboardFocus.eventListener.onKeysJustReleased.handle(event);
+            }
+            if (triggerOnKeysJustReleasedDefault) {
+                EventData.KeysJustReleased event = new EventData.KeysJustReleased(inputKeyboardFocus, arr_keys);
+                inputKeyboardFocus.eventListenerDefault.onKeysJustReleased.handle(event);
+            }
+
+            return true;
         }
 
+        // TODO
         @Override
         public boolean keyboardCodepointsTyped(@NotNull ArrayChar codepoints) {
+            if (inputKeyboardFocus == null) return false;
+
             return InputEventHandler.super.keyboardCodepointsTyped(codepoints);
         }
     };
@@ -523,6 +564,18 @@ public final class UserInterface {
         rootWidgets.removeValue(node, true);
     }
 
+    public static void sendMessageToNode(final Object message, final Predicate<Node> isNodeTarget) {
+        // TODO
+    }
+
+    public static void sendMessageToNode(final Object message, final int targetNodeID) {
+        // TODO
+    }
+
+    public static void sendMessageToNode(final Object message, final Node targetNode) {
+        // TODO
+    }
+
     public static void cleanup() {
         inputMouseDragTarget = null;
         inputMouseTarget = null;
@@ -538,6 +591,16 @@ public final class UserInterface {
     }
 
     /* package private methods */
+
+    static void focusSet(@NotNull final Node node) {
+        inputKeyboardFocus = node;
+    }
+
+    static void focusRelease(@NotNull final Node node) {
+        if (inputKeyboardFocus == node) {
+            inputKeyboardFocus = null;
+        }
+    }
 
     static boolean isXAncestorOfY(final Node X, final Node Y) {
         if (X == null || Y == null) return false;

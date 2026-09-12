@@ -16,9 +16,9 @@ public final class EventListener {
     public OnMouseDragEnter   onMouseDragEnter   = null;
     public OnMouseDragLeave   onMouseDragLeave   = null;
     public OnMouseDragDrop    onMouseDragDrop    = null;
-    public OnCodepointsTyped  onCodepointsTyped  = null;
     public OnKeysJustPressed  onKeysJustPressed  = null;
-    public OnKeysPressed      onKeysPressed      = null;
+    public OnKeysJustReleased onKeysJustReleased = null;
+    public OnCodepointsTyped  onCodepointsTyped  = null;
 
     @FunctionalInterface
     public interface OnMouseClick {
@@ -96,8 +96,8 @@ public final class EventListener {
     }
 
     @FunctionalInterface
-    public interface OnKeysPressed {
-        void handle(EventData.KeysPressed e);
+    public interface OnKeysJustReleased {
+        void handle(EventData.KeysJustReleased e);
     }
 
 }

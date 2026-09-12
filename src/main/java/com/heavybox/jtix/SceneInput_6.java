@@ -4,10 +4,7 @@ import com.heavybox.jtix.application.Application;
 import com.heavybox.jtix.application.Scene;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.collections.Array;
-import com.heavybox.jtix.graphics.Color;
-import com.heavybox.jtix.graphics.Graphics;
-import com.heavybox.jtix.graphics.Renderer2D;
-import com.heavybox.jtix.graphics.TexturePack;
+import com.heavybox.jtix.graphics.*;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.tools.ToolsTexturePacker;
@@ -53,32 +50,50 @@ public class SceneInput_6 implements Scene {
         try {
 
             // option
-//            ToolsThemeGenerator.optionColorBorder = Color.RED.clone();
-//            ToolsThemeGenerator.optionColorFill = Color.GREEN.clone();
-//            ToolsThemeGenerator.optionSize = 100;
-//            ToolsThemeGenerator.optionImageOnPath = "assets/user-interface-theme/slider-thumb.png";
+            ToolsThemeGenerator.optionImageOnPath = "assets/user-interface-theme/option-on.png";
+            ToolsThemeGenerator.optionImageOffPath = "assets/user-interface-theme/option-off.png";
 
             // group
             ToolsThemeGenerator.groupColorBackground = Color.valueOf("#1E1F22");
             ToolsThemeGenerator.groupSizeBorder = 0;
 
             // text
-            ToolsThemeGenerator.textSize = 24;
+            ToolsThemeGenerator.textSize = 18;
             ToolsThemeGenerator.textAntialiasing = true;
 
             // checkbox
+            ToolsThemeGenerator.checkboxImageCheckedPath = "assets/user-interface-theme/checkbox-checked.png";
+            ToolsThemeGenerator.checkboxImageUncheckedPath = "assets/user-interface-theme/checkbox-unchecked.png";
 
             // slider
 
-            ToolsThemeGenerator.generateTheme("assets/user-interface-theme", "theme");
+            ToolsThemeGenerator.generateTheme("assets/texture-packs", "theme");
         } catch (Exception e) {
 
         }
-        Assets.loadTheme("assets/user-interface-theme/theme.yml");
+
+        // already present in demo scene
+        Assets.loadTexture("assets/textures-layer-0/terrain_land_road_0.jpg", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
+        Assets.loadTexture("assets/textures-layer-0/terrain_land_grass_0.jpg", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
+        Assets.loadTexture("assets/textures-layer-0/terrain_land_grass_1.jpg", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
+        Assets.loadTexture("assets/textures-layer-0/terrain_land_parchment_0.jpg", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
+        Assets.loadTexture("assets/textures-layer-0/terrain_land_parchment_1.jpg", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
+        Assets.loadTexture("assets/textures-layer-0/terrain_land_dirt_0.jpg", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
+        Assets.loadTexture("assets/textures-layer-0/terrain_land_dirt_1.jpg", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
+        Assets.loadTexture("assets/textures-layer-0/terrain_land_stone_0.jpg", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
+        Assets.loadTexture("assets/textures-layer-0/terrain_land_stone_1.jpg", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
+
+        Assets.loadTexture("assets/textures-layer-0/terrain_liquid_water_0.jpg", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
+        Assets.loadTexture("assets/textures-layer-0/terrain_liquid_water_1.jpg", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
+        Assets.loadTexture("assets/textures-layer-0/terrain_liquid_water_2.jpg", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
+        Assets.loadTexture("assets/textures-layer-0/terrain_liquid_water_3.jpg", Texture.FilterMag.LINEAR, Texture.FilterMin.LINEAR_MIPMAP_LINEAR, Texture.Wrap.MIRRORED_REPEAT, Texture.Wrap.MIRRORED_REPEAT, 1);
+
+
+        Assets.loadTheme("assets/texture-packs/theme.yml");
         Assets.loadTexturePack("assets/texture-packs/user-interface.yml");
         Assets.finishLoading();
 
-        Theme theme = Assets.get("assets/user-interface-theme/theme.yml");
+        Theme theme = Assets.get("assets/texture-packs/theme.yml");
         UserInterface.setTheme(theme);
 
 
@@ -111,15 +126,12 @@ public class SceneInput_6 implements Scene {
         option_3.transform.y = -100;
 
 
-        options = new NodeGroup();
-        options.childAdd(option_1);
-        options.childAdd(option_2);
-        options.childAdd(option_3);
+
 
         UserInterface.add(toolbar);
         UserInterface.add(topbar);
         UserInterface.add(toolOptions);
-        UserInterface.add(options);
+
     }
 
     @Override

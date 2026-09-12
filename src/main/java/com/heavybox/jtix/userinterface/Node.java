@@ -7,7 +7,6 @@ import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Transform2D;
-import com.heavybox.jtix.widgets.WidgetsException;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Comparator;
@@ -72,10 +71,10 @@ public abstract class Node {
 
     /*** Add and remove child methods ***/
     public final void childAdd(Node child) {
-        if (child == null) throw new WidgetsException(Node.class.getSimpleName() + " element cannot be null.");
-        if (child == this) throw new WidgetsException("Trying to parent a " + Node.class.getSimpleName() + " to itself.");
-        if (UserInterface.isXAncestorOfY(child,this)) throw new WidgetsException("Cannot add an ancestor widget as a child, as this would create a cyclic hierarchy.");
-        if (children.contains(child,true)) throw new WidgetsException("Widget " + child.getClass().getSimpleName() + " is already a child of widget.");
+        if (child == null) throw new UserInterfaceException(Node.class.getSimpleName() + " element cannot be null.");
+        if (child == this) throw new UserInterfaceException("Trying to parent a " + Node.class.getSimpleName() + " to itself.");
+        if (UserInterface.isXAncestorOfY(child,this)) throw new UserInterfaceException("Cannot add an ancestor widget as a child, as this would create a cyclic hierarchy.");
+        if (children.contains(child,true)) throw new UserInterfaceException("Widget " + child.getClass().getSimpleName() + " is already a child of widget.");
 
         if (child.parent != null) child.parent.children.removeValue(child, true);
         children.add(child);
@@ -86,8 +85,8 @@ public abstract class Node {
     }
 
     public final void childRemove(Node child) {
-        if (child == null) throw new WidgetsException(Node.class.getSimpleName() + " element cannot be null.");
-        if (!children.contains(child, true)) throw new WidgetsException(Node.class.getSimpleName() + " does not contain the element " + child + " as a child so it cannot be removed.");
+        if (child == null) throw new UserInterfaceException(Node.class.getSimpleName() + " element cannot be null.");
+        if (!children.contains(child, true)) throw new UserInterfaceException(Node.class.getSimpleName() + " does not contain the element " + child + " as a child so it cannot be removed.");
 
         children.removeValue(child,true);
         child.parent = null;
@@ -196,14 +195,16 @@ public abstract class Node {
                 transformOffset.y = -screen_min_y;
                 break;
             case PARENT_CENTER_CENTER:
-                screen_min_x = min_x + halfParentWidth;
-                screen_min_y = min_y + halfParentHeight;
-                screen_max_x = halfParentWidth - max_x;
-                screen_max_y = halfParentHeight - max_y;
-                center_x = (screen_min_x + screen_max_x) * 0.5f;
-                center_y = (screen_min_y + screen_max_y) * 0.5f;
-                transformOffset.x = -center_x;
-                transformOffset.y = -center_y;
+//                screen_min_x = min_x + halfParentWidth;
+//                screen_min_y = min_y + halfParentHeight;
+//                screen_max_x = halfParentWidth - max_x;
+//                screen_max_y = halfParentHeight - max_y;
+//                center_x = (screen_min_x + screen_max_x) * 0.5f;
+//                center_y = (screen_min_y + screen_max_y) * 0.5f;
+//                transformOffset.x = -center_x;
+//                transformOffset.y = -center_y;
+                transformOffset.x = 0;
+                transformOffset.y = 0;
                 break;
         }
     }
@@ -366,9 +367,15 @@ public abstract class Node {
         return hitTest(pointerX, pointerY) ? this : null;
     }
 
-    final Transform2D getTransformScreen() {
-        return transformScreen;
+    public final void keyboardListen() {
+        UserInterface.focusSet(this);
     }
+
+    public final void keyboardIgnore() {
+        UserInterface.focusRelease(this);
+    }
+
+    final Transform2D getTransformScreen() { return transformScreen; }
 
     protected final Array<Node> getChildren() {
         return children;
@@ -424,6 +431,10 @@ public abstract class Node {
     public final void onMouseDragLeaveDefault(EventListener.OnMouseDragLeave listener) { eventListenerDefault.onMouseDragLeave = listener; }
     public final void onMouseDragDrop(EventListener.OnMouseDragDrop listener) { eventListener.onMouseDragDrop = listener; }
     public final void onMouseDragDropDefault(EventListener.OnMouseDragDrop listener) { eventListenerDefault.onMouseDragDrop = listener; }
+    public final void onKeysJustPressed(EventListener.OnKeysJustPressed listener) { eventListener.onKeysJustPressed = listener; }
+    public final void onKeysJustPressedDefault(EventListener.OnKeysJustPressed listener) { eventListenerDefault.onKeysJustPressed = listener; }
+    public final void onKeysJustReleased(EventListener.OnKeysJustReleased listener) { eventListener.onKeysJustReleased = listener; }
+    public final void onKeysJustReleasedDefault(EventListener.OnKeysJustReleased listener) { eventListenerDefault.onKeysJustReleased = listener; }
 
 }
 
