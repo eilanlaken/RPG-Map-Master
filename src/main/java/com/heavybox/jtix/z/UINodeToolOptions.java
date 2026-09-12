@@ -18,8 +18,8 @@ public class UINodeToolOptions extends NodeGroup {
         heightFitContent = true;
         widthFitContent = true;
         colorBackground = Color.CLEAR_BLACK.clone();
-        paddingBottom = 0;
-        paddingTop = 0;
+        paddingBottom = 20;
+        paddingTop = 20;
         paddingLeft = 0;
         paddingRight = 0;
         anchor = Anchor.PARENT_TOP_RIGHT;

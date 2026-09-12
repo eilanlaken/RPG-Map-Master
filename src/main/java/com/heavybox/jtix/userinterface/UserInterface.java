@@ -421,7 +421,6 @@ public final class UserInterface {
             return mouseOver != null;
         }
 
-        // TODO
         @Override
         public boolean keyboardKeysJustPressed(@NotNull Array<Keyboard.Key> keys) {
             if (inputKeyboardFocus == null) return false;
@@ -429,7 +428,6 @@ public final class UserInterface {
             boolean triggerOnKeysJustPressed = inputKeyboardFocus.eventListener.onKeysJustPressed != null;
             boolean triggerOnKeysJustPressedDefault = inputKeyboardFocus.eventListenerDefault.onKeysJustPressed != null;
 
-            // TODO: improve.
             Keyboard.Key[] arr_keys = new Keyboard.Key[keys.size];
             for (int i = 0; i < arr_keys.length; i++) { arr_keys[i] = keys.get(i);}
             if (triggerOnKeysJustPressed) {
@@ -452,7 +450,6 @@ public final class UserInterface {
             boolean triggerOnKeysJustReleased = inputKeyboardFocus.eventListener.onKeysJustReleased != null;
             boolean triggerOnKeysJustReleasedDefault = inputKeyboardFocus.eventListenerDefault.onKeysJustReleased != null;
 
-            // TODO: improve.
             Keyboard.Key[] arr_keys = new Keyboard.Key[keys.size];
             for (int i = 0; i < arr_keys.length; i++) { arr_keys[i] = keys.get(i);}
             if (triggerOnKeysJustReleased) {
@@ -467,12 +464,25 @@ public final class UserInterface {
             return true;
         }
 
-        // TODO
         @Override
         public boolean keyboardCodepointsTyped(@NotNull ArrayChar codepoints) {
             if (inputKeyboardFocus == null) return false;
 
-            return InputEventHandler.super.keyboardCodepointsTyped(codepoints);
+            boolean triggerOnCodepointsTyped = inputKeyboardFocus.eventListener.onCodepointsTyped != null;
+            boolean triggerOnCodepointsTypedDefault = inputKeyboardFocus.eventListenerDefault.onCodepointsTyped != null;
+
+            char[] arr_codes = new char[codepoints.size];
+            for (int i = 0; i < arr_codes.length; i++) { arr_codes[i] = codepoints.get(i);}
+            if (triggerOnCodepointsTyped) {
+                EventData.CodepointsTyped event = new EventData.CodepointsTyped(inputKeyboardFocus, arr_codes);
+                inputKeyboardFocus.eventListener.onCodepointsTyped.handle(event);
+            }
+            if (triggerOnCodepointsTypedDefault) {
+                EventData.CodepointsTyped event = new EventData.CodepointsTyped(inputKeyboardFocus, arr_codes);
+                inputKeyboardFocus.eventListenerDefault.onCodepointsTyped.handle(event);
+            }
+
+            return true;
         }
     };
 

@@ -6,7 +6,6 @@ import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.TexturePack;
 import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.userinterface.Anchor;
-import com.heavybox.jtix.userinterface.Node;
 import com.heavybox.jtix.userinterface.NodeGroup;
 
 public class UINodeToolbar extends NodeGroup {

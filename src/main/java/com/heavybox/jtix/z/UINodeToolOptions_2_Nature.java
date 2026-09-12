@@ -10,7 +10,7 @@ public class UINodeToolOptions_2_Nature extends NodeGroup {
     public UINodeToolOptions_2_Nature() {
         setLayoutVertical();
         useScrollbar = true;
-        active = true; // deactivated by default
+        active = false; // deactivated by default
         width = 400;
         widthFitContent = false;
         heightFitContent = true;

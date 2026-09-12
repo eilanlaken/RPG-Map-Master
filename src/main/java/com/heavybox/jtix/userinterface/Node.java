@@ -435,6 +435,8 @@ public abstract class Node {
     public final void onKeysJustPressedDefault(EventListener.OnKeysJustPressed listener) { eventListenerDefault.onKeysJustPressed = listener; }
     public final void onKeysJustReleased(EventListener.OnKeysJustReleased listener) { eventListener.onKeysJustReleased = listener; }
     public final void onKeysJustReleasedDefault(EventListener.OnKeysJustReleased listener) { eventListenerDefault.onKeysJustReleased = listener; }
+    public final void onCodepointsTyped(EventListener.OnCodepointsTyped listener) { eventListener.onCodepointsTyped = listener; }
+    public final void onCodepointsTypedDefault(EventListener.OnCodepointsTyped listener) { eventListenerDefault.onCodepointsTyped = listener; }
 
 }
 
