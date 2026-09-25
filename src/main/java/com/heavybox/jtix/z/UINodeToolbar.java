@@ -33,7 +33,7 @@ public class UINodeToolbar extends NodeGroup {
         this.width = 300;
         this.anchor = Anchor.PARENT_TOP_LEFT;
         this.transform.x = 40;
-        this.transform.y = -140;
+        this.transform.y = -110;
 
         TexturePack uiIconsPack = Assets.get("assets/texture-packs/user-interface.yml");
 

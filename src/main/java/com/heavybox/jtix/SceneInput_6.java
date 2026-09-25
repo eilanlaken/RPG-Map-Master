@@ -10,6 +10,7 @@ import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.tools.ToolsTexturePacker;
 import com.heavybox.jtix.tools.ToolsThemeGenerator;
 import com.heavybox.jtix.userinterface.*;
+import com.heavybox.jtix.z.UINodeLayers;
 import com.heavybox.jtix.z.UINodeToolOptions;
 import com.heavybox.jtix.z.UINodeToolbar;
 import com.heavybox.jtix.z.UINodeTopbar;
@@ -21,14 +22,10 @@ public class SceneInput_6 implements Scene {
     UINodeToolbar toolbar;
     UINodeTopbar topbar;
     UINodeToolOptions toolOptions;
+    UINodeLayers layers;
 
     Renderer2D renderer2D = new Renderer2D();
     TexturePack userInterfaceIcons;
-
-    NodeGroup options;
-    NodeOption option_1;
-    NodeOption option_2;
-    NodeOption option_3;
 
     /*** TODO
      * left toolbar, buttons: terrain, nature, geology, props, architecture, decorations, eraser, procedural, select
@@ -102,6 +99,7 @@ public class SceneInput_6 implements Scene {
         toolbar = new UINodeToolbar();
         topbar = new UINodeTopbar();
         toolOptions = new UINodeToolOptions();
+        layers = new UINodeLayers();
 
 //        NodeGroup button = new NodeGroup();
 //        button.setLayoutHorizontal();
@@ -119,19 +117,13 @@ public class SceneInput_6 implements Scene {
 //                "terrain", "1");
 
 
-        option_1 = new NodeOption(0, null);
-        option_2 = new NodeOption(0, null);
-        option_2.transform.y = 100;
-        option_3 = new NodeOption(0, null);
-        option_3.transform.y = -100;
-
 
 
 
         UserInterface.add(toolbar);
         UserInterface.add(topbar);
         UserInterface.add(toolOptions);
-
+        UserInterface.add(layers);
     }
 
     @Override

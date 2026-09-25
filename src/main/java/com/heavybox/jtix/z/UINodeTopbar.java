@@ -24,7 +24,7 @@ public class UINodeTopbar extends NodeGroup {
         this.heightFitContent = true;
         this.widthFitContent = true;
         this.anchor = Anchor.PARENT_TOP_CENTER;
-        this.transform.y = -40;
+        this.transform.y = -20;
 
         TexturePack uiIconsPack = Assets.get("assets/texture-packs/user-interface.yml");
 
