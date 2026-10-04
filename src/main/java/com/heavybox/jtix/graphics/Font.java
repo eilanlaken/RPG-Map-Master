@@ -15,8 +15,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /***
- * TODO: serious rendering bug with Fonts.
- * TODO: it simply does not work.
+ * TODO: move to primarily SDF generated fonts.
+ * TODO: SDF Font Tutorial
+ * https://libgdx.com/wiki/graphics/2d/fonts/distance-field-fonts
  */
 public class Font implements MemoryResource {
 
@@ -67,16 +68,6 @@ public class Font implements MemoryResource {
             GlyphPage value = entry.getValue();
             value.page.delete();
         }
-    }
-
-    // TODO: remove:
-    public Array<Texture> getPages() {
-        var a = glyphsPages.values();
-        Array<Texture> pages = new Array<>();
-        for (GlyphPage glyphPage : a) {
-            //pages.addAll(glyphPage.pages);
-        }
-        return pages;
     }
 
     private final class GlyphPage {
