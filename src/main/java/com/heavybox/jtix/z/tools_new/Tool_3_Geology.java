@@ -53,7 +53,7 @@ public class Tool_3_Geology extends Tool_new {
     private Shape2DPolygon polygon_shape;
 
     // trees specifics
-    public Type currentType = Type.MOUNTAIN;
+    public Type currentType = Type.MOUNTAIN_SANDSTONE;
 
     public Tool_3_Geology(final RPGMapMakerScene scene) {
         super(scene);
@@ -647,7 +647,8 @@ public class Tool_3_Geology extends Tool_new {
 
     public enum Type {
 
-        MOUNTAIN,
+        MOUNTAIN_SANDSTONE,
+        MOUNTAIN_SANDSTONE_SNOW,
         BOULDER,
 
         HILLS_BROWN,
