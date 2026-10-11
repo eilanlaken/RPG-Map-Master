@@ -649,6 +649,7 @@ public class Tool_3_Geology extends Tool_new {
 
         MOUNTAIN_SANDSTONE,
         MOUNTAIN_SANDSTONE_SNOW,
+        MOUNTAIN_GREYSTONE,
         BOULDER,
 
         HILLS_BROWN,
