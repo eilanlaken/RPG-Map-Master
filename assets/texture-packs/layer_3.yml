@@ -411,8 +411,8 @@ regions:
   y: 2
 - name: assets/textures-layer-3/decorations_creature_octopus_0.png
   offsetX: 0
-  offsetY: 2
-  originalHeight: 241
+  offsetY: 0
+  originalHeight: 239
   originalWidth: 267
   packedHeight: 239
   packedWidth: 267
