@@ -1,4 +1,4 @@
 package com.heavybox.jtix.z.tools_new;
 
-public class Tool_7_Text {
+public class Tool_7_Typography {
 }
