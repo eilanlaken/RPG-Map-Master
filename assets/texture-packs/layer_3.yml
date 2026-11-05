@@ -2509,9 +2509,9 @@ regions:
   textureIndex: 0
   x: 2
   y: 2873
-- name: assets/textures-layer-3/architecture_dwarf_bridge_0.png
+- name: assets/textures-layer-3/architecture_dwarf_misc_bridge_0.png
   offsetX: 32
-  offsetY: 214
+  offsetY: 199
   originalHeight: 445
   originalWidth: 220
   packedHeight: 76
