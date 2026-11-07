@@ -22,6 +22,7 @@ public class NodeGraphics extends Node {
 
     private float width;
     private float height;
+    private boolean allowUVOverflow;
 
     /* rectangle shape constructor */
     public NodeGraphics(float width, float height) {
@@ -35,11 +36,13 @@ public class NodeGraphics extends Node {
 
     public NodeGraphics(@NotNull TextureRegion region) {
         this.image = region;
+        this.allowUVOverflow = false;
         setShapeToRectangle(this.image.packedWidth, this.image.packedHeight);
     }
 
     public NodeGraphics(@NotNull Texture img) {
         this.image = img.region;
+        this.allowUVOverflow = true;
         setShapeToRectangle(img.width, img.height);
     }
 
@@ -255,26 +258,21 @@ public class NodeGraphics extends Node {
         height = maxY - minY;
     }
 
-    // TODO: remove
     public void setImage(@Nullable final TextureRegion region) {
+        this.allowUVOverflow = false;
         this.image = region;
     }
 
-    // TODO: remove
     public void setImage(@Nullable final Texture texture) {
-        if (texture == null) {
-            this.image = null;
-            return;
-        }
-
-        this.image = texture.region;
+        this.allowUVOverflow = true;
+        this.image = texture == null ? null : texture.region;
     }
 
     @Override
     protected final void draw(Renderer2D renderer2D, float x, float y, float deg, float sclX, float sclY) {
         renderer2D.setShader(shader);
         renderer2D.setColor(color);
-        renderer2D.drawPolygonFilled(image, polygon, indices, x, y, deg, sclX, sclY);
+        renderer2D.drawPolygonFilled(image, polygon, indices, allowUVOverflow, x, y, deg, sclX, sclY);
     }
 
     @Override

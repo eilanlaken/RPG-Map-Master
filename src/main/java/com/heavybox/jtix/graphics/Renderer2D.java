@@ -1,10 +1,7 @@
 package com.heavybox.jtix.graphics;
 
 import com.heavybox.jtix.collections.*;
-import com.heavybox.jtix.math.MathUtils;
-import com.heavybox.jtix.math.Matrix4x4;
-import com.heavybox.jtix.math.Vector2;
-import com.heavybox.jtix.math.Vector4;
+import com.heavybox.jtix.math.*;
 import com.heavybox.jtix.memory.MemoryPool;
 import com.heavybox.jtix.memory.MemoryResourceHolder;
 import org.jetbrains.annotations.NotNull;
@@ -565,95 +562,6 @@ public class Renderer2D implements MemoryResourceHolder {
         vertexIndex += 4;
     }
 
-    // TODO: remove this
-    @Deprecated
-    public void drawTextureRegion_old(@NotNull TextureRegion region, float x, float y, float degrees, float scaleX, float scaleY) {
-        if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
-        if (requiresFlush(4, 6)) flush();
-
-        setTexture(region.texture);
-        setMode(GL11.GL_TRIANGLES);
-
-        final float ui = region.u1;
-        final float vi = region.v1;
-        final float uf = region.u2;
-        final float vf = region.v2;
-        final float offsetX = region.offsetX;
-        final float offsetY = region.offsetY;
-        final float packedWidth = region.packedWidth;
-        final float packedHeight = region.packedHeight;
-        final float originalWidthHalf = region.originalWidthHalf;
-        final float originalHeightHalf = region.originalHeightHalf;
-
-        float localX1 = offsetX - originalWidthHalf;
-        float localX2 = offsetX - originalWidthHalf;
-        float localX3 = offsetX - originalWidthHalf + packedWidth;
-        float localX4 = offsetX - originalWidthHalf + packedWidth;
-        float localY1 = offsetY - originalHeightHalf + packedHeight;
-        float localY4 = offsetY - originalHeightHalf + packedHeight;
-        float localY2 = offsetY - originalHeightHalf;
-        float localY3 = offsetY - originalHeightHalf;
-
-        /* apply scale */
-        localX1 *= scaleX;
-        localX2 *= scaleX;
-        localX3 *= scaleX;
-        localX4 *= scaleX;
-        localY1 *= scaleY;
-        localY2 *= scaleY;
-        localY3 *= scaleY;
-        localY4 *= scaleY;
-
-        /* apply rotation */
-        final float sin = MathUtils.sinDeg(degrees);
-        final float cos = MathUtils.cosDeg(degrees);
-        float x1 = localX1 * cos - localY1 * sin;
-        float y1 = localX1 * sin + localY1 * cos;
-        float x2 = localX2 * cos - localY2 * sin;
-        float y2 = localX2 * sin + localY2 * cos;
-        float x3 = localX3 * cos - localY3 * sin;
-        float y3 = localX3 * sin + localY3 * cos;
-        float x4 = localX4 * cos - localY4 * sin;
-        float y4 = localX4 * sin + localY4 * cos;
-
-        /* apply translation */
-        x1 += x;
-        y1 += y;
-        x2 += x;
-        y2 += y;
-        x3 += x;
-        y3 += y;
-        x4 += x;
-        y4 += y;
-
-        /* put vertices */
-        positions.put(x1).put(y1);
-        colors.put(currentTint);
-        textCoords.put(ui).put(vi);
-
-        positions.put(x2).put(y2);
-        colors.put(currentTint);
-        textCoords.put(ui).put(vf);
-
-        positions.put(x3).put(y3);
-        colors.put(currentTint);
-        textCoords.put(uf).put(vf);
-
-        positions.put(x4).put(y4);
-        colors.put(currentTint);
-        textCoords.put(uf).put(vi);
-
-        /* put indices */
-        int startVertex = this.vertexIndex;
-        indices.put(startVertex + 0);
-        indices.put(startVertex + 1);
-        indices.put(startVertex + 3);
-        indices.put(startVertex + 3);
-        indices.put(startVertex + 1);
-        indices.put(startVertex + 2);
-        vertexIndex += 4;
-    }
-
     public void drawTextureRegion(@NotNull TextureRegion region, float x, float y, float degrees, float scaleX, float scaleY) {
         if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
         if (requiresFlush(4, 6)) flush();
@@ -725,6 +633,169 @@ public class Renderer2D implements MemoryResourceHolder {
         indices.put(startVertex + 3);
         indices.put(startVertex + 1);
         indices.put(startVertex + 2);
+        vertexIndex += 4;
+    }
+
+    // *TODO: test*
+    public void drawTextureRegion(@NotNull TextureRegion region, @NotNull Matrix3x3 perspective,
+                                  float x, float y, float degrees, float scaleX, float scaleY) {
+        if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
+        if (requiresFlush(4, 6)) flush();
+
+        setTexture(region.texture);
+        setMode(GL11.GL_TRIANGLES);
+
+        final float ui = region.u1;
+        final float vi = region.v1;
+        final float uf = region.u2;
+        final float vf = region.v2;
+
+        final float offsetX = region.offsetX;
+        final float offsetY = region.offsetY;
+        final float packedWidth = region.packedWidth;
+        final float packedHeight = region.packedHeight;
+        final float originalWidthHalf = region.originalWidthHalf;
+        final float originalHeightHalf = region.originalHeightHalf;
+
+        /* Calculate packed bounds in original, unscaled coordinates */
+        final float left = offsetX - originalWidthHalf;
+        final float right = left + packedWidth;
+        final float bottom = offsetY - originalHeightHalf;
+        final float top = bottom + packedHeight;
+
+        /* Perspective transformation */
+        final float[] m = perspective.val;
+
+        // Transform the original center (0, 0) to use as the anchor.
+        final float centerW = m[Matrix3x3.M22];
+
+        if (Math.abs(centerW) < 0.000001f)
+            throw new GraphicsException("Invalid perspective transformation: center at infinity.");
+
+        final float anchorX = m[Matrix3x3.M02] / centerW;
+        final float anchorY = m[Matrix3x3.M12] / centerW;
+
+        // Vertex 1: left, top
+        final float w1 = m[Matrix3x3.M20] * left
+                + m[Matrix3x3.M21] * top
+                + m[Matrix3x3.M22];
+
+        if (Math.abs(w1) < 0.000001f)
+            throw new GraphicsException("Invalid perspective transformation: vertex at infinity.");
+
+        final float px1 = (m[Matrix3x3.M00] * left
+                + m[Matrix3x3.M01] * top
+                + m[Matrix3x3.M02]) / w1 - anchorX;
+
+        final float py1 = (m[Matrix3x3.M10] * left
+                + m[Matrix3x3.M11] * top
+                + m[Matrix3x3.M12]) / w1 - anchorY;
+
+        // Vertex 2: left, bottom
+        final float w2 = m[Matrix3x3.M20] * left
+                + m[Matrix3x3.M21] * bottom
+                + m[Matrix3x3.M22];
+
+        if (Math.abs(w2) < 0.000001f)
+            throw new GraphicsException("Invalid perspective transformation: vertex at infinity.");
+
+        final float px2 = (m[Matrix3x3.M00] * left
+                + m[Matrix3x3.M01] * bottom
+                + m[Matrix3x3.M02]) / w2 - anchorX;
+
+        final float py2 = (m[Matrix3x3.M10] * left
+                + m[Matrix3x3.M11] * bottom
+                + m[Matrix3x3.M12]) / w2 - anchorY;
+
+        // Vertex 3: right, bottom
+        final float w3 = m[Matrix3x3.M20] * right
+                + m[Matrix3x3.M21] * bottom
+                + m[Matrix3x3.M22];
+
+        if (Math.abs(w3) < 0.000001f)
+            throw new GraphicsException("Invalid perspective transformation: vertex at infinity.");
+
+        final float px3 = (m[Matrix3x3.M00] * right
+                + m[Matrix3x3.M01] * bottom
+                + m[Matrix3x3.M02]) / w3 - anchorX;
+
+        final float py3 = (m[Matrix3x3.M10] * right
+                + m[Matrix3x3.M11] * bottom
+                + m[Matrix3x3.M12]) / w3 - anchorY;
+
+        // Vertex 4: right, top
+        final float w4 = m[Matrix3x3.M20] * right
+                + m[Matrix3x3.M21] * top
+                + m[Matrix3x3.M22];
+
+        if (Math.abs(w4) < 0.000001f)
+            throw new GraphicsException("Invalid perspective transformation: vertex at infinity.");
+
+        final float px4 = (m[Matrix3x3.M00] * right
+                + m[Matrix3x3.M01] * top
+                + m[Matrix3x3.M02]) / w4 - anchorX;
+
+        final float py4 = (m[Matrix3x3.M10] * right
+                + m[Matrix3x3.M11] * top
+                + m[Matrix3x3.M12]) / w4 - anchorY;
+
+        /* Scale */
+        final float leftX = px1 * scaleX;
+        final float leftY = py1 * scaleY;
+
+        final float bottomX = px2 * scaleX;
+        final float bottomY = py2 * scaleY;
+
+        final float rightX = px3 * scaleX;
+        final float rightY = py3 * scaleY;
+
+        final float topX = px4 * scaleX;
+        final float topY = py4 * scaleY;
+
+        /* Rotation */
+        final float sin = MathUtils.sinDeg(degrees);
+        final float cos = MathUtils.cosDeg(degrees);
+
+        final float x1 = leftX * cos - leftY * sin + x;
+        final float y1 = leftX * sin + leftY * cos + y;
+
+        final float x2 = bottomX * cos - bottomY * sin + x;
+        final float y2 = bottomX * sin + bottomY * cos + y;
+
+        final float x3 = rightX * cos - rightY * sin + x;
+        final float y3 = rightX * sin + rightY * cos + y;
+
+        final float x4 = topX * cos - topY * sin + x;
+        final float y4 = topX * sin + topY * cos + y;
+
+        /* Put vertices */
+        positions.put(x1).put(y1);
+        colors.put(currentTint);
+        textCoords.put(ui).put(vi);
+
+        positions.put(x2).put(y2);
+        colors.put(currentTint);
+        textCoords.put(ui).put(vf);
+
+        positions.put(x3).put(y3);
+        colors.put(currentTint);
+        textCoords.put(uf).put(vf);
+
+        positions.put(x4).put(y4);
+        colors.put(currentTint);
+        textCoords.put(uf).put(vi);
+
+        /* Put indices */
+        final int startVertex = this.vertexIndex;
+
+        indices.put(startVertex);
+        indices.put(startVertex + 1);
+        indices.put(startVertex + 3);
+
+        indices.put(startVertex + 3);
+        indices.put(startVertex + 1);
+        indices.put(startVertex + 2);
+
         vertexIndex += 4;
     }
 
@@ -2359,6 +2430,7 @@ public class Renderer2D implements MemoryResourceHolder {
         int count = polygon.length / 2;
         if (requiresFlush(count, count * 3)) flush();
 
+        setTexture(defaultTexture);
         setMode(GL11.GL_TRIANGLES);
 
         tmp_ArrayFloat.clear();
@@ -2372,10 +2444,7 @@ public class Renderer2D implements MemoryResourceHolder {
         for (int i = 0; i < tmp_ArrayFloat.size; i += 2) {
             float polyX = tmp_ArrayFloat.get(i);
             float polyY = tmp_ArrayFloat.get(i + 1);
-            float u = 0.5f + polyX * currentTexture.invWidth * pixelScaleWidth;
-            float v = 0.5f - polyY * currentTexture.invHeight * pixelScaleHeight;
-
-            textCoords.put(u).put(v);
+            textCoords.put(0.5f).put(0.5f);
             positions.put(polyX).put(polyY);
             colors.put(currentTint);
         }
@@ -2432,16 +2501,17 @@ public class Renderer2D implements MemoryResourceHolder {
         vertexIndex += tmp_ArrayFloat.size / 2;
     }
 
+    // TODO: test
     public void drawPolygonFilled(@Nullable Texture texture,
                                   @NotNull ArrayFloat polygon, @Nullable ArrayInt triangles,
                                   float x, float y, float deg, float sclX, float sclY) {
         if (texture == null) texture = defaultTexture;
-        drawPolygonFilled(texture.region, polygon, triangles, x, y, deg, sclX, sclY);
+        drawPolygonFilled(texture.region, polygon, triangles,true, x, y, deg, sclX, sclY);
     }
 
     // TODO: test
     public void drawPolygonFilled(@Nullable TextureRegion region,
-                                  @NotNull ArrayFloat polygon, @Nullable ArrayInt triangles,
+                                  @NotNull ArrayFloat polygon, @Nullable ArrayInt triangles, boolean allowUVOverflow,
                                   float x, float y, float deg, float sclX, float sclY) {
         if (!drawing) throw new GraphicsException("Must call begin() before draw operations.");
         if (polygon.size < 6) throw new GraphicsException("A polygon requires a minimum of 3 vertices, so the polygon array must be of length > 6. Got: " + polygon.size);
@@ -2484,6 +2554,10 @@ public class Renderer2D implements MemoryResourceHolder {
 
             float u = region.u1 + (regionX / packedWidth) * uRange;
             float v = region.v2 - (regionY / packedHeight) * vRange;
+            if (!allowUVOverflow) {
+                u = MathUtils.clampFloat(u, Math.min(region.u1, region.u2), Math.max(region.u1, region.u2));
+                v = MathUtils.clampFloat(v, Math.min(region.v1, region.v2), Math.max(region.v1, region.v2));
+            }
 
             textCoords.put(u).put(v);
             colors.put(currentTint);

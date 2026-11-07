@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.graphics.*;
+import com.heavybox.jtix.math.Matrix3x3;
 import com.heavybox.jtix.math.Transform2D;
 
 public class Token {
@@ -15,6 +16,9 @@ public class Token {
     public Transform2D transform;
     public final float width, height;
     public TextureRegion[] regions;
+
+    // optional: perspective projection so it does not look like a grid. Currently only used by architecture tokens.
+    public Matrix3x3 perspective = null;
 
     public Token(int layer, float x, float y, float deg, float sclX, float sclY, TextureRegion... regions) {
         this.layer = layer;
@@ -38,7 +42,8 @@ public class Token {
         for (int i = 0; i < regions.length; i++) {
             TextureRegion region = regions[i];
             if (region == null) continue;
-            renderer2D.drawTextureRegion(region, transform.x, transform.y, transform.deg, transform.sclX, transform.sclY);
+            if (perspective == null) renderer2D.drawTextureRegion(region, transform.x, transform.y, transform.deg, transform.sclX, transform.sclY);
+            else renderer2D.drawTextureRegion(region, perspective, transform.x, transform.y, transform.deg, transform.sclX, transform.sclY);
         }
         renderer2D.setColor(Color.WHITE);
     }
@@ -48,10 +53,8 @@ public class Token {
         for (int i = 0; i < regions.length; i++) {
             TextureRegion region = regions[i];
             if (region == null) continue;
-            renderer2D.drawTextureRegion(region,
-                    transform.x + toolX, transform.y + toolY,
-                    transform.deg,
-                    transform.sclX, transform.sclY);
+            if (perspective == null) renderer2D.drawTextureRegion(region, transform.x + toolX, transform.y + toolY, transform.deg, transform.sclX, transform.sclY);
+            else renderer2D.drawTextureRegion(region, perspective,transform.x + toolX, transform.y + toolY, transform.deg, transform.sclX, transform.sclY);
         }
         renderer2D.setColor(Color.WHITE);
     }

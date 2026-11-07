@@ -11,6 +11,7 @@ import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.MathUtils;
+import com.heavybox.jtix.math.Matrix3x3;
 import com.heavybox.jtix.math.Shape2DPolygon;
 import com.heavybox.jtix.math.Vector2;
 import com.heavybox.jtix.z.CommandTokenCreate;
@@ -24,6 +25,28 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Tool_5_Architecture extends Tool_new {
+
+    // "rotates" a diagonal house by 15 degrees up
+    private static final Matrix3x3 perspective_15_deg_clockwise = new Matrix3x3().set(
+            0.928120f, -0.103267f, -0.000214f,
+            0.056026f,  1.027959f,  0.000214f,
+            3.274290f,  5.591537f,  1.0f
+    );
+    private static final Matrix3x3 perspective_30_deg_clockwise = new Matrix3x3().set(
+            0.761337f, -0.255198f, -0.000486f,
+            0.150395f,  1.105410f,  0.000729f,
+            8.783283f, 12.279635f,  1.0f
+    );
+    private static final Matrix3x3 perspective_15_deg_counterClockwise = new Matrix3x3().set(
+            1.071587f,  0.137664f, -0.000101f,
+            -0.031041f,  0.953589f,  0.000000f,
+            -0.263650f, -7.300657f,  1.000000f
+    );
+    private static final Matrix3x3 perspective_30_deg_counterClockwise = new Matrix3x3().set(
+            1.089951f,   0.236768f,  0.000000f,
+            -0.064638f,   0.809154f,  0.000102f,
+            -1.993454f, -11.710125f,  1.000000f
+    );
 
     private final TexturePack atlas;
 
