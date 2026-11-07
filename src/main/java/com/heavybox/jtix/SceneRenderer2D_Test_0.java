@@ -47,7 +47,7 @@ public class SceneRenderer2D_Test_0 implements Scene {
 
         renderer2D.begin();
         // TODO: replace this with a new call with an appropriate matrix
-        renderer2D.drawTextureRegion(region, perspective,0,0,0,0.3f,0.3f);
+        renderer2D.drawTextureRegion(region, perspective,0,0,0,-0.3f,0.3f);
         //renderer2D.drawTextureRegion(region,0,0,0,1,1);
         renderer2D.end();
     }
