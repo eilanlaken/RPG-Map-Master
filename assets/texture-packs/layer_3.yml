@@ -2769,7 +2769,7 @@ regions:
   textureIndex: 0
   x: 3379
   y: 3278
-- name: assets/textures-layer-3/architecture_elf_bridge_0.png
+- name: assets/textures-layer-3/architecture_elf_misc_bridge_0.png
   offsetX: 32
   offsetY: 214
   originalHeight: 445
