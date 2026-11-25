@@ -389,12 +389,12 @@ regions:
   textureIndex: 0
   x: 962
   y: 1938
-- name: assets/textures-layer-3/decorations_character_guardian_0.png
+- name: assets/textures-layer-3/decorations_character_0.png
   offsetX: 0
-  offsetY: 380
-  originalHeight: 780
+  offsetY: 0
+  originalHeight: 403
   originalWidth: 183
-  packedHeight: 400
+  packedHeight: 403
   packedWidth: 183
   textureIndex: 0
   x: 3116
@@ -628,7 +628,7 @@ regions:
   packedWidth: 132
   textureIndex: 0
   x: 3116
-  y: 406
+  y: 409
 - name: assets/textures-layer-3/nature_tree_white_0.png
   offsetX: 54
   offsetY: 347
@@ -819,10 +819,10 @@ regions:
   textureIndex: 0
   x: 2883
   y: 1116
-- name: assets/textures-layer-3/decorations_character_assasin.png
+- name: assets/textures-layer-3/decorations_character_1.png
   offsetX: 0
-  offsetY: 333
-  originalHeight: 666
+  offsetY: 0
+  originalHeight: 333
   originalWidth: 125
   packedHeight: 333
   packedWidth: 125
