@@ -1,4 +1,4 @@
 package com.heavybox.jtix.z;
 
-public class ToolEdit_Select {
+public class Tool_5_Props {
 }

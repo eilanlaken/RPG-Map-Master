@@ -1,4 +1,4 @@
 package com.heavybox.jtix.z;
 
-public class ToolEdit_Eraser {
+public class Tool_2_Geology {
 }

@@ -1,18 +1,15 @@
 package com.heavybox.jtix.z;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.heavybox.jtix.graphics.Color;
-import com.heavybox.jtix.graphics.TexturePack;
-import com.heavybox.jtix.graphics.TextureRegion;
-import com.heavybox.jtix.z.tools_new.Tool_1_Terrain;
+import com.heavybox.jtix.z.tools_new.Tool_1_Terrain_old;
 import com.heavybox.jtix.z.tools_new.Tool_new;
 
 public class CommandTerrain extends Command {
 
     public float tint = Color.WHITE.toFloatBits();
-    public Tool_1_Terrain.Target target;
+    public Tool_1_Terrain_old.Target target;
     public Tool_new.Mode mode;
     public int groundIndex;
     public int liquidIndex;

@@ -25,7 +25,7 @@ import java.util.zip.ZipFile;
 
 // contact points polygon vs polygon:
 // https://www.youtube.com/watch?v=5gDC1GU3Ivg
-public class SceneDemo implements Scene, RPGMapMakerScene {
+public class SceneDemo implements Scene, SceneRPGMapMaker {
 
     // dev save and load
     public final String saveFile = null;// "C:\\Users\\eilan\\OneDrive\\Desktop\\Heavy Box Games\\projects\\RPG Map Master\\public\\maps\\map_num.map";
@@ -132,18 +132,16 @@ public class SceneDemo implements Scene, RPGMapMakerScene {
         widgetActionsBar.addNodes(actionsBar);
         widgetTools.addNodes(toolSettings, toolbar);
         */
-        WidgetNodeHelpBar helpBar = new WidgetNodeHelpBar();
-        widgetHelpBar.addNodes(helpBar);
         camera.update();
 
         //Tools.initTools(this);
         // init tools
-        tools[0] = new Tool_1_Terrain(this);
+        tools[0] = new Tool_1_Terrain_old(this);
         tools[1] = new Tool_2_Nature(this);
         tools[2] = new Tool_3_Geology(this);
         tools[3] = new Tool_4_Props(this);
         tools[4] = new Tool_5_Architecture(this);
-        tools[5] = new Tool_6_Decorations(this);
+        tools[5] = new Tool_6_Decorations_old(this);
         tools[activeToolIndex].activate();
     }
 

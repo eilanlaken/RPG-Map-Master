@@ -1,6 +1,6 @@
 package com.heavybox.jtix.z.tools_new;
 
-import com.heavybox.jtix.RPGMapMakerScene;
+import com.heavybox.jtix.SceneRPGMapMaker;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.collections.ArrayChar;
@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
-public class Tool_6_Decorations extends Tool_new {
+public class Tool_6_Decorations_old extends Tool_new {
 
     private static final String PREFIX = "assets/textures-layer-3/decorations_";
     private static final Type TYPE = Type.DECORATION;
@@ -28,8 +28,8 @@ public class Tool_6_Decorations extends Tool_new {
     private final Array<TextureRegion> allRegions = new Array<>();
     private int currentAssetIndex = 0;
 
-    private Tool.Mode currentMode;
-    private Tool.Shape currentShape;
+    private Tool_new.Mode currentMode;
+    private Tool_new.Shape currentShape;
     private float spacing = 1.0f;
     private final Set<Token> tokensToDelete = new HashSet<>();
     private final Array<Token> tokensPreview = new Array<>();
@@ -57,7 +57,7 @@ public class Tool_6_Decorations extends Tool_new {
     private final Vector2 polygon_TopRight = new Vector2();
     private Shape2DPolygon polygon_shape;
 
-    public Tool_6_Decorations(final RPGMapMakerScene scene) {
+    public Tool_6_Decorations_old(final SceneRPGMapMaker scene) {
         super(scene);
         atlas = Assets.get("assets/texture-packs/layer_3.yml");
         // set al regions
@@ -70,8 +70,8 @@ public class Tool_6_Decorations extends Tool_new {
         sclX = 1f / 1f;
         sclY = 1f / 1f;
 
-        currentShape = Tool.Shape.POINT;
-        currentMode = Tool.Mode.ADD;
+        currentShape = Tool_new.Shape.POINT;
+        currentMode = Tool_new.Mode.ADD;
         currentRegion = allRegions.get(currentAssetIndex);
         refillWithTokens();
     }
@@ -107,10 +107,10 @@ public class Tool_6_Decorations extends Tool_new {
     }
 
     private void refillWithTokens() {
-        if (currentShape == Tool.Shape.POINT)        point_refillWithTokens();
-        else if (currentShape == Tool.Shape.CIRCLE)  circle_refillWithTokens();
-        else if (currentShape == Tool.Shape.LINE)    line_refillWithTokens();
-        else if (currentShape == Tool.Shape.POLYGON) polygon_refillWithTokens();
+        if (currentShape == Tool_new.Shape.POINT)        point_refillWithTokens();
+        else if (currentShape == Tool_new.Shape.CIRCLE)  circle_refillWithTokens();
+        else if (currentShape == Tool_new.Shape.LINE)    line_refillWithTokens();
+        else if (currentShape == Tool_new.Shape.POLYGON) polygon_refillWithTokens();
     }
 
     private void point_refillWithTokens() {
@@ -384,7 +384,7 @@ public class Tool_6_Decorations extends Tool_new {
 
         // =============  actions  ===============
 
-        if (currentMode == Tool.Mode.SUB) {
+        if (currentMode == Tool_new.Mode.SUB) {
             if (leftClicked || leftPressedAndMoved) {
                 tokensToDelete.clear();
                 float radius = Math.abs(circle_spreadRadius * sclX);
@@ -396,7 +396,7 @@ public class Tool_6_Decorations extends Tool_new {
         }
 
         // add tokens
-        if (currentShape == Tool.Shape.POINT) {
+        if (currentShape == Tool_new.Shape.POINT) {
             if (leftClicked) {
                 spawnTokens(true, false);
                 refillWithTokens();
@@ -405,7 +405,7 @@ public class Tool_6_Decorations extends Tool_new {
         }
 
 
-        if (currentShape == Tool.Shape.LINE) {
+        if (currentShape == Tool_new.Shape.LINE) {
             if (line_free) {
                 if (leftClicked) {
                     line_start.set(x, y);
@@ -422,7 +422,7 @@ public class Tool_6_Decorations extends Tool_new {
             }
         }
 
-        if (currentShape == Tool.Shape.CIRCLE) {
+        if (currentShape == Tool_new.Shape.CIRCLE) {
             if (leftClicked || leftPressedAndMoved) {
                 spawnTokens(true, true);
                 refillWithTokens();
@@ -431,7 +431,7 @@ public class Tool_6_Decorations extends Tool_new {
             return;
         }
 
-        if (currentShape == Tool.Shape.POLYGON) {
+        if (currentShape == Tool_new.Shape.POLYGON) {
             if (polygon_free) {
                 if (leftClicked) {
                     polygon_points.add(new Vector2(x, y));
@@ -463,7 +463,7 @@ public class Tool_6_Decorations extends Tool_new {
 
     @Override
     public void renderToolOverlay(Renderer2D renderer2D, float x, float y) {
-        if (currentMode == Tool.Mode.SUB) {
+        if (currentMode == Tool_new.Mode.SUB) {
             float radius = Math.abs(circle_spreadRadius * sclX);
             renderer2D.setColor(Color.RED);
             renderer2D.drawCircleThin(Math.max(radius, 10), 10, x, y, 0,1,1);
@@ -471,7 +471,7 @@ public class Tool_6_Decorations extends Tool_new {
         }
 
         // for adding tokens
-        if (currentShape == Tool.Shape.POINT) {
+        if (currentShape == Tool_new.Shape.POINT) {
             renderer2D.setColor(Color.GREEN);
             renderer2D.drawCircleFilled(8, 10, x, y, 0,1,1);
             renderer2D.setColor(Color.WHITE);
@@ -481,7 +481,7 @@ public class Tool_6_Decorations extends Tool_new {
             return;
         }
 
-        if (currentShape == Tool.Shape.LINE) {
+        if (currentShape == Tool_new.Shape.LINE) {
             if (line_free) {
                 renderer2D.setColor(Color.BLUE);
                 renderer2D.drawCircleThin(Math.max(12, 5), 10, x, y, 0,1,1);
@@ -500,7 +500,7 @@ public class Tool_6_Decorations extends Tool_new {
             return;
         }
 
-        if (currentShape == Tool.Shape.CIRCLE) {
+        if (currentShape == Tool_new.Shape.CIRCLE) {
             float radius = Math.abs(circle_spreadRadius);
             renderer2D.setColor(Color.GREEN);
             renderer2D.drawCircleThin(Math.max(radius, 5), 10, x, y, 0,1,1);
@@ -511,7 +511,7 @@ public class Tool_6_Decorations extends Tool_new {
             return;
         }
 
-        if (currentShape == Tool.Shape.POLYGON) {
+        if (currentShape == Tool_new.Shape.POLYGON) {
             for (Token token : tokensPreview) {
                 token.render(renderer2D);
             }

@@ -1,4 +1,4 @@
 package com.heavybox.jtix.z;
 
-public class ToolStamp_Text {
+public class Tool_3_Nature {
 }

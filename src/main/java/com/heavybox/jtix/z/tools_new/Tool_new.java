@@ -1,6 +1,6 @@
 package com.heavybox.jtix.z.tools_new;
 
-import com.heavybox.jtix.RPGMapMakerScene;
+import com.heavybox.jtix.SceneRPGMapMaker;
 import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.input.InputEventHandler;
 import com.heavybox.jtix.z.Map;
@@ -9,7 +9,7 @@ public abstract class Tool_new implements InputEventHandler {
 
     // meta
     protected final Map map;
-    protected final RPGMapMakerScene scene;
+    protected final SceneRPGMapMaker scene;
     public boolean active = false;
 
     // brush transform
@@ -19,7 +19,7 @@ public abstract class Tool_new implements InputEventHandler {
     public float sclX = 1;
     public float sclY = 1;
 
-    public Tool_new(RPGMapMakerScene scene) {
+    public Tool_new(SceneRPGMapMaker scene) {
         this.scene = scene;
         this.map = scene.getMap();
     }

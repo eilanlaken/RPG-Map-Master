@@ -1,6 +1,6 @@
 package com.heavybox.jtix.z.tools_new;
 
-import com.heavybox.jtix.RPGMapMakerScene;
+import com.heavybox.jtix.SceneRPGMapMaker;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.collections.ArrayChar;
@@ -16,7 +16,6 @@ import com.heavybox.jtix.math.Shape2DPolygon;
 import com.heavybox.jtix.math.Vector2;
 import com.heavybox.jtix.z.CommandTokenCreate;
 import com.heavybox.jtix.z.Token;
-import com.heavybox.jtix.z.Tool;
 import com.heavybox.jtix.z.Utils;
 import org.jetbrains.annotations.NotNull;
 
@@ -51,8 +50,8 @@ public class Tool_5_Architecture extends Tool_new {
     private final TexturePack atlas;
 
     // global state
-    private Tool.Mode currentMode;
-    private Tool.Shape currentShape;
+    private Tool_new.Mode currentMode;
+    private Tool_new.Shape currentShape;
 
     private float spacing = 1.0f;
     private Race race = Race.HUMAN;
@@ -84,15 +83,15 @@ public class Tool_5_Architecture extends Tool_new {
     private final Vector2 polygon_TopRight = new Vector2();
     private Shape2DPolygon polygon_shape;
 
-    public Tool_5_Architecture(final RPGMapMakerScene scene) {
+    public Tool_5_Architecture(final SceneRPGMapMaker scene) {
         super(scene);
         atlas = Assets.get("assets/texture-packs/layer_3.yml");
         sclX = 1f / 4;
         sclY = 1f / 4;
         // group assets
 
-        currentMode = Tool.Mode.ADD;
-        currentShape = Tool.Shape.POINT;
+        currentMode = Tool_new.Mode.ADD;
+        currentShape = Tool_new.Shape.POINT;
     }
 
     private float getDiscreteAngle(float angle) {
@@ -234,10 +233,10 @@ public class Tool_5_Architecture extends Tool_new {
     }
 
     private void refillWithTokens() {
-        if (currentShape == Tool.Shape.POINT)        point_refillWithTokens();
-        else if (currentShape == Tool.Shape.CIRCLE)  circle_refillWithTokens();
-        else if (currentShape == Tool.Shape.LINE)    line_refillWithTokens();
-        else if (currentShape == Tool.Shape.POLYGON) polygon_refillWithTokens();
+        if (currentShape == Tool_new.Shape.POINT)        point_refillWithTokens();
+        else if (currentShape == Tool_new.Shape.CIRCLE)  circle_refillWithTokens();
+        else if (currentShape == Tool_new.Shape.LINE)    line_refillWithTokens();
+        else if (currentShape == Tool_new.Shape.POLYGON) polygon_refillWithTokens();
     }
 
     private void point_refillWithTokens() {}
@@ -456,7 +455,7 @@ public class Tool_5_Architecture extends Tool_new {
             return;
         }
 
-        if (currentMode == Tool.Mode.SUB) {
+        if (currentMode == Tool_new.Mode.SUB) {
             // TODO
             return;
         }
@@ -468,7 +467,7 @@ public class Tool_5_Architecture extends Tool_new {
         }
 
         // add tokens
-        if (currentShape == Tool.Shape.POINT) {
+        if (currentShape == Tool_new.Shape.POINT) {
 
             if (leftJustDown) {
                 point_lastSpawnPoint.set(x, y);
@@ -497,7 +496,7 @@ public class Tool_5_Architecture extends Tool_new {
         }
 
         // TODO
-        if (currentShape == Tool.Shape.LINE) {
+        if (currentShape == Tool_new.Shape.LINE) {
             if (line_free) {
                 if (leftClicked) {
                     line_start.set(x, y);
@@ -515,7 +514,7 @@ public class Tool_5_Architecture extends Tool_new {
         }
 
         // TODO (with fill-shape true / false)
-        if (currentShape == Tool.Shape.CIRCLE) {
+        if (currentShape == Tool_new.Shape.CIRCLE) {
             if (leftClicked || leftPressedAndMoved) {
                 spawnTokens(true, true);
                 refillWithTokens();
@@ -525,7 +524,7 @@ public class Tool_5_Architecture extends Tool_new {
         }
 
         // TODO (with fill-shape true / false)
-        if (currentShape == Tool.Shape.POLYGON) {
+        if (currentShape == Tool_new.Shape.POLYGON) {
             if (polygon_free) {
                 if (leftClicked) {
                     polygon_points.add(new Vector2(x, y));
@@ -558,16 +557,16 @@ public class Tool_5_Architecture extends Tool_new {
 
     @Override
     public void renderToolOverlay(Renderer2D renderer2D, float x, float y) {
-        if (currentMode == Tool.Mode.SUB) {
+        if (currentMode == Tool_new.Mode.SUB) {
 
             return;
         }
 
-        if (currentShape == Tool.Shape.POINT) {
+        if (currentShape == Tool_new.Shape.POINT) {
 
         }
 
-        if (currentShape == Tool.Shape.LINE) {
+        if (currentShape == Tool_new.Shape.LINE) {
             if (line_free) {
                 renderer2D.setColor(Color.BLUE);
                 renderer2D.drawCircleThin(Math.max(12, 5), 10, x, y, 0,1,1);
@@ -588,7 +587,7 @@ public class Tool_5_Architecture extends Tool_new {
             return;
         }
 
-        if (currentShape == Tool.Shape.CIRCLE) {
+        if (currentShape == Tool_new.Shape.CIRCLE) {
             float radius = Math.abs(circle_spreadRadius);
             renderer2D.setColor(Color.GREEN);
             renderer2D.drawCircleThin(Math.max(radius, 5), 10, x, y, 0,1,1);
@@ -599,7 +598,7 @@ public class Tool_5_Architecture extends Tool_new {
             return;
         }
 
-        if (currentShape == Tool.Shape.POLYGON) {
+        if (currentShape == Tool_new.Shape.POLYGON) {
             for (Token token : tokensPreview) {
                 token.render(renderer2D);
             }

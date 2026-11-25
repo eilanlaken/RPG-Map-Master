@@ -3,7 +3,7 @@ package com.heavybox.jtix.z;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.graphics.*;
-import com.heavybox.jtix.z.tools_new.Tool_1_Terrain;
+import com.heavybox.jtix.z.tools_new.Tool_1_Terrain_old;
 import com.heavybox.jtix.z.tools_new.Tool_new;
 import org.lwjgl.opengl.GL11;
 
@@ -129,9 +129,9 @@ public class MapSurface_0_Terrain implements MapSurface {
 
         if (command instanceof CommandTerrain) {
             CommandTerrain cmd = (CommandTerrain) command;
-            if (cmd.target == Tool_1_Terrain.Target.GROUND) commandsGround.add(cmd);
-            if (cmd.target == Tool_1_Terrain.Target.LIQUID) commandsLiquid.add(cmd);
-            if (cmd.target == Tool_1_Terrain.Target.BLEND_MAP) commandsBlendMap.add(cmd);
+            if (cmd.target == Tool_1_Terrain_old.Target.GROUND) commandsGround.add(cmd);
+            if (cmd.target == Tool_1_Terrain_old.Target.LIQUID) commandsLiquid.add(cmd);
+            if (cmd.target == Tool_1_Terrain_old.Target.BLEND_MAP) commandsBlendMap.add(cmd);
             return;
         }
 

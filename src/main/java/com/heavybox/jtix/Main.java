@@ -6,7 +6,6 @@ import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.collections.Tuple2;
 import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Vector2;
-import com.heavybox.jtix.z.DevTests;
 import com.heavybox.jtix.z.DevTools;
 import com.heavybox.jtix.z.Utils;
 
@@ -27,7 +26,7 @@ public class Main {
         ApplicationSettings settings = new ApplicationSettings();
         //settings.resizable = false;
         Application.init(settings);
-        Application.launch(new SceneDemo());
+        Application.launch(new SceneRPGMapMakerMain());
         //Application.launch(new SceneRenderer2D_Test_0());
         //Application.launch(new SceneInput_4());
         //Application.launch(new SceneInput_6());

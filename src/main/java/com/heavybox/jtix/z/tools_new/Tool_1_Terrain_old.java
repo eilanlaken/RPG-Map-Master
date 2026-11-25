@@ -1,6 +1,6 @@
 package com.heavybox.jtix.z.tools_new;
 
-import com.heavybox.jtix.RPGMapMakerScene;
+import com.heavybox.jtix.SceneRPGMapMaker;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.collections.ArrayChar;
@@ -16,7 +16,7 @@ import com.heavybox.jtix.math.Vector2;
 import com.heavybox.jtix.z.*;
 import org.jetbrains.annotations.NotNull;
 
-public class Tool_1_Terrain extends Tool_new {
+public class Tool_1_Terrain_old extends Tool_new {
 
     // resources - terrain and brush textures, shaders
     public final Texture[] brushesAdd = new Texture[9];
@@ -60,7 +60,7 @@ public class Tool_1_Terrain extends Tool_new {
     private final Vector2 polygon_TopRight = new Vector2();
     private Shape2DPolygon polygon_shape;
 
-    public Tool_1_Terrain(RPGMapMakerScene scene) {
+    public Tool_1_Terrain_old(SceneRPGMapMaker scene) {
         super(scene);
 
         // init brush stuff
