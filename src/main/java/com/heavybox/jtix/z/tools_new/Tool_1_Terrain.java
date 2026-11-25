@@ -131,8 +131,6 @@ public class Tool_1_Terrain extends Tool_new {
 
     @Override
     public void update(float delta) {
-        System.out.println(groundIndex);
-
         boolean shiftLeftJustPressed = Input.keyboard.isKeyJustPressed(Keyboard.Key.LEFT_SHIFT);
         boolean leftButtonPressed = Input.mouse.isButtonPressed(Mouse.Button.LEFT);
         boolean leftButtonJustPressed = Input.mouse.isButtonJustPressed(Mouse.Button.LEFT);
