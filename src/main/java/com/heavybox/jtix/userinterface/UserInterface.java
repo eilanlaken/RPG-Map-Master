@@ -19,14 +19,14 @@ import java.util.function.Predicate;
 
 public final class UserInterface {
 
-    public static final Comparator<Node> NODE_COMPARATOR = Comparator.comparingInt(a -> a.zIndex);
+    public static final Comparator<UI> UI_COMPARATOR = Comparator.comparingInt(a -> a.zIndex);
 
     /*** global theme ***/
     private static final Theme THEME_DEFAULT = new Theme();
     private static       Theme theme         = THEME_DEFAULT;
 
     /*** tmp Widget helpers ***/
-    static final Array<Node>        layoutChildren = new Array<>(true, 10);
+    static final Array<UI>          layoutChildren = new Array<>(true, 10);
     static final Array<Transform2D> layoutOffsets  = new Array<>(true, 10);
 
     /*** some global flags ***/
@@ -34,21 +34,21 @@ public final class UserInterface {
     public  static boolean debugMode = true; // TODO: use this when rendering: render regions if true.
 
     /*** nodes and input device state management */
-    private static Node  inputMouseTarget        = null;
-    private static Node  inputMouseDragTarget    = null;
-    private static Node  inputMouseDragUnder     = null;
-    private static Node  inputMouseDragUnderPrev = null;
-    private static Node  inputMouseDownTarget    = null;
-    private static Node  inputMouseUpTarget      = null;
-    private static Node  inputKeyboardFocus      = null;
+    private static UI    inputMouseTarget        = null;
+    private static UI    inputMouseDragTarget    = null;
+    private static UI    inputMouseDragUnder     = null;
+    private static UI    inputMouseDragUnderPrev = null;
+    private static UI    inputMouseDownTarget    = null;
+    private static UI    inputMouseUpTarget      = null;
+    private static UI    inputKeyboardFocus      = null;
     private static float pointerXPrev            = 0;
     private static float pointerYPrev            = 0;
     private static float pointerX                = 0;
     private static float pointerY                = 0;
 
     /*** current scene widgets hierarchy */
-    private static final Array<Node> rootWidgets = new Array<>(false, 5);
-    private static final Array<Node> toReplace   = new Array<>(false, 1);
+    private static final Array<UI> rootWidgets = new Array<>(false, 5);
+    private static final Array<UI> toReplace   = new Array<>(false, 1);
 
     /*** helper variable - make sure update() was called by the programmer ***/
     private static boolean readyToRender = false;
@@ -63,7 +63,7 @@ public final class UserInterface {
 
         @Override
         public boolean mouseButtonsDown(int mouseX, int mouseY, @NotNull Array<Mouse.Button> buttons) {
-            Node target = findTopmostChildAt(pointerX, pointerY, null);
+            UI target = findTopmostChildAt(pointerX, pointerY, null);
             inputMouseDownTarget = target;
             if (target == null) return false; // hit an empty space.
 
@@ -137,7 +137,7 @@ public final class UserInterface {
         @Override
         public boolean mouseButtonsUp(int mouseX, int mouseY, @NotNull Array<Mouse.Button> buttons) {
             inputMouseDragTarget = null;
-            Node target = findTopmostChildAt(pointerX, pointerY, null);
+            UI target = findTopmostChildAt(pointerX, pointerY, null);
             inputMouseUpTarget = target;
             if (target == null) return false; // no target of the component tree was hit.
 
@@ -205,7 +205,7 @@ public final class UserInterface {
             }
 
             /* taking care of mouse drag drop event */
-            Node dropTarget = findTopmostChildAt(pointerX, pointerY, inputMouseDragTarget);
+            UI dropTarget = findTopmostChildAt(pointerX, pointerY, inputMouseDragTarget);
             if (dropTarget != null) {
                 EventData.MouseDragDrop dragDrop = new EventData.MouseDragDrop(
                         dropTarget,
@@ -228,14 +228,14 @@ public final class UserInterface {
 
         @Override
         public boolean mouseMoved(int mouseX, int mouseY, int deltaMouseX, int deltaMouseY) {
-            Node inputMouseTargetPrev = inputMouseTarget;
+            UI inputMouseTargetPrev = inputMouseTarget;
             inputMouseTarget = findTopmostChildAt(pointerX, pointerY, null);
 
             if (inputMouseTarget == inputMouseTargetPrev) return inputMouseTarget != null;
 
             /* handle possibly leaving prev target */
             if (inputMouseTargetPrev != null) {
-                Node leaveEventTarget = inputMouseTargetPrev;
+                UI leaveEventTarget = inputMouseTargetPrev;
                 while (leaveEventTarget != null) {
                     if (leaveEventTarget.eventListener.onMouseLeave != null) break;
                     if (leaveEventTarget.eventListenerDefault.onMouseLeave != null) break;
@@ -266,7 +266,7 @@ public final class UserInterface {
 
             /* handle possibly entering current target */
             if (inputMouseTarget != null) {
-                Node enterEventTarget = inputMouseTarget;
+                UI enterEventTarget = inputMouseTarget;
                 while (enterEventTarget != null) {
                     if (enterEventTarget.eventListener.onMouseEnter != null) break;
                     if (enterEventTarget.eventListenerDefault.onMouseEnter != null) break;
@@ -300,7 +300,7 @@ public final class UserInterface {
 
         @Override
         public boolean mouseScrolled(float scrollX, float scrollY) {
-            Node target = findTopmostChildAt(pointerX, pointerY, null);
+            UI target = findTopmostChildAt(pointerX, pointerY, null);
             if (target == null) return false; // no target of the component tree was hit.
 
             /* travels to the top-most component that handles the event. */
@@ -331,7 +331,7 @@ public final class UserInterface {
 
         @Override
         public boolean mouseDragged(int mouseX, int mouseY, int deltaMouseX, int deltaMouseY, @NotNull Array<Mouse.Button> buttons) {
-            Node mouseOver = findTopmostChildAt(pointerX, pointerY, null);
+            UI mouseOver = findTopmostChildAt(pointerX, pointerY, null);
             if (inputMouseDragTarget == null) return mouseOver != null;
 
             boolean triggerOnMouseDrag = inputMouseDragTarget.eventListener.onMouseDrag != null;
@@ -358,7 +358,7 @@ public final class UserInterface {
 
             /* handle drag leave event */
             if (inputMouseDragUnderPrev != null) {
-                Node dragLeaveEventTarget = inputMouseDragUnderPrev;
+                UI dragLeaveEventTarget = inputMouseDragUnderPrev;
                 while (dragLeaveEventTarget != null) {
                     if (dragLeaveEventTarget.eventListener.onMouseDragLeave != null) break;
                     if (dragLeaveEventTarget.eventListenerDefault.onMouseDragLeave != null) break;
@@ -389,7 +389,7 @@ public final class UserInterface {
 
             /* handle possible drag enter */
             if (inputMouseDragUnder != null) {
-                Node dragEnterEventTarget = inputMouseDragUnder;
+                UI dragEnterEventTarget = inputMouseDragUnder;
                 while (dragEnterEventTarget != null) {
                     if (dragEnterEventTarget.eventListener.onMouseDragEnter != null) break;
                     if (dragEnterEventTarget.eventListenerDefault.onMouseDragEnter != null) break;
@@ -507,9 +507,9 @@ public final class UserInterface {
         return theme;
     }
 
-    private static Node findTopmostChildAt(float pointerX, float pointerY, final Node excluded) {
+    private static UI findTopmostChildAt(float pointerX, float pointerY, final UI excluded) {
         for (int i = rootWidgets.size - 1; i >= 0; i--) {
-            Node topmost = rootWidgets.get(i).findTopmostChildAt(pointerX, pointerY, excluded);
+            UI topmost = rootWidgets.get(i).findTopmostChildAt(pointerX, pointerY, excluded);
             if (topmost != null) return topmost;
         }
         return null;
@@ -527,21 +527,21 @@ public final class UserInterface {
 
         // consolidate root nodes
         toReplace.clear();
-        for (Node node : rootWidgets) {
-            if (!node.isRoot()) toReplace.add(node);
+        for (UI UI : rootWidgets) {
+            if (!UI.isRoot()) toReplace.add(UI);
         }
-        for (Node node : toReplace) {
-            Node newRoot = node.getRoot();
-            if (!rootWidgets.contains(newRoot, true)) rootWidgets.replaceFirst(node, newRoot, true);
-            else rootWidgets.removeValue(node, true);
+        for (UI UI : toReplace) {
+            UI newRoot = UI.getRoot();
+            if (!rootWidgets.contains(newRoot, true)) rootWidgets.replaceFirst(UI, newRoot, true);
+            else rootWidgets.removeValue(UI, true);
         }
-        rootWidgets.sort(NODE_COMPARATOR);
+        rootWidgets.sort(UI_COMPARATOR);
 
         final float delta = Graphics.getDeltaTime();
-        for (Node node : rootWidgets) {
-            if (!node.isRoot()) continue;
-            if (!node.isActive()) continue;
-            node.update(delta);
+        for (UI UI : rootWidgets) {
+            if (!UI.isRoot()) continue;
+            if (!UI.isActive()) continue;
+            UI.update(delta);
         }
 
         readyToRender = true;
@@ -550,31 +550,31 @@ public final class UserInterface {
     public static void render(Renderer2D renderer2D) {
         if (!readyToRender) throw new UserInterfaceException("Must call UserInterface.update() before rendering");
         // iterate over all *root* widget nodes and perform renders
-        rootWidgets.sort(NODE_COMPARATOR);
-        for (Node node : rootWidgets) {
-            if (!node.isRoot()) continue; // to be extra sure.
-            if (!node.isActive()) continue; // to be extra sure.
+        rootWidgets.sort(UI_COMPARATOR);
+        for (UI UI : rootWidgets) {
+            if (!UI.isRoot()) continue; // to be extra sure.
+            if (!UI.isActive()) continue; // to be extra sure.
             renderer2D.setColor(Color.WHITE_FLOAT);
-            node.render(renderer2D);
+            UI.render(renderer2D);
         }
 
         readyToRender = false;
     }
 
-    public static void add(final @NotNull Node node) {
-        Node root = node.getRoot();
+    public static void add(final @NotNull UI UI) {
+        UI root = UI.getRoot();
         if (rootWidgets.contains(root,true)) return;
 
         rootWidgets.add(root);
         root.onParentChange();
     }
 
-    public static void remove(@NotNull final Node node) {
-        node.parentRemove();
-        rootWidgets.removeValue(node, true);
+    public static void remove(@NotNull final UI UI) {
+        UI.parentRemove();
+        rootWidgets.removeValue(UI, true);
     }
 
-    public static void sendMessageToNode(final Object message, final Predicate<Node> isNodeTarget) {
+    public static void sendMessageToNode(final Object message, final Predicate<UI> isNodeTarget) {
         // TODO
     }
 
@@ -582,7 +582,7 @@ public final class UserInterface {
         // TODO
     }
 
-    public static void sendMessageToNode(final Object message, final Node targetNode) {
+    public static void sendMessageToNode(final Object message, final UI targetUI) {
         // TODO
     }
 
@@ -602,21 +602,21 @@ public final class UserInterface {
 
     /* package private methods */
 
-    static void focusSet(@NotNull final Node node) {
-        inputKeyboardFocus = node;
+    static void focusSet(@NotNull final UI UI) {
+        inputKeyboardFocus = UI;
     }
 
-    static void focusRelease(@NotNull final Node node) {
-        if (inputKeyboardFocus == node) {
+    static void focusRelease(@NotNull final UI UI) {
+        if (inputKeyboardFocus == UI) {
             inputKeyboardFocus = null;
         }
     }
 
-    static boolean isXAncestorOfY(final Node X, final Node Y) {
+    static boolean isXAncestorOfY(final UI X, final UI Y) {
         if (X == null || Y == null) return false;
         if (X == Y) return true;
 
-        Node current = Y.getParent();
+        UI current = Y.getParent();
         while (current != null) {
             if (current == X) return true;
             current = current.getParent();

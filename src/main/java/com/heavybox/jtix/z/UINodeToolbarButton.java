@@ -1,12 +1,10 @@
 package com.heavybox.jtix.z;
 
-import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.graphics.Color;
-import com.heavybox.jtix.graphics.TexturePack;
 import com.heavybox.jtix.graphics.TextureRegion;
 import com.heavybox.jtix.userinterface.*;
 
-public class UINodeToolbarButton extends NodeGroup {
+public class UINodeToolbarButton extends UIGroup {
 
     public final int selectIndex;
 
@@ -18,10 +16,10 @@ public class UINodeToolbarButton extends NodeGroup {
         colorBackground = Color.valueOf("#2B2D30");
         widthFitContent = false;
         heightFitContent = false;
-        childAdd(new NodeGraphics(region));
-        childAdd(new NodeText(text));
+        childAdd(new UIGraphics(region));
+        childAdd(new UIText(text));
 
-        NodeText hotkey = new NodeText(hotkeyText);
+        UIText hotkey = new UIText(hotkeyText);
         hotkey.anchor = Anchor.PARENT_CENTER_RIGHT;
         hotkey.transform.x = -10;
         childAdd(hotkey);
@@ -30,21 +28,21 @@ public class UINodeToolbarButton extends NodeGroup {
         this.selectIndex = index;
 
         onMouseEnter(e -> {
-            Node parent = super.parent;
+            UI parent = super.parent;
             UINodeToolbar toolbar = (UINodeToolbar) parent;
             if (toolbar.selected == selectIndex) return;
             colorBackground = Color.valueOf("#43454A");
         });
 
         onMouseLeave(e -> {
-            Node parent = super.parent;
+            UI parent = super.parent;
             UINodeToolbar toolbar = (UINodeToolbar) parent;
             if (toolbar.selected == selectIndex) return;
             colorBackground = Color.valueOf("#2B2D30");
         });
 
         onMouseClick(e -> {
-            Node parent = super.parent;
+            UI parent = super.parent;
             UINodeToolbar toolbar = (UINodeToolbar) parent;
             if (toolbar.selected == selectIndex) return;
 

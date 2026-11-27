@@ -17,16 +17,16 @@ import org.lwjgl.opengl.GL11;
 
 public class SceneInput_5 implements Scene {
 
-    NodeGroup panel_1;
-    NodeGraphics p1_child_1 = new NodeGraphics(180,80);
-    NodeGraphics p1_child_2 = new NodeGraphics(80,110);
+    UIGroup panel_1;
+    UIGraphics p1_child_1 = new UIGraphics(180,80);
+    UIGraphics p1_child_2 = new UIGraphics(80,110);
 
     Renderer2D renderer2D = new Renderer2D();
     TexturePack atlas;
 
-    NodeGraphics graphics;
+    UIGraphics graphics;
 
-    NodeScrollbar scrollbar;
+    UIScrollbar scrollbar;
 
 
 
@@ -80,15 +80,15 @@ public class SceneInput_5 implements Scene {
 
 
         atlas = Assets.get("assets/texture-packs/user-interface.yml");
-        graphics = new NodeGraphics(344,344);
+        graphics = new UIGraphics(344,344);
 
-        panel_1 = new NodeGroup();
+        panel_1 = new UIGroup();
         panel_1.setLayoutGrid(true, 5,5, true);
         p1_child_1.color = Color.randomOpaque().toFloatBits();
         p1_child_2.color = Color.randomOpaque().toFloatBits();
 
         for (int i = 0; i < 10; i++) {
-            NodeGraphics child = new NodeGraphics(MathUtils.randomUniformFloat(50,100), MathUtils.randomUniformFloat(50,100));
+            UIGraphics child = new UIGraphics(MathUtils.randomUniformFloat(50,100), MathUtils.randomUniformFloat(50,100));
             child.color = Color.randomOpaque().toFloatBits();
 //            panel_1.childAdd(child);
         }
@@ -105,7 +105,7 @@ public class SceneInput_5 implements Scene {
 
     @Override
     public boolean mouseButtonsDown(int mouseX, int mouseY, @NotNull Array<Mouse.Button> buttons) {
-        NodeGraphics child = new NodeGraphics(MathUtils.randomUniformFloat(50,150), MathUtils.randomUniformFloat(50,150));
+        UIGraphics child = new UIGraphics(MathUtils.randomUniformFloat(50,150), MathUtils.randomUniformFloat(50,150));
         child.color = Color.randomOpaque().toFloatBits();
         panel_1.childAdd(child);
         return true;

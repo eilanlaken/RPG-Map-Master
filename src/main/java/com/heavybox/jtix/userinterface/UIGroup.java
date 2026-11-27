@@ -9,7 +9,7 @@ import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Vector2;
 import org.jetbrains.annotations.NotNull;
 
-public class NodeGroup extends Node {
+public class UIGroup extends UI {
 
     /* settings */
     public boolean widthFitContent  = false;
@@ -54,11 +54,11 @@ public class NodeGroup extends Node {
     private float currentHeight    = 0;
 
     // built in children
-    private final NodeScrollbar scrollbarY = new NodeScrollbar(true);
-    private final NodeScrollbar scrollbarX = new NodeScrollbar(false);
+    private final UIScrollbar scrollbarY = new UIScrollbar(true);
+    private final UIScrollbar scrollbarX = new UIScrollbar(false);
 
     // set scrolls etc
-    public NodeGroup() {
+    public UIGroup() {
         scrollbarY.zIndex = Integer.MAX_VALUE;
         scrollbarX.zIndex = Integer.MAX_VALUE;
         scrollbarY.anchor = Anchor.PARENT_TOP_RIGHT;

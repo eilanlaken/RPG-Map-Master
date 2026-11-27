@@ -2,12 +2,11 @@ package com.heavybox.jtix.z;
 
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.TextureRegion;
-import com.heavybox.jtix.userinterface.Anchor;
-import com.heavybox.jtix.userinterface.NodeGraphics;
-import com.heavybox.jtix.userinterface.NodeGroup;
-import com.heavybox.jtix.userinterface.NodeText;
+import com.heavybox.jtix.userinterface.UIGraphics;
+import com.heavybox.jtix.userinterface.UIGroup;
+import com.heavybox.jtix.userinterface.UIText;
 
-public class UINodeTopbarButton extends NodeGroup {
+public class UINodeTopbarButton extends UIGroup {
 
     public UINodeTopbarButton(final TextureRegion region, final String text) {
         setLayoutHorizontal();
@@ -18,9 +17,9 @@ public class UINodeTopbarButton extends NodeGroup {
         widthFitContent = false;
         heightFitContent = true;
 
-        childAdd(new NodeGraphics(region));
+        childAdd(new UIGraphics(region));
 
-        NodeText nodeText = new NodeText(text);
+        UIText nodeText = new UIText(text);
         nodeText.size = 14;
         childAdd(nodeText);
 

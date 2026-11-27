@@ -3,9 +3,9 @@ package com.heavybox.jtix.z;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.graphics.TexturePack;
 import com.heavybox.jtix.userinterface.Anchor;
-import com.heavybox.jtix.userinterface.NodeGroup;
+import com.heavybox.jtix.userinterface.UIGroup;
 
-public class UINodeTopbar extends NodeGroup {
+public class UINodeTopbar extends UIGroup {
 
     // buttons
     private final UINodeTopbarButton btnNew;

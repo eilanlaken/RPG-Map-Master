@@ -7,7 +7,7 @@ import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Vector2;
 
 // TODO: actually finish
-public class NodeSlider extends Node {
+public class UISlider extends UI {
 
     /* state and data */
     public boolean integers = false; // TODO
@@ -26,7 +26,7 @@ public class NodeSlider extends Node {
     public Color         colorThumb      = UserInterface.getTheme().sliderColorThumb.clone();
     public Color         colorFill       = UserInterface.getTheme().sliderColorFill.clone();
 
-    public NodeSlider() {
+    public UISlider() {
         onMouseDragStartDefault(e -> {
             float value = 0.5f + e.mouseLocalX / length;
             setValue(value);

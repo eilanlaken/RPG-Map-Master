@@ -9,7 +9,7 @@ import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Vector2;
 
 // TODO
-public class NodeScrollbar extends Node {
+public class UIScrollbar extends UI {
 
     /* state */
     public boolean vertical  = true;
@@ -29,7 +29,7 @@ public class NodeScrollbar extends Node {
     private final ArrayFloat polygonThumb = new ArrayFloat(true, 8);
     private final ArrayInt   indices      = new ArrayInt(true, 0,1,3,3,1,2);
 
-    public NodeScrollbar(boolean vertical) {
+    public UIScrollbar(boolean vertical) {
         this.vertical = vertical;
 
         onMouseDragStartDefault(e -> {
@@ -43,7 +43,7 @@ public class NodeScrollbar extends Node {
         });
     }
 
-    public NodeScrollbar() {
+    public UIScrollbar() {
         this(true);
     }
 

@@ -16,26 +16,26 @@ import org.lwjgl.opengl.GL11;
 
 public class SceneInput_4 implements Scene {
 
-    NodeGraphics panel_1 = new NodeGraphics(250,250);
-    NodeGraphics p1_child_1 = new NodeGraphics(80,80);
-    NodeGraphics p1_child_2 = new NodeGraphics(80,80);
+    UIGraphics panel_1 = new UIGraphics(250,250);
+    UIGraphics p1_child_1 = new UIGraphics(80,80);
+    UIGraphics p1_child_2 = new UIGraphics(80,80);
 
-    NodeGraphics panel_2 = new NodeGraphics(250,250);
-    NodeGraphics p2_child_1 = new NodeGraphics(80,80);
-    NodeGraphics p2_child_2 = new NodeGraphics(80,80);
+    UIGraphics panel_2 = new UIGraphics(250,250);
+    UIGraphics p2_child_1 = new UIGraphics(80,80);
+    UIGraphics p2_child_2 = new UIGraphics(80,80);
 
-    NodeGraphics shape = new NodeGraphics(55);
-    NodeText text;
-    NodeGraphics picture;
+    UIGraphics shape = new UIGraphics(55);
+    UIText text;
+    UIGraphics picture;
 
-    NodeSlider slider;
-    NodeCheckbox checkbox;
+    UISlider slider;
+    UICheckbox checkbox;
 
     Renderer2D renderer2D = new Renderer2D();
     TexturePack atlas;
 
     TextureRegion region;
-    NodeGraphics graphics;
+    UIGraphics graphics;
 
     @Override
     public void start() {
@@ -74,14 +74,14 @@ public class SceneInput_4 implements Scene {
         Theme theme = Assets.get("assets/user-interface-theme/theme.yml");
         UserInterface.setTheme(theme);
 
-        slider = new NodeSlider();
-        checkbox = new NodeCheckbox();
+        slider = new UISlider();
+        checkbox = new UICheckbox();
 
         atlas = Assets.get("assets/texture-packs/user-interface.yml");
         region = atlas.getRegion("assets/user-interface/debug-mouse.jpg");
-        graphics = new NodeGraphics(344,344);
+        graphics = new UIGraphics(344,344);
 
-        picture = new NodeGraphics(atlas.getRegion("assets/user-interface/toolbar-icon-nature.png"));
+        picture = new UIGraphics(atlas.getRegion("assets/user-interface/toolbar-icon-nature.png"));
 
         panel_1.transform.x = -300;
         panel_1.transform.y = 0;
@@ -157,7 +157,7 @@ public class SceneInput_4 implements Scene {
         //UserInterface.add(shape);
         //UserInterface.add(picture);
         //slider.transform.deg = 90;
-        text = new NodeText("hello text");
+        text = new UIText("hello text");
         UserInterface.cleanup();
         UserInterface.add(text);
         //UserInterface.add(graphics);

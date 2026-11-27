@@ -6,7 +6,7 @@ import com.heavybox.jtix.graphics.Texture;
 import com.heavybox.jtix.userinterface.*;
 import com.heavybox.jtix.z.tools_new.Tool_new;
 
-public class UINodeToolOptions_1_Terrain extends NodeGroup {
+public class UINodeToolOptions_1_Terrain extends UIGroup {
 
     public UINodeToolOptions_1_Terrain() {
         setLayoutVertical();
@@ -17,18 +17,18 @@ public class UINodeToolOptions_1_Terrain extends NodeGroup {
         heightFitContent = true;
 
         // TITLE
-        NodeGraphics titleBackground = new NodeGraphics(360, 30);
+        UIGraphics titleBackground = new UIGraphics(360, 30);
         titleBackground.color = Color.valueOf("0075FF").toFloatBits();
-        NodeText titleTool = new NodeText("Terrain Tool");
+        UIText titleTool = new UIText("Terrain Tool");
         titleTool.size = 21;
         titleBackground.childAdd(titleTool);
         childAdd(titleBackground);
 
         // MODE
-        NodeText titleMode = new NodeText("Mode");
+        UIText titleMode = new UIText("Mode");
         titleMode.size = 18;
         childAdd(titleMode);
-        NodeGroup modeOptions = new NodeGroup();
+        UIGroup modeOptions = new UIGroup();
         modeOptions.setLayoutHorizontal();
         modeOptions.widthFitContent = true;
         modeOptions.heightFitContent = true;
@@ -36,23 +36,23 @@ public class UINodeToolOptions_1_Terrain extends NodeGroup {
         modeOptions.paddingLeft = 0;
         modeOptions.paddingRight = 0;
         modeOptions.paddingBottom = 0;
-        NodeOption optionAdd = new NodeOption(modeOptions.ID, Tool_new.Mode.ADD);
-        NodeText optionAddText = new NodeText("Add");
+        UIOption optionAdd = new UIOption(modeOptions.ID, Tool_new.Mode.ADD);
+        UIText optionAddText = new UIText("Add");
         optionAddText.size = 14;
         modeOptions.childAdd(optionAdd);
         modeOptions.childAdd(optionAddText);
-        NodeOption optionSub = new NodeOption(modeOptions.ID, Tool_new.Mode.SUB);
-        NodeText optionSubText = new NodeText("Subtract");
+        UIOption optionSub = new UIOption(modeOptions.ID, Tool_new.Mode.SUB);
+        UIText optionSubText = new UIText("Subtract");
         optionSubText.size = 14;
         modeOptions.childAdd(optionSub);
         modeOptions.childAdd(optionSubText);
         childAdd(modeOptions);
 
         // SHAPE
-        NodeText titleShape = new NodeText("Shape");
+        UIText titleShape = new UIText("Shape");
         titleShape.size = 18;
         childAdd(titleShape);
-        NodeGroup modeShape = new NodeGroup();
+        UIGroup modeShape = new UIGroup();
         modeShape.setLayoutHorizontal();
         modeShape.widthFitContent = true;
         modeShape.heightFitContent = true;
@@ -60,23 +60,23 @@ public class UINodeToolOptions_1_Terrain extends NodeGroup {
         modeShape.paddingLeft = 0;
         modeShape.paddingRight = 0;
         modeShape.paddingBottom = 0;
-        NodeOption optionShapePoint = new NodeOption(modeShape.ID, Tool_new.Shape.POINT);
-        NodeText optionShapePointText = new NodeText("Point");
+        UIOption optionShapePoint = new UIOption(modeShape.ID, Tool_new.Shape.POINT);
+        UIText optionShapePointText = new UIText("Point");
         optionShapePointText.size = 14;
         modeShape.childAdd(optionShapePoint);
         modeShape.childAdd(optionShapePointText);
-        NodeOption optionShapeLine = new NodeOption(modeShape.ID, Tool_new.Shape.LINE);
-        NodeText optionShapeLineText = new NodeText("Line");
+        UIOption optionShapeLine = new UIOption(modeShape.ID, Tool_new.Shape.LINE);
+        UIText optionShapeLineText = new UIText("Line");
         optionShapeLineText.size = 14;
         modeShape.childAdd(optionShapeLine);
         modeShape.childAdd(optionShapeLineText);
-        NodeOption optionShapeCircle = new NodeOption(modeShape.ID, Tool_new.Shape.CIRCLE);
-        NodeText optionShapeCircleText = new NodeText("Circle");
+        UIOption optionShapeCircle = new UIOption(modeShape.ID, Tool_new.Shape.CIRCLE);
+        UIText optionShapeCircleText = new UIText("Circle");
         optionShapeCircleText.size = 14;
         modeShape.childAdd(optionShapeCircle);
         modeShape.childAdd(optionShapeCircleText);
-        NodeOption optionShapePolygon = new NodeOption(modeShape.ID, Tool_new.Shape.POLYGON);
-        NodeText optionShapePolygonText = new NodeText("Polygon");
+        UIOption optionShapePolygon = new UIOption(modeShape.ID, Tool_new.Shape.POLYGON);
+        UIText optionShapePolygonText = new UIText("Polygon");
         optionShapePolygonText.size = 14;
         modeShape.childAdd(optionShapePolygon);
         modeShape.childAdd(optionShapePolygonText);
@@ -85,10 +85,10 @@ public class UINodeToolOptions_1_Terrain extends NodeGroup {
         // TARGET
 
         // TYPE
-        NodeText titleType = new NodeText("Type");
+        UIText titleType = new UIText("Type");
         titleType.size = 18;
         childAdd(titleType);
-        NodeGroup typesGrid = new NodeGroup();
+        UIGroup typesGrid = new UIGroup();
         typesGrid.setLayoutGrid(true, 4, 4, true);
         typesGrid.widthFitContent = true;
         typesGrid.heightFitContent = true;
@@ -96,44 +96,44 @@ public class UINodeToolOptions_1_Terrain extends NodeGroup {
         typesGrid.paddingLeft = 0;
         typesGrid.paddingRight = 0;
         typesGrid.paddingBottom = 0;
-        NodeGraphics type_1 = new NodeGraphics(60,60);
+        UIGraphics type_1 = new UIGraphics(60,60);
         type_1.setImage((Texture) Assets.get("assets/textures-layer-0/terrain_land_road_0.jpg"));
         typesGrid.childAdd(type_1);
-        NodeGraphics type_2 = new NodeGraphics(60,60);
+        UIGraphics type_2 = new UIGraphics(60,60);
         type_2.setImage((Texture) Assets.get("assets/textures-layer-0/terrain_land_grass_0.jpg"));
         typesGrid.childAdd(type_2);
-        NodeGraphics type_3 = new NodeGraphics(60,60);
+        UIGraphics type_3 = new UIGraphics(60,60);
         type_3.setImage((Texture) Assets.get("assets/textures-layer-0/terrain_land_parchment_0.jpg"));
         typesGrid.childAdd(type_3);
-        NodeGraphics type_4 = new NodeGraphics(60,60);
+        UIGraphics type_4 = new UIGraphics(60,60);
         type_4.setImage((Texture) Assets.get("assets/textures-layer-0/terrain_land_parchment_1.jpg"));
         typesGrid.childAdd(type_4);
-        NodeGraphics type_5 = new NodeGraphics(60,60);
+        UIGraphics type_5 = new UIGraphics(60,60);
         type_5.setImage((Texture) Assets.get("assets/textures-layer-0/terrain_land_grass_1.jpg"));
         typesGrid.childAdd(type_5);
-        NodeGraphics type_6 = new NodeGraphics(60,60);
+        UIGraphics type_6 = new UIGraphics(60,60);
         type_6.setImage((Texture) Assets.get("assets/textures-layer-0/terrain_land_dirt_0.jpg"));
         typesGrid.childAdd(type_6);
-        NodeGraphics type_7 = new NodeGraphics(60,60);
+        UIGraphics type_7 = new UIGraphics(60,60);
         type_7.setImage((Texture) Assets.get("assets/textures-layer-0/terrain_land_dirt_1.jpg"));
         typesGrid.childAdd(type_7);
-        NodeGraphics type_8 = new NodeGraphics(60,60);
+        UIGraphics type_8 = new UIGraphics(60,60);
         type_8.setImage((Texture) Assets.get("assets/textures-layer-0/terrain_land_stone_0.jpg"));
         typesGrid.childAdd(type_8);
-        NodeGraphics type_9 = new NodeGraphics(60,60);
+        UIGraphics type_9 = new UIGraphics(60,60);
         type_9.setImage((Texture) Assets.get("assets/textures-layer-0/terrain_liquid_water_0.jpg"));
         typesGrid.childAdd(type_9);
-        NodeGraphics type_10 = new NodeGraphics(60,60);
+        UIGraphics type_10 = new UIGraphics(60,60);
         type_10.setImage((Texture) Assets.get("assets/textures-layer-0/terrain_liquid_water_1.jpg"));
         typesGrid.childAdd(type_10);
-        NodeGraphics type_11 = new NodeGraphics(60,60);
+        UIGraphics type_11 = new UIGraphics(60,60);
         type_11.setImage((Texture) Assets.get("assets/textures-layer-0/terrain_liquid_water_2.jpg"));
         typesGrid.childAdd(type_11);
-        NodeGraphics type_12 = new NodeGraphics(60,60);
+        UIGraphics type_12 = new UIGraphics(60,60);
         type_12.setImage((Texture) Assets.get("assets/textures-layer-0/terrain_liquid_water_3.jpg"));
         typesGrid.childAdd(type_12);
 
-        NodeGraphics typeSelectionIndicator = new NodeGraphics(14,14);
+        UIGraphics typeSelectionIndicator = new UIGraphics(14,14);
         typeSelectionIndicator.color = Color.valueOf("0075FF").toFloatBits();
         typeSelectionIndicator.anchor = Anchor.PARENT_TOP_LEFT;
         typeSelectionIndicator.transform.x = 4;
@@ -143,10 +143,10 @@ public class UINodeToolOptions_1_Terrain extends NodeGroup {
         childAdd(typesGrid);
 
         // TRANSFORM
-        NodeText titleTransform = new NodeText("Transform");
+        UIText titleTransform = new UIText("Transform");
         titleTransform.size = 18;
         childAdd(titleTransform);
-        NodeGroup angleOptions = new NodeGroup();
+        UIGroup angleOptions = new UIGroup();
         angleOptions.setLayoutHorizontal();
         angleOptions.widthFitContent = true;
         angleOptions.heightFitContent = true;
@@ -154,20 +154,20 @@ public class UINodeToolOptions_1_Terrain extends NodeGroup {
         angleOptions.paddingLeft = 0;
         angleOptions.paddingRight = 0;
         angleOptions.paddingBottom = 0;
-        NodeOption optionRandom = new NodeOption(angleOptions.ID, true);
-        NodeText optionRandomText = new NodeText("random angle");
+        UIOption optionRandom = new UIOption(angleOptions.ID, true);
+        UIText optionRandomText = new UIText("random angle");
         optionRandomText.size = 14;
         angleOptions.childAdd(optionRandom);
         angleOptions.childAdd(optionRandomText);
-        NodeOption optionFollowPath = new NodeOption(angleOptions.ID, false);
-        NodeText optionFollowPathText = new NodeText("angle follow path");
+        UIOption optionFollowPath = new UIOption(angleOptions.ID, false);
+        UIText optionFollowPathText = new UIText("angle follow path");
         optionFollowPathText.size = 14;
         angleOptions.childAdd(optionFollowPath);
         angleOptions.childAdd(optionFollowPathText);
         childAdd(angleOptions);
 
         // SCALE
-        NodeGroup scale = new NodeGroup();
+        UIGroup scale = new UIGroup();
         scale.setLayoutHorizontal();
         scale.widthFitContent = true;
         scale.heightFitContent = true;
@@ -175,10 +175,10 @@ public class UINodeToolOptions_1_Terrain extends NodeGroup {
         scale.paddingLeft = 0;
         scale.paddingRight = 0;
         scale.paddingBottom = 0;
-        NodeText scaleText = new NodeText("scale: ");
+        UIText scaleText = new UIText("scale: ");
         scaleText.size = 14;
-        NodeSlider scaleSlider = new NodeSlider();
-        NodeText scaleValueText = new NodeText("1.0");
+        UISlider scaleSlider = new UISlider();
+        UIText scaleValueText = new UIText("1.0");
         scaleValueText.size = 14;
         scale.childAdd(scaleText);
         scale.childAdd(scaleSlider);

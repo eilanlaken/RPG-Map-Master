@@ -11,7 +11,7 @@ import org.jetbrains.annotations.Nullable;
 // TODO: add curves and functions
 // TODO: add borders and thin lines
 // TODO: remove the setImage and add a @Nullable image parameter to each set shape method
-public class NodeGraphics extends Node {
+public class UIGraphics extends UI {
 
     public Shader        shader = null;
     public float         color  = Color.WHITE_FLOAT;
@@ -25,22 +25,22 @@ public class NodeGraphics extends Node {
     private boolean allowUVOverflow;
 
     /* rectangle shape constructor */
-    public NodeGraphics(float width, float height) {
+    public UIGraphics(float width, float height) {
         setShapeToRectangle(width, height);
     }
 
     /* circle shape constructor */
-    public NodeGraphics(float r) {
+    public UIGraphics(float r) {
         setShapeToCircle(r, 20);
     }
 
-    public NodeGraphics(@NotNull TextureRegion region) {
+    public UIGraphics(@NotNull TextureRegion region) {
         this.image = region;
         this.allowUVOverflow = false;
         setShapeToRectangle(this.image.packedWidth, this.image.packedHeight);
     }
 
-    public NodeGraphics(@NotNull Texture img) {
+    public UIGraphics(@NotNull Texture img) {
         this.image = img.region;
         this.allowUVOverflow = true;
         setShapeToRectangle(img.width, img.height);

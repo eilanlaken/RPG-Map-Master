@@ -2,7 +2,6 @@ package com.heavybox.jtix.userinterface;
 
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.math.Transform2D;
-import com.heavybox.jtix.widgets.WidgetNode;
 
 // TODO: fix - centralize the nodes
 public class LayoutLinear implements Layout {
@@ -21,12 +20,12 @@ public class LayoutLinear implements Layout {
     }
 
     @Override
-    public void setChildTransformOffset(Node parent, Array<Node> childrenLayout, Array<Transform2D> out) {
+    public void setChildTransformOffset(UI parent, Array<UI> childrenLayout, Array<Transform2D> out) {
         // TODO
         if (vertical) { // vertical layout
             float position_y = parent.getHeight() * 0.5f - primaryAxisOffset;
             for (int i = 0; i < childrenLayout.size; i++) {
-                Node child = childrenLayout.get(i);
+                UI child = childrenLayout.get(i);
                 Transform2D offset = out.get(i).idt(); // get and reset
                 float child_height = child.getHeight();
                 offset.x = secondaryAxisOffset;
@@ -39,7 +38,7 @@ public class LayoutLinear implements Layout {
         // horizontal layout
         float position_x = -parent.getWidth() * 0.5f + primaryAxisOffset;
         for (int i = 0; i < childrenLayout.size; i++) {
-            Node child = childrenLayout.get(i);
+            UI child = childrenLayout.get(i);
             Transform2D offset = out.get(i).idt(); // get and reset
             float child_width = child.getWidth();
             offset.x = position_x + child_width * 0.5f;;

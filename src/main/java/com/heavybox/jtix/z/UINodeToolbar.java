@@ -6,9 +6,9 @@ import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.TexturePack;
 import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.userinterface.Anchor;
-import com.heavybox.jtix.userinterface.NodeGroup;
+import com.heavybox.jtix.userinterface.UIGroup;
 
-public class UINodeToolbar extends NodeGroup {
+public class UINodeToolbar extends UIGroup {
 
     // state
     public int selected = 0;

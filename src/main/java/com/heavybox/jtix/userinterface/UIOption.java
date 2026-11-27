@@ -5,7 +5,7 @@ import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.graphics.TextureRegion;
 
 // TODO
-public class NodeOption extends Node {
+public class UIOption extends UI {
 
     /* state */
     public  int     groupID;
@@ -19,7 +19,7 @@ public class NodeOption extends Node {
     public Color         colorFill   = UserInterface.getTheme().optionColorFill;
     public float         size        = UserInterface.getTheme().optionSize;
 
-    public NodeOption(final int groupID, final Object value) {
+    public UIOption(final int groupID, final Object value) {
         this.value = value;
         this.groupID = groupID;
         this.on = true;
@@ -38,18 +38,18 @@ public class NodeOption extends Node {
     private void setOn() {
         this.on = true;
 
-        Node root = getRoot();
+        UI root = getRoot();
         setOthersOff(root);
     }
 
-    private void setOthersOff(final Node node) {
-        if (node == null) return;
-        if (node instanceof NodeOption) {
-            NodeOption option = (NodeOption) node;
+    private void setOthersOff(final UI UI) {
+        if (UI == null) return;
+        if (UI instanceof UIOption) {
+            UIOption option = (UIOption) UI;
             if (option != this && option.groupID == this.groupID) option.on = false;
         }
 
-        for (Node child : node.getChildren()) {
+        for (UI child : UI.getChildren()) {
             setOthersOff(child);
         }
     }

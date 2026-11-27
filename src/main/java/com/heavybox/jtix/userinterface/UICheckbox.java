@@ -4,7 +4,7 @@ import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Renderer2D;
 import com.heavybox.jtix.graphics.TextureRegion;
 
-public class NodeCheckbox extends Node {
+public class UICheckbox extends UI {
 
     /* state */
     private boolean checked = false;
@@ -19,7 +19,7 @@ public class NodeCheckbox extends Node {
     public float         size                     = UserInterface.getTheme().checkboxSize;
     public float         sizeBorder               = UserInterface.getTheme().checkboxSizeBorder;
 
-    public NodeCheckbox() {
+    public UICheckbox() {
         onMouseDownDefault(e -> {
             if (e.buttonLeft) setValue(!checked);
         });

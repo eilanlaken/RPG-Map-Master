@@ -3,12 +3,12 @@ package com.heavybox.jtix.z;
 import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.userinterface.Anchor;
-import com.heavybox.jtix.userinterface.Node;
-import com.heavybox.jtix.userinterface.NodeGroup;
+import com.heavybox.jtix.userinterface.UI;
+import com.heavybox.jtix.userinterface.UIGroup;
 
-public class UINodeToolOptions extends NodeGroup {
+public class UINodeToolOptions extends UIGroup {
 
-    private final Array<Node> allTools = new Array<>(true, 9);
+    private final Array<UI> allTools = new Array<>(true, 9);
 
     private final UINodeToolOptions_1_Terrain options_1_terrain;
     private final UINodeToolOptions_2_Nature  options_2_nature;

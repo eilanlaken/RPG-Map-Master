@@ -6,7 +6,7 @@ import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Font;
 import com.heavybox.jtix.graphics.Renderer2D;
 
-public class NodeText extends Node {
+public class UIText extends UI {
 
     /* state */
     public String    text         = "";
@@ -33,7 +33,7 @@ public class NodeText extends Node {
     private final Array<String> textLines   = new Array<>(true, 1);
     private final ArrayFloat    linesWidths = new ArrayFloat(true, 1);
 
-    public NodeText(String text) {
+    public UIText(String text) {
         this.text = text;
         recalculateMetrics();
     }

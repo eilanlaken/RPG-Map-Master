@@ -15,15 +15,15 @@ import java.util.Comparator;
 // TODO: add messaging mechanism
 // Widget.sendMessage() to ID, Widget, condition
 // Widgets.sendMessage() to ID, Widget, condition
-public abstract class Node {
+public abstract class UI {
 
     public final int ID = UserInterface.getID();
 
     /*** ui hierarchy ***/
-    public        int           zIndex               = ID;
-    public        boolean       active               = true;
-    protected     Node          parent               = null;
-    private final Array<Node>   children             = new Array<>();
+    public        int       zIndex               = ID;
+    public        boolean   active               = true;
+    protected     UI        parent               = null;
+    private final Array<UI> children             = new Array<>();
 
     /*** metrics: transform and dimensions ***/
     public  final Transform2D   transform            = new Transform2D(); // used for absolute positioning from root and animations
@@ -44,8 +44,8 @@ public abstract class Node {
 
     /* common event callbacks */
     protected void    onFixedUpdate(float delta) {} // TODO: call with accumulative error
-    protected void    onChildAdded(Node child) {}
-    protected void    onChildRemoved(Node child) {}
+    protected void    onChildAdded(UI child) {}
+    protected void    onChildRemoved(UI child) {}
     protected void    onParentChange() {} // TODO: test, confirm it is called correctly
     protected boolean maskChildren() { return false; }
 
@@ -53,7 +53,7 @@ public abstract class Node {
         hitZone.setToRectangle(getWidth(), getHeight());
     }
 
-    final Node getParent() {
+    final UI getParent() {
         return parent;
     }
 
@@ -61,8 +61,8 @@ public abstract class Node {
         return parent == null;
     }
 
-    public final Node getRoot() {
-        Node current = this;
+    public final UI getRoot() {
+        UI current = this;
         while (!current.isRoot()) {
             current = current.getParent();
         }
@@ -70,9 +70,9 @@ public abstract class Node {
     }
 
     /*** Add and remove child methods ***/
-    public final void childAdd(Node child) {
-        if (child == null) throw new UserInterfaceException(Node.class.getSimpleName() + " element cannot be null.");
-        if (child == this) throw new UserInterfaceException("Trying to parent a " + Node.class.getSimpleName() + " to itself.");
+    public final void childAdd(UI child) {
+        if (child == null) throw new UserInterfaceException(UI.class.getSimpleName() + " element cannot be null.");
+        if (child == this) throw new UserInterfaceException("Trying to parent a " + UI.class.getSimpleName() + " to itself.");
         if (UserInterface.isXAncestorOfY(child,this)) throw new UserInterfaceException("Cannot add an ancestor widget as a child, as this would create a cyclic hierarchy.");
         if (children.contains(child,true)) throw new UserInterfaceException("Widget " + child.getClass().getSimpleName() + " is already a child of widget.");
 
@@ -84,9 +84,9 @@ public abstract class Node {
         children.sort(Comparator.comparingInt(a -> a.zIndex));
     }
 
-    public final void childRemove(Node child) {
-        if (child == null) throw new UserInterfaceException(Node.class.getSimpleName() + " element cannot be null.");
-        if (!children.contains(child, true)) throw new UserInterfaceException(Node.class.getSimpleName() + " does not contain the element " + child + " as a child so it cannot be removed.");
+    public final void childRemove(UI child) {
+        if (child == null) throw new UserInterfaceException(UI.class.getSimpleName() + " element cannot be null.");
+        if (!children.contains(child, true)) throw new UserInterfaceException(UI.class.getSimpleName() + " does not contain the element " + child + " as a child so it cannot be removed.");
 
         children.removeValue(child,true);
         child.parent = null;
@@ -96,7 +96,7 @@ public abstract class Node {
         children.sort(Comparator.comparingInt(a -> a.zIndex));
     }
 
-    public final void parentSet(Node newParent) {
+    public final void parentSet(UI newParent) {
         if (this.parent == newParent) return;
         if (this.parent != null) this.parent.childRemove(this);
         if (newParent != null) newParent.childAdd(this);
@@ -109,7 +109,7 @@ public abstract class Node {
     private void setChildrenLayoutOffsets() {
         if (layout == null) { // default no layout behaviour
             for (int i = 0; i < children.size; i++) {
-                Node child = children.get(i);
+                UI child = children.get(i);
                 if (!child.active) continue;
                 if (child.anchor != null) continue;
                 child.transformOffset.idt();
@@ -120,7 +120,7 @@ public abstract class Node {
         UserInterface.layoutChildren.clear();
         UserInterface.layoutOffsets.clear();
         for (int i = 0; i < children.size; i++) {
-            Node child = children.get(i);
+            UI child = children.get(i);
             if (!child.active || child.anchor != null) continue;
 
             UserInterface.layoutChildren.add(child);
@@ -217,7 +217,7 @@ public abstract class Node {
         float min_x = 0;
         float max_x = 0;
         for (int i = 0; i < children.size; i++) {
-            Node child = children.get(i);
+            UI child = children.get(i);
             if (!child.active) continue;
             if (child.anchor != null) continue;
 
@@ -235,7 +235,7 @@ public abstract class Node {
         float min_y = 0;
         float max_y = 0;
         for (int i = 0; i < children.size; i++) {
-            Node child = children.get(i);
+            UI child = children.get(i);
             if (!child.active) continue;
             if (child.anchor != null) continue;
 
@@ -308,9 +308,9 @@ public abstract class Node {
             renderer2D.endStencil();
         }
 
-        children.sort(UserInterface.NODE_COMPARATOR);
+        children.sort(UserInterface.UI_COMPARATOR);
         int maskLevel = getMaskingIndex();
-        for (Node child : children) {
+        for (UI child : children) {
             // apply mask, if masking enabled
             if (maskChildren) {
                 renderer2D.enableMasking();
@@ -335,7 +335,7 @@ public abstract class Node {
         if (!Input.mouse.isCursorInWindow()) return false;
         if (!hitZone.containsPoint(pointerX, pointerY, transformScreen)) return false;
 
-        Node p = parent;
+        UI p = parent;
         boolean hit = true;
         while (p != null) {
             if (p.maskChildren()) {
@@ -356,11 +356,11 @@ public abstract class Node {
         return parent == null ? active : active && parent.isActive();
     }
 
-    final Node findTopmostChildAt(float pointerX, float pointerY, final Node excluded) {
+    final UI findTopmostChildAt(float pointerX, float pointerY, final UI excluded) {
         if (this == excluded) return null;
 
         for (int i = children.size - 1; i >= 0; i--) {
-            Node hit = children.get(i).findTopmostChildAt(pointerX, pointerY, excluded);
+            UI hit = children.get(i).findTopmostChildAt(pointerX, pointerY, excluded);
             if (hit != null) return hit;
         }
 
@@ -377,7 +377,7 @@ public abstract class Node {
 
     final Transform2D getTransformScreen() { return transformScreen; }
 
-    protected final Array<Node> getChildren() {
+    protected final Array<UI> getChildren() {
         return children;
     }
 
