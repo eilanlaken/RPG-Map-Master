@@ -9,7 +9,6 @@ import com.heavybox.jtix.graphics.*;
 import com.heavybox.jtix.graphics.Font;
 import com.heavybox.jtix.memory.MemoryResource;
 import com.heavybox.jtix.userinterface.Theme;
-import com.heavybox.jtix.widgets.Theme_old;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.system.MemoryUtil;
@@ -25,6 +24,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -116,11 +116,6 @@ public final class Assets {
         options.put("magFilter", magFilter);
         options.put("minFilter", minFilter);
         load(TexturePack.class, filepath, options,false);
-    }
-
-    // TODO: remove
-    @Deprecated public synchronized static void loadTheme_old(final String filepath) {
-        load(Theme_old.class, filepath, null, false);
     }
 
     public synchronized static void loadTheme(final String filepath) {
@@ -242,10 +237,9 @@ public final class Assets {
         if (type == Shader.class)      return new AssetLoaderShader();
         if (type == TexturePack.class) return new AssetLoaderTexturePack();
         if (type == Font.class)        return new AssetLoaderFont();
-        if (type == Theme.class)        return new AssetLoaderTheme();
-        if (type == Theme_old.class)       return new AssetLoaderTheme_old();
-        if (type == Z_Model.class)       return new AssetLoader3DModel();
-        if (type == Scene3D.class)  return new AssetLoader3DScene();
+        if (type == Theme.class)       return new AssetLoaderTheme();
+        if (type == Z_Model.class)     return new AssetLoader3DModel();
+        if (type == Scene3D.class)     return new AssetLoader3DScene();
 
         throw new AssetsException("Type: " + type.getSimpleName() + " is not a loadable class type. " +
                 "Type must be one of the following: " +
@@ -283,17 +277,19 @@ public final class Assets {
     }
 
     public static String getFileContent(final String path) {
-        final StringBuilder builder = new StringBuilder();
-        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                builder.append(line);
-                builder.append('\n');
+        try {
+            // Filesystem (under assets/)
+            final Path filePath = Paths.get(path);
+            if (Files.isRegularFile(filePath)) return Files.readString(filePath, StandardCharsets.UTF_8);
+
+            // Anything under resources/
+            try (InputStream is = Assets.class.getClassLoader().getResourceAsStream(path)) {
+                if (is == null) throw new AssetsException("File not found: " + path);
+                return new String(is.readAllBytes(), StandardCharsets.UTF_8);
             }
         } catch (IOException e) {
-            throw new AssetsException("Failed to read " + String.class.getSimpleName() + " contents of file: " + path + ": " + e.getMessage());
+            throw new AssetsException("Failed to read contents of file: " + path + ": " + e.getMessage());
         }
-        return builder.toString();
     }
 
     public static Array<String> getLastDroppedFilePaths() {
@@ -451,11 +447,21 @@ public final class Assets {
     }
 
     public static ByteBuffer fileToByteBuffer(String filePath) throws IOException {
+        byte[] fileBytes;
+
         Path path = Path.of(filePath);
-        byte[] fileBytes = Files.readAllBytes(path);
+        if (Files.isRegularFile(path)) {
+            fileBytes = Files.readAllBytes(path);
+        } else {
+            try (InputStream is = Assets.class.getClassLoader().getResourceAsStream(filePath)) {
+                if (is == null) throw new IOException("File not found: " + filePath);
+                fileBytes = is.readAllBytes();
+            }
+        }
+
         ByteBuffer buffer = MemoryUtil.memAlloc(fileBytes.length);
         buffer.put(fileBytes);
-        buffer.flip(); // Prepare the buffer for reading
+        buffer.flip();
         return buffer;
     }
 

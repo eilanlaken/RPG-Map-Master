@@ -10,6 +10,7 @@ import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.tools.ToolsTexturePacker;
 import com.heavybox.jtix.tools.ToolsThemeGenerator;
 import com.heavybox.jtix.userinterface.Theme;
+import com.heavybox.jtix.userinterface.UICheckbox;
 import com.heavybox.jtix.userinterface.UISlider;
 import com.heavybox.jtix.userinterface.UserInterface;
 import com.heavybox.jtix.z.UINodeLayers;
@@ -23,7 +24,7 @@ import org.lwjgl.opengl.GL11;
 public class SceneInput_7 implements Scene {
 
     Renderer2D renderer2D = new Renderer2D();
-    UISlider slider;
+    UISlider slider = new UISlider();
 
     @Override
     public void start() {
@@ -54,7 +55,6 @@ public class SceneInput_7 implements Scene {
 
             // slider
 
-
             ToolsThemeGenerator.generateTheme("assets/texture-packs", "theme");
         } catch (Exception e) {
 
@@ -64,10 +64,11 @@ public class SceneInput_7 implements Scene {
         Assets.loadTexturePack("assets/texture-packs/user-interface.yml");
         Assets.finishLoading();
 
-        // Theme theme = Assets.get("assets/texture-packs/theme.yml");
-        // UserInterface.setTheme(theme);
+        Theme theme = Assets.get("assets/texture-packs/theme.yml");
+        UserInterface.setTheme(theme);
         slider = new UISlider();
-        UserInterface.add(slider);
+        UICheckbox checkbox = new UICheckbox();
+        UserInterface.add(checkbox);
     }
 
     @Override
@@ -88,8 +89,12 @@ public class SceneInput_7 implements Scene {
 
 
         renderer2D.begin();
+        //renderer2D.drawTextureRegion(pack.getRegion("assets/user-interface/toolbar-icon-geology.png"), 0, 0, 0, 1,1);
+        //renderer2D.drawStringLine("hello world", 20, true, 0,0,0,0,0,1,1);
         UserInterface.render(renderer2D);
         renderer2D.end();
+
+
 
 
     }

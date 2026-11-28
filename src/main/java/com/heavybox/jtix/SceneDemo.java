@@ -10,7 +10,6 @@ import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.Vector3;
 import com.heavybox.jtix.tools.ToolsTexturePacker;
-import com.heavybox.jtix.widgets.Widget;
 import com.heavybox.jtix.z.*;
 import com.heavybox.jtix.z.tools_new.*;
 import org.jetbrains.annotations.NotNull;
@@ -41,10 +40,6 @@ public class SceneDemo implements Scene, SceneRPGMapMaker {
     public final Tool_new[] tools = new Tool_new[8];
     public int activeToolIndex = 4;
     public int activeLayerIndex = 1;
-
-    // user-interface
-    private final Widget widgetHelpBar = new Widget();
-
 
     public SceneDemo() {
         renderer2D = new Renderer2D();
@@ -295,7 +290,6 @@ public class SceneDemo implements Scene, SceneRPGMapMaker {
         //widgetHelpBar.update();
         // render user interface
         renderer2D.begin();
-        widgetHelpBar.render(renderer2D);
 //        widgetActionsBar.render(renderer2D);
 //        widgetStatisticsBar.render(renderer2D);
 //        widgetTools.render(renderer2D);

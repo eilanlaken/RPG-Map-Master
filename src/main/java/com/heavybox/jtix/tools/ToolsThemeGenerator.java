@@ -75,11 +75,9 @@ public final class ToolsThemeGenerator {
 
     public static void generateTheme(final String outputDirectoryPath, final String outputFileName) {
         final Set<String> imagePaths = gatherAllImagePaths();
-        boolean generatedTexturePack = false;
         String texturePackPath = null;
         try {
             if (!imagePaths.isEmpty()) {
-                generatedTexturePack = true;
                 String[] paths = imagePaths.toArray(new String[0]);
                 texturePackPath = outputDirectoryPath + "/" + outputFileName + "-pack.yml";
                 ToolsTexturePacker.packTextures(outputDirectoryPath, outputFileName + "-pack", 2, 2, ToolsTexturePacker.TexturePackSize.LARGE_2048, paths);

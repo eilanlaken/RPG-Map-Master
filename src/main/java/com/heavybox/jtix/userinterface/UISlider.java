@@ -6,7 +6,7 @@ import com.heavybox.jtix.graphics.TextureRegion;
 import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.math.Vector2;
 
-// TODO: actually finish
+// TODO: fix. We need better theme support.
 public class UISlider extends UI {
 
     /* state and data */
@@ -19,7 +19,7 @@ public class UISlider extends UI {
     public TextureRegion imageBackground = UserInterface.getTheme().sliderImageBackground;
     public TextureRegion imageFill       = UserInterface.getTheme().sliderImageFill;
     public TextureRegion imageThumb      = UserInterface.getTheme().sliderImageThumb;
-    public float         length          = UserInterface.getTheme().sliderLength;
+    public float         length          = UserInterface.getTheme().sliderLength; // actually sets the length - even if the image is different. If the length is 0 then it resolves to the length of the image.
     public float         thickness       = UserInterface.getTheme().sliderThickness;
     public float         thumbSize       = UserInterface.getTheme().sliderThumbSize;
     public Color         colorBackground = UserInterface.getTheme().sliderColorBackground.clone();

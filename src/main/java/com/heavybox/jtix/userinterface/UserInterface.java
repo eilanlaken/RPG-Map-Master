@@ -5,6 +5,7 @@ import com.heavybox.jtix.collections.ArrayChar;
 import com.heavybox.jtix.graphics.Color;
 import com.heavybox.jtix.graphics.Graphics;
 import com.heavybox.jtix.graphics.Renderer2D;
+import com.heavybox.jtix.graphics.TexturePack;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.InputEventHandler;
 import com.heavybox.jtix.input.Keyboard;
@@ -22,6 +23,7 @@ public final class UserInterface {
     public static final Comparator<UI> UI_COMPARATOR = Comparator.comparingInt(a -> a.zIndex);
 
     /*** global theme ***/
+    private static final TexturePack texturePackDefaultTheme = null; // TODO: from here it will grab the defaults?
     private static final Theme THEME_DEFAULT = new Theme();
     private static       Theme theme         = THEME_DEFAULT;
 

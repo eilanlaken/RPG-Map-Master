@@ -1,5 +1,6 @@
 package com.heavybox.jtix.graphics;
 
+import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.collections.*;
 import com.heavybox.jtix.math.*;
 import com.heavybox.jtix.memory.MemoryPool;
@@ -34,16 +35,13 @@ public class Renderer2D implements MemoryResourceHolder {
     private static final int VERTICES_CAPACITY = 8000; // The batch can render VERTICES_CAPACITY vertices (so wee need float buffers of size: VERTICES_CAPACITY * 2 for positions, * 1 for colors, * 2 for uvs etc.)
 
     private static final Shader  defaultShader  = createDefaultShaderProgram();
-    private static final Texture defaultTexture = createDefaultTexture();
-    private static final Camera  defaultCamera  = createDefaultCamera();
-    private static final Font    defaultFont    = createDefaultFont(); // change back to private
+    private static final Texture defaultTexture = new Texture("graphics-2d-single-white-pixel.png");
+    private static final Camera  defaultCamera  = new Camera(Camera.Mode.ORTHOGRAPHIC, Graphics.getWindowWidth(), Graphics.getWindowHeight(), 1, 0, 100, 80);
+    private static final Font    defaultFont    = new Font("LiberationSans-Regular.ttf");
 
-    /* memory pools */ // TODO: remove all these memory pools. Replace with static? arrays.
-    private final MemoryPool<Vector2>    vectors2Pool   = new MemoryPool<>(Vector2.class, 10);
-    private final MemoryPool<Vector4>    vectors4Pool   = new MemoryPool<>(Vector4.class, 10);
-    private final MemoryPool<ArrayFloat> arrayFloatPool = new MemoryPool<>(ArrayFloat.class, 20);
-    private final MemoryPool<ArrayInt>   arrayIntPool   = new MemoryPool<>(ArrayInt.class, 20);
-    private final Array<Vector2>         vertices       = new Array<>(true, 50);
+    /* memory pools */
+    private final MemoryPool<Vector2> vectors2Pool   = new MemoryPool<>(Vector2.class, 10);
+    private final MemoryPool<Vector4> vectors4Pool   = new MemoryPool<>(Vector4.class, 10);
 
     /* state */
     private final Stack<Vector4> pixelBounds  = new Stack<>(); // the head of the stack stores the current rectangle bounds for rendering as a Vector4 (x = min_x, y = min_y, z = max_x, w = max_y)
@@ -3605,19 +3603,14 @@ public class Renderer2D implements MemoryResourceHolder {
         defaultFont.delete();
     }
 
-    /* Create defaults: shader, texture (single white pixel), camera */
-
+    /* Create default shader */
     private static Shader createDefaultShaderProgram() {
-        try (InputStream vertexShaderInputStream = Renderer2D.class.getClassLoader().getResourceAsStream("graphics-2d-default-shader.vert");
-             BufferedReader vertexShaderBufferedReader = new BufferedReader(new InputStreamReader(vertexShaderInputStream, StandardCharsets.UTF_8));
-             InputStream fragmentShaderInputStream = Renderer2D.class.getClassLoader().getResourceAsStream("graphics-2d-default-shader.frag");
-             BufferedReader fragmentShaderBufferedReader = new BufferedReader(new InputStreamReader(fragmentShaderInputStream, StandardCharsets.UTF_8))) {
-
-            String vertexShader = vertexShaderBufferedReader.lines().collect(Collectors.joining(System.lineSeparator()));
-            String fragmentShader = fragmentShaderBufferedReader.lines().collect(Collectors.joining(System.lineSeparator()));
+        try {
+            String vertexShader = Assets.getFileContent("graphics-2d-default-shader.vert");
+            String fragmentShader = Assets.getFileContent("graphics-2d-default-shader.frag");
             return new Shader(vertexShader, fragmentShader);
         } catch (Exception e) {
-            System.err.println("Could not create shader program from resources. Creating manually.");
+            System.err.println("Failed to create shader program from resources, creating manually.");
 
             String vertexShader = """
                     #version 450
@@ -3661,10 +3654,9 @@ public class Renderer2D implements MemoryResourceHolder {
         }
     }
 
-    /*
-    creates a single-white-pixel texture.
-     */
-    private static Texture createDefaultTexture() {
+    // TODO: see if safe to remove
+    /* creates a single-white-pixel texture. */
+    @Deprecated private static Texture createDefaultTexture() {
         ByteBuffer buffer = ByteBuffer.allocateDirect(4);
         buffer.put((byte) ((0xFFFFFFFF >> 16) & 0xFF)); // Red component
         buffer.put((byte) ((0xFFFFFFFF >> 8) & 0xFF));  // Green component
@@ -3677,11 +3669,13 @@ public class Renderer2D implements MemoryResourceHolder {
                 Texture.Wrap.CLAMP_TO_EDGE, Texture.Wrap.CLAMP_TO_EDGE,1);
     }
 
-    private static Camera createDefaultCamera() {
+    // TODO: see if safe to remove
+    @Deprecated private static Camera createDefaultCamera() {
         return new Camera(Camera.Mode.ORTHOGRAPHIC, Graphics.getWindowWidth(), Graphics.getWindowHeight(), 1, 0, 100, 80);
     }
 
-    private static Font createDefaultFont() {
+    // TODO: see if safe to remove
+    @Deprecated private static Font createDefaultFont() {
         try (InputStream inputStream = Renderer2D.class.getClassLoader().getResourceAsStream("LiberationSans-Regular.ttf")) {
             if (inputStream == null) throw new GraphicsException("Resource not found: " + "LiberationSans-Regular.ttf");
             byte[] bytes = inputStream.readAllBytes();

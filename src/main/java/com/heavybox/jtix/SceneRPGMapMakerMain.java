@@ -7,19 +7,16 @@ import com.google.gson.JsonParser;
 import com.heavybox.jtix.application.Scene;
 import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.collections.Array;
-import com.heavybox.jtix.graphics.Camera;
-import com.heavybox.jtix.graphics.Graphics;
-import com.heavybox.jtix.graphics.Renderer2D;
-import com.heavybox.jtix.graphics.Texture;
+import com.heavybox.jtix.graphics.*;
 import com.heavybox.jtix.input.Input;
 import com.heavybox.jtix.input.Keyboard;
 import com.heavybox.jtix.input.Mouse;
 import com.heavybox.jtix.math.Vector3;
 import com.heavybox.jtix.tools.ToolsTexturePacker;
-import com.heavybox.jtix.widgets.Widget;
-import com.heavybox.jtix.z.Map;
-import com.heavybox.jtix.z.SaveLoadData;
-import com.heavybox.jtix.z.Token;
+import com.heavybox.jtix.tools.ToolsThemeGenerator;
+import com.heavybox.jtix.userinterface.Theme;
+import com.heavybox.jtix.userinterface.UserInterface;
+import com.heavybox.jtix.z.*;
 import com.heavybox.jtix.z.tools_new.*;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.opengl.GL11;
@@ -54,8 +51,11 @@ public class SceneRPGMapMakerMain implements Scene, SceneRPGMapMaker {
     public int activeLayerIndex = 1;
 
     // user-interface
-    private final Widget widgetHelpBar = new Widget();
-
+    private TexturePack userInterfaceIcons;
+    private UINodeToolbar toolbar;
+    private UINodeTopbar topbar;
+    private UINodeToolOptions toolOptions;
+    private UINodeLayers layers;
 
     public SceneRPGMapMakerMain() {
         renderer2D = new Renderer2D();
@@ -63,6 +63,24 @@ public class SceneRPGMapMakerMain implements Scene, SceneRPGMapMaker {
 
     @Override
     public void start() {
+        try {
+            // option
+            ToolsThemeGenerator.optionImageOnPath = "assets/user-interface-theme/option-on.png";
+            ToolsThemeGenerator.optionImageOffPath = "assets/user-interface-theme/option-off.png";
+            // group
+            ToolsThemeGenerator.groupColorBackground = Color.valueOf("#1E1F22");
+            ToolsThemeGenerator.groupSizeBorder = 0;
+            // text
+            ToolsThemeGenerator.textSize = 18;
+            ToolsThemeGenerator.textAntialiasing = true;
+            // checkbox
+            ToolsThemeGenerator.checkboxImageCheckedPath = "assets/user-interface-theme/checkbox-checked.png";
+            ToolsThemeGenerator.checkboxImageUncheckedPath = "assets/user-interface-theme/checkbox-unchecked.png";
+            ToolsThemeGenerator.generateTheme("assets/texture-packs", "theme");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
         try {
             ToolsTexturePacker.packTextures("assets/texture-packs", "layer_3", 0, 2, ToolsTexturePacker.TexturePackSize.XX_LARGE_8192, "assets/textures-layer-3", true);
             ToolsTexturePacker.packTextures("assets/texture-packs", "user-interface", 0, 2, ToolsTexturePacker.TexturePackSize.XX_LARGE_8192, "assets/user-interface", true);
@@ -116,7 +134,7 @@ public class SceneRPGMapMakerMain implements Scene, SceneRPGMapMaker {
 
         // user-interface
         Assets.loadTexturePack("assets/texture-packs/user-interface.yml");
-
+        Assets.loadTheme("assets/texture-packs/theme.yml");
         Assets.finishLoading();
 
         // load saved file
@@ -154,6 +172,17 @@ public class SceneRPGMapMakerMain implements Scene, SceneRPGMapMaker {
         tools[4] = new Tool_5_Architecture(this);
         tools[5] = new Tool_6_Decorations_old(this);
         tools[activeToolIndex].activate();
+
+        Theme theme = Assets.get("assets/texture-packs/theme.yml");
+        UserInterface.setTheme(theme);
+        toolbar = new UINodeToolbar();
+        topbar = new UINodeTopbar();
+        toolOptions = new UINodeToolOptions();
+        layers = new UINodeLayers();
+        UserInterface.add(toolbar);
+        UserInterface.add(topbar);
+        UserInterface.add(toolOptions);
+        UserInterface.add(layers);
     }
 
     private SaveLoadData load() throws IOException {
@@ -218,6 +247,7 @@ public class SceneRPGMapMakerMain implements Scene, SceneRPGMapMaker {
     @Override
     public void update() {
         float delta = Graphics.getDeltaTime();
+
 
         // handle mouse input and camera movement
         Vector3 screen = new Vector3(Input.mouse.getX(), Input.mouse.getY(), 0);
@@ -292,24 +322,10 @@ public class SceneRPGMapMakerMain implements Scene, SceneRPGMapMaker {
         renderer2D.begin();
         tools[activeToolIndex].renderToolText(renderer2D, Input.mouse.getX() - Graphics.getWindowWidth() * 0.5f, Graphics.getWindowHeight() * 0.5f - Input.mouse.getY());
         renderer2D.end();
-//        renderer2D.begin();
-//        Tools.renderToolText(renderer2D, Input.mouse.getX() - Graphics.getWindowWidth() * 0.5f, Graphics.getWindowHeight() * 0.5f - Input.mouse.getY());
-//        renderer2D.end();
 
-        // update user interface
-        /*
-        widgetActionsBar.update();
-        widgetStatisticsBar.update();
-        widgetTools.update();
-        */
-
-        //widgetHelpBar.update();
-        // render user interface
+        UserInterface.update();
         renderer2D.begin();
-        widgetHelpBar.render(renderer2D);
-//        widgetActionsBar.render(renderer2D);
-//        widgetStatisticsBar.render(renderer2D);
-//        widgetTools.render(renderer2D);
+        UserInterface.render(renderer2D);
         renderer2D.end();
     }
 

@@ -31,8 +31,8 @@ import static org.lwjgl.glfw.GLFW.*;
 // IGNORE multi-window applications. Useful for no-one and will ruin important stuff.
 public class Application {
 
-    @Deprecated private static boolean initialized = false;
-    private static boolean running = false;
+    private static boolean initialized = false;
+    private static boolean running     = false;
 
     /* tasks */
     private static final Array<Runnable> tasks       = new Array<>();
@@ -44,8 +44,8 @@ public class Application {
     private static boolean windowRequestRendering = false;
     private static int     windowPosX             = -1;
     private static int     windowPosY             = -1;
-    private static int     windowWidth            = 640*2;
-    private static int     windowHeight           = 480*2;
+    private static int     windowWidth            = 640 * 2;
+    private static int     windowHeight           = 480 * 2;
     private static boolean windowMinimized        = false;
     private static boolean windowMaximized        = false;
     private static String  windowIconPath         = null;
@@ -220,7 +220,8 @@ public class Application {
     }
 
     public static void launch(@NotNull Scene scene) {
-        if (running) throw new ApplicationException("Application already running. Function run() already called - Cannot call run() twice.");
+        if (!initialized) throw new ApplicationException("Application not initialized. Must call Application.init() first.");
+        if (running) throw new ApplicationException("Application already running. Function launch() already called - Cannot call launch() twice.");
 
         /* start the application with active scene */
         currentScene = scene;

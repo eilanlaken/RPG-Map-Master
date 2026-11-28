@@ -6,7 +6,6 @@ import com.heavybox.jtix.graphics.Font;
 import com.heavybox.jtix.graphics.Texture;
 import com.heavybox.jtix.graphics.TexturePack;
 import com.heavybox.jtix.userinterface.Theme;
-import com.heavybox.jtix.widgets.Theme_old;
 import org.yaml.snakeyaml.Yaml;
 
 import java.util.HashMap;
@@ -14,16 +13,13 @@ import java.util.Map;
 
 public class AssetLoaderTheme implements AssetLoader<Theme> {
 
-    private Array<AssetDescriptor> dependencies;
-    private String                 yamlString;
-    private String                 texturePackPath;
-    private String                 textFontPath;
-    //private String                 groupTextureBackgroundPath;
-    private Map<String, Object>    themeMap;
+    private String              texturePackPath;
+    private String              textFontPath;
+    private Map<String, Object> themeMap;
 
     @Override
     public Array<AssetDescriptor> load(String path, HashMap<String, Object> options) {
-        yamlString = Assets.getFileContent(path);
+        String yamlString = Assets.getFileContent(path);
         Yaml yaml = Assets.yaml();
 
         Map<String, Object> root = yaml.load(yamlString);
@@ -40,7 +36,7 @@ public class AssetLoaderTheme implements AssetLoader<Theme> {
         Map<String, Object> group = (Map<String, Object>) themeMap.get("group");
         String groupTextureBackgroundPath = (String) group.get("groupTextureBackgroundPath");
 
-        dependencies = new Array<>(1);
+        Array<AssetDescriptor> dependencies = new Array<>(1);
         if (texturePackPath != null) dependencies.add(new AssetDescriptor(TexturePack.class, texturePackPath, options));
         if (textFontPath != null) dependencies.add(new AssetDescriptor(Font.class, textFontPath, options));
         if (groupTextureBackgroundPath != null) dependencies.add(new AssetDescriptor(Texture.class, groupTextureBackgroundPath, options));

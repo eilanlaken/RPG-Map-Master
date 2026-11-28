@@ -1,5 +1,6 @@
 package com.heavybox.jtix.graphics;
 
+import com.heavybox.jtix.assets.Assets;
 import com.heavybox.jtix.assets.AssetsException;
 import com.heavybox.jtix.math.MathUtils;
 import com.heavybox.jtix.memory.MemoryResource;
@@ -9,6 +10,8 @@ import org.lwjgl.opengl.*;
 import org.lwjgl.stb.STBImage;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import java.nio.ShortBuffer;
@@ -149,17 +152,35 @@ public final class Texture implements MemoryResource {
     }
 
     public Texture(final String filepath) {
+        this(filepath, FilterMag.NEAREST, FilterMin.NEAREST_MIPMAP_NEAREST, Wrap.REPEAT, Wrap.REPEAT);
+    }
+
+    public Texture(final String filepath, FilterMag filterMag, FilterMin filterMin, Wrap sWrap, Wrap tWrap) {
         this.handle = GL11.glGenTextures();
         this.slot = -1;
 
-        ByteBuffer buffer;
+        /* load bytes */
+        ByteBuffer buffer = null;
         IntBuffer widthBuffer = BufferUtils.createIntBuffer(1);
         IntBuffer heightBuffer = BufferUtils.createIntBuffer(1);
         IntBuffer channelsBuffer = BufferUtils.createIntBuffer(1);
-        buffer = STBImage.stbi_load(filepath, widthBuffer, heightBuffer, channelsBuffer, 4);
-        if (buffer == null) throw new AssetsException("Failed to load a texture file. Check that the path is correct: " + filepath
-                + System.lineSeparator() + "STBImage error: "
-                + STBImage.stbi_failure_reason());
+
+        if (Assets.fileExists(filepath)) {
+            buffer = STBImage.stbi_load(filepath, widthBuffer, heightBuffer, channelsBuffer, 4); // image file found at root, under assets
+        } else { // trying to locate image file under resources
+            ByteBuffer imageData;
+            try (InputStream is = Texture.class.getClassLoader().getResourceAsStream(filepath)) {
+                if (is == null) throw new AssetsException("Texture resource not found: " + filepath);
+                byte[] bytes = is.readAllBytes();
+                imageData = BufferUtils.createByteBuffer(bytes.length);
+                imageData.put(bytes).flip();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            buffer = STBImage.stbi_load_from_memory(imageData, widthBuffer, heightBuffer, channelsBuffer, 4);
+        }
+        if (buffer == null) throw new AssetsException("Failed to load a texture file. Check that the path is correct: " + filepath + System.lineSeparator() + "STBImage error: " + STBImage.stbi_failure_reason());
+
         width = widthBuffer.get();
         height = heightBuffer.get();
         int maxTextureSize = Graphics.getMaxTextureSize();
@@ -169,10 +190,10 @@ public final class Texture implements MemoryResource {
         this.invHeight = 1.0f / height;
 
         // defaults
-        this.filterMag = FilterMag.NEAREST;
-        this.filterMin = FilterMin.NEAREST_MIPMAP_NEAREST;
-        this.sWrap = Wrap.REPEAT;
-        this.tWrap = Wrap.REPEAT;
+        this.filterMag = filterMag != null ? filterMag : FilterMag.NEAREST;
+        this.filterMin = filterMin != null ? filterMin : FilterMin.NEAREST_MIPMAP_NEAREST;
+        this.sWrap = sWrap != null ? sWrap : Wrap.REPEAT;
+        this.tWrap = tWrap != null ? tWrap : Wrap.REPEAT;
         this.anisotropy = MathUtils.nextPowerOf2i(MathUtils.clampInt(anisotropy,1, Graphics.getMaxAnisotropy()));
         this.biasLOD = 0;
 

@@ -1,7 +1,6 @@
 package com.heavybox.jtix.graphics;
 
 import com.heavybox.jtix.assets.Assets;
-import com.heavybox.jtix.collections.Array;
 import com.heavybox.jtix.collections.Tuple3;
 import com.heavybox.jtix.memory.MemoryResource;
 import org.lwjgl.BufferUtils;
@@ -15,16 +14,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 /***
- * TODO: move to primarily SDF generated fonts.
+ * TODO: move to primarily MSDF generated fonts. Needs an lwjgl version upgrade.
  * TODO: SDF Font Tutorial
  * https://libgdx.com/wiki/graphics/2d/fonts/distance-field-fonts
  */
 public class Font implements MemoryResource {
 
     private final FT_Face                                         ftFace;
-    private final Map<Integer, GlyphPage>                         glyphsPages = new HashMap<>();
-    private final Map<Tuple3<Character, Integer, Boolean>, Glyph> cache       = new HashMap<>(); // <char, size, antialiasing?> -> Glyph
-    private final ByteBuffer                                      buffer;  // TODO: probably clear on delete or something.
+    private final Map<Integer, GlyphPage>                         pages = new HashMap<>();
+    private final Map<Tuple3<Character, Integer, Boolean>, Glyph> cache = new HashMap<>(); // <char, size, antialiasing?> -> Glyph
+    private final ByteBuffer                                      buffer;
 
     public Font(final String fontPath) {
         long library = Graphics.getFreeType();
@@ -39,23 +38,23 @@ public class Font implements MemoryResource {
         ftFace = FT_Face.create(face);
     }
 
+    // used by AssetLoaderFont
     public Font(final ByteBuffer bytes) {
-        this.buffer = bytes;
         long library = Graphics.getFreeType();
+        this.buffer = bytes;
         PointerBuffer facePointerBuffer = BufferUtils.createPointerBuffer(1);
         FreeType.FT_New_Memory_Face(library, bytes, 0, facePointerBuffer); // each ttf file may have multiple indices / multiple faces. Guarantees to have 0
         long face = facePointerBuffer.get(0);
         ftFace = FT_Face.create(face);
     }
 
-    // TODO: make package private
     Glyph getGlyph(final char c, int size, boolean antialiasing) {
         Tuple3<Character, Integer, Boolean> props = new Tuple3<>(c,size,antialiasing);
         Glyph glyph = cache.get(props);
         if (glyph != null) return glyph;
         //int pageSize = Math.min(2048, MathUtils.nextPowerOf2i(size * 5));
         int pageSize = 1024;
-        GlyphPage notebook = glyphsPages.computeIfAbsent(size, k -> new GlyphPage(pageSize)); // get notebook for given size
+        GlyphPage notebook = pages.computeIfAbsent(size, k -> new GlyphPage(pageSize)); // get notebook for given size
         glyph = notebook.draw(c, size, antialiasing);
         cache.put(props, glyph);
         return glyph;
@@ -64,10 +63,11 @@ public class Font implements MemoryResource {
     @Override
     public void delete() {
         FreeType.FT_Done_Face(ftFace);
-        for (Map.Entry<Integer, GlyphPage> entry : glyphsPages.entrySet()) {
+        for (Map.Entry<Integer, GlyphPage> entry : pages.entrySet()) {
             GlyphPage value = entry.getValue();
             value.page.delete();
         }
+        MemoryUtil.memFree(buffer);
     }
 
     private final class GlyphPage {

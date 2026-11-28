@@ -47,8 +47,8 @@ public class SceneInput_6 implements Scene {
         try {
 
             // option
-            ToolsThemeGenerator.optionImageOnPath = "assets/user-interface-theme/option-on.png";
-            ToolsThemeGenerator.optionImageOffPath = "assets/user-interface-theme/option-off.png";
+            ToolsThemeGenerator.optionImageOnPath = "assets/user-interface-theme/user-interface-theme-default-option-on.png";
+            ToolsThemeGenerator.optionImageOffPath = "assets/user-interface-theme/user-interface-theme-default-option-off.png";
 
             // group
             ToolsThemeGenerator.groupColorBackground = Color.valueOf("#1E1F22");
@@ -59,8 +59,8 @@ public class SceneInput_6 implements Scene {
             ToolsThemeGenerator.textAntialiasing = true;
 
             // checkbox
-            ToolsThemeGenerator.checkboxImageCheckedPath = "assets/user-interface-theme/checkbox-checked.png";
-            ToolsThemeGenerator.checkboxImageUncheckedPath = "assets/user-interface-theme/checkbox-unchecked.png";
+            ToolsThemeGenerator.checkboxImageCheckedPath = "assets/user-interface-theme/user-interface-theme-default-checkbox-checked.png";
+            ToolsThemeGenerator.checkboxImageUncheckedPath = "assets/user-interface-theme/user-interface-theme-default-checkbox-unchecked.png";
 
             // slider
 
